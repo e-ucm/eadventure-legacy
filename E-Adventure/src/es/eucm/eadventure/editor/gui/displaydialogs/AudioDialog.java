@@ -39,7 +39,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JDialog;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.AudioPanel;
@@ -64,7 +64,7 @@ public class AudioDialog extends JDialog {
      */
     public AudioDialog( String soundPath ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AudioDialog.Title", AssetsController.getFilename( soundPath ) ), Dialog.ModalityType.TOOLKIT_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "AudioDialog.Title", AssetsController.getFilename( soundPath ) ), Dialog.ModalityType.TOOLKIT_MODAL );
 
         // Add a audio panel
         add( new AudioPanel( soundPath ) );

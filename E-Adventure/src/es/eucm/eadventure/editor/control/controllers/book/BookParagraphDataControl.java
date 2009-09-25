@@ -37,7 +37,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -174,12 +174,12 @@ public class BookParagraphDataControl extends DataControl {
 
         // If the list of assets is empty, show an error message
         if( assetFilenames.length == 0 )
-            controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.ErrorNoAssets" ) );
+            controller.showErrorDialog( TC.get( "Resources.EditAsset" ), TC.get( "Resources.ErrorNoAssets" ) );
 
         // If not empty, select one of them
         else {
             // Let the user choose between the assets
-            String selectedAsset = controller.showInputDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.EditAssetMessage" ), assetFilenames );
+            String selectedAsset = controller.showInputDialog( TC.get( "Resources.EditAsset" ), TC.get( "Resources.EditAssetMessage" ), assetFilenames );
 
             // If a file was selected
             if( selectedAsset != null ) {
@@ -286,7 +286,7 @@ public class BookParagraphDataControl extends DataControl {
 
             // Store the incidence
             if( incidences != null )
-                incidences.add( currentPath + " >> " + TextConstants.getText( "Operation.AdventureConsistencyErrorBookParagraph" ) );
+                incidences.add( currentPath + " >> " + TC.get( "Operation.AdventureConsistencyErrorBookParagraph" ) );
         }
 
         return valid;
@@ -357,7 +357,7 @@ public class BookParagraphDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getParagraphContent( ), TextConstants.getText( "Search.ParagraphContent" ) );
+        check( this.getParagraphContent( ), TC.get( "Search.ParagraphContent" ) );
     }
 
     @Override

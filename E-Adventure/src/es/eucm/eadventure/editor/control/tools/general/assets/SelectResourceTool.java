@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.tools.general.assets;
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.data.AssetInformation;
@@ -101,7 +101,7 @@ public class SelectResourceTool extends ResourcesTool {
                         }
                     }
 
-                    if( !someAnimationSet && controller.showStrictConfirmDialog( TextConstants.getText( "Operation.SetAllAnimations.Title" ), TextConstants.getText( "Operation.SetAllAnimations.Message" ) ) ) {
+                    if( !someAnimationSet && controller.showStrictConfirmDialog( TC.get( "Operation.SetAllAnimations.Title" ), TC.get( "Operation.SetAllAnimations.Message" ) ) ) {
                         for( int i = 0; i < assetsInformation.length; i++ ) {
                             if( i != index ) {
                                 done |= resources.addAsset( assetsInformation[i].name, AssetsController.removeSuffix( assetPaths[assetIndex] ) );

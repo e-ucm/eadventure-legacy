@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.structurepanel.structureelements;
 
 import javax.swing.ImageIcon;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElementFactory;
@@ -46,7 +46,7 @@ public class NPCsListStructureElement extends StructureListElement {
 
     public NPCsListStructureElement( DataControl dataControl ) {
 
-        super( TextConstants.getText( "NPCsList.Title" ), dataControl );
+        super( TC.get( "NPCsList.Title" ), dataControl );
         icon = new ImageIcon( "img/icons/npcs.png" );
     }
 

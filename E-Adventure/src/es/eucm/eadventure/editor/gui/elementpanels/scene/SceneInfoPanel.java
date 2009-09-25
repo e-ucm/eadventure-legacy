@@ -47,7 +47,7 @@ import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.Named;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
@@ -92,7 +92,7 @@ public class SceneInfoPanel extends JPanel implements Updateable {
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) sceneDataControl.getContent( ) ) );
         documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.Documentation" ) ) );
+        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Scene.Documentation" ) ) );
         add( documentationPanel, cDoc );
 
         // Create the text field for the name
@@ -104,7 +104,7 @@ public class SceneInfoPanel extends JPanel implements Updateable {
         nameTextField = new JTextField( sceneDataControl.getName( ) );
         nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) sceneDataControl.getContent( ) ) );
         namePanel.add( nameTextField );
-        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.Name" ) ) );
+        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Scene.Name" ) ) );
         add( namePanel, cDoc );
 
         cDoc.gridy++;

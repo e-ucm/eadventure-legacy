@@ -51,7 +51,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.displaydialogs.AudioDialog;
 
@@ -93,7 +93,7 @@ public class PlaySoundEffectDialog extends EffectDialog {
     public PlaySoundEffectDialog( EffectsController effectsController, HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "PlaySoundEffect.Title" ), false );
+        super( TC.get( "PlaySoundEffect.Title" ), false );
         this.effectsController = effectsController;
 
         // Load the image for the delete content button
@@ -106,20 +106,20 @@ public class PlaySoundEffectDialog extends EffectDialog {
         c.insets = new Insets( 4, 4, 4, 4 );
 
         // Set the border of the panel with the description
-        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "PlaySoundEffect.Description" ) ) ) );
+        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "PlaySoundEffect.Description" ) ) ) );
 
         // Create and add the background check box
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 4;
         c.weightx = 1;
-        backgroundCheckBox = new JCheckBox( TextConstants.getText( "PlaySoundEffect.BackgroundCheckBox" ) );
+        backgroundCheckBox = new JCheckBox( TC.get( "PlaySoundEffect.BackgroundCheckBox" ) );
         mainPanel.add( backgroundCheckBox, c );
 
         // Create the delete content button
         JButton deleteContentButton = new JButton( deleteContentIcon );
         deleteContentButton.addActionListener( new DeleteContentButtonActionListener( ) );
         deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-        deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+        deleteContentButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
         c.gridy = 1;
         c.gridwidth = 1;
         c.fill = GridBagConstraints.NONE;
@@ -136,7 +136,7 @@ public class PlaySoundEffectDialog extends EffectDialog {
         mainPanel.add( pathTextField, c );
 
         // Create the "Selext" button and insert it
-        JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+        JButton selectButton = new JButton( TC.get( "Resources.Select" ) );
         selectButton.addActionListener( new ExamineButtonActionListener( ) );
         c.gridx = 2;
         c.fill = GridBagConstraints.NONE;
@@ -144,7 +144,7 @@ public class PlaySoundEffectDialog extends EffectDialog {
         mainPanel.add( selectButton, c );
 
         // Create the "View" button and insert it
-        viewButton = new JButton( TextConstants.getText( "Resources.PlayAsset" ) );
+        viewButton = new JButton( TC.get( "Resources.PlayAsset" ) );
         viewButton.setEnabled( false );
         viewButton.addActionListener( new ViewButtonActionListener( ) );
         c.gridx = 3;

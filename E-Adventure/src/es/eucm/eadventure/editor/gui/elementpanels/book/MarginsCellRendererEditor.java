@@ -48,7 +48,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ChangePageMarginsDialog;
@@ -87,7 +87,7 @@ public class MarginsCellRendererEditor extends AbstractCellEditor implements Tab
             return createComponent( isSelected, table.getSelectionBackground( ) );
         }
 
-        JButton button = new JButton( TextConstants.getText( "BookPage.Margin" ) );
+        JButton button = new JButton( TC.get( "BookPage.Margin" ) );
         button.setEnabled( false );
         return button;
     }
@@ -98,7 +98,7 @@ public class MarginsCellRendererEditor extends AbstractCellEditor implements Tab
         if( isSelected )
             temp.setBorder( BorderFactory.createMatteBorder( 2, 2, 2, 0, color ) );
 
-        JButton changeMargins = new JButton( TextConstants.getText( "BookPage.Margin" ) );
+        JButton changeMargins = new JButton( TC.get( "BookPage.Margin" ) );
         changeMargins.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {

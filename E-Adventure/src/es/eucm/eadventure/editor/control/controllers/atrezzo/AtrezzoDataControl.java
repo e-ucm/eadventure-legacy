@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
@@ -276,12 +276,12 @@ public class AtrezzoDataControl extends DataControlWithResources {
         String references = String.valueOf( controller.countIdentifierReferences( oldAtrezzoId ) );
 
         // Ask for confirmation 
-        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAtrezzoTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldAtrezzoId, references } ) ) ) {
+        if( name != null || controller.showStrictConfirmDialog( TC.get( "Operation.RenameAtrezzoTitle" ), TC.get( "Operation.RenameElementWarning", new String[] { oldAtrezzoId, references } ) ) ) {
 
             // Show a dialog asking for the new atrezzo item id
             String newAtrezzoId = name;
             if( name == null )
-                newAtrezzoId = controller.showInputDialog( TextConstants.getText( "Operation.RenameAtrezzoTitle" ), TextConstants.getText( "Operation.RenameAtrezzoMessage" ), oldAtrezzoId );
+                newAtrezzoId = controller.showInputDialog( TC.get( "Operation.RenameAtrezzoTitle" ), TC.get( "Operation.RenameAtrezzoMessage" ), oldAtrezzoId );
 
             // If some value was typed and the identifiers are different
             if( newAtrezzoId != null && !newAtrezzoId.equals( oldAtrezzoId ) && controller.isElementIdValid( newAtrezzoId ) ) {
@@ -316,7 +316,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 
         // Iterate through the resources
         for( int i = 0; i < resourcesDataControlList.size( ); i++ ) {
-            String resourcesPath = currentPath + " >> " + TextConstants.getElementName( Controller.RESOURCES ) + " #" + ( i + 1 );
+            String resourcesPath = currentPath + " >> " + TC.getElement( Controller.RESOURCES ) + " #" + ( i + 1 );
             valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
         }
 
@@ -387,12 +387,12 @@ public class AtrezzoDataControl extends DataControlWithResources {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getBriefDescription( ), TextConstants.getText( "Search.BriefDescription" ) );
-        check( this.getDetailedDescription( ), TextConstants.getText( "Search.DetailedDescription" ) );
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
+        check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
+        check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
-        check( this.getName( ), TextConstants.getText( "Search.Name" ) );
-        check( this.getPreviewImage( ), TextConstants.getText( "Search.PreviewImage" ) );
+        check( this.getName( ), TC.get( "Search.Name" ) );
+        check( this.getPreviewImage( ), TC.get( "Search.PreviewImage" ) );
     }
 
     @Override

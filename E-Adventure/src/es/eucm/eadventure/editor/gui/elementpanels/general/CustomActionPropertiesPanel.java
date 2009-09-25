@@ -39,7 +39,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
@@ -94,8 +94,8 @@ public class CustomActionPropertiesPanel extends JPanel implements ActionTypePan
 
         JPanel personalizationPanel = createPersonalizationPanel( );
 
-        tabPanel.insertTab( TextConstants.getText( "CustomAction.PersonalizationTitle" ), null, personalizationPanel, TextConstants.getText( "CustomAction.PersonalizationTip" ), 0 );
-        tabPanel.insertTab( TextConstants.getText( "CustomAction.ConfigurationTitle" ), null, actionPanel, TextConstants.getText( "CustomAction.ConfigurationTip" ), 1 );
+        tabPanel.insertTab( TC.get( "CustomAction.PersonalizationTitle" ), null, personalizationPanel, TC.get( "CustomAction.PersonalizationTip" ), 0 );
+        tabPanel.insertTab( TC.get( "CustomAction.ConfigurationTitle" ), null, actionPanel, TC.get( "CustomAction.ConfigurationTip" ), 1 );
 
         setLayout( new BorderLayout( ) );
         add( tabPanel, BorderLayout.CENTER );

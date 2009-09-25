@@ -39,7 +39,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSClassificationDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSRightsDataControl;
 
@@ -51,11 +51,11 @@ public class IMSRightsAndClassificationPanel extends JPanel {
         setLayout( new BoxLayout( this, BoxLayout.PAGE_AXIS ) );
 
         //Create the panels
-        IMSOptionsPanel cost = new IMSOptionsPanel( rightsController.getCost( ), TextConstants.getText( "IMS.Rights.Cost" ) );
-        IMSOptionsPanel copyAndOth = new IMSOptionsPanel( rightsController.getCost( ), TextConstants.getText( "IMS.Rights.CopyAndOth" ) );
-        IMSOptionsPanel purpose = new IMSOptionsPanel( classificationController.getPurpose( ), TextConstants.getText( "IMS.Classification.Purpose" ) );
-        IMSTextPanel description = new IMSTextPanel( classificationController.getDescription( ), TextConstants.getText( "IMS.Classification.Description" ), IMSTextPanel.TYPE_AREA );
-        IMSTextPanel keywordPanel = new IMSTextPanel( classificationController.getKeywordController( ), TextConstants.getText( "IMS.Classification.Keyword" ), IMSTextPanel.TYPE_FIELD );
+        IMSOptionsPanel cost = new IMSOptionsPanel( rightsController.getCost( ), TC.get( "IMS.Rights.Cost" ) );
+        IMSOptionsPanel copyAndOth = new IMSOptionsPanel( rightsController.getCost( ), TC.get( "IMS.Rights.CopyAndOth" ) );
+        IMSOptionsPanel purpose = new IMSOptionsPanel( classificationController.getPurpose( ), TC.get( "IMS.Classification.Purpose" ) );
+        IMSTextPanel description = new IMSTextPanel( classificationController.getDescription( ), TC.get( "IMS.Classification.Description" ), IMSTextPanel.TYPE_AREA );
+        IMSTextPanel keywordPanel = new IMSTextPanel( classificationController.getKeywordController( ), TC.get( "IMS.Classification.Keyword" ), IMSTextPanel.TYPE_FIELD );
 
         //Add the panels
         add( cost );

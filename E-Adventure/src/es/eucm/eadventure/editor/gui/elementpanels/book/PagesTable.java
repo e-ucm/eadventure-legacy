@@ -39,7 +39,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 
 public class PagesTable extends JTable {
@@ -112,11 +112,11 @@ public class PagesTable extends JTable {
         public String getColumnName( int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "BookPagesList.Type" );
+                return TC.get( "BookPagesList.Type" );
             if( columnIndex == 1 )
-                return TextConstants.getText( "BookPagesList.Content" );
+                return TC.get( "BookPagesList.Content" );
             if( columnIndex == 2 )
-                return TextConstants.getText( "BookPagesList.Margins" );
+                return TC.get( "BookPagesList.Margins" );
             else
                 return "";
         }

@@ -56,7 +56,7 @@ import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.ImageLoaderFactory;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.common.loader.parsers.AdaptationHandler;
 import es.eucm.eadventure.common.loader.parsers.AdventureHandler;
@@ -116,16 +116,16 @@ public class Loader {
 
         }
         catch( ParserConfigurationException e ) {
-            incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ), e ) );
+            incidences.add( Incidence.createDescriptorIncidence( TC.get( "Error.LoadDescriptor.SAX" ), e ) );
         }
         catch( SAXException e ) {
-            incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ), e ) );
+            incidences.add( Incidence.createDescriptorIncidence( TC.get( "Error.LoadDescriptor.SAX" ), e ) );
         }
         catch( IOException e ) {
-            incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.IO" ), e ) );
+            incidences.add( Incidence.createDescriptorIncidence( TC.get( "Error.LoadDescriptor.IO" ), e ) );
         }
         catch( IllegalArgumentException e ) {
-            incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.NoDescriptor" ), e ) );
+            incidences.add( Incidence.createDescriptorIncidence( TC.get( "Error.LoadDescriptor.NoDescriptor" ), e ) );
         }
 
         return adventureData;
@@ -248,13 +248,13 @@ public class Loader {
 
             }
             catch( ParserConfigurationException e ) {
-                incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName, e ) );
+                incidences.add( Incidence.createChapterIncidence( TC.get( "Error.LoadData.SAX" ), fileName, e ) );
             }
             catch( SAXException e ) {
-                incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName, e ) );
+                incidences.add( Incidence.createChapterIncidence( TC.get( "Error.LoadData.SAX" ), fileName, e ) );
             }
             catch( IOException e ) {
-                incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName, e ) );
+                incidences.add( Incidence.createChapterIncidence( TC.get( "Error.LoadData.IO" ), fileName, e ) );
             }
         }
         return currentChapter;
@@ -322,13 +322,13 @@ public class Loader {
 
             }
             catch( ParserConfigurationException e ) {
-                incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile, e ) );
+                incidences.add( Incidence.createAssessmentIncidence( false, TC.get( "Error.LoadAssessmentData.SAX" ), xmlFile, e ) );
             }
             catch( SAXException e ) {
-                incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile, e ) );
+                incidences.add( Incidence.createAssessmentIncidence( false, TC.get( "Error.LoadAssessmentData.SAX" ), xmlFile, e ) );
             }
             catch( IOException e ) {
-                incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.IO" ), xmlFile, e ) );
+                incidences.add( Incidence.createAssessmentIncidence( false, TC.get( "Error.LoadAssessmentData.IO" ), xmlFile, e ) );
             }
         }
         return newProfile;
@@ -392,13 +392,13 @@ public class Loader {
 
             }
             catch( ParserConfigurationException e ) {
-                incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile, e ) );
+                incidences.add( Incidence.createAdaptationIncidence( false, TC.get( "Error.LoadAdaptationData.SAX" ), xmlFile, e ) );
             }
             catch( SAXException e ) {
-                incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile, e ) );
+                incidences.add( Incidence.createAdaptationIncidence( false, TC.get( "Error.LoadAdaptationData.SAX" ), xmlFile, e ) );
             }
             catch( IOException e ) {
-                incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.IO" ), xmlFile, e ) );
+                incidences.add( Incidence.createAdaptationIncidence( false, TC.get( "Error.LoadAdaptationData.IO" ), xmlFile, e ) );
             }
         }
         return newProfile;

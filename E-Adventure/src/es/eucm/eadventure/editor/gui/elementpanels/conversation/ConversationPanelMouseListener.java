@@ -43,7 +43,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.gui.displaydialogs.ConversationDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.GraphicRepresentation;
@@ -95,7 +95,7 @@ public class ConversationPanelMouseListener implements MouseListener, MouseMotio
                 JPopupMenu nodePopupMenu = new JPopupMenu( );
 
                 // Add the preview options
-                JMenuItem previewConversationItem = new JMenuItem( TextConstants.getText( "Conversation.OptionPreviewConversation" ) );
+                JMenuItem previewConversationItem = new JMenuItem( TC.get( "Conversation.OptionPreviewConversation" ) );
                 previewConversationItem.addActionListener( new PreviewConversationActionListener( true ) );
                 nodePopupMenu.add( previewConversationItem );
 

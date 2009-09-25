@@ -41,7 +41,7 @@ import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.conditions.AddConditionTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.DeleteConditionTool;
@@ -198,8 +198,8 @@ public class ConditionsController {
         ConditionOwner owner = new ConditionOwner( ownerType, ownerName );
         context1.put( ConditionsController.CONDITION_OWNER, owner );
 
-        if( TextConstants.containsConditionsContextText( ownerType, TextConstants.NORMAL_SENTENCE ) && TextConstants.containsConditionsContextText( ownerType, TextConstants.NO_CONDITION_SENTENCE ) ) {
-            ConditionCustomMessage cMessage = new ConditionCustomMessage( TextConstants.getConditionsContextText( ownerType, TextConstants.NORMAL_SENTENCE ), TextConstants.getConditionsContextText( ownerType, TextConstants.NO_CONDITION_SENTENCE ) );
+        if( TC.containsConditionsContextText( ownerType, TC.NORMAL_SENTENCE ) && TC.containsConditionsContextText( ownerType, TC.NO_CONDITION_SENTENCE ) ) {
+            ConditionCustomMessage cMessage = new ConditionCustomMessage( TC.getConditionsContextText( ownerType, TC.NORMAL_SENTENCE ), TC.getConditionsContextText( ownerType, TC.NO_CONDITION_SENTENCE ) );
             context1.put( CONDITION_CUSTOM_MESSAGE, cMessage );
         }
 
@@ -638,7 +638,7 @@ public class ConditionsController {
 
             String formattedSentence = new String( sentence );
             if( sentence.contains( ELEMENT_TYPE ) ) {
-                formattedSentence = formattedSentence.replace( ELEMENT_TYPE, "<i>" + TextConstants.getElementName( owner.getOwnerType( ) ) + "</i>" );
+                formattedSentence = formattedSentence.replace( ELEMENT_TYPE, "<i>" + TC.getElement( owner.getOwnerType( ) ) + "</i>" );
             }
             if( sentence.contains( ELEMENT_ID ) ) {
                 formattedSentence = formattedSentence.replace( ELEMENT_ID, "<b>\"" + owner.getOwnerName( ) + "\"</b>" );

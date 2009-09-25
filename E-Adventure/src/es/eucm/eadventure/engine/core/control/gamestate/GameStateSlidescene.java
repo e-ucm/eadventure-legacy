@@ -50,7 +50,7 @@ import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -184,7 +184,7 @@ public class GameStateSlidescene extends GameState {
         }
         else {
             if( game.getFunctionalScene( ) == null ) {
-                JOptionPane.showMessageDialog( null, TextConstants.getText( "DesignError.Message" ), TextConstants.getText( "DesignError.Title" ), JOptionPane.ERROR_MESSAGE );
+                JOptionPane.showMessageDialog( null, TC.get( "DesignError.Message" ), TC.get( "DesignError.Title" ), JOptionPane.ERROR_MESSAGE );
                 yetSkipped = true;
                 game.goToNextChapter( );
             }

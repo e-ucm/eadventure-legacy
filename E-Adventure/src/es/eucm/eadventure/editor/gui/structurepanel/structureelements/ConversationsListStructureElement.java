@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.structurepanel.structureelements;
 
 import javax.swing.ImageIcon;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationsListDataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElementFactory;
@@ -46,7 +46,7 @@ public class ConversationsListStructureElement extends StructureListElement {
 
     public ConversationsListStructureElement( DataControl dataControl ) {
 
-        super( TextConstants.getText( "ConversationsList.Title" ), dataControl );
+        super( TC.get( "ConversationsList.Title" ), dataControl );
         icon = new ImageIcon( "img/icons/conversations.png" );
     }
 

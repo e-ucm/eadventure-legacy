@@ -58,7 +58,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
@@ -188,7 +188,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
         newButton.setFocusable( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        newButton.setToolTipText( TextConstants.getText( "BookParagraphs.AddParagraph" ) );
+        newButton.setToolTipText( TC.get( "BookParagraphs.AddParagraph" ) );
         newButton.addMouseListener( new MouseAdapter( ) {
 
             @Override
@@ -203,7 +203,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
         deleteButton.setFocusable( false );
-        deleteButton.setToolTipText( TextConstants.getText( "BookParagraphs.DeleteParagraph" ) );
+        deleteButton.setToolTipText( TC.get( "BookParagraphs.DeleteParagraph" ) );
         deleteButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -216,7 +216,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
         moveUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
         moveUpButton.setFocusable( false );
-        moveUpButton.setToolTipText( TextConstants.getText( "BookParagraphs.MoveParagraphUp" ) );
+        moveUpButton.setToolTipText( TC.get( "BookParagraphs.MoveParagraphUp" ) );
         moveUpButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -229,7 +229,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
         moveDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
         moveDownButton.setFocusable( false );
-        moveDownButton.setToolTipText( TextConstants.getText( "BookParagraphs.MoveParagraphDown" ) );
+        moveDownButton.setToolTipText( TC.get( "BookParagraphs.MoveParagraphDown" ) );
         moveDownButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -270,7 +270,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
         if( dataControl.getBookParagraphsList( ).getAddableElements( ).length > 0 ) {
             // Add an entry in the popup menu for each type of possible child
             for( int type : dataControl.getBookParagraphsList( ).getAddableElements( ) ) {
-                JMenuItem addChildMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.AddElement" + type ) );
+                JMenuItem addChildMenuItem = new JMenuItem( TC.get( "TreeNode.AddElement" + type ) );
                 addChildMenuItem.setEnabled( true );
                 addChildMenuItem.addActionListener( new AddElementActionListener( type ) );
                 addChildPopupMenu.add( addChildMenuItem );
@@ -279,7 +279,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 
         // If no element can be added, insert a disabled general option
         else {
-            JMenuItem addChildMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.AddElement" ) );
+            JMenuItem addChildMenuItem = new JMenuItem( TC.get( "TreeNode.AddElement" ) );
             addChildMenuItem.setEnabled( false );
             addChildPopupMenu.add( addChildMenuItem );
         }
@@ -300,7 +300,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
         completePopupMenu.addSeparator( );
 
         // Create and add the delete item
-        JMenuItem deleteMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.DeleteElement" ) );
+        JMenuItem deleteMenuItem = new JMenuItem( TC.get( "TreeNode.DeleteElement" ) );
         deleteMenuItem.setEnabled( deleteButton.isEnabled( ) );
         deleteMenuItem.addActionListener( new ActionListener( ) {
 
@@ -315,8 +315,8 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
         completePopupMenu.addSeparator( );
 
         // Create and add the move up and down item
-        JMenuItem moveUpMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.MoveElementUp" ) );
-        JMenuItem moveDownMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.MoveElementDown" ) );
+        JMenuItem moveUpMenuItem = new JMenuItem( TC.get( "TreeNode.MoveElementUp" ) );
+        JMenuItem moveDownMenuItem = new JMenuItem( TC.get( "TreeNode.MoveElementDown" ) );
         moveUpMenuItem.setEnabled( moveUpButton.isEnabled( ) );
         moveDownMenuItem.setEnabled( moveDownButton.isEnabled( ) );
         moveUpMenuItem.addActionListener( new ActionListener( ) {

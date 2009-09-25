@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.tools;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public abstract class Tool {
 
@@ -71,7 +71,7 @@ public abstract class Tool {
      */
     public String getToolName( ) {
 
-        return TextConstants.getEditionToolName( getClass( ) );
+        return TC.getToolName( getClass( ) );
     }
 
     /**

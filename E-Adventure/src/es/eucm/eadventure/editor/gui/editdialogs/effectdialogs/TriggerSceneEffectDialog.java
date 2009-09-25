@@ -47,7 +47,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.ElementImagePanel;
@@ -85,7 +85,7 @@ public class TriggerSceneEffectDialog extends EffectDialog {
     public TriggerSceneEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "TriggerSceneEffect.Title" ), true );
+        super( TC.get( "TriggerSceneEffect.Title" ), true );
 
         // Take the list of characters
         String[] scenesArray = controller.getIdentifierSummary( ).getSceneIds( );
@@ -102,7 +102,7 @@ public class TriggerSceneEffectDialog extends EffectDialog {
             GridBagConstraints c = new GridBagConstraints( );
 
             // Set the border of the panel with the description
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TriggerSceneEffect.Description" ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "TriggerSceneEffect.Description" ) ) ) );
 
             // Create and add the list of scenes
             c.insets = new Insets( 2, 4, 4, 4 );
@@ -166,7 +166,7 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 
         // If the list had no elements, show an error message
         else
-            controller.showErrorDialog( getTitle( ), TextConstants.getText( "TriggerSceneEffect.ErrorNoScenes" ) );
+            controller.showErrorDialog( getTitle( ), TC.get( "TriggerSceneEffect.ErrorNoScenes" ) );
     }
 
     @Override

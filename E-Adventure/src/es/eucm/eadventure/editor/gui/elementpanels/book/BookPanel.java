@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.book;
 import javax.swing.JComponent;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
@@ -59,8 +59,8 @@ public class BookPanel extends ElementPanel {
 
         public BookDocPanelTab( BookDataControl dataControl ) {
 
-            super( TextConstants.getText( "Book.Doc" ), dataControl );
-            setToolTipText( TextConstants.getText( "Book.Doc.Tip" ) );
+            super( TC.get( "Book.Doc" ), dataControl );
+            setToolTipText( TC.get( "Book.Doc.Tip" ) );
             this.dataControl = dataControl;
         }
 
@@ -77,8 +77,8 @@ public class BookPanel extends ElementPanel {
 
         public BookAppPanelTab( BookDataControl dataControl ) {
 
-            super( TextConstants.getText( "Book.App" ), dataControl );
-            setToolTipText( TextConstants.getText( "Book.App.Tip" ) );
+            super( TC.get( "Book.App" ), dataControl );
+            setToolTipText( TC.get( "Book.App.Tip" ) );
             this.dataControl = dataControl;
         }
 
@@ -95,8 +95,8 @@ public class BookPanel extends ElementPanel {
 
         public BookContentPanel( BookDataControl dataControl ) {
 
-            super( TextConstants.getText( "Book.Contents" ), dataControl );
-            setToolTipText( TextConstants.getText( "Book.Contents.Tip" ) );
+            super( TC.get( "Book.Contents" ), dataControl );
+            setToolTipText( TC.get( "Book.Contents.Tip" ) );
             this.dataControl = dataControl;
         }
 

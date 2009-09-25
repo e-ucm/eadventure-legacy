@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.structurepanel.structureelements;
 
 import javax.swing.ImageIcon;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoListDataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElementFactory;
@@ -46,7 +46,7 @@ public class AtrezzoListStructureElement extends StructureListElement {
 
     public AtrezzoListStructureElement( DataControl dataControl ) {
 
-        super( TextConstants.getText( "AtrezzoList.Title" ), dataControl );
+        super( TC.get( "AtrezzoList.Title" ), dataControl );
         icon = new ImageIcon( "img/icons/Atrezzo-List-1.png" );
     }
 

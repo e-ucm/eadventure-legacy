@@ -56,7 +56,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
@@ -176,7 +176,7 @@ class UOLPropertiesPanel extends JPanel implements Updateable {
         movePropertyUpButton.setContentAreaFilled( false );
         movePropertyUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         movePropertyUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        movePropertyUpButton.setToolTipText( TextConstants.getText( "UOLProperties.MoveUp" ) );
+        movePropertyUpButton.setToolTipText( TC.get( "UOLProperties.MoveUp" ) );
         movePropertyUpButton.addActionListener( new ListenerButtonMoveLineUp( ) );
         movePropertyUpButton.setEnabled( false );
 
@@ -184,7 +184,7 @@ class UOLPropertiesPanel extends JPanel implements Updateable {
         movePropertyDownButton.setContentAreaFilled( false );
         movePropertyDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         movePropertyDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        movePropertyDownButton.setToolTipText( TextConstants.getText( "UOLProperties.MoveDown" ) );
+        movePropertyDownButton.setToolTipText( TC.get( "UOLProperties.MoveDown" ) );
         movePropertyDownButton.addActionListener( new ListenerButtonMoveLineDown( ) );
         movePropertyDownButton.setEnabled( false );
 
@@ -195,14 +195,14 @@ class UOLPropertiesPanel extends JPanel implements Updateable {
         insertPropertyButton.setContentAreaFilled( false );
         insertPropertyButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         insertPropertyButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        insertPropertyButton.setToolTipText( TextConstants.getText( "UOLProperties.InsertProperty" ) );
+        insertPropertyButton.setToolTipText( TC.get( "UOLProperties.InsertProperty" ) );
         insertPropertyButton.addActionListener( new ListenerButtonInsertLine( ) );
 
         deletePropertyButton = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deletePropertyButton.setContentAreaFilled( false );
         deletePropertyButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deletePropertyButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deletePropertyButton.setToolTipText( TextConstants.getText( "UOLProperties.DeleteProperty" ) );
+        deletePropertyButton.setToolTipText( TC.get( "UOLProperties.DeleteProperty" ) );
         deletePropertyButton.addActionListener( new ListenerButtonDeleteLine( ) );
 
         addComponents( );

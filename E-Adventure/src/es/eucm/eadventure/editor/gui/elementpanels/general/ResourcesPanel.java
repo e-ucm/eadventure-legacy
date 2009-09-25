@@ -64,7 +64,7 @@ import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.animation.Animation;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
@@ -162,7 +162,7 @@ public class ResourcesPanel extends JPanel {
         c.gridy = 0;
         JPanel panel = new JPanel( );
         panel.setLayout( new BorderLayout( ) );
-        panel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Resources.ResourcesGroup" ) ) );
+        panel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Resources.ResourcesGroup" ) ) );
         final JComboBox groupCombo = new JComboBox( );
         for( int i = 0; i < resourcesDataControl.getAssetGroupCount( ); i++ ) {
             groupCombo.addItem( resourcesDataControl.getGroupInfo( i ) );
@@ -216,7 +216,7 @@ public class ResourcesPanel extends JPanel {
             JButton deleteContentButton = new JButton( deleteContentIcon );
             deleteContentButton.addActionListener( new DeleteContentButtonListener( i, j ) );
             deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-            deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+            deleteContentButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
             assetPanel.add( deleteContentButton, c2 );
 
             assetFields[j] = new JTextField( MAX_SPACE );
@@ -227,7 +227,7 @@ public class ResourcesPanel extends JPanel {
             c2.weightx = 1;
             assetPanel.add( assetFields[j], c2 );
 
-            JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+            JButton selectButton = new JButton( TC.get( "Resources.Select" ) );
             selectButton.addActionListener( new ExamineButtonListener( i, j ) );
             c2.gridx = 2;
             c2.fill = GridBagConstraints.NONE;
@@ -235,7 +235,7 @@ public class ResourcesPanel extends JPanel {
             assetPanel.add( selectButton, c2 );
 
             if( resourcesDataControl.getAssetCategory( i ) == AssetsConstants.CATEGORY_ANIMATION ) {
-                JButton editButton = new JButton( TextConstants.getText( "Resources.Create" ) + "/" + TextConstants.getText( "Resources.Edit" ) );
+                JButton editButton = new JButton( TC.get( "Resources.Create" ) + "/" + TC.get( "Resources.Edit" ) );
                 editButton.addActionListener( new EditButtonListener( i, j ) );
                 c2.gridx++;
                 assetPanel.add( editButton );
@@ -299,7 +299,7 @@ public class ResourcesPanel extends JPanel {
             JButton deleteContentButton = new JButton( deleteContentIcon );
             deleteContentButton.addActionListener( new DeleteContentButtonListener( i, i ) );
             deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-            deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+            deleteContentButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
             assetPanel.add( deleteContentButton, c2 );
 
             // Create the text field and insert it
@@ -312,7 +312,7 @@ public class ResourcesPanel extends JPanel {
             assetPanel.add( assetFields[i], c2 );
 
             // Create the "Select" button and insert it
-            JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+            JButton selectButton = new JButton( TC.get( "Resources.Select" ) );
             selectButton.addActionListener( new ExamineButtonListener( i, i ) );
             c2.gridx = 2;
             c2.fill = GridBagConstraints.NONE;
@@ -321,13 +321,13 @@ public class ResourcesPanel extends JPanel {
 
             // Create the "Create/Edit" button when necessary
             if( resourcesDataControl.getAssetCategory( i ) == AssetsConstants.CATEGORY_ANIMATION ) {
-                JButton editButton = new JButton( TextConstants.getText( "Resources.Create" ) + "/" + TextConstants.getText( "Resources.Edit" ) );
+                JButton editButton = new JButton( TC.get( "Resources.Create" ) + "/" + TC.get( "Resources.Edit" ) );
                 editButton.addActionListener( new EditButtonListener( i, i ) );
                 c2.gridx++;
                 assetPanel.add( editButton, c2 );
             }
             else if( resourcesDataControl.isIconFromImage( i ) ) {
-                JButton createIconButton = new JButton( TextConstants.getText( "Resources.CreateIcon" ) );
+                JButton createIconButton = new JButton( TC.get( "Resources.CreateIcon" ) );
                 createIconButton.addActionListener( new CreateIconButtonListener( i ) );
                 c2.gridx++;
                 assetPanel.add( createIconButton, c2 );
@@ -365,13 +365,13 @@ public class ResourcesPanel extends JPanel {
             case AssetsConstants.CATEGORY_IMAGE:
             case AssetsConstants.CATEGORY_ICON:
             case AssetsConstants.CATEGORY_BUTTON:
-                previewText = TextConstants.getText( "Resources.ViewAsset" );
+                previewText = TC.get( "Resources.ViewAsset" );
                 break;
             case AssetsConstants.CATEGORY_AUDIO:
-                previewText = TextConstants.getText( "Resources.PlayAsset" );
+                previewText = TC.get( "Resources.PlayAsset" );
                 break;
             case AssetsConstants.CATEGORY_VIDEO:
-                previewText = TextConstants.getText( "Resources.PlayVideoAsset" );
+                previewText = TC.get( "Resources.PlayVideoAsset" );
                 break;
 
         }
@@ -502,7 +502,7 @@ public class ResourcesPanel extends JPanel {
                     filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
                 }
                 else {
-                    animationName = JOptionPane.showInputDialog( null, TextConstants.getText( "Animation.AskFilename" ), TextConstants.getText( "Animation.AskFilenameTitle" ), JOptionPane.QUESTION_MESSAGE );
+                    animationName = JOptionPane.showInputDialog( null, TC.get( "Animation.AskFilename" ), TC.get( "Animation.AskFilenameTitle" ), JOptionPane.QUESTION_MESSAGE );
                     if( animationName != null && animationName.length( ) > 0 ) {
                         filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
                         //} else {

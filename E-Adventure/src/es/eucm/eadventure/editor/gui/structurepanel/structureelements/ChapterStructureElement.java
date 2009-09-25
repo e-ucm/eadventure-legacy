@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.gui.structurepanel.structureelements;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureListElement;
@@ -43,7 +43,7 @@ public class ChapterStructureElement extends StructureListElement {
 
     public ChapterStructureElement( DataControl dataControl ) {
 
-        super( TextConstants.getText( "Chapter.Title" ), dataControl );
+        super( TC.get( "Chapter.Title" ), dataControl );
         icon = null;
     }
 

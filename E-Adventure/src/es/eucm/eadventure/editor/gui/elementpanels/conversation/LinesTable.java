@@ -47,7 +47,7 @@ import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
@@ -90,7 +90,7 @@ public class LinesTable extends JTable {
         getColumnModel( ).getColumn( 4 ).setCellEditor( new ConditionsCellRendererEditor( ) );
 
         List<String> charactersList = new ArrayList<String>( );
-        charactersList.add( TextConstants.getText( "ConversationLine.PlayerName" ) );
+        charactersList.add( TC.get( "ConversationLine.PlayerName" ) );
         String[] charactersArray = Controller.getInstance( ).getIdentifierSummary( ).getNPCIds( );
         for( String npc : charactersArray )
             charactersList.add( npc );
@@ -195,7 +195,7 @@ public class LinesTable extends JTable {
 
             if( !value.toString( ).trim( ).equals( "" ) ) {
                 if( columnIndex == 0 )
-                    if( value.toString( ).equals( TextConstants.getText( "ConversationLine.PlayerName" ) ) )
+                    if( value.toString( ).equals( TC.get( "ConversationLine.PlayerName" ) ) )
                         conversationDataControl.setNodeLineName( node, rowIndex, ConversationLine.PLAYER );
                     else
                         conversationDataControl.setNodeLineName( node, rowIndex, value.toString( ) );
@@ -212,7 +212,7 @@ public class LinesTable extends JTable {
                 switch( columnIndex ) {
                     case 0:
                         if( node.isPlayerLine( rowIndex ) )
-                            value = TextConstants.getText( "ConversationLine.PlayerName" );
+                            value = TC.get( "ConversationLine.PlayerName" );
                         else
                             value = node.getLineName( rowIndex );
                         break;

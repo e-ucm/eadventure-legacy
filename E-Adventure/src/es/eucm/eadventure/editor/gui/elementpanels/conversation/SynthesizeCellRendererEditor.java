@@ -50,7 +50,7 @@ import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
@@ -84,7 +84,7 @@ public class SynthesizeCellRendererEditor extends AbstractCellEditor implements 
             return null;
         this.value = (ConversationNodeView) value;
         if( !isSelected ) {
-            JCheckBox checkBox = new JCheckBox( TextConstants.getText( "Conversations.Synthesize" ) );
+            JCheckBox checkBox = new JCheckBox( TC.get( "Conversations.Synthesize" ) );
             checkBox.setSelected( this.value.getConversationLine( row ).getSynthesizerVoice( ) );
             checkBox.setEnabled( isSelected && canSynthesize( row ) );
             checkBox.setOpaque( false );
@@ -105,7 +105,7 @@ public class SynthesizeCellRendererEditor extends AbstractCellEditor implements 
             panel.setBackground( table.getSelectionBackground( ) );
         panel.setLayout( new GridLayout( 2, 1 ) );
 
-        JCheckBox checkBox = new JCheckBox( TextConstants.getText( "Conversations.Synthesize" ) );
+        JCheckBox checkBox = new JCheckBox( TC.get( "Conversations.Synthesize" ) );
         checkBox.setSelected( this.value.getConversationLine( row ).getSynthesizerVoice( ) );
         checkBox.setEnabled( isSelected && canSynthesize( row ) );
         checkBox.addActionListener( new ActionListener( ) {
@@ -118,7 +118,7 @@ public class SynthesizeCellRendererEditor extends AbstractCellEditor implements 
         checkBox.setOpaque( false );
         panel.add( checkBox );
 
-        JButton button = new JButton( TextConstants.getText( "Conversations.Listen" ) );
+        JButton button = new JButton( TC.get( "Conversations.Listen" ) );
         button.setFocusable( false );
         button.setEnabled( isSelected && canSynthesize( row ) );
         button.addActionListener( new ActionListener( ) {

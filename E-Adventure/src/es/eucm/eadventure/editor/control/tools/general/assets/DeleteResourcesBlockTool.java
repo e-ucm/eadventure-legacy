@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.tools.general.assets;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
@@ -116,7 +116,7 @@ public class DeleteResourcesBlockTool extends Tool {
 
         // If it was the last one, show an error message
         else
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Operation.DeleteResourcesTitle" ), TextConstants.getText( "Operation.DeleteResourcesErrorLastResources" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Operation.DeleteResourcesTitle" ), TC.get( "Operation.DeleteResourcesErrorLastResources" ) );
 
         return elementDeleted;
     }

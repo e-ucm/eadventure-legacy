@@ -47,7 +47,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.config.ResizeableListConfigData;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResizeableCellRenderer;
@@ -82,7 +82,7 @@ public class ResizeableListPanel extends JPanel {
         setLayout( new BorderLayout( ) );
         JPanel buttonsPanel = new JPanel( );
         JButton sizeZero = new JButton( new ImageIcon( "img/icons/size0.png" ) );
-        sizeZero.setToolTipText( TextConstants.getText( "ResizeableListPanel.Size0ToolTip" ) );
+        sizeZero.setToolTipText( TC.get( "ResizeableListPanel.Size0ToolTip" ) );
         sizeZero.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -93,7 +93,7 @@ public class ResizeableListPanel extends JPanel {
         buttonsPanel.add( sizeZero );
 
         JButton sizeOne = new JButton( new ImageIcon( "img/icons/size1.png" ) );
-        sizeOne.setToolTipText( TextConstants.getText( "ResizeableListPanel.Size1ToolTip" ) );
+        sizeOne.setToolTipText( TC.get( "ResizeableListPanel.Size1ToolTip" ) );
         sizeOne.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -104,7 +104,7 @@ public class ResizeableListPanel extends JPanel {
         buttonsPanel.add( sizeOne );
 
         JButton sizeTwo = new JButton( new ImageIcon( "img/icons/size2.png" ) );
-        sizeTwo.setToolTipText( TextConstants.getText( "ResizeableListPanel.Size2ToolTip" ) );
+        sizeTwo.setToolTipText( TC.get( "ResizeableListPanel.Size2ToolTip" ) );
         sizeTwo.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {

@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -109,7 +109,7 @@ public class ItemsListDataControl extends DataControl {
         for( int i = 0; i < itemsList.size( ); i++ ) {
             Item item = itemsList.get( i );
             itemsInfo[i][0] = item.getId( );
-            itemsInfo[i][1] = TextConstants.getText( "ItemsList.ActionsNumber", String.valueOf( item.getActions( ).size( ) ) );
+            itemsInfo[i][1] = TC.get( "ItemsList.ActionsNumber", String.valueOf( item.getActions( ).size( ) ) );
         }
 
         return itemsInfo;
@@ -160,7 +160,7 @@ public class ItemsListDataControl extends DataControl {
         if( type == Controller.ITEM ) {
 
             if( itemId == null )
-                itemId = controller.showInputDialog( TextConstants.getText( "Operation.AddItemTitle" ), TextConstants.getText( "Operation.AddItemMessage" ), TextConstants.getText( "Operation.AddItemDefaultValue" ) );
+                itemId = controller.showInputDialog( TC.get( "Operation.AddItemTitle" ), TC.get( "Operation.AddItemMessage" ), TC.get( "Operation.AddItemDefaultValue" ) );
 
             if( itemId != null && controller.isElementIdValid( itemId ) ) {
                 Item newItem = new Item( itemId );
@@ -203,7 +203,7 @@ public class ItemsListDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.AddItemDefaultValue" );
+        return TC.get( "Operation.AddItemDefaultValue" );
     }
 
     @Override
@@ -214,7 +214,7 @@ public class ItemsListDataControl extends DataControl {
         String references = String.valueOf( controller.countIdentifierReferences( itemId ) );
 
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { itemId, references } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { itemId, references } ) ) ) {
             if( itemsList.remove( dataControl.getContent( ) ) ) {
                 itemsDataControlList.remove( dataControl );
                 controller.deleteIdentifierReferences( itemId );
@@ -279,7 +279,7 @@ public class ItemsListDataControl extends DataControl {
         boolean valid = true;
 
         // Update the current path
-        currentPath += " >> " + TextConstants.getElementName( Controller.ITEMS_LIST );
+        currentPath += " >> " + TC.getElement( Controller.ITEMS_LIST );
 
         // Iterate through the items
         for( ItemDataControl itemDataControl : itemsDataControlList ) {

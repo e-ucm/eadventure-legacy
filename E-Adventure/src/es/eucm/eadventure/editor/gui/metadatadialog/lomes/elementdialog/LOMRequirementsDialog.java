@@ -49,7 +49,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
@@ -106,26 +106,26 @@ public class LOMRequirementsDialog extends JDialog {
         JPanel typePanel = new JPanel( new GridBagLayout( ) );
         type = new LOMVocabularyPanel( LOMOrComposite.getTypeOptions( ), typeValue.getValueIndex( ) );
         typePanel.add( type, c );
-        typePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Technical.Type" ) ) );
+        typePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Technical.Type" ) ) );
 
         JPanel namePanel = new JPanel( new GridBagLayout( ) );
         name = new LOMVocabularyPanel( LOMOrComposite.getNameOptions( ), nameValue.getValueIndex( ) );
         namePanel.add( name, c );
-        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Technical.Name" ) ) );
+        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Technical.Name" ) ) );
 
         JPanel maxPanel = new JPanel( new GridBagLayout( ) );
         maximumVersion = new JTextField( maxValue );
         maximumVersion.setEditable( false );
         //maximumVersion.getDocument().addDocumentListener(new TextFieldListener (maximumVersion));
         maxPanel.add( maximumVersion, c );
-        maxPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOM.Technical.MaximumVersion" ) ) );
+        maxPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOM.Technical.MaximumVersion" ) ) );
 
         JPanel minPanel = new JPanel( new GridBagLayout( ) );
         minimumVersion = new JTextField( minValue );
         minimumVersion.setEditable( false );
         //minimumVersion.getDocument().addDocumentListener(new TextFieldListener minimumVersion));
         minPanel.add( minimumVersion, c );
-        minPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOM.Technical.MinimumVersion" ) ) );
+        minPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOM.Technical.MinimumVersion" ) ) );
 
         JPanel buttonPanel = new JPanel( new GridBagLayout( ) );
         c = new GridBagConstraints( );

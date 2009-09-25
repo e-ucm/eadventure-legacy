@@ -40,7 +40,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
@@ -73,7 +73,7 @@ public class NPCsListPanel extends ElementPanel {
 
         public NPCsListPanelTab( NPCsListDataControl sDataControl ) {
 
-            super( TextConstants.getText( "NPCsList.Title" ), sDataControl );
+            super( TC.get( "NPCsList.Title" ), sDataControl );
             this.sDataControl = sDataControl;
         }
 

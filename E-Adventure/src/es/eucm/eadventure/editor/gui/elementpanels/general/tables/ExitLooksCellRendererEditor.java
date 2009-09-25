@@ -57,7 +57,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.general.ExitLookDataControl;
@@ -155,7 +155,7 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
         JButton deleteContentButton = new JButton( deleteContentIcon );
         deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
         deleteContentButton.setMaximumSize( new Dimension( 20, 20 ) );
-        deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+        deleteContentButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
 
         ImageIcon cursorPreview = new ImageIcon( );
         if( value.isCursorCustomized( ) ) {

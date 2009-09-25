@@ -41,7 +41,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.LangString;
 
 public class LOMLangStringPanel extends JPanel {
@@ -77,14 +77,14 @@ public class LOMLangStringPanel extends JPanel {
         JPanel valuePanel = new JPanel( new GridBagLayout( ) );
         value = new JTextField( valueData );
         value.getDocument( ).addDocumentListener( new TextFieldListener( value ) );
-        value.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.LangString.Value" ) ) );
+        value.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.LangString.Value" ) ) );
         valuePanel.add( value, c );
 
         //c.gridy=1;
         JPanel languagePanel = new JPanel( new GridBagLayout( ) );
         language = new JTextField( languageData );
         language.getDocument( ).addDocumentListener( new TextFieldListener( language ) );
-        language.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.LangString.Language" ) ) );
+        language.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.LangString.Language" ) ) );
         languagePanel.add( language, c );
 
         c.gridy = 0;

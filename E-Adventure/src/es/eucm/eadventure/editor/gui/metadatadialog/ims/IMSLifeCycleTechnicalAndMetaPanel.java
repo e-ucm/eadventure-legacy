@@ -38,7 +38,7 @@ import java.awt.Dimension;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSLifeCycleDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSMetaMetaDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSTechnicalDataControl;
@@ -58,13 +58,13 @@ public class IMSLifeCycleTechnicalAndMetaPanel extends JPanel {
         setLayout( new BoxLayout( this, BoxLayout.PAGE_AXIS ) );
 
         //Create the panels
-        IMSTextPanel versionPanel = new IMSTextPanel( lifeCycleController.getVersionController( ), TextConstants.getText( "LOM.LifeCycle.Version" ), IMSTextPanel.TYPE_FIELD );
-        IMSTextPanel minVersionPanel = new IMSTextPanel( technicalController.getMinimumVersionController( ), TextConstants.getText( "LOM.Technical.MinimumVersion" ), IMSTextPanel.TYPE_FIELD, false );
-        IMSTextPanel maxVersionPanel = new IMSTextPanel( technicalController.getMaximumVersionController( ), TextConstants.getText( "LOM.Technical.MaximumVersion" ), IMSTextPanel.TYPE_FIELD, false );
-        IMSOptionsPanel status = new IMSOptionsPanel( lifeCycleController.getStatusController( ), TextConstants.getText( "IMS.LifeCycle.Status" ) );
-        IMSTextPanel format = new IMSTextPanel( technicalController.getFormatController( ), TextConstants.getText( "IMS.Technical.Format" ), IMSTextPanel.TYPE_FIELD );
-        IMSTextWithOptionsPanel location = new IMSTextWithOptionsPanel( technicalController.getLocation( ), TextConstants.getText( "IMS.Technical.Location" ), new String[] { "URI", "TEXT" } );
-        IMSTextPanel meta = new IMSTextPanel( metaController.getMetadataschemeController( ), TextConstants.getText( "IMS.MetaMetaData.Metadatascheme" ), IMSTextPanel.TYPE_FIELD );
+        IMSTextPanel versionPanel = new IMSTextPanel( lifeCycleController.getVersionController( ), TC.get( "LOM.LifeCycle.Version" ), IMSTextPanel.TYPE_FIELD );
+        IMSTextPanel minVersionPanel = new IMSTextPanel( technicalController.getMinimumVersionController( ), TC.get( "LOM.Technical.MinimumVersion" ), IMSTextPanel.TYPE_FIELD, false );
+        IMSTextPanel maxVersionPanel = new IMSTextPanel( technicalController.getMaximumVersionController( ), TC.get( "LOM.Technical.MaximumVersion" ), IMSTextPanel.TYPE_FIELD, false );
+        IMSOptionsPanel status = new IMSOptionsPanel( lifeCycleController.getStatusController( ), TC.get( "IMS.LifeCycle.Status" ) );
+        IMSTextPanel format = new IMSTextPanel( technicalController.getFormatController( ), TC.get( "IMS.Technical.Format" ), IMSTextPanel.TYPE_FIELD );
+        IMSTextWithOptionsPanel location = new IMSTextWithOptionsPanel( technicalController.getLocation( ), TC.get( "IMS.Technical.Location" ), new String[] { "URI", "TEXT" } );
+        IMSTextPanel meta = new IMSTextPanel( metaController.getMetadataschemeController( ), TC.get( "IMS.MetaMetaData.Metadatascheme" ), IMSTextPanel.TYPE_FIELD );
 
         //Add the panels
         add( versionPanel );

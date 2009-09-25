@@ -58,7 +58,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanel;
@@ -110,7 +110,7 @@ public class VarsFlagsDialog extends JDialog {
     public VarsFlagsDialog( VarFlagsController flagController ) {
 
         // Call to the JDialog constructor
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Ids.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "Ids.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
 
         // Push the dialog into the stack, and add the window listener to pop in when closing
         Controller.getInstance( ).pushWindow( this );
@@ -131,7 +131,7 @@ public class VarsFlagsDialog extends JDialog {
         /////////////////////////////////////////
         // Create a container panel, and set the properties
         JPanel flagsMainPanel = new JPanel( );
-        flagsMainPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Flags.Title" ) ) );
+        flagsMainPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Flags.Title" ) ) );
         flagsMainPanel.setLayout( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.insets = new Insets( 5, 10, 5, 10 );
@@ -146,7 +146,7 @@ public class VarsFlagsDialog extends JDialog {
         flagsMainPanel.add( new JScrollPane( flagsTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ), c );
 
         // Add an "Add flag" button
-        JButton addFlag = new JButton( TextConstants.getText( "Flags.AddFlag" ) );
+        JButton addFlag = new JButton( TC.get( "Flags.AddFlag" ) );
         addFlag.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -161,7 +161,7 @@ public class VarsFlagsDialog extends JDialog {
         flagsMainPanel.add( addFlag, c );
 
         // Add an "Delete flag" button
-        JButton deleteFlag = new JButton( TextConstants.getText( "Flags.DeleteFlag" ) );
+        JButton deleteFlag = new JButton( TC.get( "Flags.DeleteFlag" ) );
         deleteFlag.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -179,7 +179,7 @@ public class VarsFlagsDialog extends JDialog {
         /////////////////////////////////////////
         // Create a container panel, and set the properties
         JPanel varsMainPanel = new JPanel( );
-        varsMainPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Vars.Title" ) ) );
+        varsMainPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Vars.Title" ) ) );
         varsMainPanel.setLayout( new GridBagLayout( ) );
         c = new GridBagConstraints( );
         c.insets = new Insets( 5, 10, 5, 10 );
@@ -194,7 +194,7 @@ public class VarsFlagsDialog extends JDialog {
         varsMainPanel.add( new JScrollPane( varsTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ), c );
 
         // Add an "Add var" button
-        JButton addVar = new JButton( TextConstants.getText( "Vars.AddVar" ) );
+        JButton addVar = new JButton( TC.get( "Vars.AddVar" ) );
         addVar.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -209,7 +209,7 @@ public class VarsFlagsDialog extends JDialog {
         varsMainPanel.add( addVar, c );
 
         // Add an "Delete var" button
-        JButton deleteVar = new JButton( TextConstants.getText( "Vars.DeleteVar" ) );
+        JButton deleteVar = new JButton( TC.get( "Vars.DeleteVar" ) );
         deleteVar.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -226,8 +226,8 @@ public class VarsFlagsDialog extends JDialog {
         // CREATE TABBED PANE
         /////////////////////////////////////////
         JTabbedPane mainPanel = new JTabbedPane( );
-        mainPanel.addTab( TextConstants.getText( "Flags.Flag" ), null, flagsMainPanel, TextConstants.getText( "Flags.FlagTip" ) );
-        mainPanel.addTab( TextConstants.getText( "Vars.Var" ), null, varsMainPanel, TextConstants.getText( "Vars.VarTip" ) );
+        mainPanel.addTab( TC.get( "Flags.Flag" ), null, flagsMainPanel, TC.get( "Flags.FlagTip" ) );
+        mainPanel.addTab( TC.get( "Vars.Var" ), null, varsMainPanel, TC.get( "Vars.VarTip" ) );
 
         JPanel flagsTabComponent = new JPanel( );
         flagsTabComponent.setLayout( new GridBagLayout( ) );
@@ -235,7 +235,7 @@ public class VarsFlagsDialog extends JDialog {
         c1.fill = GridBagConstraints.BOTH;
         c1.weightx = 1;
         c1.weighty = 1;
-        JLabel flagsTitle = new JLabel( TextConstants.getText( "Flags.Flag" ) );
+        JLabel flagsTitle = new JLabel( TC.get( "Flags.Flag" ) );
         flagsTitle.setHorizontalTextPosition( SwingConstants.CENTER );
         flagsTitle.setAlignmentX( 0.5f );
         flagsTitle.setHorizontalAlignment( SwingConstants.CENTER );
@@ -267,7 +267,7 @@ public class VarsFlagsDialog extends JDialog {
         c2.fill = GridBagConstraints.BOTH;
         c2.weightx = 1;
         c2.weighty = 1;
-        JLabel varsTitle = new JLabel( TextConstants.getText( "Vars.Var" ) );
+        JLabel varsTitle = new JLabel( TC.get( "Vars.Var" ) );
         varsTitle.setHorizontalTextPosition( SwingConstants.CENTER );
         varsTitle.setAlignmentX( 0.5f );
         varsTitle.setHorizontalAlignment( SwingConstants.CENTER );
@@ -348,11 +348,11 @@ public class VarsFlagsDialog extends JDialog {
 
             // The first column is the name
             if( columnIndex == 0 )
-                columnName = TextConstants.getText( "Flags.FlagName" );
+                columnName = TC.get( "Flags.FlagName" );
 
             // The second one the references number
             else if( columnIndex == 1 )
-                columnName = TextConstants.getText( "Flags.FlagReferences" );
+                columnName = TC.get( "Flags.FlagReferences" );
 
             return columnName;
         }
@@ -416,11 +416,11 @@ public class VarsFlagsDialog extends JDialog {
 
             // The first column is the name
             if( columnIndex == 0 )
-                columnName = TextConstants.getText( "Vars.VarName" );
+                columnName = TC.get( "Vars.VarName" );
 
             // The second one the references number
             else if( columnIndex == 1 )
-                columnName = TextConstants.getText( "Vars.VarReferences" );
+                columnName = TC.get( "Vars.VarReferences" );
 
             return columnName;
         }

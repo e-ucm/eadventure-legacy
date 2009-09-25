@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.data.meta.auxiliar;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.LangString;
 
 public class LOMESLifeCycleDate implements LOMESComposeType {
@@ -78,14 +78,14 @@ public class LOMESLifeCycleDate implements LOMESComposeType {
     public static String[] attributes( ) {
 
         String[] attr = new String[ LOMESGeneralId.NUMBER_ATTR ];
-        attr[0] = TextConstants.getText( "LOMES.Date.DateTimeName" ) + " " + ATTR_STRING;
-        attr[0] = TextConstants.getText( "LOMES.Date.Description" ) + " " + ATTR_STRING;
+        attr[0] = TC.get( "LOMES.Date.DateTimeName" ) + " " + ATTR_STRING;
+        attr[0] = TC.get( "LOMES.Date.Description" ) + " " + ATTR_STRING;
         return attr;
     }
 
     public String getTitle( ) {
 
-        return TextConstants.getText( "LOMES.LifeCycle.DateTitle" );
+        return TC.get( "LOMES.LifeCycle.DateTitle" );
     }
 
 }

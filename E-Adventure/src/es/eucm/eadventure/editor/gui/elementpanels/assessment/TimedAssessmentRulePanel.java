@@ -65,7 +65,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 
@@ -141,7 +141,7 @@ public class TimedAssessmentRulePanel extends JPanel {
         // Set the layout
         JPanel container1 = new JPanel( new GridBagLayout( ) );
         setLayout( new GridBagLayout( ) );
-        setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Title" ) ) );
+        setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Title" ) ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.insets = new Insets( 1, 5, 1, 5 );
 
@@ -161,7 +161,7 @@ public class TimedAssessmentRulePanel extends JPanel {
         conceptTextArea.setWrapStyleWord( true );
         conceptTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( null ) );
         conceptPanel.add( new JScrollPane( conceptTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ), g );
-        conceptPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Concept" ) ) );
+        conceptPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Concept" ) ) );
         container1.add( conceptPanel, c );
 
         // Create the button for the conditions
@@ -169,14 +169,14 @@ public class TimedAssessmentRulePanel extends JPanel {
         JPanel conditionsPanel = new JPanel( );
         conditionsPanel.setLayout( new GridBagLayout( ) );
 
-        JButton initConditionsButton = new JButton( TextConstants.getText( "GeneralText.EditInitConditions" ) );
+        JButton initConditionsButton = new JButton( TC.get( "GeneralText.EditInitConditions" ) );
         initConditionsButton.addActionListener( new InitConditionsButtonListener( ) );
 
-        JCheckBox useEndConditionsCheck = new JCheckBox( TextConstants.getText( "Timer.UsesEndConditionShort" ) );
+        JCheckBox useEndConditionsCheck = new JCheckBox( TC.get( "Timer.UsesEndConditionShort" ) );
         useEndConditionsCheck.setSelected( assessmentRuleDataControl.isUsesEndConditions( ) );
         useEndConditionsCheck.addChangeListener( new UseEndConditionsCheckListener( ) );
 
-        endConditionsButton = new JButton( TextConstants.getText( "GeneralText.EditEndConditions" ) );
+        endConditionsButton = new JButton( TC.get( "GeneralText.EditEndConditions" ) );
         endConditionsButton.setEnabled( assessmentRuleDataControl.isUsesEndConditions( ) );
         endConditionsButton.addActionListener( new EndConditionsButtonListener( ) );
 
@@ -197,7 +197,7 @@ public class TimedAssessmentRulePanel extends JPanel {
         conditionsPanel.add( initConditionsButton, g );
         g.gridy = 2;
         conditionsPanel.add( endConditionsButton, g );
-        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Conditions" ) ) );
+        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Conditions" ) ) );
 
         c.gridy++;
         c.ipady = -10;
@@ -246,7 +246,7 @@ public class TimedAssessmentRulePanel extends JPanel {
         c.insets = new Insets( 5, 5, 5, 5 );
         container1.setMinimumSize( new Dimension( 200, 250 ) );
         container1.setMaximumSize( new Dimension( 200, 250 ) );
-        container1.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Conditions" ) ) );
+        container1.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Conditions" ) ) );
         //container1.setMinimumSize(new Dimension(100,50));
         add( container1, c );
         c.gridx = 1;
@@ -263,7 +263,7 @@ public class TimedAssessmentRulePanel extends JPanel {
         // Create the effect panel
         JPanel effectPanel = new JPanel( );
         effectPanel.setLayout( new GridBagLayout( ) );
-        effectPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Effect.Title" ) ) );
+        effectPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Effect.Title" ) ) );
         GridBagConstraints c2 = new GridBagConstraints( );
 
         c2.gridx = 0;
@@ -278,8 +278,8 @@ public class TimedAssessmentRulePanel extends JPanel {
         c2.gridx = 0;
         JPanel timePanel = new JPanel( );
         timePanel.setLayout( new GridBagLayout( ) );
-        JLabel minTimeLabel = new JLabel( TextConstants.getText( "TimedAssessmentRule.MinTime" ) );
-        JLabel maxTimeLabel = new JLabel( TextConstants.getText( "TimedAssessmentRule.MaxTime" ) );
+        JLabel minTimeLabel = new JLabel( TC.get( "TimedAssessmentRule.MinTime" ) );
+        JLabel maxTimeLabel = new JLabel( TC.get( "TimedAssessmentRule.MaxTime" ) );
         if( this.currentEffect >= 0 ) {
             int current = this.assessmentRuleDataControl.getMinTime( currentEffect );
             int min = 0;
@@ -321,7 +321,7 @@ public class TimedAssessmentRulePanel extends JPanel {
         c3.gridx++;
         c3.ipadx = -60;
         timePanel.add( maxTime, c3 );
-        timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TimedAssessmentRule.Time" ) ) );
+        timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "TimedAssessmentRule.Time" ) ) );
         effectPanel.add( timePanel, c2 );
 
         c2.gridx = 0;
@@ -343,7 +343,7 @@ public class TimedAssessmentRulePanel extends JPanel {
         textTextArea.setWrapStyleWord( true );
         textTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( textTextArea ) );
         textPanel.add( new JScrollPane( textTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        textPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Effect.Text" ), TitledBorder.CENTER, TitledBorder.TOP ) );
+        textPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Effect.Text" ), TitledBorder.CENTER, TitledBorder.TOP ) );
 
         effectPanel.add( textPanel, c2 );
         //effectPanel.add( new JFiller() );

@@ -46,7 +46,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 /**
@@ -71,7 +71,7 @@ public class InvalidReportDialog extends JDialog {
      */
     public InvalidReportDialog( List<String> incidences ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Operation.AdventureConsistencyTitle" ) );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "Operation.AdventureConsistencyTitle" ) );
 
         // Set the layout for the dialog
         setLayout( new GridBagLayout( ) );
@@ -84,7 +84,7 @@ public class InvalidReportDialog extends JDialog {
         JTextPane informationTextPane = new JTextPane( );
         informationTextPane.setEditable( false );
         informationTextPane.setBackground( new JPanel( ).getBackground( ) );
-        informationTextPane.setText( TextConstants.getText( "Operation.AdventureInconsistentReport" ) );
+        informationTextPane.setText( TC.get( "Operation.AdventureInconsistentReport" ) );
         add( informationTextPane, c );
 
         // Add the list with the inconsistencies

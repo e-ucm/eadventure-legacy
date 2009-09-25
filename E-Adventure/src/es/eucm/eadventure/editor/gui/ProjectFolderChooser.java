@@ -58,7 +58,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.auxiliar.filefilters.FolderFileFilter;
 
 public class ProjectFolderChooser extends JFileChooser {
@@ -72,12 +72,12 @@ public class ProjectFolderChooser extends JFileChooser {
 
     private static File getDefaultSelectedFile( ) {
 
-        String defaultName = TextConstants.getText( "Operation.NewFileTitle" );
+        String defaultName = TC.get( "Operation.NewFileTitle" );
         File parentDir = getProjectsFolder( );
         int i = 0;
         while( new File( parentDir, defaultName ).exists( ) ) {
             i++;
-            defaultName = TextConstants.getText( "Operation.NewFileTitle" ) + " (" + i + ")";
+            defaultName = TC.get( "Operation.NewFileTitle" ) + " (" + i + ")";
         }
 
         return new File( defaultName );
@@ -106,7 +106,7 @@ public class ProjectFolderChooser extends JFileChooser {
     public ProjectFolderChooser( boolean checkName, boolean checkDescriptor ) {
 
         super( getProjectsFolder( ) );
-        super.setDialogTitle( TextConstants.getText( "Operation.NewProjectTitle" ) );
+        super.setDialogTitle( TC.get( "Operation.NewProjectTitle" ) );
         super.setMultiSelectionEnabled( false );
         super.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
         for( javax.swing.filechooser.FileFilter filter : super.getChoosableFileFilters( ) ) {
@@ -124,7 +124,7 @@ public class ProjectFolderChooser extends JFileChooser {
     @Override
     protected JDialog createDialog( Component parent ) throws HeadlessException {
 
-        String title = TextConstants.getText( "Operation.NewProjectTitle" );
+        String title = TC.get( "Operation.NewProjectTitle" );
         putClientProperty( AccessibleContext.ACCESSIBLE_DESCRIPTION_PROPERTY, title );
 
         JDialog dialog;
@@ -146,7 +146,7 @@ public class ProjectFolderChooser extends JFileChooser {
         info.setFont( new Font( Font.SERIF, Font.PLAIN, 12 ) );
         info.setEditable( false );
         info.setBackground( infoPanel.getBackground( ) );
-        info.setText( TextConstants.getText( "Operation.NewProjectMessage", FolderFileFilter.getAllowedChars( ) ) );
+        info.setText( TC.get( "Operation.NewProjectMessage", FolderFileFilter.getAllowedChars( ) ) );
         infoPanel.add( info, BorderLayout.NORTH );
 
         String os = System.getProperty( "os.name" );
@@ -154,9 +154,9 @@ public class ProjectFolderChooser extends JFileChooser {
             projectName = new JTextField( 50 );
             projectName.setText( ProjectFolderChooser.getDefaultSelectedFile( ).getName( ) );
             JPanel tempName = new JPanel( );
-            tempName.add( new JLabel( TextConstants.getText( "Operation.NewProjectName" ) ) );
+            tempName.add( new JLabel( TC.get( "Operation.NewProjectName" ) ) );
             tempName.add( projectName );
-            JButton create = new JButton( TextConstants.getText( "Operation.CreateNewProject" ) );
+            JButton create = new JButton( TC.get( "Operation.CreateNewProject" ) );
             create.addActionListener( new ActionListener( ) {
 
                 public void actionPerformed( ActionEvent arg0 ) {

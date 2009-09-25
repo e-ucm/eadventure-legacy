@@ -44,7 +44,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
@@ -115,12 +115,12 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
      */
     public ChangePageMarginsDialog( BookPagesListDataControl bookPagesList, Image background ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "BookPage.MarginDialog" ), true );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "BookPage.MarginDialog" ), true );
         this.bookPagesList = bookPagesList;
         this.background = background;
         setChanges = true;
         this.setLayout( new BorderLayout( ) );
-        this.setTitle( TextConstants.getText( "BookPage.MarginDialog" ) );
+        this.setTitle( TC.get( "BookPage.MarginDialog" ) );
 
         bookPagePreview = new BookPagePreviewPanel( null, bookPagesList.getSelectedPage( ), background );
         this.add( bookPagePreview, BorderLayout.CENTER );
@@ -181,7 +181,7 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
                 }
             }
         } );
-        marginBottomSlider.setToolTipText( TextConstants.getText( "BookPage.MarginToolTip" ) );
+        marginBottomSlider.setToolTipText( TC.get( "BookPage.MarginToolTip" ) );
     }
 
     /**
@@ -204,7 +204,7 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
                 }
             }
         } );
-        marginTopSlider.setToolTipText( TextConstants.getText( "BookPage.MarginToolTip" ) );
+        marginTopSlider.setToolTipText( TC.get( "BookPage.MarginToolTip" ) );
     }
 
     /**
@@ -227,7 +227,7 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
                 }
             }
         } );
-        marginEndSlider.setToolTipText( TextConstants.getText( "BookPage.MarginToolTip" ) );
+        marginEndSlider.setToolTipText( TC.get( "BookPage.MarginToolTip" ) );
     }
 
     /**
@@ -250,7 +250,7 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
                 }
             }
         } );
-        marginSlider.setToolTipText( TextConstants.getText( "BookPage.MarginToolTip" ) );
+        marginSlider.setToolTipText( TC.get( "BookPage.MarginToolTip" ) );
     }
 
     /**

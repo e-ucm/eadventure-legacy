@@ -53,7 +53,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.SmallActionsTable;
@@ -93,7 +93,7 @@ public class SmallActionsListPanel extends ActionsListPanel implements Updateabl
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+        newButton.setToolTipText( TC.get( "ItemReferenceTable.AddParagraph" ) );
         newButton.addMouseListener( new MouseAdapter( ) {
 
             @Override
@@ -108,7 +108,7 @@ public class SmallActionsListPanel extends ActionsListPanel implements Updateabl
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+        deleteButton.setToolTipText( TC.get( "ItemReferenceTable.Delete" ) );
         deleteButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -122,7 +122,7 @@ public class SmallActionsListPanel extends ActionsListPanel implements Updateabl
         moveUpButton.setContentAreaFilled( false );
         moveUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        moveUpButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveUp" ) );
+        moveUpButton.setToolTipText( TC.get( "ItemReferenceTable.MoveUp" ) );
         moveUpButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -136,7 +136,7 @@ public class SmallActionsListPanel extends ActionsListPanel implements Updateabl
         moveDownButton.setContentAreaFilled( false );
         moveDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        moveDownButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveDown" ) );
+        moveDownButton.setToolTipText( TC.get( "ItemReferenceTable.MoveDown" ) );
         moveDownButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {

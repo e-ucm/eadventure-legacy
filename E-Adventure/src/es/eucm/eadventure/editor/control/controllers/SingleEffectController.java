@@ -38,7 +38,7 @@ import java.util.HashMap;
 import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.effects.AddEffectTool;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;
@@ -102,13 +102,13 @@ public class SingleEffectController extends EffectsController {
         boolean effectAdded = false;
 
         // Create a list with the names of the effects (in the same order as the next)
-        final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ), TextConstants.getText( "Effect.ShowText" ), TextConstants.getText( "Effect.WaitTime" ), TextConstants.getText( "Effect.MoveObject" ) };
+        final String[] effectNames = { TC.get( "Effect.Activate" ), TC.get( "Effect.Deactivate" ), TC.get( "Effect.ConsumeObject" ), TC.get( "Effect.GenerateObject" ), TC.get( "Effect.SpeakPlayer" ), TC.get( "Effect.SpeakCharacter" ), TC.get( "Effect.TriggerBook" ), TC.get( "Effect.PlaySound" ), TC.get( "Effect.PlayAnimation" ), TC.get( "Effect.MovePlayer" ), TC.get( "Effect.MoveCharacter" ), TC.get( "Effect.TriggerConversation" ), TC.get( "Effect.TriggerCutscene" ), TC.get( "Effect.TriggerScene" ), TC.get( "Effect.TriggerLastScene" ), TC.get( "Effect.ShowText" ), TC.get( "Effect.WaitTime" ), TC.get( "Effect.MoveObject" ) };
 
         // Create a list with the types of the effects (in the same order as the previous)
         final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.SHOW_TEXT, Effect.WAIT_TIME, Effect.MOVE_OBJECT };
 
         // Show a dialog to select the type of the effect
-        String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
+        String selectedValue = controller.showInputDialog( TC.get( "Effects.OperationAddEffect" ), TC.get( "Effects.SelectEffectType" ), effectNames );
 
         // If some effect was selected
         if( selectedValue != null ) {
@@ -120,7 +120,7 @@ public class SingleEffectController extends EffectsController {
 
             HashMap<Integer, Object> effectProperties = null;
             if( selectedType == Effect.MOVE_PLAYER && Controller.getInstance( ).isPlayTransparent( ) ) {
-                Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.EffectMovePlayerNotAllowed.Title" ), TextConstants.getText( "Error.EffectMovePlayerNotAllowed.Message" ) );
+                Controller.getInstance( ).showErrorDialog( TC.get( "Error.EffectMovePlayerNotAllowed.Title" ), TC.get( "Error.EffectMovePlayerNotAllowed.Message" ) );
             }
             else {
                 effectProperties = EffectDialog.showAddEffectDialog( this, selectedType );

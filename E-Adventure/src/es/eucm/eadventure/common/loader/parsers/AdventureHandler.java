@@ -55,7 +55,7 @@ import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -406,11 +406,11 @@ public class AdventureHandler extends DefaultHandler {
 				chapterIS.close( );
 
 			} catch( ParserConfigurationException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath , e) );
+				incidences.add( Incidence.createChapterIncidence( TC.get( "Error.LoadData.SAX" ), chapterPath , e) );
 			} catch( SAXException e ) {
-			    	incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath , e) );
+			    	incidences.add( Incidence.createChapterIncidence( TC.get( "Error.LoadData.SAX" ), chapterPath , e) );
 			} catch( IOException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), chapterPath, e) );
+				incidences.add( Incidence.createChapterIncidence( TC.get( "Error.LoadData.IO" ), chapterPath, e) );
 			}
 
 		}
@@ -432,7 +432,7 @@ public class AdventureHandler extends DefaultHandler {
 						if (current.getAffectedArea( ) == Incidence.ADAPTATION_INCIDENCE && current.getAffectedResource( ).equals( adaptationName )){
 							String message = current.getMessage( );
 							incidences.remove( j );
-							incidences.add( j, Incidence.createAdaptationIncidence( true, message+TextConstants.getText( "Error.LoadAdaptation.Referenced" ), adaptationName , null) );
+							incidences.add( j, Incidence.createAdaptationIncidence( true, message+TC.get( "Error.LoadAdaptation.Referenced" ), adaptationName , null) );
 						}
 					}
 				}
@@ -455,7 +455,7 @@ public class AdventureHandler extends DefaultHandler {
 						if (current.getAffectedArea( ) == Incidence.ASSESSMENT_INCIDENCE && current.getAffectedResource( ).equals( assessmentName )){
 							String message = current.getMessage( );
 							incidences.remove( j );
-							incidences.add( j, Incidence.createAssessmentIncidence( true, message+TextConstants.getText( "Error.LoadAssessment.Referenced" ), assessmentName ,null) );
+							incidences.add( j, Incidence.createAssessmentIncidence( true, message+TC.get( "Error.LoadAssessment.Referenced" ), assessmentName ,null) );
 						}
 					}
 

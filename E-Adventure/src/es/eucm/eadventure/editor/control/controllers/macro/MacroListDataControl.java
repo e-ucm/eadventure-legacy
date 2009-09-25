@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -161,7 +161,7 @@ public class MacroListDataControl extends DataControl {
 
             // Show a dialog asking for the macro id
             if( macroId == null )
-                macroId = controller.showInputDialog( TextConstants.getText( "Operation.AddMacroTitle" ), TextConstants.getText( "Operation.AddMacroMessage" ), TextConstants.getText( "Operation.AddMacroDefaultValue" ) );
+                macroId = controller.showInputDialog( TC.get( "Operation.AddMacroTitle" ), TC.get( "Operation.AddMacroMessage" ), TC.get( "Operation.AddMacroDefaultValue" ) );
 
             // If some value was typed and the identifier is valid
             if( macroId != null && controller.isElementIdValid( macroId ) ) {
@@ -207,7 +207,7 @@ public class MacroListDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.AddMacroDefaultValue" );
+        return TC.get( "Operation.AddMacroDefaultValue" );
     }
 
     @Override
@@ -218,7 +218,7 @@ public class MacroListDataControl extends DataControl {
         String references = String.valueOf( controller.countIdentifierReferences( macroId ) );
 
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { macroId, references } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { macroId, references } ) ) ) {
             if( macrosList.remove( dataControl.getContent( ) ) ) {
                 macrosDataControlList.remove( dataControl );
                 controller.deleteIdentifierReferences( macroId );
@@ -283,7 +283,7 @@ public class MacroListDataControl extends DataControl {
         boolean valid = true;
 
         // Update the current path
-        currentPath += " >> " + TextConstants.getElementName( Controller.GLOBAL_STATE_LIST );
+        currentPath += " >> " + TC.getElement( Controller.GLOBAL_STATE_LIST );
 
         // Iterate through the macros
         for( MacroDataControl macroDataControl : macrosDataControlList ) {

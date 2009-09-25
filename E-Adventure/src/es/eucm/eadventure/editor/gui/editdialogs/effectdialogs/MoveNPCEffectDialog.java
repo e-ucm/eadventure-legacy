@@ -50,7 +50,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.ElementImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
@@ -98,7 +98,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
     public MoveNPCEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "MoveNPCEffect.Title" ), true );
+        super( TC.get( "MoveNPCEffect.Title" ), true );
 
         // Take the list of characters
         String[] charactersArray = controller.getIdentifierSummary( ).getNPCIds( );
@@ -108,7 +108,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 
             // Create the set of values for the scenes
             List<String> scenesList = new ArrayList<String>( );
-            scenesList.add( TextConstants.getText( "SceneLocation.NoSceneSelected" ) );
+            scenesList.add( TC.get( "SceneLocation.NoSceneSelected" ) );
             String[] scenesArray = controller.getIdentifierSummary( ).getSceneIds( );
             for( String scene : scenesArray )
                 scenesList.add( scene );
@@ -120,7 +120,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
             GridBagConstraints c = new GridBagConstraints( );
 
             // Set the border of the panel with the description
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "MoveNPCEffect.Description" ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "MoveNPCEffect.Description" ) ) ) );
 
             // Create and add the list of characters
             c.insets = new Insets( 2, 4, 4, 4 );
@@ -132,7 +132,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 
             // Create and add a description for the scenes
             c.gridy = 1;
-            mainPanel.add( new JLabel( TextConstants.getText( "SceneLocation.SceneListDescription" ) ), c );
+            mainPanel.add( new JLabel( TC.get( "SceneLocation.SceneListDescription" ) ), c );
 
             // Create and add the list of scenes
             c.gridy = 2;
@@ -200,7 +200,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 
         // If the list had no elements, show an error message
         else
-            controller.showErrorDialog( TextConstants.getText( "MoveNPCEffect.Title" ), TextConstants.getText( "MoveNPCEffect.ErrorNoCharacters" ) );
+            controller.showErrorDialog( TC.get( "MoveNPCEffect.Title" ), TC.get( "MoveNPCEffect.ErrorNoCharacters" ) );
     }
 
     @Override

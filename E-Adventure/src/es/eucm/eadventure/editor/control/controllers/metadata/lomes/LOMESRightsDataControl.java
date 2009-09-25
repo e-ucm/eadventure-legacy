@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESRights;
 
@@ -85,7 +85,7 @@ public class LOMESRightsDataControl {
 
                 String[] options = new String[ data.getCopyrightandotherrestrictions( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "LOMES.Rights.CopyAndOthers" + i );
+                    options[i] = TC.get( "LOMES.Rights.CopyAndOthers" + i );
                 }
                 return options;
             }
@@ -152,7 +152,7 @@ public class LOMESRightsDataControl {
 
                 String[] options = new String[ data.getAccessType( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "LOMES.Rights.AccesType" + i );
+                    options[i] = TC.get( "LOMES.Rights.AccesType" + i );
                 }
                 return options;
             }

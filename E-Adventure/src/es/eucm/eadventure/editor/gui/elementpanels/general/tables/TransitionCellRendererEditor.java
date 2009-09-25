@@ -53,7 +53,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 
 public class TransitionCellRendererEditor extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
@@ -83,17 +83,17 @@ public class TransitionCellRendererEditor extends AbstractCellEditor implements 
         if( !isSelected ) {
             switch( exit.getTransitionType( ) ) {
                 case 0:
-                    return new JLabel( TextConstants.getText( "Exit.NoTransition" ) );
+                    return new JLabel( TC.get( "Exit.NoTransition" ) );
                 case 1:
-                    return new JLabel( TextConstants.getText( "Exit.TopToBottom" ) );
+                    return new JLabel( TC.get( "Exit.TopToBottom" ) );
                 case 2:
-                    return new JLabel( TextConstants.getText( "Exit.BottomToTop" ) );
+                    return new JLabel( TC.get( "Exit.BottomToTop" ) );
                 case 3:
-                    return new JLabel( TextConstants.getText( "Exit.LeftToRight" ) );
+                    return new JLabel( TC.get( "Exit.LeftToRight" ) );
                 case 4:
-                    return new JLabel( TextConstants.getText( "Exit.RightToLeft" ) );
+                    return new JLabel( TC.get( "Exit.RightToLeft" ) );
                 case 5:
-                    return new JLabel( TextConstants.getText( "Exit.FadeIn" ) );
+                    return new JLabel( TC.get( "Exit.FadeIn" ) );
                 default:
             }
             return new JLabel( "" + exit.getTransitionType( ) );
@@ -112,12 +112,12 @@ public class TransitionCellRendererEditor extends AbstractCellEditor implements 
         GridBagConstraints c = new GridBagConstraints( );
 
         combo = new JComboBox( );
-        combo.addItem( makeObj( TextConstants.getText( "Exit.NoTransition" ) ) );
-        combo.addItem( makeObj( TextConstants.getText( "Exit.TopToBottom" ) ) );
-        combo.addItem( makeObj( TextConstants.getText( "Exit.BottomToTop" ) ) );
-        combo.addItem( makeObj( TextConstants.getText( "Exit.LeftToRight" ) ) );
-        combo.addItem( makeObj( TextConstants.getText( "Exit.RightToLeft" ) ) );
-        combo.addItem( makeObj( TextConstants.getText( "Exit.FadeIn" ) ) );
+        combo.addItem( makeObj( TC.get( "Exit.NoTransition" ) ) );
+        combo.addItem( makeObj( TC.get( "Exit.TopToBottom" ) ) );
+        combo.addItem( makeObj( TC.get( "Exit.BottomToTop" ) ) );
+        combo.addItem( makeObj( TC.get( "Exit.LeftToRight" ) ) );
+        combo.addItem( makeObj( TC.get( "Exit.RightToLeft" ) ) );
+        combo.addItem( makeObj( TC.get( "Exit.FadeIn" ) ) );
         combo.setSelectedIndex( exit.getTransitionType( ) );
 
         combo.addActionListener( new ActionListener( ) {

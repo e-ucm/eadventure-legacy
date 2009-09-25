@@ -51,7 +51,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
@@ -151,14 +151,14 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 
             if( !context.containsKey( ConditionsController.CONDITION_CUSTOM_MESSAGE ) ) {
 
-                String ownerTypeString = TextConstants.getElementName( owner.getOwnerType( ) );
-                html += TextConstants.getText( "Conditions.Context.Sentence1" ) + "<i>" + ownerTypeString + "</i>" + " <b>\"" + owner.getOwnerName( ) + "\" </b>";
+                String ownerTypeString = TC.getElement( owner.getOwnerType( ) );
+                html += TC.get( "Conditions.Context.Sentence1" ) + "<i>" + ownerTypeString + "</i>" + " <b>\"" + owner.getOwnerName( ) + "\" </b>";
 
                 ConditionOwner parent = owner.getParent( );
                 if( parent != null )
                     html += " (";
                 while( parent != null ) {
-                    html += TextConstants.getElementName( parent.getOwnerType( ) ) + " " + parent.getOwnerName( );
+                    html += TC.getElement( parent.getOwnerType( ) ) + " " + parent.getOwnerName( );
                     parent = parent.getParent( );
                     if( parent != null )
                         html += ", ";
@@ -167,10 +167,10 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
                 }
 
                 if( !conditionsController.isEmpty( ) ) {
-                    html += TextConstants.getText( "Conditions.Context.Sentence2a" );
+                    html += TC.get( "Conditions.Context.Sentence2a" );
                 }
                 else {
-                    html += TextConstants.getText( "Conditions.Context.Sentence2b" );
+                    html += TC.get( "Conditions.Context.Sentence2b" );
                 }
             }
             else {
@@ -185,7 +185,7 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 
         }
         else {
-            html += TextConstants.getText( "Conditions.Context.NoOwner" );
+            html += TC.get( "Conditions.Context.NoOwner" );
         }
         html += "\n\t\t</p>\n";
         html += "\t</body>\n";
@@ -197,7 +197,7 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 
         buttonsPanel = new JPanel( );
         addConditionButton = new JButton( new ImageIcon( "img/icons/addNode.png" ) );
-        addConditionButton.setText( TextConstants.getText( "Conditions.AddCondition" ) );
+        addConditionButton.setText( TC.get( "Conditions.AddCondition" ) );
         addConditionButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -209,7 +209,7 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 
         ConditionOwner owner = (ConditionOwner) conditionsController.getContext( ).get( ConditionsController.CONDITION_OWNER );
         if( owner != null && owner.getOwnerType( ) != Controller.GLOBAL_STATE ) {
-            okButton = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+            okButton = new JButton( TC.get( "GeneralText.OK" ) );
             okButton.addActionListener( new ActionListener( ) {
 
                 public void actionPerformed( ActionEvent e ) {
@@ -303,7 +303,7 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
     public void addCondition( int index1, int index2 ) {
 
         // Display the dialog to add a new condition
-        ConditionDialog conditionDialog = new ConditionDialog( TextConstants.getText( "Conditions.AddCondition" ) );
+        ConditionDialog conditionDialog = new ConditionDialog( TC.get( "Conditions.AddCondition" ) );
 
         // If the data was approved
         if( conditionDialog.wasPressedOKButton( ) ) {
@@ -356,7 +356,7 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
         else if( defaultType.equals( ConditionsPanelController.CONDITION_TYPE_GS ) ) {
             defaultFlag = defaultVar = null;
         }
-        ConditionDialog conditionDialog = new ConditionDialog( defaultType, TextConstants.getText( "Conditions.EditCondition" ), defaultState, defaultFlag, defaultVar, defaultId, defaultValue, conditionsController.getContext( ) );
+        ConditionDialog conditionDialog = new ConditionDialog( defaultType, TC.get( "Conditions.EditCondition" ), defaultState, defaultFlag, defaultVar, defaultId, defaultValue, conditionsController.getContext( ) );
 
         // If the data was approved
         if( conditionDialog.wasPressedOKButton( ) ) {

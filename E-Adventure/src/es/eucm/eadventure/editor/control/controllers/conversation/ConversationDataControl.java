@@ -42,7 +42,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
@@ -449,7 +449,7 @@ public abstract class ConversationDataControl extends DataControl {
             return controller.addTool( new SelectLineAudioPathTool( ( (ConversationNode) selectedNode ).getLine( selectedRow ) ) );
         }
         catch( CloneNotSupportedException e ) {
-            ReportDialog.GenerateErrorReport( new Exception( "Could not clone resources" ), false, TextConstants.getText( "Error.Title" ) );
+            ReportDialog.GenerateErrorReport( new Exception( "Could not clone resources" ), false, TC.get( "Error.Title" ) );
             return false;
         }
     }
@@ -500,7 +500,7 @@ public abstract class ConversationDataControl extends DataControl {
             visitedNodes.add( node );
             if( node.getType( ) == ConversationNodeView.OPTION && node.getLineCount( ) == 0 ) {
                 if( incidences != null && currentPath != null )
-                    incidences.add( currentPath + " >> " + TextConstants.getText( "Operation.AdventureConsistencyErrorEmptyOptionsNode" ) );
+                    incidences.add( currentPath + " >> " + TC.get( "Operation.AdventureConsistencyErrorEmptyOptionsNode" ) );
                 valid = false;
             }
             else {

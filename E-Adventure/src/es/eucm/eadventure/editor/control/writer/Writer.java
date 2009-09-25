@@ -66,7 +66,7 @@ import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
@@ -180,20 +180,20 @@ public class Writer {
 
         }
         catch( IOException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
         }
         catch( ParserConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
         }
         catch( TransformerConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
         }
         catch( TransformerException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
         }
 
         return dataSaved;
@@ -304,20 +304,20 @@ public class Writer {
 
         }
         catch( IOException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
         }
         catch( ParserConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
         }
         catch( TransformerConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
         }
         catch( TransformerException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
         }
 
         return dataSaved;
@@ -850,23 +850,23 @@ public class Writer {
 
         }
         catch( IOException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( ParserConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( TransformerConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( TransformerException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
 
@@ -1044,23 +1044,23 @@ public class Writer {
 
         }
         catch( IOException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( ParserConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( TransformerConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( TransformerException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
 
@@ -1236,23 +1236,23 @@ public class Writer {
 
         }
         catch( IOException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( ParserConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( TransformerConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( TransformerException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
 
@@ -1425,23 +1425,23 @@ public class Writer {
 
         }
         catch( IOException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( ParserConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( TransformerConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
         catch( TransformerException exception ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TextConstants.getText( "Error.WriteData" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
+            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
             dataSaved = false;
         }
 

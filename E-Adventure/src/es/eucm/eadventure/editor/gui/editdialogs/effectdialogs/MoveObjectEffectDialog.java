@@ -51,7 +51,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.NoEditableNumberSpinner;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.ElementImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
@@ -94,18 +94,18 @@ public class MoveObjectEffectDialog extends EffectDialog {
     public MoveObjectEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "MoveObjectEffect.Title" ), true );
+        super( TC.get( "MoveObjectEffect.Title" ), true );
 
         // Create the set of values for the scenes
         List<String> scenesList = new ArrayList<String>( );
-        scenesList.add( TextConstants.getText( "MoveObjectEffect.NoSceneSelected" ) );
+        scenesList.add( TC.get( "MoveObjectEffect.NoSceneSelected" ) );
         String[] scenesArray = controller.getIdentifierSummary( ).getSceneIds( );
         for( String scene : scenesArray )
             scenesList.add( scene );
         scenesArray = scenesList.toArray( new String[] {} );
         
         List<String> itemList = new ArrayList<String>();
-        itemList.add( TextConstants.getText( "MoveObjectEffect.NoItemSelected" ) );
+        itemList.add( TC.get( "MoveObjectEffect.NoItemSelected" ) );
         String[] itemArray = controller.getIdentifierSummary( ).getItemIds( );
         for (String item : itemArray )
             itemList.add( item );
@@ -139,12 +139,12 @@ public class MoveObjectEffectDialog extends EffectDialog {
         
         JPanel animatedPanel = new JPanel();
         
-        animatedCheckBox = new JCheckBox(TextConstants.getText( "MoveObjectEffect.Animated" ));
+        animatedCheckBox = new JCheckBox(TC.get( "MoveObjectEffect.Animated" ));
         animatedPanel.add( animatedCheckBox );
-        animatedPanel.add(new JLabel(TextConstants.getText( "MoveObjectEffect.TranslateSpeed" )));
+        animatedPanel.add(new JLabel(TC.get( "MoveObjectEffect.TranslateSpeed" )));
         translateSpeedSpinner = new NoEditableNumberSpinner(20, 10, 100, 10);
         animatedPanel.add(translateSpeedSpinner);
-        animatedPanel.add(new JLabel(TextConstants.getText( "MoveObjectEffect.ScaleSpeed" )));
+        animatedPanel.add(new JLabel(TC.get( "MoveObjectEffect.ScaleSpeed" )));
         scaleSpeedSpinner = new NoEditableNumberSpinner(20, 10, 100, 10);
         animatedPanel.add(scaleSpeedSpinner);
         

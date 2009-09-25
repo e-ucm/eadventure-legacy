@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.data.meta.auxiliar;
 
 import java.util.ArrayList;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMESLifeCycleContribute implements LOMESComposeType {
@@ -92,8 +92,8 @@ public class LOMESLifeCycleContribute implements LOMESComposeType {
     public static String[] attributes( ) {
 
         String[] attr = new String[ NUMBER_ATTR ];
-        attr[0] = TextConstants.getText( "LOMES.GeneralId.CatalogName" ) + " " + ATTR_STRING;
-        attr[0] = TextConstants.getText( "LOMES.GeneralId.EntryName" ) + " " + ATTR_STRING;
+        attr[0] = TC.get( "LOMES.GeneralId.CatalogName" ) + " " + ATTR_STRING;
+        attr[0] = TC.get( "LOMES.GeneralId.EntryName" ) + " " + ATTR_STRING;
         return attr;
     }
 
@@ -134,7 +134,7 @@ public class LOMESLifeCycleContribute implements LOMESComposeType {
 
         String[] options = new String[ numberRoleLifecycleValues ];
         for( int i = 0; i < options.length; i++ ) {
-            options[i] = TextConstants.getText( "LOMES.LifeCycle.Role" + i );
+            options[i] = TC.get( "LOMES.LifeCycle.Role" + i );
         }
         return options;
     }
@@ -143,7 +143,7 @@ public class LOMESLifeCycleContribute implements LOMESComposeType {
 
         String[] options = new String[ numberRoleMetametaValues ];
         for( int i = 0; i < options.length; i++ ) {
-            options[i] = TextConstants.getText( "LOMES.Metameta.Role" + i );
+            options[i] = TC.get( "LOMES.Metameta.Role" + i );
         }
         return options;
     }

@@ -44,7 +44,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMContribute;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
@@ -98,7 +98,7 @@ public class LOMESCreateContainerPanel extends JPanel {
 
         String[] containerElements = container.elements( );
         String[] ele = new String[ containerElements.length + 1 ];
-        ele[0] = TextConstants.getText( "LOMES.AddElement" );
+        ele[0] = TC.get( "LOMES.AddElement" );
         for( int i = 0; i < containerElements.length; i++ ) {
             ele[i + 1] = containerElements[i];
         }
@@ -108,7 +108,7 @@ public class LOMESCreateContainerPanel extends JPanel {
 
         this.add( elements, c );
 
-        add = new JButton( TextConstants.getText( "LOMES.Add" ) );
+        add = new JButton( TC.get( "LOMES.Add" ) );
         add.addActionListener( new AddButtonListener( ) );
 
         c.gridx++;
@@ -116,7 +116,7 @@ public class LOMESCreateContainerPanel extends JPanel {
 
         this.add( add, c );
 
-        delete = new JButton( TextConstants.getText( "LOMES.Delete" ) );
+        delete = new JButton( TC.get( "LOMES.Delete" ) );
         delete.addActionListener( new DeleteButtonListener( ) );
 
         c.gridx++;

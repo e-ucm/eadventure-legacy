@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.character;
 
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
@@ -69,7 +69,7 @@ public class PlayerPanel extends ElementPanel {
 
         public DocPanelTab( NPCDataControl dataControl ) {
 
-            super( TextConstants.getText( "NPC.DocPanelTitle" ), dataControl );
+            super( TC.get( "NPC.DocPanelTitle" ), dataControl );
             this.dataControl = dataControl;
         }
 
@@ -86,7 +86,7 @@ public class PlayerPanel extends ElementPanel {
 
         public LooksPanelTab( NPCDataControl dataControl ) {
 
-            super( TextConstants.getText( "NPC.LookPanelTitle" ), dataControl );
+            super( TC.get( "NPC.LookPanelTitle" ), dataControl );
             this.dataControl = dataControl;
         }
 
@@ -103,8 +103,8 @@ public class PlayerPanel extends ElementPanel {
 
         public DialogPanelTab( NPCDataControl dataControl ) {
 
-            super( TextConstants.getText( "NPC.DialogPanelTitle" ), dataControl );
-            setToolTipText( TextConstants.getText( "NPC.DialogPanelTip" ) );
+            super( TC.get( "NPC.DialogPanelTitle" ), dataControl );
+            setToolTipText( TC.get( "NPC.DialogPanelTip" ) );
             this.dataControl = dataControl;
         }
 

@@ -54,7 +54,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
@@ -168,7 +168,7 @@ class GameStatePanel extends JPanel implements Updateable {
 
         // Table scrollPane
         tableScrollPanel = new JScrollPane( actionFlagsTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
-        tableScrollPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "AdaptationRule.GameState.ActionFlags" ) ) );
+        tableScrollPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TC.get( "AdaptationRule.GameState.ActionFlags" ) ) );
         /* End of common elements */
 
         /* Dialogue panel elements */
@@ -176,19 +176,19 @@ class GameStatePanel extends JPanel implements Updateable {
         insertActionFlagButton.setContentAreaFilled( false );
         insertActionFlagButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         insertActionFlagButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        insertActionFlagButton.setToolTipText( TextConstants.getText( "Operation.AdaptationPanel.InsertButton" ) );
+        insertActionFlagButton.setToolTipText( TC.get( "Operation.AdaptationPanel.InsertButton" ) );
         insertActionFlagButton.addActionListener( new ListenerButtonInsertLine( ) );
 
         deleteActionFlagButton = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deleteActionFlagButton.setContentAreaFilled( false );
         deleteActionFlagButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteActionFlagButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteActionFlagButton.setToolTipText( TextConstants.getText( "Operation.AdaptationPanel.DeleteButton" ) );
+        deleteActionFlagButton.setToolTipText( TC.get( "Operation.AdaptationPanel.DeleteButton" ) );
         deleteActionFlagButton.addActionListener( new ListenerButtonDeleteLine( ) );
 
         String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
         String[] isValues = new String[ scenes.length + 1 ];
-        isValues[0] = TextConstants.getText( "GeneralText.NotSelected" );
+        isValues[0] = TC.get( "GeneralText.NotSelected" );
         for( int i = 0; i < scenes.length; i++ ) {
             isValues[i + 1] = scenes[i];
         }

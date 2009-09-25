@@ -43,7 +43,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.TreeConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -128,7 +128,7 @@ public class DeleteConversationNodeTool extends Tool {
         boolean nodeDeleted = false;
 
         // Ask for confirmation
-        if( !showConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Conversation.OperationDeleteNode" ), TextConstants.getText( "Conversation.ConfirmDeleteNode" ) ) ) {
+        if( !showConfirmation || controller.showStrictConfirmDialog( TC.get( "Conversation.OperationDeleteNode" ), TC.get( "Conversation.ConfirmDeleteNode" ) ) ) {
             // Take the complete node
             ConversationNode node = (ConversationNode) nodeView;
 

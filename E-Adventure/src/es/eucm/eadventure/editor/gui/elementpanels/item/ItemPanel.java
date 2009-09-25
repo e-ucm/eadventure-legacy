@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.item;
 
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
@@ -67,7 +67,7 @@ public class ItemPanel extends ElementPanel {
 
         public ItemDocPanelTab( ItemDataControl itemDataControl ) {
 
-            super( TextConstants.getText( "Item.DocPanelTitle" ), itemDataControl );
+            super( TC.get( "Item.DocPanelTitle" ), itemDataControl );
             this.itemDataControl = itemDataControl;
         }
 
@@ -84,7 +84,7 @@ public class ItemPanel extends ElementPanel {
 
         public ItemLooksPanelTab( ItemDataControl itemDataControl ) {
 
-            super( TextConstants.getText( "Item.LookPanelTitle" ), itemDataControl );
+            super( TC.get( "Item.LookPanelTitle" ), itemDataControl );
             this.itemDataControl = itemDataControl;
         }
 
@@ -100,7 +100,7 @@ public class ItemPanel extends ElementPanel {
         private ItemDataControl itemDataControl;
 
         public ActionsPanelTab( ItemDataControl itemDataControl ) {
-            super( TextConstants.getText( "Item.ActionsPanelTitle" ), itemDataControl.getActionsList( ) );
+            super( TC.get( "Item.ActionsPanelTitle" ), itemDataControl.getActionsList( ) );
             this.itemDataControl = itemDataControl;
         }
 

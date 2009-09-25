@@ -47,7 +47,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMEducationalDataControl;
 
 public class LOMEducationalPanel extends JPanel {
@@ -76,11 +76,11 @@ public class LOMEducationalPanel extends JPanel {
         c1.setHgap( 2 );
         c1.setVgap( 2 );
         firstRow.setLayout( c1 );
-        LOMOptionsPanel intendedEnd = new LOMOptionsPanel( dataControl.getIntendedEndUserRoleController( ), TextConstants.getText( "LOM.Educational.IntendedEndUserRole" ) );
+        LOMOptionsPanel intendedEnd = new LOMOptionsPanel( dataControl.getIntendedEndUserRoleController( ), TC.get( "LOM.Educational.IntendedEndUserRole" ) );
         firstRow.add( intendedEnd );
-        LOMOptionsPanel semantic = new LOMOptionsPanel( dataControl.getSemanticDensityController( ), TextConstants.getText( "LOM.Educational.SemanticDensity" ) );
+        LOMOptionsPanel semantic = new LOMOptionsPanel( dataControl.getSemanticDensityController( ), TC.get( "LOM.Educational.SemanticDensity" ) );
         firstRow.add( semantic );
-        LOMOptionsPanel learningResources = new LOMOptionsPanel( dataControl.getLearningResourceTypeController( ), TextConstants.getText( "LOM.Educational.LearningResourceType" ) );
+        LOMOptionsPanel learningResources = new LOMOptionsPanel( dataControl.getLearningResourceTypeController( ), TC.get( "LOM.Educational.LearningResourceType" ) );
         firstRow.add( learningResources );
 
         JPanel secondRow = new JPanel( );
@@ -88,13 +88,13 @@ public class LOMEducationalPanel extends JPanel {
         c2.setHgap( 2 );
         c2.setVgap( 2 );
         secondRow.setLayout( c2 );
-        LOMOptionsPanel context = new LOMOptionsPanel( dataControl.getContextController( ), TextConstants.getText( "LOM.Educational.Context" ) );
+        LOMOptionsPanel context = new LOMOptionsPanel( dataControl.getContextController( ), TC.get( "LOM.Educational.Context" ) );
         secondRow.add( context );
-        LOMOptionsPanel difficulty = new LOMOptionsPanel( dataControl.getDifficultyController( ), TextConstants.getText( "LOM.Educational.Difficulty" ) );
+        LOMOptionsPanel difficulty = new LOMOptionsPanel( dataControl.getDifficultyController( ), TC.get( "LOM.Educational.Difficulty" ) );
         secondRow.add( difficulty );
-        LOMOptionsPanel interactivityLevel = new LOMOptionsPanel( dataControl.getInteractivityLevelController( ), TextConstants.getText( "LOM.Educational.InteractivityLevel" ) );
+        LOMOptionsPanel interactivityLevel = new LOMOptionsPanel( dataControl.getInteractivityLevelController( ), TC.get( "LOM.Educational.InteractivityLevel" ) );
         secondRow.add( interactivityLevel );
-        LOMOptionsPanel interactivityType = new LOMOptionsPanel( dataControl.getInteractivityTypeController( ), TextConstants.getText( "LOM.Educational.InteractivityType" ) );
+        LOMOptionsPanel interactivityType = new LOMOptionsPanel( dataControl.getInteractivityTypeController( ), TC.get( "LOM.Educational.InteractivityType" ) );
         secondRow.add( interactivityType );
 
         optionsPanel.add( firstRow );
@@ -111,18 +111,18 @@ public class LOMEducationalPanel extends JPanel {
         minutes = new JTextField( 5 );
         minutes.setText( dataControl.getTypicalLearningTime( ).getMinutes( ) );
         minutes.addFocusListener( new TextFieldChangesListener( ) );
-        JLabel hoursLabel = new JLabel( TextConstants.getText( "LOM.Duration.Hours" ) );
-        JLabel minutesLabel = new JLabel( TextConstants.getText( "LOM.Duration.Minutes" ) );
+        JLabel hoursLabel = new JLabel( TC.get( "LOM.Duration.Hours" ) );
+        JLabel minutesLabel = new JLabel( TC.get( "LOM.Duration.Minutes" ) );
 
         typicalLearningTimePanel.add( hoursLabel );
         typicalLearningTimePanel.add( hours );
         typicalLearningTimePanel.add( minutesLabel );
         typicalLearningTimePanel.add( minutes );
-        typicalLearningTimePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOM.Educational.TypicalLearningTime" ) ) );
+        typicalLearningTimePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOM.Educational.TypicalLearningTime" ) ) );
 
         //Create the other panels
-        LOMTextPanel descriptionPanel = new LOMTextPanel( dataControl.getDescriptionController( ), TextConstants.getText( "LOM.Educational.Description" ), LOMTextPanel.TYPE_AREA );
-        LOMTextPanel typicalAgeRangePanel = new LOMTextPanel( dataControl.getTypicalAgeRangeController( ), TextConstants.getText( "LOM.Educational.TypicalAgeRange" ), LOMTextPanel.TYPE_FIELD );
+        LOMTextPanel descriptionPanel = new LOMTextPanel( dataControl.getDescriptionController( ), TC.get( "LOM.Educational.Description" ), LOMTextPanel.TYPE_AREA );
+        LOMTextPanel typicalAgeRangePanel = new LOMTextPanel( dataControl.getTypicalAgeRangeController( ), TC.get( "LOM.Educational.TypicalAgeRange" ), LOMTextPanel.TYPE_FIELD );
 
         // check if there are related stored data in config file
         /*if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "intendedEndUserRole")){

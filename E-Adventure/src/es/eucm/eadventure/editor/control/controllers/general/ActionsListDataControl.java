@@ -43,7 +43,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -127,33 +127,33 @@ public class ActionsListDataControl extends DataControl {
             Action action = actionsList.get( i );
 
             if( action.getType( ) == Action.EXAMINE )
-                actionsInfo[i][0] = TextConstants.getText( "ActionsList.ExamineAction" );
+                actionsInfo[i][0] = TC.get( "ActionsList.ExamineAction" );
             else if( action.getType( ) == Action.GRAB )
-                actionsInfo[i][0] = TextConstants.getText( "ActionsList.GrabAction" );
+                actionsInfo[i][0] = TC.get( "ActionsList.GrabAction" );
             else if( action.getType( ) == Action.CUSTOM )
-                actionsInfo[i][0] = TextConstants.getText( "ActionsList.CustomAction", ( (CustomAction) action ).getName( ) );
+                actionsInfo[i][0] = TC.get( "ActionsList.CustomAction", ( (CustomAction) action ).getName( ) );
             else if( action.getType( ) == Action.GIVE_TO )
-                actionsInfo[i][0] = TextConstants.getText( "ActionsList.GiveToAction", action.getTargetId( ) );
+                actionsInfo[i][0] = TC.get( "ActionsList.GiveToAction", action.getTargetId( ) );
             else if( action.getType( ) == Action.USE_WITH )
-                actionsInfo[i][0] = TextConstants.getText( "ActionsList.UseWithAction", action.getTargetId( ) );
+                actionsInfo[i][0] = TC.get( "ActionsList.UseWithAction", action.getTargetId( ) );
             else if( action.getType( ) == Action.CUSTOM_INTERACT )
-                actionsInfo[i][0] = TextConstants.getText( "ActionsList.CustomInteractAction", action.getTargetId( ) );
+                actionsInfo[i][0] = TC.get( "ActionsList.CustomInteractAction", action.getTargetId( ) );
             else if( action.getType( ) == Action.USE )
-                actionsInfo[i][0] = TextConstants.getText( "ActionsList.UseAction" );
+                actionsInfo[i][0] = TC.get( "ActionsList.UseAction" );
             else if( action.getType( ) == Action.TALK_TO )
-                actionsInfo[i][0] = TextConstants.getText( "ActionsList.TalkToAction" );
+                actionsInfo[i][0] = TC.get( "ActionsList.TalkToAction" );
             else if( action.getType( ) == Action.DRAG_TO )
-                actionsInfo[i][0] = TextConstants.getText( "ActionsList.DragToAction" );
+                actionsInfo[i][0] = TC.get( "ActionsList.DragToAction" );
 
             if( action.getConditions( ).isEmpty( ) )
-                actionsInfo[i][1] = TextConstants.getText( "GeneralText.No" );
+                actionsInfo[i][1] = TC.get( "GeneralText.No" );
             else
-                actionsInfo[i][1] = TextConstants.getText( "GeneralText.Yes" );
+                actionsInfo[i][1] = TC.get( "GeneralText.Yes" );
 
             if( action.getEffects( ).isEmpty( ) )
-                actionsInfo[i][2] = TextConstants.getText( "GeneralText.No" );
+                actionsInfo[i][2] = TC.get( "GeneralText.No" );
             else
-                actionsInfo[i][2] = TextConstants.getText( "GeneralText.Yes" );
+                actionsInfo[i][2] = TC.get( "GeneralText.Yes" );
         }
 
         return actionsInfo;
@@ -218,24 +218,24 @@ public class ActionsListDataControl extends DataControl {
         else if( type == Controller.ACTION_TALK_TO ) {
             String[] conversations = controller.getIdentifierSummary( ).getConversationsIds( );
             if( conversations.length > 0 ) {
-                String selectedElement = controller.showInputDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "TalkToAction.MessageSelectConversation" ), conversations );
+                String selectedElement = controller.showInputDialog( TC.get( "Action.OperationAddAction" ), TC.get( "TalkToAction.MessageSelectConversation" ), conversations );
                 if( selectedElement != null ) {
                     newAction = new Action( Action.TALK_TO );
                     newAction.getEffects( ).add( new TriggerConversationEffect( selectedElement ) );
                 }
             }
             else
-                controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoItems" ) );
+                controller.showErrorDialog( TC.get( "Action.OperationAddAction" ), TC.get( "Action.ErrorNoItems" ) );
 
         }
         else if( type == Controller.ACTION_CUSTOM_INTERACT ) {
-            String name = JOptionPane.showInputDialog( null, TextConstants.getText( "CustomAction.GetNameMessage" ), TextConstants.getText( "CustomAction.GetNameTitle" ), JOptionPane.QUESTION_MESSAGE );
+            String name = JOptionPane.showInputDialog( null, TC.get( "CustomAction.GetNameMessage" ), TC.get( "CustomAction.GetNameTitle" ), JOptionPane.QUESTION_MESSAGE );
             if( name.equals( "" ) ) {
                 name = "NONAME_" + ( new Random( ) ).nextInt( 1000 );
             }
 
             Object[] options = { "Action", "Interaction" };
-            int option = JOptionPane.showOptionDialog( null, TextConstants.getText( "CustomAction.SelectTypeMessage" ), TextConstants.getText( "CustomAction.SelectTypeTitle" ), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0 );
+            int option = JOptionPane.showOptionDialog( null, TC.get( "CustomAction.SelectTypeMessage" ), TC.get( "CustomAction.SelectTypeTitle" ), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0 );
             if( option == 0 ) {
                 newAction = new CustomAction( Action.CUSTOM );
                 ( (CustomAction) newAction ).setName( name );
@@ -255,7 +255,7 @@ public class ActionsListDataControl extends DataControl {
 
                 // If the list has elements, show the dialog with the options
                 if( elements.length > 0 ) {
-                    String selectedElement = controller.showInputDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "CustomAction.MessageSelectInteraction" ), elements );
+                    String selectedElement = controller.showInputDialog( TC.get( "Action.OperationAddAction" ), TC.get( "CustomAction.MessageSelectInteraction" ), elements );
 
                     // If some value was selected
                     if( selectedElement != null ) {
@@ -266,12 +266,12 @@ public class ActionsListDataControl extends DataControl {
 
                 // If the list had no elements, show an error dialog
                 else
-                    controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoItems" ) );
+                    controller.showErrorDialog( TC.get( "Action.OperationAddAction" ), TC.get( "Action.ErrorNoItems" ) );
 
             }
         }
         else if( type == Controller.ACTION_CUSTOM ) {
-            String name = JOptionPane.showInputDialog( null, TextConstants.getText( "CustomAction.GetNameMessage" ), TextConstants.getText( "CustomAction.GetNameTitle" ), JOptionPane.QUESTION_MESSAGE );
+            String name = JOptionPane.showInputDialog( null, TC.get( "CustomAction.GetNameMessage" ), TC.get( "CustomAction.GetNameTitle" ), JOptionPane.QUESTION_MESSAGE );
             if( name.equals( "" ) ) {
                 name = "NONAME_" + ( new Random( ) ).nextInt( 1000 );
             }
@@ -287,7 +287,7 @@ public class ActionsListDataControl extends DataControl {
 
             // If the list has elements, show the dialog with the options
             if( items.length > 0 ) {
-                String selectedItem = controller.showInputDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.MessageSelectItem" ), items );
+                String selectedItem = controller.showInputDialog( TC.get( "Action.OperationAddAction" ), TC.get( "Action.MessageSelectItem" ), items );
 
                 // If some value was selected
                 if( selectedItem != null )
@@ -296,7 +296,7 @@ public class ActionsListDataControl extends DataControl {
 
             // If the list had no elements, show an error dialog
             else
-                controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoItems" ) );
+                controller.showErrorDialog( TC.get( "Action.OperationAddAction" ), TC.get( "Action.ErrorNoItems" ) );
         }
 
         // If the type of action is drag-to, we must ask for a second item
@@ -306,7 +306,7 @@ public class ActionsListDataControl extends DataControl {
 
             // If the list has elements, show the dialog with the options
             if( items.length > 0 ) {
-                String selectedItem = controller.showInputDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.MessageSelectItem" ), items );
+                String selectedItem = controller.showInputDialog( TC.get( "Action.OperationAddAction" ), TC.get( "Action.MessageSelectItem" ), items );
 
                 // If some value was selected
                 if( selectedItem != null )
@@ -315,7 +315,7 @@ public class ActionsListDataControl extends DataControl {
 
             // If the list had no elements, show an error dialog
             else
-                controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoItems" ) );
+                controller.showErrorDialog( TC.get( "Action.OperationAddAction" ), TC.get( "Action.ErrorNoItems" ) );
         }
 
         // If the type of action is give-to, we must ask for a character
@@ -325,7 +325,7 @@ public class ActionsListDataControl extends DataControl {
 
             // If the list has elements, show the dialog with the options
             if( npcs.length > 0 ) {
-                String selectedNPC = controller.showInputDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.MessageSelectNPC" ), npcs );
+                String selectedNPC = controller.showInputDialog( TC.get( "Action.OperationAddAction" ), TC.get( "Action.MessageSelectNPC" ), npcs );
 
                 // If some value was selected
                 if( selectedNPC != null )
@@ -334,7 +334,7 @@ public class ActionsListDataControl extends DataControl {
 
             // If the list had no elements, show an error dialog
             else
-                controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoNPCs" ) );
+                controller.showErrorDialog( TC.get( "Action.OperationAddAction" ), TC.get( "Action.ErrorNoNPCs" ) );
         }
 
         // If an action was added, create a controller and store it
@@ -435,7 +435,7 @@ public class ActionsListDataControl extends DataControl {
 
         // Iterate through the actions
         for( int i = 0; i < actionsDataControlList.size( ); i++ ) {
-            String actionPath = currentPath + " >> " + TextConstants.getText( "Element.Action" ) + " #" + ( i + 1 ) + " (" + TextConstants.getElementName( actionsDataControlList.get( i ).getType( ) ) + ")";
+            String actionPath = currentPath + " >> " + TC.get( "Element.Action" ) + " #" + ( i + 1 ) + " (" + TC.getElement( actionsDataControlList.get( i ).getType( ) ) + ")";
             valid &= actionsDataControlList.get( i ).isValid( actionPath, incidences );
         }
 

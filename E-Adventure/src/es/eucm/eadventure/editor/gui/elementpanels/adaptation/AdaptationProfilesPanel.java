@@ -40,7 +40,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
@@ -67,7 +67,7 @@ public class AdaptationProfilesPanel extends ElementPanel {
 
         public AdaptationProfilesPanelTab( AdaptationProfilesDataControl sDataControl ) {
 
-            super( TextConstants.getText( "AdaptationProfiles.Title" ), sDataControl );
+            super( TC.get( "AdaptationProfiles.Title" ), sDataControl );
             this.sDataControl = sDataControl;
         }
 

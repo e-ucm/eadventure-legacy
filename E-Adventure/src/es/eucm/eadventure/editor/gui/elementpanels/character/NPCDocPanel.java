@@ -50,7 +50,7 @@ import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.Named;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.DetailedDescriptionChangeListener;
@@ -102,7 +102,7 @@ public class NPCDocPanel extends JPanel {
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) dataControl.getContent( ) ) );
         documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
-        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPC.Documentation" ) ) );
+        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "NPC.Documentation" ) ) );
         add( documentationPanel, cDoc );
 
         cDoc.fill = GridBagConstraints.HORIZONTAL;
@@ -115,7 +115,7 @@ public class NPCDocPanel extends JPanel {
         nameTextField = new JTextField( dataControl.getName( ) );
         nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) dataControl.getContent( ) ) );
         namePanel.add( nameTextField );
-        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPC.Name" ) ) );
+        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "NPC.Name" ) ) );
         add( namePanel, cDoc );
 
         // Create the field for the brief description
@@ -125,7 +125,7 @@ public class NPCDocPanel extends JPanel {
         descriptionTextField = new JTextField( dataControl.getBriefDescription( ) );
         descriptionTextField.getDocument( ).addDocumentListener( new DescriptionChangeListener( descriptionTextField, (Described) dataControl.getContent( ) ) );
         descriptionPanel.add( descriptionTextField );
-        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPC.Description" ) ) );
+        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "NPC.Description" ) ) );
         add( descriptionPanel, cDoc );
 
         // Create the field for the detailed description
@@ -135,7 +135,7 @@ public class NPCDocPanel extends JPanel {
         detailedDescriptionTextField = new JTextField( dataControl.getDetailedDescription( ) );
         detailedDescriptionTextField.getDocument( ).addDocumentListener( new DetailedDescriptionChangeListener( detailedDescriptionTextField, (Detailed) dataControl.getContent( ) ) );
         detailedDescriptionPanel.add( detailedDescriptionTextField );
-        detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPC.DetailedDescription" ) ) );
+        detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "NPC.DetailedDescription" ) ) );
         add( detailedDescriptionPanel, cDoc );
     }
 

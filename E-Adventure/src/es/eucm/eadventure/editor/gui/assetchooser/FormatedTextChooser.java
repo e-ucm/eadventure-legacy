@@ -40,7 +40,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.FormattedTextPanel;
 
@@ -57,7 +57,7 @@ public class FormatedTextChooser extends AssetChooser {
 
     public FormatedTextChooser( ) {
 
-        super( AssetsConstants.CATEGORY_STYLED_TEXT, AssetsController.FILTER_NONE, AssetChooser.PREVIEW_LOCATION_SOUTH, TextConstants.getText( "AssetsChooser.FormattedText" ) );
+        super( AssetsConstants.CATEGORY_STYLED_TEXT, AssetsController.FILTER_NONE, AssetChooser.PREVIEW_LOCATION_SOUTH, TC.get( "AssetsChooser.FormattedText" ) );
     }
 
     @Override
@@ -69,7 +69,7 @@ public class FormatedTextChooser extends AssetChooser {
         scrollPane = new JScrollPane( previewPanel );
         previewPanelContainer.add( scrollPane, BorderLayout.CENTER );
         //previewPanelContainer.setMaximumSize(new Dimension(200,200));
-        previewPanelContainer.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "FormattedTextAssets.Preview" ) ) );
+        previewPanelContainer.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "FormattedTextAssets.Preview" ) ) );
         parent.add( previewPanelContainer );
     }
 

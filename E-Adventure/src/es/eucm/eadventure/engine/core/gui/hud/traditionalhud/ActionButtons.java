@@ -37,7 +37,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
@@ -140,56 +140,56 @@ public class ActionButtons {
 
         button_normal = new Image[ ACTION_COUNT ];
         if( customized ) {
-            button_normal[ACTION_USE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnUse" ), MultimediaManager.IMAGE_MENU );
-            button_normal[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnLook" ), MultimediaManager.IMAGE_MENU );
-            button_normal[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnExamine" ), MultimediaManager.IMAGE_MENU );
-            button_normal[ACTION_TALK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnTalk" ), MultimediaManager.IMAGE_MENU );
-            button_normal[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGrab" ), MultimediaManager.IMAGE_MENU );
-            button_normal[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGive" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_USE] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnUse" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnLook" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnExamine" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_TALK] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnTalk" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnGrab" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnGive" ), MultimediaManager.IMAGE_MENU );
         }
         else {
-            button_normal[ACTION_USE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnUse" ), MultimediaManager.IMAGE_MENU );
-            button_normal[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnLook" ), MultimediaManager.IMAGE_MENU );
-            button_normal[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnExamine" ), MultimediaManager.IMAGE_MENU );
-            button_normal[ACTION_TALK] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnTalk" ), MultimediaManager.IMAGE_MENU );
-            button_normal[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnGrab" ), MultimediaManager.IMAGE_MENU );
-            button_normal[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnGive" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_USE] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnUse" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnLook" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnExamine" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_TALK] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnTalk" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnGrab" ), MultimediaManager.IMAGE_MENU );
+            button_normal[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnGive" ), MultimediaManager.IMAGE_MENU );
         }
 
         button_over = new Image[ ACTION_COUNT ];
         if( customized ) {
-            button_over[ACTION_USE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnUseFocus" ), MultimediaManager.IMAGE_MENU );
-            button_over[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnLookFocus" ), MultimediaManager.IMAGE_MENU );
-            button_over[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnExamineFocus" ), MultimediaManager.IMAGE_MENU );
-            button_over[ACTION_TALK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnTalkFocus" ), MultimediaManager.IMAGE_MENU );
-            button_over[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGrabFocus" ), MultimediaManager.IMAGE_MENU );
-            button_over[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGiveFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_USE] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnUseFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnLookFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnExamineFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_TALK] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnTalkFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnGrabFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnGiveFocus" ), MultimediaManager.IMAGE_MENU );
         }
         else {
-            button_over[ACTION_USE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnUseFocus" ), MultimediaManager.IMAGE_MENU );
-            button_over[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnLookFocus" ), MultimediaManager.IMAGE_MENU );
-            button_over[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnExamineFocus" ), MultimediaManager.IMAGE_MENU );
-            button_over[ACTION_TALK] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnTalkFocus" ), MultimediaManager.IMAGE_MENU );
-            button_over[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnGrabFocus" ), MultimediaManager.IMAGE_MENU );
-            button_over[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnGiveFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_USE] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnUseFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnLookFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnExamineFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_TALK] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnTalkFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnGrabFocus" ), MultimediaManager.IMAGE_MENU );
+            button_over[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnGiveFocus" ), MultimediaManager.IMAGE_MENU );
         }
 
         button_pressed = new Image[ ACTION_COUNT ];
         if( customized ) {
-            button_pressed[ACTION_USE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnUsePressed" ), MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnLookPressed" ), MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnExaminePressed" ), MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTION_TALK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnTalkPressed" ), MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGrabPressed" ), MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGivePressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_USE] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnUsePressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnLookPressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnExaminePressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_TALK] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnTalkPressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnGrabPressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImageFromZip( TC.get( "HUD.Traditional.btnGivePressed" ), MultimediaManager.IMAGE_MENU );
         }
         else {
-            button_pressed[ACTION_USE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnUsePressed" ), MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnLookPressed" ), MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnExaminePressed" ), MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTION_TALK] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnTalkPressed" ), MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnGrabPressed" ), MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnGivePressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_USE] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnUsePressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnLookPressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnExaminePressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_TALK] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnTalkPressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnGrabPressed" ), MultimediaManager.IMAGE_MENU );
+            button_pressed[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImage( TC.get( "HUD.Traditional.btnGivePressed" ), MultimediaManager.IMAGE_MENU );
         }
 
     }

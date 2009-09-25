@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.controllers.conversation;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 
 public class ConversationLine extends Searchable {
@@ -65,8 +65,8 @@ public class ConversationLine extends Searchable {
     @Override
     public void recursiveSearch( ) {
 
-        check( searchableNode.getConversationNodeView( ).getLineName( line ), TextConstants.getText( "Search.LineName" ) );
-        check( searchableNode.getConversationNodeView( ).getLineText( line ), TextConstants.getText( "Search.LineText" ) );
+        check( searchableNode.getConversationNodeView( ).getLineName( line ), TC.get( "Search.LineName" ) );
+        check( searchableNode.getConversationNodeView( ).getLineText( line ), TC.get( "Search.LineText" ) );
     }
 
     public int getLine( ) {

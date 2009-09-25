@@ -71,7 +71,7 @@ import sun.swing.FilePane;
 import sun.swing.WindowsPlacesBar;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.FileFilter;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
@@ -214,7 +214,7 @@ public abstract class AssetChooser extends JFileChooser {
         zipContentsButton.setHorizontalTextPosition( SwingConstants.CENTER );
         zipContentsButton.setAlignmentX( 0.5f );
 
-        zipContentsButton.setText( TextConstants.getText( "GeneralText.Project" ) );
+        zipContentsButton.setText( TC.get( "GeneralText.Project" ) );
         group.add( zipContentsButton );
         placesBar.add( zipContentsButton );
 
@@ -368,9 +368,9 @@ public abstract class AssetChooser extends JFileChooser {
         buttonsPanel = new JPanel( );
         buttonsPanel.setLayout( new BoxLayout( buttonsPanel, BoxLayout.LINE_AXIS ) );
 
-        approveButton = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+        approveButton = new JButton( TC.get( "GeneralText.OK" ) );
         approveButton.addActionListener( new ButtonsListener( ) );
-        cancelButton = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        cancelButton = new JButton( TC.get( "GeneralText.Cancel" ) );
         cancelButton.addActionListener( new ButtonsListener( ) );
         buttonsPanel.add( approveButton );
         buttonsPanel.add( Box.createHorizontalStrut( 1 ) );

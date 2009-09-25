@@ -39,7 +39,7 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 
 import es.eucm.eadventure.editor.gui.Updateable;
@@ -75,7 +75,7 @@ public class CutsceneLooksPanel extends LooksPanel implements Updateable {
         JPanel previewPanel = new JPanel( );
         previewPanel.setLayout( new BorderLayout( ) );
         imagePanel = new ImagePanel( imagePath );
-        previewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Book.Preview" ) ) );
+        previewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Book.Preview" ) ) );
         previewPanel.add( imagePanel, BorderLayout.CENTER );
         lookPanel.add( previewPanel, cLook );
         lookPanel.setPreferredSize( new Dimension( 0, 90 ) );

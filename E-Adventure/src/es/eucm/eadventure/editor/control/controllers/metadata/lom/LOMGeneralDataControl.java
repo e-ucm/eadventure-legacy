@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers.metadata.lom;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.lom.LOMGeneral;
 import es.eucm.eadventure.editor.data.meta.LangString;
@@ -76,7 +76,7 @@ public class LOMGeneralDataControl {
 
             public String[] getOptions( ) {
 
-                return new String[] { TextConstants.getText( "LOM.General.Language.English" ), TextConstants.getText( "LOM.General.Language.Spanish" ) };
+                return new String[] { TC.get( "LOM.General.Language.English" ), TC.get( "LOM.General.Language.Spanish" ) };
             }
 
             public void setOption( int option ) {

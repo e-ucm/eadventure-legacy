@@ -53,7 +53,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 
@@ -122,7 +122,7 @@ public class ActionDetailsCellRendererEditor extends AbstractCellEditor implemen
 
         if( Controller.getInstance( ).isPlayTransparent( ) ) {
             temp.removeAll( );
-            temp.add( new JLabel( TextConstants.getText( "ActionsList.NotRelevant" ) ) );
+            temp.add( new JLabel( TC.get( "ActionsList.NotRelevant" ) ) );
         }
 
         return temp;

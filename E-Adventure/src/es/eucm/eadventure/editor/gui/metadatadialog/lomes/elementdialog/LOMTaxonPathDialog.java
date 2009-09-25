@@ -47,7 +47,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMClassificationTaxonPath;
@@ -96,9 +96,9 @@ public class LOMTaxonPathDialog extends JDialog {
         c.weightx = 1;
         c.fill = GridBagConstraints.BOTH;
 
-        source = new LOMLangStringPanel( sourceValue, TextConstants.getText( "LOMES.Classification.TaxonPathSorce" ) );
+        source = new LOMLangStringPanel( sourceValue, TC.get( "LOMES.Classification.TaxonPathSorce" ) );
 
-        taxon = new LOMESCreateContainerPanel( taxonValue, TextConstants.getText( "LOMES.Classification.TaxonPathTaxon" ), LOMContributeDialog.NONE );
+        taxon = new LOMESCreateContainerPanel( taxonValue, TC.get( "LOMES.Classification.TaxonPathTaxon" ), LOMContributeDialog.NONE );
 
         JPanel buttonPanel = new JPanel( new GridBagLayout( ) );
         c = new GridBagConstraints( );

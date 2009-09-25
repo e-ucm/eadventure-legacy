@@ -39,7 +39,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 /**
  * Panel to display preview colored text.
@@ -128,7 +128,7 @@ public class TextPreviewPanel extends JPanel {
         super.paint( g );
 
         // Get the text to display
-        String displayText = TextConstants.getText( "GeneralText.PreviewText" );
+        String displayText = TC.get( "GeneralText.PreviewText" );
 
         // Calculate the position to paint
         g.setFont( g.getFont( ).deriveFont( 18.0f ) );

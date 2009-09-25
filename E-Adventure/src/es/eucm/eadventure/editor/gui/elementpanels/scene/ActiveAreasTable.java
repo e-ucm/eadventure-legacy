@@ -40,7 +40,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
 import es.eucm.eadventure.editor.control.tools.scene.RenameActiveAreaTool;
@@ -102,7 +102,7 @@ public class ActiveAreasTable extends JTable {
         this.getColumnModel( ).getColumn( 1 ).setMaxWidth( 120 );
         this.getColumnModel( ).getColumn( 1 ).setMinWidth( 120 );
 
-        String text = TextConstants.getText( "ActiveAreasList.EditActions" );
+        String text = TC.get( "ActiveAreasList.EditActions" );
         this.getColumnModel( ).getColumn( 2 ).setCellRenderer( new AuxEditCellRendererEditor( previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text ) );
         this.getColumnModel( ).getColumn( 2 ).setCellEditor( new AuxEditCellRendererEditor( previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text ) );
         this.getColumnModel( ).getColumn( 2 ).setMaxWidth( 105 );
@@ -158,13 +158,13 @@ public class ActiveAreasTable extends JTable {
         public String getColumnName( int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "ActiveAreasList.Id" );
+                return TC.get( "ActiveAreasList.Id" );
             if( columnIndex == 1 )
-                return TextConstants.getText( "ActiveAreasList.Conditions" );
+                return TC.get( "ActiveAreasList.Conditions" );
             if( columnIndex == 2 )
-                return TextConstants.getText( "ActiveAreasList.Actions" );
+                return TC.get( "ActiveAreasList.Actions" );
             if( columnIndex == 3 )
-                return TextConstants.getText( "ActiveAreasList.Documentation" );
+                return TC.get( "ActiveAreasList.Documentation" );
             return "";
         }
 

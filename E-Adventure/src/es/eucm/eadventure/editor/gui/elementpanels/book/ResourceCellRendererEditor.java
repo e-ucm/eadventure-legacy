@@ -61,7 +61,7 @@ import javax.swing.table.TableCellRenderer;
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
@@ -160,17 +160,17 @@ public class ResourceCellRendererEditor extends AbstractCellEditor implements Ta
         c2.weightx = 2;
         JPanel panel = new JPanel( );
 
-        selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+        selectButton = new JButton( TC.get( "Resources.Select" ) );
         selectButton.addActionListener( new ExamineButtonListener( ) );
         selectButton.setEnabled( value != null && !textField.isEditable( ) );
         panel.add( selectButton );
 
-        createButton = new JButton( TextConstants.getText( "Resources.Create" ) );
+        createButton = new JButton( TC.get( "Resources.Create" ) );
         createButton.addActionListener( new CreateButtonListener( ) );
         createButton.setEnabled( value != null && !textField.isEditable( ) && value.getType( ) != BookPage.TYPE_IMAGE );
         panel.add( createButton );
 
-        editButton = new JButton( TextConstants.getText( "Resources.Edit" ) );
+        editButton = new JButton( TC.get( "Resources.Edit" ) );
         editButton.addActionListener( new EditButtonListener( ) );
         editButton.setEnabled( value != null && !textField.isEditable( ) && textField.getText( ).length( ) > 0 && value.getType( ) != BookPage.TYPE_IMAGE );
         panel.add( editButton );
@@ -340,16 +340,16 @@ public class ResourceCellRendererEditor extends AbstractCellEditor implements Ta
         if( value == null || !control.isValidPage( value ) ) {
             validPage.setIcon( notValid );
             if( value == null || value.getType( ) == BookPage.TYPE_URL )
-                validPage.setToolTipText( TextConstants.getText( "BookPage.NotValidURL" ) );
+                validPage.setToolTipText( TC.get( "BookPage.NotValidURL" ) );
             else if( value == null || value.getType( ) == BookPage.TYPE_IMAGE )
-                validPage.setToolTipText( TextConstants.getText( "BookPage.NotValidImage" ) );
+                validPage.setToolTipText( TC.get( "BookPage.NotValidImage" ) );
             else
-                validPage.setToolTipText( TextConstants.getText( "BookPage.NotValidResource" ) );
+                validPage.setToolTipText( TC.get( "BookPage.NotValidResource" ) );
             oldValid = false;
         }
         else {
             validPage.setIcon( valid );
-            validPage.setToolTipText( TextConstants.getText( "BookPage.Valid" ) );
+            validPage.setToolTipText( TC.get( "BookPage.Valid" ) );
             if( !oldValid )
                 parentPanel.updatePreview( );
             oldValid = true;

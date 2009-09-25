@@ -52,7 +52,7 @@ import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
@@ -121,9 +121,9 @@ public class InventoryPanel extends JScrollPane implements Updateable {
         JTextPane informationTextPane = new JTextPane( );
         informationTextPane.setEditable( false );
         informationTextPane.setBackground( mainPanel.getBackground( ) );
-        informationTextPane.setText( TextConstants.getText( "Inventory.Information" ) );
+        informationTextPane.setText( TC.get( "Inventory.Information" ) );
         JPanel informationPanel = new JPanel( );
-        informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
+        informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "GeneralText.Information" ) ) );
         informationPanel.setLayout( new BorderLayout( ) );
         informationPanel.add( informationTextPane, BorderLayout.CENTER );
         mainPanel.add( informationPanel, c );
@@ -146,7 +146,7 @@ public class InventoryPanel extends JScrollPane implements Updateable {
             // Create the panel and set the border
             JPanel assetPanel = new JPanel( );
             assetPanel.setLayout( new GridBagLayout( ) );
-            assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Inventory." + arrowTypes[i] + ".Description" ) ) );
+            assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Inventory." + arrowTypes[i] + ".Description" ) ) );
             GridBagConstraints c2 = new GridBagConstraints( );
             c2.insets = new Insets( 2, 2, 2, 2 );
             c2.fill = GridBagConstraints.NONE;
@@ -157,7 +157,7 @@ public class InventoryPanel extends JScrollPane implements Updateable {
             JButton deleteContentButton = new JButton( deleteContentIcon );
             deleteContentButton.addActionListener( new DeleteContentButtonListener( i ) );
             deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-            deleteContentButton.setToolTipText( TextConstants.getText( "Buttons.DeleteButton" ) );
+            deleteContentButton.setToolTipText( TC.get( "Buttons.DeleteButton" ) );
             assetPanel.add( deleteContentButton, c2 );
 
             // Create the text field and insert it
@@ -172,7 +172,7 @@ public class InventoryPanel extends JScrollPane implements Updateable {
             assetPanel.add( arrowFields[i], c2 );
 
             // Create the "Select" button and insert it
-            JButton selectButton = new JButton( TextConstants.getText( "Inventory.Select" ) );
+            JButton selectButton = new JButton( TC.get( "Inventory.Select" ) );
             selectButton.addActionListener( new ExamineButtonListener( i ) );
             c2.gridx = 2;
             c2.fill = GridBagConstraints.NONE;
@@ -180,7 +180,7 @@ public class InventoryPanel extends JScrollPane implements Updateable {
             assetPanel.add( selectButton, c2 );
 
             // Create the "View" button and insert it
-            viewButtons[i] = new JButton( TextConstants.getText( "Inventory.Preview" ) );
+            viewButtons[i] = new JButton( TC.get( "Inventory.Preview" ) );
             viewButtons[i].setEnabled( adventureData.getArrowPath( arrowTypes[i] ) != null );
             viewButtons[i].addActionListener( new ViewButtonListener( i ) );
             c2.gridx = 3;
@@ -188,7 +188,7 @@ public class InventoryPanel extends JScrollPane implements Updateable {
 
             // Add the panel
             //resourcesPanel.add( assetPanel, c );
-            assetPanel.setToolTipText( TextConstants.getText( "Inventory." + arrowTypes[i] + ".Tip" ) );
+            assetPanel.setToolTipText( TC.get( "Inventory." + arrowTypes[i] + ".Tip" ) );
             buttonPanel.add( assetPanel, c3 );
             c3.gridy++;
 
@@ -197,14 +197,14 @@ public class InventoryPanel extends JScrollPane implements Updateable {
         mainPanel.add( buttonPanel, c );
 
         JPanel inventoryPosition = new JPanel( );
-        inventoryPosition.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Inventory.Position" ) ) );
+        inventoryPosition.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Inventory.Position" ) ) );
         inventoryPosition.setLayout( new BorderLayout( ) );
 
         String[] options = new String[ 4 ];
-        options[0] = TextConstants.getText( "Inventory.NoInventory" );
-        options[1] = TextConstants.getText( "Inventory.TopAndBottom" );
-        options[2] = TextConstants.getText( "Inventory.OnlyTop" );
-        options[3] = TextConstants.getText( "Inventory.OnlyBottom" );
+        options[0] = TC.get( "Inventory.NoInventory" );
+        options[1] = TC.get( "Inventory.TopAndBottom" );
+        options[2] = TC.get( "Inventory.OnlyTop" );
+        options[3] = TC.get( "Inventory.OnlyBottom" );
         whereInventory = new JComboBox( options );
         whereInventory.setSelectedIndex( adventureData.getInventoryPosition( ) );
         whereInventory.addActionListener( new ComboBoxActionListener( ) );

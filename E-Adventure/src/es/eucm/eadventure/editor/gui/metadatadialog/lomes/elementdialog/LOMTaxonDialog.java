@@ -53,7 +53,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMClassificationTaxon;
@@ -97,9 +97,9 @@ public class LOMTaxonDialog extends JDialog {
         id = new JTextField( idValue );
         id.getDocument( ).addDocumentListener( new TextFieldListener( ) );
         idPanel.add( id, c );
-        idPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Classification.TaxonId" ) ) );
+        idPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Classification.TaxonId" ) ) );
 
-        entry = new LOMLangStringPanel( entryValue, TextConstants.getText( "LOMES.Classification.TaxonEntry" ) );
+        entry = new LOMLangStringPanel( entryValue, TC.get( "LOMES.Classification.TaxonEntry" ) );
 
         JPanel mainPanel = new JPanel( new GridBagLayout( ) );
         c = new GridBagConstraints( );

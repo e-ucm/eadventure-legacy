@@ -58,7 +58,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -137,7 +137,7 @@ class AssessmentPropertiesPanel extends JPanel {
         this.assessmentRuleDataControl = assDataControl;
 
         // Create and set border (titled border in this case)
-        border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "AssessmentRule.Effect.PropertiesTitle" ), TitledBorder.CENTER, TitledBorder.TOP );
+        border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TC.get( "AssessmentRule.Effect.PropertiesTitle" ), TitledBorder.CENTER, TitledBorder.TOP );
         setBorder( border );
 
         // Set a GridBagLayout
@@ -186,7 +186,7 @@ class AssessmentPropertiesPanel extends JPanel {
         movePropertyUpButton.setContentAreaFilled( false );
         movePropertyUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         movePropertyUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        movePropertyUpButton.setToolTipText( TextConstants.getText( "AssessmentProperties.MoveUp" ) );
+        movePropertyUpButton.setToolTipText( TC.get( "AssessmentProperties.MoveUp" ) );
         movePropertyUpButton.addActionListener( new ListenerButtonMoveLineUp( ) );
         movePropertyUpButton.setEnabled( false );
 
@@ -194,7 +194,7 @@ class AssessmentPropertiesPanel extends JPanel {
         movePropertyDownButton.setContentAreaFilled( false );
         movePropertyDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         movePropertyDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        movePropertyDownButton.setToolTipText( TextConstants.getText( "AssessmentProperties.MoveDown" ) );
+        movePropertyDownButton.setToolTipText( TC.get( "AssessmentProperties.MoveDown" ) );
         movePropertyDownButton.addActionListener( new ListenerButtonMoveLineDown( ) );
         movePropertyDownButton.setEnabled( false );
 
@@ -205,14 +205,14 @@ class AssessmentPropertiesPanel extends JPanel {
         insertPropertyButton.setContentAreaFilled( false );
         insertPropertyButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         insertPropertyButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        insertPropertyButton.setToolTipText( TextConstants.getText( "AssessmentProperties.InsertProperty" ) );
+        insertPropertyButton.setToolTipText( TC.get( "AssessmentProperties.InsertProperty" ) );
         insertPropertyButton.addActionListener( new ListenerButtonInsertLine( ) );
 
         deletePropertyButton = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deletePropertyButton.setContentAreaFilled( false );
         deletePropertyButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deletePropertyButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deletePropertyButton.setToolTipText( TextConstants.getText( "AssessmentProperties.DeleteProperty" ) );
+        deletePropertyButton.setToolTipText( TC.get( "AssessmentProperties.DeleteProperty" ) );
         deletePropertyButton.addActionListener( new ListenerButtonDeleteLine( ) );
 
         addComponents( );

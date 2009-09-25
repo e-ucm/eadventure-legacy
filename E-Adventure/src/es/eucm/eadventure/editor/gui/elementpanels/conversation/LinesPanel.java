@@ -66,7 +66,7 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 /**
  * This class is the panel used to display and edit nodes. It holds node
@@ -154,7 +154,7 @@ class LinesPanel extends JPanel implements DataControlsPanel {
         this.conversationDataControl = conversationDataControl;
 
         // Create and set border (titled border in this case)
-        border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "LinesPanel.NoNodeSelected" ), TitledBorder.CENTER, TitledBorder.TOP );
+        border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TC.get( "LinesPanel.NoNodeSelected" ), TitledBorder.CENTER, TitledBorder.TOP );
         setBorder( border );
 
         // Set a GridBagLayout
@@ -175,7 +175,7 @@ class LinesPanel extends JPanel implements DataControlsPanel {
         moveLineUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveLineUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
         moveLineUpButton.setFocusable( false );
-        moveLineUpButton.setToolTipText( TextConstants.getText( "Conversations.MoveLineUp" ) );
+        moveLineUpButton.setToolTipText( TC.get( "Conversations.MoveLineUp" ) );
         moveLineUpButton.addActionListener( new ListenerButtonMoveLineUp( ) );
 
         moveLineDownButton = new JButton( new ImageIcon( "img/icons/moveNodeDown.png" ) );
@@ -183,7 +183,7 @@ class LinesPanel extends JPanel implements DataControlsPanel {
         moveLineDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveLineDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
         moveLineDownButton.setFocusable( false );
-        moveLineDownButton.setToolTipText( TextConstants.getText( "Conversations.MoveLineDown" ) );
+        moveLineDownButton.setToolTipText( TC.get( "Conversations.MoveLineDown" ) );
         moveLineDownButton.addActionListener( new ListenerButtonMoveLineDown( ) );
 
         /* End of common elements */
@@ -194,13 +194,13 @@ class LinesPanel extends JPanel implements DataControlsPanel {
         insertLineButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         insertLineButton.setBorder( BorderFactory.createEmptyBorder( ) );
         insertLineButton.setFocusable( false );
-        insertLineButton.setToolTipText( TextConstants.getText( "Conversations.InsertLine" ) );
+        insertLineButton.setToolTipText( TC.get( "Conversations.InsertLine" ) );
         insertLineButton.addActionListener( new ListenerButtonInsertLine( ) );
         deleteLineButton = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deleteLineButton.setContentAreaFilled( false );
         deleteLineButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteLineButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteLineButton.setToolTipText( TextConstants.getText( "Conversations.DeleteLine" ) );
+        deleteLineButton.setToolTipText( TC.get( "Conversations.DeleteLine" ) );
         deleteLineButton.addActionListener( new ListenerButtonDeleteLine( ) );
         /* End of dialogue panel elements */
 
@@ -209,14 +209,14 @@ class LinesPanel extends JPanel implements DataControlsPanel {
         deleteOptionButton.setContentAreaFilled( false );
         deleteOptionButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteOptionButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteOptionButton.setToolTipText( TextConstants.getText( "Conversations.DeleteOption" ) );
+        deleteOptionButton.setToolTipText( TC.get( "Conversations.DeleteOption" ) );
         deleteOptionButton.addActionListener( new ListenerButtonDeleteOption( ) );
         insertOptionButton = new JButton( new ImageIcon( "img/icons/addNode.png" ) );
         insertOptionButton.setContentAreaFilled( false );
         insertOptionButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         insertOptionButton.setBorder( BorderFactory.createEmptyBorder( ) );
         insertOptionButton.setFocusable( false );
-        insertOptionButton.setToolTipText( TextConstants.getText( "Conversations.InsertLine" ) );
+        insertOptionButton.setToolTipText( TC.get( "Conversations.InsertLine" ) );
         insertOptionButton.addActionListener( new ListenerButtonInsertOption( ) );
         /* End of option panel elements */
     }
@@ -280,7 +280,7 @@ class LinesPanel extends JPanel implements DataControlsPanel {
         c.gridy++;
         buttonsPanel.add( moveLineDownButton, c );
 
-        JCheckBox randomOrder = new JCheckBox( TextConstants.getText( "Conversation.OptionRandomly" ), conversationDataControl.isRandomActivate( conversationPanel.getSelectedNode( ) ) );
+        JCheckBox randomOrder = new JCheckBox( TC.get( "Conversation.OptionRandomly" ), conversationDataControl.isRandomActivate( conversationPanel.getSelectedNode( ) ) );
         randomOrder.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -309,21 +309,21 @@ class LinesPanel extends JPanel implements DataControlsPanel {
 
         // If no node has been selected, remove all elements and change the panel title
         if( selectedNode == null ) {
-            border.setTitle( TextConstants.getText( "LinesPanel.NoNodeSelected" ) );
+            border.setTitle( TC.get( "LinesPanel.NoNodeSelected" ) );
             removeAll( );
             conversationPanel.getMenuPanel( ).setVisible( false );
         }
 
         // If a dialogue node has been selected, set the dialogue node panel and change the panel title
         else if( selectedNode.getType( ) == ConversationNodeView.DIALOGUE ) {
-            border.setTitle( TextConstants.getText( "LinesPanel.DialogueNode" ) );
+            border.setTitle( TC.get( "LinesPanel.DialogueNode" ) );
             conversationPanel.getMenuPanel( ).setDialoguePanel( );
             setDialoguePanel( );
         }
 
         // If a option node has been selected, set the option node panel and change the panel title
         else if( selectedNode.getType( ) == ConversationNodeView.OPTION ) {
-            border.setTitle( TextConstants.getText( "LinesPanel.OptionNode" ) );
+            border.setTitle( TC.get( "LinesPanel.OptionNode" ) );
             conversationPanel.getMenuPanel( ).setOptionPanel( );
             setOptionPanel( );
         }

@@ -56,7 +56,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
@@ -86,7 +86,7 @@ public class SearchDialog extends JDialog {
 
         controller = Controller.getInstance( );
         this.setLayout( new BorderLayout( ) );
-        this.setTitle( TextConstants.getText( "Search.DialogTitle" ) );
+        this.setTitle( TC.get( "Search.DialogTitle" ) );
 
         JPanel inputPanel = new JPanel( );
         textField = new JTextField( 15 );
@@ -98,11 +98,11 @@ public class SearchDialog extends JDialog {
             }
         } );
         inputPanel.add( textField );
-        caseSensitive = new JCheckBox( TextConstants.getText( "Search.CaseSensitive" ) );
+        caseSensitive = new JCheckBox( TC.get( "Search.CaseSensitive" ) );
         inputPanel.add( caseSensitive );
-        fullMatch = new JCheckBox( TextConstants.getText( "Search.FullMatch" ) );
+        fullMatch = new JCheckBox( TC.get( "Search.FullMatch" ) );
         inputPanel.add( fullMatch );
-        JButton search = new JButton( TextConstants.getText( "Search.Search" ) );
+        JButton search = new JButton( TC.get( "Search.Search" ) );
         search.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -117,7 +117,7 @@ public class SearchDialog extends JDialog {
         dataControls = new ArrayList<Searchable>( );
         dtm = new DefaultTableModel( );
         dtm.setColumnCount( 2 );
-        String[] ids = { TextConstants.getText( "Search.Where" ), TextConstants.getText( "Search.Places" ) };
+        String[] ids = { TC.get( "Search.Where" ), TC.get( "Search.Places" ) };
         dtm.setColumnIdentifiers( ids );
         //table = new JTable(dtm);
         table = new JTable( dtm ) {

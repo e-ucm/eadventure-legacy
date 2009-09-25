@@ -37,7 +37,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.InfoHeaderRenderer;
@@ -86,7 +86,7 @@ public class BarriersTable extends JTable {
         public Object getValueAt( int rowIndex, int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "BarriersList.BarrierNumber" ) + ( rowIndex + 1 );
+                return TC.get( "BarriersList.BarrierNumber" ) + ( rowIndex + 1 );
             if( columnIndex == 1 )
                 return dataControl.getBarriers( ).get( rowIndex ).getConditions( );
             return null;
@@ -96,9 +96,9 @@ public class BarriersTable extends JTable {
         public String getColumnName( int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "BarriersList.Barrier" );
+                return TC.get( "BarriersList.Barrier" );
             if( columnIndex == 1 )
-                return TextConstants.getText( "BarriersList.Conditions" );
+                return TC.get( "BarriersList.Conditions" );
             return "";
         }
 

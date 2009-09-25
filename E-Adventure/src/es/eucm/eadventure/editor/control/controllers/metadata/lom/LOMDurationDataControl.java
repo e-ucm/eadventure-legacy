@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers.metadata.lom;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class LOMDurationDataControl {
@@ -210,22 +210,22 @@ public class LOMDurationDataControl {
         String paramString = null;
         switch( param ) {
             case YEARS:
-                paramString = TextConstants.getText( "LOM.Duration.Years" );
+                paramString = TC.get( "LOM.Duration.Years" );
                 break;
             case MONTHS:
-                paramString = TextConstants.getText( "LOM.Duration.Months" );
+                paramString = TC.get( "LOM.Duration.Months" );
                 break;
             case DAYS:
-                paramString = TextConstants.getText( "LOM.Duration.Days" );
+                paramString = TC.get( "LOM.Duration.Days" );
                 break;
             case HOURS:
-                paramString = TextConstants.getText( "LOM.Duration.Hours" );
+                paramString = TC.get( "LOM.Duration.Hours" );
                 break;
             case MINUTES:
-                paramString = TextConstants.getText( "LOM.Duration.Minutes" );
+                paramString = TC.get( "LOM.Duration.Minutes" );
                 break;
             case SECONDS:
-                paramString = TextConstants.getText( "LOM.Duration.Seconds" );
+                paramString = TC.get( "LOM.Duration.Seconds" );
                 break;
         }
         return paramString;
@@ -273,7 +273,7 @@ public class LOMDurationDataControl {
 
         // Display error message
         if( !set ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "LOM.Duration.InvalidValue.Title" ), TextConstants.getText( "LOM.Duration.InvalidValue.Message", paramToString( param ) ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "LOM.Duration.InvalidValue.Title" ), TC.get( "LOM.Duration.InvalidValue.Message", paramToString( param ) ) );
         }
 
         return set;

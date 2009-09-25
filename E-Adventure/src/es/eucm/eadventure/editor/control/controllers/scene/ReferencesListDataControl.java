@@ -40,7 +40,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -397,7 +397,7 @@ public class ReferencesListDataControl extends DataControl {
             String[] items = controller.getIdentifierSummary( ).getItemIds( );
             // If the list has elements, show the dialog with the options
             if( items.length > 0 ) {
-                String selectedItem = controller.showInputDialog( TextConstants.getText( "Operation.AddItemReferenceTitle" ), TextConstants.getText( "Operation.AddItemReferenceMessage" ), items );
+                String selectedItem = controller.showInputDialog( TC.get( "Operation.AddItemReferenceTitle" ), TC.get( "Operation.AddItemReferenceMessage" ), items );
 
                 // If some value was selected
                 if( selectedItem != null ) {
@@ -412,7 +412,7 @@ public class ReferencesListDataControl extends DataControl {
                 }
             }
             else
-                controller.showErrorDialog( TextConstants.getText( "Operation.AddItemReferenceTitle" ), TextConstants.getText( "Operation.AddItemReferenceErrorNoItems" ) );
+                controller.showErrorDialog( TC.get( "Operation.AddItemReferenceTitle" ), TC.get( "Operation.AddItemReferenceErrorNoItems" ) );
         }
 
         if( type == Controller.ATREZZO_REFERENCE ) {
@@ -420,7 +420,7 @@ public class ReferencesListDataControl extends DataControl {
 
             // If the list has elements, show the dialog with the options
             if( items.length > 0 ) {
-                String selectedItem = controller.showInputDialog( TextConstants.getText( "Operation.AddAtrezzoReferenceTitle" ), TextConstants.getText( "Operation.AddAtrezzoReferenceMessage" ), items );
+                String selectedItem = controller.showInputDialog( TC.get( "Operation.AddAtrezzoReferenceTitle" ), TC.get( "Operation.AddAtrezzoReferenceMessage" ), items );
                 if( selectedItem != null ) {
                     ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
                     int counter = count( newElementReference );
@@ -433,13 +433,13 @@ public class ReferencesListDataControl extends DataControl {
                 }
             }
             else
-                controller.showErrorDialog( TextConstants.getText( "Operation.AddAtrezzoReferenceTitle" ), TextConstants.getText( "Operation.AddReferenceErrorNoAtrezzo" ) );
+                controller.showErrorDialog( TC.get( "Operation.AddAtrezzoReferenceTitle" ), TC.get( "Operation.AddReferenceErrorNoAtrezzo" ) );
         }
 
         if( type == Controller.NPC_REFERENCE ) {
             String[] items = controller.getIdentifierSummary( ).getNPCIds( );
             if( items.length > 0 ) {
-                String selectedItem = controller.showInputDialog( TextConstants.getText( "Operation.AddNPCReferenceTitle" ), TextConstants.getText( "Operation.AddNPCReferenceMessage" ), items );
+                String selectedItem = controller.showInputDialog( TC.get( "Operation.AddNPCReferenceTitle" ), TC.get( "Operation.AddNPCReferenceMessage" ), items );
                 if( selectedItem != null ) {
                     ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
                     int counter = count( newElementReference );
@@ -452,7 +452,7 @@ public class ReferencesListDataControl extends DataControl {
                 }
             }
             else
-                controller.showErrorDialog( TextConstants.getText( "Operation.AddNPCReferenceTitle" ), TextConstants.getText( "Operation.AddReferenceErrorNoNPC" ) );
+                controller.showErrorDialog( TC.get( "Operation.AddNPCReferenceTitle" ), TC.get( "Operation.AddReferenceErrorNoNPC" ) );
         }
 
         return elementAdded;

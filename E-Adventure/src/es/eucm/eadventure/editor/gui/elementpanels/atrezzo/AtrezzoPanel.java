@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.atrezzo;
 
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
@@ -65,7 +65,7 @@ public class AtrezzoPanel extends ElementPanel {
 
         public AtrezzoDocPanelTab( AtrezzoDataControl atrezzoDataControl ) {
 
-            super( TextConstants.getText( "Atrezzo.DocPanelTitle" ), atrezzoDataControl );
+            super( TC.get( "Atrezzo.DocPanelTitle" ), atrezzoDataControl );
             this.atrezzoDataControl = atrezzoDataControl;
         }
 
@@ -82,7 +82,7 @@ public class AtrezzoPanel extends ElementPanel {
 
         public AtrezzoLooksPanelTab( AtrezzoDataControl atrezzoDataControl ) {
 
-            super( TextConstants.getText( "Atrezzo.LookPanelTitle" ), atrezzoDataControl );
+            super( TC.get( "Atrezzo.LookPanelTitle" ), atrezzoDataControl );
             this.atrezzoDataControl = atrezzoDataControl;
         }
 

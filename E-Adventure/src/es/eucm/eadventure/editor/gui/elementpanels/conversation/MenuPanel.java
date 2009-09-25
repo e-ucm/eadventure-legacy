@@ -46,7 +46,7 @@ import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
 
@@ -85,29 +85,29 @@ public class MenuPanel extends JPanel {
 
         // Add the add operations
         ImageIcon dialog = new ImageIcon( "img/icons/dialogNode.png" );
-        addDialogButton = new JButton( TextConstants.getText( "Conversation.OptionAddDialogueNode" ), dialog );
+        addDialogButton = new JButton( TC.get( "Conversation.OptionAddDialogueNode" ), dialog );
         addDialogButton.addActionListener( new AddChildActionListener( ConversationNodeView.DIALOGUE ) );
 
-        addNewOptionButton = new JButton( TextConstants.getText( "Conversation.OptionAddNewOption" ), dialog );
+        addNewOptionButton = new JButton( TC.get( "Conversation.OptionAddNewOption" ), dialog );
         addNewOptionButton.addActionListener( new AddChildActionListener( ConversationNodeView.DIALOGUE ) );
 
         ImageIcon option = new ImageIcon( "img/icons/optionNode.png" );
-        addOptionButton = new JButton( TextConstants.getText( "Conversation.OptionAddOptionNode" ), option );
+        addOptionButton = new JButton( TC.get( "Conversation.OptionAddOptionNode" ), option );
         addOptionButton.addActionListener( new AddChildActionListener( ConversationNodeView.OPTION ) );
 
         ImageIcon delete = new ImageIcon( "img/icons/deleteNode.png" );
-        deleteNodeButton = new JButton( TextConstants.getText( "Conversation.OptionDeleteNode" ), delete );
+        deleteNodeButton = new JButton( TC.get( "Conversation.OptionDeleteNode" ), delete );
         deleteNodeButton.addActionListener( new DeleteNodeActionListener( ) );
 
         ImageIcon link = new ImageIcon( "img/icons/linkNode.png" );
-        linkToButton = new JButton( TextConstants.getText( "Conversation.OptionLinkNode" ), link );
+        linkToButton = new JButton( TC.get( "Conversation.OptionLinkNode" ), link );
         linkToButton.addActionListener( new LinkNodeActionListener( ) );
 
         ImageIcon deleteLink = new ImageIcon( "img/icons/deleteNodeLink.png" );
-        deleteLinkButton = new JButton( TextConstants.getText( "Conversation.OperationDeleteLink" ), deleteLink );
+        deleteLinkButton = new JButton( TC.get( "Conversation.OperationDeleteLink" ), deleteLink );
         deleteLinkButton.addActionListener( new DeleteLinkActionListener( ) );
 
-        editEffectButton = new JButton( TextConstants.getText( "Conversations.EditEffect" ) );
+        editEffectButton = new JButton( TC.get( "Conversations.EditEffect" ) );
         editEffectButton.addActionListener( new ListenerButtonEditEffect( ) );
 
     }

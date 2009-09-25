@@ -43,7 +43,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.data.chapter.conversation.node.DialogueConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -124,7 +124,7 @@ public class AddConversationNodeTool extends Tool {
 
                 // If the node was an option node, add a new line
                 if( parent.getType( ) == ConversationNodeView.OPTION ) {
-                    parent.addLine( new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.NewOption" ) ) );
+                    parent.addLine( new ConversationLine( ConversationLine.PLAYER, TC.get( "ConversationLine.NewOption" ) ) );
                     allConditions.get( parent ).add( new ConditionsController( new Conditions( ), Controller.CONVERSATION_OPTION_LINE, Integer.toString( 0 ) ) );
                 }
                 // Save the index of the newChild
@@ -150,7 +150,7 @@ public class AddConversationNodeTool extends Tool {
         allConditions.put( newChild, new ArrayList<ConditionsController>( ) );
         // If the node was an option node, add a new line
         if( parent.getType( ) == ConversationNodeView.OPTION ) {
-            parent.addLine( index, new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.NewOption" ) ) );
+            parent.addLine( index, new ConversationLine( ConversationLine.PLAYER, TC.get( "ConversationLine.NewOption" ) ) );
             allConditions.get( parent ).add( new ConditionsController( new Conditions( ), Controller.CONVERSATION_OPTION_LINE, Integer.toString( 0 ) ) );
         }
         Controller.getInstance( ).updatePanel( );

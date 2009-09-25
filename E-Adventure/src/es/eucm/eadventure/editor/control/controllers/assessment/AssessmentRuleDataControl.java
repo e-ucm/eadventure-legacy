@@ -39,7 +39,7 @@ import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentEffect;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -84,12 +84,12 @@ public class AssessmentRuleDataControl extends DataControl {
             HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>( );
             ConditionOwner owner = new ConditionOwner( Controller.TIMED_ASSESSMENT_RULE, assessmentRule.getId( ) );
             context1.put( ConditionsController.CONDITION_OWNER, owner );
-            ConditionCustomMessage cMessage1 = new ConditionCustomMessage( TextConstants.getText( "Conditions.Context.TimedAssessmentRuleA1" ), TextConstants.getText( "Conditions.Context.TimedAssessmentRuleA2" ) );
+            ConditionCustomMessage cMessage1 = new ConditionCustomMessage( TC.get( "Conditions.Context.TimedAssessmentRuleA1" ), TC.get( "Conditions.Context.TimedAssessmentRuleA2" ) );
             context1.put( ConditionsController.CONDITION_CUSTOM_MESSAGE, cMessage1 );
 
             HashMap<String, ConditionContextProperty> context2 = new HashMap<String, ConditionContextProperty>( );
             context2.put( ConditionsController.CONDITION_OWNER, owner );
-            ConditionCustomMessage cMessage2 = new ConditionCustomMessage( TextConstants.getText( "Conditions.Context.TimedAssessmentRuleB1" ), TextConstants.getText( "Conditions.Context.TimedAssessmentRuleB2" ) );
+            ConditionCustomMessage cMessage2 = new ConditionCustomMessage( TC.get( "Conditions.Context.TimedAssessmentRuleB1" ), TC.get( "Conditions.Context.TimedAssessmentRuleB2" ) );
             context2.put( ConditionsController.CONDITION_CUSTOM_MESSAGE, cMessage2 );
 
             initConditionsController = new ConditionsController( tRule.getInitConditions( ), context1 );
@@ -220,7 +220,7 @@ public class AssessmentRuleDataControl extends DataControl {
         // Show a dialog asking for the ass rule id
         String assRuleId = name;
         if( name == null )
-            assRuleId = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentRuleTitle" ), TextConstants.getText( "Operation.RenameAssessmentRuleMessage" ), TextConstants.getText( "Operation.AddAssessmentRuleDefaultValue" ) );
+            assRuleId = controller.showInputDialog( TC.get( "Operation.RenameAssessmentRuleTitle" ), TC.get( "Operation.RenameAssessmentRuleMessage" ), TC.get( "Operation.AddAssessmentRuleDefaultValue" ) );
 
         // If some value was typed and the identifier is valid
         // To control the identifiers properly, the id must be composed by "profileName.asRuleId"
@@ -436,7 +436,7 @@ public class AssessmentRuleDataControl extends DataControl {
             }
             catch( Exception e ) {
                 //Display error message
-                controller.showErrorDialog( TextConstants.getText( "AssessmentRule.InvalidPropertyID" ), TextConstants.getText( "AssessmentRule.InvalidPropertyID.Message" ) );
+                controller.showErrorDialog( TC.get( "AssessmentRule.InvalidPropertyID" ), TC.get( "AssessmentRule.InvalidPropertyID.Message" ) );
             }
 
         }
@@ -455,7 +455,7 @@ public class AssessmentRuleDataControl extends DataControl {
                 }
                 catch( Exception e ) {
                     //Display error message
-                    controller.showErrorDialog( TextConstants.getText( "AssessmentRule.InvalidPropertyID" ), TextConstants.getText( "AssessmentRule.InvalidPropertyID.Message" ) );
+                    controller.showErrorDialog( TC.get( "AssessmentRule.InvalidPropertyID" ), TC.get( "AssessmentRule.InvalidPropertyID.Message" ) );
                 }
             }
         }
@@ -603,30 +603,30 @@ public class AssessmentRuleDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getConcept( ), TextConstants.getText( "Search.Concept" ) );
+        check( this.getConcept( ), TC.get( "Search.Concept" ) );
         check( this.getId( ), "ID" );
 
-        check( this.getEndConditions( ), TextConstants.getText( "Search.EndConditions" ) );
+        check( this.getEndConditions( ), TC.get( "Search.EndConditions" ) );
 
         if( assessmentRule instanceof TimedAssessmentRule ) {
             for( int i = 0; i < this.getEffectsCount( ); i++ ) {
-                check( this.getEffectNames( )[i], TextConstants.getText( "Search.EffectName" ) );
-                check( this.getEffectText( i ), TextConstants.getText( "Search.EffectText" ) );
+                check( this.getEffectNames( )[i], TC.get( "Search.EffectName" ) );
+                check( this.getEffectText( i ), TC.get( "Search.EffectText" ) );
                 for( int j = 0; j < this.getPropertyCount( i ); j++ ) {
-                    check( this.getPropertyId( j, i ), TextConstants.getText( "Search.PropertyID" ) );
-                    check( this.getPropertyValue( j, i ), TextConstants.getText( "Search.PropertyValue" ) );
+                    check( this.getPropertyId( j, i ), TC.get( "Search.PropertyID" ) );
+                    check( this.getPropertyValue( j, i ), TC.get( "Search.PropertyValue" ) );
                 }
-                check( this.getInitConditions( ), TextConstants.getText( "Search.Conditions" ) );
+                check( this.getInitConditions( ), TC.get( "Search.Conditions" ) );
 
             }
         }
         else if( assessmentRule instanceof AssessmentRule ) {
             for( int j = 0; j < this.getPropertyCount( -1 ); j++ ) {
-                check( this.getPropertyId( j, -1 ), TextConstants.getText( "Search.PropertyID" ) );
-                check( this.getPropertyValue( j, -1 ), TextConstants.getText( "Search.PropertyValue" ) );
+                check( this.getPropertyId( j, -1 ), TC.get( "Search.PropertyID" ) );
+                check( this.getPropertyValue( j, -1 ), TC.get( "Search.PropertyValue" ) );
             }
-            check( this.getEffectText( -1 ), TextConstants.getText( "Search.EffectText" ) );
-            check( this.getConditions( ), TextConstants.getText( "Search.Conditions" ) );
+            check( this.getEffectText( -1 ), TC.get( "Search.EffectText" ) );
+            check( this.getConditions( ), TC.get( "Search.Conditions" ) );
         }
 
     }

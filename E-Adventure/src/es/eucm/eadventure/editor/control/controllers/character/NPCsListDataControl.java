@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -109,7 +109,7 @@ public class NPCsListDataControl extends DataControl {
         for( int i = 0; i < npcsList.size( ); i++ ) {
             NPC npc = npcsList.get( i );
             npcsInfo[i][0] = npc.getId( );
-            npcsInfo[i][1] = TextConstants.getText( "NPCsList.ActionsNumber", String.valueOf( npc.getActions( ).size( ) ) );
+            npcsInfo[i][1] = TC.get( "NPCsList.ActionsNumber", String.valueOf( npc.getActions( ).size( ) ) );
         }
 
         return npcsInfo;
@@ -161,7 +161,7 @@ public class NPCsListDataControl extends DataControl {
 
             // Show a dialog asking for the character id
             if( npcId == null )
-                npcId = controller.showInputDialog( TextConstants.getText( "Operation.AddNPCTitle" ), TextConstants.getText( "Operation.AddNPCMessage" ), TextConstants.getText( "Operation.AddNPCDefaultValue" ) );
+                npcId = controller.showInputDialog( TC.get( "Operation.AddNPCTitle" ), TC.get( "Operation.AddNPCMessage" ), TC.get( "Operation.AddNPCDefaultValue" ) );
 
             // If some value was typed and the identifier is valid
             if( npcId != null && controller.isElementIdValid( npcId ) ) {
@@ -207,7 +207,7 @@ public class NPCsListDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.AddNPCDefaultValue" );
+        return TC.get( "Operation.AddNPCDefaultValue" );
     }
 
     @Override
@@ -218,7 +218,7 @@ public class NPCsListDataControl extends DataControl {
         String references = String.valueOf( controller.countIdentifierReferences( npcId ) );
 
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { npcId, references } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { npcId, references } ) ) ) {
             if( npcsList.remove( dataControl.getContent( ) ) ) {
                 npcsDataControlList.remove( dataControl );
                 controller.deleteIdentifierReferences( npcId );
@@ -283,7 +283,7 @@ public class NPCsListDataControl extends DataControl {
         boolean valid = true;
 
         // Update the current path
-        currentPath += " >> " + TextConstants.getElementName( Controller.NPCS_LIST );
+        currentPath += " >> " + TC.getElement( Controller.NPCS_LIST );
 
         // Iterate through the characters
         for( NPCDataControl npcDataControl : npcsDataControlList ) {

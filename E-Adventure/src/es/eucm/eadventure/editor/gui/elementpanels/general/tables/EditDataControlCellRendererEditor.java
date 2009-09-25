@@ -43,7 +43,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
@@ -61,7 +61,7 @@ public class EditDataControlCellRendererEditor extends AbstractCellEditor implem
     public Component getTableCellEditorComponent( JTable table, Object value, boolean isSelected, int row, int col ) {
 
         this.value = (DataControl) value;
-        JButton button = new JButton( TextConstants.getText( "GeneralText.Edit" ) );
+        JButton button = new JButton( TC.get( "GeneralText.Edit" ) );
         button.setFocusable( false );
         button.setEnabled( isSelected );
         button.addActionListener( new EditButtonActionListener( this.value ) );
@@ -70,7 +70,7 @@ public class EditDataControlCellRendererEditor extends AbstractCellEditor implem
 
     public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
 
-        JButton button = new JButton( TextConstants.getText( "GeneralText.Edit" ) );
+        JButton button = new JButton( TC.get( "GeneralText.Edit" ) );
         button.setFocusable( false );
         button.setEnabled( isSelected );
         return button;

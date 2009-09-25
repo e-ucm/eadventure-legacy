@@ -40,7 +40,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -150,7 +150,7 @@ public class BooksListDataControl extends DataControl {
 
                 // Show a dialog asking for the book id
                 if( bookId == null )
-                    bookId = controller.showInputDialog( TextConstants.getText( "Operation.AddBookTitle" ), TextConstants.getText( "Operation.AddBookMessage" ), TextConstants.getText( "Operation.AddBookDefaultValue" ) );
+                    bookId = controller.showInputDialog( TC.get( "Operation.AddBookTitle" ), TC.get( "Operation.AddBookMessage" ), TC.get( "Operation.AddBookDefaultValue" ) );
 
                 // If some value was typed and the identifier is valid
                 if( bookId != null && controller.isElementIdValid( bookId ) ) {
@@ -207,7 +207,7 @@ public class BooksListDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.AddBookDefaultValue" );
+        return TC.get( "Operation.AddBookDefaultValue" );
     }
 
     @Override
@@ -218,7 +218,7 @@ public class BooksListDataControl extends DataControl {
         String references = String.valueOf( controller.countIdentifierReferences( bookId ) );
 
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { bookId, references } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { bookId, references } ) ) ) {
             if( booksList.remove( dataControl.getContent( ) ) ) {
                 booksDataControlList.remove( dataControl );
                 controller.deleteIdentifierReferences( bookId );
@@ -281,7 +281,7 @@ public class BooksListDataControl extends DataControl {
         boolean valid = true;
 
         // Update the current path
-        currentPath += " >> " + TextConstants.getElementName( Controller.BOOKS_LIST );
+        currentPath += " >> " + TC.getElement( Controller.BOOKS_LIST );
 
         // Iterate through the books
         for( BookDataControl bookDataControl : booksDataControlList ) {

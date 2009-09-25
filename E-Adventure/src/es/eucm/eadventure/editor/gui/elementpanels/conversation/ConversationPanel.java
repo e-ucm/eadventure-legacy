@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
@@ -71,7 +71,7 @@ public class ConversationPanel extends ElementPanel {
 
         public ConversationEditionPanelTab( ConversationDataControl sDataControl ) {
 
-            super( TextConstants.getText( "Conversation.Title" ), sDataControl );
+            super( TC.get( "Conversation.Title" ), sDataControl );
             this.sDataControl = sDataControl;
         }
 

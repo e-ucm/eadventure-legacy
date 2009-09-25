@@ -76,7 +76,7 @@ import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericFileChooserDialog;
@@ -228,11 +228,11 @@ public class MainWindow extends JFrame {
 
         JPanel temp = new JPanel( );
 
-        JButton undoButton = createToolButton( "img/icons/undo.png", TextConstants.getText( "Tools.Undo" ) );
-        JButton redoButton = createToolButton( "img/icons/redo.png", TextConstants.getText( "Tools.Redo" ) );
-        JButton backButton = createToolButton( "img/icons/moveNodeLeft.png", TextConstants.getText( "Tools.Back" ) );
-        JButton forwardButton = createToolButton( "img/icons/moveNodeRight.png", TextConstants.getText( "Tools.Forward" ) );
-        JButton findButton = createToolButton( "img/icons/find.png", TextConstants.getText( "Tools.Find" ) );
+        JButton undoButton = createToolButton( "img/icons/undo.png", TC.get( "Tools.Undo" ) );
+        JButton redoButton = createToolButton( "img/icons/redo.png", TC.get( "Tools.Redo" ) );
+        JButton backButton = createToolButton( "img/icons/moveNodeLeft.png", TC.get( "Tools.Back" ) );
+        JButton forwardButton = createToolButton( "img/icons/moveNodeRight.png", TC.get( "Tools.Forward" ) );
+        JButton findButton = createToolButton( "img/icons/find.png", TC.get( "Tools.Find" ) );
 
         undoButton.addActionListener( new ActionListener( ) {
 
@@ -284,7 +284,7 @@ public class MainWindow extends JFrame {
         temp.add( backButton );
         temp.add( forwardButton );
 
-        temp.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Tools.Title" ) ) );
+        temp.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Tools.Title" ) ) );
 
         return temp;
     }
@@ -312,27 +312,27 @@ public class MainWindow extends JFrame {
         windowMenu.setLayout( new FlowLayout( FlowLayout.LEFT ) );
 
         // Create the menus
-        JMenu fileMenu = new JMenu( TextConstants.getText( "MenuFile.Title" ) );
+        JMenu fileMenu = new JMenu( TC.get( "MenuFile.Title" ) );
         fileMenu.setMnemonic( KeyEvent.VK_F );
         windowMenu.add( fileMenu );
-        JMenu editMenu = new JMenu( TextConstants.getText( "MenuEdit.Title" ) );
+        JMenu editMenu = new JMenu( TC.get( "MenuEdit.Title" ) );
         windowMenu.add( editMenu );
-        JMenu adventureMenu = new JMenu( TextConstants.getText( "MenuAdventure.Title" ) );
+        JMenu adventureMenu = new JMenu( TC.get( "MenuAdventure.Title" ) );
         adventureMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
         adventureMenu.setMnemonic( KeyEvent.VK_A );
         windowMenu.add( adventureMenu );
-        chaptersMenu = new JMenu( TextConstants.getText( "MenuChapters.Title" ) );
+        chaptersMenu = new JMenu( TC.get( "MenuChapters.Title" ) );
         chaptersMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
         chaptersMenu.setMnemonic( KeyEvent.VK_H );
         windowMenu.add( chaptersMenu );
-        JMenu runMenu = new JMenu( TextConstants.getText( "MenuRun.Title" ) );
+        JMenu runMenu = new JMenu( TC.get( "MenuRun.Title" ) );
         runMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
         windowMenu.add( runMenu );
-        JMenu configurationMenu = new JMenu( TextConstants.getText( "MenuConfiguration.Title" ) );
+        JMenu configurationMenu = new JMenu( TC.get( "MenuConfiguration.Title" ) );
         configurationMenu.setMnemonic( KeyEvent.VK_T );
         windowMenu.add( configurationMenu );
-        JMenu about = new JMenu( TextConstants.getText( "Menu.About" ) );
-        JMenuItem aboutEadventure = new JMenuItem( TextConstants.getText( "Menu.AboutEAD" ) );
+        JMenu about = new JMenu( TC.get( "Menu.About" ) );
+        JMenuItem aboutEadventure = new JMenuItem( TC.get( "Menu.AboutEAD" ) );
         about.add( aboutEadventure );
         aboutEadventure.setArmed( false );
         aboutEadventure.addActionListener( new ActionListener( ) {
@@ -342,7 +342,7 @@ public class MainWindow extends JFrame {
                 controller.showAboutDialog( );
             }
         } );
-        JMenuItem sendComments = new JMenuItem( TextConstants.getText( "Menu.SendComments" ) );
+        JMenuItem sendComments = new JMenuItem( TC.get( "Menu.SendComments" ) );
         about.add( sendComments );
         sendComments.setArmed( false );
         sendComments.addActionListener( new ActionListener( ) {
@@ -354,7 +354,7 @@ public class MainWindow extends JFrame {
         } );
         windowMenu.add( about );
 
-        JMenuItem itFileNew = new JMenuItem( TextConstants.getText( "MenuFile.New" ) );
+        JMenuItem itFileNew = new JMenuItem( TC.get( "MenuFile.New" ) );
         itFileNew.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -364,7 +364,7 @@ public class MainWindow extends JFrame {
         } );
         fileMenu.add( itFileNew );
 
-        JMenuItem itFileLoad = new JMenuItem( TextConstants.getText( "MenuFile.Load" ) );
+        JMenuItem itFileLoad = new JMenuItem( TC.get( "MenuFile.Load" ) );
         itFileLoad.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -376,7 +376,7 @@ public class MainWindow extends JFrame {
         itFileLoad.setAccelerator( KeyStroke.getKeyStroke( 'L', InputEvent.CTRL_MASK ) );
         fileMenu.add( itFileLoad );
         fileMenu.addSeparator( );
-        JMenuItem itFileSave = new JMenuItem( TextConstants.getText( "MenuFile.Save" ) );
+        JMenuItem itFileSave = new JMenuItem( TC.get( "MenuFile.Save" ) );
         itFileSave.setEnabled( controller.isFolderLoaded( ) );
         itFileSave.addActionListener( new ActionListener( ) {
 
@@ -388,7 +388,7 @@ public class MainWindow extends JFrame {
         } );
         itFileSave.setAccelerator( KeyStroke.getKeyStroke( 'S', InputEvent.CTRL_MASK ) );
         fileMenu.add( itFileSave );
-        JMenuItem itFileSaveAs = new JMenuItem( TextConstants.getText( "MenuFile.SaveAs" ) );
+        JMenuItem itFileSaveAs = new JMenuItem( TC.get( "MenuFile.SaveAs" ) );
         itFileSaveAs.setEnabled( controller.isFolderLoaded( ) );
         itFileSaveAs.addActionListener( new ActionListener( ) {
 
@@ -401,9 +401,9 @@ public class MainWindow extends JFrame {
         fileMenu.addSeparator( );
 
         // create Lom Properties menu (IEEE LOM, IMS LOM, LOM-ES)
-        JMenu itLomProperties = new JMenu( TextConstants.getText( "MenuFile.AllLOMProperties" ) );
+        JMenu itLomProperties = new JMenu( TC.get( "MenuFile.AllLOMProperties" ) );
 
-        JMenuItem itLOMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMProperties" ) );
+        JMenuItem itLOMProp = new JMenuItem( TC.get( "MenuFile.LOMProperties" ) );
         itLOMProp.setEnabled( controller.isFolderLoaded( ) );
         itLOMProp.addActionListener( new ActionListener( ) {
 
@@ -415,7 +415,7 @@ public class MainWindow extends JFrame {
         itLomProperties.add( itLOMProp );
         //itLomProperties.addSeparator( );
 
-        JMenuItem itLOMSCORMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMSCORMProperties" ) );
+        JMenuItem itLOMSCORMProp = new JMenuItem( TC.get( "MenuFile.LOMSCORMProperties" ) );
         itLOMSCORMProp.setEnabled( controller.isFolderLoaded( ) );
         itLOMSCORMProp.addActionListener( new ActionListener( ) {
 
@@ -427,7 +427,7 @@ public class MainWindow extends JFrame {
         itLomProperties.add( itLOMSCORMProp );
         //itLomProperties.addSeparator( );
 
-        JMenuItem itLOMESProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMESProperties" ) );
+        JMenuItem itLOMESProp = new JMenuItem( TC.get( "MenuFile.LOMESProperties" ) );
         itLOMESProp.setEnabled( controller.isFolderLoaded( ) );
         itLOMESProp.addActionListener( new ActionListener( ) {
 
@@ -441,7 +441,7 @@ public class MainWindow extends JFrame {
         fileMenu.add( itLomProperties );
         fileMenu.addSeparator( );
 
-        JMenuItem importChapter = new JMenuItem( TextConstants.getText( "MenuFile.ImportChapter" ) );
+        JMenuItem importChapter = new JMenuItem( TC.get( "MenuFile.ImportChapter" ) );
         importChapter.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -450,9 +450,9 @@ public class MainWindow extends JFrame {
             }
         } );
 
-        JMenu itExport = new JMenu( TextConstants.getText( "MenuFile.Export" ) );
+        JMenu itExport = new JMenu( TC.get( "MenuFile.Export" ) );
         itExport.setEnabled( controller.isFolderLoaded( ) );
-        JMenuItem itExportGame = new JMenuItem( TextConstants.getText( "MenuFile.ExportGame" ) );
+        JMenuItem itExportGame = new JMenuItem( TC.get( "MenuFile.ExportGame" ) );
         itExportGame.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -461,7 +461,7 @@ public class MainWindow extends JFrame {
             }
         } );
 
-        JMenuItem itExportStandalone = new JMenuItem( TextConstants.getText( "MenuFile.ExportStandalone" ) );
+        JMenuItem itExportStandalone = new JMenuItem( TC.get( "MenuFile.ExportStandalone" ) );
         itExportStandalone.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -470,7 +470,7 @@ public class MainWindow extends JFrame {
             }
         } );
 
-        JMenuItem itExportLOM = new JMenuItem( TextConstants.getText( "MenuFile.ExportLOM" ) );
+        JMenuItem itExportLOM = new JMenuItem( TC.get( "MenuFile.ExportLOM" ) );
         itExportLOM.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -485,7 +485,7 @@ public class MainWindow extends JFrame {
         fileMenu.add( itExport );
         fileMenu.addSeparator( );
 
-        JMenuItem itFileExit = new JMenuItem( TextConstants.getText( "MenuFile.Exit" ) );
+        JMenuItem itFileExit = new JMenuItem( TC.get( "MenuFile.Exit" ) );
         itFileExit.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -495,7 +495,7 @@ public class MainWindow extends JFrame {
         } );
         fileMenu.add( itFileExit );
 
-        undo = new JMenuItem( TextConstants.getText( "MenuEdit.Undo" ) );
+        undo = new JMenuItem( TC.get( "MenuEdit.Undo" ) );
         undo.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -505,7 +505,7 @@ public class MainWindow extends JFrame {
         } );
         undo.setAccelerator( KeyStroke.getKeyStroke( 'Z', InputEvent.CTRL_MASK ) );
 
-        redo = new JMenuItem( TextConstants.getText( "MenuEdit.Redo" ) );
+        redo = new JMenuItem( TC.get( "MenuEdit.Redo" ) );
         redo.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -515,7 +515,7 @@ public class MainWindow extends JFrame {
         } );
         redo.setAccelerator( KeyStroke.getKeyStroke( 'Y', InputEvent.CTRL_MASK ) );
 
-        JMenuItem search = new JMenuItem( TextConstants.getText( "Search.DialogTitle" ) );
+        JMenuItem search = new JMenuItem( TC.get( "Search.DialogTitle" ) );
         search.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -529,7 +529,7 @@ public class MainWindow extends JFrame {
         editMenu.add( search );
 
         // Create the "Adventure" elements
-        JMenuItem itCheckConsistency = new JMenuItem( TextConstants.getText( "MenuAdventure.CheckConsistency" ) );
+        JMenuItem itCheckConsistency = new JMenuItem( TC.get( "MenuAdventure.CheckConsistency" ) );
         itCheckConsistency.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -539,7 +539,7 @@ public class MainWindow extends JFrame {
         } );
         adventureMenu.add( itCheckConsistency );
         adventureMenu.addSeparator( );
-        JMenuItem itAdventureData = new JMenuItem( TextConstants.getText( "MenuAdventure.AdventureData" ) );
+        JMenuItem itAdventureData = new JMenuItem( TC.get( "MenuAdventure.AdventureData" ) );
         itAdventureData.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -549,8 +549,8 @@ public class MainWindow extends JFrame {
         } );
         adventureMenu.add( itAdventureData );
 
-        JMenu visualization = new JMenu( TextConstants.getText( "MenuAdventure.Visualization" ) );
-        JMenuItem itGUIStyles = new JMenuItem( TextConstants.getText( "MenuAdventure.GUIStyles" ) );
+        JMenu visualization = new JMenu( TC.get( "MenuAdventure.Visualization" ) );
+        JMenuItem itGUIStyles = new JMenuItem( TC.get( "MenuAdventure.GUIStyles" ) );
         itGUIStyles.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -559,7 +559,7 @@ public class MainWindow extends JFrame {
             }
         } );
         visualization.add( itGUIStyles );
-        JMenuItem itCustomizeGUI = new JMenuItem( TextConstants.getText( "MenuAdventure.CustomizeGUI" ) );
+        JMenuItem itCustomizeGUI = new JMenuItem( TC.get( "MenuAdventure.CustomizeGUI" ) );
         itCustomizeGUI.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -568,7 +568,7 @@ public class MainWindow extends JFrame {
             }
         } );
         visualization.add( itCustomizeGUI );
-        JMenuItem itGraphicConfig = new JMenuItem( TextConstants.getText( "MenuAdventure.GraphicConfig" ) );
+        JMenuItem itGraphicConfig = new JMenuItem( TC.get( "MenuAdventure.GraphicConfig" ) );
         itGraphicConfig.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -580,16 +580,16 @@ public class MainWindow extends JFrame {
         adventureMenu.add( visualization );
         if( controller.isFolderLoaded( ) ) {
             if( controller.isPlayTransparent( ) ) {
-                itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
-                itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
+                itPlayerMode = new JMenuItem( TC.get( "MenuAdventure.ChangeToModePlayerVisible" ) );
+                itPlayerMode.setToolTipText( TC.get( "MenuAdventure.ModePlayerVisible" ) );
             }
             else {
-                itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
-                itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
+                itPlayerMode = new JMenuItem( TC.get( "MenuAdventure.ChangeToModePlayerTransparent" ) );
+                itPlayerMode.setToolTipText( TC.get( "MenuAdventure.ModePlayerTransparent" ) );
             }
         }
         else {
-            itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
+            itPlayerMode = new JMenuItem( TC.get( "MenuAdventure.ChangeToModePlayerVisible" ) );
             itPlayerMode.setEnabled( false );
         }
         itPlayerMode.addActionListener( new ActionListener( ) {
@@ -618,7 +618,7 @@ public class MainWindow extends JFrame {
         } );
         adventureMenu.add( itAdaptationFiles );*/
         //adventureMenu.addSeparator( );
-        JMenuItem itDeleteUnusedAssets = new JMenuItem( TextConstants.getText( "MenuAdventure.DeleteUnusedAssets" ) );
+        JMenuItem itDeleteUnusedAssets = new JMenuItem( TC.get( "MenuAdventure.DeleteUnusedAssets" ) );
         itDeleteUnusedAssets.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -629,7 +629,7 @@ public class MainWindow extends JFrame {
         adventureMenu.add( itDeleteUnusedAssets );
 
         // Create the "Chapter" elements
-        JMenuItem itAddChapter = new JMenuItem( TextConstants.getText( "MenuChapters.AddChapter" ) );
+        JMenuItem itAddChapter = new JMenuItem( TC.get( "MenuChapters.AddChapter" ) );
         itAddChapter.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -638,7 +638,7 @@ public class MainWindow extends JFrame {
             }
         } );
         chaptersMenu.add( itAddChapter );
-        JMenuItem itDeleteChapter = new JMenuItem( TextConstants.getText( "MenuChapters.DeleteChapter" ) );
+        JMenuItem itDeleteChapter = new JMenuItem( TC.get( "MenuChapters.DeleteChapter" ) );
         itDeleteChapter.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -648,7 +648,7 @@ public class MainWindow extends JFrame {
         } );
         chaptersMenu.add( itDeleteChapter );
         chaptersMenu.addSeparator( );
-        JMenuItem itMoveChapterUp = new JMenuItem( TextConstants.getText( "MenuChapters.MoveChapterUp" ) );
+        JMenuItem itMoveChapterUp = new JMenuItem( TC.get( "MenuChapters.MoveChapterUp" ) );
         itMoveChapterUp.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -657,7 +657,7 @@ public class MainWindow extends JFrame {
             }
         } );
         chaptersMenu.add( itMoveChapterUp );
-        JMenuItem itMoveChapterDown = new JMenuItem( TextConstants.getText( "MenuChapters.MoveChapterDown" ) );
+        JMenuItem itMoveChapterDown = new JMenuItem( TC.get( "MenuChapters.MoveChapterDown" ) );
         itMoveChapterDown.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -667,7 +667,7 @@ public class MainWindow extends JFrame {
         } );
         chaptersMenu.add( itMoveChapterDown );
         chaptersMenu.addSeparator( );
-        JMenuItem itEditFlags = new JMenuItem( TextConstants.getText( "MenuChapters.Flags" ) );
+        JMenuItem itEditFlags = new JMenuItem( TC.get( "MenuChapters.Flags" ) );
         itEditFlags.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -681,7 +681,7 @@ public class MainWindow extends JFrame {
         updateChapterMenu( );
 
         // Create "run" elements
-        normalRun = new JMenuItem( TextConstants.getText( "MenuRun.Normal" ) );
+        normalRun = new JMenuItem( TC.get( "MenuRun.Normal" ) );
         normalRun.setAccelerator( KeyStroke.getKeyStroke( 'R', InputEvent.CTRL_MASK ) );
         normalRun.addActionListener( new ActionListener( ) {
 
@@ -693,7 +693,7 @@ public class MainWindow extends JFrame {
         } );
         runMenu.add( normalRun );
 
-        debugRun = new JMenuItem( TextConstants.getText( "MenuRun.Debug" ) );
+        debugRun = new JMenuItem( TC.get( "MenuRun.Debug" ) );
         debugRun.setAccelerator( KeyStroke.getKeyStroke( 'D', InputEvent.CTRL_MASK ) );
         debugRun.addActionListener( new ActionListener( ) {
 
@@ -705,7 +705,7 @@ public class MainWindow extends JFrame {
         } );
         runMenu.add( debugRun );
 
-        itAutoBackup = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.AutoBackup" ), controller.getAutoSaveEnabled( ) );
+        itAutoBackup = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.AutoBackup" ), controller.getAutoSaveEnabled( ) );
         itAutoBackup.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -714,7 +714,7 @@ public class MainWindow extends JFrame {
             }
         } );
         //		configurationMenu.add( itAutoBackup );
-        JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.Language.English" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_ENGLISH );
+        JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.Language.English" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_ENGLISH );
         itEnglish.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -722,7 +722,7 @@ public class MainWindow extends JFrame {
                 controller.setLanguage( ReleaseFolders.LANGUAGE_ENGLISH );
             }
         } );
-        JCheckBoxMenuItem itSpanish = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.Language.Spanish" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_SPANISH );
+        JCheckBoxMenuItem itSpanish = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.Language.Spanish" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_SPANISH );
         itSpanish.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -730,7 +730,7 @@ public class MainWindow extends JFrame {
                 controller.setLanguage( ReleaseFolders.LANGUAGE_SPANISH );
             }
         } );
-        JMenu languageMenu = new JMenu( TextConstants.getText( "MenuConfiguration.Language" ) );
+        JMenu languageMenu = new JMenu( TC.get( "MenuConfiguration.Language" ) );
         languageMenu.add( itEnglish );
         languageMenu.add( itSpanish );
         configurationMenu.add( languageMenu );
@@ -756,12 +756,12 @@ public class MainWindow extends JFrame {
 
         //Update the change player mode item menu
         if( controller.isPlayTransparent( ) ) {
-            itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
-            itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
+            itPlayerMode.setText( TC.get( "MenuAdventure.ChangeToModePlayerVisible" ) );
+            itPlayerMode.setToolTipText( TC.get( "MenuAdventure.ModePlayerVisible" ) );
         }
         else {
-            itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
-            itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
+            itPlayerMode.setText( TC.get( "MenuAdventure.ChangeToModePlayerTransparent" ) );
+            itPlayerMode.setToolTipText( TC.get( "MenuAdventure.ModePlayerTransparent" ) );
         }
         itAutoBackup.setSelected( controller.getAutoSaveEnabled( ) );
 
@@ -788,7 +788,7 @@ public class MainWindow extends JFrame {
         //	setTitle( TextConstants.getText( "MainWindow.Title.NewFile" ) + modified );
         //} else {
 
-        setTitle( TextConstants.getText( "MainWindow.Title", controller.getFileName( ) ) + modified );
+        setTitle( TC.get( "MainWindow.Title", controller.getFileName( ) ) + modified );
         //		}
     }
 

@@ -57,7 +57,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class VarDialog extends JDialog {
@@ -81,7 +81,7 @@ public class VarDialog extends JDialog {
     public VarDialog( int var, String[] actionsValues, String action ) {
 
         // Call to the JDialog constructor
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "VarDialog.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "VarDialog.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
 
         err = false;
         close = false;
@@ -106,14 +106,14 @@ public class VarDialog extends JDialog {
         actions.setSelectedItem( action );
         JPanel cont1 = new JPanel( );
         cont1.add( actions, BorderLayout.CENTER );
-        cont1.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "VarDialog.Value" ) ) );
+        cont1.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "VarDialog.Value" ) ) );
 
         if( isVar ) {
             value = new WholeNumberField( var, 5 );
             //value.setPreferredSize(new Dimension (150,20));
             JPanel cont = new JPanel( );
             cont.add( value, BorderLayout.CENTER );
-            cont.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "VarDialog.Value" ) ) );
+            cont.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "VarDialog.Value" ) ) );
 
             JPanel both = new JPanel( );
             both.setLayout( new GridLayout( 0, 2 ) );
@@ -223,7 +223,7 @@ public class VarDialog extends JDialog {
                         result[j++] = source[i];
                     else {
                         toolkit.beep( );
-                        Controller.getInstance( ).showErrorDialog( TextConstants.getText( "VarDialog.Err.Title" ), TextConstants.getText( "VarDialog.Err.Message" ) );
+                        Controller.getInstance( ).showErrorDialog( TC.get( "VarDialog.Err.Title" ), TC.get( "VarDialog.Err.Message" ) );
                         err = false;
                     }
                 }

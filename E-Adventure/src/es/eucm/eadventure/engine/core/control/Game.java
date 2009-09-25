@@ -65,7 +65,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
@@ -787,7 +787,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
             if( needsName ) {
                 DebugLog.general( "Asks for player name" );
-                String name = JOptionPane.showInputDialog( null, TextConstants.getText( "Reports.InputReportName" ), TextConstants.getText( "Reports.NameInput" ), JOptionPane.QUESTION_MESSAGE );
+                String name = JOptionPane.showInputDialog( null, TC.get( "Reports.InputReportName" ), TC.get( "Reports.NameInput" ), JOptionPane.QUESTION_MESSAGE );
                 gameDescriptor.setPlayerName( name );
                 assessmentEngine.setPlayerName( name );
             }

@@ -41,7 +41,7 @@ import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.swing.JOptionPane;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 import java.security.Security;
 import java.util.Date;
@@ -306,7 +306,7 @@ public class SendMail {
         }
         catch( MessagingException e ) {
             e.printStackTrace( );
-            JOptionPane.showMessageDialog( null, TextConstants.getText( "SendMail.UnableToSendEmail" ), TextConstants.getText( "SendMail.ErrorSendingEmail" ), JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog( null, TC.get( "SendMail.UnableToSendEmail" ), TC.get( "SendMail.ErrorSendingEmail" ), JOptionPane.ERROR_MESSAGE );
         }
 
     }

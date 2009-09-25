@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes.time;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class LOMESTimeDataControl extends LOMESDurationDataControl {
@@ -170,10 +170,10 @@ public class LOMESTimeDataControl extends LOMESDurationDataControl {
         if( paramString == null ) {
             switch( param ) {
                 case MILISECONDS:
-                    paramString = TextConstants.getText( "LOMES.Date.Miliseconds" );
+                    paramString = TC.get( "LOMES.Date.Miliseconds" );
                     break;
                 case TIMEZONE:
-                    paramString = TextConstants.getText( "LOMES.Date.TimeZone" );
+                    paramString = TC.get( "LOMES.Date.TimeZone" );
                     break;
             }
         }
@@ -212,7 +212,7 @@ public class LOMESTimeDataControl extends LOMESDurationDataControl {
 
         // Display error message
         if( !set ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "LOM.Duration.InvalidValue.Title" ), TextConstants.getText( "LOM.Duration.InvalidValue.Message", paramToString( param ) ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "LOM.Duration.InvalidValue.Title" ), TC.get( "LOM.Duration.InvalidValue.Message", paramToString( param ) ) );
         }
 
         return set;

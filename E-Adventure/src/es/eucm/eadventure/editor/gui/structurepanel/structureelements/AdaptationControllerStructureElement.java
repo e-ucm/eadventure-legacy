@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.structurepanel.structureelements;
 
 import javax.swing.ImageIcon;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElement;
@@ -46,7 +46,7 @@ public class AdaptationControllerStructureElement extends StructureListElement {
 
     public AdaptationControllerStructureElement( DataControl dataControl ) {
 
-        super( TextConstants.getText( "AdaptationProfiles.Title" ), dataControl );
+        super( TC.get( "AdaptationProfiles.Title" ), dataControl );
         icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
     }
 

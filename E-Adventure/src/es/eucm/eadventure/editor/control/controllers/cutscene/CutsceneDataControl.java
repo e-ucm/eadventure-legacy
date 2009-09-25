@@ -39,7 +39,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -272,12 +272,12 @@ public class CutsceneDataControl extends DataControlWithResources {
         String references = String.valueOf( controller.countIdentifierReferences( oldCutsceneId ) );
 
         // Ask for confirmation
-        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameCutsceneTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldCutsceneId, references } ) ) ) {
+        if( name != null || controller.showStrictConfirmDialog( TC.get( "Operation.RenameCutsceneTitle" ), TC.get( "Operation.RenameElementWarning", new String[] { oldCutsceneId, references } ) ) ) {
 
             // Show a dialog asking for the new cutscnee id
             String newCutsceneId = name;
             if( name == null )
-                newCutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.RenameCutsceneTitle" ), TextConstants.getText( "Operation.RenameCutsceneMessage" ), oldCutsceneId );
+                newCutsceneId = controller.showInputDialog( TC.get( "Operation.RenameCutsceneTitle" ), TC.get( "Operation.RenameCutsceneMessage" ), oldCutsceneId );
 
             // If some value was typed and the identifiers are different
             if( newCutsceneId != null && !newCutsceneId.equals( oldCutsceneId ) && controller.isElementIdValid( newCutsceneId ) ) {
@@ -313,11 +313,11 @@ public class CutsceneDataControl extends DataControlWithResources {
 
         // Iterate through the resources
         for( int i = 0; i < resourcesDataControlList.size( ); i++ ) {
-            String resourcesPath = currentPath + " >> " + TextConstants.getElementName( Controller.RESOURCES ) + " #" + ( i + 1 );
+            String resourcesPath = currentPath + " >> " + TC.getElement( Controller.RESOURCES ) + " #" + ( i + 1 );
             valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
         }
 
-        valid &= EffectsController.isValid( currentPath + " >> " + TextConstants.getText( "Element.Effects" ), incidences, cutscene.getEffects( ) );
+        valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.Effects" ), incidences, cutscene.getEffects( ) );
 
         return valid;
     }
@@ -396,9 +396,9 @@ public class CutsceneDataControl extends DataControlWithResources {
     public void recursiveSearch( ) {
 
         check( this.getId( ), "ID" );
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
-        check( this.getName( ), TextConstants.getText( "Search.Name" ) );
-        check( this.getTargetId( ), TextConstants.getText( "Search.NextScene" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
+        check( this.getName( ), TC.get( "Search.Name" ) );
+        check( this.getTargetId( ), TC.get( "Search.NextScene" ) );
     }
 
     @Override

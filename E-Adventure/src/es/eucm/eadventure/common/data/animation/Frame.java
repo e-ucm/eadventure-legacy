@@ -50,7 +50,7 @@ import javax.swing.ImageIcon;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -334,7 +334,7 @@ public class Frame implements Cloneable, Timed {
             if( inputStream != null ) {
                 image = ImageIO.read( inputStream );
                 if( image == null || image.getHeight( null ) == -1 || image.getWidth( null ) == -1 ) {
-                    factory.showErrorDialog( TextConstants.getText( "Error.Title") , TextConstants.getText( "Error.ImageTypeNotSupported" ) );
+                    factory.showErrorDialog( TC.get( "Error.Title") , TC.get( "Error.ImageTypeNotSupported" ) );
                 }
                 inputStream.close( );
             }

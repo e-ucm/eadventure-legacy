@@ -57,7 +57,7 @@ import javax.swing.JPanel;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.Clock;
@@ -221,7 +221,7 @@ public class ConversationDialog extends JDialog implements ClockListener {
      */
     public ConversationDialog( ConversationDataControl conversationDataControl, ConversationNodeView rootNode ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "ConversationDialog.Title", conversationDataControl.getId( ) ) );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "ConversationDialog.Title", conversationDataControl.getId( ) ) );
 
         // Load the animations for the two characters
         characterFrames = new Image[ 2 ][ 2 ][];

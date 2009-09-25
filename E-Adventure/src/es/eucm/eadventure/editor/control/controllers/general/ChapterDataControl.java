@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -471,7 +471,7 @@ public class ChapterDataControl extends DataControl {
 
         // Set the current path
         currentPath = getTitle( );
-        String playerPath = currentPath + " >> " + TextConstants.getElementName( Controller.PLAYER );
+        String playerPath = currentPath + " >> " + TC.getElement( Controller.PLAYER );
 
         // Spread the call to the rest of te elements
         valid &= scenesListDataControl.isValid( currentPath, incidences );
@@ -637,11 +637,11 @@ public class ChapterDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getAdaptationName( ), TextConstants.getText( "Search.AdaptationPath" ) );
-        check( this.getAssessmentName( ), TextConstants.getText( "Search.AssessmentPath" ) );
-        check( this.getDescription( ), TextConstants.getText( "Search.Description" ) );
-        check( this.getInitialScene( ), TextConstants.getText( "Search.InitialScene" ) );
-        check( this.getTitle( ), TextConstants.getText( "Search.Title" ) );
+        check( this.getAdaptationName( ), TC.get( "Search.AdaptationPath" ) );
+        check( this.getAssessmentName( ), TC.get( "Search.AssessmentPath" ) );
+        check( this.getDescription( ), TC.get( "Search.Description" ) );
+        check( this.getInitialScene( ), TC.get( "Search.InitialScene" ) );
+        check( this.getTitle( ), TC.get( "Search.Title" ) );
         this.getAtrezzoList( ).recursiveSearch( );
         this.getBooksList( ).recursiveSearch( );
         this.getConversationsList( ).recursiveSearch( );

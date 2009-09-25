@@ -50,7 +50,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
@@ -128,12 +128,12 @@ public class NextSceneCellRendererEditor extends AbstractCellEditor implements T
 
         if( !Controller.getInstance( ).isPlayTransparent( ) ) {
 
-            hasPosition = new JCheckBox( TextConstants.getText( "NextSceneCell.UsePosition" ) );
+            hasPosition = new JCheckBox( TC.get( "NextSceneCell.UsePosition" ) );
             hasPosition.addActionListener( new DestinyPositionCheckBoxListener( ) );
             hasPosition.setEnabled( Controller.getInstance( ).getIdentifierSummary( ).isScene( exit.getNextSceneId( ) ) );
             hasPosition.setSelected( exit.hasDestinyPosition( ) );
 
-            editPosition = new JButton( TextConstants.getText( "NextSceneCell.EditDestinyPosition" ) );
+            editPosition = new JButton( TC.get( "NextSceneCell.EditDestinyPosition" ) );
             editPosition.addActionListener( new DestinyPositionButtonListener( ) );
             editPosition.setEnabled( hasPosition.isEnabled( ) && exit.hasDestinyPosition( ) );
             c.gridy++;

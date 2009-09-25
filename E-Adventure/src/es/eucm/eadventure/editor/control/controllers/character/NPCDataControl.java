@@ -39,7 +39,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -423,12 +423,12 @@ public class NPCDataControl extends DataControlWithResources {
         String references = String.valueOf( controller.countIdentifierReferences( oldNPCId ) );
 
         // Ask for confirmation
-        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameNPCTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldNPCId, references } ) ) ) {
+        if( name != null || controller.showStrictConfirmDialog( TC.get( "Operation.RenameNPCTitle" ), TC.get( "Operation.RenameElementWarning", new String[] { oldNPCId, references } ) ) ) {
 
             // Show a dialog asking for the new npc id
             String newNPCId = name;
             if( name == null )
-                newNPCId = controller.showInputDialog( TextConstants.getText( "Operation.RenameNPCTitle" ), TextConstants.getText( "Operation.RenameNPCMessage" ), oldNPCId );
+                newNPCId = controller.showInputDialog( TC.get( "Operation.RenameNPCTitle" ), TC.get( "Operation.RenameNPCMessage" ), oldNPCId );
 
             // If some value was typed and the identifiers are different
             if( newNPCId != null && !newNPCId.equals( oldNPCId ) && controller.isElementIdValid( newNPCId ) ) {
@@ -464,7 +464,7 @@ public class NPCDataControl extends DataControlWithResources {
 
         // Iterate through the resources
         for( int i = 0; i < resourcesDataControlList.size( ); i++ ) {
-            String resourcesPath = currentPath + " >> " + TextConstants.getElementName( Controller.RESOURCES ) + " #" + ( i + 1 );
+            String resourcesPath = currentPath + " >> " + TC.getElement( Controller.RESOURCES ) + " #" + ( i + 1 );
             valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
         }
 
@@ -557,13 +557,13 @@ public class NPCDataControl extends DataControlWithResources {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getBriefDescription( ), TextConstants.getText( "Search.BriefDescription" ) );
-        check( this.getDetailedDescription( ), TextConstants.getText( "Search.DetailedDescription" ) );
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
+        check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
+        check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
-        check( this.getName( ), TextConstants.getText( "Search.Name" ) );
-        check( this.getVoice( ), TextConstants.getText( "Search.NPCVoice" ) );
-        check( this.getPreviewImage( ), TextConstants.getText( "Search.PreviewImage" ) );
+        check( this.getName( ), TC.get( "Search.Name" ) );
+        check( this.getVoice( ), TC.get( "Search.NPCVoice" ) );
+        check( this.getPreviewImage( ), TC.get( "Search.PreviewImage" ) );
         getActionsList( ).recursiveSearch( );
     }
 

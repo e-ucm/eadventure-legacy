@@ -59,7 +59,7 @@ import javax.swing.event.ChangeListener;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.TextPreviewPanel;
 
@@ -157,7 +157,7 @@ public class NPCDialogPanel extends JPanel {
         }
         voiceSelection.add( voicesComboBox );
         // Create CheckBox for select if always synthesizer voices
-        alwaysSynthesizer = new JCheckBox( TextConstants.getText( "Synthesizer.CheckAlways" ) );
+        alwaysSynthesizer = new JCheckBox( TC.get( "Synthesizer.CheckAlways" ) );
         alwaysSynthesizer.addItemListener( new VoiceCheckVoxListener( ) );
         alwaysSynthesizer.setSelected( dataControl.isAlwaysSynthesizer( ) );
         voiceSelection.add( alwaysSynthesizer );
@@ -165,11 +165,11 @@ public class NPCDialogPanel extends JPanel {
         trySynthesizer = new JTextField( );
         voiceSelection.add( trySynthesizer );
         // Create a Button to take the text and try it in the synthesizer
-        JButton playText = new JButton( TextConstants.getText( "Synthesizer.ButtonPlay" ) );
+        JButton playText = new JButton( TC.get( "Synthesizer.ButtonPlay" ) );
         playText.addActionListener( new VoiceButtonListener( ) );
         voiceSelection.add( playText );
 
-        TitledBorder border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "Synthesizer.BorderVoices" ), TitledBorder.LEFT, TitledBorder.TOP );
+        TitledBorder border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TC.get( "Synthesizer.BorderVoices" ), TitledBorder.LEFT, TitledBorder.TOP );
         voiceSelection.setBorder( border );
         add( voiceSelection, cDoc );
     }
@@ -222,7 +222,7 @@ public class NPCDialogPanel extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weighty = 0.1;
 
-        showsSpeechBubbles = new JCheckBox( TextConstants.getText( "Player.ShowsSpeechBubble" ) );
+        showsSpeechBubbles = new JCheckBox( TC.get( "Player.ShowsSpeechBubble" ) );
         textColorPanel.add( showsSpeechBubbles, c );
         showsSpeechBubbles.setSelected( dataControl.getShowsSpeechBubbles( ) );
         showsSpeechBubbles.addChangeListener( new ChangeListener( ) {
@@ -247,27 +247,27 @@ public class NPCDialogPanel extends JPanel {
         c.weighty = 1.0;
         c.ipady = 40;
         textColorPanel.add( textPreviewPanel, c );
-        JButton frontColorButton = new JButton( TextConstants.getText( "Player.FrontColor" ) );
+        JButton frontColorButton = new JButton( TC.get( "Player.FrontColor" ) );
         frontColorButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.FRONT_COLOR ) );
         c.gridy++;
         c.weighty = 0.1;
         c.ipady = 0;
         textColorPanel.add( frontColorButton, c );
-        JButton borderColorButton = new JButton( TextConstants.getText( "Player.BorderColor" ) );
+        JButton borderColorButton = new JButton( TC.get( "Player.BorderColor" ) );
         borderColorButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BORDER_COLOR ) );
         c.gridy++;
         textColorPanel.add( borderColorButton, c );
-        bubbleBkgButton = new JButton( TextConstants.getText( "Player.BubbleBkgColor" ) );
+        bubbleBkgButton = new JButton( TC.get( "Player.BubbleBkgColor" ) );
         bubbleBkgButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BUBBLEBKG_COLOR ) );
         c.gridy++;
         textColorPanel.add( bubbleBkgButton, c );
         bubbleBkgButton.setEnabled( dataControl.getShowsSpeechBubbles( ) );
-        bubbleBorderButton = new JButton( TextConstants.getText( "Player.BubbleBorderColor" ) );
+        bubbleBorderButton = new JButton( TC.get( "Player.BubbleBorderColor" ) );
         bubbleBorderButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BUBBLEBORDER_COLOR ) );
         c.gridy++;
         textColorPanel.add( bubbleBorderButton, c );
         bubbleBorderButton.setEnabled( dataControl.getShowsSpeechBubbles( ) );
-        textColorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.TextColor" ) ) );
+        textColorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Player.TextColor" ) ) );
         return textColorPanel;
     }
 
@@ -295,7 +295,7 @@ public class NPCDialogPanel extends JPanel {
         VoiceManager voiceManager = VoiceManager.getInstance( );
         Voice[] availableVoices = voiceManager.getVoices( );
         String[] voiceName = new String[ availableVoices.length + 1 ];
-        voiceName[0] = TextConstants.getText( "Synthesizer.Empty" );
+        voiceName[0] = TC.get( "Synthesizer.Empty" );
         for( int i = 0; i < availableVoices.length; i++ )
             voiceName[i + 1] = availableVoices[i].getName( );
         return voiceName;
@@ -376,13 +376,13 @@ public class NPCDialogPanel extends JPanel {
             // Create and show the dialog
             JDialog colorDialog = null;
             if( color == FRONT_COLOR )
-                colorDialog = JColorChooser.createDialog( null, TextConstants.getText( "Player.FrontColor" ), true, colorChooser, new UpdateColorListener( ), null );
+                colorDialog = JColorChooser.createDialog( null, TC.get( "Player.FrontColor" ), true, colorChooser, new UpdateColorListener( ), null );
             else if( color == BORDER_COLOR )
-                colorDialog = JColorChooser.createDialog( null, TextConstants.getText( "Player.BorderColor" ), true, colorChooser, new UpdateColorListener( ), null );
+                colorDialog = JColorChooser.createDialog( null, TC.get( "Player.BorderColor" ), true, colorChooser, new UpdateColorListener( ), null );
             else if( color == BUBBLEBKG_COLOR )
-                colorDialog = JColorChooser.createDialog( null, TextConstants.getText( "Player.BubbleBkgColor" ), true, colorChooser, new UpdateColorListener( ), null );
+                colorDialog = JColorChooser.createDialog( null, TC.get( "Player.BubbleBkgColor" ), true, colorChooser, new UpdateColorListener( ), null );
             else if( color == BUBBLEBORDER_COLOR )
-                colorDialog = JColorChooser.createDialog( null, TextConstants.getText( "Player.BubbleBorderColor" ), true, colorChooser, new UpdateColorListener( ), null );
+                colorDialog = JColorChooser.createDialog( null, TC.get( "Player.BubbleBorderColor" ), true, colorChooser, new UpdateColorListener( ), null );
             colorDialog.setResizable( false );
             colorDialog.setVisible( true );
         }

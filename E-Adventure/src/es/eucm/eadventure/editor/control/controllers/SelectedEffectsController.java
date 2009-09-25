@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 
 public class SelectedEffectsController {
@@ -149,77 +149,77 @@ public class SelectedEffectsController {
 
     public static String convertNames( String effectName ) {
 
-        if( effectName.equals( TextConstants.getText( "Effect.Activate" ) ) ) {
+        if( effectName.equals( TC.get( "Effect.Activate" ) ) ) {
             return ACTIVATE;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.Deactivate" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.Deactivate" ) ) ) {
             return DEACTIVATE;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.SetValue" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.SetValue" ) ) ) {
             return SETVALUE;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.IncrementVar" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.IncrementVar" ) ) ) {
             return INCREMENT;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.DecrementVar" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.DecrementVar" ) ) ) {
             return DECREMENT;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.MacroReference" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.MacroReference" ) ) ) {
             return MACRO;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.ConsumeObject" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.ConsumeObject" ) ) ) {
             return CONSUME;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.GenerateObject" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.GenerateObject" ) ) ) {
             return GENERATE;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.CancelAction" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.CancelAction" ) ) ) {
             return CANCEL;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.SpeakPlayer" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.SpeakPlayer" ) ) ) {
             return SPPLAYER;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.SpeakCharacter" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.SpeakCharacter" ) ) ) {
             return SPNPC;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.TriggerBook" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.TriggerBook" ) ) ) {
             return BOOK;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.PlaySound" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.PlaySound" ) ) ) {
             return SOUND;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.TriggerConversation" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.TriggerConversation" ) ) ) {
             return CONVERSATION;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.TriggerCutscene" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.TriggerCutscene" ) ) ) {
             return CUTSCENE;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.TriggerScene" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.TriggerScene" ) ) ) {
             return SCENE;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.PlayAnimation" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.PlayAnimation" ) ) ) {
             return ANIMATION;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.MovePlayer" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.MovePlayer" ) ) ) {
             return MVPLAYER;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.MoveCharacter" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.MoveCharacter" ) ) ) {
             return MVNPC;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.TriggerLastScene" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.TriggerLastScene" ) ) ) {
             return LASTSCENE;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.RandomEffect" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.RandomEffect" ) ) ) {
             return RANDOM;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.ShowText" ) ) ) {
+        else if( effectName.equals( TC.get( "Effect.ShowText" ) ) ) {
             return SHOWTEXT;
         }
-        else if( effectName.equals( TextConstants.getText( "Effect.WaitTime" ) ) )
+        else if( effectName.equals( TC.get( "Effect.WaitTime" ) ) )
             return WAITTIME;
-        else if( effectName.equals( TextConstants.getText( "Effect.HighlightItem" ) ))
+        else if( effectName.equals( TC.get( "Effect.HighlightItem" ) ))
             return HIGHLIGHT;
-        else if( effectName.equals( TextConstants.getText( "Effect.MoveObject" ) ))
+        else if( effectName.equals( TC.get( "Effect.MoveObject" ) ))
             return MOVE_OBJECT;
         
         return null;
@@ -228,73 +228,73 @@ public class SelectedEffectsController {
     public static String reconvertNames( String effectName ) {
 
         if( effectName.equals( ACTIVATE ) ) {
-            return TextConstants.getText( "Effect.Activate" );
+            return TC.get( "Effect.Activate" );
         }
         else if( effectName.equals( DEACTIVATE ) ) {
-            return TextConstants.getText( "Effect.Deactivate" );
+            return TC.get( "Effect.Deactivate" );
         }
         else if( effectName.equals( SETVALUE ) ) {
-            return TextConstants.getText( "Effect.SetValue" );
+            return TC.get( "Effect.SetValue" );
         }
         else if( effectName.equals( INCREMENT ) ) {
-            return TextConstants.getText( "Effect.IncrementVar" );
+            return TC.get( "Effect.IncrementVar" );
         }
         else if( effectName.equals( DECREMENT ) ) {
-            return TextConstants.getText( "Effect.DecrementVar" );
+            return TC.get( "Effect.DecrementVar" );
         }
         else if( effectName.equals( MACRO ) ) {
-            return TextConstants.getText( "Effect.MacroReference" );
+            return TC.get( "Effect.MacroReference" );
         }
         else if( effectName.equals( CONSUME ) ) {
-            return TextConstants.getText( "Effect.ConsumeObject" );
+            return TC.get( "Effect.ConsumeObject" );
         }
         else if( effectName.equals( GENERATE ) ) {
-            return TextConstants.getText( "Effect.GenerateObject" );
+            return TC.get( "Effect.GenerateObject" );
         }
         else if( effectName.equals( CANCEL ) ) {
-            return TextConstants.getText( "Effect.CancelAction" );
+            return TC.get( "Effect.CancelAction" );
         }
         else if( effectName.equals( SPPLAYER ) ) {
-            return TextConstants.getText( "Effect.SpeakPlayer" );
+            return TC.get( "Effect.SpeakPlayer" );
         }
         else if( effectName.equals( SPNPC ) ) {
-            return TextConstants.getText( "Effect.SpeakCharacter" );
+            return TC.get( "Effect.SpeakCharacter" );
         }
         else if( effectName.equals( BOOK ) ) {
-            return TextConstants.getText( "Effect.TriggerBook" );
+            return TC.get( "Effect.TriggerBook" );
         }
         else if( effectName.equals( SOUND ) ) {
-            return TextConstants.getText( "Effect.PlaySound" );
+            return TC.get( "Effect.PlaySound" );
         }
         else if( effectName.equals( CONVERSATION ) ) {
-            return TextConstants.getText( "Effect.TriggerConversation" );
+            return TC.get( "Effect.TriggerConversation" );
         }
         else if( effectName.equals( CUTSCENE ) ) {
-            return TextConstants.getText( "Effect.TriggerCutscene" );
+            return TC.get( "Effect.TriggerCutscene" );
         }
         else if( effectName.equals( SCENE ) ) {
-            return TextConstants.getText( "Effect.TriggerScene" );
+            return TC.get( "Effect.TriggerScene" );
         }
         else if( effectName.equals( ANIMATION ) ) {
-            return TextConstants.getText( "Effect.PlayAnimation" );
+            return TC.get( "Effect.PlayAnimation" );
         }
         else if( effectName.equals( MVPLAYER ) ) {
-            return TextConstants.getText( "Effect.MovePlayer" );
+            return TC.get( "Effect.MovePlayer" );
         }
         else if( effectName.equals( MVNPC ) ) {
-            return TextConstants.getText( "Effect.MoveCharacter" );
+            return TC.get( "Effect.MoveCharacter" );
         }
         else if( effectName.equals( LASTSCENE ) ) {
-            return TextConstants.getText( "Effect.TriggerLastScene" );
+            return TC.get( "Effect.TriggerLastScene" );
         }
         else if( effectName.equals( RANDOM ) ) {
-            return TextConstants.getText( "Effect.RandomEffect" );
+            return TC.get( "Effect.RandomEffect" );
         }
         else if( effectName.equals( SHOWTEXT ) ) {
-            return TextConstants.getText( "Effect.ShowText" );
+            return TC.get( "Effect.ShowText" );
         }
         else if( effectName.equals( WAITTIME ) )
-            return TextConstants.getText( "Effect.WaitTime" );
+            return TC.get( "Effect.WaitTime" );
         else
             return null;
     }

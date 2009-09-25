@@ -37,7 +37,7 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
@@ -77,7 +77,7 @@ public class SceneLooksPanel extends LooksPanel {
         String scenePath = sceneDataControl.getPreviewBackground( );
 
         scenePreviewEditionPanel = new ScenePreviewEditionPanel( false, scenePath );
-        scenePreviewEditionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.Preview" ) ) );
+        scenePreviewEditionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Scene.Preview" ) ) );
 
         // Add the item references first
         for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getItemReferences( ) ) {

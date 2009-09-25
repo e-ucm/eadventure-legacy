@@ -46,7 +46,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 
 public class HighlightItemEffectDialog extends EffectDialog {
@@ -97,7 +97,7 @@ public class HighlightItemEffectDialog extends EffectDialog {
     public HighlightItemEffectDialog( int type, HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( dialogTitles[type] ), false );
+        super( TC.get( dialogTitles[type] ), false );
 
         // Take the list of items
         String[] itemsArray = controller.getIdentifierSummary( ).getItemIds( );
@@ -110,7 +110,7 @@ public class HighlightItemEffectDialog extends EffectDialog {
             GridBagConstraints c = new GridBagConstraints( );
 
             // Set the border of the panel with the description
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( dialogDescriptions[type] ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( dialogDescriptions[type] ) ) ) );
 
             // Create and add the list of flags
             c.insets = new Insets( 2, 4, 4, 4 );
@@ -121,16 +121,16 @@ public class HighlightItemEffectDialog extends EffectDialog {
             mainPanel.add( itemsComboBox, c );
 
             c.gridy++;
-            String[] types = { TextConstants.getText( "HighlightItemEffect.None" ),
-                    TextConstants.getText( "HighlightItemEffect.Blue" ),
-                    TextConstants.getText( "HighlightItemEffect.Red" ),
-                    TextConstants.getText( "HighlightItemEffect.Green" ), 
-                    TextConstants.getText( "HighlightItemEffect.Border" ) };
+            String[] types = { TC.get( "HighlightItemEffect.None" ),
+                    TC.get( "HighlightItemEffect.Blue" ),
+                    TC.get( "HighlightItemEffect.Red" ),
+                    TC.get( "HighlightItemEffect.Green" ), 
+                    TC.get( "HighlightItemEffect.Border" ) };
             typesComboBox = new JComboBox(types );
             mainPanel.add(typesComboBox, c);
 
             c.gridy++;
-            animatedCheckBox = new JCheckBox( TextConstants.getText( "HighlightItemEffect.Animated" ));
+            animatedCheckBox = new JCheckBox( TC.get( "HighlightItemEffect.Animated" ));
             mainPanel.add( animatedCheckBox, c );
             
             // Add the panel to the center
@@ -157,7 +157,7 @@ public class HighlightItemEffectDialog extends EffectDialog {
 
         // If the list had no elements, show an error message
         else
-            controller.showErrorDialog( getTitle( ), TextConstants.getText( "HighlightItemEffect.ErrorNoItems" ) );
+            controller.showErrorDialog( getTitle( ), TC.get( "HighlightItemEffect.ErrorNoItems" ) );
     }
 
     @Override

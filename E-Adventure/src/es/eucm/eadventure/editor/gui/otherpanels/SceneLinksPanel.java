@@ -55,7 +55,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.config.SceneLinksConfigData;
 import es.eucm.eadventure.editor.control.controllers.SceneLinksController;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
@@ -187,7 +187,7 @@ public class SceneLinksPanel extends JPanel {
      */
     private JScrollPane createCheckBoxTable( ) {
 
-        String colNames[] = { TextConstants.getText( "SceneLinksPanel.Show" ), TextConstants.getText( "SceneLinksPanel.SceneID" ), TextConstants.getText( "GeneralText.Edit" ) };
+        String colNames[] = { TC.get( "SceneLinksPanel.Show" ), TC.get( "SceneLinksPanel.SceneID" ), TC.get( "GeneralText.Edit" ) };
         Object[][] data = null;
 
         dtm = new DefaultTableModel( data, colNames ) {

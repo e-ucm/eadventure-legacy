@@ -57,7 +57,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -179,9 +179,9 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
     public void createProfileTypePanel( ) {
 
         profileTypePanel = new JPanel( );
-        profileTypePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.ProfileType" ) ) );
+        profileTypePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.ProfileType" ) ) );
 
-        String[] options = new String[] { TextConstants.getText( "AdaptationRulesList.Scorm2004" ), TextConstants.getText( "AdaptationRulesList.Scorm12" ), TextConstants.getText( "AdaptationRulesList.Normal" ) };
+        String[] options = new String[] { TC.get( "AdaptationRulesList.Scorm2004" ), TC.get( "AdaptationRulesList.Scorm12" ), TC.get( "AdaptationRulesList.Normal" ) };
         comboProfile = new JComboBox( options );
         if( dataControl.isScorm12( ) )
             comboProfile.setSelectedIndex( 1 );
@@ -256,7 +256,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
         } );
         //informationTable.removeEditor( );
         ruleListPanel = new JPanel( );
-        ruleListPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRulesList.ListTitle" ) ) );
+        ruleListPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AdaptationRulesList.ListTitle" ) ) );
         ruleListPanel.setLayout( new BorderLayout( ) );
         ruleListPanel.add( new TableScrollPane( informationTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
 
@@ -264,7 +264,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
         add.setContentAreaFilled( false );
         add.setMargin( new Insets( 0, 0, 0, 0 ) );
         add.setBorder( BorderFactory.createEmptyBorder( ) );
-        add.setToolTipText( TextConstants.getText( "AdaptationProfile.AddRule" ) );
+        add.setToolTipText( TC.get( "AdaptationProfile.AddRule" ) );
         add.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -280,7 +280,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
         duplicate.setContentAreaFilled( false );
         duplicate.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicate.setBorder( BorderFactory.createEmptyBorder( ) );
-        duplicate.setToolTipText( TextConstants.getText( "AdaptationProfile.Duplicate" ) );
+        duplicate.setToolTipText( TC.get( "AdaptationProfile.Duplicate" ) );
         duplicate.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -297,7 +297,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
         delete.setContentAreaFilled( false );
         delete.setMargin( new Insets( 0, 0, 0, 0 ) );
         delete.setBorder( BorderFactory.createEmptyBorder( ) );
-        delete.setToolTipText( TextConstants.getText( "AdaptationProfile.DeleteRule" ) );
+        delete.setToolTipText( TC.get( "AdaptationProfile.DeleteRule" ) );
         delete.setEnabled( false );
         delete.addActionListener( new ActionListener( ) {
 
@@ -315,7 +315,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
         movePropertyUpButton.setContentAreaFilled( false );
         movePropertyUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         movePropertyUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        movePropertyUpButton.setToolTipText( TextConstants.getText( "UOLProperties.MoveUp" ) );
+        movePropertyUpButton.setToolTipText( TC.get( "UOLProperties.MoveUp" ) );
         movePropertyUpButton.addActionListener( new ListenerButtonMoveLineUp( ) );
         movePropertyUpButton.setEnabled( false );
 
@@ -323,7 +323,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
         movePropertyDownButton.setContentAreaFilled( false );
         movePropertyDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         movePropertyDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        movePropertyDownButton.setToolTipText( TextConstants.getText( "UOLProperties.MoveDown" ) );
+        movePropertyDownButton.setToolTipText( TC.get( "UOLProperties.MoveDown" ) );
         movePropertyDownButton.addActionListener( new ListenerButtonMoveLineDown( ) );
         movePropertyDownButton.setEnabled( false );
 
@@ -356,7 +356,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
             //if (informationTable.getRowCount()<=0){
             rulesInfoPanel.removeAll( );
             JPanel empty = new JPanel( );
-            JLabel label = new JLabel( TextConstants.getText( "AdaptationProfile.Empty" ) );
+            JLabel label = new JLabel( TC.get( "AdaptationProfile.Empty" ) );
             empty.add( label );
             //rulesInfoPanel.addTab(/*TextConstants.getText("AdaptationProfile.TabbedLMSState"),*/ empty);
             //rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedInitialState"),empty);
@@ -371,10 +371,10 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
             // rulesInfoPanel.addTab(new UOLPropertiesPanelTab( lastRule,dataControl.isScorm12(),dataControl.isScorm2004()));
 
             JPanel Uol = new UOLPropertiesPanel( lastRule, dataControl.isScorm12( ), dataControl.isScorm2004( ) );
-            rulesInfoPanel.addTab( TextConstants.getText( "AdaptationProfile.TabbedLMSState" ), Uol );
+            rulesInfoPanel.addTab( TC.get( "AdaptationProfile.TabbedLMSState" ), Uol );
 
             JPanel gameStatePanel = new GameStatePanel( lastRule );
-            rulesInfoPanel.addTab( TextConstants.getText( "AdaptationProfile.TabbedInitialState" ), gameStatePanel );
+            rulesInfoPanel.addTab( TC.get( "AdaptationProfile.TabbedInitialState" ), gameStatePanel );
 
             // Create the game-state panel
             //rulesInfoPanel.addTab(new GameStatePanelTab(lastRule));
@@ -391,7 +391,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
 
         public GameStatePanelTab( AdaptationRuleDataControl adpRuleDataControl ) {
 
-            super( TextConstants.getText( "AdaptationProfile.TabbedInitialState" ), adpRuleDataControl );
+            super( TC.get( "AdaptationProfile.TabbedInitialState" ), adpRuleDataControl );
             //this.setHelpPath("scenes/Scene_Barriers.html");
             this.dataControl = adpRuleDataControl;
         }
@@ -413,7 +413,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
 
         public UOLPropertiesPanelTab( AdaptationRuleDataControl dataControl, boolean isScorm12, boolean isScorm2004 ) {
 
-            super( TextConstants.getText( "AdaptationProfile.TabbedLMSState" ), dataControl );
+            super( TC.get( "AdaptationProfile.TabbedLMSState" ), dataControl );
             //this.setHelpPath("scenes/Scene_Barriers.html");
             this.dataControl = dataControl;
             this.isScorm12 = isScorm12;

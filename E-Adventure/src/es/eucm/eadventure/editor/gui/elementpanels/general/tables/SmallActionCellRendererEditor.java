@@ -58,7 +58,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.data.Named;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
@@ -164,8 +164,8 @@ public class SmallActionCellRendererEditor extends AbstractCellEditor implements
 
         c.gridy++;
 
-        final JCheckBox enableNotEff = new JCheckBox( TextConstants.getText( "ActiveAreasList.ActiveWhenConditionsArent" ) );
-        final JButton notEffectsButton = new JButton( TextConstants.getText( "Exit.EditNotEffects" ) );
+        final JCheckBox enableNotEff = new JCheckBox( TC.get( "ActiveAreasList.ActiveWhenConditionsArent" ) );
+        final JButton notEffectsButton = new JButton( TC.get( "Exit.EditNotEffects" ) );
 
         enableNotEff.setSelected( value.isActivatedNotEffects( ) );
         enableNotEff.addActionListener( new ActionListener( ) {
@@ -224,28 +224,28 @@ public class SmallActionCellRendererEditor extends AbstractCellEditor implements
         String text = "";
         switch( type ) {
             case Controller.ACTION_EXAMINE:
-                text = TextConstants.getText( "ActionsList.ExamineAction" );
+                text = TC.get( "ActionsList.ExamineAction" );
                 break;
             case Controller.ACTION_GRAB:
-                text = TextConstants.getText( "ActionsList.GrabAction" );
+                text = TC.get( "ActionsList.GrabAction" );
                 break;
             case Controller.ACTION_USE:
-                text = TextConstants.getText( "ActionsList.UseAction" );
+                text = TC.get( "ActionsList.UseAction" );
                 break;
             case Controller.ACTION_CUSTOM:
                 text = ( (CustomActionDataControl) value ).getName( );
                 break;
             case Controller.ACTION_USE_WITH:
-                text = TextConstants.getText( "ActionsList.UseWithAction", "" );
+                text = TC.get( "ActionsList.UseWithAction", "" );
                 break;
             case Controller.ACTION_GIVE_TO:
-                text = TextConstants.getText( "ActionsList.GiveToAction", "" );
+                text = TC.get( "ActionsList.GiveToAction", "" );
                 break;
             case Controller.ACTION_CUSTOM_INTERACT:
                 text = ( (CustomActionDataControl) value ).getName( ) + ": ";
                 break;
             case Controller.ACTION_TALK_TO:
-                text = TextConstants.getText( "ActionsList.TalkToAction" );
+                text = TC.get( "ActionsList.TalkToAction" );
                 break;
         }
         return text;

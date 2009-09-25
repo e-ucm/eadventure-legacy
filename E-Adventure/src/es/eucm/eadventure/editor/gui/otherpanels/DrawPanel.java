@@ -61,7 +61,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -166,7 +166,7 @@ public class DrawPanel extends JPanel {
         JButton zoomout = new JButton( zoomOutIcon );
         zoomout.setPreferredSize( new Dimension( 20, 20 ) );
         zoomout.setContentAreaFilled( false );
-        zoomout.setToolTipText( TextConstants.getText( "DrawPanel.ZoomOut" ) );
+        zoomout.setToolTipText( TC.get( "DrawPanel.ZoomOut" ) );
         zoomout.setFocusable( false );
         zoomout.setMargin( new Insets( 0, 0, 0, 0 ) );
         zoomout.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -184,14 +184,14 @@ public class DrawPanel extends JPanel {
             }
         } );
         slider.setFocusable( false );
-        slider.setToolTipText( TextConstants.getText( "DrawPanel.ZoomSlider" ) );
+        slider.setToolTipText( TC.get( "DrawPanel.ZoomSlider" ) );
         sliderPanel.add( slider );
 
         Icon zoomInIcon = new ImageIcon( "img/icons/zoomin.png" );
         JButton zoomin = new JButton( zoomInIcon );
         zoomin.setPreferredSize( new Dimension( 20, 20 ) );
         zoomin.setContentAreaFilled( false );
-        zoomin.setToolTipText( TextConstants.getText( "DrawPanel.ZoomIn" ) );
+        zoomin.setToolTipText( TC.get( "DrawPanel.ZoomIn" ) );
         zoomin.setFocusable( false );
         zoomin.setMargin( new Insets( 0, 0, 0, 0 ) );
         zoomin.setBorder( BorderFactory.createEmptyBorder( ) );

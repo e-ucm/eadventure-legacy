@@ -48,7 +48,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 
@@ -150,7 +150,7 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
         // Create text (if applicable)
         String text = null;
         if( useText ) {
-            text = TextConstants.getText( "GeneralText.EditConditions" );
+            text = TC.get( "GeneralText.EditConditions" );
         }
 
         // Create icon (if applicable)

@@ -37,7 +37,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -88,7 +88,7 @@ public class AddNodeLineTool extends Tool {
     @Override
     public boolean doTool( ) {
 
-        lineAdded = new ConversationLine( name, TextConstants.getText( "ConversationLine.DefaultText" ) );
+        lineAdded = new ConversationLine( name, TC.get( "ConversationLine.DefaultText" ) );
         parent.addLine( lineIndex, lineAdded );
         node.add( lineIndex, new ConditionsController( lineAdded.getConditions( ), Controller.CONVERSATION_OPTION_LINE, Integer.toString( lineIndex ) ) );
         return true;

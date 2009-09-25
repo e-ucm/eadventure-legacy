@@ -63,7 +63,7 @@ import javax.swing.event.ListSelectionListener;
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -178,7 +178,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
      */
     public AnimationEditDialog( String filename, Animation animation ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Animation.DialogTitle", filename ), true );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "Animation.DialogTitle", filename ), true );
         if( animation == null ) {
             animationDataControl = new AnimationDataControl( Loader.loadAnimation( AssetsController.getInputStreamCreator( ), filename, new EditorImageLoader()  ) );
         }
@@ -200,7 +200,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         this.setModalityType( ModalityType.APPLICATION_MODAL );
         this.setModal( true );
         this.setResizable( false );
-        this.setTitle( TextConstants.getText( "Animation.DialogTitle", animationDataControl.getFilename( ) ) );
+        this.setTitle( TC.get( "Animation.DialogTitle", animationDataControl.getFilename( ) ) );
 
         createDescriptionPanel( );
 
@@ -226,14 +226,14 @@ public class AnimationEditDialog extends ToolManagableDialog {
 
         frameListPanel.add( createButtonPanel( ), BorderLayout.SOUTH );
 
-        frameListPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Animation.Timeline" ) ) );
+        frameListPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Animation.Timeline" ) ) );
         frameListPanel.setMinimumSize( new Dimension( 600, 240 ) );
         gbc.gridy = 1;
         gbc.weighty = 1;
         this.add( frameListPanel, gbc );
 
         configurationPanel = new JPanel( );
-        configurationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Animation.Details" ) ) );
+        configurationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Animation.Details" ) ) );
         configurationPanel.setMinimumSize( new Dimension( 600, 180 ) );
         gbc.gridy = 2;
         gbc.weighty = 0.7;
@@ -241,7 +241,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
 
         JPanel acceptCancelPanel = new JPanel( );
 
-        JButton preview = new JButton( TextConstants.getText( "Animation.Preview" ) );
+        JButton preview = new JButton( TC.get( "Animation.Preview" ) );
         preview.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -252,7 +252,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         acceptCancelPanel.add( preview );
 
         acceptCancelPanel.setMinimumSize( new Dimension( 600, 50 ) );
-        JButton accept = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+        JButton accept = new JButton( TC.get( "GeneralText.OK" ) );
         accept.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -262,7 +262,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         } );
         acceptCancelPanel.add( accept );
 
-        JButton cancel = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        JButton cancel = new JButton( TC.get( "GeneralText.Cancel" ) );
         cancel.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -302,7 +302,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         gbc.weightx = 0.1;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        temp.add( new JLabel( TextConstants.getText( "Animation.Documentation" ) ), gbc );
+        temp.add( new JLabel( TC.get( "Animation.Documentation" ) ), gbc );
 
         gbc.gridx = 1;
         gbc.weightx = 1;
@@ -322,7 +322,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         gbc.gridy = 0;
         gbc.weightx = 1;
         gbc.fill = GridBagConstraints.NONE;
-        useTransitions = new JCheckBox( TextConstants.getText( "Animation.UseTransitions" ) );
+        useTransitions = new JCheckBox( TC.get( "Animation.UseTransitions" ) );
         if( animationDataControl.isUseTransitions( ) )
             useTransitions.setSelected( true );
         else
@@ -339,7 +339,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         gbc.gridx = 1;
         gbc.weightx = 1;
         gbc.fill = GridBagConstraints.NONE;
-        slides = new JCheckBox( TextConstants.getText( "Animation.Slides" ) );
+        slides = new JCheckBox( TC.get( "Animation.Slides" ) );
         if( animationDataControl.isSlides( ) )
             slides.setSelected( true );
         else
@@ -354,7 +354,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         temp.add( slides, gbc );
 
         descriptionPanel.add( temp );
-        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Animation.GeneralInfo" ) ) );
+        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Animation.GeneralInfo" ) ) );
         descriptionPanel.setMinimumSize( new Dimension( 600, 100 ) );
 
     }
@@ -395,7 +395,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         moveLeftButton.setContentAreaFilled( false );
         moveLeftButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveLeftButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        moveLeftButton.setToolTipText( TextConstants.getText( "Animation.MoveFrameLeft" ) );
+        moveLeftButton.setToolTipText( TC.get( "Animation.MoveFrameLeft" ) );
         moveLeftButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -410,7 +410,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteButton.setToolTipText( TextConstants.getText( "Animation.DeleteFrame" ) );
+        deleteButton.setToolTipText( TC.get( "Animation.DeleteFrame" ) );
         deleteButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -425,7 +425,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         addButton.setContentAreaFilled( false );
         addButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         addButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        addButton.setToolTipText( TextConstants.getText( "Animation.AddFrame" ) );
+        addButton.setToolTipText( TC.get( "Animation.AddFrame" ) );
         addButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -439,7 +439,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         moveRightButton.setContentAreaFilled( false );
         moveRightButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveRightButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        moveRightButton.setToolTipText( TextConstants.getText( "Animation.MoveFrameRight" ) );
+        moveRightButton.setToolTipText( TC.get( "Animation.MoveFrameRight" ) );
         moveRightButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {

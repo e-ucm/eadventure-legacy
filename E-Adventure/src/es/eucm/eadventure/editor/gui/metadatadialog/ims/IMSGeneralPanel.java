@@ -42,7 +42,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSGeneralDataControl;
 
@@ -63,12 +63,12 @@ public class IMSGeneralPanel extends JPanel {
 
         // Create the panels
 
-        titlePanel = new IMSTextPanel( dataControl.getTitleController( ), TextConstants.getText( "LOM.General.Title" ), IMSTextPanel.TYPE_FIELD );
-        IMSOptionsPanel languagePanel = new IMSOptionsPanel( dataControl.getLanguageController( ), TextConstants.getText( "LOM.General.Language" ) );
-        descriptionPanel = new IMSTextPanel( dataControl.getDescriptionController( ), TextConstants.getText( "LOM.General.Description" ), IMSTextPanel.TYPE_AREA );
-        IMSTextPanel keywordPanel = new IMSTextPanel( dataControl.getKeywordController( ), TextConstants.getText( "LOM.General.Keyword" ), IMSTextPanel.TYPE_FIELD );
-        IMSTextPanel catalog = new IMSTextPanel( dataControl.getCatalogController( ), TextConstants.getText( "IMS.General.Catalog" ), IMSTextPanel.TYPE_FIELD );
-        IMSTextPanel entry = new IMSTextPanel( dataControl.getEntryController( ), TextConstants.getText( "IMS.General.Entry" ), IMSTextPanel.TYPE_FIELD );
+        titlePanel = new IMSTextPanel( dataControl.getTitleController( ), TC.get( "LOM.General.Title" ), IMSTextPanel.TYPE_FIELD );
+        IMSOptionsPanel languagePanel = new IMSOptionsPanel( dataControl.getLanguageController( ), TC.get( "LOM.General.Language" ) );
+        descriptionPanel = new IMSTextPanel( dataControl.getDescriptionController( ), TC.get( "LOM.General.Description" ), IMSTextPanel.TYPE_AREA );
+        IMSTextPanel keywordPanel = new IMSTextPanel( dataControl.getKeywordController( ), TC.get( "LOM.General.Keyword" ), IMSTextPanel.TYPE_FIELD );
+        IMSTextPanel catalog = new IMSTextPanel( dataControl.getCatalogController( ), TC.get( "IMS.General.Catalog" ), IMSTextPanel.TYPE_FIELD );
+        IMSTextPanel entry = new IMSTextPanel( dataControl.getEntryController( ), TC.get( "IMS.General.Entry" ), IMSTextPanel.TYPE_FIELD );
 
         // Add the panels
         add( Box.createVerticalStrut( 1 ) );
@@ -84,8 +84,8 @@ public class IMSGeneralPanel extends JPanel {
         add( Box.createVerticalStrut( 1 ) );
         add( keywordPanel );
         // Add "set defaults" button: If you press here, the title and description fields will be filled with the title and description of the adventure 
-        JButton setDefaults = new JButton( TextConstants.getText( "LOM.General.SetDefaults" ) );
-        setDefaults.setToolTipText( TextConstants.getText( "LOM.General.SetDefaultsTip" ) );
+        JButton setDefaults = new JButton( TC.get( "LOM.General.SetDefaults" ) );
+        setDefaults.setToolTipText( TC.get( "LOM.General.SetDefaultsTip" ) );
         setDefaults.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {

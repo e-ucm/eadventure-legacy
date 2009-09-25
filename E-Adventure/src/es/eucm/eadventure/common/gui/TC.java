@@ -48,7 +48,7 @@ import javax.swing.JOptionPane;
  * 
  * @author Bruno Torijano Bueno
  */
-public class TextConstants {
+public class TC {
 
     public static final int NORMAL_SENTENCE = 1;
 
@@ -226,9 +226,9 @@ public class TextConstants {
      *            Element identifier
      * @return Element identifier, "Error" if the element was not found
      */
-    public static String getElementName( int element ) {
+    public static String getElement( int element ) {
 
-        return getText( "Element.Name" + element );
+        return get( "Element.Name" + element );
     }
 
     /**
@@ -242,7 +242,7 @@ public class TextConstants {
      */
     public static String getConditionsContextText( int element, int sentence ) {
 
-        return getText( "Conditions.Context." + sentence + "." + element );
+        return get( "Conditions.Context." + sentence + "." + element );
     }
 
     /**
@@ -253,7 +253,7 @@ public class TextConstants {
      * @return String retrieved from the text base, "Error" if the text was not
      *         found
      */
-    public static String getText( String identifier ) {
+    public static String get( String identifier ) {
 
         String text = null;
 
@@ -281,7 +281,7 @@ public class TextConstants {
      * @return String retrieved from the text base, "Error" if the text was not
      *         found
      */
-    public static String getText( String identifier, String parameter ) {
+    public static String get( String identifier, String parameter ) {
 
         String text = null;
 
@@ -312,7 +312,7 @@ public class TextConstants {
      * @return String retrieved from the text base, "Error" if the text was not
      *         found
      */
-    public static String getText( String identifier, String[] parameters ) {
+    public static String get( String identifier, String[] parameters ) {
 
         String text = null;
 
@@ -337,7 +337,7 @@ public class TextConstants {
      * @return The the text if any, "Error" if not found
      */
     @SuppressWarnings ( "unchecked")
-    public static String getEditionToolName( Class c ) {
+    public static String getToolName( Class c ) {
 
         String text = null;
 

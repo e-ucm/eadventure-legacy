@@ -56,7 +56,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.SingleEffectController;
 
@@ -74,7 +74,7 @@ public class RandomEffectDialog extends EffectDialog {
 
     public RandomEffectDialog( int probability, SingleEffectController positiveEffectController, SingleEffectController negativeEffectController ) {
 
-        super( TextConstants.getText( "RandomEffect.Title" ), false );
+        super( TC.get( "RandomEffect.Title" ), false );
         this.positiveEffectController = positiveEffectController;
         this.negativeEffectController = negativeEffectController;
 
@@ -90,7 +90,7 @@ public class RandomEffectDialog extends EffectDialog {
 
         JPanel probabilityPanel = new JPanel( );
         probabilityPanel.setLayout( new GridBagLayout( ) );
-        probabilityPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "RandomEffect.Probability.Title" ) ) ) );
+        probabilityPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "RandomEffect.Probability.Title" ) ) ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.insets = new Insets( 4, 6, 4, 6 );
         c.weightx = 0.5;
@@ -98,7 +98,7 @@ public class RandomEffectDialog extends EffectDialog {
         c.fill = GridBagConstraints.HORIZONTAL;
 
         c.gridx = 0;
-        JLabel descriptionLabel = new JLabel( TextConstants.getText( "RandomEffect.Probability.Description" ) );
+        JLabel descriptionLabel = new JLabel( TC.get( "RandomEffect.Probability.Description" ) );
         probabilityPanel.add( descriptionLabel, c );
 
         c.gridx = 1;
@@ -137,15 +137,15 @@ public class RandomEffectDialog extends EffectDialog {
 
         // Set the border of the panel with the description
         if( positive )
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "RandomEffect.Positive.Title" ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "RandomEffect.Positive.Title" ) ) ) );
         else
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "RandomEffect.Negative.Title" ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "RandomEffect.Negative.Title" ) ) ) );
 
         // Create the delete content button
         JButton deleteContentButton = new JButton( deleteContentIcon );
         deleteContentButton.addActionListener( new DeleteEffectListener( positive ) );
         deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-        deleteContentButton.setToolTipText( TextConstants.getText( "RandomEffect.DeleteEffect" ) );
+        deleteContentButton.setToolTipText( TC.get( "RandomEffect.DeleteEffect" ) );
         c.gridy = 0;
         c.gridx = 0;
         c.gridwidth = 1;
@@ -163,7 +163,7 @@ public class RandomEffectDialog extends EffectDialog {
         mainPanel.add( pathTextField, c );
 
         // Create the "Edit" button and insert it
-        JButton selectButton = new JButton( TextConstants.getText( "RandomEffect.EditEffect" ) );
+        JButton selectButton = new JButton( TC.get( "RandomEffect.EditEffect" ) );
         selectButton.addActionListener( new EditEffectListener( positive ) );
         c.gridx = 2;
         c.fill = GridBagConstraints.NONE;

@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class GameStateStructureListElement extends EffectsStructureListElement {
 
@@ -41,9 +41,9 @@ public class GameStateStructureListElement extends EffectsStructureListElement {
 
     public GameStateStructureListElement( ) {
 
-        super( TextConstants.getText( "EffectsGroup.GameState" ) );
+        super( TC.get( "EffectsGroup.GameState" ) );
         //icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
-        groupEffects = new String[] { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ), TextConstants.getText( "Effect.DecrementVar" ) };
+        groupEffects = new String[] { TC.get( "Effect.Activate" ), TC.get( "Effect.Deactivate" ), TC.get( "Effect.SetValue" ), TC.get( "Effect.IncrementVar" ), TC.get( "Effect.DecrementVar" ) };
 
         path = LIST_URL;
     }

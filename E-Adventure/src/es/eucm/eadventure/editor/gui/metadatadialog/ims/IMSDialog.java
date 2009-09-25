@@ -48,7 +48,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.HelpDialog;
@@ -67,7 +67,7 @@ public class IMSDialog extends JDialog {
 
     public IMSDialog( IMSDataControl dataControl ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "LOM.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "LOM.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
         this.dataControl = dataControl;
 
         tabs = new JTabbedPane( );
@@ -84,10 +84,10 @@ public class IMSDialog extends JDialog {
             }
         } );
 
-        tabs.insertTab( TextConstants.getText( "LOM.General.Tab" ), null, new IMSGeneralPanel( dataControl.getGeneral( ) ), TextConstants.getText( "LOM.General.Tip" ), 0 );
-        tabs.insertTab( TextConstants.getText( "LOM.LifeCycle.Tab" ) + " & " + TextConstants.getText( "LOM.Technical.Tab" ) + " & " + TextConstants.getText( "IMS.Meta.Tab" ), null, new IMSLifeCycleTechnicalAndMetaPanel( dataControl.getLifeCycle( ), dataControl.getTechnical( ), dataControl.getMetametadata( ) ), TextConstants.getText( "LOM.LifeCycle.Tip" ) + " & " + TextConstants.getText( "LOM.Technical.Tip" ) + " & " + TextConstants.getText( "IMS.Meta.Tip" ), 1 );
-        tabs.insertTab( TextConstants.getText( "LOM.Educational.Tab" ), null, new IMSEducationalPanel( dataControl.getEducational( ) ), TextConstants.getText( "LOM.Educational.Tip" ), 2 );
-        tabs.insertTab( TextConstants.getText( "IMS.Rights.Tab" ) + " & " + TextConstants.getText( "IMS.Classification.Tab" ), null, new IMSRightsAndClassificationPanel( dataControl.getRights( ), dataControl.getClassification( ) ), TextConstants.getText( "IMS.Rights.Tip" ) + " & " + TextConstants.getText( "IMS.Classification.Tip" ), 3 );
+        tabs.insertTab( TC.get( "LOM.General.Tab" ), null, new IMSGeneralPanel( dataControl.getGeneral( ) ), TC.get( "LOM.General.Tip" ), 0 );
+        tabs.insertTab( TC.get( "LOM.LifeCycle.Tab" ) + " & " + TC.get( "LOM.Technical.Tab" ) + " & " + TC.get( "IMS.Meta.Tab" ), null, new IMSLifeCycleTechnicalAndMetaPanel( dataControl.getLifeCycle( ), dataControl.getTechnical( ), dataControl.getMetametadata( ) ), TC.get( "LOM.LifeCycle.Tip" ) + " & " + TC.get( "LOM.Technical.Tip" ) + " & " + TC.get( "IMS.Meta.Tip" ), 1 );
+        tabs.insertTab( TC.get( "LOM.Educational.Tab" ), null, new IMSEducationalPanel( dataControl.getEducational( ) ), TC.get( "LOM.Educational.Tip" ), 2 );
+        tabs.insertTab( TC.get( "IMS.Rights.Tab" ) + " & " + TC.get( "IMS.Classification.Tab" ), null, new IMSRightsAndClassificationPanel( dataControl.getRights( ), dataControl.getClassification( ) ), TC.get( "IMS.Rights.Tip" ) + " & " + TC.get( "IMS.Classification.Tip" ), 3 );
         tabs.add( new JPanel( ), 4 );
         tabs.setTabComponentAt( 4, infoButton );
         tabs.addChangeListener( new ChangeListener( ) {

@@ -60,7 +60,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 /**
  * Dialog showing the options to create a report dialog from the triggered
@@ -71,7 +71,7 @@ public class ReportDialog extends JDialog {
     /**
      * String values for the different importance values (for printing)
      */
-    public static final String[] IMPORTANCE_VALUES_PRINT = { TextConstants.getText( "Report.Importance.VeryLow" ), TextConstants.getText( "Report.Importance.Low" ), TextConstants.getText( "Report.Importance.Normal" ), TextConstants.getText( "Report.Importance.High" ), TextConstants.getText( "Report.Importance.VeryHigh" ) };
+    public static final String[] IMPORTANCE_VALUES_PRINT = { TC.get( "Report.Importance.VeryLow" ), TC.get( "Report.Importance.Low" ), TC.get( "Report.Importance.Normal" ), TC.get( "Report.Importance.High" ), TC.get( "Report.Importance.VeryHigh" ) };
 
     /**
      * Width of the dialog.
@@ -131,7 +131,7 @@ public class ReportDialog extends JDialog {
     public ReportDialog( Frame owner, AssessmentEngine assessmentEngine, String adventureID ) {
 
         // Set the values
-        super( owner, TextConstants.getText( "Report.Title" ), true );
+        super( owner, TC.get( "Report.Title" ), true );
         this.assessmentEngine = assessmentEngine;
         this.adventureID = adventureID;
 
@@ -148,7 +148,7 @@ public class ReportDialog extends JDialog {
         c.insets = new Insets( 4, 10, 2, 10 );
         c.anchor = GridBagConstraints.LINE_START;
         c.gridwidth = 2;
-        currentDirectoryPanel.add( new JLabel( TextConstants.getText( "Report.SelectFolder" ) ), c );
+        currentDirectoryPanel.add( new JLabel( TC.get( "Report.SelectFolder" ) ), c );
 
         c.insets = new Insets( 0, 10, 10, 3 );
         c.gridy = 1;
@@ -167,7 +167,7 @@ public class ReportDialog extends JDialog {
         c.insets = new Insets( 0, 3, 10, 10 );
         c.gridx = 1;
         c.weightx = 0;
-        JButton btnExamine = new JButton( TextConstants.getText( "Report.BtnExamine" ) );
+        JButton btnExamine = new JButton( TC.get( "Report.BtnExamine" ) );
         btnExamine.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -184,14 +184,14 @@ public class ReportDialog extends JDialog {
         // Panel with the XML options
         JPanel xmlReportPanel = new JPanel( );
         xmlReportPanel.setLayout( new GridBagLayout( ) );
-        xmlReportPanel.setBorder( new TitledBorder( new EtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "Report.XMLReport" ), TitledBorder.LEFT, TitledBorder.TOP ) );
+        xmlReportPanel.setBorder( new TitledBorder( new EtchedBorder( EtchedBorder.LOWERED ), TC.get( "Report.XMLReport" ), TitledBorder.LEFT, TitledBorder.TOP ) );
 
         c.insets = new Insets( 10, 10, 3, 10 );
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.LINE_START;
         c.fill = GridBagConstraints.NONE;
-        chkXMLReport = new JCheckBox( TextConstants.getText( "Report.GenerateXML" ), false );
+        chkXMLReport = new JCheckBox( TC.get( "Report.GenerateXML" ), false );
         xmlReportPanel.add( chkXMLReport, c );
 
         c.insets = new Insets( 0, 10, 10, 10 );
@@ -203,20 +203,20 @@ public class ReportDialog extends JDialog {
         JTextPane xmlReportInfo = new JTextPane( );
         xmlReportInfo.setEditable( false );
         xmlReportInfo.setBackground( getContentPane( ).getBackground( ) );
-        xmlReportInfo.setText( TextConstants.getText( "Report.TextXMLReport" ) );
+        xmlReportInfo.setText( TC.get( "Report.TextXMLReport" ) );
         xmlReportPanel.add( xmlReportInfo, c );
 
         // Panel with the HTML options
         JPanel htmlReportPanel = new JPanel( );
         htmlReportPanel.setLayout( new GridBagLayout( ) );
-        htmlReportPanel.setBorder( new TitledBorder( new EtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "Report.HTMLReport" ), TitledBorder.LEFT, TitledBorder.TOP ) );
+        htmlReportPanel.setBorder( new TitledBorder( new EtchedBorder( EtchedBorder.LOWERED ), TC.get( "Report.HTMLReport" ), TitledBorder.LEFT, TitledBorder.TOP ) );
 
         c.insets = new Insets( 10, 10, 3, 10 );
         c.gridy = 0;
         c.gridwidth = 1;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.LINE_START;
-        chkHTMLReport = new JCheckBox( TextConstants.getText( "Report.GenerateHTML" ), false );
+        chkHTMLReport = new JCheckBox( TC.get( "Report.GenerateHTML" ), false );
         chkHTMLReport.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -230,7 +230,7 @@ public class ReportDialog extends JDialog {
         c.insets = new Insets( 10, 10, 3, 2 );
         c.gridx = 1;
         c.weightx = 0;
-        lblImportanceFilter = new JLabel( TextConstants.getText( "Report.Importance" ) );
+        lblImportanceFilter = new JLabel( TC.get( "Report.Importance" ) );
         lblImportanceFilter.setEnabled( chkHTMLReport.isSelected( ) );
         htmlReportPanel.add( lblImportanceFilter, c );
 
@@ -251,7 +251,7 @@ public class ReportDialog extends JDialog {
         JTextPane htmlReportInfo = new JTextPane( );
         htmlReportInfo.setEditable( false );
         htmlReportInfo.setBackground( getContentPane( ).getBackground( ) );
-        htmlReportInfo.setText( TextConstants.getText( "Report.TextHTMLReport" ) );
+        htmlReportInfo.setText( TC.get( "Report.TextHTMLReport" ) );
         htmlReportPanel.add( htmlReportInfo, c );
 
         c.gridx = 0;
@@ -266,7 +266,7 @@ public class ReportDialog extends JDialog {
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
         buttonsPanel.setLayout( new FlowLayout( ) );
-        JButton btnLoad = new JButton( TextConstants.getText( "Report.GenerateHTMLReport" ) );
+        JButton btnLoad = new JButton( TC.get( "Report.GenerateHTMLReport" ) );
         btnLoad.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -276,7 +276,7 @@ public class ReportDialog extends JDialog {
             }
         } );
         buttonsPanel.add( btnLoad );
-        JButton btnCancel = new JButton( TextConstants.getText( "Report.Cancel" ) );
+        JButton btnCancel = new JButton( TC.get( "Report.Cancel" ) );
         btnCancel.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {

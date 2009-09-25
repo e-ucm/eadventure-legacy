@@ -45,7 +45,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
@@ -94,7 +94,7 @@ public class FlagEffectDialog extends EffectDialog {
     public FlagEffectDialog( int type, HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( dialogTitles[type] ), false );
+        super( TC.get( dialogTitles[type] ), false );
 
         // Take the array of flags
         String[] flagsArray = controller.getVarFlagSummary( ).getFlags( );
@@ -107,7 +107,7 @@ public class FlagEffectDialog extends EffectDialog {
         GridBagConstraints c = new GridBagConstraints( );
 
         // Set the border of the panel with the description
-        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( dialogDescriptions[type] ) ) ) );
+        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( dialogDescriptions[type] ) ) ) );
 
         // Create and add the list of flags
         c.insets = new Insets( 2, 4, 4, 4 );

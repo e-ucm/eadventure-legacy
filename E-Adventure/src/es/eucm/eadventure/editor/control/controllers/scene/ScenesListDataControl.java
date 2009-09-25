@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -110,9 +110,9 @@ public class ScenesListDataControl extends DataControl {
         for( int i = 0; i < scenesList.size( ); i++ ) {
             Scene scene = scenesList.get( i );
             scenesInfo[i][0] = scene.getId( );
-            scenesInfo[i][1] = TextConstants.getText( "ScenesList.ExitsNumber", String.valueOf( scene.getExits( ).size( ) ) );
-            scenesInfo[i][2] = TextConstants.getText( "ScenesList.ItemsNumber", String.valueOf( scene.getItemReferences( ).size( ) ) );
-            scenesInfo[i][3] = TextConstants.getText( "ScenesList.NPCsNumber", String.valueOf( scene.getCharacterReferences( ).size( ) ) );
+            scenesInfo[i][1] = TC.get( "ScenesList.ExitsNumber", String.valueOf( scene.getExits( ).size( ) ) );
+            scenesInfo[i][2] = TC.get( "ScenesList.ItemsNumber", String.valueOf( scene.getItemReferences( ).size( ) ) );
+            scenesInfo[i][3] = TC.get( "ScenesList.NPCsNumber", String.valueOf( scene.getCharacterReferences( ).size( ) ) );
         }
 
         return scenesInfo;
@@ -164,7 +164,7 @@ public class ScenesListDataControl extends DataControl {
 
             // Show a dialog asking for the scene id
             if( sceneId == null )
-                sceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddSceneTitle" ), TextConstants.getText( "Operation.AddSceneMessage" ), TextConstants.getText( "Operation.AddSceneDefaultValue" ) );
+                sceneId = controller.showInputDialog( TC.get( "Operation.AddSceneTitle" ), TC.get( "Operation.AddSceneMessage" ), TC.get( "Operation.AddSceneDefaultValue" ) );
 
             // If some value was typed and the identifier is valid
             if( sceneId != null && controller.isElementIdValid( sceneId ) ) {
@@ -210,7 +210,7 @@ public class ScenesListDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.AddSceneDefaultValue" );
+        return TC.get( "Operation.AddSceneDefaultValue" );
     }
 
     @Override
@@ -227,7 +227,7 @@ public class ScenesListDataControl extends DataControl {
             String references = String.valueOf( controller.countIdentifierReferences( sceneId ) );
 
             // Ask for confirmation
-            if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { sceneId, references } ) ) ) {
+            if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { sceneId, references } ) ) ) {
                 if( scenesDataControlList.remove( dataControl ) ) {
                     scenesList.remove( dataControl.getContent( ) );
                     controller.deleteIdentifierReferences( sceneId );
@@ -240,7 +240,7 @@ public class ScenesListDataControl extends DataControl {
 
         // If this is the last scene, it can't be deleted
         else
-            controller.showErrorDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.ErrorLastScene" ) );
+            controller.showErrorDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.ErrorLastScene" ) );
 
         return elementDeleted;
     }
@@ -297,7 +297,7 @@ public class ScenesListDataControl extends DataControl {
         boolean valid = true;
 
         // Update the current path
-        currentPath += " >> " + TextConstants.getElementName( Controller.SCENES_LIST );
+        currentPath += " >> " + TC.getElement( Controller.SCENES_LIST );
 
         // Iterate through the scenes
         for( SceneDataControl sceneDataControl : scenesDataControlList ) {

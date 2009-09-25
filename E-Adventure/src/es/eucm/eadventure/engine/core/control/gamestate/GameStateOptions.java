@@ -49,7 +49,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import es.eucm.eadventure.common.auxiliar.CreateImage;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.assessment.ReportDialog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
@@ -283,23 +283,23 @@ public class GameStateOptions extends GameState {
             imgPressedButton = createImage( 190, 48, "" );
 
         imgPanel = new Image[ NUMBER_OF_PANELS ];
-        imgPanel[OPTIONS_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.OptionsPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[OPTIONS_PANEL] = MultimediaManager.getInstance( ).loadImage( TC.get( "Options.OptionsPanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[OPTIONS_PANEL] == null )
             imgPanel[OPTIONS_PANEL] = createImage( 200, 300, "Options" );
 
-        imgPanel[SAVELOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.SaveLoadPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[SAVELOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TC.get( "Options.SaveLoadPanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[SAVELOAD_PANEL] == null )
             imgPanel[SAVELOAD_PANEL] = createImage( 200, 204, "Save/Load" );
 
-        imgPanel[SAVE_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.SavePanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[SAVE_PANEL] = MultimediaManager.getInstance( ).loadImage( TC.get( "Options.SavePanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[SAVE_PANEL] == null )
             imgPanel[SAVE_PANEL] = createImage( 200, 300, "Save game" );
 
-        imgPanel[LOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.LoadPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[LOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TC.get( "Options.LoadPanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[LOAD_PANEL] == null )
             imgPanel[LOAD_PANEL] = createImage( 200, 300, "Load game" );
 
-        imgPanel[CONFIGURATION_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.ConfigurationPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[CONFIGURATION_PANEL] = MultimediaManager.getInstance( ).loadImage( TC.get( "Options.ConfigurationPanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[CONFIGURATION_PANEL] == null )
             imgPanel[CONFIGURATION_PANEL] = createImage( 200, 252, "Configuration" );
 
@@ -459,8 +459,8 @@ public class GameStateOptions extends GameState {
                 if( existsSaveGame[i] ) {
                     String[] title = { saveGames[i].getTitle( ), saveGames[i].getSaveTime( ) };
                     if( !isValidSlot ) {
-                        title[0] = TextConstants.getText( "Options.versionError1" );
-                        title[1] = TextConstants.getText( "Options.versionError2" );
+                        title[0] = TC.get( "Options.versionError1" );
+                        title[1] = TC.get( "Options.versionError2" );
                     }
 
                     GUI.drawString( g, title, GUI.WINDOW_WIDTH / 2, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT / 2 + BUTTON_HEIGHT * i );

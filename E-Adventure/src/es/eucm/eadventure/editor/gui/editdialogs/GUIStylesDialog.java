@@ -55,7 +55,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 /**
@@ -95,13 +95,13 @@ public class GUIStylesDialog extends JDialog {
     public GUIStylesDialog( int optionSelected ) {
 
         // Set the values
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "GUIStyles.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "GUIStyles.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
         this.optionSelected = optionSelected;
 
         // Panel with the report options
         JPanel guiStylesPanel = new JPanel( );
         guiStylesPanel.setLayout( new GridBagLayout( ) );
-        guiStylesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GUIStyles.Title" ) ) );
+        guiStylesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "GUIStyles.Title" ) ) );
 
         // Traditional radio button
         GridBagConstraints c = new GridBagConstraints( );
@@ -110,7 +110,7 @@ public class GUIStylesDialog extends JDialog {
         c.gridy = 0;
         c.anchor = GridBagConstraints.LINE_START;
         c.fill = GridBagConstraints.NONE;
-        traditionalRadioButton = new JRadioButton( TextConstants.getText( "GUIStyles.Traditional" ) );
+        traditionalRadioButton = new JRadioButton( TC.get( "GUIStyles.Traditional" ) );
         guiStylesPanel.add( traditionalRadioButton, c );
 
         // Traditional description
@@ -122,7 +122,7 @@ public class GUIStylesDialog extends JDialog {
         JTextPane xmlReportInfo = new JTextPane( );
         xmlReportInfo.setEditable( false );
         xmlReportInfo.setBackground( getContentPane( ).getBackground( ) );
-        xmlReportInfo.setText( TextConstants.getText( "GUIStyles.TraditionalDescription" ) );
+        xmlReportInfo.setText( TC.get( "GUIStyles.TraditionalDescription" ) );
         guiStylesPanel.add( xmlReportInfo, c );
 
         // Contextual radio button
@@ -130,7 +130,7 @@ public class GUIStylesDialog extends JDialog {
         c.gridy = 2;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.LINE_START;
-        contextualRadioButton = new JRadioButton( TextConstants.getText( "GUIStyles.Contextual" ) );
+        contextualRadioButton = new JRadioButton( TC.get( "GUIStyles.Contextual" ) );
         contextualRadioButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -149,13 +149,13 @@ public class GUIStylesDialog extends JDialog {
         JTextPane htmlReportInfo = new JTextPane( );
         htmlReportInfo.setEditable( false );
         htmlReportInfo.setBackground( getContentPane( ).getBackground( ) );
-        htmlReportInfo.setText( TextConstants.getText( "GUIStyles.ContextualDescription" ) );
+        htmlReportInfo.setText( TC.get( "GUIStyles.ContextualDescription" ) );
         guiStylesPanel.add( htmlReportInfo, c );
 
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
         buttonsPanel.setLayout( new FlowLayout( ) );
-        JButton btnLoad = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+        JButton btnLoad = new JButton( TC.get( "GeneralText.OK" ) );
         btnLoad.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -165,7 +165,7 @@ public class GUIStylesDialog extends JDialog {
             }
         } );
         buttonsPanel.add( btnLoad );
-        JButton btnCancel = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        JButton btnCancel = new JButton( TC.get( "GeneralText.Cancel" ) );
         btnCancel.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {

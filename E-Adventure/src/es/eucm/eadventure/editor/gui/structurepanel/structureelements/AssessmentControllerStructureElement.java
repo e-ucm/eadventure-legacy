@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.structurepanel.structureelements;
 
 import javax.swing.ImageIcon;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElement;
@@ -46,7 +46,7 @@ public class AssessmentControllerStructureElement extends StructureListElement {
 
     public AssessmentControllerStructureElement( DataControl dataControl ) {
 
-        super( TextConstants.getText( "AssessmentProfiles.Title" ), dataControl );
+        super( TC.get( "AssessmentProfiles.Title" ), dataControl );
         icon = new ImageIcon( "img/icons/assessmentProfiles.png" );
     }
 

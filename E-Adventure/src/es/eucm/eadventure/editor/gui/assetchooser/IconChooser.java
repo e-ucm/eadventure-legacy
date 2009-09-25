@@ -38,7 +38,7 @@ import java.awt.Container;
 import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
@@ -48,7 +48,7 @@ public class IconChooser extends AssetChooser {
 
     public IconChooser( int filter ) {
 
-        super( AssetsConstants.CATEGORY_ICON, filter, AssetChooser.PREVIEW_LOCATION_WEST, TextConstants.getText( "AssetsChooser.Icon" ) );
+        super( AssetsConstants.CATEGORY_ICON, filter, AssetChooser.PREVIEW_LOCATION_WEST, TC.get( "AssetsChooser.Icon" ) );
     }
 
     /**
@@ -60,7 +60,7 @@ public class IconChooser extends AssetChooser {
     protected void createPreviewPanel( Container parent ) {
 
         imagePanel = new ImagePanel( );
-        imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "IconAssets.Preview" ) ) );
+        imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "IconAssets.Preview" ) ) );
         parent.add( imagePanel );
     }
 

@@ -40,7 +40,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.SelectedEffectsController;
 import es.eucm.eadventure.editor.control.controllers.SelectedEffectsController.ListElements;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -93,7 +93,7 @@ public class MostVisitedPanel extends JPanel {
             }
         }
         if( addedButtons == 0 )
-            this.add( new JLabel( TextConstants.getText( "MoreVisitedPanel.Empty" ) ) );
+            this.add( new JLabel( TC.get( "MoreVisitedPanel.Empty" ) ) );
         else if( addedButtons < N_EFFECTS_TO_DISPLAY ) {
             while( addedButtons < N_EFFECTS_TO_DISPLAY ) {
                 add( new JFiller( ) );

@@ -53,7 +53,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDateDataControl;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleDate;
@@ -105,65 +105,65 @@ public class LOMLifeCycleDateDialog extends JDialog {
         c.gridy = 0;
         years = new JTextField( transformer.getYears( ) );
         years.getDocument( ).addDocumentListener( new TextFieldListener( years ) );
-        years.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Years" ) ) );
+        years.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Date.Years" ) ) );
         dateTimePanel.add( years, c );
 
         // text field for months
         c.gridy = 1;
         months = new JTextField( transformer.getMonths( ) );
         months.getDocument( ).addDocumentListener( new TextFieldListener( months ) );
-        months.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Months" ) ) );
+        months.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Date.Months" ) ) );
         dateTimePanel.add( months, c );
 
         // text field for days
         c.gridy = 2;
         days = new JTextField( transformer.getDays( ) );
         days.getDocument( ).addDocumentListener( new TextFieldListener( days ) );
-        days.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Days" ) ) );
+        days.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Date.Days" ) ) );
         dateTimePanel.add( days, c );
 
         // text field for hours
         c.gridy = 3;
         hours = new JTextField( transformer.getHours( ) );
         hours.getDocument( ).addDocumentListener( new TextFieldListener( hours ) );
-        hours.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Hours" ) ) );
+        hours.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Date.Hours" ) ) );
         dateTimePanel.add( hours, c );
 
         // text field for minutes
         c.gridy = 4;
         minutes = new JTextField( transformer.getMinutes( ) );
         minutes.getDocument( ).addDocumentListener( new TextFieldListener( minutes ) );
-        minutes.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Minutes" ) ) );
+        minutes.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Date.Minutes" ) ) );
         dateTimePanel.add( minutes, c );
 
         // text field for seconds
         c.gridy = 5;
         seconds = new JTextField( transformer.getSeconds( ) );
         seconds.getDocument( ).addDocumentListener( new TextFieldListener( seconds ) );
-        seconds.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Seconds" ) ) );
+        seconds.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Date.Seconds" ) ) );
         dateTimePanel.add( seconds, c );
 
         // text field for miliseconds
         c.gridy = 6;
         milisec = new JTextField( transformer.getMilisec( ) );
         milisec.getDocument( ).addDocumentListener( new TextFieldListener( milisec ) );
-        milisec.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Miliseconds" ) ) );
+        milisec.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Date.Miliseconds" ) ) );
         dateTimePanel.add( milisec, c );
 
         // text field for timeZone
         c.gridy = 7;
         timeZone = new JTextField( transformer.getTimeZone( ) );
         timeZone.getDocument( ).addDocumentListener( new TextFieldListener( timeZone ) );
-        timeZone.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.TimeZone" ) ) );
+        timeZone.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.Date.TimeZone" ) ) );
         dateTimePanel.add( timeZone, c );
 
-        dateTimePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.GeneralId.DateName" ) ) );
+        dateTimePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.GeneralId.DateName" ) ) );
 
         JPanel descriptionPanel = new JPanel( new GridBagLayout( ) );
         description = new JTextField( composeData.getDescription( ).getValue( 0 ) );
         description.getDocument( ).addDocumentListener( new TextFieldListener( description ) );
         descriptionPanel.add( description, c );
-        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.GeneralId.DescriptionName" ) ) );
+        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.GeneralId.DescriptionName" ) ) );
 
         JPanel buttonPanel = new JPanel( new GridBagLayout( ) );
         c = new GridBagConstraints( );
@@ -231,7 +231,7 @@ public class LOMLifeCycleDateDialog extends JDialog {
 
     private void showInfo( ) {
 
-        JOptionPane.showMessageDialog( this, TextConstants.getText( "LOMES.Date.Info" ), "Info", JOptionPane.INFORMATION_MESSAGE );
+        JOptionPane.showMessageDialog( this, TC.get( "LOMES.Date.Info" ), "Info", JOptionPane.INFORMATION_MESSAGE );
     }
 
     private class TextFieldListener implements DocumentListener {

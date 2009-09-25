@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
@@ -302,12 +302,12 @@ public class ItemDataControl extends DataControlWithResources {
         String references = String.valueOf( controller.countIdentifierReferences( oldItemId ) );
 
         // Ask for confirmation
-        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameItemTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldItemId, references } ) ) ) {
+        if( name != null || controller.showStrictConfirmDialog( TC.get( "Operation.RenameItemTitle" ), TC.get( "Operation.RenameElementWarning", new String[] { oldItemId, references } ) ) ) {
 
             // Show a dialog asking for the new item id
             String newItemId = name;
             if( name == null )
-                newItemId = controller.showInputDialog( TextConstants.getText( "Operation.RenameItemTitle" ), TextConstants.getText( "Operation.RenameItemMessage" ), oldItemId );
+                newItemId = controller.showInputDialog( TC.get( "Operation.RenameItemTitle" ), TC.get( "Operation.RenameItemMessage" ), oldItemId );
 
             // If some value was typed and the identifiers are different
             if( newItemId != null && !newItemId.equals( oldItemId ) && controller.isElementIdValid( newItemId ) ) {
@@ -341,7 +341,7 @@ public class ItemDataControl extends DataControlWithResources {
 
         // Iterate through the resources
         for( int i = 0; i < resourcesDataControlList.size( ); i++ ) {
-            String resourcesPath = currentPath + " >> " + TextConstants.getElementName( Controller.RESOURCES ) + " #" + ( i + 1 );
+            String resourcesPath = currentPath + " >> " + TC.getElement( Controller.RESOURCES ) + " #" + ( i + 1 );
             valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
         }
 
@@ -415,12 +415,12 @@ public class ItemDataControl extends DataControlWithResources {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getBriefDescription( ), TextConstants.getText( "Search.BriefDescription" ) );
-        check( this.getDetailedDescription( ), TextConstants.getText( "Search.DetailedDescription" ) );
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
+        check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
+        check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
-        check( this.getName( ), TextConstants.getText( "Search.Name" ) );
-        check( this.getPreviewImage( ), TextConstants.getText( "Search.PreviewImage" ) );
+        check( this.getName( ), TC.get( "Search.Name" ) );
+        check( this.getPreviewImage( ), TC.get( "Search.PreviewImage" ) );
         this.getActionsList( ).recursiveSearch( );
     }
 

@@ -57,7 +57,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 /**
@@ -105,13 +105,13 @@ public class AdventureDataDialog extends ToolManagableDialog {
     public AdventureDataDialog( String adventureTitle, String adventureDescription, boolean isPlayerTransparent ) {
 
         // Set the values
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Adventure.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "Adventure.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
         this.controller = Controller.getInstance( );
 
         // Panel with the options
         JPanel guiStylesPanel = new JPanel( );
         guiStylesPanel.setLayout( new GridBagLayout( ) );
-        guiStylesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.Title" ) ) );
+        guiStylesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.Title" ) ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.insets = new Insets( 5, 5, 5, 5 );
 
@@ -124,7 +124,7 @@ public class AdventureDataDialog extends ToolManagableDialog {
         titleTextField.addActionListener( new TitleTextFieldChangeListener( ) );
         titleTextField.addFocusListener( new TitleTextFieldChangeListener( ) );
         titlePanel.add( titleTextField );
-        titlePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.AdventureTitle" ) ) );
+        titlePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.AdventureTitle" ) ) );
         guiStylesPanel.add( titlePanel, c );
 
         // Create the text area for the description
@@ -139,7 +139,7 @@ public class AdventureDataDialog extends ToolManagableDialog {
         descriptionTextArea.setLineWrap( true );
         descriptionTextArea.setWrapStyleWord( true );
         descriptionPanel.add( new JScrollPane( descriptionTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.AdventureDescription" ) ) );
+        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.AdventureDescription" ) ) );
         guiStylesPanel.add( descriptionPanel, c );
 
         //Create the info panel for the mode of the player
@@ -155,7 +155,7 @@ public class AdventureDataDialog extends ToolManagableDialog {
         c1.gridx = 0;
         c1.weighty = 0.35;
         c1.gridy = 0;
-        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.AdventureDescription" ) ) );
+        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.AdventureDescription" ) ) );
 
         JTextField playerMode = null;
         JTextArea playerModeDescription = new JTextArea( );
@@ -165,14 +165,14 @@ public class AdventureDataDialog extends ToolManagableDialog {
         playerModeDescription.setBorder( BorderFactory.createEtchedBorder( ) );
         playerModeDescription.setLineWrap( true );
         if( isPlayerTransparent ) {
-            playerMode = new JTextField( TextConstants.getText( "Adventure.ModePlayerTransparent.Name" ) );
-            playerModeDescription.setText( TextConstants.getText( "Adventure.ModePlayerTransparent.Description" ) );
+            playerMode = new JTextField( TC.get( "Adventure.ModePlayerTransparent.Name" ) );
+            playerModeDescription.setText( TC.get( "Adventure.ModePlayerTransparent.Description" ) );
         }
         else {
-            playerMode = new JTextField( TextConstants.getText( "Adventure.ModePlayerVisible.Name" ) );
-            playerModeDescription.setText( TextConstants.getText( "Adventure.ModePlayerVisible.Description" ) );
+            playerMode = new JTextField( TC.get( "Adventure.ModePlayerVisible.Name" ) );
+            playerModeDescription.setText( TC.get( "Adventure.ModePlayerVisible.Description" ) );
         }
-        playerMode.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.CurrentPlayerMode" ) ) );
+        playerMode.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.CurrentPlayerMode" ) ) );
         playerMode.setEditable( false );
         c1.anchor = GridBagConstraints.LINE_START;
         playerModePanel.add( playerMode, c1 );
@@ -183,13 +183,13 @@ public class AdventureDataDialog extends ToolManagableDialog {
         c1.weighty = 0.65;
         c1.anchor = GridBagConstraints.CENTER;
         playerModePanel.add( playerModeDescription, c1 );
-        playerModePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.PlayerMode" ) ) );
+        playerModePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.PlayerMode" ) ) );
         guiStylesPanel.add( playerModePanel, c );
 
         // Automatic-commentaries
         JPanel commentariesPanel = new JPanel( );
-        commentariesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "MenuAdventure.Commentaries" ) ) );
-        commentariesLabel = new JLabel( TextConstants.getText( "MenuAdventure.CommentariesLabel" ) );
+        commentariesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "MenuAdventure.Commentaries" ) ) );
+        commentariesLabel = new JLabel( TC.get( "MenuAdventure.CommentariesLabel" ) );
         commentariesCheckBox = new JCheckBox( );
         if( controller.isCommentaries( ) ) {
             commentariesCheckBox.setSelected( true );
@@ -206,7 +206,7 @@ public class AdventureDataDialog extends ToolManagableDialog {
 
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
-        JButton btnExit = new JButton( TextConstants.getText( "GeneralText.Close" ) );
+        JButton btnExit = new JButton( TC.get( "GeneralText.Close" ) );
         btnExit.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {

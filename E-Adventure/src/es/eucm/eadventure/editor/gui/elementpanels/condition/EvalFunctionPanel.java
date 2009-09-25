@@ -46,7 +46,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 
 public class EvalFunctionPanel extends EditablePanel {
@@ -83,17 +83,17 @@ public class EvalFunctionPanel extends EditablePanel {
     private void createLabel( ) {
 
         if( value == AND ) {
-            label = new JLabel( TextConstants.getText( "Conditions.And" ) );
+            label = new JLabel( TC.get( "Conditions.And" ) );
         }
         else if( value == OR ) {
-            label = new JLabel( TextConstants.getText( "Conditions.Or" ) );
+            label = new JLabel( TC.get( "Conditions.Or" ) );
         }
         label.setFont( new Font( "Default", Font.BOLD | Font.ITALIC, 13 ) );
     }
 
     private void createComboBox( ) {
 
-        comboBox = new JComboBox( new String[] { TextConstants.getText( "Conditions.And" ), TextConstants.getText( "Conditions.Or" ) } );
+        comboBox = new JComboBox( new String[] { TC.get( "Conditions.And" ), TC.get( "Conditions.Or" ) } );
         comboBox.setEditable( false );
         comboBox.setUI( new BasicComboBoxUI( ) );
 
@@ -110,13 +110,13 @@ public class EvalFunctionPanel extends EditablePanel {
 
                 if( e.getStateChange( ) == ItemEvent.SELECTED ) {
                     String newValue = (String) e.getItem( );
-                    if( newValue.equals( TextConstants.getText( "Conditions.Or" ) ) ) {
+                    if( newValue.equals( TC.get( "Conditions.Or" ) ) ) {
                         if( EvalFunctionPanel.this.value != OR ) {
                             EvalFunctionPanel.this.value = OR;
                             EvalFunctionPanel.this.controller.evalFunctionChanged( EvalFunctionPanel.this, index1, index2, EvalFunctionPanel.AND, EvalFunctionPanel.OR );
                         }
                     }
-                    else if( newValue.equals( TextConstants.getText( "Conditions.And" ) ) ) {
+                    else if( newValue.equals( TC.get( "Conditions.And" ) ) ) {
                         if( EvalFunctionPanel.this.value != AND ) {
                             EvalFunctionPanel.this.value = AND;
                             EvalFunctionPanel.this.controller.evalFunctionChanged( EvalFunctionPanel.this, index1, index2, EvalFunctionPanel.OR, EvalFunctionPanel.AND );

@@ -42,7 +42,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.VideoPanel;
@@ -69,7 +69,7 @@ public class VideoDialog extends JDialog {
      */
     public VideoDialog( String videoPath ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "VideoDialog.Title", AssetsController.getFilename( videoPath ) ), Dialog.ModalityType.TOOLKIT_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "VideoDialog.Title", AssetsController.getFilename( videoPath ) ), Dialog.ModalityType.TOOLKIT_MODAL );
 
         // Add a video panel
         videoPanel = new VideoPanel( videoPath );
@@ -77,7 +77,7 @@ public class VideoDialog extends JDialog {
             add( videoPanel );
         else {
             JPanel errorPanel = new JPanel( );
-            JLabel error = new JLabel( TextConstants.getText( "Error.BadAudioFormat.Title" ) );
+            JLabel error = new JLabel( TC.get( "Error.BadAudioFormat.Title" ) );
             errorPanel.add( error );
             add( errorPanel );
         }

@@ -58,7 +58,7 @@ import javax.swing.JTextField;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.animation.Animation;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
@@ -113,12 +113,12 @@ public class PlayAnimationEffectDialog extends EffectDialog {
     public PlayAnimationEffectDialog( EffectsController effectsController, HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "PlayAnimationEffect.Title" ), true );
+        super( TC.get( "PlayAnimationEffect.Title" ), true );
         this.effectsController = effectsController;
 
         // Create the set of values for the scenes
         List<String> scenesList = new ArrayList<String>( );
-        scenesList.add( TextConstants.getText( "SceneLocation.NoSceneSelected" ) );
+        scenesList.add( TC.get( "SceneLocation.NoSceneSelected" ) );
         String[] scenesArray = controller.getIdentifierSummary( ).getSceneIds( );
         for( String scene : scenesArray )
             scenesList.add( scene );
@@ -130,7 +130,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
         // Create the asset panel and set the border
         JPanel assetPanel = new JPanel( );
         assetPanel.setLayout( new GridBagLayout( ) );
-        assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "PlayAnimationEffect.Title" ) ) );
+        assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "PlayAnimationEffect.Title" ) ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.insets = new Insets( 4, 4, 4, 4 );
         c.fill = GridBagConstraints.NONE;
@@ -141,7 +141,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
         JButton deleteContentButton = new JButton( deleteContentIcon );
         deleteContentButton.addActionListener( new DeleteContentButtonActionListener( ) );
         deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-        deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+        deleteContentButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
         assetPanel.add( deleteContentButton, c );
 
         // Create the text field and insert it
@@ -153,20 +153,20 @@ public class PlayAnimationEffectDialog extends EffectDialog {
         assetPanel.add( pathTextField, c );
 
         // Create the "Select" button and insert it
-        JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+        JButton selectButton = new JButton( TC.get( "Resources.Select" ) );
         selectButton.addActionListener( new ExamineButtonActionListener( ) );
         c.gridx = 2;
         c.fill = GridBagConstraints.NONE;
         c.weightx = 0;
         assetPanel.add( selectButton, c );
 
-        JButton editButton = new JButton( TextConstants.getText( "Resources.Create" ) + "/" + TextConstants.getText( "Resources.Edit" ) );
+        JButton editButton = new JButton( TC.get( "Resources.Create" ) + "/" + TC.get( "Resources.Edit" ) );
         editButton.addActionListener( new EditButtonListener( ) );
         c.gridx = 3;
         assetPanel.add( editButton );
 
         // Create the "View" button and insert it
-        viewButton = new JButton( TextConstants.getText( "Resources.ViewAsset" ) );
+        viewButton = new JButton( TC.get( "Resources.ViewAsset" ) );
         viewButton.setEnabled( false );
         viewButton.addActionListener( new ViewButtonActionListener( ) );
         c.gridx = 4;
@@ -178,7 +178,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
         c = new GridBagConstraints( );
 
         // Set the border of the panel with the description
-        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "PlayAnimationEffect.Description" ) ) ) );
+        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "PlayAnimationEffect.Description" ) ) ) );
 
         // Add the asset panel to the main panel
         c.insets = new Insets( 2, 4, 4, 4 );
@@ -370,7 +370,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
                     filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
                 }
                 else {
-                    animationName = JOptionPane.showInputDialog( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Animation.AskFilename" ), TextConstants.getText( "Animation.AskFilenameTitle" ), JOptionPane.QUESTION_MESSAGE );
+                    animationName = JOptionPane.showInputDialog( Controller.getInstance( ).peekWindow( ), TC.get( "Animation.AskFilename" ), TC.get( "Animation.AskFilenameTitle" ), JOptionPane.QUESTION_MESSAGE );
                     if( animationName != null && animationName.length( ) > 0 ) {
                         filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
                     }

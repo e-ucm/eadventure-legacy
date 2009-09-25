@@ -56,7 +56,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.timer.TimerDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
@@ -123,7 +123,7 @@ public class TimerPanel extends JPanel {
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
         documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.Documentation" ) ) );
+        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Timer.Documentation" ) ) );
         add( documentationPanel, c );
 
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -137,24 +137,24 @@ public class TimerPanel extends JPanel {
         c.gridy++;
         JPanel conditionsPanel = new JPanel( );
         conditionsPanel.setLayout( new GridLayout( ) );
-        JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditInitConditions" ) );
+        JButton conditionsButton = new JButton( TC.get( "GeneralText.EditInitConditions" ) );
         conditionsButton.addActionListener( new InitConditionsButtonListener( ) );
         conditionsPanel.add( conditionsButton );
-        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.InitConditions" ) ) );
+        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Timer.InitConditions" ) ) );
         add( conditionsPanel, c );
 
         c.gridy++;
         JPanel conditions2Panel = new JPanel( );
         conditions2Panel.setLayout( new GridLayout( 2, 1 ) );
-        JCheckBox usesEndCondition = new JCheckBox( TextConstants.getText( "Timer.UsesEndCondition" ) );
+        JCheckBox usesEndCondition = new JCheckBox( TC.get( "Timer.UsesEndCondition" ) );
         usesEndCondition.setSelected( timerDataControl.isUsesEndCondition( ) );
         usesEndCondition.addChangeListener( new CheckBoxChangeListener( CheckBoxChangeListener.USESENDCONDITION ) );
         conditions2Panel.add( usesEndCondition );
-        conditions2Button = new JButton( TextConstants.getText( "GeneralText.EditEndConditions" ) );
+        conditions2Button = new JButton( TC.get( "GeneralText.EditEndConditions" ) );
         conditions2Button.addActionListener( new EndConditionsButtonListener( ) );
         conditions2Button.setEnabled( timerDataControl.isUsesEndCondition( ) );
         conditions2Panel.add( conditions2Button );
-        conditions2Panel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.EndConditions" ) ) );
+        conditions2Panel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Timer.EndConditions" ) ) );
         add( conditions2Panel, c );
 
         c.gridy++;
@@ -163,19 +163,19 @@ public class TimerPanel extends JPanel {
 
         JPanel effectsPanel = new JPanel( );
         effectsPanel.setLayout( new GridLayout( ) );
-        JButton effectsButton = new JButton( TextConstants.getText( "GeneralText.EditEffects" ) );
+        JButton effectsButton = new JButton( TC.get( "GeneralText.EditEffects" ) );
         effectsButton.addActionListener( new EffectsButtonListener( ) );
         effectsPanel.add( effectsButton );
-        effectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.Effects" ) ) );
+        effectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Timer.Effects" ) ) );
 
         allEffectsPanel.add( effectsPanel );
 
         JPanel postEffectsPanel = new JPanel( );
         postEffectsPanel.setLayout( new GridLayout( ) );
-        JButton postEffectsButton = new JButton( TextConstants.getText( "GeneralText.EditPostEffects" ) );
+        JButton postEffectsButton = new JButton( TC.get( "GeneralText.EditPostEffects" ) );
         postEffectsButton.addActionListener( new PostEffectsButtonListener( ) );
         postEffectsPanel.add( postEffectsButton );
-        postEffectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.PostEffects" ) ) );
+        postEffectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Timer.PostEffects" ) ) );
 
         allEffectsPanel.add( postEffectsPanel );
 
@@ -191,7 +191,7 @@ public class TimerPanel extends JPanel {
         c.gridy = 0;
         c.weightx = 1;
 
-        JLabel dnLabel = new JLabel( TextConstants.getText( "Timer.DisplayName" ) );
+        JLabel dnLabel = new JLabel( TC.get( "Timer.DisplayName" ) );
         timePanel.add( dnLabel, c );
 
         displayName = new JTextField( 8 );
@@ -202,7 +202,7 @@ public class TimerPanel extends JPanel {
         c.gridx++;
         timePanel.add( displayName, c );
 
-        countDown = new JCheckBox( TextConstants.getText( "Timer.CountDown" ) );
+        countDown = new JCheckBox( TC.get( "Timer.CountDown" ) );
         countDown.setSelected( timerDataControl.isCountDown( ) );
         countDown.setEnabled( timerDataControl.isShowTime( ) );
         countDown.addChangeListener( new CheckBoxChangeListener( CheckBoxChangeListener.COUNTDOWN ) );
@@ -210,14 +210,14 @@ public class TimerPanel extends JPanel {
         c.gridx++;
         timePanel.add( countDown, c );
 
-        showWhenStopped = new JCheckBox( TextConstants.getText( "Timer.ShowWhenStopped" ) );
+        showWhenStopped = new JCheckBox( TC.get( "Timer.ShowWhenStopped" ) );
         showWhenStopped.setSelected( timerDataControl.isShowWhenStopped( ) );
         showWhenStopped.setEnabled( timerDataControl.isShowTime( ) );
         showWhenStopped.addChangeListener( new CheckBoxChangeListener( CheckBoxChangeListener.SHOWWHENSTOPPED ) );
         c.gridx++;
         timePanel.add( showWhenStopped, c );
 
-        timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.Time" ) ) );
+        timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Timer.Time" ) ) );
         return timePanel;
     }
 
@@ -232,7 +232,7 @@ public class TimerPanel extends JPanel {
         c2.gridy = 0;
         c2.weightx = 0.1;
 
-        JCheckBox multipleStart = new JCheckBox( TextConstants.getText( "Timer.MultipleStarts" ) );
+        JCheckBox multipleStart = new JCheckBox( TC.get( "Timer.MultipleStarts" ) );
         multipleStart.setSelected( timerDataControl.isMultipleStarts( ) );
         multipleStart.addChangeListener( new CheckBoxChangeListener( CheckBoxChangeListener.MULTIPLESTARTS ) );
         loopControlPanel.add( multipleStart, c2 );
@@ -245,12 +245,12 @@ public class TimerPanel extends JPanel {
         Font font = informationTextPane.getFont( );
         font = font.deriveFont( 10.0f );
         informationTextPane.setFont( font );
-        informationTextPane.setText( TextConstants.getText( "Timer.MultipleStartsDesc" ) );
+        informationTextPane.setText( TC.get( "Timer.MultipleStartsDesc" ) );
         loopControlPanel.add( informationTextPane, c2 );
         c2.gridy++;
         c2.weightx = 0.1;
 
-        JCheckBox runsInLoop = new JCheckBox( TextConstants.getText( "Timer.RunsInLoop" ) );
+        JCheckBox runsInLoop = new JCheckBox( TC.get( "Timer.RunsInLoop" ) );
         runsInLoop.setSelected( timerDataControl.isRunsInLoop( ) );
         runsInLoop.addChangeListener( new CheckBoxChangeListener( CheckBoxChangeListener.RUNSINLOOP ) );
         loopControlPanel.add( runsInLoop, c2 );
@@ -261,10 +261,10 @@ public class TimerPanel extends JPanel {
         informationTextPane.setEditable( false );
         informationTextPane.setBackground( getBackground( ) );
         informationTextPane.setFont( font );
-        informationTextPane.setText( TextConstants.getText( "Timer.RunsInLoopDesc" ) );
+        informationTextPane.setText( TC.get( "Timer.RunsInLoopDesc" ) );
         loopControlPanel.add( informationTextPane, c2 );
 
-        loopControlPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.LoopControl" ) ) );
+        loopControlPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Timer.LoopControl" ) ) );
         return loopControlPanel;
     }
 

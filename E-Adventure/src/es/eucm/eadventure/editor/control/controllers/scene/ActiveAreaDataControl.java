@@ -40,7 +40,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -346,12 +346,12 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
         String references = String.valueOf( controller.countIdentifierReferences( oldSceneId ) );
 
         // Ask for confirmation
-        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameSceneTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldSceneId, references } ) ) ) {
+        if( name != null || controller.showStrictConfirmDialog( TC.get( "Operation.RenameSceneTitle" ), TC.get( "Operation.RenameElementWarning", new String[] { oldSceneId, references } ) ) ) {
 
             // Show a dialog asking for the new scene id
             String newSceneId = name;
             if( name == null )
-                newSceneId = controller.showInputDialog( TextConstants.getText( "Operation.RenameSceneTitle" ), TextConstants.getText( "Operation.RenameSceneMessage" ), oldSceneId );
+                newSceneId = controller.showInputDialog( TC.get( "Operation.RenameSceneTitle" ), TC.get( "Operation.RenameSceneMessage" ), oldSceneId );
 
             // If some value was typed and the identifiers are different
             if( newSceneId != null && !newSceneId.equals( oldSceneId ) && controller.isElementIdValid( newSceneId ) ) {
@@ -460,12 +460,12 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
     public void recursiveSearch( ) {
 
         this.getActionsList( ).recursiveSearch( );
-        check( this.getBriefDescription( ), TextConstants.getText( "Search.BriefDescription" ) );
-        check( this.getConditions( ), TextConstants.getText( "Search.Conditions" ) );
-        check( this.getDetailedDescription( ), TextConstants.getText( "Search.DetailedDescription" ) );
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
+        check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
+        check( this.getConditions( ), TC.get( "Search.Conditions" ) );
+        check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
-        check( this.getName( ), TextConstants.getText( "Search.Name" ) );
+        check( this.getName( ), TC.get( "Search.Name" ) );
     }
 
     public boolean isRectangular( ) {

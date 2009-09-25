@@ -45,7 +45,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 
 public class ObjectEffectDialog extends EffectDialog {
@@ -92,7 +92,7 @@ public class ObjectEffectDialog extends EffectDialog {
     public ObjectEffectDialog( int type, HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( dialogTitles[type] ), false );
+        super( TC.get( dialogTitles[type] ), false );
 
         // Take the list of items
         String[] itemsArray = controller.getIdentifierSummary( ).getItemIds( );
@@ -105,7 +105,7 @@ public class ObjectEffectDialog extends EffectDialog {
             GridBagConstraints c = new GridBagConstraints( );
 
             // Set the border of the panel with the description
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( dialogDescriptions[type] ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( dialogDescriptions[type] ) ) ) );
 
             // Create and add the list of flags
             c.insets = new Insets( 2, 4, 4, 4 );
@@ -133,7 +133,7 @@ public class ObjectEffectDialog extends EffectDialog {
 
         // If the list had no elements, show an error message
         else
-            controller.showErrorDialog( getTitle( ), TextConstants.getText( "ConsumeGenerateObjectEffect.ErrorNoItems" ) );
+            controller.showErrorDialog( getTitle( ), TC.get( "ConsumeGenerateObjectEffect.ErrorNoItems" ) );
     }
 
     @Override

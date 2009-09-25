@@ -48,7 +48,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.DebugTableModel;
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.VarSummary;
@@ -129,11 +129,11 @@ public class DebugValuesPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane( table );
         table.setFillsViewportHeight( true );
 
-        panel.addTab( TextConstants.getText( "DebugFrame.AllFlagsAndVars" ), null, scrollPane, TextConstants.getText( "DebugFrame.AllFlagsAndVarsTip" ) );
+        panel.addTab( TC.get( "DebugFrame.AllFlagsAndVars" ), null, scrollPane, TC.get( "DebugFrame.AllFlagsAndVarsTip" ) );
 
         globalTable = new JTable( );
         globalDtm = new DefaultTableModel( );
-        String[] ids = { TextConstants.getText( "DebugFrame.id" ), TextConstants.getText( "DebugFrame.value" ) };
+        String[] ids = { TC.get( "DebugFrame.id" ), TC.get( "DebugFrame.value" ) };
         globalDtm.setColumnIdentifiers( ids );
         for( GlobalState state : globalStates ) {
             FunctionalConditions fc = new FunctionalConditions( state );
@@ -147,7 +147,7 @@ public class DebugValuesPanel extends JPanel {
         JScrollPane scrollPane3 = new JScrollPane( globalTable );
         globalTable.setFillsViewportHeight( true );
 
-        panel.addTab( TextConstants.getText( "DebugFrame.GlobalStates" ), null, scrollPane3, TextConstants.getText( "DebugFrame.GlobalStatesTip" ) );
+        panel.addTab( TC.get( "DebugFrame.GlobalStates" ), null, scrollPane3, TC.get( "DebugFrame.GlobalStatesTip" ) );
 
         changeTable = new JTable( );
 
@@ -160,7 +160,7 @@ public class DebugValuesPanel extends JPanel {
         JScrollPane scrollPane2 = new JScrollPane( changeTable );
         changeTable.setFillsViewportHeight( true );
 
-        panel.addTab( TextConstants.getText( "DebugFrame.Changes" ), null, scrollPane2, TextConstants.getText( "DebugFrame.ChangesTip" ) );
+        panel.addTab( TC.get( "DebugFrame.Changes" ), null, scrollPane2, TC.get( "DebugFrame.ChangesTip" ) );
 
         this.add( panel, BorderLayout.CENTER );
 

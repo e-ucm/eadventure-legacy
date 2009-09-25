@@ -41,7 +41,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -189,7 +189,7 @@ public class AdaptationProfileDataControl extends DataControl {
             askConfirmation = false;
         }
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { adpRuleId, references } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { adpRuleId, references } ) ) ) {
             if( profile.getRules( ).remove( dataControl.getContent( ) ) ) {
                 dataControls.remove( dataControl );
                 controller.deleteIdentifierReferences( adpRuleId );
@@ -301,12 +301,12 @@ public class AdaptationProfileDataControl extends DataControl {
         }
 
         // Show confirmation dialog.
-        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAssessmentFile" ), TextConstants.getText( "Operation.RenameAssessmentFile.Message" ) ) ) {
+        if( name != null || controller.showStrictConfirmDialog( TC.get( "Operation.RenameAssessmentFile" ), TC.get( "Operation.RenameAssessmentFile.Message" ) ) ) {
 
             //Prompt for file name:
             String fileName = name;
             if( name == null || name.equals( "" ) )
-                fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName( ) );
+                fileName = controller.showInputDialog( TC.get( "Operation.RenameAssessmentFile.FileName" ), TC.get( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName( ) );
 
             if( fileName != null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName ) ) {
                 if( !controller.getIdentifierSummary( ).isAdaptationProfileId( name ) ) {
@@ -317,7 +317,7 @@ public class AdaptationProfileDataControl extends DataControl {
                     renamed = true;
                 }
                 else {
-                    controller.showErrorDialog( TextConstants.getText( "Operation.CreateAdaptationFile.FileName.ExistValue.Title" ), TextConstants.getText( "Operation.CreateAdaptationFile.FileName.ExistValue.Message" ) );
+                    controller.showErrorDialog( TC.get( "Operation.CreateAdaptationFile.FileName.ExistValue.Title" ), TC.get( "Operation.CreateAdaptationFile.FileName.ExistValue.Message" ) );
                 }
             }
 
@@ -476,16 +476,16 @@ public class AdaptationProfileDataControl extends DataControl {
         for( DataControl dc : this.dataControls ) {
             dc.recursiveSearch( );
         }
-        check( "" + number, TextConstants.getText( "Search.Number" ) );
-        check( getFileName( ), TextConstants.getText( "Search.Name" ) );
-        check( getInitialScene( ), TextConstants.getText( "Search.InitialScene" ) );
+        check( "" + number, TC.get( "Search.Number" ) );
+        check( getFileName( ), TC.get( "Search.Name" ) );
+        check( getInitialScene( ), TC.get( "Search.InitialScene" ) );
         for( int i = 0; i < this.getFlagActionCount( ); i++ ) {
             if( isFlag( i ) )
-                check( getFlag( i ), TextConstants.getText( "Search.Flag" ) );
+                check( getFlag( i ), TC.get( "Search.Flag" ) );
             else
-                check( getFlag( i ), TextConstants.getText( "Search.Var" ) );
+                check( getFlag( i ), TC.get( "Search.Var" ) );
 
-            check( getAction( i ), TextConstants.getText( "Search.ActionOverGameState" ) );
+            check( getAction( i ), TC.get( "Search.ActionOverGameState" ) );
         }
         //check(getName(), TextConstants.getText("Search.Path"));
     }

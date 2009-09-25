@@ -40,7 +40,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutscenesListDataControl;
@@ -73,7 +73,7 @@ public class CutscenesListPanel extends ElementPanel {
 
         public CutscenesListPanelTab( CutscenesListDataControl sDataControl ) {
 
-            super( TextConstants.getText( "CutscenesList.Title" ), sDataControl );
+            super( TC.get( "CutscenesList.Title" ), sDataControl );
             this.sDataControl = sDataControl;
         }
 

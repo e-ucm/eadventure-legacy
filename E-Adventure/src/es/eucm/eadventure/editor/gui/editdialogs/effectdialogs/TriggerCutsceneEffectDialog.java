@@ -45,7 +45,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 
 public class TriggerCutsceneEffectDialog extends EffectDialog {
@@ -69,7 +69,7 @@ public class TriggerCutsceneEffectDialog extends EffectDialog {
     public TriggerCutsceneEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "TriggerCutsceneEffect.Title" ), false );
+        super( TC.get( "TriggerCutsceneEffect.Title" ), false );
 
         // Take the list of cutscenes
         String[] cutscenesArray = controller.getIdentifierSummary( ).getCutsceneIds( );
@@ -82,7 +82,7 @@ public class TriggerCutsceneEffectDialog extends EffectDialog {
             GridBagConstraints c = new GridBagConstraints( );
 
             // Set the border of the panel with the description
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TriggerCutsceneEffect.Description" ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "TriggerCutsceneEffect.Description" ) ) ) );
 
             // Create and add the list of flags
             c.insets = new Insets( 2, 4, 4, 4 );
@@ -110,7 +110,7 @@ public class TriggerCutsceneEffectDialog extends EffectDialog {
 
         // If there are no values, show an error
         else
-            controller.showErrorDialog( getTitle( ), TextConstants.getText( "TriggerCutsceneEffect.ErrorNoCutscenes" ) );
+            controller.showErrorDialog( getTitle( ), TC.get( "TriggerCutsceneEffect.ErrorNoCutscenes" ) );
     }
 
     @Override

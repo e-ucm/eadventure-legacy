@@ -58,7 +58,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 /**
@@ -103,7 +103,7 @@ public class GraphicConfigDialog extends JDialog {
     public GraphicConfigDialog( int optionSelected ) {
 
         // Set the values
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "GraphicConfig.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "GraphicConfig.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
         if( optionSelected != -1 )
             this.optionSelected = optionSelected;
         else
@@ -112,7 +112,7 @@ public class GraphicConfigDialog extends JDialog {
         // Panel with the report options
         JPanel graphicConfigPanel = new JPanel( );
         graphicConfigPanel.setLayout( new GridBagLayout( ) );
-        graphicConfigPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GraphicConfig.Title" ) ) );
+        graphicConfigPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "GraphicConfig.Title" ) ) );
 
         // Windowed radio button
         GridBagConstraints c = new GridBagConstraints( );
@@ -121,7 +121,7 @@ public class GraphicConfigDialog extends JDialog {
         c.gridy = 0;
         c.anchor = GridBagConstraints.LINE_START;
         c.fill = GridBagConstraints.BOTH;
-        windowedRadioButton = new JRadioButton( TextConstants.getText( "GraphicConfig.Windowed" ) );
+        windowedRadioButton = new JRadioButton( TC.get( "GraphicConfig.Windowed" ) );
         graphicConfigPanel.add( windowedRadioButton, c );
 
         c.gridy = 1;
@@ -131,7 +131,7 @@ public class GraphicConfigDialog extends JDialog {
         JTextPane xmlReportInfo = new JTextPane( );
         xmlReportInfo.setEditable( false );
         xmlReportInfo.setBackground( getContentPane( ).getBackground( ) );
-        xmlReportInfo.setText( TextConstants.getText( "GraphicConfig.WindowedDescription" ) );
+        xmlReportInfo.setText( TC.get( "GraphicConfig.WindowedDescription" ) );
         graphicConfigPanel.add( xmlReportInfo, c );
 
         c.gridy = 1;
@@ -147,7 +147,7 @@ public class GraphicConfigDialog extends JDialog {
         c.weightx = 1;
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.LINE_START;
-        blackBkgRadioButton = new JRadioButton( TextConstants.getText( "GraphicConfig.BlackBkg" ) );
+        blackBkgRadioButton = new JRadioButton( TC.get( "GraphicConfig.BlackBkg" ) );
         blackBkgRadioButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -164,7 +164,7 @@ public class GraphicConfigDialog extends JDialog {
         JTextPane htmlReportInfo = new JTextPane( );
         htmlReportInfo.setEditable( false );
         htmlReportInfo.setBackground( getContentPane( ).getBackground( ) );
-        htmlReportInfo.setText( TextConstants.getText( "GraphicConfig.BlackBkgDescription" ) );
+        htmlReportInfo.setText( TC.get( "GraphicConfig.BlackBkgDescription" ) );
         graphicConfigPanel.add( htmlReportInfo, c );
 
         c.gridy = 3;
@@ -179,7 +179,7 @@ public class GraphicConfigDialog extends JDialog {
         c.gridy = 4;
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.LINE_START;
-        fullscreenRadioButton = new JRadioButton( TextConstants.getText( "GraphicConfig.Fullscreen" ) );
+        fullscreenRadioButton = new JRadioButton( TC.get( "GraphicConfig.Fullscreen" ) );
         fullscreenRadioButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -196,7 +196,7 @@ public class GraphicConfigDialog extends JDialog {
         htmlReportInfo = new JTextPane( );
         htmlReportInfo.setEditable( false );
         htmlReportInfo.setBackground( getContentPane( ).getBackground( ) );
-        htmlReportInfo.setText( TextConstants.getText( "GraphicConfig.FullscreenDescription" ) );
+        htmlReportInfo.setText( TC.get( "GraphicConfig.FullscreenDescription" ) );
         graphicConfigPanel.add( htmlReportInfo, c );
 
         c.gridy = 5;
@@ -210,7 +210,7 @@ public class GraphicConfigDialog extends JDialog {
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
         buttonsPanel.setLayout( new FlowLayout( ) );
-        JButton btnLoad = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+        JButton btnLoad = new JButton( TC.get( "GeneralText.OK" ) );
         btnLoad.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -220,7 +220,7 @@ public class GraphicConfigDialog extends JDialog {
             }
         } );
         buttonsPanel.add( btnLoad );
-        JButton btnCancel = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        JButton btnCancel = new JButton( TC.get( "GeneralText.Cancel" ) );
         btnCancel.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {

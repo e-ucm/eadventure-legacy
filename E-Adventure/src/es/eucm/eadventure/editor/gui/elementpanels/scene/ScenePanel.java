@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
@@ -73,7 +73,7 @@ public class ScenePanel extends ElementPanel {
 
         public SceneLookPanelTab( SceneDataControl sDataControl ) {
 
-            super( TextConstants.getText( "Scene.LookPanelTitle" ), sDataControl );
+            super( TC.get( "Scene.LookPanelTitle" ), sDataControl );
             this.setHelpPath( "scenes/Scene_Appearence.html" );
             this.sDataControl = sDataControl;
         }
@@ -91,7 +91,7 @@ public class ScenePanel extends ElementPanel {
 
         public SceneDocPanelTab( SceneDataControl sDataControl ) {
 
-            super( TextConstants.getText( "Scene.DocPanelTitle" ), sDataControl );
+            super( TC.get( "Scene.DocPanelTitle" ), sDataControl );
             this.setHelpPath( "scenes/Scene_Documentation.html" );
             this.sDataControl = sDataControl;
         }
@@ -109,7 +109,7 @@ public class ScenePanel extends ElementPanel {
 
         public ItemsPanelTab( SceneDataControl sDataControl ) {
 
-            super( TextConstants.getText( "ItemReferencesList.Title" ), sDataControl.getReferencesList( ) );
+            super( TC.get( "ItemReferencesList.Title" ), sDataControl.getReferencesList( ) );
             this.setHelpPath( "scenes/Scene_References.html" );
             this.sDataControl = sDataControl;
         }
@@ -127,7 +127,7 @@ public class ScenePanel extends ElementPanel {
 
         public BarriersPanelTab( SceneDataControl sDataControl ) {
 
-            super( TextConstants.getText( "BarriersList.Title" ), sDataControl.getBarriersList( ) );
+            super( TC.get( "BarriersList.Title" ), sDataControl.getBarriersList( ) );
             this.setHelpPath( "scenes/Scene_Barriers.html" );
             this.sDataControl = sDataControl;
         }
@@ -145,8 +145,8 @@ public class ScenePanel extends ElementPanel {
 
         public ActiveAreasPanelTab( SceneDataControl sDataControl ) {
 
-            super( TextConstants.getText( "ActiveAreasList.Title" ), sDataControl.getActiveAreasList( ) );
-            setToolTipText( TextConstants.getText( "ActiveAreasList.Information" ) );
+            super( TC.get( "ActiveAreasList.Title" ), sDataControl.getActiveAreasList( ) );
+            setToolTipText( TC.get( "ActiveAreasList.Information" ) );
             this.setHelpPath( "scenes/Scene_ActiveAreas.html" );
             this.sDataControl = sDataControl;
         }
@@ -164,7 +164,7 @@ public class ScenePanel extends ElementPanel {
 
         public ExitsPanelTab( SceneDataControl sDataControl ) {
 
-            super( TextConstants.getText( "ExitsList.Title" ), sDataControl.getExitsList( ) );
+            super( TC.get( "ExitsList.Title" ), sDataControl.getExitsList( ) );
             this.setHelpPath( "scenes/Scene_Exits.html" );
             this.sDataControl = sDataControl;
         }
@@ -182,8 +182,8 @@ public class ScenePanel extends ElementPanel {
 
         public TrajectoryPanelTab( SceneDataControl sDataControl ) {
 
-            super( TextConstants.getText( "Trajectory.Title" ), sDataControl.getTrajectory( ) );
-            setToolTipText( TextConstants.getText( "Trajectory.Title.ToolTip" ) );
+            super( TC.get( "Trajectory.Title" ), sDataControl.getTrajectory( ) );
+            setToolTipText( TC.get( "Trajectory.Title.ToolTip" ) );
             this.setHelpPath( "scenes/Scene_Trajectory.html" );
             this.sDataControl = sDataControl;
         }

@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.structurepanel;
 
 import javax.swing.ImageIcon;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
@@ -51,31 +51,31 @@ public class StructureElementFactory {
 
         if( dataControl instanceof TimersListDataControl ) {
             StructureElement temp = new StructureElement( dataControl, parent );
-            temp.setName( TextConstants.getText( "TimersList.Title" ) );
+            temp.setName( TC.get( "TimersList.Title" ) );
             temp.setIcon( new ImageIcon( "img/icons/advanced.png" ) );
             return temp;
         }
         if( dataControl instanceof AdaptationProfilesDataControl ) {
             StructureElement temp = new StructureElement( dataControl, parent );
-            temp.setName( TextConstants.getText( "AdaptationProfiles.Title" ) );
+            temp.setName( TC.get( "AdaptationProfiles.Title" ) );
             temp.setIcon( new ImageIcon( "img/icons/adaptationProfiles.png" ) );
             return temp;
         }
         if( dataControl instanceof AssessmentProfilesDataControl ) {
             StructureElement temp = new StructureElement( dataControl, parent );
-            temp.setName( TextConstants.getText( "AssessmentProfiles.Title" ) );
+            temp.setName( TC.get( "AssessmentProfiles.Title" ) );
             temp.setIcon( new ImageIcon( "img/icons/assessmentProfiles.png" ) );
             return temp;
         }
         if( dataControl instanceof GlobalStateListDataControl ) {
             StructureElement temp = new StructureElement( dataControl, parent );
-            temp.setName( TextConstants.getText( "GlobalStatesList.Title" ) );
+            temp.setName( TC.get( "GlobalStatesList.Title" ) );
             temp.setIcon( new ImageIcon( "img/icons/groups16.png" ) );
             return temp;
         }
         if( dataControl instanceof MacroListDataControl ) {
             StructureElement temp = new StructureElement( dataControl, parent );
-            temp.setName( TextConstants.getText( "MacrosList.Title" ) );
+            temp.setName( TC.get( "MacrosList.Title" ) );
             temp.setIcon( new ImageIcon( "img/icons/macros.png" ) );
             return temp;
         }

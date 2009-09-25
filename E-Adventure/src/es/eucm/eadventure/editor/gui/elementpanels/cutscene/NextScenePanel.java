@@ -55,7 +55,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
@@ -94,11 +94,11 @@ public class NextScenePanel extends JPanel implements Updateable {
 
         this.dataControl = cutsceneDataControl;
 
-        setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Cutscene.CutsceneEndReached" ) ) );
+        setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Cutscene.CutsceneEndReached" ) ) );
 
-        returnToPrevious = new JRadioButton( TextConstants.getText( "Cutscene.ReturnToLastScene" ) );
-        goToNewScene = new JRadioButton( TextConstants.getText( "Cutscene.GoToNextScene" ) );
-        endChapter = new JRadioButton( TextConstants.getText( "Cutscene.ChapterEnd" ) );
+        returnToPrevious = new JRadioButton( TC.get( "Cutscene.ReturnToLastScene" ) );
+        goToNewScene = new JRadioButton( TC.get( "Cutscene.GoToNextScene" ) );
+        endChapter = new JRadioButton( TC.get( "Cutscene.ChapterEnd" ) );
         returnToPrevious.addActionListener( new ReturnToPreviousActionListener( ) );
         goToNewScene.addActionListener( new GoToNewSceneActionListener( ) );
         endChapter.addActionListener( new EndChapterActionListener( ) );
@@ -127,35 +127,35 @@ public class NextScenePanel extends JPanel implements Updateable {
         GridBagConstraints posC = new GridBagConstraints( );
         posC.gridx = 0;
         posC.gridy = 0;
-        usePosition = new JCheckBox( TextConstants.getText( "NextScene.UseDestinyPosition" ) );
+        usePosition = new JCheckBox( TC.get( "NextScene.UseDestinyPosition" ) );
         usePosition.addActionListener( new DestinyPositionCheckBoxListener( ) );
 
-        setPosition = new JButton( TextConstants.getText( "NextScene.EditDestinyPositionShort" ) );
+        setPosition = new JButton( TC.get( "NextScene.EditDestinyPositionShort" ) );
         setPosition.addActionListener( new DestinyPositionButtonListener( ) );
         positionPanel.add( usePosition, posC );
         posC.gridx++;
         positionPanel.add( setPosition, posC );
 
-        editEffects = new JButton( TextConstants.getText( "GeneralText.EditEffects" ) );
+        editEffects = new JButton( TC.get( "GeneralText.EditEffects" ) );
         editEffects.addActionListener( new EffectsButtonListener( ) );
 
         JPanel transitionPanel = new JPanel( );
-        String[] options = new String[] { TextConstants.getText( "NextScene.NoTransition" ), TextConstants.getText( "NextScene.TopToBottom" ), TextConstants.getText( "NextScene.BottomToTop" ), TextConstants.getText( "NextScene.LeftToRight" ), TextConstants.getText( "NextScene.RightToLeft" ), TextConstants.getText( "NextScene.FadeIn" ) };
+        String[] options = new String[] { TC.get( "NextScene.NoTransition" ), TC.get( "NextScene.TopToBottom" ), TC.get( "NextScene.BottomToTop" ), TC.get( "NextScene.LeftToRight" ), TC.get( "NextScene.RightToLeft" ), TC.get( "NextScene.FadeIn" ) };
         transition = new JComboBox( options );
         transition.addActionListener( new TransitionComboChangeListener( ) );
 
         SpinnerModel sm = new SpinnerNumberModel( 0, 0, 5000, 100 );
         timeSpinner = new JSpinner( sm );
         timeSpinner.addChangeListener( new TransitionSpinnerChangeListener( ) );
-        transitionPanel.add( new JLabel( TextConstants.getText( "NextScene.Transition" ) ) );
+        transitionPanel.add( new JLabel( TC.get( "NextScene.Transition" ) ) );
         transitionPanel.add( transition );
-        transitionPanel.add( new JLabel( TextConstants.getText( "NextScene.TransitionTime" ) ) );
+        transitionPanel.add( new JLabel( TC.get( "NextScene.TransitionTime" ) ) );
         transitionPanel.add( timeSpinner );
         transitionPanel.add( new JLabel( "seg" ) );
 
         detailsPanel.setLayout( new GridLayout( 0, 1 ) );
         JPanel temp = new JPanel( );
-        temp.add( new JLabel( TextConstants.getText( "NextScene.NextSceneId" ) ) );
+        temp.add( new JLabel( TC.get( "NextScene.NextSceneId" ) ) );
         temp.add( nextSceneCombo );
         temp.add( editEffects );
         detailsPanel.add( temp );

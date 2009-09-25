@@ -38,7 +38,7 @@ import java.awt.Container;
 import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.AudioPanel;
 
@@ -48,7 +48,7 @@ public class AudioChooser extends AssetChooser {
 
     public AudioChooser( int filter ) {
 
-        super( AssetsConstants.CATEGORY_AUDIO, filter, AssetChooser.PREVIEW_LOCATION_SOUTH, TextConstants.getText( "AssetsChooser.Audio" ) );
+        super( AssetsConstants.CATEGORY_AUDIO, filter, AssetChooser.PREVIEW_LOCATION_SOUTH, TC.get( "AssetsChooser.Audio" ) );
     }
 
     @Override
@@ -56,7 +56,7 @@ public class AudioChooser extends AssetChooser {
 
         // Create a panel for the element preview
         audioPanel = new AudioPanel( );
-        audioPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AudioAssets.Preview" ) ) );
+        audioPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AudioAssets.Preview" ) ) );
         parent.add( audioPanel );
     }
 

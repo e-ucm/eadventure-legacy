@@ -43,7 +43,7 @@ import de.schlichtherle.io.ArchiveDetector;
 import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.gamelauncher.GameLauncher;
 
@@ -78,7 +78,7 @@ public class EAdventure {
         if( language == ReleaseFolders.LANGUAGE_SPANISH && languageFile != ReleaseFolders.LANGUAGE_SPANISH || language == ReleaseFolders.LANGUAGE_ENGLISH && languageFile != ReleaseFolders.LANGUAGE_ENGLISH ) {
             ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ) );
             languageFile = language;
-            TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Engine( languageFile ) );
+            TC.loadStrings( ReleaseFolders.getLanguageFilePath4Engine( languageFile ) );
         }
     }
 
@@ -125,7 +125,7 @@ public class EAdventure {
         if( args.length >= 1 ) {
             file = new File( args[0] );
             if( !args[0].equals( "" ) && !file.exists( ) ) {
-                JOptionPane.showMessageDialog( null, TextConstants.getText( "ErrorMessage.Title" ), TextConstants.getText( "ErrorMessage.Content" ), JOptionPane.ERROR_MESSAGE );
+                JOptionPane.showMessageDialog( null, TC.get( "ErrorMessage.Title" ), TC.get( "ErrorMessage.Content" ), JOptionPane.ERROR_MESSAGE );
                 file = new File( "" );
             }
         }

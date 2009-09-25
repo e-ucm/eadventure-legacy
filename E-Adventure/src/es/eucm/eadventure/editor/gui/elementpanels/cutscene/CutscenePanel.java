@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.cutscene;
 
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
@@ -73,7 +73,7 @@ public class CutscenePanel extends ElementPanel {
 
         public CutsceneAppPanelTab( CutsceneDataControl sDataControl ) {
 
-            super( TextConstants.getText( "Cutscene.App" ), sDataControl );
+            super( TC.get( "Cutscene.App" ), sDataControl );
             this.sDataControl = sDataControl;
         }
 
@@ -90,7 +90,7 @@ public class CutscenePanel extends ElementPanel {
 
         public CutsceneDocPanelTab( CutsceneDataControl sDataControl ) {
 
-            super( TextConstants.getText( "Cutscene.Doc" ), sDataControl );
+            super( TC.get( "Cutscene.Doc" ), sDataControl );
             this.sDataControl = sDataControl;
         }
 
@@ -107,7 +107,7 @@ public class CutscenePanel extends ElementPanel {
 
         public CutsceneEndPanelTab( CutsceneDataControl sDataControl ) {
 
-            super( TextConstants.getText( "Cutscene.CutsceneEnd" ), sDataControl );
+            super( TC.get( "Cutscene.CutsceneEnd" ), sDataControl );
             this.sDataControl = sDataControl;
         }
 

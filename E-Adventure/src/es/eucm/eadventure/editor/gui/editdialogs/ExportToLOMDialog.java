@@ -57,7 +57,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class ExportToLOMDialog extends JDialog {
@@ -85,7 +85,7 @@ public class ExportToLOMDialog extends JDialog {
     public ExportToLOMDialog( String defaultLomName ) {
 
         // Set the values
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Operation.ExportToLOM.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "Operation.ExportToLOM.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
 
         this.lomName = defaultLomName;
 
@@ -99,18 +99,18 @@ public class ExportToLOMDialog extends JDialog {
         String[] options = { "IMS CP", "WebCT 4 CP", "SCORM", "SCORM2004", "AGREGA" };
         typeComboBox = new JComboBox( options );
         typePanel.add( typeComboBox );
-        typePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Operation.ExportToLOM.LOMType" ) ) );
+        typePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Operation.ExportToLOM.LOMType" ) ) );
 
         //LOM NAME PANEL
         JPanel lomNamePanel = new JPanel( );
         lomNamePanel.setLayout( new GridBagLayout( ) );
-        lomNamePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Operation.ExportToLOM.LOMName" ) ) );
+        lomNamePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Operation.ExportToLOM.LOMName" ) ) );
         lomNameTextField = new JTextField( defaultLomName );
         lomNameTextField.getDocument( ).addDocumentListener( new TextFieldListener( lomNameTextField ) );
         JTextPane lomNameDescription = new JTextPane( );
         lomNameDescription.setEditable( false );
         lomNameDescription.setBackground( getContentPane( ).getBackground( ) );
-        lomNameDescription.setText( TextConstants.getText( "Operation.ExportToLOM.LOMName.Description" ) );
+        lomNameDescription.setText( TC.get( "Operation.ExportToLOM.LOMName.Description" ) );
         GridBagConstraints c2 = new GridBagConstraints( );
         c2.insets = new Insets( 5, 5, 5, 5 );
         c.gridy = 0;
@@ -123,7 +123,7 @@ public class ExportToLOMDialog extends JDialog {
 
         //Credentials panel
         JPanel credentialsPanel = new JPanel( );
-        credentialsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Operation.ExportToLOM.Credentials" ) ) );
+        credentialsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Operation.ExportToLOM.Credentials" ) ) );
         credentialsPanel.setLayout( new GridBagLayout( ) );
         c2 = new GridBagConstraints( );
         c2.insets = new Insets( 5, 5, 5, 5 );
@@ -133,12 +133,12 @@ public class ExportToLOMDialog extends JDialog {
         JTextPane credentialsDescription = new JTextPane( );
         credentialsDescription.setEditable( false );
         credentialsDescription.setBackground( getContentPane( ).getBackground( ) );
-        credentialsDescription.setText( TextConstants.getText( "Operation.ExportToLOM.Credentials.Description" ) );
+        credentialsDescription.setText( TC.get( "Operation.ExportToLOM.Credentials.Description" ) );
         credentialsPanel.add( credentialsDescription, c2 );
 
         //Author name
         JPanel authorNamePanel = new JPanel( );
-        authorNamePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Operation.ExportToLOM.AuthorName" ) ) );
+        authorNamePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Operation.ExportToLOM.AuthorName" ) ) );
         authorNamePanel.setLayout( new GridBagLayout( ) );
         GridBagConstraints c3 = new GridBagConstraints( );
         c3.insets = new Insets( 2, 2, 2, 2 );
@@ -152,7 +152,7 @@ public class ExportToLOMDialog extends JDialog {
 
         //Organization name
         JPanel organizationNamePanel = new JPanel( );
-        organizationNamePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Operation.ExportToLOM.OrganizationName" ) ) );
+        organizationNamePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Operation.ExportToLOM.OrganizationName" ) ) );
         organizationNamePanel.setLayout( new GridBagLayout( ) );
         c3 = new GridBagConstraints( );
         c3.insets = new Insets( 2, 2, 2, 2 );
@@ -167,9 +167,9 @@ public class ExportToLOMDialog extends JDialog {
         //Applet properties panel
         JPanel lomAppletPanel = new JPanel( );
         lomAppletPanel.setLayout( new GridBagLayout( ) );
-        lomAppletPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Operation.ExportToLOM.LOMAppletProperties" ) ) );
+        lomAppletPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Operation.ExportToLOM.LOMAppletProperties" ) ) );
         //lomNameTextField = new JTextField(defaultLomName);
-        windowedCheckBox = new JCheckBox( TextConstants.getText( "Operation.ExportToLOM.LOMAppletRunInsideBrowser" ) );
+        windowedCheckBox = new JCheckBox( TC.get( "Operation.ExportToLOM.LOMAppletRunInsideBrowser" ) );
         windowedCheckBox.setSelected( true );
         windowedCheckBox.addChangeListener( new ChangeListener( ) {
 
@@ -188,7 +188,7 @@ public class ExportToLOMDialog extends JDialog {
 
         //Button panel
         JPanel buttonPanel = new JPanel( );
-        JButton okButton = new JButton( TextConstants.getText( "Operation.ExportToLOM.OK" ) );
+        JButton okButton = new JButton( TC.get( "Operation.ExportToLOM.OK" ) );
         okButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {

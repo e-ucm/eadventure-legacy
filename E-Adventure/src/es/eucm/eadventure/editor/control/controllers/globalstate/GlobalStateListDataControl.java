@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -161,7 +161,7 @@ public class GlobalStateListDataControl extends DataControl {
 
             // Show a dialog asking for the globalState id
             if( globalStateId == null )
-                globalStateId = controller.showInputDialog( TextConstants.getText( "Operation.AddGlobalStateTitle" ), TextConstants.getText( "Operation.AddGlobalStateMessage" ), TextConstants.getText( "Operation.AddGlobalStateDefaultValue" ) );
+                globalStateId = controller.showInputDialog( TC.get( "Operation.AddGlobalStateTitle" ), TC.get( "Operation.AddGlobalStateMessage" ), TC.get( "Operation.AddGlobalStateDefaultValue" ) );
 
             // If some value was typed and the identifier is valid
             if( globalStateId != null && controller.isElementIdValid( globalStateId ) ) {
@@ -207,7 +207,7 @@ public class GlobalStateListDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.AddGlobalStateDefaultValue" );
+        return TC.get( "Operation.AddGlobalStateDefaultValue" );
     }
 
     @Override
@@ -218,7 +218,7 @@ public class GlobalStateListDataControl extends DataControl {
         String references = String.valueOf( controller.countIdentifierReferences( globalStateId ) );
 
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { globalStateId, references } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { globalStateId, references } ) ) ) {
             if( globalStatesList.remove( dataControl.getContent( ) ) ) {
                 globalStatesDataControlList.remove( dataControl );
                 controller.deleteIdentifierReferences( globalStateId );
@@ -283,7 +283,7 @@ public class GlobalStateListDataControl extends DataControl {
         boolean valid = true;
 
         // Update the current path
-        currentPath += " >> " + TextConstants.getElementName( Controller.GLOBAL_STATE_LIST );
+        currentPath += " >> " + TC.getElement( Controller.GLOBAL_STATE_LIST );
 
         // Iterate through the globalStates
         for( GlobalStateDataControl globalStateDataControl : globalStatesDataControlList ) {

@@ -52,7 +52,7 @@ import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.Named;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
@@ -109,7 +109,7 @@ public class ItemDocPanel extends JPanel implements Updateable {
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) itemDataControl.getContent( ) ) );
         documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.Documentation" ) ) );
+        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Item.Documentation" ) ) );
         add( documentationPanel, cDoc );
 
         cDoc.gridy = 1;
@@ -119,7 +119,7 @@ public class ItemDocPanel extends JPanel implements Updateable {
         nameTextField = new JTextField( itemDataControl.getName( ) );
         nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) itemDataControl.getContent( ) ) );
         namePanel.add( nameTextField );
-        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.Name" ) ) );
+        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Item.Name" ) ) );
         add( namePanel, cDoc );
 
         // Create the field for the brief description
@@ -129,7 +129,7 @@ public class ItemDocPanel extends JPanel implements Updateable {
         descriptionTextField = new JTextField( itemDataControl.getBriefDescription( ) );
         descriptionTextField.getDocument( ).addDocumentListener( new DescriptionChangeListener( descriptionTextField, (Described) itemDataControl.getContent( ) ) );
         descriptionPanel.add( descriptionTextField );
-        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.Description" ) ) );
+        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Item.Description" ) ) );
         add( descriptionPanel, cDoc );
 
         // Create the field for the detailed description
@@ -139,11 +139,11 @@ public class ItemDocPanel extends JPanel implements Updateable {
         detailedDescriptionTextField = new JTextField( itemDataControl.getDetailedDescription( ) );
         detailedDescriptionTextField.getDocument( ).addDocumentListener( new DetailedDescriptionChangeListener( detailedDescriptionTextField, (Detailed) itemDataControl.getContent( ) ) );
         detailedDescriptionPanel.add( detailedDescriptionTextField );
-        detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.DetailedDescription" ) ) );
+        detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Item.DetailedDescription" ) ) );
         add( detailedDescriptionPanel, cDoc );
 
         cDoc.gridy = 4;
-        returnsWhenDraggedCheckBox = new JCheckBox(TextConstants.getText( "Item.ReturnsWhenDragged" ));
+        returnsWhenDraggedCheckBox = new JCheckBox(TC.get( "Item.ReturnsWhenDragged" ));
         returnsWhenDraggedCheckBox.setSelected( itemDataControl.isReturnsWhenDragged( ) );
         returnsWhenDraggedCheckBox.addActionListener( new ActionListener( ) {
             public void actionPerformed( ActionEvent e ) {

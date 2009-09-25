@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
@@ -105,7 +105,7 @@ public class CustomActionDataControl extends ActionDataControl {
     public void recursiveSearch( ) {
 
         super.recursiveSearch( );
-        check( this.getName( ), TextConstants.getText( "Search.Name" ) );
+        check( this.getName( ), TC.get( "Search.Name" ) );
     }
 
     @Override

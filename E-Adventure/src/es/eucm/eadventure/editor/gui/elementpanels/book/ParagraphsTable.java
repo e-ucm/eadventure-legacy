@@ -44,7 +44,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListDataControl;
@@ -117,9 +117,9 @@ public class ParagraphsTable extends JTable {
         public String getColumnName( int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "BookParagraphsList.ParagraphType" );
+                return TC.get( "BookParagraphsList.ParagraphType" );
             if( columnIndex == 1 )
-                return TextConstants.getText( "BookParagraphsList.Content" );
+                return TC.get( "BookParagraphsList.Content" );
             else
                 return "";
         }
@@ -139,7 +139,7 @@ public class ParagraphsTable extends JTable {
         public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
 
             if( value instanceof BookParagraphDataControl ) {
-                String elementName = TextConstants.getElementName( ( (BookParagraphDataControl) value ).getType( ) );
+                String elementName = TC.getElement( ( (BookParagraphDataControl) value ).getType( ) );
                 if( ( (BookParagraphDataControl) value ).getType( ) == Controller.BOOK_TITLE_PARAGRAPH ) {
                     return new IconTextPanel( "img/icons/titleBookParagraph.png", elementName, isSelected );
                 }

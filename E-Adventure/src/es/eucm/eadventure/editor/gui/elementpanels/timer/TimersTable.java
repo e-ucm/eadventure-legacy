@@ -39,7 +39,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.BooleanCellRendererEditor;
@@ -101,7 +101,7 @@ public class TimersTable extends JTable {
         public Object getValueAt( int rowIndex, int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getElementName( Controller.TIMER ) + ":#" + ( rowIndex + 1 );
+                return TC.getElement( Controller.TIMER ) + ":#" + ( rowIndex + 1 );
             if( columnIndex == 1 )
                 return dataControl.getTimers( ).get( rowIndex );
             if( columnIndex == 2 )
@@ -113,11 +113,11 @@ public class TimersTable extends JTable {
         public String getColumnName( int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "TimersList.Timer" );
+                return TC.get( "TimersList.Timer" );
             if( columnIndex == 1 )
-                return TextConstants.getText( "TimersList.Time" );
+                return TC.get( "TimersList.Time" );
             if( columnIndex == 2 )
-                return TextConstants.getText( "TimersList.Display" );
+                return TC.get( "TimersList.Display" );
             return "";
         }
 
