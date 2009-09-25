@@ -250,6 +250,8 @@ public class ChangeReportSettingsTool extends Tool {
         switch( mode ) {
             case SHOW_REPORT:
                 profile.setShowReportAtEnd( Boolean.parseBoolean( oldValue ) );
+                if (profile.isSendByEmail())
+                    profile.setSendByEmail(false);
                 break;
             case SEND:
                 profile.setSendByEmail( Boolean.parseBoolean( oldValue ) );

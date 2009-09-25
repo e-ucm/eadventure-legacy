@@ -97,7 +97,6 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
     /**
      * Panel which contains the initial state and LMS state of selected rule
      */
-    // private AuxTabPanel rulesInfoPanel;
     private JTabbedPane rulesInfoPanel;
 
     /**
@@ -251,6 +250,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
                     movePropertyUpButton.setEnabled( false );
                     movePropertyDownButton.setEnabled( false );
                 }
+                // TODO it produces so calls to that method, analyze 
                 createRulesInfoPanel( );
             }
         } );
@@ -352,24 +352,16 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
     private void createRulesInfoPanel( ) {
 
         if( informationTable.getSelectedRow( ) < 0 || informationTable.getSelectedRow( ) >= dataControl.getAdaptationRules( ).size( ) ) {
-            //int i = informationTable.getRowCount();   
-            //if (informationTable.getRowCount()<=0){
             rulesInfoPanel.removeAll( );
             JPanel empty = new JPanel( );
             JLabel label = new JLabel( TC.get( "AdaptationProfile.Empty" ) );
             empty.add( label );
-            //rulesInfoPanel.addTab(/*TextConstants.getText("AdaptationProfile.TabbedLMSState"),*/ empty);
-            //rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedInitialState"),empty);
             rulesInfoPanel.add( empty );
-            //rulesInfoPanel.setSelectedIndex(0);
             rulesInfoPanel.setMinimumSize( new Dimension( 0, 100 ) );
         }
         else {
             rulesInfoPanel.removeAll( );
-            // take the current rule data control
-            //AdaptationRuleDataControl adpRuleDataControl = dataControl.getAdaptationRules().get(lastRule); 
-            // rulesInfoPanel.addTab(new UOLPropertiesPanelTab( lastRule,dataControl.isScorm12(),dataControl.isScorm2004()));
-
+            
             JPanel Uol = new UOLPropertiesPanel( lastRule, dataControl.isScorm12( ), dataControl.isScorm2004( ) );
             rulesInfoPanel.addTab( TC.get( "AdaptationProfile.TabbedLMSState" ), Uol );
 
@@ -377,9 +369,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
             rulesInfoPanel.addTab( TC.get( "AdaptationProfile.TabbedInitialState" ), gameStatePanel );
 
             // Create the game-state panel
-            //rulesInfoPanel.addTab(new GameStatePanelTab(lastRule));
             rulesInfoPanel.setPreferredSize( new Dimension( 0, 250 ) );
-            // rulesInfoPanel.setSelectedIndex(0);
             rulesInfoPanel.updateUI( );
 
         }
@@ -430,10 +420,14 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
     public boolean updateFields( ) {
 
         int selected = informationTable.getSelectedRow( );
-        int items = informationTable.getRowCount( );
         int selectedTab = rulesInfoPanel.getSelectedIndex( );
-        if( rulesInfoPanel != null && rulesInfoPanel instanceof Updateable )
-            ( (Updateable) rulesInfoPanel ).updateFields( );
+        
+        // the call is not spread 
+        //if( rulesInfoPanel != null && rulesInfoPanel instanceof Updateable )
+          //  ( (Updateable) rulesInfoPanel ).updateFields( );
+        if( informationTable.getCellEditor( ) != null ) {
+            informationTable.getCellEditor( ).cancelCellEditing( );
+        }
         ( (AbstractTableModel) informationTable.getModel( ) ).fireTableDataChanged( );
         // update combo box
         if( dataControl.isScorm12( ) )
@@ -443,27 +437,14 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
         else
             comboProfile.setSelectedIndex( 2 );
 
-        if( items == informationTable.getRowCount( ) ) {
-            if( selected != -1 ) {
-                if( selected >= items )
-                    selected = items - 1;
-                informationTable.changeSelection( selected, 0, false, false );
-                if( informationTable.getEditorComponent( ) != null )
-                    informationTable.editCellAt( selected, informationTable.getEditingColumn( ) );
+            
+           
+        informationTable.getSelectionModel( ).setSelectionInterval( selected, selected );
 
-            }
-            if( selectedTab != -1 )
-                rulesInfoPanel.setSelectedIndex( selectedTab );
+        if( selectedTab > -1 && selectedTab<rulesInfoPanel.getTabCount()){
+    		rulesInfoPanel.setSelectedIndex( selectedTab );
         }
-
-        informationTable.clearSelection( );
-        informationTable.updateUI( );
-
-        movePropertyDownButton.setEnabled( false );
-        movePropertyUpButton.setEnabled( false );
-        delete.setEnabled( false );
-        duplicate.setEnabled( false );
-
+        
         if( initialStatePanel instanceof Updateable )
             ( (Updateable) initialStatePanel ).updateFields( );
 

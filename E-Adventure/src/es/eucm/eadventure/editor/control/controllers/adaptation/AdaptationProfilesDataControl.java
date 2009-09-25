@@ -45,6 +45,8 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationProfilesDataControl extends DataControl {
@@ -125,6 +127,9 @@ public class AdaptationProfilesDataControl extends DataControl {
             profiles.add( new AdaptationProfileDataControl( newElement ) );
             data.add( (AdaptationProfile) profiles.get( profiles.size( ) - 1 ).getContent( ) );
             controller.getIdentifierSummary( ).addAdaptationProfileId( id );
+            //Add all rules id to the IdentifierSummary
+            for (AdaptationRule ar: newElement.getRules())
+        	controller.getIdentifierSummary( ).addAdaptationRuleId(ar.getId(), id);
             return true;
         }
         catch( CloneNotSupportedException e ) {
@@ -213,7 +218,9 @@ public class AdaptationProfilesDataControl extends DataControl {
                     data.remove( profiles.indexOf( dataControl ) );
                     deleted = this.profiles.remove( dataControl );
                     if( deleted ) {
-
+                	// Delete all rule Ids in IdentifiersSummary
+                	for (AdaptationRuleDataControl ar: ((AdaptationProfileDataControl)dataControl).getAdaptationRules() )
+                	    controller.getIdentifierSummary().deleteAdaptationRuleId(ar.getId(), profile.getName());
                         controller.getIdentifierSummary( ).deleteAdaptationProfileId( profile.getName( ) );
 
                         break;

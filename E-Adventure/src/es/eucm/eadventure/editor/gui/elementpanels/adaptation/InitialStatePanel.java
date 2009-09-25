@@ -535,12 +535,15 @@ class InitialStatePanel extends JPanel implements Updateable {
         int selection = actionFlagsTable.getSelectedRow( );
         actionFlagsTable.clearSelection( );
         //actionFlagsTable.updateUI();
+        String ini = adaptationProfileDataControl.getInitialScene( ); 
+        if (ini == null)
+            initialSceneCB.setSelectedIndex( 0 );
+        else
+            initialSceneCB.setSelectedItem( adaptationProfileDataControl.getInitialScene( ) ); 
         deleteActionFlagButton.setEnabled( false );
-
         if( actionFlagsTable.getCellEditor( ) != null )
             actionFlagsTable.getCellEditor( ).stopCellEditing( );
         ( (AbstractTableModel) actionFlagsTable.getModel( ) ).fireTableDataChanged( );
-        //((AbstractTableModel)actionFlagsTable.getModel()).fireTableRowsUpdated(selection, selection);
 
         actionFlagsTable.getSelectionModel( ).setSelectionInterval( selection, selection );
         return true;

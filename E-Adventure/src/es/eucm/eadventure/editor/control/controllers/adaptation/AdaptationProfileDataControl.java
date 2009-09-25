@@ -53,6 +53,7 @@ import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.MoveRuleTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 
 public class AdaptationProfileDataControl extends DataControl {
 
@@ -87,7 +88,7 @@ public class AdaptationProfileDataControl extends DataControl {
         if( profile != null && profile.getRules( ) != null )
             for( AdaptationRule rule : profile.getRules( ) ) {
                 rule.setId( generateId( ) );
-                dataControls.add( new AdaptationRuleDataControl( rule ) );
+                dataControls.add( new AdaptationRuleDataControl( rule, this.profile ) );
             }
     }
 
@@ -110,7 +111,7 @@ public class AdaptationProfileDataControl extends DataControl {
             AdaptationRule adpRule = new AdaptationRule( );
             adpRule.setId( adpRuleId );
             profile.addRule( adpRule );
-            dataControls.add( new AdaptationRuleDataControl( adpRule ) );
+            dataControls.add( new AdaptationRuleDataControl( adpRule, profile ) );
             controller.getIdentifierSummary( ).addAdaptationRuleId( adpRuleId, profile.getName() );
             //controller.dataModified( );
             added = true;
@@ -206,17 +207,10 @@ public class AdaptationProfileDataControl extends DataControl {
     public void deleteIdentifierReferences( String id ) {
 
         // profiles identifiers are deleted in adaptationProfilesDataControl
-        AdaptationRuleDataControl ruleToDelete = null;
-        AdaptationRuleDataControl rule = null;
         Iterator<AdaptationRuleDataControl> itera = this.dataControls.iterator( );
         while( itera.hasNext( ) ) {
-            rule = itera.next( );
-            if( id.equals( rule.getId( ) ) ) {
-                itera.remove( );
-
-            }
-            else
-                rule.deleteIdentifierReferences( id );
+            itera.next( ).deleteIdentifierReferences( id );
+         // the rule ID are unique, do not look in rule's IDs
         }
 
     }
@@ -362,8 +356,12 @@ public class AdaptationProfileDataControl extends DataControl {
             return false;
 
         try {
+         // Auto generate the rule id
+            String adpRuleId = generateId( );
             AdaptationRule newRule = (AdaptationRule) ( ( (AdaptationRule) ( dataControl.getContent( ) ) ).clone( ) );
-            dataControls.add( new AdaptationRuleDataControl( newRule ) );
+            newRule.setId(adpRuleId);
+            dataControls.add( new AdaptationRuleDataControl( newRule, profile ) );
+            profile.addRule(newRule);
             controller.getIdentifierSummary( ).addAdaptationRuleId( newRule.getId( ), profile.getName() );
             return true;
         }

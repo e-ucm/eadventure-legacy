@@ -31,10 +31,10 @@
  * Place, Suite 330, Boston, MA 02111-1307 USA
  * 
  */
-package es.eucm.eadventure.editor.control.tools.adaptation;
+package es.eucm.eadventure.editor.control.tools.assessment;
 
-import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
-import es.eucm.eadventure.common.data.adaptation.UOLProperty;
+import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
@@ -44,40 +44,36 @@ import es.eucm.eadventure.editor.control.tools.Tool;
  * @author Javier
  * 
  */
-public class ChangeUOLPropertyTool extends Tool {
+public class ChangeAssessmentPropertyTool extends Tool {
 
     public static final int SET_ID = 2;
 
     public static final int SET_VALUE = 3;
 
-    public static final int SET_OP = 4;
+    protected AssessmentProperty oldProperty;
 
-    protected UOLProperty oldProperty;
+    protected AssessmentProperty newProperty;
 
-    protected UOLProperty newProperty;
-
-    protected AdaptationRule parent;
+    protected AssessmentRule parent;
 
     protected int mode;
 
     protected int index;
 
-    public ChangeUOLPropertyTool( AdaptationRule parent, String newData, int index, int mode ) {
+    public ChangeAssessmentPropertyTool( AssessmentRule parent, String newData, int index, int mode ) {
 
         this.mode = mode;
-        this.oldProperty = parent.getUOLProperties( ).get( index );
+        this.oldProperty = parent.getAssessmentProperties( ).get( index );
         this.parent = parent;
         this.index = index;
 
         if( mode == SET_ID ) {
-            newProperty = new UOLProperty( newData, oldProperty.getValue( ), oldProperty.getOperation( ) );
+            newProperty = new AssessmentProperty( newData, oldProperty.getValue( ) );
         }
         else if( mode == SET_VALUE ) {
-            newProperty = new UOLProperty( oldProperty.getId( ), newData, oldProperty.getOperation( ) );
+            newProperty = new AssessmentProperty( oldProperty.getId( ), newData );
         }
-        else if( mode == SET_OP ) {
-            newProperty = new UOLProperty( oldProperty.getId( ), oldProperty.getValue( ), newData );
-        }
+        
     }
 
     @Override
@@ -89,7 +85,7 @@ public class ChangeUOLPropertyTool extends Tool {
     @Override
     public boolean canUndo( ) {
 
-        return mode == SET_ID || mode == SET_VALUE || mode == SET_OP;
+        return mode == SET_ID || mode == SET_VALUE ;
     }
 
     @Override
@@ -101,10 +97,10 @@ public class ChangeUOLPropertyTool extends Tool {
     @Override
     public boolean doTool( ) {
 
-        if( mode == SET_ID || mode == SET_VALUE || mode == SET_OP ) {
-            if( index >= 0 && index < parent.getUOLProperties( ).size( ) ) {
-                parent.getUOLProperties( ).remove( index );
-                parent.getUOLProperties( ).add( index, newProperty );
+        if( mode == SET_ID || mode == SET_VALUE ) {
+            if( index >= 0 && index < parent.getAssessmentProperties( ).size( ) ) {
+                parent.getAssessmentProperties( ).remove( index );
+                parent.getAssessmentProperties( ).add( index, newProperty );
             }
             return true;
         }
@@ -114,9 +110,9 @@ public class ChangeUOLPropertyTool extends Tool {
     @Override
     public boolean redoTool( ) {
 
-        if( mode == SET_ID || mode == SET_VALUE || mode == SET_OP) {
-            parent.getUOLProperties( ).remove( index );
-            parent.getUOLProperties( ).add( index, newProperty );
+        if( mode == SET_ID || mode == SET_VALUE ) {
+            parent.getAssessmentProperties( ).remove( index );
+            parent.getAssessmentProperties( ).add( index, newProperty );
             Controller.getInstance( ).updatePanel( );
             return true;
         }
@@ -126,9 +122,9 @@ public class ChangeUOLPropertyTool extends Tool {
     @Override
     public boolean undoTool( ) {
 
-        if( mode == SET_ID || mode == SET_VALUE || mode == SET_OP ) {
-            parent.getUOLProperties( ).remove( index );
-            parent.getUOLProperties( ).add( index, oldProperty );
+        if( mode == SET_ID || mode == SET_VALUE ) {
+            parent.getAssessmentProperties( ).remove( index );
+            parent.getAssessmentProperties( ).add( index, oldProperty );
             Controller.getInstance( ).updatePanel( );
             return true;
         }

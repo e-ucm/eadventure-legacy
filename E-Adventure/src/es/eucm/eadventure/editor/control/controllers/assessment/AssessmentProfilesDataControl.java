@@ -124,6 +124,9 @@ public class AssessmentProfilesDataControl extends DataControl {
             profiles.add( new AssessmentProfileDataControl( newElement ) );
             data.add( (AssessmentProfile) profiles.get( profiles.size( ) - 1 ).getContent( ) );
             controller.getIdentifierSummary( ).addAssessmentProfileId( id );
+            //Add all rules id to the IdentifierSummary
+            for (AssessmentRule ar: newElement.getRules())
+        	controller.getIdentifierSummary( ).addAssessmentRuleId(ar.getId(), id);
             return true;
         }
         catch( CloneNotSupportedException e ) {
@@ -210,6 +213,9 @@ public class AssessmentProfilesDataControl extends DataControl {
                     data.remove( profiles.indexOf( dataControl ) );
                     deleted = this.profiles.remove( dataControl );
                     if( deleted ) {
+                	// Delete all rule Ids in IdentifiersSummary
+                	for (AssessmentRuleDataControl ar: ((AssessmentProfileDataControl)dataControl).getAssessmentRules() )
+                	    controller.getIdentifierSummary().deleteAssessmentRuleId(ar.getId(), profile.getName());
                         controller.getIdentifierSummary( ).deleteAssessmentProfileId( profile.getName( ) );
 
                         break;

@@ -37,6 +37,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Iterator;
 import java.util.Properties;
@@ -54,6 +55,21 @@ public class SCORMConfigData {
     private static final String FILE_NAME_12 = "datamodel.xml";
 
     private static final String FILE_NAME_2004 = "datamodel2004.xml";
+    
+    public static final String[] ArrayNames = {"cmi.objectives", "cmi.interactions"};
+    
+    /**
+     * Constants with the index in array of attribute`s name
+     */
+    public static final int SCORM_OBJECTIVES= 0;
+    
+    public static final int SCORM_INTERACTIONS = 1;
+    
+    
+    
+    public static final int SCORM_V12 = 0;
+    
+    public static final int SCORM_2004 = 1;
 
     private static Properties properties2004;
 
@@ -90,6 +106,7 @@ public class SCORMConfigData {
 
     }
 
+    
     public static String getProperty2004( String key ) {
 
         if( properties2004.containsKey( key ) ) {
@@ -97,6 +114,31 @@ public class SCORMConfigData {
         }
         else
             return null;
+    }
+    
+    /**
+     * For array attributes, there are one entry in xml file for identify it, and a set of attributes which are
+     * the fields of that attribute. This method filter that fields for hide them in the list of accessible attributes.
+     * 
+     * @param att
+     * @return
+     */
+    private static boolean isArrayAttributeExtension(String att){
+	
+	for (int i=0; i<ArrayNames.length; i++){
+	    if (att.startsWith(ArrayNames[i]+"."))
+		return true;
+	}
+	return false;
+	
+    }
+    
+    private static boolean isArrayAttribute( String att ){
+	for (int i=0; i<ArrayNames.length; i++){
+	    if (att.equals(ArrayNames[i]))
+		return true;
+	}
+	return false;
     }
 
     public static String getProperty12( String key ) {
@@ -114,7 +156,9 @@ public class SCORMConfigData {
 
         ArrayList<String> elements = new ArrayList<String>( );
         for( Iterator<String> it = prop.iterator( ); it.hasNext( ); ) {
-            elements.add( it.next( ) );
+            String next = it.next( );
+            if ( !isArrayAttributeExtension( next ) )
+        	elements.add( next );
         }
         return elements;
     }
@@ -125,9 +169,57 @@ public class SCORMConfigData {
 
         ArrayList<String> elements = new ArrayList<String>( );
         for( Iterator<String> it = prop.iterator( ); it.hasNext( ); ) {
-            elements.add( it.next( ) );
+            String next = it.next( );
+            if ( !isArrayAttributeExtension( next ) )
+        	elements.add( next );
         }
         return elements;
+    }
+    
+    /**
+     *
+     * Extract all elements which has "attribute" prefix.
+     *
+     * @param attribute
+     * 		The prefix to look for.
+     * @param type
+     * 		The type of SCORM.
+     * @return
+     * 		All the fields for the "Attribute".
+     */
+    public static ArrayList<String> getAttribute( String attribute, int type ){
+	
+	Set<String> prop = null;
+	if ( type == SCORM_V12)
+	    prop = properties12.stringPropertyNames( );
+
+	else if ( type == SCORM_2004)
+	    prop = properties2004.stringPropertyNames( );
+
+	
+        ArrayList<String> elements = new ArrayList<String>( );
+        for( Iterator<String> it = prop.iterator( ); it.hasNext( ); ) {
+            String next = it.next();
+            if ( next.startsWith(attribute)&&!isArrayAttribute(next))
+        	elements.add( next );
+        }
+        return elements;
+    }
+    
+    /**
+     * Check if the parameter is one of the SCORM array data model attributes
+     * 
+     * @param at
+     * 		The 
+     * @return
+     */
+    public static boolean isEspecialAttribute(String at){
+	
+	for (int i=0;i<ArrayNames.length;i++){
+	    if (at.equals(ArrayNames[i]))
+		return true;
+	}
+	return false;
     }
 
 }

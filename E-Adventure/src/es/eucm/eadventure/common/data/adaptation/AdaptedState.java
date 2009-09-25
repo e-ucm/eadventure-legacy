@@ -40,7 +40,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 
 /**
  * Stores the adaptation data, which includes the flag activation and
- * deactivation values, along with the inital scene of the game
+ * deactivation values, along with the initial scene of the game
  */
 public class AdaptedState implements Cloneable, HasTargetId {
 
