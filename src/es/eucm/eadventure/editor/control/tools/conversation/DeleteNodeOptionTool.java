@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.tools.conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class DeleteNodeOptionTool extends DeleteNodeLinkTool {
 
@@ -45,16 +45,16 @@ public class DeleteNodeOptionTool extends DeleteNodeLinkTool {
     public DeleteNodeOptionTool( ConversationNode parent, int optionIndex ) {
 
         super( parent );
-        this.confirmText = TextConstants.getText( "Conversation.ConfirmationDeleteOption" );
-        this.confirmTitle = TextConstants.getText( "Conversation.OperationDeleteOption" );
+        this.confirmText = TC.get( "Conversation.ConfirmationDeleteOption" );
+        this.confirmTitle = TC.get( "Conversation.OperationDeleteOption" );
         this.linkIndex = optionIndex;
     }
 
     public DeleteNodeOptionTool( ConversationNodeView parent, int optionIndex ) {
 
         super( parent );
-        this.confirmText = TextConstants.getText( "Conversation.ConfirmationDeleteOption" );
-        this.confirmTitle = TextConstants.getText( "Conversation.OperationDeleteOption" );
+        this.confirmText = TC.get( "Conversation.ConfirmationDeleteOption" );
+        this.confirmTitle = TC.get( "Conversation.OperationDeleteOption" );
         this.linkIndex = optionIndex;
     }
 

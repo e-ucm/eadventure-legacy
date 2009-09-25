@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.data.meta.auxiliar;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class LOMIdentifier extends LOMESContainer {
 
@@ -94,7 +94,7 @@ public class LOMIdentifier extends LOMESContainer {
     @Override
     public String getTitle( ) {
 
-        return TextConstants.getText( "LOMES.GeneralIdentifier.DialogTitle" );
+        return TC.get( "LOMES.GeneralIdentifier.DialogTitle" );
     }
 
     @Override

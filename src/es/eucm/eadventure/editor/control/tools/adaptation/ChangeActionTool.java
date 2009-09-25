@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.tools.adaptation;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adaptation.ContainsAdaptedState;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
@@ -125,7 +125,7 @@ public class ChangeActionTool extends Tool {
         //Otherwise, prompt error message
         // If the list had no elements, show an error message
         else
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Adaptation.ErrorNoFlags.Title" ), TextConstants.getText( "Adaptation.ErrorNoFlags" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Adaptation.ErrorNoFlags.Title" ), TC.get( "Adaptation.ErrorNoFlags" ) );
 
         return added;
     }

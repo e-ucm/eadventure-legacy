@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class MainStructureListElement extends EffectsStructureListElement {
 
@@ -41,10 +41,10 @@ public class MainStructureListElement extends EffectsStructureListElement {
 
     public MainStructureListElement( ) {
 
-        super( TextConstants.getText( "EffectsGroup.Main" ) );
+        super( TC.get( "EffectsGroup.Main" ) );
         //icon = EffectsStructurePanel.getEffectIcon(name, EffectsStructurePanel.ICON_SIZE_MEDIUM);
         //new ImageIcon( "img/icons/adaptationProfiles.png" );
-        groupEffects = new String[] { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ), TextConstants.getText( "Effect.DecrementVar" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.ShowText" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.MacroReference" ), TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.RandomEffect" ), TextConstants.getText( "Effect.WaitTime" ) };
+        groupEffects = new String[] { TC.get( "Effect.Activate" ), TC.get( "Effect.Deactivate" ), TC.get( "Effect.SetValue" ), TC.get( "Effect.IncrementVar" ), TC.get( "Effect.DecrementVar" ), TC.get( "Effect.PlaySound" ), TC.get( "Effect.PlayAnimation" ), TC.get( "Effect.SpeakPlayer" ), TC.get( "Effect.SpeakCharacter" ), TC.get( "Effect.ShowText" ), TC.get( "Effect.TriggerConversation" ), TC.get( "Effect.TriggerScene" ), TC.get( "Effect.TriggerLastScene" ), TC.get( "Effect.TriggerCutscene" ), TC.get( "Effect.TriggerBook" ), TC.get( "Effect.ConsumeObject" ), TC.get( "Effect.GenerateObject" ), TC.get( "Effect.MovePlayer" ), TC.get( "Effect.MoveCharacter" ), TC.get( "Effect.MacroReference" ), TC.get( "Effect.CancelAction" ), TC.get( "Effect.RandomEffect" ), TC.get( "Effect.WaitTime" ) };
         path = LIST_URL;
     }
 

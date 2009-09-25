@@ -40,7 +40,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -362,8 +362,8 @@ public class ExitDataControl extends DataControl implements RectangleArea {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
-        check( this.getExitLookDataControl( ).getCustomizedText( ), TextConstants.getText( "Search.CustomizedText" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
+        check( this.getExitLookDataControl( ).getCustomizedText( ), TC.get( "Search.CustomizedText" ) );
     }
 
     public boolean isRectangular( ) {

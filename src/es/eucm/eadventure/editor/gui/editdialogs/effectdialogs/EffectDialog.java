@@ -44,7 +44,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.SingleEffectController;
@@ -87,12 +87,12 @@ public abstract class EffectDialog extends ToolManagableDialog {
         buttonsPanel.setLayout( new FlowLayout( FlowLayout.RIGHT, 4, 4 ) );
 
         // Create and add the OK button
-        JButton okButton = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+        JButton okButton = new JButton( TC.get( "GeneralText.OK" ) );
         okButton.addActionListener( new OKButtonActionListener( ) );
         buttonsPanel.add( okButton );
 
         // Create and add the Cancel button
-        JButton cancelButton = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        JButton cancelButton = new JButton( TC.get( "GeneralText.Cancel" ) );
         cancelButton.addActionListener( new CancelButtonActionListener( ) );
         buttonsPanel.add( cancelButton );
 

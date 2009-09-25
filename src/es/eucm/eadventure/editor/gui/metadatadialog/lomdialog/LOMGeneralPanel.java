@@ -42,7 +42,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMGeneralDataControl;
 
@@ -63,10 +63,10 @@ public class LOMGeneralPanel extends JPanel {
 
         // Create the panels
 
-        titlePanel = new LOMTextPanel( dataControl.getTitleController( ), TextConstants.getText( "LOM.General.Title" ), LOMTextPanel.TYPE_FIELD );
-        LOMOptionsPanel languagePanel = new LOMOptionsPanel( dataControl.getLanguageController( ), TextConstants.getText( "LOM.General.Language" ) );
-        descriptionPanel = new LOMTextPanel( dataControl.getDescriptionController( ), TextConstants.getText( "LOM.General.Description" ), LOMTextPanel.TYPE_AREA );
-        LOMTextPanel keywordPanel = new LOMTextPanel( dataControl.getKeywordController( ), TextConstants.getText( "LOM.General.Keyword" ), LOMTextPanel.TYPE_FIELD );
+        titlePanel = new LOMTextPanel( dataControl.getTitleController( ), TC.get( "LOM.General.Title" ), LOMTextPanel.TYPE_FIELD );
+        LOMOptionsPanel languagePanel = new LOMOptionsPanel( dataControl.getLanguageController( ), TC.get( "LOM.General.Language" ) );
+        descriptionPanel = new LOMTextPanel( dataControl.getDescriptionController( ), TC.get( "LOM.General.Description" ), LOMTextPanel.TYPE_AREA );
+        LOMTextPanel keywordPanel = new LOMTextPanel( dataControl.getKeywordController( ), TC.get( "LOM.General.Keyword" ), LOMTextPanel.TYPE_FIELD );
 
         // Add the panels
         add( Box.createVerticalStrut( 1 ) );
@@ -78,8 +78,8 @@ public class LOMGeneralPanel extends JPanel {
         add( Box.createVerticalStrut( 1 ) );
         add( keywordPanel );
         // Add "set defaults" button: If you press here, the title and description fields will be filled with the title and description of the adventure 
-        JButton setDefaults = new JButton( TextConstants.getText( "LOM.General.SetDefaults" ) );
-        setDefaults.setToolTipText( TextConstants.getText( "LOM.General.SetDefaultsTip" ) );
+        JButton setDefaults = new JButton( TC.get( "LOM.General.SetDefaults" ) );
+        setDefaults.setToolTipText( TC.get( "LOM.General.SetDefaultsTip" ) );
         setDefaults.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {

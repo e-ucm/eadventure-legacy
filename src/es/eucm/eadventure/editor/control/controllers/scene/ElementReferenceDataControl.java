@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.ElementReference;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -470,9 +470,9 @@ public class ElementReferenceDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.conditionsController, TextConstants.getText( "Search.Conditions" ) );
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
-        check( this.getElementId( ), TextConstants.getText( "Search.ElementID" ) );
+        check( this.conditionsController, TC.get( "Search.Conditions" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
+        check( this.getElementId( ), TC.get( "Search.ElementID" ) );
     }
 
     public boolean isVisible( ) {

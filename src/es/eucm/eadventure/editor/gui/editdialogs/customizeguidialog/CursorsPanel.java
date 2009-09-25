@@ -51,7 +51,7 @@ import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
@@ -118,9 +118,9 @@ public class CursorsPanel extends JScrollPane implements Updateable {
         JTextPane informationTextPane = new JTextPane( );
         informationTextPane.setEditable( false );
         informationTextPane.setBackground( mainPanel.getBackground( ) );
-        informationTextPane.setText( TextConstants.getText( "Cursors.Information" ) );
+        informationTextPane.setText( TC.get( "Cursors.Information" ) );
         JPanel informationPanel = new JPanel( );
-        informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
+        informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "GeneralText.Information" ) ) );
         informationPanel.setLayout( new BorderLayout( ) );
         informationPanel.add( informationTextPane, BorderLayout.CENTER );
         mainPanel.add( informationPanel, c );
@@ -136,7 +136,7 @@ public class CursorsPanel extends JScrollPane implements Updateable {
             // Create the panel and set the border
             JPanel assetPanel = new JPanel( );
             assetPanel.setLayout( new GridBagLayout( ) );
-            assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Cursor." + cursorTypes[i] + ".Description" ) ) );
+            assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Cursor." + cursorTypes[i] + ".Description" ) ) );
             GridBagConstraints c2 = new GridBagConstraints( );
             c2.insets = new Insets( 2, 2, 2, 2 );
             c2.fill = GridBagConstraints.NONE;
@@ -147,7 +147,7 @@ public class CursorsPanel extends JScrollPane implements Updateable {
             JButton deleteContentButton = new JButton( deleteContentIcon );
             deleteContentButton.addActionListener( new DeleteContentButtonListener( i ) );
             deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-            deleteContentButton.setToolTipText( TextConstants.getText( "Cursors.DeleteCursor" ) );
+            deleteContentButton.setToolTipText( TC.get( "Cursors.DeleteCursor" ) );
             deleteContentButton.setEnabled( adventureData.isCursorTypeAllowed( i ) );
             assetPanel.add( deleteContentButton, c2 );
 
@@ -158,7 +158,7 @@ public class CursorsPanel extends JScrollPane implements Updateable {
                     cursorFields[i].setText( adventureData.getCursorPath( i ) );
             }
             else
-                cursorFields[i].setText( TextConstants.getText( "Cursors.TypeNotAllowed" ) );
+                cursorFields[i].setText( TC.get( "Cursors.TypeNotAllowed" ) );
 
             cursorFields[i].setEditable( false );
             c2.gridx = 1;
@@ -167,7 +167,7 @@ public class CursorsPanel extends JScrollPane implements Updateable {
             assetPanel.add( cursorFields[i], c2 );
 
             // Create the "Select" button and insert it
-            JButton selectButton = new JButton( TextConstants.getText( "Cursors.Select" ) );
+            JButton selectButton = new JButton( TC.get( "Cursors.Select" ) );
             selectButton.addActionListener( new ExamineButtonListener( i ) );
             selectButton.setEnabled( adventureData.isCursorTypeAllowed( i ) );
             c2.gridx = 2;
@@ -176,7 +176,7 @@ public class CursorsPanel extends JScrollPane implements Updateable {
             assetPanel.add( selectButton, c2 );
 
             // Create the "View" button and insert it
-            viewButtons[i] = new JButton( TextConstants.getText( "Cursors.Preview" ) );
+            viewButtons[i] = new JButton( TC.get( "Cursors.Preview" ) );
             viewButtons[i].setEnabled( adventureData.isCursorTypeAllowed( i ) && adventureData.getCursorPath( i ) != null );
             viewButtons[i].addActionListener( new ViewButtonListener( i ) );
             c2.gridx = 3;
@@ -185,7 +185,7 @@ public class CursorsPanel extends JScrollPane implements Updateable {
             // Add the panel
             c.gridy++;
             //resourcesPanel.add( assetPanel, c );
-            assetPanel.setToolTipText( TextConstants.getText( "Cursor." + cursorTypes[i] + ".Tip" ) );
+            assetPanel.setToolTipText( TC.get( "Cursor." + cursorTypes[i] + ".Tip" ) );
             mainPanel.add( assetPanel, c );
         }
 
@@ -330,7 +330,7 @@ public class CursorsPanel extends JScrollPane implements Updateable {
 
             }
             else {
-                cursorFields[i].setText( TextConstants.getText( "Cursors.TypeNotAllowed" ) );
+                cursorFields[i].setText( TC.get( "Cursors.TypeNotAllowed" ) );
                 viewButtons[i].setEnabled( false );
             }
         }

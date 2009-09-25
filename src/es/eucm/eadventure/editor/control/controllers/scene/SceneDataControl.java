@@ -39,7 +39,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
@@ -367,12 +367,12 @@ public class SceneDataControl extends DataControlWithResources {
         String references = String.valueOf( controller.countIdentifierReferences( oldSceneId ) );
 
         // Ask for confirmation
-        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameSceneTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldSceneId, references } ) ) ) {
+        if( name != null || controller.showStrictConfirmDialog( TC.get( "Operation.RenameSceneTitle" ), TC.get( "Operation.RenameElementWarning", new String[] { oldSceneId, references } ) ) ) {
 
             // Show a dialog asking for the new scene id
             String newSceneId = name;
             if( name == null )
-                newSceneId = controller.showInputDialog( TextConstants.getText( "Operation.RenameSceneTitle" ), TextConstants.getText( "Operation.RenameSceneMessage" ), oldSceneId );
+                newSceneId = controller.showInputDialog( TC.get( "Operation.RenameSceneTitle" ), TC.get( "Operation.RenameSceneMessage" ), oldSceneId );
 
             // If some value was typed and the identifiers are different
             if( newSceneId != null && !newSceneId.equals( oldSceneId ) && controller.isElementIdValid( newSceneId ) ) {
@@ -412,7 +412,7 @@ public class SceneDataControl extends DataControlWithResources {
 
         // Iterate through the resources
         for( int i = 0; i < resourcesDataControlList.size( ); i++ ) {
-            String resourcesPath = currentPath + " >> " + TextConstants.getElementName( Controller.RESOURCES ) + " #" + ( i + 1 );
+            String resourcesPath = currentPath + " >> " + TC.getElement( Controller.RESOURCES ) + " #" + ( i + 1 );
             valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
         }
 
@@ -579,8 +579,8 @@ public class SceneDataControl extends DataControlWithResources {
 
         this.getActiveAreasList( ).recursiveSearch( );
         this.getBarriersList( ).recursiveSearch( );
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
-        check( this.getName( ), TextConstants.getText( "Search.Name" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
+        check( this.getName( ), TC.get( "Search.Name" ) );
         check( this.getId( ), "ID" );
         this.getExitsList( ).recursiveSearch( );
         this.getReferencesList( ).recursiveSearch( );

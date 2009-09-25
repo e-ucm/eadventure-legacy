@@ -46,7 +46,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.HTMLEditController;
@@ -72,7 +72,7 @@ public class HTMLEditDialog extends JDialog implements WindowListener {
     public HTMLEditDialog( String filename, JFrame frame ) {
 
         super( frame, true );
-        this.setTitle( TextConstants.getText( "HTMLEditor.Title", filename ) );
+        this.setTitle( TC.get( "HTMLEditor.Title", filename ) );
 
         //this.bookPage = bookPage;
         htmlEditController = new HTMLEditController( );
@@ -128,7 +128,7 @@ public class HTMLEditDialog extends JDialog implements WindowListener {
 
     public void windowClosing( WindowEvent arg0 ) {
 
-        int option = JOptionPane.showConfirmDialog( this, TextConstants.getText( "HTMLEditor.QuitMessage" ), TextConstants.getText( "HTMLEditor.QuitMessageTitle" ), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE );
+        int option = JOptionPane.showConfirmDialog( this, TC.get( "HTMLEditor.QuitMessage" ), TC.get( "HTMLEditor.QuitMessageTitle" ), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE );
         if( option == 0 ) {
             kafenio.saveAll( );
         }

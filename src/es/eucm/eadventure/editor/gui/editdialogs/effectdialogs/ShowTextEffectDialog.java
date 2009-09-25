@@ -61,7 +61,7 @@ import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.auxiliar.components.TextPreviewPanel;
 import es.eucm.eadventure.editor.gui.editdialogs.ToolManagableDialog;
@@ -125,7 +125,7 @@ public class ShowTextEffectDialog extends EffectDialog {
     public ShowTextEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "ShowTextEffect.Title" ), true );
+        super( TC.get( "ShowTextEffect.Title" ), true );
 
         // Create the main panel
         JPanel mainPanel = new JPanel( );
@@ -133,7 +133,7 @@ public class ShowTextEffectDialog extends EffectDialog {
         GridBagConstraints c = new GridBagConstraints( );
 
         // Set the border of the panel with the description
-        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ShowTextEffect.Border" ) ) ) );
+        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "ShowTextEffect.Border" ) ) ) );
 
         c.gridx = 0;
         c.gridy = 0;
@@ -146,11 +146,11 @@ public class ShowTextEffectDialog extends EffectDialog {
         c.gridy++;
         c.gridwidth = 1;
         // Create and add a description for the scenes
-        mainPanel.add( new JLabel( TextConstants.getText( "SceneLocation.SceneListDescription" ) ), c );
+        mainPanel.add( new JLabel( TC.get( "SceneLocation.SceneListDescription" ) ), c );
 
         // Create the set of values for the scenes
         List<String> scenesList = new ArrayList<String>( );
-        scenesList.add( TextConstants.getText( "SceneLocation.NoSceneSelected" ) );
+        scenesList.add( TC.get( "SceneLocation.NoSceneSelected" ) );
         String[] scenesArray = controller.getIdentifierSummary( ).getSceneIds( );
         for( String scene : scenesArray )
             scenesList.add( scene );
@@ -172,7 +172,7 @@ public class ShowTextEffectDialog extends EffectDialog {
         c.gridy++;
         c.gridwidth = 1;
         // Add label with description of text field
-        mainPanel.add( new JLabel( TextConstants.getText( "ShowTextEffect.TextLabel" ) ), c );
+        mainPanel.add( new JLabel( TC.get( "ShowTextEffect.TextLabel" ) ), c );
 
         //Create text field to get the text
         JPanel textContainer = new JPanel( );
@@ -287,17 +287,17 @@ public class ShowTextEffectDialog extends EffectDialog {
         c.weighty = 1.0;
         c.ipady = 40;
         textColorPanel.add( textPreviewPanel, c );
-        JButton frontColorButton = new JButton( TextConstants.getText( "Player.FrontColor" ) );
+        JButton frontColorButton = new JButton( TC.get( "Player.FrontColor" ) );
         frontColorButton.addActionListener( new ChangeTextColorListener( this, ChangeTextColorListener.FRONT_COLOR ) );
         c.gridy++;
         c.weighty = 0.1;
         c.ipady = 0;
         textColorPanel.add( frontColorButton, c );
-        JButton borderColorButton = new JButton( TextConstants.getText( "Player.BorderColor" ) );
+        JButton borderColorButton = new JButton( TC.get( "Player.BorderColor" ) );
         borderColorButton.addActionListener( new ChangeTextColorListener( this, ChangeTextColorListener.BORDER_COLOR ) );
         c.gridy++;
         textColorPanel.add( borderColorButton, c );
-        textColorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.TextColor" ) ) );
+        textColorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Player.TextColor" ) ) );
         return textColorPanel;
     }
 
@@ -459,9 +459,9 @@ public class ShowTextEffectDialog extends EffectDialog {
 
             // Create and show the dialog
             if( color == FRONT_COLOR )
-                colorChooser.setTitle( TextConstants.getText( "Player.FrontColor" ) );
+                colorChooser.setTitle( TC.get( "Player.FrontColor" ) );
             else if( color == BORDER_COLOR )
-                colorChooser.setTitle( TextConstants.getText( "Player.BorderColor" ) );
+                colorChooser.setTitle( TC.get( "Player.BorderColor" ) );
 
             colorChooser.setVisible( true );
 

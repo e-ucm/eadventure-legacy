@@ -53,7 +53,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class LOMStringDialog extends JDialog {
@@ -74,7 +74,7 @@ public class LOMStringDialog extends JDialog {
 
     public LOMStringDialog( String value, int type ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "LOMES.Value" ), Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "LOMES.Value" ), Dialog.ModalityType.APPLICATION_MODAL );
 
         Controller.getInstance( ).pushWindow( this );
 

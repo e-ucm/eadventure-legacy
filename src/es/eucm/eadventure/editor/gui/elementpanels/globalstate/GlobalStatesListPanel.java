@@ -54,7 +54,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateDataControl;
@@ -142,7 +142,7 @@ public class GlobalStatesListPanel extends JPanel implements DataControlsPanel, 
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        newButton.setToolTipText( TextConstants.getText( "GlobalStatesList.AddGlobalState" ) );
+        newButton.setToolTipText( TC.get( "GlobalStatesList.AddGlobalState" ) );
         newButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -154,7 +154,7 @@ public class GlobalStatesListPanel extends JPanel implements DataControlsPanel, 
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteButton.setToolTipText( TextConstants.getText( "GlobalStatesList.DeleteGlobalState" ) );
+        deleteButton.setToolTipText( TC.get( "GlobalStatesList.DeleteGlobalState" ) );
         deleteButton.setEnabled( false );
         deleteButton.addActionListener( new ActionListener( ) {
 
@@ -167,7 +167,7 @@ public class GlobalStatesListPanel extends JPanel implements DataControlsPanel, 
         duplicateButton.setContentAreaFilled( false );
         duplicateButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicateButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        duplicateButton.setToolTipText( TextConstants.getText( "GlobalStatesList.DuplicateGlobalState" ) );
+        duplicateButton.setToolTipText( TC.get( "GlobalStatesList.DuplicateGlobalState" ) );
         duplicateButton.setEnabled( false );
         duplicateButton.addActionListener( new ActionListener( ) {
 

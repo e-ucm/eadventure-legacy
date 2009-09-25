@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.displaydialogs;
 
 import java.awt.Image;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
@@ -67,7 +67,7 @@ public class ImageDialog extends GraphicDialog {
         image = AssetsController.getImage( imagePath );
 
         // Set the dialog and show it
-        setTitle( TextConstants.getText( "ImageDialog.Title", AssetsController.getFilename( imagePath ) ) );
+        setTitle( TC.get( "ImageDialog.Title", AssetsController.getFilename( imagePath ) ) );
         setVisible( true );
     }
 

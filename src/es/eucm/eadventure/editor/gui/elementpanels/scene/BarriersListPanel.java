@@ -55,7 +55,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -154,7 +154,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        newButton.setToolTipText( TextConstants.getText( "BarriersList.AddBarrier" ) );
+        newButton.setToolTipText( TC.get( "BarriersList.AddBarrier" ) );
         newButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -166,7 +166,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteButton.setToolTipText( TextConstants.getText( "BarriersList.DeleteBarrier" ) );
+        deleteButton.setToolTipText( TC.get( "BarriersList.DeleteBarrier" ) );
         deleteButton.setEnabled( false );
         deleteButton.addActionListener( new ActionListener( ) {
 
@@ -179,7 +179,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
         duplicateButton.setContentAreaFilled( false );
         duplicateButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicateButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        duplicateButton.setToolTipText( TextConstants.getText( "BarriersList.DuplicateBarrier" ) );
+        duplicateButton.setToolTipText( TC.get( "BarriersList.DuplicateBarrier" ) );
         duplicateButton.setEnabled( false );
         duplicateButton.addActionListener( new ActionListener( ) {
 

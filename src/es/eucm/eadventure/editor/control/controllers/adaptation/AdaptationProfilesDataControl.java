@@ -41,7 +41,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -73,7 +73,7 @@ public class AdaptationProfilesDataControl extends DataControl {
 
             //Prompt for profile name:
             if( profileName == null )
-                profileName = controller.showInputDialog( TextConstants.getText( "Operation.CreateAdaptationFile.FileName" ), TextConstants.getText( "Operation.CreateAdaptationFile.FileName.Message" ), TextConstants.getText( "Operation.CreateAdaptationFile.FileName.DefaultValue" ) );
+                profileName = controller.showInputDialog( TC.get( "Operation.CreateAdaptationFile.FileName" ), TC.get( "Operation.CreateAdaptationFile.FileName.Message" ), TC.get( "Operation.CreateAdaptationFile.FileName.DefaultValue" ) );
             if( profileName != null && controller.isElementIdValid( profileName ) ) {
                 //Checks if the profile exists. Always profile name is set as TextConstants.getText("Operation.CreateAdaptationFile.FileName.DefaultValue");
                 // Increase the last number until create a not existing name
@@ -144,7 +144,7 @@ public class AdaptationProfilesDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.CreateAdaptationFile.FileName.DefaultValue" );
+        return TC.get( "Operation.CreateAdaptationFile.FileName.DefaultValue" );
     }
 
     @Override
@@ -209,7 +209,7 @@ public class AdaptationProfilesDataControl extends DataControl {
             if( dataControl == profile ) {
                 String path = profile.getName( );
                 int references = Controller.getInstance( ).countAssetReferences( path );
-                if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { TextConstants.getElementName( Controller.ADAPTATION_PROFILE ), Integer.toString( references ) } ) ) ) {
+                if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { TC.getElement( Controller.ADAPTATION_PROFILE ), Integer.toString( references ) } ) ) ) {
                     data.remove( profiles.indexOf( dataControl ) );
                     deleted = this.profiles.remove( dataControl );
                     if( deleted ) {

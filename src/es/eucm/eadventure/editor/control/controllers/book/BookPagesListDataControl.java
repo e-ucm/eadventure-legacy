@@ -45,7 +45,7 @@ import javax.swing.text.BadLocationException;
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -355,12 +355,12 @@ public class BookPagesListDataControl extends Searchable {
 
         // Iterate through the paragraphs
         for( int i = 0; i < bookPagesList.size( ); i++ ) {
-            String bookParagraphPath = currentPath + " >> " + TextConstants.getText( "Element.BookPage" ) + " #" + ( i + 1 );
+            String bookParagraphPath = currentPath + " >> " + TC.get( "Element.BookPage" ) + " #" + ( i + 1 );
             boolean isPageValid = true;
             if( bookPagesList.get( i ).getType( ) == BookPage.TYPE_RESOURCE && bookPagesList.get( i ).getUri( ).length( ) == 0 ) {
                 isPageValid = false;
                 if( incidences != null )
-                    incidences.add( bookParagraphPath + " >> " + TextConstants.getText( "Operation.AdventureConsistencyErrorBookPage" ) );
+                    incidences.add( bookParagraphPath + " >> " + TC.get( "Operation.AdventureConsistencyErrorBookPage" ) );
             }
             valid &= isPageValid;
 
@@ -393,7 +393,7 @@ public class BookPagesListDataControl extends Searchable {
                 try {
                     editor.setPage( AssetsController.getResourceAsURLFromZip( bookPagesList.get( i ).getUri( ) ) );
 
-                    check( editor.getDocument( ).getText( 0, editor.getDocument( ).getLength( ) ), TextConstants.getText( "Search.HTMLBookPage" ) );
+                    check( editor.getDocument( ).getText( 0, editor.getDocument( ).getLength( ) ), TC.get( "Search.HTMLBookPage" ) );
                 }
                 catch( MalformedURLException e1 ) {
                     //writeFileNotFound(folder + helpPath);

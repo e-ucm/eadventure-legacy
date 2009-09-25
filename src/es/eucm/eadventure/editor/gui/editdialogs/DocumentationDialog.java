@@ -47,7 +47,7 @@ import javax.swing.event.DocumentListener;
 import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.common.data.Named;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
@@ -95,7 +95,7 @@ public class DocumentationDialog extends ToolManagableDialog {
      */
     public DocumentationDialog( DataControl dataControl ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "ActiveAreasList.Documentation" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "ActiveAreasList.Documentation" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
         this.dataControl = dataControl;
         setLayout( new GridBagLayout( ) );
         GridBagConstraints cDoc = new GridBagConstraints( );
@@ -113,7 +113,7 @@ public class DocumentationDialog extends ToolManagableDialog {
             nameChangeListener = new NameChangeListener( nameTextField, (Named) dataControl.getContent( ) );
             nameTextField.getDocument( ).addDocumentListener( nameChangeListener );
             descriptionPanel.add( nameTextField );
-            descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.Name" ) ) );
+            descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Item.Name" ) ) );
             add( descriptionPanel, cDoc );
             cDoc.gridy++;
         }
@@ -125,7 +125,7 @@ public class DocumentationDialog extends ToolManagableDialog {
             descriptionChangeListener = new DescriptionChangeListener( descriptionTextField, (Described) dataControl.getContent( ) );
             descriptionTextField.getDocument( ).addDocumentListener( descriptionChangeListener );
             descriptionPanel.add( descriptionTextField );
-            descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.Description" ) ) );
+            descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Item.Description" ) ) );
             add( descriptionPanel, cDoc );
             cDoc.gridy++;
         }
@@ -137,7 +137,7 @@ public class DocumentationDialog extends ToolManagableDialog {
             detailedDescriptionListener = new DetailedDescriptionChangeListener( detailedDescriptionTextField, (Detailed) dataControl.getContent( ) );
             detailedDescriptionTextField.getDocument( ).addDocumentListener( detailedDescriptionListener );
             detailedDescriptionPanel.add( detailedDescriptionTextField );
-            detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.DetailedDescription" ) ) );
+            detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Item.DetailedDescription" ) ) );
             add( detailedDescriptionPanel, cDoc );
         }
 

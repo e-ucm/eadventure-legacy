@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.control.tools.conversation;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
@@ -60,8 +60,8 @@ public class DeleteNodeLinkTool extends Tool {
 
         this.parent = parent;
         this.linkIndex = 0;
-        this.confirmTitle = TextConstants.getText( "Conversation.OperationDeleteLink" );
-        this.confirmText = TextConstants.getText( "Conversation.ConfirmationDeleteLink" );
+        this.confirmTitle = TC.get( "Conversation.OperationDeleteLink" );
+        this.confirmText = TC.get( "Conversation.ConfirmationDeleteLink" );
     }
 
     @Override

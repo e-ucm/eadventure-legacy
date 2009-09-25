@@ -45,7 +45,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.MacroReferenceEffectDialog;
@@ -94,7 +94,7 @@ public class MacroPanel extends JPanel {
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) dataControl.getContent( ) ) );
         documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Macro.Documentation" ) ) );
+        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Macro.Documentation" ) ) );
 
         add( documentationPanel, c );
 
@@ -103,7 +103,7 @@ public class MacroPanel extends JPanel {
 
         MacroReferenceEffectDialog.ID = dataControl.getId( );
         effectsPanel = new EffectsPanel( dataControl.getController( ) );
-        effectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Macro.Effects" ) ) );
+        effectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Macro.Effects" ) ) );
         add( effectsPanel, c );
     }
 }

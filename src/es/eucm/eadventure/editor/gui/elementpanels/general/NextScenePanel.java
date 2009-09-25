@@ -56,7 +56,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
@@ -152,25 +152,25 @@ public class NextScenePanel extends JTabbedPane {
         c2.weightx = 0.1;
         nextSceneIdPanel.add( goToButton, c2 );
 
-        nextSceneIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.NextSceneId" ) ) );
+        nextSceneIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "NextScene.NextSceneId" ) ) );
         mainPanel.add( nextSceneIdPanel, c );
 
         // Create the button for the initial point
         c.gridy = 1;
         JPanel destinyPositionPanel = new JPanel( );
         destinyPositionPanel.setLayout( new GridLayout( 0, 1 ) );
-        destinyPositionCheckBox = new JCheckBox( TextConstants.getText( "NextScene.UseDestinyPosition" ), nextSceneDataControl.hasDestinyPosition( ) );
+        destinyPositionCheckBox = new JCheckBox( TC.get( "NextScene.UseDestinyPosition" ), nextSceneDataControl.hasDestinyPosition( ) );
         destinyPositionCheckBox.setEnabled( Controller.getInstance( ).getIdentifierSummary( ).isScene( nextSceneDataControl.getNextSceneId( ) ) );
         destinyPositionCheckBox.addActionListener( new DestinyPositionCheckBoxListener( ) );
 
-        destinyPositionButton = new JButton( TextConstants.getText( "NextScene.EditDestinyPosition" ) );
+        destinyPositionButton = new JButton( TC.get( "NextScene.EditDestinyPosition" ) );
         destinyPositionButton.setEnabled( nextSceneDataControl.hasDestinyPosition( ) );
         destinyPositionButton.addActionListener( new DestinyPositionButtonListener( ) );
 
         if( !Controller.getInstance( ).isPlayTransparent( ) ) {
             destinyPositionPanel.add( destinyPositionCheckBox );
             destinyPositionPanel.add( destinyPositionButton );
-            destinyPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.DestinyPosition" ) ) );
+            destinyPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "NextScene.DestinyPosition" ) ) );
         }
 
         mainPanel.add( destinyPositionPanel, c );
@@ -179,36 +179,36 @@ public class NextScenePanel extends JTabbedPane {
         c.gridy = 2;
         JPanel conditionsPanel = new JPanel( );
         conditionsPanel.setLayout( new GridLayout( ) );
-        JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
+        JButton conditionsButton = new JButton( TC.get( "GeneralText.EditConditions" ) );
         conditionsButton.addActionListener( new ConditionsButtonListener( ) );
         conditionsPanel.add( conditionsButton );
-        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Conditions" ) ) );
+        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "NextScene.Conditions" ) ) );
         mainPanel.add( conditionsPanel, c );
 
         // Create the button for the effects
         c.gridy = 3;
         JPanel effectsPanel = new JPanel( );
         effectsPanel.setLayout( new GridLayout( ) );
-        JButton effectsButton = new JButton( TextConstants.getText( "GeneralText.EditEffects" ) );
+        JButton effectsButton = new JButton( TC.get( "GeneralText.EditEffects" ) );
         effectsButton.addActionListener( new EffectsButtonListener( ) );
         effectsPanel.add( effectsButton );
-        effectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Effects" ) ) );
+        effectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "NextScene.Effects" ) ) );
         mainPanel.add( effectsPanel, c );
 
         // Create the button for the post-effects
         c.gridy = 4;
         JPanel postEffectsPanel = new JPanel( );
         postEffectsPanel.setLayout( new GridLayout( ) );
-        JButton postEffectsButton = new JButton( TextConstants.getText( "GeneralText.EditPostEffects" ) );
+        JButton postEffectsButton = new JButton( TC.get( "GeneralText.EditPostEffects" ) );
         postEffectsButton.addActionListener( new PostEffectsButtonListener( ) );
         postEffectsPanel.add( postEffectsButton );
-        postEffectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.PostEffects" ) ) );
+        postEffectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "NextScene.PostEffects" ) ) );
         mainPanel.add( postEffectsPanel, c );
 
         c.gridy = 5;
         JPanel transitionPanel = new JPanel( );
-        transitionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Transition" ) ) );
-        String[] options = new String[] { TextConstants.getText( "NextScene.NoTransition" ), TextConstants.getText( "NextScene.TopToBottom" ), TextConstants.getText( "NextScene.BottomToTop" ), TextConstants.getText( "NextScene.LeftToRight" ), TextConstants.getText( "NextScene.RightToLeft" ), TextConstants.getText( "NextScene.FadeIn" ) };
+        transitionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "NextScene.Transition" ) ) );
+        String[] options = new String[] { TC.get( "NextScene.NoTransition" ), TC.get( "NextScene.TopToBottom" ), TC.get( "NextScene.BottomToTop" ), TC.get( "NextScene.LeftToRight" ), TC.get( "NextScene.RightToLeft" ), TC.get( "NextScene.FadeIn" ) };
         transitionCombo = new JComboBox( options );
         transitionCombo.setSelectedIndex( nextSceneDataControl.getTransitionType( ) );
         transitionCombo.addActionListener( new ActionListener( ) {
@@ -221,7 +221,7 @@ public class NextScenePanel extends JTabbedPane {
         transitionPanel.add( transitionCombo );
 
         JPanel temp = new JPanel( );
-        temp.add( new JLabel( TextConstants.getText( "Animation.Duration" ) + ": " ) );
+        temp.add( new JLabel( TC.get( "Animation.Duration" ) + ": " ) );
         SpinnerModel sm = new SpinnerNumberModel( nextSceneDataControl.getTransitionTime( ), 0, 5000, 100 );
         spinner = new JSpinner( sm );
         spinner.addChangeListener( new ChangeListener( ) {
@@ -243,9 +243,9 @@ public class NextScenePanel extends JTabbedPane {
         c.weightx = 1;
         c.weighty = 1;
         mainPanel.add( new JFiller( ), c );
-        this.insertTab( TextConstants.getText( "NextScene.Title" ), null, mainPanel, TextConstants.getText( "NextScene.Title" ), 0 );
+        this.insertTab( TC.get( "NextScene.Title" ), null, mainPanel, TC.get( "NextScene.Title" ), 0 );
 
-        this.insertTab( TextConstants.getText( "NextScene.AdvancedOptions" ), null, new ExitLookPanel( nextSceneDataControl.getExitLookDataController( ) ), TextConstants.getText( "NextScene.AdvancedOptions" ), 1 );
+        this.insertTab( TC.get( "NextScene.AdvancedOptions" ), null, new ExitLookPanel( nextSceneDataControl.getExitLookDataController( ) ), TC.get( "NextScene.AdvancedOptions" ), 1 );
 
     }
 

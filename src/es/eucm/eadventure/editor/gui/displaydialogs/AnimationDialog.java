@@ -40,7 +40,7 @@ import java.awt.Toolkit;
 import javax.swing.JDialog;
 
 import es.eucm.eadventure.common.data.animation.Animation;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -68,7 +68,7 @@ public class AnimationDialog extends JDialog {
     public AnimationDialog( String animationPath ) {
 
         // Call to the JDialog constructor
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AnimationDialog.Title", AssetsController.getFilename( animationPath ) ), Dialog.ModalityType.TOOLKIT_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "AnimationDialog.Title", AssetsController.getFilename( animationPath ) ), Dialog.ModalityType.TOOLKIT_MODAL );
 
         if( animationPath.endsWith( ".eaa" ) ) {
             add( new AnimationPanel( true, Loader.loadAnimation( AssetsController.getInputStreamCreator( ), animationPath, new EditorImageLoader() ) ) );
@@ -96,7 +96,7 @@ public class AnimationDialog extends JDialog {
     public AnimationDialog( Animation animation ) {
 
         // Call to the JDialog constructor
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AnimationDialog.Title", animation.getId( ) ), Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "AnimationDialog.Title", animation.getId( ) ), Dialog.ModalityType.APPLICATION_MODAL );
 
         // Create and add the animation panel (a PNG suffix is attached to the path)
         add( new AnimationPanel( true, animation ) );

@@ -52,7 +52,7 @@ import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.Named;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
@@ -123,7 +123,7 @@ public class BarrierPanel extends JPanel {
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) barrierDataControl.getContent( ) ) );
         documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Barrier.Documentation" ) ) );
+        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Barrier.Documentation" ) ) );
         docPanel.add( documentationPanel, cDoc );
 
         // Create the field for the name
@@ -134,7 +134,7 @@ public class BarrierPanel extends JPanel {
         nameTextField = new JTextField( this.barrierDataControl.getName( ) );
         nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) barrierDataControl.getContent( ) ) );
         namePanel.add( nameTextField );
-        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Barrier.Name" ) ) );
+        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Barrier.Name" ) ) );
         docPanel.add( namePanel, cDoc );
 
         //cDoc.gridy = 4;
@@ -147,8 +147,8 @@ public class BarrierPanel extends JPanel {
         // Add the tabs
         //Finally, add lookPanel to its scrollPane container, and insert it as a tab along with docPanel
 
-        tabPanel.insertTab( TextConstants.getText( "Barrier.MainPanelTitle" ), null, createMainPanel( ), TextConstants.getText( "Barrier.MainPanelTip" ), 0 );
-        tabPanel.insertTab( TextConstants.getText( "Barrier.DocPanelTitle" ), null, docPanel, TextConstants.getText( "Barrier.DocPanelTip" ), 1 );
+        tabPanel.insertTab( TC.get( "Barrier.MainPanelTitle" ), null, createMainPanel( ), TC.get( "Barrier.MainPanelTip" ), 0 );
+        tabPanel.insertTab( TC.get( "Barrier.DocPanelTitle" ), null, docPanel, TC.get( "Barrier.DocPanelTip" ), 1 );
         setLayout( new BorderLayout( ) );
         add( tabPanel, BorderLayout.CENTER );
     }
@@ -175,10 +175,10 @@ public class BarrierPanel extends JPanel {
         c.weightx = 1;
         JPanel conditionsPanel = new JPanel( );
         conditionsPanel.setLayout( new GridLayout( ) );
-        JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
+        JButton conditionsButton = new JButton( TC.get( "GeneralText.EditConditions" ) );
         conditionsButton.addActionListener( new ConditionsButtonListener( ) );
         conditionsPanel.add( conditionsButton );
-        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Barrier.Conditions" ) ) );
+        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Barrier.Conditions" ) ) );
         mainPanel.add( conditionsPanel, c );
 
         // Add the created rectangle position panel

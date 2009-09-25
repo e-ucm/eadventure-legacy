@@ -39,7 +39,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
@@ -118,11 +118,11 @@ public class AdaptationRulesTable extends JTable {
 
             String columnName = "";
             if( columnIndex == 0 )
-                columnName = TextConstants.getText( "AdaptationRulesList.ColumnHeader0" );
+                columnName = TC.get( "AdaptationRulesList.ColumnHeader0" );
             else if( columnIndex == 1 )
-                columnName = TextConstants.getText( "AdaptationRule.Description" );
+                columnName = TC.get( "AdaptationRule.Description" );
             else if( columnIndex == 2 )
-                columnName = TextConstants.getText( "AdaptationRule.InitialState.InitialScene" );
+                columnName = TC.get( "AdaptationRule.InitialState.InitialScene" );
             return columnName;
         }
 

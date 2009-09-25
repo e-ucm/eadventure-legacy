@@ -45,7 +45,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 
 public class DebugLogPanel extends JPanel {
@@ -73,16 +73,16 @@ public class DebugLogPanel extends JPanel {
         JTabbedPane pane = new JTabbedPane( );
 
         all = new DebugTable( );
-        pane.addTab( TextConstants.getText( "DebugFrameLog.All" ), null, all.getScrollPane( ), TextConstants.getText( "DebugFrameLog.AllTip" ) );
+        pane.addTab( TC.get( "DebugFrameLog.All" ), null, all.getScrollPane( ), TC.get( "DebugFrameLog.AllTip" ) );
 
         user = new DebugTable( );
-        pane.addTab( TextConstants.getText( "DebugFrameLog.User" ), null, user.getScrollPane( ), TextConstants.getText( "DebugFrameLog.UserTip" ) );
+        pane.addTab( TC.get( "DebugFrameLog.User" ), null, user.getScrollPane( ), TC.get( "DebugFrameLog.UserTip" ) );
 
         player = new DebugTable( );
-        pane.addTab( TextConstants.getText( "DebugFrameLog.Player" ), null, player.getScrollPane( ), TextConstants.getText( "DebugFrameLog.PlayerTip" ) );
+        pane.addTab( TC.get( "DebugFrameLog.Player" ), null, player.getScrollPane( ), TC.get( "DebugFrameLog.PlayerTip" ) );
 
         general = new DebugTable( );
-        pane.addTab( TextConstants.getText( "DebugFrameLog.General" ), null, general.getScrollPane( ), TextConstants.getText( "DebugFrameLog.General" ) );
+        pane.addTab( TC.get( "DebugFrameLog.General" ), null, general.getScrollPane( ), TC.get( "DebugFrameLog.General" ) );
 
         this.add( pane, BorderLayout.CENTER );
 
@@ -125,7 +125,7 @@ public class DebugLogPanel extends JPanel {
             table = new JTable( );
             dtm = new DefaultTableModel( );
             dtm.setColumnCount( 2 );
-            String[] ids = { TextConstants.getText( "DebugFrameLog.Time" ), TextConstants.getText( "DebugFrameLog.Entry" ) };
+            String[] ids = { TC.get( "DebugFrameLog.Time" ), TC.get( "DebugFrameLog.Entry" ) };
             dtm.setColumnIdentifiers( ids );
             table.setModel( dtm );
             table.getColumnModel( ).getColumn( 0 ).setMaxWidth( 80 );

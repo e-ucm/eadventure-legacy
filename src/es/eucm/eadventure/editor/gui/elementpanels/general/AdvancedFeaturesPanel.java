@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.general;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
@@ -67,7 +67,7 @@ public class AdvancedFeaturesPanel extends ElementPanel {
 
         public TimersPanelTab( TimersListDataControl timersListDataControl ) {
 
-            super( TextConstants.getText( "TimersList.Title" ), timersListDataControl );
+            super( TC.get( "TimersList.Title" ), timersListDataControl );
             setIcon( new ImageIcon( "img/icons/timers.png" ) );
             this.timersListDataControl = timersListDataControl;
         }
@@ -85,7 +85,7 @@ public class AdvancedFeaturesPanel extends ElementPanel {
 
         public GlobalStatesPanelTab( GlobalStateListDataControl globalStateDataControl ) {
 
-            super( TextConstants.getText( "GlobalStatesList.Title" ), globalStateDataControl );
+            super( TC.get( "GlobalStatesList.Title" ), globalStateDataControl );
             setIcon( new ImageIcon( "img/icons/groups16.png" ) );
             this.globalStateListDataControl = globalStateDataControl;
         }
@@ -103,7 +103,7 @@ public class AdvancedFeaturesPanel extends ElementPanel {
 
         public MacrosPanelTab( MacroListDataControl macroListDataControl ) {
 
-            super( TextConstants.getText( "MacrosList.Title" ), macroListDataControl );
+            super( TC.get( "MacrosList.Title" ), macroListDataControl );
             setIcon( new ImageIcon( "img/icons/macros.png" ) );
             this.macroListDataControl = macroListDataControl;
         }

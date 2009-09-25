@@ -57,7 +57,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
@@ -205,11 +205,11 @@ public class GUIFrame extends GUI implements FocusListener {
             }
             if( !changed ) {
                 originalDisplayMode = null;
-                JOptionPane.showMessageDialog( bkgFrame, TextConstants.getText( "GUI.NoFullscreenTitle" ), TextConstants.getText( "GUI.NoFullscreenContent" ), JOptionPane.WARNING_MESSAGE );
+                JOptionPane.showMessageDialog( bkgFrame, TC.get( "GUI.NoFullscreenTitle" ), TC.get( "GUI.NoFullscreenContent" ), JOptionPane.WARNING_MESSAGE );
             }
         }
         else if( !os.contains( "Windows" ) && graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN ) {
-            JOptionPane.showMessageDialog( bkgFrame, TextConstants.getText( "GUI.NoFullscreenTitle" ), TextConstants.getText( "GUI.NoFullscreenContent" ), JOptionPane.WARNING_MESSAGE );
+            JOptionPane.showMessageDialog( bkgFrame, TC.get( "GUI.NoFullscreenTitle" ), TC.get( "GUI.NoFullscreenContent" ), JOptionPane.WARNING_MESSAGE );
         }
 
     }

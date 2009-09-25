@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Timer;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -113,31 +113,31 @@ public class TimersListDataControl extends DataControl {
             timersInfo[i][1] = timersDataControlList.get( i ).getTimeHhMmSs( );
 
             if( !timer.getInitCond( ).isEmpty( ) ) {
-                timersInfo[i][2] = TextConstants.getText( "GeneralText.Yes" );
+                timersInfo[i][2] = TC.get( "GeneralText.Yes" );
             }
             else {
-                timersInfo[i][2] = TextConstants.getText( "GeneralText.No" );
+                timersInfo[i][2] = TC.get( "GeneralText.No" );
             }
 
             if( !timer.getEndCond( ).isEmpty( ) ) {
-                timersInfo[i][3] = TextConstants.getText( "GeneralText.Yes" );
+                timersInfo[i][3] = TC.get( "GeneralText.Yes" );
             }
             else {
-                timersInfo[i][3] = TextConstants.getText( "GeneralText.No" );
+                timersInfo[i][3] = TC.get( "GeneralText.No" );
             }
 
             if( !timer.getEffects( ).isEmpty( ) ) {
-                timersInfo[i][4] = TextConstants.getText( "GeneralText.Yes" );
+                timersInfo[i][4] = TC.get( "GeneralText.Yes" );
             }
             else {
-                timersInfo[i][4] = TextConstants.getText( "GeneralText.No" );
+                timersInfo[i][4] = TC.get( "GeneralText.No" );
             }
 
             if( !timer.getPostEffects( ).isEmpty( ) ) {
-                timersInfo[i][5] = TextConstants.getText( "GeneralText.Yes" );
+                timersInfo[i][5] = TC.get( "GeneralText.Yes" );
             }
             else {
-                timersInfo[i][5] = TextConstants.getText( "GeneralText.No" );
+                timersInfo[i][5] = TC.get( "GeneralText.No" );
             }
 
         }
@@ -243,7 +243,7 @@ public class TimersListDataControl extends DataControl {
         int index = findDataControlIndex( dataControl );
 
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { TextConstants.getElementName( Controller.TIMER ) + " #" + Integer.toString( index ), "0" } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { TC.getElement( Controller.TIMER ) + " #" + Integer.toString( index ), "0" } ) ) ) {
             if( timersList.remove( dataControl.getContent( ) ) ) {
                 timersDataControlList.remove( dataControl );
                 //controller.dataModified( );
@@ -306,11 +306,11 @@ public class TimersListDataControl extends DataControl {
         boolean valid = true;
 
         // Update the current path
-        currentPath += " >> " + TextConstants.getElementName( Controller.TIMERS_LIST );
+        currentPath += " >> " + TC.getElement( Controller.TIMERS_LIST );
 
         // Iterate through the timers
         for( int i = 0; i < timersDataControlList.size( ); i++ ) {
-            String cutscenePath = currentPath + " >> " + TextConstants.getElementName( Controller.TIMER ) + " #" + i;
+            String cutscenePath = currentPath + " >> " + TC.getElement( Controller.TIMER ) + " #" + i;
             valid &= timersDataControlList.get( i ).isValid( cutscenePath, incidences );
         }
 

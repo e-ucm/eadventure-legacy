@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.control.tools.general;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
@@ -129,7 +129,7 @@ public class SwapPlayerModeTool extends Tool {
 
         boolean swap = true;
         if( showConfirmation )
-            swap = controller.showStrictConfirmDialog( TextConstants.getText( "SwapPlayerMode.Title" ), TextConstants.getText( "SwapPlayerMode.Message" ) );
+            swap = controller.showStrictConfirmDialog( TC.get( "SwapPlayerMode.Title" ), TC.get( "SwapPlayerMode.Message" ) );
 
         if( swap ) {
             if( adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {

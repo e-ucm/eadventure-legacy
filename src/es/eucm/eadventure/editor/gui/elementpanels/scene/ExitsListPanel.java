@@ -58,7 +58,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
@@ -187,7 +187,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
         newButton.setFocusable( false );
-        newButton.setToolTipText( TextConstants.getText( "ExitsList.AddExit" ) );
+        newButton.setToolTipText( TC.get( "ExitsList.AddExit" ) );
         newButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -199,7 +199,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
         duplicateButton.setContentAreaFilled( false );
         duplicateButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicateButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        duplicateButton.setToolTipText( TextConstants.getText( "ExitsList.DuplicateExit" ) );
+        duplicateButton.setToolTipText( TC.get( "ExitsList.DuplicateExit" ) );
         duplicateButton.setEnabled( false );
         duplicateButton.setFocusable( false );
         duplicateButton.addActionListener( new ActionListener( ) {
@@ -213,7 +213,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteButton.setToolTipText( TextConstants.getText( "ExitsList.DeleteExit" ) );
+        deleteButton.setToolTipText( TC.get( "ExitsList.DeleteExit" ) );
         deleteButton.setEnabled( false );
         deleteButton.setFocusable( false );
         deleteButton.addActionListener( new ActionListener( ) {
@@ -317,34 +317,34 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
         c.weightx = 1.0;
         c.fill = GridBagConstraints.HORIZONTAL;
 
-        JButton editConditions = new JButton( TextConstants.getText( "Exit.EditConditions" ) );
+        JButton editConditions = new JButton( TC.get( "Exit.EditConditions" ) );
         editConditions.addActionListener( new EditConditionsListener( exit ) );
         auxPanel.add( editConditions, c );
 
         c.gridy++;
 
-        auxPanel.add( new JLabel( TextConstants.getText( "Exit.ConditionsActive" ) ), c );
+        auxPanel.add( new JLabel( TC.get( "Exit.ConditionsActive" ) ), c );
 
         c.gridy++;
-        JButton editEffects = new JButton( TextConstants.getText( "Exit.EditEffects" ) );
+        JButton editEffects = new JButton( TC.get( "Exit.EditEffects" ) );
         editEffects.addActionListener( new EditEffectsListener( exit.getEffects( ) ) );
         auxPanel.add( editEffects, c );
 
         c.gridy++;
-        JButton editPostEffects = new JButton( TextConstants.getText( "Exit.EditPostEffects" ) );
+        JButton editPostEffects = new JButton( TC.get( "Exit.EditPostEffects" ) );
         editPostEffects.addActionListener( new EditEffectsListener( exit.getPostEffects( ) ) );
         auxPanel.add( editPostEffects, c );
 
         c.gridy++;
-        auxPanel.add( new JLabel( TextConstants.getText( "Exit.ConditionsInactive" ) ), c );
+        auxPanel.add( new JLabel( TC.get( "Exit.ConditionsInactive" ) ), c );
 
         c.gridy++;
-        final JCheckBox activeWhenFalseConditions = new JCheckBox( TextConstants.getText( "Exit.ActiveWhenConditionsArent" ) );
+        final JCheckBox activeWhenFalseConditions = new JCheckBox( TC.get( "Exit.ActiveWhenConditionsArent" ) );
         activeWhenFalseConditions.setSelected( exit.isHasNotEffects( ) );
         auxPanel.add( activeWhenFalseConditions, c );
 
         c.gridy++;
-        final JButton editNotEffects = new JButton( TextConstants.getText( "Exit.EditNotEffects" ) );
+        final JButton editNotEffects = new JButton( TC.get( "Exit.EditNotEffects" ) );
         editNotEffects.setEnabled( exit.isHasNotEffects( ) );
         editNotEffects.addActionListener( new EditEffectsListener( exit.getNotEffects( ) ) );
         auxPanel.add( editNotEffects, c );

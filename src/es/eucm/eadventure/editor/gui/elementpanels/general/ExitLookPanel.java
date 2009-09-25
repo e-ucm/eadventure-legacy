@@ -52,7 +52,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.general.ExitLookDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
@@ -87,9 +87,9 @@ public class ExitLookPanel extends JPanel {
         JTextPane helpText = new JTextPane( );
         helpText.setEditable( false );
         helpText.setBackground( getBackground( ) );
-        helpText.setText( TextConstants.getText( "ExitLook.HelpText" ) );
+        helpText.setText( TC.get( "ExitLook.HelpText" ) );
         JPanel informationPanel = new JPanel( );
-        informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
+        informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "GeneralText.Information" ) ) );
         informationPanel.setLayout( new BorderLayout( ) );
         informationPanel.add( helpText, BorderLayout.CENTER );
 
@@ -107,7 +107,7 @@ public class ExitLookPanel extends JPanel {
         c.gridy = 0;
 
         //CheckBox
-        this.customizeText = new JCheckBox( TextConstants.getText( "ExitLook.CustomizeText" ) );
+        this.customizeText = new JCheckBox( TC.get( "ExitLook.CustomizeText" ) );
         customizeText.setSelected( dataControl.isTextCustomized( ) );
         customizeText.addActionListener( new ActionListener( ) {
 
@@ -160,7 +160,7 @@ public class ExitLookPanel extends JPanel {
         c.gridwidth = 3;
         c.weightx = 0.75;
         textPanel.add( customizedText, c );
-        textPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ExitLook.TextPanelTitle" ) ) );
+        textPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "ExitLook.TextPanelTitle" ) ) );
 
         /*---------------- Cursor PANEL --------------------------*/
         JPanel cursorPanel = new JPanel( );
@@ -174,7 +174,7 @@ public class ExitLookPanel extends JPanel {
         c.gridx = 0;
         c.gridy = 0;
 
-        this.customizeCursor = new JCheckBox( TextConstants.getText( "ExitLook.CustomizeCursor" ) );
+        this.customizeCursor = new JCheckBox( TC.get( "ExitLook.CustomizeCursor" ) );
         customizeCursor.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -201,7 +201,7 @@ public class ExitLookPanel extends JPanel {
 
         } );
 
-        this.editCursor = new JButton( TextConstants.getText( "Resources.Select" ) );
+        this.editCursor = new JButton( TC.get( "Resources.Select" ) );
         editCursor.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -254,7 +254,7 @@ public class ExitLookPanel extends JPanel {
         c.weightx = 0.5;
         c.gridwidth = 2;
         c.weighty = 1;
-        cursorPreviewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Cursor.PreviewTitle" ) ) );
+        cursorPreviewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Cursor.PreviewTitle" ) ) );
         cursorPanel.add( cursorPreviewPanel, c );
         c.gridx = 2;
         c.weightx = 0;
@@ -277,7 +277,7 @@ public class ExitLookPanel extends JPanel {
         c.fill = GridBagConstraints.NONE;
         cursorPanel.add( editCursor, c );
 
-        cursorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ExitLook.CursorPanelTitle" ) ) );
+        cursorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "ExitLook.CursorPanelTitle" ) ) );
 
         // ADD BOTH PANELS
         this.setLayout( new GridBagLayout( ) );

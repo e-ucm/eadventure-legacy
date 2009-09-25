@@ -39,7 +39,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.tools.macro.RenameMacroTool;
@@ -105,7 +105,7 @@ public class MacrosTable extends JTable {
         public String getColumnName( int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "MacrosList.ID" );
+                return TC.get( "MacrosList.ID" );
             return "";
         }
 

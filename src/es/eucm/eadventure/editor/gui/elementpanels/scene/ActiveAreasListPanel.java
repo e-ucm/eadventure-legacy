@@ -56,7 +56,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
@@ -182,7 +182,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
         newButton.setFocusable( false );
-        newButton.setToolTipText( TextConstants.getText( "ActiveAreasList.AddActiveArea" ) );
+        newButton.setToolTipText( TC.get( "ActiveAreasList.AddActiveArea" ) );
         newButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -194,7 +194,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteButton.setToolTipText( TextConstants.getText( "ActiveAreasList.DeleteActiveArea" ) );
+        deleteButton.setToolTipText( TC.get( "ActiveAreasList.DeleteActiveArea" ) );
         deleteButton.setEnabled( false );
         deleteButton.setFocusable( false );
         deleteButton.addActionListener( new ActionListener( ) {
@@ -208,7 +208,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
         duplicateButton.setContentAreaFilled( false );
         duplicateButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicateButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        duplicateButton.setToolTipText( TextConstants.getText( "ActiveAreasList.DuplicateActiveArea" ) );
+        duplicateButton.setToolTipText( TC.get( "ActiveAreasList.DuplicateActiveArea" ) );
         duplicateButton.setEnabled( false );
         duplicateButton.setFocusable( false );
         duplicateButton.addActionListener( new ActionListener( ) {

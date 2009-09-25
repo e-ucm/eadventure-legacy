@@ -61,7 +61,7 @@ import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.auxiliar.filefilters.EADFileFilter;
@@ -942,7 +942,7 @@ public class Controller {
         boolean createNewFile = true;
 
         if( dataModified ) {
-            int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.NewFileTitle" ), TextConstants.getText( "Operation.NewFileMessage" ) );
+            int option = mainWindow.showConfirmDialog( TC.get( "Operation.NewFileTitle" ), TC.get( "Operation.NewFileMessage" ) );
 
             // If the data must be saved, create the new file only if the save was successful
             if( option == JOptionPane.YES_OPTION )
@@ -1062,10 +1062,10 @@ public class Controller {
                         //Is the folder empty?
                         if( selectedFolder.list( ).length > 0 ) {
                             // Delete content?
-                            if( this.showStrictConfirmDialog( TextConstants.getText( "Operation.NewProject.FolderNotEmptyTitle" ), TextConstants.getText( "Operation.NewProject.FolderNotEmptyMessage" ) ) ) {
+                            if( this.showStrictConfirmDialog( TC.get( "Operation.NewProject.FolderNotEmptyTitle" ), TC.get( "Operation.NewProject.FolderNotEmptyMessage" ) ) ) {
                                 File directory = new File( selectedFolder.getAbsolutePath( ) );
                                 if( !directory.deleteAll( ) ) {
-                                    this.showStrictConfirmDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.DeletingFolderContents" ) );
+                                    this.showStrictConfirmDialog( TC.get( "Error.Title" ), TC.get( "Error.DeletingFolderContents" ) );
                                 }
                             }
                         }
@@ -1073,13 +1073,13 @@ public class Controller {
                     }
                     else {
                         // Create new folder?
-                        if( this.showStrictConfirmDialog( TextConstants.getText( "Operation.NewProject.FolderNotCreatedTitle" ), TextConstants.getText( "Operation.NewProject.FolderNotCreatedMessage" ) ) ) {
+                        if( this.showStrictConfirmDialog( TC.get( "Operation.NewProject.FolderNotCreatedTitle" ), TC.get( "Operation.NewProject.FolderNotCreatedMessage" ) ) ) {
                             File directory = new File( selectedFolder.getAbsolutePath( ) );
                             if( directory.mkdirs( ) ) {
                                 create = true;
                             }
                             else {
-                                this.showStrictConfirmDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.CreatingFolder" ) );
+                                this.showStrictConfirmDialog( TC.get( "Error.Title" ), TC.get( "Error.CreatingFolder" ) );
                             }
 
                         }
@@ -1090,12 +1090,12 @@ public class Controller {
                 }
                 else {
                     // Display error message
-                    this.showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars( ) ) );
+                    this.showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars( ) ) );
                 }
             }
             else {
                 // Show error: The target dir cannot be contained 
-                mainWindow.showErrorDialog( TextConstants.getText( "Operation.NewProject.ForbiddenParent.Title" ), TextConstants.getText( "Operation.NewProject.ForbiddenParent.Message" ) );
+                mainWindow.showErrorDialog( TC.get( "Operation.NewProject.ForbiddenParent.Title" ), TC.get( "Operation.NewProject.ForbiddenParent.Message" ) );
                 create = false;
             }
         }
@@ -1105,7 +1105,7 @@ public class Controller {
 
         if( create ) {
             //loadingScreen.setVisible( true );
-            loadingScreen.setMessage( TextConstants.getText( "Operation.CreateProject" ) );
+            loadingScreen.setMessage( TC.get( "Operation.CreateProject" ) );
             loadingScreen.setVisible( true );
 
             // Set the new file, path and create the new adventure
@@ -1117,7 +1117,7 @@ public class Controller {
                 playerMode = DescriptorData.MODE_PLAYER_3RDPERSON;
             else if( fileType == FILE_ADVENTURE_1STPERSON_PLAYER )
                 playerMode = DescriptorData.MODE_PLAYER_1STPERSON;
-            adventureDataControl = new AdventureDataControl( TextConstants.getText( "DefaultValue.AdventureTitle" ), TextConstants.getText( "DefaultValue.ChapterTitle" ), TextConstants.getText( "DefaultValue.SceneId" ), playerMode );
+            adventureDataControl = new AdventureDataControl( TC.get( "DefaultValue.AdventureTitle" ), TC.get( "DefaultValue.ChapterTitle" ), TC.get( "DefaultValue.SceneId" ), playerMode );
 
             // Clear the list of data controllers and refill it
             chaptersController = new ChapterListDataControl( adventureDataControl.getChapters( ) );
@@ -1162,11 +1162,11 @@ public class Controller {
         if( fileCreated ) {
             ConfigData.fileLoaded( currentZipFile );
             // Feedback
-            mainWindow.showInformationDialog( TextConstants.getText( "Operation.FileLoadedTitle" ), TextConstants.getText( "Operation.FileLoadedMessage" ) );
+            mainWindow.showInformationDialog( TC.get( "Operation.FileLoadedTitle" ), TC.get( "Operation.FileLoadedMessage" ) );
         }
         else {
             // Feedback
-            mainWindow.showInformationDialog( TextConstants.getText( "Operation.FileNotLoadedTitle" ), TextConstants.getText( "Operation.FileNotLoadedMessage" ) );
+            mainWindow.showInformationDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.FileNotLoadedMessage" ) );
         }
 
         return fileCreated;
@@ -1194,7 +1194,7 @@ public class Controller {
             // Critical importance: abort operation, the game could not be loaded
             if( current.getImportance( ) == Incidence.IMPORTANCE_CRITICAL ) {
                 if( current.getException( ) != null )
-                    ReportDialog.GenerateErrorReport( current.getException( ), true, TextConstants.getText( "GeneralText.LoadError" ) );
+                    ReportDialog.GenerateErrorReport( current.getException( ), true, TC.get( "GeneralText.LoadError" ) );
                 abort = true;
                 break;
             }
@@ -1204,9 +1204,9 @@ public class Controller {
                 // When this happens the chapter returned in the adventure data structure is corrupted.
                 // Options: 1) Delete chapter. 2) Select chapter from other file. 3) Abort
                 if( current.getAffectedArea( ) == Incidence.CHAPTER_INCIDENCE && current.getType( ) == Incidence.XML_INCIDENCE ) {
-                    String dialogTitle = TextConstants.getText( "ErrorSolving.Chapter.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( );
-                    String dialogMessage = TextConstants.getText( "ErrorSolving.Chapter.Message", new String[] { current.getMessage( ), current.getAffectedResource( ) } );
-                    String[] options = { TextConstants.getText( "GeneralText.Delete" ), TextConstants.getText( "GeneralText.Replace" ), TextConstants.getText( "GeneralText.Abort" ), TextConstants.getText( "GeneralText.ReportError" ) };
+                    String dialogTitle = TC.get( "ErrorSolving.Chapter.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( );
+                    String dialogMessage = TC.get( "ErrorSolving.Chapter.Message", new String[] { current.getMessage( ), current.getAffectedResource( ) } );
+                    String[] options = { TC.get( "GeneralText.Delete" ), TC.get( "GeneralText.Replace" ), TC.get( "GeneralText.Abort" ), TC.get( "GeneralText.ReportError" ) };
 
                     int option = showOptionDialog( dialogTitle, dialogMessage, options );
                     // Delete chapter
@@ -1219,7 +1219,7 @@ public class Controller {
                                 // Update selected chapter if necessary
                                 if( chapters.size( ) == 0 ) {
                                     // When there are no more chapters, add a new, blank one
-                                    Chapter newChapter = new Chapter( TextConstants.getText( "DefaultValue.ChapterTitle" ), TextConstants.getText( "DefaultValue.SceneId" ) );
+                                    Chapter newChapter = new Chapter( TC.get( "DefaultValue.ChapterTitle" ), TC.get( "DefaultValue.SceneId" ) );
                                     chapters.add( newChapter );
                                     //chapterDataControlList.add( new ChapterDataControl (newChapter) );
                                 }
@@ -1234,7 +1234,7 @@ public class Controller {
                     else if( option == 1 ) {
                         boolean replaced = false;
                         JFileChooser xmlChooser = new JFileChooser( );
-                        xmlChooser.setDialogTitle( TextConstants.getText( "GeneralText.Select" ) );
+                        xmlChooser.setDialogTitle( TC.get( "GeneralText.Select" ) );
                         xmlChooser.setFileFilter( new XMLFileFilter( ) );
                         xmlChooser.setMultiSelectionEnabled( false );
                         // A file is selected
@@ -1275,13 +1275,13 @@ public class Controller {
                         }
                         // The chapter was not replaced: inform
                         if( !replaced ) {
-                            mainWindow.showWarningDialog( TextConstants.getText( "ErrorSolving.Chapter.NotReplaced.Title" ), TextConstants.getText( "ErrorSolving.Chapter.NotReplaced.Message" ) );
+                            mainWindow.showWarningDialog( TC.get( "ErrorSolving.Chapter.NotReplaced.Title" ), TC.get( "ErrorSolving.Chapter.NotReplaced.Message" ) );
                         }
                     }
                     // Report Dialog
                     else if( option == 3 ) {
                         if( current.getException( ) != null )
-                            ReportDialog.GenerateErrorReport( current.getException( ), true, TextConstants.getText( "GeneralText.LoadError" ) );
+                            ReportDialog.GenerateErrorReport( current.getException( ), true, TC.get( "GeneralText.LoadError" ) );
                         abort = true;
 
                     }
@@ -1297,14 +1297,14 @@ public class Controller {
                 // If an asset is missing or damaged. Delete references
                 if( current.getType( ) == Incidence.ASSET_INCIDENCE ) {
                     this.deleteAssetReferences( current.getAffectedResource( ) );
-                    mainWindow.showInformationDialog( TextConstants.getText( "ErrorSolving.Asset.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), TextConstants.getText( "ErrorSolving.Asset.Deleted.Message", current.getAffectedResource( ) ) );
+                    mainWindow.showInformationDialog( TC.get( "ErrorSolving.Asset.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), TC.get( "ErrorSolving.Asset.Deleted.Message", current.getAffectedResource( ) ) );
                     if( current.getException( ) != null )
-                        ReportDialog.GenerateErrorReport( current.getException( ), true, TextConstants.getText( "GeneralText.LoadError" ) );
+                        ReportDialog.GenerateErrorReport( current.getException( ), true, TC.get( "GeneralText.LoadError" ) );
 
                 }
                 // If it was an assessment profile (referenced) delete the assessment configuration of the chapter
                 else if( current.getAffectedArea( ) == Incidence.ASSESSMENT_INCIDENCE ) {
-                    mainWindow.showInformationDialog( TextConstants.getText( "ErrorSolving.AssessmentReferenced.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), TextConstants.getText( "ErrorSolving.AssessmentReferenced.Deleted.Message", current.getAffectedResource( ) ) );
+                    mainWindow.showInformationDialog( TC.get( "ErrorSolving.AssessmentReferenced.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), TC.get( "ErrorSolving.AssessmentReferenced.Deleted.Message", current.getAffectedResource( ) ) );
                     for( int j = 0; j < chapters.size( ); j++ ) {
                         if( chapters.get( j ).getAssessmentName( ).equals( current.getAffectedResource( ) ) ) {
                             chapters.get( j ).setAssessmentName( "" );
@@ -1312,12 +1312,12 @@ public class Controller {
                         }
                     }
                     if( current.getException( ) != null )
-                        ReportDialog.GenerateErrorReport( current.getException( ), true, TextConstants.getText( "GeneralText.LoadError" ) );
+                        ReportDialog.GenerateErrorReport( current.getException( ), true, TC.get( "GeneralText.LoadError" ) );
                     //	adventureData.getAssessmentRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
                 }
                 // If it was an assessment profile (referenced) delete the assessment configuration of the chapter
                 else if( current.getAffectedArea( ) == Incidence.ADAPTATION_INCIDENCE ) {
-                    mainWindow.showInformationDialog( TextConstants.getText( "ErrorSolving.AdaptationReferenced.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), TextConstants.getText( "ErrorSolving.AdaptationReferenced.Deleted.Message", current.getAffectedResource( ) ) );
+                    mainWindow.showInformationDialog( TC.get( "ErrorSolving.AdaptationReferenced.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), TC.get( "ErrorSolving.AdaptationReferenced.Deleted.Message", current.getAffectedResource( ) ) );
                     for( int j = 0; j < chapters.size( ); j++ ) {
                         if( chapters.get( j ).getAdaptationName( ).equals( current.getAffectedResource( ) ) ) {
                             chapters.get( j ).setAdaptationName( "" );
@@ -1325,7 +1325,7 @@ public class Controller {
                         }
                     }
                     if( current.getException( ) != null )
-                        ReportDialog.GenerateErrorReport( current.getException( ), true, TextConstants.getText( "GeneralText.LoadError" ) );
+                        ReportDialog.GenerateErrorReport( current.getException( ), true, TC.get( "GeneralText.LoadError" ) );
                     //adventureData.getAdaptationRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
                 }
 
@@ -1377,7 +1377,7 @@ public class Controller {
             boolean loadFile = true;
             // If the data was not saved, ask for an action (save, discard changes...)
             if( dataModified ) {
-                int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.LoadFileTitle" ), TextConstants.getText( "Operation.LoadFileMessage" ) );
+                int option = mainWindow.showConfirmDialog( TC.get( "Operation.LoadFileTitle" ), TC.get( "Operation.LoadFileMessage" ) );
 
                 // If the data must be saved, load the new file only if the save was succesful
                 if( option == JOptionPane.YES_OPTION )
@@ -1449,7 +1449,7 @@ public class Controller {
             // If some file was selected
             if( completeFilePath != null ) {
                 if( loadingImage ) {
-                    loadingScreen.setMessage( TextConstants.getText( "Operation.LoadProject" ) );
+                    loadingScreen.setMessage( TC.get( "Operation.LoadProject" ) );
                     this.loadingScreen.setVisible( true );
                     loadingImage = true;
                 }
@@ -1485,7 +1485,7 @@ public class Controller {
                     if( incidences.size( ) > 0 ) {
                         boolean abort = fixIncidences( incidences );
                         if( abort ) {
-                            mainWindow.showInformationDialog( TextConstants.getText( "Error.LoadAborted.Title" ), TextConstants.getText( "Error.LoadAborted.Message" ) );
+                            mainWindow.showInformationDialog( TC.get( "Error.LoadAborted.Title" ), TC.get( "Error.LoadAborted.Message" ) );
                             hasIncedence = true;
                         }
                     }
@@ -1515,15 +1515,15 @@ public class Controller {
                 // Feedback
                 //loadingScreen.close( );
                 if( !hasIncedence )
-                    mainWindow.showInformationDialog( TextConstants.getText( "Operation.FileLoadedTitle" ), TextConstants.getText( "Operation.FileLoadedMessage" ) );
+                    mainWindow.showInformationDialog( TC.get( "Operation.FileLoadedTitle" ), TC.get( "Operation.FileLoadedMessage" ) );
                 else
-                    mainWindow.showInformationDialog( TextConstants.getText( "Operation.FileLoadedWithErrorTitle" ), TextConstants.getText( "Operation.FileLoadedWithErrorMessage" ) );
+                    mainWindow.showInformationDialog( TC.get( "Operation.FileLoadedWithErrorTitle" ), TC.get( "Operation.FileLoadedWithErrorMessage" ) );
 
             }
             else {
                 // Feedback
                 //loadingScreen.close( );
-                mainWindow.showInformationDialog( TextConstants.getText( "Operation.FileNotLoadedTitle" ), TextConstants.getText( "Operation.FileNotLoadedMessage" ) );
+                mainWindow.showInformationDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.FileNotLoadedMessage" ) );
             }
 
             if( loadingImage )
@@ -1535,7 +1535,7 @@ public class Controller {
             fileLoaded = false;
             if( loadingImage )
                 loadingScreen.setVisible( false );
-            mainWindow.showInformationDialog( TextConstants.getText( "Operation.FileNotLoadedTitle" ), TextConstants.getText( "Operation.FileNotLoadedMessage" ) );
+            mainWindow.showInformationDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.FileNotLoadedMessage" ) );
         }
         return fileLoaded;
     }
@@ -1578,7 +1578,7 @@ public class Controller {
                         if( FolderFileFilter.checkCharacters( newFolder.getName( ) ) ) {
 
                             // If the file doesn't exist, or if the user confirms the writing in the file and the file it is not the current path of the project
-                            if( ( this.currentZipFile == null || !newFolder.getAbsolutePath( ).toLowerCase( ).equals( this.currentZipFile.toLowerCase( ) ) ) && ( ( !newFile.exists( ) && !newFolder.exists( ) ) || !newFolder.exists( ) || newFolder.list( ).length == 0 || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.NewProject.FolderNotEmptyMessage", newFolder.getName( ) ) ) ) ) {
+                            if( ( this.currentZipFile == null || !newFolder.getAbsolutePath( ).toLowerCase( ).equals( this.currentZipFile.toLowerCase( ) ) ) && ( ( !newFile.exists( ) && !newFolder.exists( ) ) || !newFolder.exists( ) || newFolder.list( ).length == 0 || mainWindow.showStrictConfirmDialog( TC.get( "Operation.SaveFileTitle" ), TC.get( "Operation.NewProject.FolderNotEmptyMessage", newFolder.getName( ) ) ) ) ) {
                                 // If the file exists, delete it so it's clean in the first save
                                 //if( newFile.exists( ) )
                                 //	newFile.delete( );
@@ -1588,7 +1588,7 @@ public class Controller {
 
                                 // If this is a "Save as" operation, copy the assets from the old file to the new one
                                 if( saveAs ) {
-                                    loadingScreen.setMessage( TextConstants.getText( "Operation.SaveProjectAs" ) );
+                                    loadingScreen.setMessage( TC.get( "Operation.SaveProjectAs" ) );
                                     loadingScreen.setVisible( true );
 
                                     AssetsController.copyAssets( currentZipFile, newFolder.getAbsolutePath( ) );
@@ -1606,17 +1606,17 @@ public class Controller {
 
                             // In case the selected folder is the same that the previous one, report an error
                             if( !saveFile && this.currentZipFile != null && newFolder.getAbsolutePath( ).toLowerCase( ).equals( this.currentZipFile.toLowerCase( ) ) ) {
-                                this.showErrorDialog( TextConstants.getText( "Operation.SaveProjectAs.TargetFolderInUse.Title" ), TextConstants.getText( "Operation.SaveProjectAs.TargetFolderInUse.Message" ) );
+                                this.showErrorDialog( TC.get( "Operation.SaveProjectAs.TargetFolderInUse.Title" ), TC.get( "Operation.SaveProjectAs.TargetFolderInUse.Message" ) );
                             }
                         }
                         else {
-                            this.showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars( ) ) );
+                            this.showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars( ) ) );
                             saveFile = false;
                         }
                     }
                     else {
                         // Show error: The target dir cannot be contained 
-                        mainWindow.showErrorDialog( TextConstants.getText( "Operation.NewProject.ForbiddenParent.Title" ), TextConstants.getText( "Operation.NewProject.ForbiddenParent.Message" ) );
+                        mainWindow.showErrorDialog( TC.get( "Operation.NewProject.ForbiddenParent.Title" ), TC.get( "Operation.NewProject.ForbiddenParent.Message" ) );
                         saveFile = false;
                     }
                 }
@@ -1629,7 +1629,7 @@ public class Controller {
                 //loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.SaveProject" ), getLoadingImage( ), mainWindow);
 
                 //loadingScreen.setVisible( true );
-                loadingScreen.setMessage( TextConstants.getText( "Operation.SaveProject" ) );
+                loadingScreen.setMessage( TC.get( "Operation.SaveProject" ) );
                 loadingScreen.setVisible( true );
             }
 
@@ -1649,7 +1649,7 @@ public class Controller {
 
                 // If the data is not valid, show an error message
                 if( !valid )
-                    mainWindow.showWarningDialog( TextConstants.getText( "Operation.AdventureConsistencyTitle" ), TextConstants.getText( "Operation.AdventurInconsistentWarning" ) );
+                    mainWindow.showWarningDialog( TC.get( "Operation.AdventureConsistencyTitle" ), TC.get( "Operation.AdventurInconsistentWarning" ) );
 
                 // Control the version number
                 String newValue = increaseVersionNumber( adventureDataControl.getAdventureData( ).getVersionNumber( ) );
@@ -1694,7 +1694,7 @@ public class Controller {
         }
         catch( Exception e ) {
             fileSaved = false;
-            mainWindow.showInformationDialog( TextConstants.getText( "Operation.FileNotSavedTitle" ), TextConstants.getText( "Operation.FileNotSavedMessage" ) );
+            mainWindow.showInformationDialog( TC.get( "Operation.FileNotSavedTitle" ), TC.get( "Operation.FileNotSavedMessage" ) );
 
         }
         //loadingScreen.close( );
@@ -1754,7 +1754,7 @@ public class Controller {
         java.io.File selectedFile = null;
         try {
             if( dataModified ) {
-                int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
+                int option = mainWindow.showConfirmDialog( TC.get( "Operation.SaveChangesTitle" ), TC.get( "Operation.SaveChangesMessage" ) );
                 // If the data must be saved, load the new file only if the save was succesful
                 if( option == JOptionPane.YES_OPTION )
                     importGame = saveFile( false );
@@ -1793,7 +1793,7 @@ public class Controller {
                         originFile = new java.io.File( originFile.getAbsolutePath( ) + ".ead" );
                     // If the file not exists display error
                     if( !originFile.exists( ) )
-                        mainWindow.showErrorDialog( TextConstants.getText( "Error.Import.FileNotFound.Title" ), TextConstants.getText( "Error.Import.FileNotFound.Title", originFile.getName( ) ) );
+                        mainWindow.showErrorDialog( TC.get( "Error.Import.FileNotFound.Title" ), TC.get( "Error.Import.FileNotFound.Title", originFile.getName( ) ) );
                     // Otherwise ask folder for the new project
                     else {
                         boolean create = false;
@@ -1823,13 +1823,13 @@ public class Controller {
                                         //Is the folder empty?
                                         if( selectedFolder.list( ).length > 0 ) {
                                             // Delete content?
-                                            if( this.showStrictConfirmDialog( TextConstants.getText( "Operation.NewProject.FolderNotEmptyTitle" ), TextConstants.getText( "Operation.NewProject.FolderNotEmptyMessage" ) ) ) {
+                                            if( this.showStrictConfirmDialog( TC.get( "Operation.NewProject.FolderNotEmptyTitle" ), TC.get( "Operation.NewProject.FolderNotEmptyMessage" ) ) ) {
                                                 File directory = new File( selectedFolder.getAbsolutePath( ) );
                                                 if( directory.deleteAll( ) ) {
                                                     create = true;
                                                 }
                                                 else {
-                                                    this.showStrictConfirmDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.DeletingFolderContents" ) );
+                                                    this.showStrictConfirmDialog( TC.get( "Error.Title" ), TC.get( "Error.DeletingFolderContents" ) );
                                                 }
                                             }
                                         }
@@ -1844,18 +1844,18 @@ public class Controller {
                                             create = true;
                                         }
                                         else {
-                                            this.showStrictConfirmDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.CreatingFolder" ) );
+                                            this.showStrictConfirmDialog( TC.get( "Error.Title" ), TC.get( "Error.CreatingFolder" ) );
                                         }
                                     }
                                 }
                                 else {
                                     // Display error message
-                                    this.showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars( ) ) );
+                                    this.showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars( ) ) );
                                 }
                             }
                             else {
                                 // Show error: The target dir cannot be contained 
-                                mainWindow.showErrorDialog( TextConstants.getText( "Operation.NewProject.ForbiddenParent.Title" ), TextConstants.getText( "Operation.NewProject.ForbiddenParent.Message" ) );
+                                mainWindow.showErrorDialog( TC.get( "Operation.NewProject.ForbiddenParent.Title" ), TC.get( "Operation.NewProject.ForbiddenParent.Message" ) );
                                 create = false;
                             }
                         }
@@ -1863,7 +1863,7 @@ public class Controller {
                         // Create the new project?
                         if( create ) {
                             //LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ImportProject" ), getLoadingImage( ), mainWindow);
-                            loadingScreen.setMessage( TextConstants.getText( "Operation.ImportProject" ) );
+                            loadingScreen.setMessage( TC.get( "Operation.ImportProject" ) );
                             loadingScreen.setVisible( true );
                             //AssetsController.createFolderStructure();
                             if( !selectedDir.exists( ) )
@@ -1906,7 +1906,7 @@ public class Controller {
         try {
             if( dataModified ) {
 
-                int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
+                int option = mainWindow.showConfirmDialog( TC.get( "Operation.SaveChangesTitle" ), TC.get( "Operation.SaveChangesMessage" ) );
                 // If the data must be saved, load the new file only if the save was succesful
                 if( option == JOptionPane.YES_OPTION )
                     exportGame = saveFile( false );
@@ -1945,22 +1945,22 @@ public class Controller {
                     if( targetFilePath != null || isValidTargetFile( destinyFile ) ) {
 
                         // If the file exists, ask to overwrite
-                        if( !destinyFile.exists( ) || targetFilePath != null || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.OverwriteExistingFile", destinyFile.getName( ) ) ) ) {
+                        if( !destinyFile.exists( ) || targetFilePath != null || mainWindow.showStrictConfirmDialog( TC.get( "Operation.SaveFileTitle" ), TC.get( "Operation.OverwriteExistingFile", destinyFile.getName( ) ) ) ) {
                             destinyFile.delete( );
 
                             // Finally, export it
                             //LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ExportProject.AsEAD" ), getLoadingImage( ), mainWindow);
                             if( targetFilePath == null ) {
-                                loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsEAD" ) );
+                                loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsEAD" ) );
                                 loadingScreen.setVisible( true );
                             }
                             if( Writer.export( getProjectFolder( ), destinyFile.getAbsolutePath( ) ) ) {
                                 exported = true;
                                 if( targetFilePath == null )
-                                    mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+                                    mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                             }
                             else {
-                                mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
+                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.NotSuccess.Title" ), TC.get( "Operation.ExportT.NotSuccess.Message" ) );
                             }
                             //loadingScreen.close( );
                             if( targetFilePath == null )
@@ -1969,7 +1969,7 @@ public class Controller {
                     }
                     else {
                         // Show error: The target dir cannot be contained 
-                        mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Title" ), TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Message" ) );
+                        mainWindow.showErrorDialog( TC.get( "Operation.ExportT.TargetInProjectDir.Title" ), TC.get( "Operation.ExportT.TargetInProjectDir.Message" ) );
                     }
                 }
             }
@@ -2032,7 +2032,7 @@ public class Controller {
         boolean exportGame = true;
         try {
             if( dataModified ) {
-                int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
+                int option = mainWindow.showConfirmDialog( TC.get( "Operation.SaveChangesTitle" ), TC.get( "Operation.SaveChangesMessage" ) );
                 // If the data must be saved, load the new file only if the save was succesful
                 if( option == JOptionPane.YES_OPTION )
                     exportGame = saveFile( false );
@@ -2082,17 +2082,17 @@ public class Controller {
                     // Check the destinyFile is not in the project folder
                     if( isValidTargetFile( destinyFile ) ) {
 
-                        if( !destinyFile.exists( ) || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.OverwriteExistingFile", destinyFile.getName( ) ) ) ) {
+                        if( !destinyFile.exists( ) || mainWindow.showStrictConfirmDialog( TC.get( "Operation.SaveFileTitle" ), TC.get( "Operation.OverwriteExistingFile", destinyFile.getName( ) ) ) ) {
                             destinyFile.delete( );
 
                             // Finally, export it
-                            loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsJAR" ) );
+                            loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsJAR" ) );
                             loadingScreen.setVisible( true );
                             if( Writer.exportStandalone( getProjectFolder( ), destinyFile.getAbsolutePath( ) ) ) {
-                                mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                             }
                             else {
-                                mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
+                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.NotSuccess.Title" ), TC.get( "Operation.ExportT.NotSuccess.Message" ) );
                             }
                             loadingScreen.setVisible( false );
 
@@ -2100,7 +2100,7 @@ public class Controller {
                     }
                     else {
                         // Show error: The target dir cannot be contained 
-                        mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Title" ), TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Message" ) );
+                        mainWindow.showErrorDialog( TC.get( "Operation.ExportT.TargetInProjectDir.Title" ), TC.get( "Operation.ExportT.TargetInProjectDir.Message" ) );
                     }
                 }
             }
@@ -2117,7 +2117,7 @@ public class Controller {
         boolean exportFile = true;
         try {
             if( dataModified ) {
-                int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
+                int option = mainWindow.showConfirmDialog( TC.get( "Operation.SaveChangesTitle" ), TC.get( "Operation.SaveChangesMessage" ) );
                 // If the data must be saved, load the new file only if the save was succesful
                 if( option == JOptionPane.YES_OPTION )
                     exportFile = saveFile( false );
@@ -2134,7 +2134,7 @@ public class Controller {
 
             if( exportFile ) {
                 // Ask the data of the Learning Object:
-                ExportToLOMDialog dialog = new ExportToLOMDialog( TextConstants.getText( "Operation.ExportToLOM.DefaultValue" ) );
+                ExportToLOMDialog dialog = new ExportToLOMDialog( TC.get( "Operation.ExportToLOM.DefaultValue" ) );
                 String loName = dialog.getLomName( );
                 String authorName = dialog.getAuthorName( );
                 String organization = dialog.getOrganizationName( );
@@ -2145,15 +2145,15 @@ public class Controller {
 
                 if( type == 2 && !hasScormProfiles( SCORM12 ) ) {
                     // error situation: both profiles must be scorm 1.2 if they exist
-                    mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportSCORM12.BadProfiles.Title" ), TextConstants.getText( "Operation.ExportSCORM12.BadProfiles.Message" ) );
+                    mainWindow.showErrorDialog( TC.get( "Operation.ExportSCORM12.BadProfiles.Title" ), TC.get( "Operation.ExportSCORM12.BadProfiles.Message" ) );
                 }
                 else if( type == 3 && !hasScormProfiles( SCORM2004 ) ) {
                     // error situation: both profiles must be scorm 2004 if they exist
-                    mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportSCORM2004.BadProfiles.Title" ), TextConstants.getText( "Operation.ExportSCORM2004.BadProfiles.Message" ) );
+                    mainWindow.showErrorDialog( TC.get( "Operation.ExportSCORM2004.BadProfiles.Title" ), TC.get( "Operation.ExportSCORM2004.BadProfiles.Message" ) );
                 }
                 else if( type == 4 && !hasScormProfiles( AGREGA ) ) {
                     // error situation: both profiles must be scorm 2004 if they exist to export to AGREGA
-                    mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportSCORM2004AGREGA.BadProfiles.Title" ), TextConstants.getText( "Operation.ExportSCORM2004AGREGA.BadProfiles.Message" ) );
+                    mainWindow.showErrorDialog( TC.get( "Operation.ExportSCORM2004AGREGA.BadProfiles.Title" ), TC.get( "Operation.ExportSCORM2004AGREGA.BadProfiles.Message" ) );
                 }
                 else
 
@@ -2193,35 +2193,35 @@ public class Controller {
                                 if( isValidTargetFile( newFile ) ) {
 
                                     // If the file doesn't exist, or if the user confirms the writing in the file
-                                    if( !newFile.exists( ) || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.OverwriteExistingFile", newFile.getName( ) ) ) ) {
+                                    if( !newFile.exists( ) || mainWindow.showStrictConfirmDialog( TC.get( "Operation.SaveFileTitle" ), TC.get( "Operation.OverwriteExistingFile", newFile.getName( ) ) ) ) {
                                         // If the file exists, delete it so it's clean in the first save
 
                                         try {
                                             if( newFile.exists( ) )
                                                 newFile.delete( );
                                             //LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ExportProject.AsJAR" ), getLoadingImage( ), mainWindow);
-                                            loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsLO" ) );
+                                            loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsLO" ) );
                                             loadingScreen.setVisible( true );
                                             this.updateLOMLanguage( );
 
                                             if( type == 0 && Writer.exportAsLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
-                                                mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+                                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
                                             else if( type == 1 && Writer.exportAsWebCTObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
-                                                mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+                                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
                                             else if( type == 2 && Writer.exportAsSCORM( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
-                                                mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+                                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
 
                                             }
                                             else if( type == 3 && Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
-                                                mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+                                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
                                             else if( type == 4 && Writer.exportAsAGREGA( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
-                                                mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+                                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
                                             else {
-                                                mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
+                                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.NotSuccess.Title" ), TC.get( "Operation.ExportT.NotSuccess.Message" ) );
                                             }
 
                                             //loadingScreen.close( );
@@ -2229,25 +2229,25 @@ public class Controller {
 
                                         }
                                         catch( Exception e ) {
-                                            this.showErrorDialog( TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ), TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ) );
-                                            ReportDialog.GenerateErrorReport( e, true, TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ) );
+                                            this.showErrorDialog( TC.get( "Operation.ExportToLOM.LONameNotValid.Title" ), TC.get( "Operation.ExportToLOM.LONameNotValid.Title" ) );
+                                            ReportDialog.GenerateErrorReport( e, true, TC.get( "Operation.ExportToLOM.LONameNotValid.Title" ) );
                                         }
 
                                     }
                                 }
                                 else {
                                     // Show error: The target dir cannot be contained 
-                                    mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Title" ), TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Message" ) );
+                                    mainWindow.showErrorDialog( TC.get( "Operation.ExportT.TargetInProjectDir.Title" ), TC.get( "Operation.ExportT.TargetInProjectDir.Message" ) );
                                 }
 
                             }
                         }
                         else {
-                            this.showErrorDialog( TextConstants.getText( "Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title" ), TextConstants.getText( "Operation.ExportToLOM.AuthorNameOrganizationNotValid.Message" ) );
+                            this.showErrorDialog( TC.get( "Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title" ), TC.get( "Operation.ExportToLOM.AuthorNameOrganizationNotValid.Message" ) );
                         }
                     }
                     else {
-                        this.showErrorDialog( TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ), TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Message" ) );
+                        this.showErrorDialog( TC.get( "Operation.ExportToLOM.LONameNotValid.Title" ), TC.get( "Operation.ExportToLOM.LONameNotValid.Message" ) );
                     }
                 }
             }
@@ -2354,7 +2354,7 @@ public class Controller {
     private boolean canBeRun( ) {
 
         if( dataModified ) {
-            if( mainWindow.showStrictConfirmDialog( TextConstants.getText( "Run.CanBeRun.Title" ), TextConstants.getText( "Run.CanBeRun.Text" ) ) ) {
+            if( mainWindow.showStrictConfirmDialog( TC.get( "Run.CanBeRun.Title" ), TC.get( "Run.CanBeRun.Text" ) ) ) {
                 this.saveFile( false );
                 return true;
             }
@@ -2415,7 +2415,7 @@ public class Controller {
 
         // If the data was not saved, ask for an action (save, discard changes...)
         if( dataModified ) {
-            int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.ExitTitle" ), TextConstants.getText( "Operation.ExitMessage" ) );
+            int option = mainWindow.showConfirmDialog( TC.get( "Operation.ExitTitle" ), TC.get( "Operation.ExitMessage" ) );
 
             // If the data must be saved, lexit only if the save was succesful
             if( option == JOptionPane.YES_OPTION )
@@ -2465,7 +2465,7 @@ public class Controller {
         // If the data is valid, show a dialog with the information
         if( valid ) {
             if( showSuccessFeedback )
-                mainWindow.showInformationDialog( TextConstants.getText( "Operation.AdventureConsistencyTitle" ), TextConstants.getText( "Operation.AdventureConsistentReport" ) );
+                mainWindow.showInformationDialog( TC.get( "Operation.AdventureConsistencyTitle" ), TC.get( "Operation.AdventureConsistentReport" ) );
 
             // If it is not valid, show a dialog with the problems
         }
@@ -2528,7 +2528,7 @@ public class Controller {
      */
     public void deleteUnsuedAssets( ) {
 
-        if( !this.showStrictConfirmDialog( TextConstants.getText( "DeleteUnusedAssets.Title" ), TextConstants.getText( "DeleteUnusedAssets.Warning" ) ) )
+        if( !this.showStrictConfirmDialog( TC.get( "DeleteUnusedAssets.Title" ), TC.get( "DeleteUnusedAssets.Warning" ) ) )
             return;
 
         int deletedAssetCount = 0;
@@ -2633,9 +2633,9 @@ public class Controller {
         }
 
         if( deletedAssetCount != 0 )
-            mainWindow.showInformationDialog( TextConstants.getText( "DeleteUnusedAssets.Title" ), TextConstants.getText( "DeleteUnusedAssets.AssetsDeleted", new String[] { String.valueOf( deletedAssetCount ) } ) );
+            mainWindow.showInformationDialog( TC.get( "DeleteUnusedAssets.Title" ), TC.get( "DeleteUnusedAssets.AssetsDeleted", new String[] { String.valueOf( deletedAssetCount ) } ) );
         else
-            mainWindow.showInformationDialog( TextConstants.getText( "DeleteUnusedAssets.Title" ), TextConstants.getText( "DeleteUnusedAssets.NoUnsuedAssetsFound" ) );
+            mainWindow.showInformationDialog( TC.get( "DeleteUnusedAssets.Title" ), TC.get( "DeleteUnusedAssets.NoUnsuedAssetsFound" ) );
     }
 
     /**
@@ -2804,7 +2804,7 @@ public class Controller {
             if( !getIdentifierSummary( ).existsId( elementId ) ) {
 
                 // If the identifier is not a reserved identifier
-                if( !elementId.equals( Player.IDENTIFIER ) && !elementId.equals( TextConstants.getText( "ConversationLine.PlayerName" ) ) ) {
+                if( !elementId.equals( Player.IDENTIFIER ) && !elementId.equals( TC.get( "ConversationLine.PlayerName" ) ) ) {
 
                     // If the first character is a letter
                     if( Character.isLetter( elementId.charAt( 0 ) ) )
@@ -2812,22 +2812,22 @@ public class Controller {
 
                     // Show non-letter first character error
                     else if( showError )
-                        mainWindow.showErrorDialog( TextConstants.getText( "Operation.IdErrorTitle" ), TextConstants.getText( "Operation.IdErrorFirstCharacter" ) );
+                        mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorFirstCharacter" ) );
                 }
 
                 // Show invalid identifier error
                 else if( showError )
-                    mainWindow.showErrorDialog( TextConstants.getText( "Operation.IdErrorTitle" ), TextConstants.getText( "Operation.IdErrorReservedIdentifier", elementId ) );
+                    mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorReservedIdentifier", elementId ) );
             }
 
             // Show repeated identifier error
             else if( showError )
-                mainWindow.showErrorDialog( TextConstants.getText( "Operation.IdErrorTitle" ), TextConstants.getText( "Operation.IdErrorAlreadyUsed" ) );
+                mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorAlreadyUsed" ) );
         }
 
         // Show blank spaces error
         else if( showError )
-            mainWindow.showErrorDialog( TextConstants.getText( "Operation.IdErrorTitle" ), TextConstants.getText( "Operation.IdErrorBlankSpaces" ) );
+            mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorBlankSpaces" ) );
 
         return elementIdValid;
     }
@@ -2853,12 +2853,12 @@ public class Controller {
 
             // Show non-letter first character error
             else
-                mainWindow.showErrorDialog( TextConstants.getText( "Operation.IdErrorTitle" ), TextConstants.getText( "Operation.IdErrorFirstCharacter" ) );
+                mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorFirstCharacter" ) );
         }
 
         // Show blank spaces error
         else
-            mainWindow.showErrorDialog( TextConstants.getText( "Operation.IdErrorTitle" ), TextConstants.getText( "Operation.IdErrorBlankSpaces" ) );
+            mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorBlankSpaces" ) );
 
         return elementIdValid;
     }
@@ -3214,7 +3214,7 @@ public class Controller {
     public void showAboutDialog( ) {
 
         try {
-            JDialog dialog = new JDialog( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "About" ), Dialog.ModalityType.TOOLKIT_MODAL );
+            JDialog dialog = new JDialog( Controller.getInstance( ).peekWindow( ), TC.get( "About" ), Dialog.ModalityType.TOOLKIT_MODAL );
             dialog.getContentPane( ).setLayout( new BorderLayout( ) );
             File file = new File( ReleaseFolders.LANGUAGE_DIR_EDITOR + "/" + ConfigData.getAboutFile( ) );
             if( file.exists( ) ) {
@@ -3299,8 +3299,8 @@ public class Controller {
             ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ), ReleaseFolders.getLoadingImagePath( language ) );
             //null);
             languageFile = language;
-            TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor( true, languageFile ) );
-            TextConstants.appendStrings( ReleaseFolders.getLanguageFilePath4Editor( false, languageFile ) );
+            TC.loadStrings( ReleaseFolders.getLanguageFilePath4Editor( true, languageFile ) );
+            TC.appendStrings( ReleaseFolders.getLanguageFilePath4Editor( false, languageFile ) );
             loadingScreen.setImage( getLoadingImage( ) );
             if( reloadData )
                 mainWindow.reloadData( );

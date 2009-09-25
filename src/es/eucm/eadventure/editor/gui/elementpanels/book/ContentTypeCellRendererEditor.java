@@ -49,7 +49,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 
 public class ContentTypeCellRendererEditor extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
@@ -90,11 +90,11 @@ public class ContentTypeCellRendererEditor extends AbstractCellEditor implements
         }
 
         if( value.getType( ) == BookPage.TYPE_RESOURCE )
-            return new JLabel( TextConstants.getText( "BookPageType.Resource" ) );
+            return new JLabel( TC.get( "BookPageType.Resource" ) );
         else if( value.getType( ) == BookPage.TYPE_URL )
-            return new JLabel( TextConstants.getText( "BookPageType.URL" ) );
+            return new JLabel( TC.get( "BookPageType.URL" ) );
         else if( value.getType( ) == BookPage.TYPE_IMAGE )
-            return new JLabel( TextConstants.getText( "BookPageType.Image" ) );
+            return new JLabel( TC.get( "BookPageType.Image" ) );
         return new JLabel( "" );
     }
 
@@ -104,7 +104,7 @@ public class ContentTypeCellRendererEditor extends AbstractCellEditor implements
         if( isSelected )
             temp.setBorder( BorderFactory.createMatteBorder( 2, 2, 2, 0, color ) );
 
-        String[] types = new String[] { TextConstants.getText( "BookPageType.Resource" ), TextConstants.getText( "BookPageType.URL" ), TextConstants.getText( "BookPageType.Image" ) };
+        String[] types = new String[] { TC.get( "BookPageType.Resource" ), TC.get( "BookPageType.URL" ), TC.get( "BookPageType.Image" ) };
         typeCombo = new JComboBox( types );
         if( value.getType( ) == BookPage.TYPE_RESOURCE )
             typeCombo.setSelectedIndex( 0 );

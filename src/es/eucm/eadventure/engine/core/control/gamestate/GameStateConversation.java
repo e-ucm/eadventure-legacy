@@ -49,7 +49,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -269,7 +269,7 @@ public class GameStateConversation extends GameState {
                 drawLine( g, optionsToShow.get( i ).getText( ), ( i - firstLineDisplayed ), i );
                 numberDisplayedOptions++;
             }
-            drawLine( g, TextConstants.getText( "GameText.More" ), ( i - firstLineDisplayed ), i );
+            drawLine( g, TC.get( "GameText.More" ), ( i - firstLineDisplayed ), i );
         }
 
         // if there are not options to draw, finalize the conversation

@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.tools.conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -84,7 +84,7 @@ public class LinkConversationNodeTool extends Tool {
 
         // If it is not possible to link the node to the given one, show a message
         if( !dataControl.canLinkNodeTo( fatherView, childView ) )
-            controller.showErrorDialog( TextConstants.getText( "Conversation.OperationLinkNode" ), TextConstants.getText( "Conversation.ErrorLinkNode" ) );
+            controller.showErrorDialog( TC.get( "Conversation.OperationLinkNode" ), TC.get( "Conversation.ErrorLinkNode" ) );
 
         // If it can be linked
         else {
@@ -105,7 +105,7 @@ public class LinkConversationNodeTool extends Tool {
 
                 // If the father is an option node, add a new line
                 if( father.getType( ) == ConversationNodeView.OPTION )
-                    father.addLine( new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.DefaultText" ) ) );
+                    father.addLine( new ConversationLine( ConversationLine.PLAYER, TC.get( "ConversationLine.DefaultText" ) ) );
 
                 // The node was successfully linked
                 nodeLinked = true;
@@ -126,7 +126,7 @@ public class LinkConversationNodeTool extends Tool {
         father.addChild( child );
         // If the father is an option node, add a new line
         if( father.getType( ) == ConversationNodeView.OPTION )
-            father.addLine( new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.DefaultText" ) ) );
+            father.addLine( new ConversationLine( ConversationLine.PLAYER, TC.get( "ConversationLine.DefaultText" ) ) );
         dataControl.updateAllConditions( );
         controller.updatePanel( );
         return true;

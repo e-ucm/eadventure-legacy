@@ -61,7 +61,7 @@ import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
@@ -121,7 +121,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         String scenePath = Controller.getInstance( ).getSceneImagePath( referencesListDataControl.getParentSceneId( ) );
 
         spep = new ScenePreviewEditionPanel( true, scenePath );
-        spep.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.PreviewTitle" ) ) );
+        spep.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "ItemReferencesList.PreviewTitle" ) ) );
 
         // Add the item references if an image was loaded
         if( scenePath != null ) {
@@ -182,7 +182,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
             JTextPane informationTextPane = new JTextPane( );
             informationTextPane.setEditable( false );
             informationTextPane.setBackground( getBackground( ) );
-            informationTextPane.setText( TextConstants.getText( "ElementList.Empty" ) );
+            informationTextPane.setText( TC.get( "ElementList.Empty" ) );
 
             //Disable delete button
             deleteButton.setEnabled( false );
@@ -220,7 +220,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         // Create the main panel
         tablePanel = new JPanel( new BorderLayout( ) );
 
-        isAllowPlayerLayer = new JCheckBox( TextConstants.getText( "Scene.AllowPlayer" ), referencesListDataControl.getSceneDataControl( ).isAllowPlayer( ) );
+        isAllowPlayerLayer = new JCheckBox( TC.get( "Scene.AllowPlayer" ), referencesListDataControl.getSceneDataControl( ).isAllowPlayer( ) );
         //isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl().isAllowPlayer() );
         isAllowPlayerLayer.addActionListener( new ActionListener( ) {
 
@@ -282,7 +282,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+        newButton.setToolTipText( TC.get( "ItemReferenceTable.AddParagraph" ) );
         newButton.addMouseListener( new MouseAdapter( ) {
 
             @Override
@@ -296,7 +296,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+        deleteButton.setToolTipText( TC.get( "ItemReferenceTable.Delete" ) );
         deleteButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -309,7 +309,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         moveUpButton.setContentAreaFilled( false );
         moveUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        moveUpButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveUp" ) );
+        moveUpButton.setToolTipText( TC.get( "ItemReferenceTable.MoveUp" ) );
         moveUpButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -322,7 +322,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         moveDownButton.setContentAreaFilled( false );
         moveDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        moveDownButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveDown" ) );
+        moveDownButton.setToolTipText( TC.get( "ItemReferenceTable.MoveDown" ) );
         moveDownButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -385,7 +385,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         if( referencesListDataControl.getAddableElements( ).length > 0 ) {
             // Add an entry in the popup menu for each type of possible child
             for( int type : referencesListDataControl.getAddableElements( ) ) {
-                JMenuItem addChildMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.AddElement" + type ) );
+                JMenuItem addChildMenuItem = new JMenuItem( TC.get( "TreeNode.AddElement" + type ) );
                 addChildMenuItem.setEnabled( true );
                 addChildMenuItem.addActionListener( new AddElementReferenceActionListener( type ) );
                 addChildPopupMenu.add( addChildMenuItem );
@@ -394,7 +394,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
 
         // If no element can be added, insert a disabled general option
         else {
-            JMenuItem addChildMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.AddElement" ) );
+            JMenuItem addChildMenuItem = new JMenuItem( TC.get( "TreeNode.AddElement" ) );
             addChildMenuItem.setEnabled( false );
             addChildPopupMenu.add( addChildMenuItem );
         }
@@ -415,7 +415,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         completePopupMenu.addSeparator( );
 
         // Create and add the delete item
-        JMenuItem deleteMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.DeleteElement" ) );
+        JMenuItem deleteMenuItem = new JMenuItem( TC.get( "TreeNode.DeleteElement" ) );
         deleteMenuItem.setEnabled( deleteButton.isEnabled( ) );
         deleteMenuItem.addActionListener( new ActionListener( ) {
 
@@ -430,8 +430,8 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         completePopupMenu.addSeparator( );
 
         // Create and add the move up and down item
-        JMenuItem moveUpMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.MoveElementUp" ) );
-        JMenuItem moveDownMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.MoveElementDown" ) );
+        JMenuItem moveUpMenuItem = new JMenuItem( TC.get( "TreeNode.MoveElementUp" ) );
+        JMenuItem moveDownMenuItem = new JMenuItem( TC.get( "TreeNode.MoveElementDown" ) );
         moveUpMenuItem.setEnabled( moveUpButton.isEnabled( ) );
         moveDownMenuItem.setEnabled( moveDownButton.isEnabled( ) );
         moveUpMenuItem.addActionListener( new ActionListener( ) {

@@ -81,7 +81,7 @@ import javax.swing.JFileChooser;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.auxiliar.filefilters.EADAndFolderFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
@@ -180,9 +180,9 @@ public class StartDialog extends JFileChooser {
         centralPanel.add( label, c );
         tab = new JTabbedPane( );
 
-        tab.insertTab( TextConstants.getText( "GeneralText.New" ), null, createNewFilePanel( ), "", 0 );
-        tab.insertTab( TextConstants.getText( "GeneralText.Open" ), null, createOpenFilePanel( ), "", 1 );
-        tab.insertTab( TextConstants.getText( "StartDialog.Recent" ), null, createRecentFilesPanel( ), "", 2 );
+        tab.insertTab( TC.get( "GeneralText.New" ), null, createNewFilePanel( ), "", 0 );
+        tab.insertTab( TC.get( "GeneralText.Open" ), null, createOpenFilePanel( ), "", 1 );
+        tab.insertTab( TC.get( "StartDialog.Recent" ), null, createRecentFilesPanel( ), "", 2 );
         tab.addChangeListener( new ChangeListener( ) {
 
             public void stateChanged( ChangeEvent e ) {
@@ -221,7 +221,7 @@ public class StartDialog extends JFileChooser {
         helpText.setBorder( BorderFactory.createEtchedBorder( ) );
         helpPanel.setViewportView( helpText );
         helpPanel.setBackground( this.getBackground( ) );
-        helpPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
+        helpPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "GeneralText.Information" ) ) );
         helpPanel.setMaximumSize( new Dimension( 320, 200 ) );
         helpPanel.setMinimumSize( new Dimension( 320, 200 ) );
 
@@ -290,7 +290,7 @@ public class StartDialog extends JFileChooser {
         list.setMinimumSize( new Dimension( 150, 200 ) );
         list.setPreferredSize( new Dimension( 150, 200 ) );
         documentTypes.setViewportView( list );
-        TitledBorder border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "StartDialog.DocumentTypes" ) );
+        TitledBorder border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "StartDialog.DocumentTypes" ) );
         border.setTitlePosition( TitledBorder.CENTER );
         // documentTypes.setBorder( border );
         documentTypes.setBackground( list.getBackground( ) );
@@ -302,7 +302,7 @@ public class StartDialog extends JFileChooser {
         list.setLayoutOrientation( JList.HORIZONTAL_WRAP );
 
         //The panel with the buttons
-        buttonNew = new JButton( TextConstants.getText( "StartDialog.CreateNew" ) );
+        buttonNew = new JButton( TC.get( "StartDialog.CreateNew" ) );
         //buttonNew.setPreferredSize( new Dimension( 80, 30 ) );
         buttonNew.addActionListener( new ActionListener( ) {
 
@@ -316,7 +316,7 @@ public class StartDialog extends JFileChooser {
             }
 
         } );
-        buttonCancel = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        buttonCancel = new JButton( TC.get( "GeneralText.Cancel" ) );
         //buttonCancel.setPreferredSize( new Dimension( 80, 30 ) );
         buttonCancel.addActionListener( new ActionListener( ) {
 
@@ -391,7 +391,7 @@ public class StartDialog extends JFileChooser {
 
         //----------------- TODAY OPENED ---------------------------------//
         JScrollPane todayPanel = new JScrollPane( ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
-        TitledBorder todayBorder = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "StartDialog.Recent.OpenedToday" ) );
+        TitledBorder todayBorder = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "StartDialog.Recent.OpenedToday" ) );
         todayBorder.setTitleJustification( TitledBorder.CENTER );
 
         JTable[] todayOtherTables = new JTable[] { yesterdayTable, beforeTable };
@@ -409,7 +409,7 @@ public class StartDialog extends JFileChooser {
 
         //----------------- YESTERDAY OPENED ---------------------------------//
         JScrollPane yesterdayPanel = new JScrollPane( ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
-        TitledBorder yesterdayBorder = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "StartDialog.Recent.OpenedYesterday" ) );
+        TitledBorder yesterdayBorder = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "StartDialog.Recent.OpenedYesterday" ) );
         yesterdayBorder.setTitleJustification( TitledBorder.CENTER );
         JTable[] yesterdayOtherTables = new JTable[] { todayTable, beforeTable };
         RecentFilesTableModel yesterdayModel = new RecentFilesTableModel( 2, 1, yesterdayTable, yesterdayOtherTables );
@@ -426,7 +426,7 @@ public class StartDialog extends JFileChooser {
 
         //----------------- OLDER FILES OPENED ---------------------------------//
         JScrollPane beforePanel = new JScrollPane( ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
-        TitledBorder beforeBorder = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "StartDialog.Recent.OpenedOlder" ) );
+        TitledBorder beforeBorder = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "StartDialog.Recent.OpenedOlder" ) );
         beforeBorder.setTitleJustification( TitledBorder.CENTER );
         beforePanel.setBorder( beforeBorder );
         JTable[] beforeOtherTables = new JTable[] { yesterdayTable, todayTable };
@@ -444,7 +444,7 @@ public class StartDialog extends JFileChooser {
         //-------------------------------- BUTTONS PANEL------------------------//
         JPanel buttonsPanel = new JPanel( );
         buttonsPanel.setLayout( new BoxLayout( buttonsPanel, BoxLayout.LINE_AXIS ) );
-        openRecentsButton = new JButton( TextConstants.getText( "GeneralText.Open" ) );
+        openRecentsButton = new JButton( TC.get( "GeneralText.Open" ) );
         openRecentsButton.setEnabled( false );
         openRecentsButton.addActionListener( new ActionListener( ) {
 
@@ -455,7 +455,7 @@ public class StartDialog extends JFileChooser {
             }
 
         } );
-        JButton cancelButton = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        JButton cancelButton = new JButton( TC.get( "GeneralText.Cancel" ) );
         cancelButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -557,7 +557,7 @@ public class StartDialog extends JFileChooser {
 
     private void writeFileNotFound( String path ) {
 
-        helpText.add( new JLabel( TextConstants.getText( "HelpDialog.FileNotFound" ) + " " + path ) );
+        helpText.add( new JLabel( TC.get( "HelpDialog.FileNotFound" ) + " " + path ) );
     }
 
     private class RecentFilesTableModel extends AbstractTableModel implements MouseListener {
@@ -600,7 +600,7 @@ public class StartDialog extends JFileChooser {
         @Override
         public String getColumnName( int columnIndex ) {
 
-            return TextConstants.getText( "StartDialog.Recent.ColumnHeader" + columnIndex );
+            return TC.get( "StartDialog.Recent.ColumnHeader" + columnIndex );
         }
 
         public Object getValueAt( int rowIndex, int columnIndex ) {
@@ -752,7 +752,7 @@ public class StartDialog extends JFileChooser {
         icons.add( AssetsController.getImage( "img/Icono-Editor-128x128.png" ) );
         dialog.setIconImages( icons );
 
-        dialog.setTitle( TextConstants.getText( "StartDialog.Title" ) );
+        dialog.setTitle( TC.get( "StartDialog.Title" ) );
 
         return dialog;
     }

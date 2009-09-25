@@ -65,7 +65,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
@@ -473,7 +473,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
                     Controller.getInstance( ).addTool( new AddElementTool( element, list ) );
                 }
             } );
-            addButton.setToolTipText( TextConstants.getText( "GeneralText.AddNew" ) );
+            addButton.setToolTipText( TC.get( "GeneralText.AddNew" ) );
             temp.add( addButton, "addButton" );
             temp.setComponentZOrder( addButton, 0 );
             addButton.setFocusable( false );

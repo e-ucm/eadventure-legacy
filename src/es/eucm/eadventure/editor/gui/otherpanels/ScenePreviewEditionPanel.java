@@ -60,7 +60,7 @@ import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -1218,7 +1218,7 @@ public class ScenePreviewEditionPanel extends JPanel {
     public JPanel createCheckBoxPanel( ) {
 
         JPanel checkBoxPanel = new JPanel( );
-        checkBoxPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "SPEP.ShowPanelTitle" ) ) );
+        checkBoxPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "SPEP.ShowPanelTitle" ) ) );
 
         List<JCheckBox> checkBoxList = new ArrayList<JCheckBox>( );
         for( Integer key : displayCategory.keySet( ) ) {
@@ -1257,23 +1257,23 @@ public class ScenePreviewEditionPanel extends JPanel {
 
         String title = null;
         if( category.intValue( ) == CATEGORY_ACTIVEAREA )
-            title = TextConstants.getText( "SPEP.ShowActiveAreas" );
+            title = TC.get( "SPEP.ShowActiveAreas" );
         else if( category.intValue( ) == CATEGORY_ATREZZO )
-            title = TextConstants.getText( "SPEP.ShowAtrezzo" );
+            title = TC.get( "SPEP.ShowAtrezzo" );
         else if( category.intValue( ) == CATEGORY_BARRIER )
-            title = TextConstants.getText( "SPEP.ShowBarriers" );
+            title = TC.get( "SPEP.ShowBarriers" );
         else if( category.intValue( ) == CATEGORY_CHARACTER )
-            title = TextConstants.getText( "SPEP.ShowCharacterReferences" );
+            title = TC.get( "SPEP.ShowCharacterReferences" );
         else if( category.intValue( ) == CATEGORY_EXIT )
-            title = TextConstants.getText( "SPEP.ShowExits" );
+            title = TC.get( "SPEP.ShowExits" );
         else if( category.intValue( ) == CATEGORY_NONE )
-            title = TextConstants.getText( "SPEP.ShowUncategorized" );
+            title = TC.get( "SPEP.ShowUncategorized" );
         else if( category.intValue( ) == CATEGORY_OBJECT )
-            title = TextConstants.getText( "SPEP.ShowObjectReferences" );
+            title = TC.get( "SPEP.ShowObjectReferences" );
         else if( category.intValue( ) == CATEGORY_PLAYER )
-            title = TextConstants.getText( "SPEP.ShowPlayer" );
+            title = TC.get( "SPEP.ShowPlayer" );
         else if( category.intValue( ) == CATEGORY_NODE )
-            title = TextConstants.getText( "SPEP.ShowTrajectory" );
+            title = TC.get( "SPEP.ShowTrajectory" );
         if( title == null )
             return null;
 
@@ -1315,7 +1315,7 @@ public class ScenePreviewEditionPanel extends JPanel {
         c.gridx = 0;
         c.gridy = 0;
 
-        textInputPanel.add( new JLabel( TextConstants.getText( "SPEP.XCoordinate" ) ), c );
+        textInputPanel.add( new JLabel( TC.get( "SPEP.XCoordinate" ) ), c );
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel( selectedElement.getX( ), -400, drawPanel.getBackgroundWidth( ) + 400, 5 );
         posXSpinner = new JSpinner( spinnerModel );
         posXSpinner.setPreferredSize( new Dimension( 60, posXSpinner.getPreferredSize( ).height ) );
@@ -1333,7 +1333,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 
         c.gridx = 0;
         c.gridy++;
-        textInputPanel.add( new JLabel( TextConstants.getText( "SPEP.YCoordinate" ) ), c );
+        textInputPanel.add( new JLabel( TC.get( "SPEP.YCoordinate" ) ), c );
         spinnerModel = new SpinnerNumberModel( selectedElement.getY( ), -400, GUI.WINDOW_HEIGHT + 400, 5 );
         posYSpinner = new JSpinner( spinnerModel );
         posYSpinner.setPreferredSize( new Dimension( 60, posYSpinner.getPreferredSize( ).height ) );
@@ -1353,7 +1353,7 @@ public class ScenePreviewEditionPanel extends JPanel {
             c.gridx = 3;
             c.gridy = 0;
             c.insets = new Insets( 0, 10, 0, 0 );
-            textInputPanel.add( new JLabel( TextConstants.getText( "SPEP.Scale" ) ), c );
+            textInputPanel.add( new JLabel( TC.get( "SPEP.Scale" ) ), c );
             spinnerModel = new SpinnerNumberModel( new Float( selectedElement.getScale( ) ), new Float( 0.02f ), new Float( 15.00f ), new Float( 0.02f ) );
             scaleSpinner = new JSpinner( spinnerModel );
             scaleSpinner.setPreferredSize( new Dimension( 60, scaleSpinner.getPreferredSize( ).height ) );
@@ -1377,7 +1377,7 @@ public class ScenePreviewEditionPanel extends JPanel {
             c.gridx = 3;
             c.gridy = 0;
             c.insets = new Insets( 0, 10, 0, 0 );
-            textInputPanel.add( new JLabel( TextConstants.getText( "SPEP.Width" ) ), c );
+            textInputPanel.add( new JLabel( TC.get( "SPEP.Width" ) ), c );
             spinnerModel = new SpinnerNumberModel( selectedElement.getWidth( ), 1, GUI.WINDOW_WIDTH + 200, 5 );
             widthSpinner = new JSpinner( spinnerModel );
             widthSpinner.setPreferredSize( new Dimension( 60, widthSpinner.getPreferredSize( ).height ) );
@@ -1398,7 +1398,7 @@ public class ScenePreviewEditionPanel extends JPanel {
             c.gridx--;
             c.gridy++;
             c.insets = new Insets( 0, 10, 0, 0 );
-            textInputPanel.add( new JLabel( TextConstants.getText( "SPEP.Height" ) ), c );
+            textInputPanel.add( new JLabel( TC.get( "SPEP.Height" ) ), c );
             spinnerModel = new SpinnerNumberModel( selectedElement.getHeight( ), 1, GUI.WINDOW_HEIGHT + 200, 5 );
             heightSpinner = new JSpinner( spinnerModel );
             heightSpinner.setPreferredSize( new Dimension( 60, heightSpinner.getPreferredSize( ).height ) );

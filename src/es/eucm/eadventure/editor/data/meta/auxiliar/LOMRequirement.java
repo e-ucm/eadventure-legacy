@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.data.meta.auxiliar;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMRequirement extends LOMESContainer {
@@ -79,7 +79,7 @@ public class LOMRequirement extends LOMESContainer {
     @Override
     public String getTitle( ) {
 
-        return TextConstants.getText( "LOMES.Requirement.Title" );
+        return TC.get( "LOMES.Requirement.Title" );
     }
 
     @Override

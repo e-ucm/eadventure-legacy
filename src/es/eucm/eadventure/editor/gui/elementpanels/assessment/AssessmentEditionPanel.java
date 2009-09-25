@@ -77,7 +77,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
@@ -200,7 +200,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         if( informationTable.getSelectedRow( ) < 0 || informationTable.getSelectedRow( ) >= dataControl.getAssessmentRules( ).size( ) ) {
             rulesInfoPanel.removeAll( );
             JPanel empty = new JPanel( );
-            JLabel label = new JLabel( TextConstants.getText( "AssessmentProfile.Empty" ) );
+            JLabel label = new JLabel( TC.get( "AssessmentProfile.Empty" ) );
             empty.add( label );
             rulesInfoPanel.add( empty );
             rulesInfoPanel.setMinimumSize( new Dimension( 0, 190 ) );
@@ -239,7 +239,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
                 conceptTextArea.setWrapStyleWord( true );
                 conceptTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
                 conceptPanel.add( new JScrollPane( conceptTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
-                conceptPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Concept" ) ) );
+                conceptPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Concept" ) ) );
 
                 // Create the button for the conditions
                 c.gridy++;
@@ -251,7 +251,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
                 // Create the effect panel (second tab)
                 JPanel effectPanel = new JPanel( );
                 effectPanel.setLayout( new GridBagLayout( ) );
-                effectPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Effect.Title" ) ) );
+                effectPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Effect.Title" ) ) );
                 GridBagConstraints c2 = new GridBagConstraints( );
 
                 c2.gridx = 0;
@@ -267,7 +267,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
                 textTextArea.setWrapStyleWord( true );
                 textTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
                 textPanel.add( new JScrollPane( textTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-                textPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Effect.Text" ), TitledBorder.CENTER, TitledBorder.TOP ) );
+                textPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Effect.Text" ), TitledBorder.CENTER, TitledBorder.TOP ) );
 
                 effectPanel.add( textPanel, c2 );
                 // effectPanel.add( new JFiller() );
@@ -308,13 +308,13 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         } );
         informationTable.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 
-        JComboBox importance = new JComboBox( new String[] { TextConstants.getText( "AssessmentRule.Importance.VeryLow" ), TextConstants.getText( "AssessmentRule.Importance.Low" ), TextConstants.getText( "AssessmentRule.Importance.Normal" ), TextConstants.getText( "AssessmentRule.Importance.High" ), TextConstants.getText( "AssessmentRule.Importance.VeryHigh" ) } );
+        JComboBox importance = new JComboBox( new String[] { TC.get( "AssessmentRule.Importance.VeryLow" ), TC.get( "AssessmentRule.Importance.Low" ), TC.get( "AssessmentRule.Importance.Normal" ), TC.get( "AssessmentRule.Importance.High" ), TC.get( "AssessmentRule.Importance.VeryHigh" ) } );
         informationTable.getColumnModel( ).getColumn( 1 ).setCellEditor( new DefaultCellEditor( importance ) );
         informationTable.getColumnModel( ).getColumn( 2 ).setCellEditor( new ConditionsCellRendererEditor( ) );
         informationTable.getColumnModel( ).getColumn( 2 ).setCellRenderer( new ConditionsCellRendererEditor( ) );
 
         ruleListPanel = new JPanel( );
-        ruleListPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRulesList.ListTitle" ) ) );
+        ruleListPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRulesList.ListTitle" ) ) );
         ruleListPanel.setLayout( new BorderLayout( ) );
         ruleListPanel.add( new TableScrollPane( informationTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
         JButton add = new JButton( new ImageIcon( "img/icons/addNode.png" ) );
@@ -322,7 +322,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         add.setMargin( new Insets( 0, 0, 0, 0 ) );
         add.setBorder( BorderFactory.createEmptyBorder( ) );
         add.setFocusable( false );
-        add.setToolTipText( TextConstants.getText( "AdaptationProfile.AddRule" ) );
+        add.setToolTipText( TC.get( "AdaptationProfile.AddRule" ) );
 
         add.addMouseListener( new MouseAdapter( ) {
 
@@ -338,7 +338,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         duplicate.setContentAreaFilled( false );
         duplicate.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicate.setBorder( BorderFactory.createEmptyBorder( ) );
-        duplicate.setToolTipText( TextConstants.getText( "AdaptationProfile.Duplicate" ) );
+        duplicate.setToolTipText( TC.get( "AdaptationProfile.Duplicate" ) );
         duplicate.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -356,7 +356,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         delete.setMargin( new Insets( 0, 0, 0, 0 ) );
         delete.setBorder( BorderFactory.createEmptyBorder( ) );
         delete.setFocusable( false );
-        delete.setToolTipText( TextConstants.getText( "AdaptationProfile.DeleteRule" ) );
+        delete.setToolTipText( TC.get( "AdaptationProfile.DeleteRule" ) );
         delete.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -389,9 +389,9 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
     public void createProfileTypePanel( ) {
 
         profileTypePanel = new JPanel( new BorderLayout( ) );
-        profileTypePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.ProfileType" ) ) );
+        profileTypePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.ProfileType" ) ) );
 
-        String[] options = new String[] { TextConstants.getText( "AdaptationRulesList.Scorm2004" ), TextConstants.getText( "AdaptationRulesList.Scorm12" ), TextConstants.getText( "AdaptationRulesList.Normal" ) };
+        String[] options = new String[] { TC.get( "AdaptationRulesList.Scorm2004" ), TC.get( "AdaptationRulesList.Scorm12" ), TC.get( "AdaptationRulesList.Normal" ) };
         comboProfile = new JComboBox( options );
         if( dataControl.isScorm12( ) )
             comboProfile.setSelectedIndex( 1 );
@@ -446,7 +446,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         JPanel feedbackPanel = new JPanel( );
 
         feedbackPanel.setLayout( new GridBagLayout( ) );
-        feedbackPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentProfile.Feedback.Title" ) ) );
+        feedbackPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentProfile.Feedback.Title" ) ) );
 
         GridBagConstraints c2 = new GridBagConstraints( );
 
@@ -454,13 +454,13 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         c2.weightx = 1.0;
         c2.gridy = 0;
 
-        showReportAtEnd = new JCheckBox( TextConstants.getText( "AssessmentProfile.Feedback.ShowReportAtEnd" ) );
+        showReportAtEnd = new JCheckBox( TC.get( "AssessmentProfile.Feedback.ShowReportAtEnd" ) );
         if( assRulesListDataControl.isShowReportAtEnd( ) )
             showReportAtEnd.setSelected( true );
         showReportAtEnd.addActionListener( new ShowReportAtEndActionListener( ) );
         feedbackPanel.add( showReportAtEnd, c2 );
 
-        sendByEmailCheck = new JCheckBox( TextConstants.getText( "AssessmentProfile.Feedback.SendByEmail" ) );
+        sendByEmailCheck = new JCheckBox( TC.get( "AssessmentProfile.Feedback.SendByEmail" ) );
         sendByEmailCheck.setEnabled( dataControl.isShowReportAtEnd( ) );
         sendByEmailCheck.setSelected( dataControl.isShowReportAtEnd( ) && dataControl.isSendByEmail( ) );
         sendByEmailCheck.addActionListener( new SendByEmailActionListener( ) );
@@ -499,7 +499,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         c.gridx++;
         c.weightx = 0.0;
         c.fill = GridBagConstraints.NONE;
-        JButton expand = new JButton( TextConstants.getText( "AssessmentProfile.Feedback.EditSMTPConfiguration" ) );
+        JButton expand = new JButton( TC.get( "AssessmentProfile.Feedback.EditSMTPConfiguration" ) );
         expand.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -605,7 +605,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 
         public SMTPDialog( ) {
 
-            super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AssessmentProfile.Feedback.EditSMTPConfiguration" ), Dialog.ModalityType.TOOLKIT_MODAL );
+            super( Controller.getInstance( ).peekWindow( ), TC.get( "AssessmentProfile.Feedback.EditSMTPConfiguration" ), Dialog.ModalityType.TOOLKIT_MODAL );
             Controller.getInstance( ).pushWindow( this );
 
             JPanel tempPanel = new JPanel( );
@@ -679,7 +679,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 
         JPopupMenu addChildPopupMenu = new JPopupMenu( );
 
-        JMenuItem addChildMenuItem = new JMenuItem( TextConstants.getText( "AdaptationProfile.AddRule" ) );
+        JMenuItem addChildMenuItem = new JMenuItem( TC.get( "AdaptationProfile.AddRule" ) );
         addChildMenuItem.setEnabled( true );
         addChildMenuItem.addActionListener( new ActionListener( ) {
 
@@ -693,7 +693,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         } );
         addChildPopupMenu.add( addChildMenuItem );
 
-        addChildMenuItem = new JMenuItem( TextConstants.getText( "AdaptationProfile.AddTimedRule" ) );
+        addChildMenuItem = new JMenuItem( TC.get( "AdaptationProfile.AddTimedRule" ) );
         addChildMenuItem.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {

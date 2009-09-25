@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.item;
 
 import javax.swing.BorderFactory;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
@@ -68,7 +68,7 @@ public class ItemLooksPanel extends LooksPanel {
         String itemImagePath = itemDataControl.getPreviewImage( );
 
         imagePanel = new ImagePanel( itemImagePath );
-        imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.Preview" ) ) );
+        imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Item.Preview" ) ) );
 
         lookPanel.add( imagePanel, cLook );
 

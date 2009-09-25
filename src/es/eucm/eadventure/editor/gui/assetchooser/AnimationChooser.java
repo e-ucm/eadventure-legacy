@@ -39,7 +39,7 @@ import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.data.animation.Animation;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.AnimationPanel;
 
@@ -54,14 +54,14 @@ public class AnimationChooser extends AssetChooser {
 
     public AnimationChooser( int filter ) {
 
-        super( AssetsConstants.CATEGORY_ANIMATION, filter, AssetChooser.PREVIEW_LOCATION_WEST, TextConstants.getText( "AssetsChooser.Animation" ) );
+        super( AssetsConstants.CATEGORY_ANIMATION, filter, AssetChooser.PREVIEW_LOCATION_WEST, TC.get( "AssetsChooser.Animation" ) );
     }
 
     @Override
     protected void createPreviewPanel( Container parent ) {
 
         animationPanel = new AnimationPanel( true, Animation.PREVIEW );
-        animationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AnimationAssets.Preview" ) ) );
+        animationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AnimationAssets.Preview" ) ) );
         parent.add( animationPanel );
     }
 

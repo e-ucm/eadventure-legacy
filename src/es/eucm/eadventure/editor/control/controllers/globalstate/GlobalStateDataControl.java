@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.controllers.globalstate;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -191,12 +191,12 @@ public class GlobalStateDataControl extends DataControl {
         String references = String.valueOf( Controller.getInstance( ).countIdentifierReferences( oldItemId ) );
 
         // Ask for confirmation
-        if( name != null || Controller.getInstance( ).showStrictConfirmDialog( TextConstants.getText( "Operation.RenameGlobalStateTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldItemId, references } ) ) ) {
+        if( name != null || Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Operation.RenameGlobalStateTitle" ), TC.get( "Operation.RenameElementWarning", new String[] { oldItemId, references } ) ) ) {
 
             // Show a dialog asking for the new item id
             String newItemId = name;
             if( name == null )
-                newItemId = Controller.getInstance( ).showInputDialog( TextConstants.getText( "Operation.RenameGlobalStateTitle" ), TextConstants.getText( "Operation.RenameGlobalStateMessage" ), oldItemId );
+                newItemId = Controller.getInstance( ).showInputDialog( TC.get( "Operation.RenameGlobalStateTitle" ), TC.get( "Operation.RenameGlobalStateMessage" ), oldItemId );
 
             // If some value was typed and the identifiers are different
             if( newItemId != null && !newItemId.equals( oldItemId ) && Controller.getInstance( ).isElementIdValid( newItemId ) ) {
@@ -235,8 +235,8 @@ public class GlobalStateDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.controller, TextConstants.getText( "Search.Conditions" ) );
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
+        check( this.controller, TC.get( "Search.Conditions" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
     }
 

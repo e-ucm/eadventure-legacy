@@ -46,7 +46,7 @@ import javax.swing.event.AncestorListener;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.animation.Animation;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
@@ -137,7 +137,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
 
         // Add a label
         setLayout( new GridBagLayout( ) );
-        add( new JLabel( TextConstants.getText( "AnimationPanel.AnimationNotAvalaible" ) ) );
+        add( new JLabel( TC.get( "AnimationPanel.AnimationNotAvalaible" ) ) );
     }
 
     /**
@@ -162,7 +162,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
         // Remove all components, and add a label if the animation is not loaded
         removeAll( );
         if( !isAnimationLoaded( ) ) {
-            add( new JLabel( TextConstants.getText( "AnimationPanel.AnimationNotAvalaible" ) ) );
+            add( new JLabel( TC.get( "AnimationPanel.AnimationNotAvalaible" ) ) );
             revalidate( );
         }
 
@@ -212,7 +212,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
         // Remove all components, and add a label if the animation is not loaded
         removeAll( );
         if( !isAnimationLoaded( ) ) {
-            add( new JLabel( TextConstants.getText( "AnimationPanel.AnimationNotAvalaible" ) ) );
+            add( new JLabel( TC.get( "AnimationPanel.AnimationNotAvalaible" ) ) );
             revalidate( );
         }
 
@@ -233,7 +233,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
 
         // Remove all components, and add a label
         removeAll( );
-        add( new JLabel( TextConstants.getText( "AnimationPanel.AnimationNotAvalaible" ) ) );
+        add( new JLabel( TC.get( "AnimationPanel.AnimationNotAvalaible" ) ) );
         revalidate( );
 
         // Repaint the panel

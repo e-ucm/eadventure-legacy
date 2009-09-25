@@ -45,7 +45,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 
 public class MacroReferenceEffectDialog extends EffectDialog {
@@ -76,7 +76,7 @@ public class MacroReferenceEffectDialog extends EffectDialog {
     public MacroReferenceEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "MacroReferenceEffect.Title" ), false );
+        super( TC.get( "MacroReferenceEffect.Title" ), false );
 
         String macroId = null;
         if( ID != null )
@@ -97,7 +97,7 @@ public class MacroReferenceEffectDialog extends EffectDialog {
             GridBagConstraints c = new GridBagConstraints( );
 
             // Set the border of the panel with the description
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "MacroReferenceEffect.Description" ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "MacroReferenceEffect.Description" ) ) ) );
 
             // Create and add the list of flags
             c.insets = new Insets( 2, 4, 4, 4 );
@@ -125,7 +125,7 @@ public class MacroReferenceEffectDialog extends EffectDialog {
 
         // If there are no values, show an error
         else
-            controller.showErrorDialog( getTitle( ), TextConstants.getText( "MacroReferenceEffect.ErrorNoMacros" ) );
+            controller.showErrorDialog( getTitle( ), TC.get( "MacroReferenceEffect.ErrorNoMacros" ) );
     }
 
     @Override

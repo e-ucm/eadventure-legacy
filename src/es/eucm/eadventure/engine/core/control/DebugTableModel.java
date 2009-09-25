@@ -45,7 +45,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 
 public class DebugTableModel extends AbstractTableModel implements TableCellRenderer {
@@ -99,9 +99,9 @@ public class DebugTableModel extends AbstractTableModel implements TableCellRend
     public String getColumnName( int col ) {
 
         if( col == 0 )
-            return TextConstants.getText( "DebugFrame.id" );
+            return TC.get( "DebugFrame.id" );
         if( col == 1 )
-            return TextConstants.getText( "DebugFrame.value" );
+            return TC.get( "DebugFrame.value" );
         return "";
     }
 

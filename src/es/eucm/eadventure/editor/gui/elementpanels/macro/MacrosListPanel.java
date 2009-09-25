@@ -54,7 +54,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroDataControl;
@@ -142,7 +142,7 @@ public class MacrosListPanel extends JPanel implements DataControlsPanel, Update
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        newButton.setToolTipText( TextConstants.getText( "MacrosList.AddMacro" ) );
+        newButton.setToolTipText( TC.get( "MacrosList.AddMacro" ) );
         newButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -154,7 +154,7 @@ public class MacrosListPanel extends JPanel implements DataControlsPanel, Update
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteButton.setToolTipText( TextConstants.getText( "MacrosList.DeleteMacro" ) );
+        deleteButton.setToolTipText( TC.get( "MacrosList.DeleteMacro" ) );
         deleteButton.setEnabled( false );
         deleteButton.addActionListener( new ActionListener( ) {
 
@@ -167,7 +167,7 @@ public class MacrosListPanel extends JPanel implements DataControlsPanel, Update
         duplicateButton.setContentAreaFilled( false );
         duplicateButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicateButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        duplicateButton.setToolTipText( TextConstants.getText( "MacrosList.DuplicateMacro" ) );
+        duplicateButton.setToolTipText( TC.get( "MacrosList.DuplicateMacro" ) );
         duplicateButton.setEnabled( false );
         duplicateButton.addActionListener( new ActionListener( ) {
 

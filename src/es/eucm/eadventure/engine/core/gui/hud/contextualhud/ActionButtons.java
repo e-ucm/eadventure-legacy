@@ -45,7 +45,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
@@ -313,7 +313,7 @@ public class ActionButtons {
         buttons.add( mouthButton );
         boolean use = functionalNPC.getFirstValidAction( Action.USE ) != null;
         if( use ) {
-            handButton.setName( TextConstants.getText( "ActionButton.Use" ) );
+            handButton.setName( TC.get( "ActionButton.Use" ) );
             buttons.add( handButton );
         }
     }
@@ -326,28 +326,28 @@ public class ActionButtons {
         buttons.add( eyeButton );
 
         if( !item.isInInventory( ) ) {
-            handButton.setName( TextConstants.getText( "ActionButton.Grab" ) );
+            handButton.setName( TC.get( "ActionButton.Grab" ) );
             if( item.getFirstValidAction( Action.USE ) != null )
-                handButton.setName( TextConstants.getText( "ActionButton.Use" ) );
+                handButton.setName( TC.get( "ActionButton.Use" ) );
         }
         else {
             boolean useAlone = item.canBeUsedAlone( );
             boolean giveTo = item.getFirstValidAction( Action.GIVE_TO ) != null;
             boolean useWith = item.getFirstValidAction( Action.USE_WITH ) != null;
             if( useAlone && !giveTo && !useWith ) {
-                handButton.setName( TextConstants.getText( "ActionButton.Use" ) );
+                handButton.setName( TC.get( "ActionButton.Use" ) );
             }
             else if( !useAlone && giveTo && !useWith ) {
-                handButton.setName( TextConstants.getText( "ActionButton.GiveTo" ) );
+                handButton.setName( TC.get( "ActionButton.GiveTo" ) );
             }
             else if( !useAlone && !giveTo && useWith ) {
-                handButton.setName( TextConstants.getText( "ActionButton.UseWith" ) );
+                handButton.setName( TC.get( "ActionButton.UseWith" ) );
             }
             else if( !useAlone && giveTo && useWith ) {
-                handButton.setName( TextConstants.getText( "ActionButton.UseGive" ) );
+                handButton.setName( TC.get( "ActionButton.UseGive" ) );
             }
             else {
-                handButton.setName( TextConstants.getText( "ActionButton.Use" ) );
+                handButton.setName( TC.get( "ActionButton.Use" ) );
             }
         }
         buttons.add( handButton );

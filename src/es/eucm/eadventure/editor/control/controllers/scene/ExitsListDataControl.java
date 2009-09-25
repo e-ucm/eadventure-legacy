@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Exit;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -156,7 +156,7 @@ public class ExitsListDataControl extends DataControl {
             String[] generalScenes = controller.getIdentifierSummary( ).getGeneralSceneIds( );
 
             if( generalScenes.length > 0 ) {
-                String selectedScene = controller.showInputDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneMessage" ), generalScenes );
+                String selectedScene = controller.showInputDialog( TC.get( "Operation.AddNextSceneTitle" ), TC.get( "Operation.AddNextSceneMessage" ), generalScenes );
                 if( selectedScene != null ) {
                     Exit newExit = new Exit( true, 240, 240, 100, 100 );
                     newExit.setNextSceneId( selectedScene );
@@ -258,7 +258,7 @@ public class ExitsListDataControl extends DataControl {
 
         // Iterate through the exits
         for( int i = 0; i < exitsDataControlList.size( ); i++ ) {
-            String exitPath = currentPath + " >> " + TextConstants.getElementName( Controller.EXIT ) + " #" + ( i + 1 );
+            String exitPath = currentPath + " >> " + TC.getElement( Controller.EXIT ) + " #" + ( i + 1 );
             valid &= exitsDataControlList.get( i ).isValid( exitPath, incidences );
         }
 

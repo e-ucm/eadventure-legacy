@@ -41,7 +41,7 @@ import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
 import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -114,9 +114,9 @@ public class CutscenesListDataControl extends DataControl {
             Cutscene cutscene = cutscenesList.get( i );
             cutscenesInfo[i][0] = cutscene.getId( );
             if( cutscene.getType( ) == GeneralScene.SLIDESCENE )
-                cutscenesInfo[i][1] = TextConstants.getText( "CutscenesList.Slidescene" );
+                cutscenesInfo[i][1] = TC.get( "CutscenesList.Slidescene" );
             else if( cutscene.getType( ) == GeneralScene.VIDEOSCENE )
-                cutscenesInfo[i][1] = TextConstants.getText( "CutscenesList.Videoscene" );
+                cutscenesInfo[i][1] = TC.get( "CutscenesList.Videoscene" );
 
         }
 
@@ -174,7 +174,7 @@ public class CutscenesListDataControl extends DataControl {
 
                 // Show a dialog asking for the cutscene id
                 if( cutsceneId == null )
-                    cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
+                    cutsceneId = controller.showInputDialog( TC.get( "Operation.AddCutsceneTitle" ), TC.get( "Operation.AddCutsceneMessage" ), TC.get( "Operation.AddCutsceneDefaultValue" ) );
 
                 // If some value was typed and the identifier is valid
                 if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
@@ -197,7 +197,7 @@ public class CutscenesListDataControl extends DataControl {
 
                 // Show a dialog asking for the cutscene id
                 if( cutsceneId == null )
-                    cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
+                    cutsceneId = controller.showInputDialog( TC.get( "Operation.AddCutsceneTitle" ), TC.get( "Operation.AddCutsceneMessage" ), TC.get( "Operation.AddCutsceneDefaultValue" ) );
 
                 // If some value was typed and the identifier is valid
                 if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
@@ -223,7 +223,7 @@ public class CutscenesListDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.AddCutsceneDefaultValue" );
+        return TC.get( "Operation.AddCutsceneDefaultValue" );
     }
 
     @Override
@@ -240,7 +240,7 @@ public class CutscenesListDataControl extends DataControl {
             String references = String.valueOf( controller.countIdentifierReferences( cutsceneId ) );
 
             // Ask for confirmation
-            if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { cutsceneId, references } ) ) ) {
+            if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { cutsceneId, references } ) ) ) {
                 if( cutscenesList.remove( dataControl.getContent( ) ) ) {
                     cutscenesDataControlList.remove( dataControl );
                     controller.deleteIdentifierReferences( cutsceneId );
@@ -253,7 +253,7 @@ public class CutscenesListDataControl extends DataControl {
 
         // If this is the last scene, it can't be deleted
         else
-            controller.showErrorDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.ErrorLastScene" ) );
+            controller.showErrorDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.ErrorLastScene" ) );
 
         return elementDeleted;
     }
@@ -310,7 +310,7 @@ public class CutscenesListDataControl extends DataControl {
         boolean valid = true;
 
         // Update the current path
-        currentPath += " >> " + TextConstants.getElementName( Controller.CUTSCENES_LIST );
+        currentPath += " >> " + TC.getElement( Controller.CUTSCENES_LIST );
 
         // Iterate through the cutscenes
         for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList ) {

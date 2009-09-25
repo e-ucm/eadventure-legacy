@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class ChangesInSceneStructureListElement extends EffectsStructureListElement {
 
@@ -43,9 +43,9 @@ public class ChangesInSceneStructureListElement extends EffectsStructureListElem
 
     public ChangesInSceneStructureListElement( ) {
 
-        super( TextConstants.getText( "EffectsGroup.ChangeInScene" ) );
+        super( TC.get( "EffectsGroup.ChangeInScene" ) );
         //icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
-        groupEffects = new String[] { TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.HighlightItem" ), TextConstants.getText( "Effect.MoveObject" ) };
+        groupEffects = new String[] { TC.get( "Effect.ConsumeObject" ), TC.get( "Effect.GenerateObject" ), TC.get( "Effect.MovePlayer" ), TC.get( "Effect.MoveCharacter" ), TC.get( "Effect.HighlightItem" ), TC.get( "Effect.MoveObject" ) };
         path = LIST_URL;
 
     }

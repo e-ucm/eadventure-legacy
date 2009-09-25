@@ -44,7 +44,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
@@ -360,12 +360,12 @@ public class GraphConversationDataControl extends ConversationDataControl {
         String references = String.valueOf( controller.countIdentifierReferences( oldConversationId ) );
 
         // Ask for confirmation
-        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameConversationTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldConversationId, references } ) ) ) {
+        if( name != null || controller.showStrictConfirmDialog( TC.get( "Operation.RenameConversationTitle" ), TC.get( "Operation.RenameElementWarning", new String[] { oldConversationId, references } ) ) ) {
 
             // Show a dialog asking for the new conversation id
             String newConversationId = name;
             if( name == null )
-                newConversationId = controller.showInputDialog( TextConstants.getText( "Operation.RenameConversationTitle" ), TextConstants.getText( "Operation.RenameConversationMessage" ), oldConversationId );
+                newConversationId = controller.showInputDialog( TC.get( "Operation.RenameConversationTitle" ), TC.get( "Operation.RenameConversationMessage" ), oldConversationId );
 
             // If some value was typed and the identifiers are different
             if( newConversationId != null && !newConversationId.equals( oldConversationId ) && controller.isElementIdValid( newConversationId ) ) {

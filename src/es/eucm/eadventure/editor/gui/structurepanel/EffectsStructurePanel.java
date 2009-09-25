@@ -48,7 +48,7 @@ import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.gui.editdialogs.SelectEffectsDialog;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects.ChangesInSceneStructureListElement;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects.EffectsStructureListElement;
@@ -153,100 +153,100 @@ public class EffectsStructurePanel extends StructurePanel {
 
         Icon effectIcon = null;
 
-        if( name.equals( TextConstants.getText( "Effect.Activate" ) ) ) {
+        if( name.equals( TC.get( "Effect.Activate" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "activate.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.Deactivate" ) ) ) {
+        else if( name.equals( TC.get( "Effect.Deactivate" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "deactivate.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.SetValue" ) ) ) {
+        else if( name.equals( TC.get( "Effect.SetValue" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "set-value.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.IncrementVar" ) ) ) {
+        else if( name.equals( TC.get( "Effect.IncrementVar" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "increment.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.DecrementVar" ) ) ) {
+        else if( name.equals( TC.get( "Effect.DecrementVar" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "decrement.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.MacroReference" ) ) ) {
+        else if( name.equals( TC.get( "Effect.MacroReference" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "macro.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.ConsumeObject" ) ) ) {
+        else if( name.equals( TC.get( "Effect.ConsumeObject" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "consume-object.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.GenerateObject" ) ) ) {
+        else if( name.equals( TC.get( "Effect.GenerateObject" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "generate-object.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.CancelAction" ) ) ) {
+        else if( name.equals( TC.get( "Effect.CancelAction" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "cancel-action.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.SpeakPlayer" ) ) ) {
+        else if( name.equals( TC.get( "Effect.SpeakPlayer" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "speak-player.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.SpeakCharacter" ) ) ) {
+        else if( name.equals( TC.get( "Effect.SpeakCharacter" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "speak-npc.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.TriggerBook" ) ) ) {
+        else if( name.equals( TC.get( "Effect.TriggerBook" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "trigger-book.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.PlaySound" ) ) ) {
+        else if( name.equals( TC.get( "Effect.PlaySound" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "play-sound.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.PlayAnimation" ) ) ) {
+        else if( name.equals( TC.get( "Effect.PlayAnimation" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "play-animation.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.MovePlayer" ) ) ) {
+        else if( name.equals( TC.get( "Effect.MovePlayer" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "move-player.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.MoveCharacter" ) ) ) {
+        else if( name.equals( TC.get( "Effect.MoveCharacter" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "move-npc.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.TriggerConversation" ) ) ) {
+        else if( name.equals( TC.get( "Effect.TriggerConversation" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "trigger-conversation.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.TriggerCutscene" ) ) ) {
+        else if( name.equals( TC.get( "Effect.TriggerCutscene" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "trigger-cutscene.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.TriggerScene" ) ) ) {
+        else if( name.equals( TC.get( "Effect.TriggerScene" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "trigger-scene.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.TriggerLastScene" ) ) ) {
+        else if( name.equals( TC.get( "Effect.TriggerLastScene" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "trigger-last-scene.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.RandomEffect" ) ) ) {
+        else if( name.equals( TC.get( "Effect.RandomEffect" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "random-effect.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.ShowText" ) ) ) {
+        else if( name.equals( TC.get( "Effect.ShowText" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "show-text.png" );
         }
-        else if( name.equals( TextConstants.getText( "Effect.WaitTime" ) ) ) {
+        else if( name.equals( TC.get( "Effect.WaitTime" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "wait.png" );
         }
-        else if (name.equals( TextConstants.getText( "Effect.HighlightItem" ) )) {
+        else if (name.equals( TC.get( "Effect.HighlightItem" ) )) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "highlight-item.png");
         }
-        else if (name.equals( TextConstants.getText( "Effect.MoveObject" ) )) {
+        else if (name.equals( TC.get( "Effect.MoveObject" ) )) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "move-object.png");
         }
-        else if( name.equals( TextConstants.getText( "EffectsGroup.GameState" ) ) ) {
+        else if( name.equals( TC.get( "EffectsGroup.GameState" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "game-state.png" );
         }
-        else if( name.equals( TextConstants.getText( "EffectsGroup.Multimedia" ) ) ) {
+        else if( name.equals( TC.get( "EffectsGroup.Multimedia" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "multimedia.png" );
         }
-        else if( name.equals( TextConstants.getText( "EffectsGroup.Miscellaneous" ) ) ) {
+        else if( name.equals( TC.get( "EffectsGroup.Miscellaneous" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "miscellaneous.png" );
         }
-        else if( name.equals( TextConstants.getText( "EffectsGroup.Trigger" ) ) ) {
+        else if( name.equals( TC.get( "EffectsGroup.Trigger" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "trigger-events.png" );
         }
-        else if( name.equals( TextConstants.getText( "EffectsGroup.Feedback" ) ) ) {
+        else if( name.equals( TC.get( "EffectsGroup.Feedback" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "feedback.png" );
         }
-        else if( name.equals( TextConstants.getText( "EffectsGroup.ChangeInScene" ) ) ) {
+        else if( name.equals( TC.get( "EffectsGroup.ChangeInScene" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "changes-in-scene.png" );
         }
-        else if( name.equals( TextConstants.getText( "EffectsGroup.Main.png" ) ) ) {
+        else if( name.equals( TC.get( "EffectsGroup.Main.png" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "effects" );
         }
         // when this method is called for structure list effects
@@ -378,79 +378,79 @@ public class EffectsStructurePanel extends StructurePanel {
     private void changeEffectEditPanel( String name ) {
 
         String text = null;
-        if( name.equals( TextConstants.getText( "Effect.Activate" ) ) ) {
+        if( name.equals( TC.get( "Effect.Activate" ) ) ) {
             text = ACTIVATE_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.Deactivate" ) ) ) {
+        else if( name.equals( TC.get( "Effect.Deactivate" ) ) ) {
             text = DEACTIVATE_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.SetValue" ) ) ) {
+        else if( name.equals( TC.get( "Effect.SetValue" ) ) ) {
             text = SET_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.IncrementVar" ) ) ) {
+        else if( name.equals( TC.get( "Effect.IncrementVar" ) ) ) {
             text = INCR_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.DecrementVar" ) ) ) {
+        else if( name.equals( TC.get( "Effect.DecrementVar" ) ) ) {
             text = DECR_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.MacroReference" ) ) ) {
+        else if( name.equals( TC.get( "Effect.MacroReference" ) ) ) {
             text = MACRO_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.ConsumeObject" ) ) ) {
+        else if( name.equals( TC.get( "Effect.ConsumeObject" ) ) ) {
             text = CONSUME_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.GenerateObject" ) ) ) {
+        else if( name.equals( TC.get( "Effect.GenerateObject" ) ) ) {
             text = GENERATE_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.CancelAction" ) ) ) {
+        else if( name.equals( TC.get( "Effect.CancelAction" ) ) ) {
             text = CANCEL_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.SpeakPlayer" ) ) ) {
+        else if( name.equals( TC.get( "Effect.SpeakPlayer" ) ) ) {
             text = SP_PLAYER_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.SpeakCharacter" ) ) ) {
+        else if( name.equals( TC.get( "Effect.SpeakCharacter" ) ) ) {
             text = SP_NPC_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.TriggerBook" ) ) ) {
+        else if( name.equals( TC.get( "Effect.TriggerBook" ) ) ) {
             text = BOOK_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.PlaySound" ) ) ) {
+        else if( name.equals( TC.get( "Effect.PlaySound" ) ) ) {
             text = SOUND_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.PlayAnimation" ) ) ) {
+        else if( name.equals( TC.get( "Effect.PlayAnimation" ) ) ) {
             text = ANIMATION_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.MovePlayer" ) ) ) {
+        else if( name.equals( TC.get( "Effect.MovePlayer" ) ) ) {
             text = MV_PLAYER_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.MoveCharacter" ) ) ) {
+        else if( name.equals( TC.get( "Effect.MoveCharacter" ) ) ) {
             text = MV_NPC_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.TriggerConversation" ) ) ) {
+        else if( name.equals( TC.get( "Effect.TriggerConversation" ) ) ) {
             text = CONV_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.TriggerCutscene" ) ) ) {
+        else if( name.equals( TC.get( "Effect.TriggerCutscene" ) ) ) {
             text = CUTSCENE_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.TriggerScene" ) ) ) {
+        else if( name.equals( TC.get( "Effect.TriggerScene" ) ) ) {
             text = SCENE_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.TriggerLastScene" ) ) ) {
+        else if( name.equals( TC.get( "Effect.TriggerLastScene" ) ) ) {
             text = LAST_SCENE_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.RandomEffect" ) ) ) {
+        else if( name.equals( TC.get( "Effect.RandomEffect" ) ) ) {
             text = RAMDON_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.ShowText" ) ) ) {
+        else if( name.equals( TC.get( "Effect.ShowText" ) ) ) {
             text = TEXT_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.WaitTime" ) ) ) {
+        else if( name.equals( TC.get( "Effect.WaitTime" ) ) ) {
             text = TIME_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.HighlightItem" ) )) {
+        else if( name.equals( TC.get( "Effect.HighlightItem" ) )) {
             text = HIGHLIGHT_URL;
         }
-        else if( name.equals( TextConstants.getText( "Effect.MoveObject" ))) {
+        else if( name.equals( TC.get( "Effect.MoveObject" ))) {
             text = MOVE_OBJECT_URL;
         }
         // when this method is called for structure list effects

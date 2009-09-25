@@ -43,7 +43,7 @@ import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.animation.Transition;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
@@ -149,7 +149,7 @@ public class ResourcesDataControl extends DataControl {
         }
 
         // Create subcontrollers
-        conditionsController = new ConditionsController( resources.getConditions( ), Controller.RESOURCES, TextConstants.getElementName( resourcesType ) );
+        conditionsController = new ConditionsController( resources.getConditions( ), Controller.RESOURCES, TC.getElement( resourcesType ) );
     }
 
     public int getResourcesType( ) {
@@ -196,7 +196,7 @@ public class ResourcesDataControl extends DataControl {
      * @return Description of the asset
      */
     public String getAssetDescription( int index ) {
-        return TextConstants.getText(assetsInformation[index].description);
+        return TC.get(assetsInformation[index].description);
         //return assetsInformation[index].description;
     }
 
@@ -368,7 +368,7 @@ public class ResourcesDataControl extends DataControl {
 
                 // Store the incidence
                 if( incidences != null )
-                    incidences.add( currentPath + " >> " + TextConstants.getText( "Operation.AdventureConsistencyErrorResources", assetInformation.name ) );
+                    incidences.add( currentPath + " >> " + TC.get( "Operation.AdventureConsistencyErrorResources", assetInformation.name ) );
             }
         }
 
@@ -468,10 +468,10 @@ public class ResourcesDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getConditions( ), TextConstants.getText( "Search.Conditions" ) );
+        check( this.getConditions( ), TC.get( "Search.Conditions" ) );
         for( int i = 0; i < this.getAssetCount( ); i++ ) {
-            check( this.getAssetDescription( i ), TextConstants.getText( "Search.AssetDescription" ) );
-            check( this.getAssetPath( i ), TextConstants.getText( "Search.AssetPath" ) );
+            check( this.getAssetDescription( i ), TC.get( "Search.AssetDescription" ) );
+            check( this.getAssetPath( i ), TC.get( "Search.AssetPath" ) );
         }
     }
 
@@ -485,7 +485,7 @@ public class ResourcesDataControl extends DataControl {
 
     public String getGroupInfo( int i ) {
 
-        return TextConstants.getText(groupsInfo[i]);
+        return TC.get(groupsInfo[i]);
     }
 
     public int getGroupAssetCount( int selectedIndex ) {

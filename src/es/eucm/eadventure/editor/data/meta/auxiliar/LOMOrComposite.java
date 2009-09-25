@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.data.meta.auxiliar;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
@@ -75,7 +75,7 @@ public class LOMOrComposite implements LOMESComposeType {
 
         String[] options = new String[ numberTypeValues ];
         for( int i = 0; i < options.length; i++ ) {
-            options[i] = TextConstants.getText( "LOMES.Technical.Type" + i );
+            options[i] = TC.get( "LOMES.Technical.Type" + i );
         }
         return options;
     }
@@ -84,7 +84,7 @@ public class LOMOrComposite implements LOMESComposeType {
 
         String[] options = new String[ numberNameValues ];
         for( int i = 0; i < options.length; i++ ) {
-            options[i] = TextConstants.getText( "LOMES.Technical.Name" + i );
+            options[i] = TC.get( "LOMES.Technical.Name" + i );
         }
         return options;
     }

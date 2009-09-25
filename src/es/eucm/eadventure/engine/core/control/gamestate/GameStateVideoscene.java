@@ -52,7 +52,7 @@ import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
@@ -167,7 +167,7 @@ public class GameStateVideoscene extends GameState implements ControllerListener
         }
         else {
             if( game.getFunctionalScene( ) == null ) {
-                JOptionPane.showMessageDialog( null, TextConstants.getText( "DesignError.Message" ), TextConstants.getText( "DesignError.Title" ), JOptionPane.ERROR_MESSAGE );
+                JOptionPane.showMessageDialog( null, TC.get( "DesignError.Message" ), TC.get( "DesignError.Title" ), JOptionPane.ERROR_MESSAGE );
                 game.goToNextChapter( );
             }
             FunctionalEffects.storeAllEffects( new Effects( ) );

@@ -48,7 +48,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class LOMVocabularyDialog extends JDialog {
@@ -59,7 +59,7 @@ public class LOMVocabularyDialog extends JDialog {
 
     public LOMVocabularyDialog( String[] values, int selection ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "LOMES.Value" ), Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "LOMES.Value" ), Dialog.ModalityType.APPLICATION_MODAL );
 
         Controller.getInstance( ).pushWindow( this );
 

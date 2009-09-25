@@ -46,7 +46,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 
@@ -73,7 +73,7 @@ public class InitialSceneCellRendererEditor extends AbstractCellEditor implement
         if( table.getSelectedRow( ) == row ) {
             return createComponent( isSelected, table.getSelectionBackground( ) );
         }
-        return new JLabel( value.getInitialScene( ) != null ? value.getInitialScene( ) : TextConstants.getText( "GeneralText.NotSelected" ) );
+        return new JLabel( value.getInitialScene( ) != null ? value.getInitialScene( ) : TC.get( "GeneralText.NotSelected" ) );
     }
 
     private Component createComponent( boolean isSelected, Color background ) {
@@ -84,7 +84,7 @@ public class InitialSceneCellRendererEditor extends AbstractCellEditor implement
 
         String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getAllSceneIds( );
         String[] isValues = new String[ scenes.length + 1 ];
-        isValues[0] = TextConstants.getText( "GeneralText.NotSelected" );
+        isValues[0] = TC.get( "GeneralText.NotSelected" );
         for( int i = 0; i < scenes.length; i++ ) {
             isValues[i + 1] = scenes[i];
         }

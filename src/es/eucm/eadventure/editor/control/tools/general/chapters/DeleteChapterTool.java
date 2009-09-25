@@ -34,7 +34,7 @@
 package es.eucm.eadventure.editor.control.tools.general.chapters;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -82,7 +82,7 @@ public class DeleteChapterTool extends Tool {
         // Check the number of chapters, the chapters can be deleted when there are more than one
         if( chaptersController.getChaptersCount( ) > 1 ) {
             // Ask for confirmation
-            if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteChapterTitle" ), TextConstants.getText( "Operation.DeleteChapterMessage" ) ) ) {
+            if( controller.showStrictConfirmDialog( TC.get( "Operation.DeleteChapterTitle" ), TC.get( "Operation.DeleteChapterMessage" ) ) ) {
                 // Delete the chapter and the controller
                 index = chaptersController.getSelectedChapter( );
                 chapterRemoved = ( (Chapter) chaptersController.removeChapterDataControl( ).getContent( ) );
@@ -96,7 +96,7 @@ public class DeleteChapterTool extends Tool {
 
         // If there is only one chapter, show an error message
         else
-            controller.showErrorDialog( TextConstants.getText( "Operation.DeleteChapterTitle" ), TextConstants.getText( "Operation.DeleteChapterErrorLastChapter" ) );
+            controller.showErrorDialog( TC.get( "Operation.DeleteChapterTitle" ), TC.get( "Operation.DeleteChapterErrorLastChapter" ) );
 
         return done;
     }

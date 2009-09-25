@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.NextScene;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -278,8 +278,8 @@ public class NextSceneDataControl extends DataControl {
         boolean valid = true;
 
         // Valid if the effects and the post effects are valid
-        valid &= EffectsController.isValid( currentPath + " >> " + TextConstants.getText( "Element.Effects" ), incidences, nextScene.getEffects( ) );
-        valid &= EffectsController.isValid( currentPath + " >> " + TextConstants.getText( "Element.PostEffects" ), incidences, nextScene.getPostEffects( ) );
+        valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.Effects" ), incidences, nextScene.getEffects( ) );
+        valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.PostEffects" ), incidences, nextScene.getPostEffects( ) );
 
         return valid;
     }
@@ -365,8 +365,8 @@ public class NextSceneDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.conditionsController, TextConstants.getText( "Search.Conditions" ) );
-        check( this.getNextSceneId( ), TextConstants.getText( "Search.NextScene" ) );
+        check( this.conditionsController, TC.get( "Search.Conditions" ) );
+        check( this.getNextSceneId( ), TC.get( "Search.NextScene" ) );
     }
 
     public int getTransitionType( ) {

@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.assessment;
 
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
@@ -55,7 +55,7 @@ public class AssessmentPanel extends ElementPanel {
 
         public AssessmentEditionPanelTab( AssessmentProfileDataControl sDataControl ) {
 
-            super( TextConstants.getText( "AssessmentProfile.Title" ), sDataControl );
+            super( TC.get( "AssessmentProfile.Title" ), sDataControl );
             this.setHelpPath( "assessment/assessmentProfile.html" );
             this.sDataControl = sDataControl;
         }

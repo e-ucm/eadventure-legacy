@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.engine.core.data;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**
@@ -54,111 +54,111 @@ public class GameText {
      */
     public static void reloadStrings( ) {
 
-        TEXT_PLEASE_WAIT = TextConstants.getText( "GameText.PleaseWait" );
+        TEXT_PLEASE_WAIT = TC.get( "GameText.PleaseWait" );
 
-        TEXT_LOADING_DATA = TextConstants.getText( "GameText.LoadingData" );
+        TEXT_LOADING_DATA = TC.get( "GameText.LoadingData" );
 
-        TEXT_LOADING_XML = TextConstants.getText( "GameText.LoadingXML" );
+        TEXT_LOADING_XML = TC.get( "GameText.LoadingXML" );
 
-        TEXT_LOADING_FINISHED = TextConstants.getText( "GameText.LoadingFinished" );
+        TEXT_LOADING_FINISHED = TC.get( "GameText.LoadingFinished" );
 
-        TEXT_GO = TextConstants.getText( "GameText.Go" );
+        TEXT_GO = TC.get( "GameText.Go" );
 
-        TEXT_LOOK = TextConstants.getText( "GameText.Look" );
+        TEXT_LOOK = TC.get( "GameText.Look" );
 
-        TEXT_EXAMINE = TextConstants.getText( "GameText.Examine" );
+        TEXT_EXAMINE = TC.get( "GameText.Examine" );
 
-        TEXT_GRAB = TextConstants.getText( "GameText.Examine" );
+        TEXT_GRAB = TC.get( "GameText.Examine" );
 
-        TEXT_TALK = TextConstants.getText( "GameText.Talk" );
+        TEXT_TALK = TC.get( "GameText.Talk" );
 
-        TEXT_GIVE = TextConstants.getText( "GameText.Give" );
+        TEXT_GIVE = TC.get( "GameText.Give" );
 
-        TEXT_USE = TextConstants.getText( "GameText.Use" );
+        TEXT_USE = TC.get( "GameText.Use" );
 
-        TEXT_AT = TextConstants.getText( "GameText.At" );
+        TEXT_AT = TC.get( "GameText.At" );
 
-        TEXT_TO = TextConstants.getText( "GameText.To" );
+        TEXT_TO = TC.get( "GameText.To" );
 
-        TEXT_WITH = TextConstants.getText( "GameText.With" );
+        TEXT_WITH = TC.get( "GameText.With" );
 
-        TEXT_BACK_TO_GAME = TextConstants.getText( "GameText.BackToGame" );
+        TEXT_BACK_TO_GAME = TC.get( "GameText.BackToGame" );
 
-        TEXT_SAVE_LOAD = TextConstants.getText( "GameText.Save/Load" );
+        TEXT_SAVE_LOAD = TC.get( "GameText.Save/Load" );
 
-        TEXT_CONFIGURATION = TextConstants.getText( "GameText.Configuration" );
+        TEXT_CONFIGURATION = TC.get( "GameText.Configuration" );
 
-        TEXT_GENERATE_REPORT = TextConstants.getText( "GameText.GenerateReport" );
+        TEXT_GENERATE_REPORT = TC.get( "GameText.GenerateReport" );
 
-        TEXT_EXIT_GAME = TextConstants.getText( "GameText.ExitGame" );
+        TEXT_EXIT_GAME = TC.get( "GameText.ExitGame" );
 
-        TEXT_SAVE = TextConstants.getText( "GameText.Save" );
+        TEXT_SAVE = TC.get( "GameText.Save" );
 
-        TEXT_LOAD = TextConstants.getText( "GameText.Load" );
+        TEXT_LOAD = TC.get( "GameText.Load" );
 
-        TEXT_EMPTY = TextConstants.getText( "GameText.Empty" );
+        TEXT_EMPTY = TC.get( "GameText.Empty" );
 
-        TEXT_MUSIC = TextConstants.getText( "GameText.Music" );
+        TEXT_MUSIC = TC.get( "GameText.Music" );
 
-        TEXT_EFFECTS = TextConstants.getText( "GameText.Effects" );
+        TEXT_EFFECTS = TC.get( "GameText.Effects" );
 
-        TEXT_ON = TextConstants.getText( "GameText.On" );
+        TEXT_ON = TC.get( "GameText.On" );
 
-        TEXT_OFF = TextConstants.getText( "GameText.Off" );
+        TEXT_OFF = TC.get( "GameText.Off" );
 
-        TEXT_TEXT_SPEED = TextConstants.getText( "GameText.TextSpeed" );
+        TEXT_TEXT_SPEED = TC.get( "GameText.TextSpeed" );
 
-        TEXT_SLOW = TextConstants.getText( "GameText.Slow" );
+        TEXT_SLOW = TC.get( "GameText.Slow" );
 
-        TEXT_NORMAL = TextConstants.getText( "GameText.Normal" );
+        TEXT_NORMAL = TC.get( "GameText.Normal" );
 
-        TEXT_FAST = TextConstants.getText( "GameText.Fast" );
+        TEXT_FAST = TC.get( "GameText.Fast" );
 
-        TEXT_BACK = TextConstants.getText( "GameText.Back" );
+        TEXT_BACK = TC.get( "GameText.Back" );
 
-        TEXT_TALK_OBJECT = new String[] { TextConstants.getText( "GameText.TextTalkObject1" ), TextConstants.getText( "GameText.TextTalkObject2" ) };
+        TEXT_TALK_OBJECT = new String[] { TC.get( "GameText.TextTalkObject1" ), TC.get( "GameText.TextTalkObject2" ) };
 
-        TEXT_TALK_CANNOT = new String[] { TextConstants.getText( "GameText.TextTalkCannot1" ), TextConstants.getText( "GameText.TextTalkCannot2" ) };
+        TEXT_TALK_CANNOT = new String[] { TC.get( "GameText.TextTalkCannot1" ), TC.get( "GameText.TextTalkCannot2" ) };
 
-        TEXT_GIVE_NPC = new String[] { TextConstants.getText( "GameText.TextGiveNPC1" ), TextConstants.getText( "GameText.TextGiveNPC2" ) };
+        TEXT_GIVE_NPC = new String[] { TC.get( "GameText.TextGiveNPC1" ), TC.get( "GameText.TextGiveNPC2" ) };
 
-        TEXT_GIVE_OBJECT_NOT_INVENTORY = new String[] { TextConstants.getText( "GameText.TextGiveObjectNotInventory1" ), TextConstants.getText( "GameText.TextGiveObjectNotInventory2" ) };
+        TEXT_GIVE_OBJECT_NOT_INVENTORY = new String[] { TC.get( "GameText.TextGiveObjectNotInventory1" ), TC.get( "GameText.TextGiveObjectNotInventory2" ) };
 
-        TEXT_GIVE_CANNOT = new String[] { TextConstants.getText( "GameText.TextGiveCannot1" ), TextConstants.getText( "GameText.TextGiveCannot2" ) };
+        TEXT_GIVE_CANNOT = new String[] { TC.get( "GameText.TextGiveCannot1" ), TC.get( "GameText.TextGiveCannot2" ) };
 
-        TEXT_GRAB_NPC = new String[] { TextConstants.getText( "GameText.TextGrabNPC1" ), TextConstants.getText( "GameText.TextGrabNPC2" ) };
+        TEXT_GRAB_NPC = new String[] { TC.get( "GameText.TextGrabNPC1" ), TC.get( "GameText.TextGrabNPC2" ) };
 
-        TEXT_GRAB_OBJECT_INVENTORY = new String[] { TextConstants.getText( "GameText.TextGrabObjectInventory1" ), TextConstants.getText( "GameText.TextGrabObjectInventory2" ) };
+        TEXT_GRAB_OBJECT_INVENTORY = new String[] { TC.get( "GameText.TextGrabObjectInventory1" ), TC.get( "GameText.TextGrabObjectInventory2" ) };
 
-        TEXT_GRAB_CANNOT = new String[] { TextConstants.getText( "GameText.TextGiveCannot1" ), TextConstants.getText( "GameText.TextGiveCannot2" ) };
+        TEXT_GRAB_CANNOT = new String[] { TC.get( "GameText.TextGiveCannot1" ), TC.get( "GameText.TextGiveCannot2" ) };
 
-        TEXT_USE_NPC = new String[] { TextConstants.getText( "GameText.TextUseNPC1" ), TextConstants.getText( "GameText.TextUseNPC2" ) };
+        TEXT_USE_NPC = new String[] { TC.get( "GameText.TextUseNPC1" ), TC.get( "GameText.TextUseNPC2" ) };
 
-        TEXT_USE_CANNOT = new String[] { TextConstants.getText( "GameText.TextUseCannot1" ), TextConstants.getText( "GameText.TextUseCannot2" ) };
+        TEXT_USE_CANNOT = new String[] { TC.get( "GameText.TextUseCannot1" ), TC.get( "GameText.TextUseCannot2" ) };
 
-        TEXT_CUSTOM_CANNOT = new String[] { TextConstants.getText( "GameText.TextCustomCannot1" ), TextConstants.getText( "GameText.TextCustomCannot2" ) };
+        TEXT_CUSTOM_CANNOT = new String[] { TC.get( "GameText.TextCustomCannot1" ), TC.get( "GameText.TextCustomCannot2" ) };
 
     }
 
     /**
      * Loading text for "Please wait"
      */
-    public static String TEXT_PLEASE_WAIT = TextConstants.getText( "GameText.PleaseWait" );
+    public static String TEXT_PLEASE_WAIT = TC.get( "GameText.PleaseWait" );
 
     /**
      * Loading text for "Loading data"
      */
-    public static String TEXT_LOADING_DATA = TextConstants.getText( "GameText.LoadingData" );
+    public static String TEXT_LOADING_DATA = TC.get( "GameText.LoadingData" );
 
     /**
      * Loading text for "Loading XML"
      */
-    public static String TEXT_LOADING_XML = TextConstants.getText( "GameText.LoadingXML" );
+    public static String TEXT_LOADING_XML = TC.get( "GameText.LoadingXML" );
 
     /**
      * Loading text for "Loading finished"
      */
-    public static String TEXT_LOADING_FINISHED = TextConstants.getText( "GameText.LoadingFinished" );
+    public static String TEXT_LOADING_FINISHED = TC.get( "GameText.LoadingFinished" );
 
     //********************************************************************************//
 
@@ -167,52 +167,52 @@ public class GameText {
     /**
      * Action text for "Go"
      */
-    public static String TEXT_GO = TextConstants.getText( "GameText.Go" );
+    public static String TEXT_GO = TC.get( "GameText.Go" );
 
     /**
      * Action text for "Look"
      */
-    public static String TEXT_LOOK = TextConstants.getText( "GameText.Look" );
+    public static String TEXT_LOOK = TC.get( "GameText.Look" );
 
     /**
      * Action text for "Examine"
      */
-    public static String TEXT_EXAMINE = TextConstants.getText( "GameText.Examine" );
+    public static String TEXT_EXAMINE = TC.get( "GameText.Examine" );
 
     /**
      * Action text for "Grab"
      */
-    public static String TEXT_GRAB = TextConstants.getText( "GameText.Examine" );
+    public static String TEXT_GRAB = TC.get( "GameText.Examine" );
 
     /**
      * Action text for "Talk"
      */
-    public static String TEXT_TALK = TextConstants.getText( "GameText.Talk" );
+    public static String TEXT_TALK = TC.get( "GameText.Talk" );
 
     /**
      * Action text for "Give"
      */
-    public static String TEXT_GIVE = TextConstants.getText( "GameText.Give" );
+    public static String TEXT_GIVE = TC.get( "GameText.Give" );
 
     /**
      * Action text for "Use"
      */
-    public static String TEXT_USE = TextConstants.getText( "GameText.Use" );
+    public static String TEXT_USE = TC.get( "GameText.Use" );
 
     /**
      * Text for "at" (Look at)
      */
-    public static String TEXT_AT = TextConstants.getText( "GameText.At" );
+    public static String TEXT_AT = TC.get( "GameText.At" );
 
     /**
      * Text for "to" (Go to, Give to, Talk to)
      */
-    public static String TEXT_TO = TextConstants.getText( "GameText.To" );
+    public static String TEXT_TO = TC.get( "GameText.To" );
 
     /**
      * Text for "with" (Use with)
      */
-    public static String TEXT_WITH = TextConstants.getText( "GameText.With" );
+    public static String TEXT_WITH = TC.get( "GameText.With" );
 
     //********************************************************************************//
 
@@ -221,87 +221,87 @@ public class GameText {
     /**
      * Text for the "Back to game" option
      */
-    public static String TEXT_BACK_TO_GAME = TextConstants.getText( "GameText.BackToGame" );
+    public static String TEXT_BACK_TO_GAME = TC.get( "GameText.BackToGame" );
 
     /**
      * Text for the "Save/Load" option
      */
-    public static String TEXT_SAVE_LOAD = TextConstants.getText( "GameText.Save/Load" );
+    public static String TEXT_SAVE_LOAD = TC.get( "GameText.Save/Load" );
 
     /**
      * Text for the "Configuration" option
      */
-    public static String TEXT_CONFIGURATION = TextConstants.getText( "GameText.Configuration" );
+    public static String TEXT_CONFIGURATION = TC.get( "GameText.Configuration" );
 
     /**
      * Text for the "Generate report" option
      */
-    public static String TEXT_GENERATE_REPORT = TextConstants.getText( "GameText.GenerateReport" );
+    public static String TEXT_GENERATE_REPORT = TC.get( "GameText.GenerateReport" );
 
     /**
      * Text for the "Exit game" option
      */
-    public static String TEXT_EXIT_GAME = TextConstants.getText( "GameText.ExitGame" );
+    public static String TEXT_EXIT_GAME = TC.get( "GameText.ExitGame" );
 
     /**
      * Text for the "Save" option
      */
-    public static String TEXT_SAVE = TextConstants.getText( "GameText.Save" );
+    public static String TEXT_SAVE = TC.get( "GameText.Save" );
 
     /**
      * Text for the "Load" option
      */
-    public static String TEXT_LOAD = TextConstants.getText( "GameText.Load" );
+    public static String TEXT_LOAD = TC.get( "GameText.Load" );
 
     /**
      * Text for the "Empty" label in the savegames
      */
-    public static String TEXT_EMPTY = TextConstants.getText( "GameText.Empty" );
+    public static String TEXT_EMPTY = TC.get( "GameText.Empty" );
 
     /**
      * Text for the "Music" section of the configuration
      */
-    public static String TEXT_MUSIC = TextConstants.getText( "GameText.Music" );
+    public static String TEXT_MUSIC = TC.get( "GameText.Music" );
 
     /**
      * Text for the "FunctionalEffects" section of the configuration
      */
-    public static String TEXT_EFFECTS = TextConstants.getText( "GameText.Effects" );
+    public static String TEXT_EFFECTS = TC.get( "GameText.Effects" );
 
     /**
      * Text for the "On" value of the configuration
      */
-    public static String TEXT_ON = TextConstants.getText( "GameText.On" );
+    public static String TEXT_ON = TC.get( "GameText.On" );
 
     /**
      * Text for the "Off" value of the configuration
      */
-    public static String TEXT_OFF = TextConstants.getText( "GameText.Off" );
+    public static String TEXT_OFF = TC.get( "GameText.Off" );
 
     /**
      * Text for the "Text speed" section of the configuration
      */
-    public static String TEXT_TEXT_SPEED = TextConstants.getText( "GameText.TextSpeed" );
+    public static String TEXT_TEXT_SPEED = TC.get( "GameText.TextSpeed" );
 
     /**
      * Text for the "Slow" speed of the dialogues
      */
-    public static String TEXT_SLOW = TextConstants.getText( "GameText.Slow" );
+    public static String TEXT_SLOW = TC.get( "GameText.Slow" );
 
     /**
      * Text for the "Normal" speed of the dialogues
      */
-    public static String TEXT_NORMAL = TextConstants.getText( "GameText.Normal" );
+    public static String TEXT_NORMAL = TC.get( "GameText.Normal" );
 
     /**
      * Text for the "Fast" speed of the dialogues
      */
-    public static String TEXT_FAST = TextConstants.getText( "GameText.Fast" );
+    public static String TEXT_FAST = TC.get( "GameText.Fast" );
 
     /**
      * Text for the "Back" option
      */
-    public static String TEXT_BACK = TextConstants.getText( "GameText.Back" );
+    public static String TEXT_BACK = TC.get( "GameText.Back" );
 
     //********************************************************************************//
 
@@ -310,56 +310,56 @@ public class GameText {
     /**
      * Text to display when the character tries to speak with an item
      */
-    private static String[] TEXT_TALK_OBJECT = { TextConstants.getText( "GameText.TextTalkObject1" ), TextConstants.getText( "GameText.TextTalkObject2" ) };
+    private static String[] TEXT_TALK_OBJECT = { TC.get( "GameText.TextTalkObject1" ), TC.get( "GameText.TextTalkObject2" ) };
 
     /**
      * Text to display when the character can't talk
      */
-    private static String[] TEXT_TALK_CANNOT = { TextConstants.getText( "GameText.TextTalkCannot1" ), TextConstants.getText( "GameText.TextTalkCannot2" ) };
+    private static String[] TEXT_TALK_CANNOT = { TC.get( "GameText.TextTalkCannot1" ), TC.get( "GameText.TextTalkCannot2" ) };
 
     /**
      * Text to display when the character tries to give another character
      */
-    private static String[] TEXT_GIVE_NPC = { TextConstants.getText( "GameText.TextGiveNPC1" ), TextConstants.getText( "GameText.TextGiveNPC2" ) };
+    private static String[] TEXT_GIVE_NPC = { TC.get( "GameText.TextGiveNPC1" ), TC.get( "GameText.TextGiveNPC2" ) };
 
     /**
      * Text to display when the character tries to give an item that's not in
      * the inventory
      */
-    private static String[] TEXT_GIVE_OBJECT_NOT_INVENTORY = { TextConstants.getText( "GameText.TextGiveObjectNotInventory1" ), TextConstants.getText( "GameText.TextGiveObjectNotInventory2" ) };
+    private static String[] TEXT_GIVE_OBJECT_NOT_INVENTORY = { TC.get( "GameText.TextGiveObjectNotInventory1" ), TC.get( "GameText.TextGiveObjectNotInventory2" ) };
 
     /**
      * Text to display when the character can't give an item
      */
-    private static String[] TEXT_GIVE_CANNOT = { TextConstants.getText( "GameText.TextGiveCannot1" ), TextConstants.getText( "GameText.TextGiveCannot2" ) };
+    private static String[] TEXT_GIVE_CANNOT = { TC.get( "GameText.TextGiveCannot1" ), TC.get( "GameText.TextGiveCannot2" ) };
 
     /**
      * Text to display when the character tries to grab another character
      */
-    private static String[] TEXT_GRAB_NPC = { TextConstants.getText( "GameText.TextGrabNPC1" ), TextConstants.getText( "GameText.TextGrabNPC2" ) };
+    private static String[] TEXT_GRAB_NPC = { TC.get( "GameText.TextGrabNPC1" ), TC.get( "GameText.TextGrabNPC2" ) };
 
     /**
      * Text to display when the character tries to grab an item which is already
      * in the inventory
      */
-    private static String[] TEXT_GRAB_OBJECT_INVENTORY = { TextConstants.getText( "GameText.TextGrabObjectInventory1" ), TextConstants.getText( "GameText.TextGrabObjectInventory2" ) };
+    private static String[] TEXT_GRAB_OBJECT_INVENTORY = { TC.get( "GameText.TextGrabObjectInventory1" ), TC.get( "GameText.TextGrabObjectInventory2" ) };
 
     /**
      * Text to display when the character can't grab an item
      */
-    private static String[] TEXT_GRAB_CANNOT = { TextConstants.getText( "GameText.TextGiveCannot1" ), TextConstants.getText( "GameText.TextGiveCannot2" ) };
+    private static String[] TEXT_GRAB_CANNOT = { TC.get( "GameText.TextGiveCannot1" ), TC.get( "GameText.TextGiveCannot2" ) };
 
     /**
      * Text to display when the character tries to use another character
      */
-    private static String[] TEXT_USE_NPC = { TextConstants.getText( "GameText.TextUseNPC1" ), TextConstants.getText( "GameText.TextUseNPC2" ) };
+    private static String[] TEXT_USE_NPC = { TC.get( "GameText.TextUseNPC1" ), TC.get( "GameText.TextUseNPC2" ) };
 
     /**
      * Text to display when the character can't use an item
      */
-    private static String[] TEXT_USE_CANNOT = { TextConstants.getText( "GameText.TextUseCannot1" ), TextConstants.getText( "GameText.TextUseCannot2" ) };
+    private static String[] TEXT_USE_CANNOT = { TC.get( "GameText.TextUseCannot1" ), TC.get( "GameText.TextUseCannot2" ) };
 
-    private static String[] TEXT_CUSTOM_CANNOT = { TextConstants.getText( "GameText.TextCustomCannot1" ), TextConstants.getText( "GameText.TextCustomCannot2" ) };
+    private static String[] TEXT_CUSTOM_CANNOT = { TC.get( "GameText.TextCustomCannot1" ), TC.get( "GameText.TextCustomCannot2" ) };
 
     //********************************************************************************//
 

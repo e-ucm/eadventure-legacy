@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -394,12 +394,12 @@ public class BarrierDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getBriefDescription( ), TextConstants.getText( "Search.BriefDescription" ) );
-        check( this.getConditions( ), TextConstants.getText( "Search.Conditions" ) );
-        check( this.getDetailedDescription( ), TextConstants.getText( "Search.DetailedDescription" ) );
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
+        check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
+        check( this.getConditions( ), TC.get( "Search.Conditions" ) );
+        check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
-        check( this.getName( ), TextConstants.getText( "Search.Name" ) );
+        check( this.getName( ), TC.get( "Search.Name" ) );
     }
 
     @Override

@@ -46,7 +46,7 @@ import javax.swing.JPanel;
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 public class FormattedTextPanel extends JPanel {
@@ -76,7 +76,7 @@ public class FormattedTextPanel extends JPanel {
         c.fill = GridBagConstraints.BOTH;
         c.weighty = 1;
         c.weightx = 1;
-        errorPanel.add( new JLabel( TextConstants.getText( "FormattedTextAssets.NotAvailable" ) ), c );
+        errorPanel.add( new JLabel( TC.get( "FormattedTextAssets.NotAvailable" ) ), c );
 
         editorPane.setOpaque( false );
         editorPane.setEditable( false );

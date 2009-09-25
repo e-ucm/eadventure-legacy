@@ -39,7 +39,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMLifeCycleDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMTechnicalDataControl;
 
@@ -58,9 +58,9 @@ public class LOMLifeCycleAndTechnicalPanel extends JPanel {
         setLayout( new BoxLayout( this, BoxLayout.PAGE_AXIS ) );
 
         //Create the panels
-        LOMTextPanel versionPanel = new LOMTextPanel( lifeCycleController.getVersionController( ), TextConstants.getText( "LOM.LifeCycle.Version" ), LOMTextPanel.TYPE_FIELD );
-        LOMTextPanel minVersionPanel = new LOMTextPanel( technicalController.getMinimumVersionController( ), TextConstants.getText( "LOM.Technical.MinimumVersion" ), LOMTextPanel.TYPE_FIELD, false );
-        LOMTextPanel maxVersionPanel = new LOMTextPanel( technicalController.getMaximumVersionController( ), TextConstants.getText( "LOM.Technical.MaximumVersion" ), LOMTextPanel.TYPE_FIELD, false );
+        LOMTextPanel versionPanel = new LOMTextPanel( lifeCycleController.getVersionController( ), TC.get( "LOM.LifeCycle.Version" ), LOMTextPanel.TYPE_FIELD );
+        LOMTextPanel minVersionPanel = new LOMTextPanel( technicalController.getMinimumVersionController( ), TC.get( "LOM.Technical.MinimumVersion" ), LOMTextPanel.TYPE_FIELD, false );
+        LOMTextPanel maxVersionPanel = new LOMTextPanel( technicalController.getMaximumVersionController( ), TC.get( "LOM.Technical.MaximumVersion" ), LOMTextPanel.TYPE_FIELD, false );
 
         // check if there are related stored data in config file
         /*if (LOMConfigData.isStored(LOMLifeCycleDataControl.GROUP, "version")){

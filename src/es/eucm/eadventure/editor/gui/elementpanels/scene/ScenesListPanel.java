@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
@@ -66,7 +66,7 @@ public class ScenesListPanel extends ElementPanel {
 
         public SceneListPanelTab( ScenesListDataControl scenesListDataControl ) {
 
-            super( TextConstants.getText( "ScenesList.Title" ), scenesListDataControl );
+            super( TC.get( "ScenesList.Title" ), scenesListDataControl );
             this.setHelpPath( "scenes/Scenes_General.html" );
             this.scenesListDataControl = scenesListDataControl;
         }

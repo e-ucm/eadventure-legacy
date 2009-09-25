@@ -50,7 +50,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
@@ -118,14 +118,14 @@ public class LOMContributeDialog extends JDialog {
         if( type == METAMETADATA )
             role = new LOMVocabularyPanel( LOMESLifeCycleContribute.getRoleMetametaOptions( ), roleValue.getValueIndex( ) );
         rolePanel.add( role, c );
-        rolePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.LifeCycle.RoleName" ) ) );
+        rolePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.LifeCycle.RoleName" ) ) );
 
         JPanel datePanel = new JPanel( new GridBagLayout( ) );
         date = new LOMESCreateComposeTypePanel( dateValue );
         datePanel.add( date, c );
-        datePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.LifeCyle.Date" ) ) );
+        datePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.LifeCyle.Date" ) ) );
 
-        entity = new LOMCreatePrimitiveContainerPanel( LOMCreatePrimitiveContainerPanel.STRING_TYPE, entityValue, TextConstants.getText( "LOMES.LifeCycle.Entity" ), LOMCreatePrimitiveContainerPanel.FIELD_TYPE_FIELD );
+        entity = new LOMCreatePrimitiveContainerPanel( LOMCreatePrimitiveContainerPanel.STRING_TYPE, entityValue, TC.get( "LOMES.LifeCycle.Entity" ), LOMCreatePrimitiveContainerPanel.FIELD_TYPE_FIELD );
 
         JPanel buttonPanel = new JPanel( new GridBagLayout( ) );
         c = new GridBagConstraints( );
@@ -195,9 +195,9 @@ public class LOMContributeDialog extends JDialog {
     private void showInfo( ) {
 
         if( type == LIFECYCLE )
-            JOptionPane.showMessageDialog( this, TextConstants.getText( "LOMES.LyfeCycle.ContributeInfo" ), "Info", JOptionPane.INFORMATION_MESSAGE );
+            JOptionPane.showMessageDialog( this, TC.get( "LOMES.LyfeCycle.ContributeInfo" ), "Info", JOptionPane.INFORMATION_MESSAGE );
         if( type == METAMETADATA )
-            JOptionPane.showMessageDialog( this, TextConstants.getText( "LOMES.MetaMetaData.ContributeInfo" ), "Info", JOptionPane.INFORMATION_MESSAGE );
+            JOptionPane.showMessageDialog( this, TC.get( "LOMES.MetaMetaData.ContributeInfo" ), "Info", JOptionPane.INFORMATION_MESSAGE );
 
     }
 

@@ -40,7 +40,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.ConversationConfigData;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -143,7 +143,7 @@ public class ConversationsListDataControl extends DataControl {
 
             // Show a dialog asking for the conversation id
             if( conversationId == null )
-                conversationId = controller.showInputDialog( TextConstants.getText( "Operation.AddConversationTitle" ), TextConstants.getText( "Operation.AddConversationMessage" ), TextConstants.getText( "Operation.AddConversationDefaultValue" ) );
+                conversationId = controller.showInputDialog( TC.get( "Operation.AddConversationTitle" ), TC.get( "Operation.AddConversationMessage" ), TC.get( "Operation.AddConversationDefaultValue" ) );
 
             // If some value was typed and the identifier is valid
             if( conversationId != null && controller.isElementIdValid( conversationId ) ) {
@@ -206,7 +206,7 @@ public class ConversationsListDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.AddConversationDefaultValue" );
+        return TC.get( "Operation.AddConversationDefaultValue" );
     }
 
     @Override
@@ -217,7 +217,7 @@ public class ConversationsListDataControl extends DataControl {
         String references = String.valueOf( controller.countIdentifierReferences( conversationId ) );
 
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { conversationId, references } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { conversationId, references } ) ) ) {
             if( conversationsList.remove( dataControl.getContent( ) ) ) {
                 conversationsDataControlList.remove( dataControl );
                 controller.deleteIdentifierReferences( conversationId );
@@ -282,7 +282,7 @@ public class ConversationsListDataControl extends DataControl {
         boolean valid = true;
 
         // Update the current path
-        currentPath += " >> " + TextConstants.getElementName( Controller.CONVERSATIONS_LIST );
+        currentPath += " >> " + TC.getElement( Controller.CONVERSATIONS_LIST );
 
         // Iterate through the conversations
         for( ConversationDataControl conversationDataControl : conversationsDataControlList ) {

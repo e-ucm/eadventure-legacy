@@ -45,7 +45,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanel;
@@ -93,14 +93,14 @@ public class GlobalStatePanel extends JPanel {
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) dataControl.getContent( ) ) );
         documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalState.Documentation" ) ) );
+        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "GlobalState.Documentation" ) ) );
 
         add( documentationPanel, c );
 
         c.weighty = 0.7;
         c.gridy = 1;
         conditionsPanel = new ConditionsPanel( dataControl.getController( ) );
-        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalState.Conditions" ) ) );
+        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "GlobalState.Conditions" ) ) );
         add( conditionsPanel, c );
     }
 

@@ -54,7 +54,7 @@ import javax.media.PrefetchCompleteEvent;
 import javax.media.RealizeCompleteEvent;
 import javax.media.StopEvent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
@@ -101,7 +101,7 @@ public class VideoPanel extends JPanel implements ControllerListener {
             try {
                 wait( );
                 if( error ) {
-                    Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.VideoGeneralError" ), TextConstants.getText( "Error.BadAudioFormat.Message" ) );
+                    Controller.getInstance( ).showErrorDialog( TC.get( "Error.VideoGeneralError" ), TC.get( "Error.BadAudioFormat.Message" ) );
                     //error=false;
                     break;
                 }
@@ -192,7 +192,7 @@ public class VideoPanel extends JPanel implements ControllerListener {
                     if( visual != null )
                         this.add( visual, BorderLayout.CENTER );
                     else
-                        Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.NoVideoFormat" ), TextConstants.getText( "Error.NoVideoFormat.Message" ) );
+                        Controller.getInstance( ).showErrorDialog( TC.get( "Error.NoVideoFormat" ), TC.get( "Error.NoVideoFormat.Message" ) );
                     this.add( player.getControlPanelComponent( ), BorderLayout.SOUTH );
                     this.updateUI( );
                     //this.blockingPrefetch( );
@@ -202,21 +202,21 @@ public class VideoPanel extends JPanel implements ControllerListener {
                 }
             }
             else {
-                Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.VideoGeneralError" ), TextConstants.getText( "Error.BadAudioFormat.Message" ) );
+                Controller.getInstance( ).showErrorDialog( TC.get( "Error.VideoGeneralError" ), TC.get( "Error.BadAudioFormat.Message" ) );
             }
 
         }
         catch( NoPlayerException e ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.NoVideoFormat" ), TextConstants.getText( "Error.NoVideoFormat.Message" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.NoVideoFormat" ), TC.get( "Error.NoVideoFormat.Message" ) );
         }
         catch( MalformedURLException e ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.VideoGeneralError" ), TextConstants.getText( "Error.VideoGeneralError.Message" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.VideoGeneralError" ), TC.get( "Error.VideoGeneralError.Message" ) );
         }
         catch( IOException e ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.VideoGeneralError" ), TextConstants.getText( "Error.VideoGeneralError.Message" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.VideoGeneralError" ), TC.get( "Error.VideoGeneralError.Message" ) );
         }
         catch( MissingResourceException e ) {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.VideoGeneralError" ), TextConstants.getText( "Error.BadAudioFormat.Message" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.VideoGeneralError" ), TC.get( "Error.BadAudioFormat.Message" ) );
         }
 
     }

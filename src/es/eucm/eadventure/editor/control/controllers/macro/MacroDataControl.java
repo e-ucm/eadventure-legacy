@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.controllers.macro;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
@@ -191,12 +191,12 @@ public class MacroDataControl extends DataControl {
         String references = String.valueOf( Controller.getInstance( ).countIdentifierReferences( oldItemId ) );
 
         // Ask for confirmation
-        if( name != null || Controller.getInstance( ).showStrictConfirmDialog( TextConstants.getText( "Operation.RenameMacroTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldItemId, references } ) ) ) {
+        if( name != null || Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Operation.RenameMacroTitle" ), TC.get( "Operation.RenameElementWarning", new String[] { oldItemId, references } ) ) ) {
 
             // Show a dialog asking for the new item id
             String newItemId = name;
             if( name == null )
-                newItemId = Controller.getInstance( ).showInputDialog( TextConstants.getText( "Operation.RenameMacroTitle" ), TextConstants.getText( "Operation.RenameMacroMessage" ), oldItemId );
+                newItemId = Controller.getInstance( ).showInputDialog( TC.get( "Operation.RenameMacroTitle" ), TC.get( "Operation.RenameMacroMessage" ), oldItemId );
 
             // If some value was typed and the identifiers are different
             if( newItemId != null && !newItemId.equals( oldItemId ) && Controller.getInstance( ).isElementIdValid( newItemId ) ) {
@@ -229,11 +229,11 @@ public class MacroDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
 
         for( int i = 0; i < this.getController( ).getEffectCount( ); i++ ) {
-            check( this.getController( ).getEffectInfo( i ), TextConstants.getText( "Search.Effect" ) );
+            check( this.getController( ).getEffectInfo( i ), TC.get( "Search.Effect" ) );
         }
     }
 

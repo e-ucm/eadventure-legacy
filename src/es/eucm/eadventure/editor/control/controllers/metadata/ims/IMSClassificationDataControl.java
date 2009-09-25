@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers.metadata.ims;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.ims.IMSClassification;
 import es.eucm.eadventure.editor.data.meta.LangString;
 
@@ -54,7 +54,7 @@ public class IMSClassificationDataControl {
 
                 String[] options = new String[ data.getPurpose( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Classification.Purpose" + i );
+                    options[i] = TC.get( "IMS.Classification.Purpose" + i );
                 }
                 return options;
             }

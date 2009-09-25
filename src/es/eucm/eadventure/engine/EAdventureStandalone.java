@@ -42,7 +42,7 @@ import de.schlichtherle.io.ArchiveDetector;
 import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
@@ -75,7 +75,7 @@ public class EAdventureStandalone {
      */
     public static void main( String[] args ) {
 
-        TextConstants.loadStrings( EAdventureApplet.class.getResourceAsStream( "/lanengine/en_EN.xml" ) );
+        TC.loadStrings( EAdventureApplet.class.getResourceAsStream( "/lanengine/en_EN.xml" ) );
         startTime = System.currentTimeMillis( );
         printElapsedTime( "Starting" );
         File.setDefaultArchiveDetector( new DefaultArchiveDetector( ArchiveDetector.NULL, // delegate

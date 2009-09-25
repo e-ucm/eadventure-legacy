@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
 import java.util.ArrayList;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESEducational;
 import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
@@ -63,7 +63,7 @@ public class LOMESEducationalDataControl {
 
                 String[] options = new String[ data.getInteractivityType( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.InteractivityType" + i );
+                    options[i] = TC.get( "IMS.Educational.InteractivityType" + i );
                 }
                 return options;
             }
@@ -90,7 +90,7 @@ public class LOMESEducationalDataControl {
 
         String[] options = new String[ data.getLearningResourceType( ).get( 0 ).getValues( ).length ];
         for( int i = 0; i < options.length; i++ ) {
-            options[i] = TextConstants.getText( "LOMES.Educational.LearningResourceType" + i );
+            options[i] = TC.get( "LOMES.Educational.LearningResourceType" + i );
         }
         return options;
     }
@@ -108,7 +108,7 @@ public class LOMESEducationalDataControl {
 
                 String[] options = new String[ data.getInteractivityLevel( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.InteractivityLevel" + i );
+                    options[i] = TC.get( "IMS.Educational.InteractivityLevel" + i );
                 }
                 return options;
             }
@@ -134,7 +134,7 @@ public class LOMESEducationalDataControl {
 
                 String[] options = new String[ data.getSemanticDensity( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.SemanticDensity" + i );
+                    options[i] = TC.get( "IMS.Educational.SemanticDensity" + i );
                 }
                 return options;
             }
@@ -161,7 +161,7 @@ public class LOMESEducationalDataControl {
 
         String[] options = new String[ data.getIntendedEndUserRole( ).get( 0 ).getValues( ).length ];
         for( int i = 0; i < options.length; i++ ) {
-            options[i] = TextConstants.getText( "LOMES.Educational.IntendedEndUserRole" + i );
+            options[i] = TC.get( "LOMES.Educational.IntendedEndUserRole" + i );
         }
         return options;
     }
@@ -202,7 +202,7 @@ public class LOMESEducationalDataControl {
 
         String[] options = new String[ data.getContext( ).get( 0 ).getValues( ).length ];
         for( int i = 0; i < options.length; i++ ) {
-            options[i] = TextConstants.getText( "LOMES.Educational.Context" + i );
+            options[i] = TC.get( "LOMES.Educational.Context" + i );
         }
         return options;
     }
@@ -242,7 +242,7 @@ public class LOMESEducationalDataControl {
 
                 String[] options = new String[ data.getDifficulty( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.Difficulty" + i );
+                    options[i] = TC.get( "IMS.Educational.Difficulty" + i );
                 }
                 return options;
             }
@@ -269,7 +269,7 @@ public class LOMESEducationalDataControl {
 
         String[] options = new String[ data.getCognitiveProcess( ).get( 0 ).getValues( ).length ];
         for( int i = 0; i < options.length; i++ ) {
-            options[i] = TextConstants.getText( "LOMES.Educational.CognitiveProcess" + i );
+            options[i] = TC.get( "LOMES.Educational.CognitiveProcess" + i );
         }
         return options;
     }

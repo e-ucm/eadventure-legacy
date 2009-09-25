@@ -47,7 +47,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSEducationalDataControl;
 
 public class IMSEducationalPanel extends JPanel {
@@ -76,19 +76,19 @@ public class IMSEducationalPanel extends JPanel {
         c1.setHgap( 2 );
         c1.setVgap( 2 );
         firstRow.setLayout( c1 );
-        firstRow.add( new IMSOptionsPanel( dataControl.getIntendedEndUserRoleController( ), TextConstants.getText( "LOM.Educational.IntendedEndUserRole" ) ) );
-        firstRow.add( new IMSOptionsPanel( dataControl.getSemanticDensityController( ), TextConstants.getText( "LOM.Educational.SemanticDensity" ) ) );
-        firstRow.add( new IMSOptionsPanel( dataControl.getLearningResourceTypeController( ), TextConstants.getText( "LOM.Educational.LearningResourceType" ) ) );
+        firstRow.add( new IMSOptionsPanel( dataControl.getIntendedEndUserRoleController( ), TC.get( "LOM.Educational.IntendedEndUserRole" ) ) );
+        firstRow.add( new IMSOptionsPanel( dataControl.getSemanticDensityController( ), TC.get( "LOM.Educational.SemanticDensity" ) ) );
+        firstRow.add( new IMSOptionsPanel( dataControl.getLearningResourceTypeController( ), TC.get( "LOM.Educational.LearningResourceType" ) ) );
 
         JPanel secondRow = new JPanel( );
         GridLayout c2 = new GridLayout( 1, 4 );
         c2.setHgap( 2 );
         c2.setVgap( 2 );
         secondRow.setLayout( c2 );
-        secondRow.add( new IMSOptionsPanel( dataControl.getContextController( ), TextConstants.getText( "LOM.Educational.Context" ) ) );
-        secondRow.add( new IMSOptionsPanel( dataControl.getDifficultyController( ), TextConstants.getText( "LOM.Educational.Difficulty" ) ) );
-        secondRow.add( new IMSOptionsPanel( dataControl.getInteractivityLevelController( ), TextConstants.getText( "LOM.Educational.InteractivityLevel" ) ) );
-        secondRow.add( new IMSOptionsPanel( dataControl.getInteractivityTypeController( ), TextConstants.getText( "LOM.Educational.InteractivityType" ) ) );
+        secondRow.add( new IMSOptionsPanel( dataControl.getContextController( ), TC.get( "LOM.Educational.Context" ) ) );
+        secondRow.add( new IMSOptionsPanel( dataControl.getDifficultyController( ), TC.get( "LOM.Educational.Difficulty" ) ) );
+        secondRow.add( new IMSOptionsPanel( dataControl.getInteractivityLevelController( ), TC.get( "LOM.Educational.InteractivityLevel" ) ) );
+        secondRow.add( new IMSOptionsPanel( dataControl.getInteractivityTypeController( ), TC.get( "LOM.Educational.InteractivityType" ) ) );
 
         optionsPanel.add( firstRow );
         optionsPanel.add( secondRow );
@@ -104,18 +104,18 @@ public class IMSEducationalPanel extends JPanel {
         minutes = new JTextField( 5 );
         minutes.setText( dataControl.getTypicalLearningTime( ).getMinutes( ) );
         minutes.addFocusListener( new TextFieldChangesListener( ) );
-        JLabel hoursLabel = new JLabel( TextConstants.getText( "LOM.Duration.Hours" ) );
-        JLabel minutesLabel = new JLabel( TextConstants.getText( "LOM.Duration.Minutes" ) );
+        JLabel hoursLabel = new JLabel( TC.get( "LOM.Duration.Hours" ) );
+        JLabel minutesLabel = new JLabel( TC.get( "LOM.Duration.Minutes" ) );
 
         typicalLearningTimePanel.add( hoursLabel );
         typicalLearningTimePanel.add( hours );
         typicalLearningTimePanel.add( minutesLabel );
         typicalLearningTimePanel.add( minutes );
-        typicalLearningTimePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOM.Educational.TypicalLearningTime" ) ) );
+        typicalLearningTimePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOM.Educational.TypicalLearningTime" ) ) );
 
         //Create the other panels
-        IMSTextPanel descriptionPanel = new IMSTextPanel( dataControl.getDescriptionController( ), TextConstants.getText( "LOM.Educational.Description" ), IMSTextPanel.TYPE_AREA );
-        IMSTextPanel typicalAgeRangePanel = new IMSTextPanel( dataControl.getTypicalAgeRangeController( ), TextConstants.getText( "LOM.Educational.TypicalAgeRange" ), IMSTextPanel.TYPE_FIELD );
+        IMSTextPanel descriptionPanel = new IMSTextPanel( dataControl.getDescriptionController( ), TC.get( "LOM.Educational.Description" ), IMSTextPanel.TYPE_AREA );
+        IMSTextPanel typicalAgeRangePanel = new IMSTextPanel( dataControl.getTypicalAgeRangeController( ), TC.get( "LOM.Educational.TypicalAgeRange" ), IMSTextPanel.TYPE_FIELD );
 
         //Add all panels
         add( optionsPanel );

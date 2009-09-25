@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers.metadata.ims;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.ims.IMSGeneral;
 import es.eucm.eadventure.editor.data.meta.LangString;
 
@@ -71,7 +71,7 @@ public class IMSGeneralDataControl {
 
             public String[] getOptions( ) {
 
-                return new String[] { TextConstants.getText( "LOM.General.Language.English" ), TextConstants.getText( "LOM.General.Language.Spanish" ) };
+                return new String[] { TC.get( "LOM.General.Language.English" ), TC.get( "LOM.General.Language.Spanish" ) };
             }
 
             public void setOption( int option ) {

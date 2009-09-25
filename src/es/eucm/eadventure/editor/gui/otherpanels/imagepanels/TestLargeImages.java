@@ -45,7 +45,7 @@ import javax.swing.JPanel;
 
 import javax.swing.JFileChooser;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class TestLargeImages extends JFrame {
 
@@ -126,7 +126,7 @@ public class TestLargeImages extends JFrame {
 
     public static void main( String[] args ) {
 
-        TextConstants.loadStrings( "english.xml" );
+        TC.loadStrings( "english.xml" );
         new TestLargeImages( );
     }
 

@@ -55,7 +55,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class BookTypesDialog extends JDialog {
@@ -89,13 +89,13 @@ public class BookTypesDialog extends JDialog {
     public BookTypesDialog( int optionSelected ) {
 
         // Set the values
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "BookTypes.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "BookTypes.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
         this.optionSelected = optionSelected;
 
         // Panel with the report options
         JPanel bookTypesPanel = new JPanel( );
         bookTypesPanel.setLayout( new GridBagLayout( ) );
-        bookTypesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BookTypes.Title" ) ) );
+        bookTypesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "BookTypes.Title" ) ) );
 
         // Traditional radio button
         GridBagConstraints c = new GridBagConstraints( );
@@ -104,7 +104,7 @@ public class BookTypesDialog extends JDialog {
         c.gridy = 0;
         c.anchor = GridBagConstraints.LINE_START;
         c.fill = GridBagConstraints.NONE;
-        simpleRadioButton = new JRadioButton( TextConstants.getText( "BookTypes.Simple" ) );
+        simpleRadioButton = new JRadioButton( TC.get( "BookTypes.Simple" ) );
         bookTypesPanel.add( simpleRadioButton, c );
 
         // Traditional description
@@ -116,7 +116,7 @@ public class BookTypesDialog extends JDialog {
         JTextPane xmlReportInfo = new JTextPane( );
         xmlReportInfo.setEditable( false );
         xmlReportInfo.setBackground( getContentPane( ).getBackground( ) );
-        xmlReportInfo.setText( TextConstants.getText( "BookTypes.SimpleDescription" ) );
+        xmlReportInfo.setText( TC.get( "BookTypes.SimpleDescription" ) );
         bookTypesPanel.add( xmlReportInfo, c );
 
         // Contextual radio button
@@ -124,7 +124,7 @@ public class BookTypesDialog extends JDialog {
         c.gridy = 2;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.LINE_START;
-        formattedRadioButton = new JRadioButton( TextConstants.getText( "BookTypes.Formatted" ) );
+        formattedRadioButton = new JRadioButton( TC.get( "BookTypes.Formatted" ) );
         bookTypesPanel.add( formattedRadioButton, c );
 
         // Contextual description
@@ -137,13 +137,13 @@ public class BookTypesDialog extends JDialog {
         JTextPane htmlReportInfo = new JTextPane( );
         htmlReportInfo.setEditable( false );
         htmlReportInfo.setBackground( getContentPane( ).getBackground( ) );
-        htmlReportInfo.setText( TextConstants.getText( "BookTypes.FormattedDescription" ) );
+        htmlReportInfo.setText( TC.get( "BookTypes.FormattedDescription" ) );
         bookTypesPanel.add( htmlReportInfo, c );
 
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
         buttonsPanel.setLayout( new FlowLayout( ) );
-        JButton btnLoad = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+        JButton btnLoad = new JButton( TC.get( "GeneralText.OK" ) );
         btnLoad.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -153,7 +153,7 @@ public class BookTypesDialog extends JDialog {
             }
         } );
         buttonsPanel.add( btnLoad );
-        JButton btnCancel = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        JButton btnCancel = new JButton( TC.get( "GeneralText.Cancel" ) );
         btnCancel.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {

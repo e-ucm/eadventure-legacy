@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Timer;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -93,12 +93,12 @@ public class TimerDataControl extends DataControl {
         HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>( );
         ConditionOwner owner = new ConditionOwner( Controller.TIMER, timer.getDisplayName( ) );
         context1.put( ConditionsController.CONDITION_OWNER, owner );
-        ConditionCustomMessage cMessage1 = new ConditionCustomMessage( TextConstants.getText( "Conditions.Context.1A.44" ), TextConstants.getText( "Conditions.Context.2A.44" ) );
+        ConditionCustomMessage cMessage1 = new ConditionCustomMessage( TC.get( "Conditions.Context.1A.44" ), TC.get( "Conditions.Context.2A.44" ) );
         context1.put( ConditionsController.CONDITION_CUSTOM_MESSAGE, cMessage1 );
 
         HashMap<String, ConditionContextProperty> context2 = new HashMap<String, ConditionContextProperty>( );
         context2.put( ConditionsController.CONDITION_OWNER, owner );
-        ConditionCustomMessage cMessage2 = new ConditionCustomMessage( TextConstants.getText( "Conditions.Context.1B.44" ), TextConstants.getText( "Conditions.Context.2B.44" ) );
+        ConditionCustomMessage cMessage2 = new ConditionCustomMessage( TC.get( "Conditions.Context.1B.44" ), TC.get( "Conditions.Context.2B.44" ) );
         context2.put( ConditionsController.CONDITION_CUSTOM_MESSAGE, cMessage2 );
 
         initConditionsController = new ConditionsController( timer.getInitCond( ), context1 );
@@ -230,8 +230,8 @@ public class TimerDataControl extends DataControl {
         boolean valid = true;
 
         // Valid if the effects and the post effects are valid
-        valid &= EffectsController.isValid( currentPath + " >> " + TextConstants.getText( "Element.Effects" ), incidences, timer.getEffects( ) );
-        valid &= EffectsController.isValid( currentPath + " >> " + TextConstants.getText( "Element.PostEffects" ), incidences, timer.getPostEffects( ) );
+        valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.Effects" ), incidences, timer.getEffects( ) );
+        valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.PostEffects" ), incidences, timer.getPostEffects( ) );
 
         return valid;
     }
@@ -362,14 +362,14 @@ public class TimerDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
-        check( this.getEndConditions( ), TextConstants.getText( "Search.EndConditions" ) );
-        check( this.getInitConditions( ), TextConstants.getText( "Search.InitConditions" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
+        check( this.getEndConditions( ), TC.get( "Search.EndConditions" ) );
+        check( this.getInitConditions( ), TC.get( "Search.InitConditions" ) );
         for( int i = 0; i < this.getEffects( ).getEffectCount( ); i++ ) {
-            check( this.getEffects( ).getEffectInfo( i ), TextConstants.getText( "Search.Effect" ) );
+            check( this.getEffects( ).getEffectInfo( i ), TC.get( "Search.Effect" ) );
         }
         for( int i = 0; i < this.getPostEffects( ).getEffectCount( ); i++ ) {
-            check( this.getPostEffects( ).getEffectInfo( i ), TextConstants.getText( "Search.PostEffect" ) );
+            check( this.getPostEffects( ).getEffectInfo( i ), TC.get( "Search.PostEffect" ) );
         }
     }
 

@@ -39,7 +39,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.MacroReferenceEffectDialog;
@@ -69,7 +69,7 @@ public class EffectsDialog extends ToolManagableDialog {
     public EffectsDialog( EffectsController effectsController ) {
 
         // Call to the JDialog constructor
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Effects.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "Effects.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
 
         // Create the main panel and add it
         setLayout( new GridBagLayout( ) );

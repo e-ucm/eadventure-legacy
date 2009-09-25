@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class MultimediaStructureListElement extends EffectsStructureListElement {
 
@@ -41,9 +41,9 @@ public class MultimediaStructureListElement extends EffectsStructureListElement 
 
     public MultimediaStructureListElement( ) {
 
-        super( TextConstants.getText( "EffectsGroup.Multimedia" ) );
+        super( TC.get( "EffectsGroup.Multimedia" ) );
         //icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
-        groupEffects = new String[] { TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.TriggerCutscene" ) };
+        groupEffects = new String[] { TC.get( "Effect.PlaySound" ), TC.get( "Effect.PlayAnimation" ), TC.get( "Effect.TriggerCutscene" ) };
 
         path = LIST_URL;
     }

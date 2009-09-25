@@ -51,7 +51,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class CutsceneTypesDialog extends JDialog {
@@ -85,7 +85,7 @@ public class CutsceneTypesDialog extends JDialog {
     public CutsceneTypesDialog( ) {
 
         // Set the values
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "CutsceneTypes.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "CutsceneTypes.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
         this.optionSelected = Controller.CUTSCENE_SLIDES;
 
         // Panel with the report options
@@ -98,19 +98,19 @@ public class CutsceneTypesDialog extends JDialog {
         c.gridy = 0;
         c.anchor = GridBagConstraints.LINE_START;
         c.fill = GridBagConstraints.NONE;
-        slidesRadioButton = new JRadioButton( TextConstants.getText( "CutsceneTypes.Slides" ) );
+        slidesRadioButton = new JRadioButton( TC.get( "CutsceneTypes.Slides" ) );
         cutsceneTypesPanel.add( slidesRadioButton, c );
 
         c.insets = new Insets( 10, 10, 3, 10 );
         c.gridy = 2;
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.LINE_START;
-        videoRadioButton = new JRadioButton( TextConstants.getText( "CutsceneTypes.Video" ) );
+        videoRadioButton = new JRadioButton( TC.get( "CutsceneTypes.Video" ) );
         cutsceneTypesPanel.add( videoRadioButton, c );
 
         JPanel buttonsPanel = new JPanel( );
         buttonsPanel.setLayout( new FlowLayout( ) );
-        JButton btnLoad = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+        JButton btnLoad = new JButton( TC.get( "GeneralText.OK" ) );
         btnLoad.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -120,7 +120,7 @@ public class CutsceneTypesDialog extends JDialog {
             }
         } );
         buttonsPanel.add( btnLoad );
-        JButton btnCancel = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        JButton btnCancel = new JButton( TC.get( "GeneralText.Cancel" ) );
         btnCancel.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {

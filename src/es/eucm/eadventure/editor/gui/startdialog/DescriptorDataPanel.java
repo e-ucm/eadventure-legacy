@@ -47,7 +47,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class DescriptorDataPanel extends JPanel {
 
@@ -75,7 +75,7 @@ public class DescriptorDataPanel extends JPanel {
         // Panel with the options
         JPanel guiStylesPanel = new JPanel( );
         guiStylesPanel.setLayout( new GridBagLayout( ) );
-        guiStylesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.Title" ) ) );
+        guiStylesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.Title" ) ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.insets = new Insets( 5, 5, 5, 5 );
         c.gridy = 0;
@@ -92,7 +92,7 @@ public class DescriptorDataPanel extends JPanel {
             titleTextField = new JTextField( "" );
         titleTextField.setEditable( false );
         titlePanel.add( titleTextField );
-        titlePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.AdventureTitle" ) ) );
+        titlePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.AdventureTitle" ) ) );
         guiStylesPanel.add( titlePanel, c );
         // Create the absolutePath field
         c.gridy = 1;
@@ -108,7 +108,7 @@ public class DescriptorDataPanel extends JPanel {
         JPanel pathTextPanel = new JPanel( );
         pathTextPanel.setLayout( new GridLayout( ) );
         pathTextPanel.add( pathTextField );
-        pathTextPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.CompletePath" ) ) );
+        pathTextPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.CompletePath" ) ) );
         guiStylesPanel.add( pathTextPanel, c );
 
         // Create the text area for the description
@@ -125,7 +125,7 @@ public class DescriptorDataPanel extends JPanel {
         descriptionTextArea.setLineWrap( true );
         descriptionTextArea.setWrapStyleWord( true );
         descriptionPanel.add( new JScrollPane( descriptionTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.AdventureDescription" ) ) );
+        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.AdventureDescription" ) ) );
         descriptionTextArea.setEditable( false );
         guiStylesPanel.add( descriptionPanel, c );
 
@@ -142,7 +142,7 @@ public class DescriptorDataPanel extends JPanel {
         c1.gridx = 0;
         c1.weighty = 0.35;
         c1.gridy = 0;
-        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.AdventureDescription" ) ) );
+        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.AdventureDescription" ) ) );
         playerMode = null;
         playerModeDescription = new JTextArea( );
         playerModeDescription.setEditable( false );
@@ -155,15 +155,15 @@ public class DescriptorDataPanel extends JPanel {
             playerModeDescription.setText( "" );
         }
         else if( descriptor.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
-            playerMode = new JTextField( TextConstants.getText( "Adventure.ModePlayerTransparent.Name" ) );
-            playerModeDescription.setText( TextConstants.getText( "Adventure.ModePlayerTransparent.Description" ) );
+            playerMode = new JTextField( TC.get( "Adventure.ModePlayerTransparent.Name" ) );
+            playerModeDescription.setText( TC.get( "Adventure.ModePlayerTransparent.Description" ) );
         }
         else {
-            playerMode = new JTextField( TextConstants.getText( "Adventure.ModePlayerVisible.Name" ) );
-            playerModeDescription.setText( TextConstants.getText( "Adventure.ModePlayerVisible.Description" ) );
+            playerMode = new JTextField( TC.get( "Adventure.ModePlayerVisible.Name" ) );
+            playerModeDescription.setText( TC.get( "Adventure.ModePlayerVisible.Description" ) );
         }
         playerMode.setEditable( false );
-        playerMode.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.CurrentPlayerMode" ) ) );
+        playerMode.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.CurrentPlayerMode" ) ) );
         c1.gridx = 0;
         c1.anchor = GridBagConstraints.LINE_START;
         playerModePanel.add( playerMode, c1 );
@@ -173,7 +173,7 @@ public class DescriptorDataPanel extends JPanel {
         c1.weighty = 0.65;
         c1.anchor = GridBagConstraints.CENTER;
         playerModePanel.add( playerModeDescription, c1 );
-        playerModePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Adventure.PlayerMode" ) ) );
+        playerModePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.PlayerMode" ) ) );
         guiStylesPanel.add( playerModePanel, c );
 
         setLayout( new BorderLayout( ) );
@@ -202,12 +202,12 @@ public class DescriptorDataPanel extends JPanel {
             playerModeDescription.setText( "" );
         }
         else if( currentDescriptor.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
-            playerMode.setText( TextConstants.getText( "Adventure.ModePlayerTransparent.Name" ) );
-            playerModeDescription.setText( TextConstants.getText( "Adventure.ModePlayerTransparent.Description" ) );
+            playerMode.setText( TC.get( "Adventure.ModePlayerTransparent.Name" ) );
+            playerModeDescription.setText( TC.get( "Adventure.ModePlayerTransparent.Description" ) );
         }
         else {
-            playerMode.setText( TextConstants.getText( "Adventure.ModePlayerVisible.Name" ) );
-            playerModeDescription.setText( TextConstants.getText( "Adventure.ModePlayerVisible.Description" ) );
+            playerMode.setText( TC.get( "Adventure.ModePlayerVisible.Name" ) );
+            playerModeDescription.setText( TC.get( "Adventure.ModePlayerVisible.Description" ) );
         }
 
         if( currentDescriptor != null )

@@ -38,7 +38,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMContributeDialog;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESLifeCycleDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESTechnicalDataControl;
 
@@ -53,12 +53,12 @@ public class LOMESLifeCycleAndTechnicalPanel extends JPanel {
 
         //Create the panels
         //Lyfecyle panels
-        LOMESTextPanel versionPanel = new LOMESTextPanel( lifeCycleController.getVersionController( ), TextConstants.getText( "LOM.LifeCycle.Version" ), LOMESTextPanel.TYPE_FIELD );
-        LOMESOptionsPanel status = new LOMESOptionsPanel( lifeCycleController.getStatusController( ), TextConstants.getText( "IMS.LifeCycle.Status" ) );
-        LOMESCreateContainerPanel contribute = new LOMESCreateContainerPanel( lifeCycleController.getContribute( ), TextConstants.getText( "LOMES.LifeCycle.Contribute" ), LOMContributeDialog.LIFECYCLE );
+        LOMESTextPanel versionPanel = new LOMESTextPanel( lifeCycleController.getVersionController( ), TC.get( "LOM.LifeCycle.Version" ), LOMESTextPanel.TYPE_FIELD );
+        LOMESOptionsPanel status = new LOMESOptionsPanel( lifeCycleController.getStatusController( ), TC.get( "IMS.LifeCycle.Status" ) );
+        LOMESCreateContainerPanel contribute = new LOMESCreateContainerPanel( lifeCycleController.getContribute( ), TC.get( "LOMES.LifeCycle.Contribute" ), LOMContributeDialog.LIFECYCLE );
 
         //Technical panels
-        LOMESCreateContainerPanel requirements = new LOMESCreateContainerPanel( technicalController.getRequirement( ), TextConstants.getText( "LOMES.Technical.Requirement" ), LOMContributeDialog.NONE );
+        LOMESCreateContainerPanel requirements = new LOMESCreateContainerPanel( technicalController.getRequirement( ), TC.get( "LOMES.Technical.Requirement" ), LOMContributeDialog.NONE );
 
         JPanel container = new JPanel( );
         container.setLayout( new GridBagLayout( ) );

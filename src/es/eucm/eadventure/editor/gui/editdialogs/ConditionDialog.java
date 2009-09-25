@@ -58,7 +58,7 @@ import javax.swing.SpinnerNumberModel;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
@@ -195,7 +195,7 @@ public class ConditionDialog extends ToolManagableDialog {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 3;
         c.weightx = 1;
-        mainPanel.add( new JLabel( TextConstants.getText( "Conditions.EditConditionMessage" ) ), c );
+        mainPanel.add( new JLabel( TC.get( "Conditions.EditConditionMessage" ) ), c );
 
         c.gridy = 1;
         optionsPanel = createOptionsPanel( );
@@ -210,11 +210,11 @@ public class ConditionDialog extends ToolManagableDialog {
         JPanel buttonsPanel = new JPanel( );
         buttonsPanel.setLayout( new FlowLayout( FlowLayout.RIGHT, 4, 4 ) );
 
-        JButton okButton = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+        JButton okButton = new JButton( TC.get( "GeneralText.OK" ) );
         okButton.addActionListener( new OKButtonListener( ) );
         buttonsPanel.add( okButton );
 
-        JButton cancelButton = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        JButton cancelButton = new JButton( TC.get( "GeneralText.Cancel" ) );
         cancelButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -243,14 +243,14 @@ public class ConditionDialog extends ToolManagableDialog {
 
         JPanel panel = new JPanel( );
         panel = new JPanel( );
-        panel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Conditions.Type" ) ) );
+        panel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Conditions.Type" ) ) );
         ButtonGroup group = new ButtonGroup( );
-        JToggleButton button1 = new JToggleButton( TextConstants.getText( "Conditions.Flags" ), new ImageIcon( "img/flags.png" ) );
-        button1.setToolTipText( TextConstants.getText( "Conditions.Flag.Description" ) );
-        JToggleButton button2 = new JToggleButton( TextConstants.getText( "Conditions.Var" ), new ImageIcon( "img/vars.png" ) );
-        button2.setToolTipText( TextConstants.getText( "Conditions.Var.Description" ) );
-        JToggleButton button3 = new JToggleButton( TextConstants.getText( "Conditions.ConditionGroup" ), new ImageIcon( "img/group.png" ) );
-        button3.setToolTipText( TextConstants.getText( "Conditions.Group.Description" ) );
+        JToggleButton button1 = new JToggleButton( TC.get( "Conditions.Flags" ), new ImageIcon( "img/flags.png" ) );
+        button1.setToolTipText( TC.get( "Conditions.Flag.Description" ) );
+        JToggleButton button2 = new JToggleButton( TC.get( "Conditions.Var" ), new ImageIcon( "img/vars.png" ) );
+        button2.setToolTipText( TC.get( "Conditions.Var.Description" ) );
+        JToggleButton button3 = new JToggleButton( TC.get( "Conditions.ConditionGroup" ), new ImageIcon( "img/group.png" ) );
+        button3.setToolTipText( TC.get( "Conditions.Group.Description" ) );
         button1.addActionListener( new ConditionModeButtonListener( Condition.FLAG_CONDITION ) );
         button2.addActionListener( new ConditionModeButtonListener( Condition.VAR_CONDITION ) );
         button3.addActionListener( new ConditionModeButtonListener( Condition.GLOBAL_STATE_CONDITION ) );
@@ -336,11 +336,11 @@ public class ConditionDialog extends ToolManagableDialog {
             c.gridy = 0;
             c.gridwidth = 1;
             c.weightx = 0.8;
-            featuresPanel.add( new JLabel( TextConstants.getText( "Conditions.Flag.Id" ) ), c );
+            featuresPanel.add( new JLabel( TC.get( "Conditions.Flag.Id" ) ), c );
 
             c.gridx = 1;
             c.weightx = 0.2;
-            featuresPanel.add( new JLabel( TextConstants.getText( "Conditions.Flag.State" ) ), c );
+            featuresPanel.add( new JLabel( TC.get( "Conditions.Flag.State" ) ), c );
 
             c.insets = new Insets( 2, 4, 4, 4 );
             c.gridx = 0;
@@ -360,7 +360,7 @@ public class ConditionDialog extends ToolManagableDialog {
             }
             featuresPanel.add( stateComboBox, c );
 
-            featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Conditions.Flag.Title" ) ) );
+            featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Conditions.Flag.Title" ) ) );
 
         }
 
@@ -373,15 +373,15 @@ public class ConditionDialog extends ToolManagableDialog {
             c.gridy = 0;
             c.gridwidth = 1;
             c.weightx = 0.6;
-            featuresPanel.add( new JLabel( TextConstants.getText( "Conditions.Var.Id" ) ), c );
+            featuresPanel.add( new JLabel( TC.get( "Conditions.Var.Id" ) ), c );
 
             c.gridx = 1;
             c.weightx = 0.2;
-            featuresPanel.add( new JLabel( TextConstants.getText( "Conditions.Var.State" ) ), c );
+            featuresPanel.add( new JLabel( TC.get( "Conditions.Var.State" ) ), c );
 
             c.gridx = 2;
             c.weightx = 0.2;
-            featuresPanel.add( new JLabel( TextConstants.getText( "Conditions.Var.Value" ) ), c );
+            featuresPanel.add( new JLabel( TC.get( "Conditions.Var.Value" ) ), c );
 
             c.insets = new Insets( 2, 4, 4, 4 );
             c.gridx = 0;
@@ -406,7 +406,7 @@ public class ConditionDialog extends ToolManagableDialog {
             valueSpinner = new JSpinner( new SpinnerNumberModel( defaultValue, VarCondition.MIN_VALUE, VarCondition.MAX_VALUE, 1 ) );
             featuresPanel.add( valueSpinner, c );
 
-            featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Conditions.Var.Title" ) ) );
+            featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Conditions.Var.Title" ) ) );
 
         }
 
@@ -425,7 +425,7 @@ public class ConditionDialog extends ToolManagableDialog {
             c.gridy = 0;
             c.gridwidth = 1;
             c.weightx = 1;
-            featuresPanel.add( new JLabel( TextConstants.getText( "Conditions.Group.Id" ) ), c );
+            featuresPanel.add( new JLabel( TC.get( "Conditions.Group.Id" ) ), c );
 
             c.gridx = 0;
             c.gridy = 1;
@@ -436,7 +436,7 @@ public class ConditionDialog extends ToolManagableDialog {
                 idsComboBox.setSelectedItem( defaultId );
             featuresPanel.add( idsComboBox, c );
 
-            featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Conditions.Group.Title" ) ) );
+            featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Conditions.Group.Title" ) ) );
         }
         featuresPanel.doLayout( );
         pack( );

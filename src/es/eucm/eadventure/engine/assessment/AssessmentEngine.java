@@ -73,7 +73,7 @@ import es.eucm.eadventure.common.auxiliar.SendMail;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.TimerEventListener;
@@ -486,8 +486,8 @@ public class AssessmentEngine implements TimerEventListener {
 					});
 					buttonPanel.add(ok);
 				} else {
-					JButton ok_send = new JButton(TextConstants
-							.getText("Report.OKSend"));
+					JButton ok_send = new JButton(TC
+							.get("Report.OKSend"));
 					ok_send.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							String[] to = new String[1];
@@ -503,8 +503,8 @@ public class AssessmentEngine implements TimerEventListener {
 						}
 					});
 					buttonPanel.add(ok_send);
-					JButton ok_dont_send = new JButton(TextConstants
-							.getText("Report.OKDontSend"));
+					JButton ok_dont_send = new JButton(TC
+							.get("Report.OKDontSend"));
 					ok_dont_send.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							GUI.getInstance().restoreFrame();

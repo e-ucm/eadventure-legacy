@@ -41,7 +41,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
@@ -109,7 +109,7 @@ public class SmallActionsTable extends JTable {
         public String getColumnName( int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "SmallActionList.Action" );
+                return TC.get( "SmallActionList.Action" );
             return "";
         }
 

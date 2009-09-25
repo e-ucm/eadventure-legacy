@@ -46,7 +46,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 
 /**
@@ -75,7 +75,7 @@ public class WaitTimeEffectDialog extends EffectDialog {
     public WaitTimeEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "WaitTimeEffect.Title" ), true );
+        super( TC.get( "WaitTimeEffect.Title" ), true );
 
         // Create the main panel
         JPanel mainPanel = new JPanel( );
@@ -83,9 +83,9 @@ public class WaitTimeEffectDialog extends EffectDialog {
         GridBagConstraints c = new GridBagConstraints( );
 
         // Set the border of the panel with the description
-        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "WaitTimeEffect.Border" ) ) ) );
+        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "WaitTimeEffect.Border" ) ) ) );
 
-        JLabel label = new JLabel( TextConstants.getText( "WaitTimeEffect.Label" ) );
+        JLabel label = new JLabel( TC.get( "WaitTimeEffect.Label" ) );
 
         // Set the defualt values (if present)
         if( currentProperties != null ) {

@@ -78,7 +78,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 /**
  * This class has methods used to generate and send an error or comments report
@@ -278,7 +278,7 @@ public class ReportDialog extends JDialog {
         this.setResizable( false );
         this.setModalityType( Dialog.ModalityType.TOOLKIT_MODAL );
 
-        String title = TextConstants.getText( "ErrorReport.Title" );
+        String title = TC.get( "ErrorReport.Title" );
         this.setTitle( ( !title.equals( "Error" ) ? title : "Error Report" ) );
 
         this.setLayout( new GridBagLayout( ) );
@@ -349,7 +349,7 @@ public class ReportDialog extends JDialog {
 
         JPanel descriptionPanel = new JPanel( );
         descriptionPanel.setLayout( new BorderLayout( ) );
-        String shortDesc = TextConstants.getText( "ErrorReport.ShortDescription" );
+        String shortDesc = TC.get( "ErrorReport.ShortDescription" );
         descriptionPanel.add( new JLabel( ( !shortDesc.equals( "Error" ) ? shortDesc : "Short description" ) ), BorderLayout.NORTH );
 
         descriptionTextArea = new JTextArea( );
@@ -366,7 +366,7 @@ public class ReportDialog extends JDialog {
 
         JPanel exceptionPanel = new JPanel( );
         exceptionPanel.setLayout( new BorderLayout( ) );
-        String foundException = TextConstants.getText( "ErrorReport.FoundException" );
+        String foundException = TC.get( "ErrorReport.FoundException" );
         exceptionPanel.add( new JLabel( ( !foundException.equals( "Error" ) ? foundException : "Found exception" ) ), BorderLayout.NORTH );
 
         JTextArea exceptionTextArea = new JTextArea( );
@@ -404,7 +404,7 @@ public class ReportDialog extends JDialog {
         this.setSize( PANEL_WIDTH, PANEL_HEIGHT );
         this.setResizable( false );
 
-        this.setTitle( TextConstants.getText( "ErrorReport.TitleComments" ) );
+        this.setTitle( TC.get( "ErrorReport.TitleComments" ) );
 
         this.setLayout( new GridBagLayout( ) );
 
@@ -463,7 +463,7 @@ public class ReportDialog extends JDialog {
 
         JPanel descriptionPanel = new JPanel( );
         descriptionPanel.setLayout( new BorderLayout( ) );
-        descriptionPanel.add( new JLabel( TextConstants.getText( "ErrorReport.Comments" ) ), BorderLayout.NORTH );
+        descriptionPanel.add( new JLabel( TC.get( "ErrorReport.Comments" ) ), BorderLayout.NORTH );
 
         descriptionTextArea = new JTextArea( );
         descriptionTextArea.setLineWrap( true );
@@ -494,7 +494,7 @@ public class ReportDialog extends JDialog {
     private JPanel createButtonPanel( final boolean error ) {
 
         JPanel buttonPanel = new JPanel( );
-        String send = TextConstants.getText( "ErrorReport.Send" );
+        String send = TC.get( "ErrorReport.Send" );
         sendButton = new JButton( ( !send.equals( "Error" ) ? send : "Send" ) );
         sendButton.addActionListener( new ActionListener( ) {
 
@@ -506,7 +506,7 @@ public class ReportDialog extends JDialog {
         } );
         buttonPanel.add( sendButton );
 
-        String cancel = TextConstants.getText( "ErrorReport.Cancel" );
+        String cancel = TC.get( "ErrorReport.Cancel" );
         dontSendButton = new JButton( ( !cancel.equals( "Error" ) ? cancel : "Cancel" ) );
         dontSendButton.addActionListener( new ActionListener( ) {
 
@@ -602,7 +602,7 @@ public class ReportDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.NONE;
-        String name = TextConstants.getText( "ErrorReport.Name" );
+        String name = TC.get( "ErrorReport.Name" );
         temp.add( new JLabel( ( !name.equals( "Error" ) ? name : "Name" ) ), c );
 
         nameTextField = new JTextField( 25 ) {
@@ -623,7 +623,7 @@ public class ReportDialog extends JDialog {
         c.gridy++;
         c.gridx = 0;
         c.fill = GridBagConstraints.NONE;
-        String email = TextConstants.getText( "ErrorReport.Email" );
+        String email = TC.get( "ErrorReport.Email" );
         temp.add( new JLabel( ( !email.equals( "Error" ) ? email : "e-mail" ) ), c );
 
         emailTextField = new JTextField( 200 );

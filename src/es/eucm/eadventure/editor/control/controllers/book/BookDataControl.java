@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
@@ -250,12 +250,12 @@ public class BookDataControl extends DataControlWithResources {
         String references = String.valueOf( controller.countIdentifierReferences( oldBookId ) );
 
         // Ask for confirmation
-        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameBookTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldBookId, references } ) ) ) {
+        if( name != null || controller.showStrictConfirmDialog( TC.get( "Operation.RenameBookTitle" ), TC.get( "Operation.RenameElementWarning", new String[] { oldBookId, references } ) ) ) {
 
             // Show a dialog asking for the new book id
             String newBookId = name;
             if( name == null )
-                newBookId = controller.showInputDialog( TextConstants.getText( "Operation.RenameBookTitle" ), TextConstants.getText( "Operation.RenameBookMessage" ), oldBookId );
+                newBookId = controller.showInputDialog( TC.get( "Operation.RenameBookTitle" ), TC.get( "Operation.RenameBookMessage" ), oldBookId );
 
             // If some value was typed and the identifiers are different
             if( newBookId != null && !newBookId.equals( oldBookId ) && controller.isElementIdValid( newBookId ) ) {
@@ -287,7 +287,7 @@ public class BookDataControl extends DataControlWithResources {
 
         // Iterate through the resources
         for( int i = 0; i < resourcesDataControlList.size( ); i++ ) {
-            String resourcesPath = currentPath + " >> " + TextConstants.getElementName( Controller.RESOURCES ) + " #" + ( i + 1 );
+            String resourcesPath = currentPath + " >> " + TC.getElement( Controller.RESOURCES ) + " #" + ( i + 1 );
             valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
         }
 
@@ -377,13 +377,13 @@ public class BookDataControl extends DataControlWithResources {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
+        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
         if( this.getBookParagraphsList( ) != null )
             this.getBookParagraphsList( ).recursiveSearch( );
         if( this.getBookPagesList( ) != null )
             this.getBookPagesList( ).recursiveSearch( );
-        check( this.getPreviewImage( ), TextConstants.getText( "Search.PreviewImage" ) );
+        check( this.getPreviewImage( ), TC.get( "Search.PreviewImage" ) );
     }
 
     @Override

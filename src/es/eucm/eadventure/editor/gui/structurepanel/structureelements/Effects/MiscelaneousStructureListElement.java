@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class MiscelaneousStructureListElement extends EffectsStructureListElement {
 
@@ -41,9 +41,9 @@ public class MiscelaneousStructureListElement extends EffectsStructureListElemen
 
     public MiscelaneousStructureListElement( ) {
 
-        super( TextConstants.getText( "EffectsGroup.Miscellaneous" ) );
+        super( TC.get( "EffectsGroup.Miscellaneous" ) );
         //icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
-        groupEffects = new String[] { TextConstants.getText( "Effect.MacroReference" ), TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.RandomEffect" ), TextConstants.getText( "Effect.WaitTime" ) };
+        groupEffects = new String[] { TC.get( "Effect.MacroReference" ), TC.get( "Effect.CancelAction" ), TC.get( "Effect.RandomEffect" ), TC.get( "Effect.WaitTime" ) };
         ;
         path = LIST_URL;
     }

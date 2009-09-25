@@ -59,7 +59,7 @@ import javax.swing.event.HyperlinkListener;
 
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class HelpDialog extends JDialog implements HyperlinkListener {
@@ -85,7 +85,7 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
 
     public HelpDialog( String helpPath ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "HelpDialog.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "HelpDialog.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
         backList = new ArrayList<URL>( );
         forwardList = new ArrayList<URL>( );
         setSize( HELP_WIDTH, HELP_HEIGHT );
@@ -220,7 +220,7 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
 
     public void writeFileNotFound( String path ) {
 
-        add( new JLabel( TextConstants.getText( "HelpDialog.FileNotFound" ) + " " + path ) );
+        add( new JLabel( TC.get( "HelpDialog.FileNotFound" ) + " " + path ) );
     }
 
     public void openURI( String url ) {

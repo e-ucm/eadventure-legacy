@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class TriggerStructureListElement extends EffectsStructureListElement {
 
@@ -41,9 +41,9 @@ public class TriggerStructureListElement extends EffectsStructureListElement {
 
     public TriggerStructureListElement( ) {
 
-        super( TextConstants.getText( "EffectsGroup.Trigger" ) );
+        super( TC.get( "EffectsGroup.Trigger" ) );
         //icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
-        groupEffects = new String[] { TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ) };
+        groupEffects = new String[] { TC.get( "Effect.TriggerConversation" ), TC.get( "Effect.TriggerCutscene" ), TC.get( "Effect.TriggerBook" ), TC.get( "Effect.TriggerScene" ), TC.get( "Effect.TriggerLastScene" ) };
 
         path = LIST_URL;
     }

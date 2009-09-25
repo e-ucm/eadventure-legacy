@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.data.meta.auxiliar;
 
 import java.util.ArrayList;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMContribute extends LOMESContainer {
@@ -82,7 +82,7 @@ public class LOMContribute extends LOMESContainer {
     @Override
     public String getTitle( ) {
 
-        return TextConstants.getText( "LOMES.LCContribute.DialogTitle" );
+        return TC.get( "LOMES.LCContribute.DialogTitle" );
     }
 
     @Override

@@ -41,7 +41,7 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class TableScrollPane extends JScrollPane {
 
@@ -62,7 +62,7 @@ public class TableScrollPane extends JScrollPane {
                 repaint( );
             }
         } );
-        this.textMessage = TextConstants.getText( "GeneralText.EmptyTable" );
+        this.textMessage = TC.get( "GeneralText.EmptyTable" );
     }
 
     @Override

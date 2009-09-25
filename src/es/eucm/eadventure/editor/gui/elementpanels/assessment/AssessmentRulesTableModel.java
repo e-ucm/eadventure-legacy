@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.assessment;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 
 /**
@@ -82,11 +82,11 @@ public class AssessmentRulesTableModel extends AbstractTableModel {
 
         String columnName = "";
         if( columnIndex == 0 )
-            columnName = TextConstants.getText( "AssessmentRulesList.ColumnHeader0" );
+            columnName = TC.get( "AssessmentRulesList.ColumnHeader0" );
         else if( columnIndex == 1 )
-            columnName = TextConstants.getText( "AssessmentRulesList.ColumnHeader1" );
+            columnName = TC.get( "AssessmentRulesList.ColumnHeader1" );
         else if( columnIndex == 2 )
-            columnName = TextConstants.getText( "AssessmentRulesList.ColumnHeader2" );
+            columnName = TC.get( "AssessmentRulesList.ColumnHeader2" );
         return columnName;
     }
 
@@ -122,15 +122,15 @@ public class AssessmentRulesTableModel extends AbstractTableModel {
 
         switch( importance ) {
             case 0:
-                return TextConstants.getText( "AssessmentRule.Importance.VeryLow" );
+                return TC.get( "AssessmentRule.Importance.VeryLow" );
             case 1:
-                return TextConstants.getText( "AssessmentRule.Importance.Low" );
+                return TC.get( "AssessmentRule.Importance.Low" );
             case 2:
-                return TextConstants.getText( "AssessmentRule.Importance.Normal" );
+                return TC.get( "AssessmentRule.Importance.Normal" );
             case 3:
-                return TextConstants.getText( "AssessmentRule.Importance.High" );
+                return TC.get( "AssessmentRule.Importance.High" );
             case 4:
-                return TextConstants.getText( "AssessmentRule.Importance.VeryHigh" );
+                return TC.get( "AssessmentRule.Importance.VeryHigh" );
         }
         return "";
     }

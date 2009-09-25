@@ -52,7 +52,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
@@ -144,13 +144,13 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 
         if( flagsvars.length == 0 ) {
             if( isFlag ) {
-                selectedFlagVar = TextConstants.getText( "Flags.DefaultFlagName" );
+                selectedFlagVar = TC.get( "Flags.DefaultFlagName" );
                 Controller.getInstance( ).getVarFlagSummary( ).addVar( selectedFlagVar );
                 Controller.getInstance( ).getVarFlagSummary( ).addVarReference( selectedFlagVar );
 
             }
             else if( !isFlag ) {
-                selectedFlagVar = TextConstants.getText( "Vars.DefaultVarName" );
+                selectedFlagVar = TC.get( "Vars.DefaultVarName" );
                 Controller.getInstance( ).getVarFlagSummary( ).addVar( selectedFlagVar );
                 Controller.getInstance( ).getVarFlagSummary( ).addVarReference( selectedFlagVar );
 

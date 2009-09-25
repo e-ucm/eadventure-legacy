@@ -49,7 +49,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.ElementImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
@@ -87,14 +87,14 @@ public class MovePlayerEffectDialog extends EffectDialog {
     public MovePlayerEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "MovePlayerEffect.Title" ), true );
+        super( TC.get( "MovePlayerEffect.Title" ), true );
 
         // Load the path to the image of the player
         String playerPath = controller.getPlayerImagePath( );
 
         // Create the set of values for the scenes
         List<String> scenesList = new ArrayList<String>( );
-        scenesList.add( TextConstants.getText( "SceneLocation.NoSceneSelected" ) );
+        scenesList.add( TC.get( "SceneLocation.NoSceneSelected" ) );
         String[] scenesArray = controller.getIdentifierSummary( ).getSceneIds( );
         for( String scene : scenesArray )
             scenesList.add( scene );
@@ -106,7 +106,7 @@ public class MovePlayerEffectDialog extends EffectDialog {
         GridBagConstraints c = new GridBagConstraints( );
 
         // Set the border of the panel with the description
-        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "MovePlayerEffect.Description" ) ) ) );
+        mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "MovePlayerEffect.Description" ) ) ) );
 
         // Create and add the list of scenes
         c.insets = new Insets( 2, 4, 4, 4 );

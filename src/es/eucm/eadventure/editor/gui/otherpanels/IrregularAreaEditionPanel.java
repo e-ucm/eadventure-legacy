@@ -54,7 +54,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.PointDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.RectangleArea;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 /**
  * A Panel for the edition of irregular active areas and exits
@@ -120,7 +120,7 @@ public class IrregularAreaEditionPanel extends JPanel {
         ButtonGroup group = new ButtonGroup( );
         buttonPanel.add( createToolButton( "BarriersList.EditNodes", IrregularAreaEditionController.POINT_EDIT, "img/icons/nodeEdit.png", group ) );
         buttonPanel.add( createToolButton( "BarriersList.DeleteTool", IrregularAreaEditionController.DELETE_TOOL, "img/icons/deleteTool.png", group ) );
-        JButton turnRectangle = new JButton( TextConstants.getText( "SPEP.ConvertToRectangularArea" ) );
+        JButton turnRectangle = new JButton( TC.get( "SPEP.ConvertToRectangularArea" ) );
         turnRectangle.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -154,7 +154,7 @@ public class IrregularAreaEditionPanel extends JPanel {
         ImageIcon icon = new ImageIcon( iconPath );
         button = new JToggleButton( icon );
         group.add( button );
-        button.setToolTipText( TextConstants.getText( text ) );
+        button.setToolTipText( TC.get( text ) );
         button.setFocusable( false );
         if( tool == TrajectoryScenePreviewEditionController.NODE_EDIT ) {
             button.setSelected( true );
@@ -205,7 +205,7 @@ public class IrregularAreaEditionPanel extends JPanel {
                     spep.addInfluenceArea( ( (ExitDataControl) rectangleArea ).getInfluenceArea( ) );
             }
             if( spep.getSelectedElement( ) != null && spep.getSelectedElement( ).getDataControl( ) != null && spep.getSelectedElement( ).getDataControl( ) instanceof RectangleArea ) {
-                turnIrregular = new JButton( TextConstants.getText( "SPEP.ConvertToIrregularArea" ) );
+                turnIrregular = new JButton( TC.get( "SPEP.ConvertToIrregularArea" ) );
                 turnIrregular.addActionListener( new ActionListener( ) {
 
                     public void actionPerformed( ActionEvent e ) {

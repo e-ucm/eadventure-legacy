@@ -55,7 +55,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.animation.FrameDataControl;
 
 public class FrameConfigPanel extends JPanel {
@@ -93,7 +93,7 @@ public class FrameConfigPanel extends JPanel {
         c.gridy = 0;
 
         JPanel temp = new JPanel( );
-        temp.add( new JLabel( TextConstants.getText( "Animation.Duration" ) + ": " ) );
+        temp.add( new JLabel( TC.get( "Animation.Duration" ) + ": " ) );
         SpinnerModel sm = new SpinnerNumberModel( frameDataControl.getTime( ), 0, 10000, 100 );
         frameTimeSpinner = new JSpinner( sm );
         frameTimeSpinner.addChangeListener( new ChangeListener( ) {
@@ -106,7 +106,7 @@ public class FrameConfigPanel extends JPanel {
         temp.add( frameTimeSpinner );
 
         if( aed.getAnimationDataControl( ).isSlides( ) ) {
-            checkbox = new JCheckBox( TextConstants.getText( "Animation.WaitForClick" ) );
+            checkbox = new JCheckBox( TC.get( "Animation.WaitForClick" ) );
             if( frameDataControl.isWaitForClick( ) ) {
                 checkbox.setSelected( true );
                 frameTimeSpinner.setEnabled( false );
@@ -159,7 +159,7 @@ public class FrameConfigPanel extends JPanel {
         imageAssetPanel.add( imageUriTextField, c2 );
 
         // Create the "Select" button and insert it
-        JButton imageSelectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+        JButton imageSelectButton = new JButton( TC.get( "Resources.Select" ) );
         imageSelectButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -197,7 +197,7 @@ public class FrameConfigPanel extends JPanel {
             }
         } );
         deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-        deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+        deleteContentButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
         soundAssetPanel.add( deleteContentButton, c2 );
 
         // Create the text field and insert it
@@ -210,7 +210,7 @@ public class FrameConfigPanel extends JPanel {
         soundAssetPanel.add( soundUriTextField, c2 );
 
         // Create the "Select" button and insert it
-        JButton soundSelectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+        JButton soundSelectButton = new JButton( TC.get( "Resources.Select" ) );
         soundSelectButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {

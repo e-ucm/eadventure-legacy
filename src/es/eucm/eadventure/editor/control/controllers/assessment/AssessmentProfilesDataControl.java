@@ -40,7 +40,7 @@ import java.util.List;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -72,7 +72,7 @@ public class AssessmentProfilesDataControl extends DataControl {
 
             //Prompt for profile name:
             if( profileName == null )
-                profileName = controller.showInputDialog( TextConstants.getText( "Operation.CreateAssessmentFile.FileName" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.Message" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.DefaultValue" ) );
+                profileName = controller.showInputDialog( TC.get( "Operation.CreateAssessmentFile.FileName" ), TC.get( "Operation.CreateAssessmentFile.FileName.Message" ), TC.get( "Operation.CreateAssessmentFile.FileName.DefaultValue" ) );
             if( profileName != null && controller.isElementIdValid( profileName ) ) {
                 //Checks if the profile exists. In that case, communicate it
                 //Checks if the profile exists. Always profile name is set as TextConstants.getText("Operation.CreateAdaptationFile.FileName.DefaultValue");
@@ -143,7 +143,7 @@ public class AssessmentProfilesDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.CreateAssessmentFile.FileName.DefaultValue" );
+        return TC.get( "Operation.CreateAssessmentFile.FileName.DefaultValue" );
     }
 
     @Override
@@ -206,7 +206,7 @@ public class AssessmentProfilesDataControl extends DataControl {
             if( dataControl == profile ) {
                 String path = profile.getName( );
                 int references = Controller.getInstance( ).countAssetReferences( path );
-                if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { TextConstants.getElementName( Controller.ASSESSMENT_PROFILE ), Integer.toString( references ) } ) ) ) {
+                if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { TC.getElement( Controller.ASSESSMENT_PROFILE ), Integer.toString( references ) } ) ) ) {
                     data.remove( profiles.indexOf( dataControl ) );
                     deleted = this.profiles.remove( dataControl );
                     if( deleted ) {

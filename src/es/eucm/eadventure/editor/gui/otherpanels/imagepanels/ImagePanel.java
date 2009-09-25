@@ -44,7 +44,7 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
@@ -116,7 +116,7 @@ public class ImagePanel extends JPanel {
 
         // Add a label
         setLayout( new GridBagLayout( ) );
-        add( new JLabel( TextConstants.getText( "ImagePanel.ImageNotAvalaible" ) ) );
+        add( new JLabel( TC.get( "ImagePanel.ImageNotAvalaible" ) ) );
     }
 
     /**
@@ -145,7 +145,7 @@ public class ImagePanel extends JPanel {
 
         // Remove all components, and add a label
         removeAll( );
-        add( new JLabel( TextConstants.getText( "ImagePanel.ImageNotAvalaible" ) ) );
+        add( new JLabel( TC.get( "ImagePanel.ImageNotAvalaible" ) ) );
         revalidate( );
 
         // Repaint the panel
@@ -174,7 +174,7 @@ public class ImagePanel extends JPanel {
         // Remove all components, and add a label if the image is not loaded
         removeAll( );
         if( !isImageLoaded( ) ) {
-            add( new JLabel( TextConstants.getText( "ImagePanel.ImageNotAvalaible" ) ) );
+            add( new JLabel( TC.get( "ImagePanel.ImageNotAvalaible" ) ) );
             revalidate( );
         }
 

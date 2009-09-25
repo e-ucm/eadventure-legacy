@@ -47,7 +47,7 @@ import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.Positioned;
 import es.eucm.eadventure.common.gui.NoEditableNumberSpinner;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.ChangePositionTool;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.PositionImagePanel;
@@ -168,7 +168,7 @@ public class PositionPanel extends JPanel implements Positioned {
         xCoordinatePanel.setLayout( new FlowLayout( ) );
 
         // Create and add the x position label
-        xCoordinatePanel.add( new JLabel( TextConstants.getText( "SceneLocation.XCoordinate" ) ) );
+        xCoordinatePanel.add( new JLabel( TC.get( "SceneLocation.XCoordinate" ) ) );
 
         // Create and add the x position text field
         positionXTextField = new NoEditableNumberSpinner( positionX, -2000, 5000, 1 );
@@ -187,7 +187,7 @@ public class PositionPanel extends JPanel implements Positioned {
         yCoordinatePanel.setLayout( new FlowLayout( ) );
 
         // Create and add the y position label
-        yCoordinatePanel.add( new JLabel( TextConstants.getText( "SceneLocation.YCoordinate" ) ));
+        yCoordinatePanel.add( new JLabel( TC.get( "SceneLocation.YCoordinate" ) ));
 
         // Create and add the y position text field
         positionYTextField = new NoEditableNumberSpinner( positionY, -2000, 5000, 1 );
@@ -202,7 +202,7 @@ public class PositionPanel extends JPanel implements Positioned {
         if (withScale) {
             JPanel scalePanel = new JPanel();
             scalePanel.setLayout( new FlowLayout() );
-            scalePanel.add( new JLabel(TextConstants.getText( "SceneLocation.Scale" )), c);
+            scalePanel.add( new JLabel(TC.get( "SceneLocation.Scale" )), c);
             scaleTextField = new NoEditableNumberSpinner( scale, 0.1f, 5.0f, 0.1f);
             scaleTextField.addChangeListener( new ChangeValueListener());
             scalePanel.add(scaleTextField);

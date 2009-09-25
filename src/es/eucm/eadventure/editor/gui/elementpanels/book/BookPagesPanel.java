@@ -66,7 +66,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
@@ -134,7 +134,7 @@ public class BookPagesPanel extends JPanel {
         previewPanelScroll = new JScrollPane( pageNotLoadedPanel );
         //		previewPanelContainer.add( previewPanelScroll, BorderLayout.CENTER );
 
-        JButton previewButton = new JButton( TextConstants.getText( "Book.Preview" ) );
+        JButton previewButton = new JButton( TC.get( "Book.Preview" ) );
         previewButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -345,7 +345,7 @@ public class BookPagesPanel extends JPanel {
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        newButton.setToolTipText( TextConstants.getText( "BookPages.AddPage" ) );
+        newButton.setToolTipText( TC.get( "BookPages.AddPage" ) );
         newButton.addMouseListener( new MouseAdapter( ) {
 
             @Override
@@ -358,7 +358,7 @@ public class BookPagesPanel extends JPanel {
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteButton.setToolTipText( TextConstants.getText( "BookPages.DeletePage" ) );
+        deleteButton.setToolTipText( TC.get( "BookPages.DeletePage" ) );
         deleteButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -370,7 +370,7 @@ public class BookPagesPanel extends JPanel {
         moveUpButton.setContentAreaFilled( false );
         moveUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        moveUpButton.setToolTipText( TextConstants.getText( "BookPages.MovePageUp" ) );
+        moveUpButton.setToolTipText( TC.get( "BookPages.MovePageUp" ) );
         moveUpButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -382,7 +382,7 @@ public class BookPagesPanel extends JPanel {
         moveDownButton.setContentAreaFilled( false );
         moveDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        moveDownButton.setToolTipText( TextConstants.getText( "BookPages.MovePageDown" ) );
+        moveDownButton.setToolTipText( TC.get( "BookPages.MovePageDown" ) );
         moveDownButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -421,7 +421,7 @@ public class BookPagesPanel extends JPanel {
         JPopupMenu completePopupMenu = new JPopupMenu( );
 
         //Add page item
-        JMenuItem addPageIt = new JMenuItem( TextConstants.getText( "TreeNode.AddElement" + Controller.BOOK_PAGE ) );
+        JMenuItem addPageIt = new JMenuItem( TC.get( "TreeNode.AddElement" + Controller.BOOK_PAGE ) );
         addPageIt.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -435,7 +435,7 @@ public class BookPagesPanel extends JPanel {
         completePopupMenu.addSeparator( );
 
         // Create and add the delete item
-        JMenuItem deleteMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.DeleteElement" ) );
+        JMenuItem deleteMenuItem = new JMenuItem( TC.get( "TreeNode.DeleteElement" ) );
         deleteMenuItem.setEnabled( deleteButton.isEnabled( ) );
         deleteMenuItem.addActionListener( new ActionListener( ) {
 
@@ -450,8 +450,8 @@ public class BookPagesPanel extends JPanel {
         completePopupMenu.addSeparator( );
 
         // Create and add the move up and down item
-        JMenuItem moveUpMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.MoveElementUp" ) );
-        JMenuItem moveDownMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.MoveElementDown" ) );
+        JMenuItem moveUpMenuItem = new JMenuItem( TC.get( "TreeNode.MoveElementUp" ) );
+        JMenuItem moveDownMenuItem = new JMenuItem( TC.get( "TreeNode.MoveElementDown" ) );
         moveUpMenuItem.setEnabled( moveUpButton.isEnabled( ) );
         moveDownMenuItem.setEnabled( moveDownButton.isEnabled( ) );
         moveUpMenuItem.addActionListener( new ActionListener( ) {

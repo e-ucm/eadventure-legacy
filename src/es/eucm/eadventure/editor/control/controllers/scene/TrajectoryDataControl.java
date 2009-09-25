@@ -39,7 +39,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -301,11 +301,11 @@ public class TrajectoryDataControl extends DataControl {
         boolean valid = true;
 
         for( int i = 0; i < nodeDataControlList.size( ); i++ ) {
-            String activeAreaPath = currentPath + " >> " + TextConstants.getElementName( Controller.NODE ) + " #" + ( i + 1 );
+            String activeAreaPath = currentPath + " >> " + TC.getElement( Controller.NODE ) + " #" + ( i + 1 );
             valid &= nodeDataControlList.get( i ).isValid( activeAreaPath, incidences );
         }
         for( int i = 0; i < sideDataControlList.size( ); i++ ) {
-            String activeAreaPath = currentPath + " >> " + TextConstants.getElementName( Controller.SIDE ) + " #" + ( i + 1 );
+            String activeAreaPath = currentPath + " >> " + TC.getElement( Controller.SIDE ) + " #" + ( i + 1 );
             valid &= sideDataControlList.get( i ).isValid( activeAreaPath, incidences );
         }
 

@@ -37,7 +37,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
@@ -334,21 +334,21 @@ public class AdaptationRuleDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( getDescription( ), TextConstants.getText( "Search.Description" ) );
+        check( getDescription( ), TC.get( "Search.Description" ) );
         check( getId( ), "ID" );
-        check( getInitialScene( ), TextConstants.getText( "Search.InitialScene" ) );
+        check( getInitialScene( ), TC.get( "Search.InitialScene" ) );
 
         for( int i = 0; i < this.getFlagActionCount( ); i++ ) {
             if( isFlag( i ) )
-                check( getFlag( i ), TextConstants.getText( "Search.Flag" ) );
+                check( getFlag( i ), TC.get( "Search.Flag" ) );
             else
-                check( getFlag( i ), TextConstants.getText( "Search.Var" ) );
+                check( getFlag( i ), TC.get( "Search.Var" ) );
 
-            check( getAction( i ), TextConstants.getText( "Search.ActionOverGameState" ) );
+            check( getAction( i ), TC.get( "Search.ActionOverGameState" ) );
         }
         for( int i = 0; i < this.getUOLPropertyCount( ); i++ ) {
-            check( this.getUOLPropertyId( i ), TextConstants.getText( "Search.LMSPropertyID" ) );
-            check( this.getUOLPropertyValue( i ), TextConstants.getText( "Search.LMSPropertyValue" ) );
+            check( this.getUOLPropertyId( i ), TC.get( "Search.LMSPropertyID" ) );
+            check( this.getUOLPropertyValue( i ), TC.get( "Search.LMSPropertyValue" ) );
         }
     }
 

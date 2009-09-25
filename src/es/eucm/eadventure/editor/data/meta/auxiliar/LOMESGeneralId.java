@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.data.meta.auxiliar;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class LOMESGeneralId implements LOMESComposeType {
 
@@ -79,8 +79,8 @@ public class LOMESGeneralId implements LOMESComposeType {
     public static String[] attributes( ) {
 
         String[] attr = new String[ NUMBER_ATTR ];
-        attr[0] = TextConstants.getText( "LOMES.GeneralId.CatalogName" ) + " " + ATTR_STRING;
-        attr[0] = TextConstants.getText( "LOMES.GeneralId.EntryName" ) + " " + ATTR_STRING;
+        attr[0] = TC.get( "LOMES.GeneralId.CatalogName" ) + " " + ATTR_STRING;
+        attr[0] = TC.get( "LOMES.GeneralId.EntryName" ) + " " + ATTR_STRING;
         return attr;
     }
 

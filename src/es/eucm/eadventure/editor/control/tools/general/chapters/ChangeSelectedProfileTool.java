@@ -34,7 +34,7 @@
 package es.eucm.eadventure.editor.control.tools.general.chapters;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
@@ -109,14 +109,14 @@ public class ChangeSelectedProfileTool extends Tool {
             // If the list of profiles is empty, show an error message
             if( profileNames.length == 0 ) {
                 if( mode == MODE_ASSESSMENT )
-                    controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Operation.AssignAssessmentProfile" ) );
+                    controller.showErrorDialog( TC.get( "Resources.EditAsset" ), TC.get( "Operation.AssignAssessmentProfile" ) );
                 else if( mode == MODE_ADAPTATION )
-                    controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Operation.AssignAdaptationProfile" ) );
+                    controller.showErrorDialog( TC.get( "Resources.EditAsset" ), TC.get( "Operation.AssignAdaptationProfile" ) );
                 // If not empty, select one of them
             }
             else {
                 // Let the user choose between the profiles
-                String selectedProfile = controller.showInputDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.EditAssetMessage" ), profileNames );
+                String selectedProfile = controller.showInputDialog( TC.get( "Resources.EditAsset" ), TC.get( "Resources.EditAssetMessage" ), profileNames );
 
                 // Get old Value
                 if( mode == MODE_ASSESSMENT ) {

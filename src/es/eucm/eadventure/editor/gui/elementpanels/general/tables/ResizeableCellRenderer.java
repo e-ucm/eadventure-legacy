@@ -47,7 +47,7 @@ import javax.swing.JPanel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
@@ -79,7 +79,7 @@ public abstract class ResizeableCellRenderer extends AbstractCellEditor implemen
         }
         ImageIcon icon = new ImageIcon( image );
 
-        JButton goToButton = new JButton( TextConstants.getText( "GeneralText.Edit" ) );
+        JButton goToButton = new JButton( TC.get( "GeneralText.Edit" ) );
         goToButton.addActionListener( new EditButtonActionListener( value ) );
 
         JPanel panel = new JPanel( );

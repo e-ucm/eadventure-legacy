@@ -47,7 +47,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
@@ -154,11 +154,11 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
         public String getColumnName( int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "ElementList.Layer" );
+                return TC.get( "ElementList.Layer" );
             if( columnIndex == 2 )
-                return TextConstants.getText( "ElementList.Title" );
+                return TC.get( "ElementList.Title" );
             if( columnIndex == 3 )
-                return TextConstants.getText( "ElementList.Conditions" );
+                return TC.get( "ElementList.Conditions" );
             return "";
         }
 

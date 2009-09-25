@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers.metadata.ims;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.ims.IMSEducational;
 import es.eucm.eadventure.editor.data.meta.LangString;
 
@@ -60,7 +60,7 @@ public class IMSEducationalDataControl {
 
                 String[] options = new String[ data.getInteractivityType( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.InteractivityType" + i );
+                    options[i] = TC.get( "IMS.Educational.InteractivityType" + i );
                 }
                 return options;
             }
@@ -86,7 +86,7 @@ public class IMSEducationalDataControl {
 
                 String[] options = new String[ 14 ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.LearningResourceType" + i );
+                    options[i] = TC.get( "IMS.Educational.LearningResourceType" + i );
                 }
                 return options;
             }
@@ -149,7 +149,7 @@ public class IMSEducationalDataControl {
 
                 String[] options = new String[ data.getInteractivityLevel( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.InteractivityLevel" + i );
+                    options[i] = TC.get( "IMS.Educational.InteractivityLevel" + i );
                 }
                 return options;
             }
@@ -175,7 +175,7 @@ public class IMSEducationalDataControl {
 
                 String[] options = new String[ data.getSemanticDensity( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.SemanticDensity" + i );
+                    options[i] = TC.get( "IMS.Educational.SemanticDensity" + i );
                 }
                 return options;
             }
@@ -201,7 +201,7 @@ public class IMSEducationalDataControl {
 
                 String[] options = new String[ data.getIntendedEndUserRole( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.IntendedEndUserRole" + i );
+                    options[i] = TC.get( "IMS.Educational.IntendedEndUserRole" + i );
                 }
                 return options;
             }
@@ -227,7 +227,7 @@ public class IMSEducationalDataControl {
 
                 String[] options = new String[ data.getContext( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.Contex" + i );
+                    options[i] = TC.get( "IMS.Educational.Contex" + i );
                 }
                 return options;
             }
@@ -253,7 +253,7 @@ public class IMSEducationalDataControl {
 
                 String[] options = new String[ data.getDifficulty( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.Educational.Difficulty" + i );
+                    options[i] = TC.get( "IMS.Educational.Difficulty" + i );
                 }
                 return options;
             }

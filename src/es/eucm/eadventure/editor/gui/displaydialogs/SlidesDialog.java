@@ -37,7 +37,7 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
@@ -87,7 +87,7 @@ public class SlidesDialog extends GraphicDialog {
         } );
 
         // Set the title and show the dialog
-        setTitle( TextConstants.getText( "SlidesDialog.Title", AssetsController.getFilename( slidesPath ) ) );
+        setTitle( TC.get( "SlidesDialog.Title", AssetsController.getFilename( slidesPath ) ) );
         setVisible( true );
     }
 

@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -110,18 +110,18 @@ public class BookParagraphsListDataControl extends DataControl {
             BookParagraph bookParagraph = bookParagraphsList.get( i );
 
             if( bookParagraph.getType( ) == BookParagraph.TEXT )
-                bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.TextParagraph", String.valueOf( i + 1 ) );
+                bookParagraphsInfo[i][0] = TC.get( "BookParagraphsList.TextParagraph", String.valueOf( i + 1 ) );
             else if( bookParagraph.getType( ) == BookParagraph.TITLE )
-                bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.TitleParagraph", String.valueOf( i + 1 ) );
+                bookParagraphsInfo[i][0] = TC.get( "BookParagraphsList.TitleParagraph", String.valueOf( i + 1 ) );
             else if( bookParagraph.getType( ) == BookParagraph.BULLET )
-                bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.BulletParagraph", String.valueOf( i + 1 ) );
+                bookParagraphsInfo[i][0] = TC.get( "BookParagraphsList.BulletParagraph", String.valueOf( i + 1 ) );
             else if( bookParagraph.getType( ) == BookParagraph.IMAGE )
-                bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.ImageParagraph", String.valueOf( i + 1 ) );
+                bookParagraphsInfo[i][0] = TC.get( "BookParagraphsList.ImageParagraph", String.valueOf( i + 1 ) );
 
             if( bookParagraph.getType( ) != BookParagraph.IMAGE )
-                bookParagraphsInfo[i][1] = TextConstants.getText( "BookParagraphsList.WordCount", String.valueOf( bookParagraph.getContent( ).split( " " ).length ) );
+                bookParagraphsInfo[i][1] = TC.get( "BookParagraphsList.WordCount", String.valueOf( bookParagraph.getContent( ).split( " " ).length ) );
             else
-                bookParagraphsInfo[i][1] = TextConstants.getText( "BookParagraphsList.NotApplicable" );
+                bookParagraphsInfo[i][1] = TC.get( "BookParagraphsList.NotApplicable" );
         }
 
         return bookParagraphsInfo;
@@ -253,7 +253,7 @@ public class BookParagraphsListDataControl extends DataControl {
 
         // Iterate through the paragraphs
         for( int i = 0; i < bookParagraphsDataControlList.size( ); i++ ) {
-            String bookParagraphPath = currentPath + " >> " + TextConstants.getText( "Element.BookParagraph" ) + " #" + ( i + 1 ) + " (" + TextConstants.getElementName( bookParagraphsDataControlList.get( i ).getType( ) ) + ")";
+            String bookParagraphPath = currentPath + " >> " + TC.get( "Element.BookParagraph" ) + " #" + ( i + 1 ) + " (" + TC.getElement( bookParagraphsDataControlList.get( i ).getType( ) ) + ")";
             valid &= bookParagraphsDataControlList.get( i ).isValid( bookParagraphPath, incidences );
         }
 

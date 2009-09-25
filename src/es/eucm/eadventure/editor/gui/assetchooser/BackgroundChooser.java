@@ -38,7 +38,7 @@ import java.awt.Container;
 import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
@@ -48,14 +48,14 @@ public class BackgroundChooser extends AssetChooser {
 
     public BackgroundChooser( int filter ) {
 
-        super( AssetsConstants.CATEGORY_BACKGROUND, filter, AssetChooser.PREVIEW_LOCATION_SOUTH, TextConstants.getText( "AssetsChooser.Background" ) );
+        super( AssetsConstants.CATEGORY_BACKGROUND, filter, AssetChooser.PREVIEW_LOCATION_SOUTH, TC.get( "AssetsChooser.Background" ) );
     }
 
     @Override
     protected void createPreviewPanel( Container parent ) {
 
         imagePanel = new ImagePanel( );
-        imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BackgroundAssets.Preview" ) ) );
+        imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "BackgroundAssets.Preview" ) ) );
         parent.add( imagePanel );
     }
 

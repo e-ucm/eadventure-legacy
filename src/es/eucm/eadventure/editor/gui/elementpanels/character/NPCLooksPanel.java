@@ -41,7 +41,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
@@ -117,42 +117,42 @@ public class NPCLooksPanel extends LooksPanel implements Updateable {
         String animationPath4 = null, title4 = null;
         if( this.selectedResourceGroup == WALKING ) {
             imagePanel.setLayout( new GridLayout( 1, 4 ) );
-            title2 = TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkRight" );
+            title2 = TC.get( "Resources.DescriptionCharacterAnimationWalkRight" );
             animationPath2 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_WALK_RIGHT );
-            title1 = TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkLeft" );
+            title1 = TC.get( "Resources.DescriptionCharacterAnimationWalkLeft" );
             animationPath1 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_WALK_LEFT );
-            title3 = TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkUp" );
+            title3 = TC.get( "Resources.DescriptionCharacterAnimationWalkUp" );
             animationPath3 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_WALK_UP );
-            title4 = TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkDown" );
+            title4 = TC.get( "Resources.DescriptionCharacterAnimationWalkDown" );
             animationPath4 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_WALK_DOWN );
         }
         else if( this.selectedResourceGroup == STANDING ) {
             imagePanel.setLayout( new GridLayout( 1, 4 ) );
-            title2 = TextConstants.getText( "Resources.DescriptionCharacterAnimationStandRight" );
+            title2 = TC.get( "Resources.DescriptionCharacterAnimationStandRight" );
             animationPath2 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_STAND_RIGHT );
-            title1 = TextConstants.getText( "Resources.DescriptionCharacterAnimationStandLeft" );
+            title1 = TC.get( "Resources.DescriptionCharacterAnimationStandLeft" );
             animationPath1 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_STAND_LEFT );
-            title3 = TextConstants.getText( "Resources.DescriptionCharacterAnimationStandUp" );
+            title3 = TC.get( "Resources.DescriptionCharacterAnimationStandUp" );
             animationPath3 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_STAND_UP );
-            title4 = TextConstants.getText( "Resources.DescriptionCharacterAnimationStandDown" );
+            title4 = TC.get( "Resources.DescriptionCharacterAnimationStandDown" );
             animationPath4 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_STAND_DOWN );
         }
         else if( this.selectedResourceGroup == TALKING ) {
             imagePanel.setLayout( new GridLayout( 1, 4 ) );
-            title2 = TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakRight" );
+            title2 = TC.get( "Resources.DescriptionCharacterAnimationSpeakRight" );
             animationPath2 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT );
-            title1 = TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakLeft" );
+            title1 = TC.get( "Resources.DescriptionCharacterAnimationSpeakLeft" );
             animationPath1 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_SPEAK_LEFT );
-            title3 = TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakUp" );
+            title3 = TC.get( "Resources.DescriptionCharacterAnimationSpeakUp" );
             animationPath3 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_SPEAK_UP );
-            title4 = TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakDown" );
+            title4 = TC.get( "Resources.DescriptionCharacterAnimationSpeakDown" );
             animationPath4 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_SPEAK_DOWN );
         }
         else if( this.selectedResourceGroup == USING ) {
             imagePanel.setLayout( new GridLayout( 1, 2 ) );
-            title2 = TextConstants.getText( "Resources.DescriptionCharacterAnimationUseRight" );
+            title2 = TC.get( "Resources.DescriptionCharacterAnimationUseRight" );
             animationPath2 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_USE_RIGHT );
-            title1 = TextConstants.getText( "Resources.DescriptionCharacterAnimationUseLeft" );
+            title1 = TC.get( "Resources.DescriptionCharacterAnimationUseLeft" );
             animationPath1 = npcDataControl.getAnimationPath( NPC.RESOURCE_TYPE_USE_LEFT );
         }
 

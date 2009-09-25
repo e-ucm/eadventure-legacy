@@ -42,7 +42,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESComposeType;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleDate;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMLifeCycleDateDialog;
@@ -62,7 +62,7 @@ public class LOMESCreateComposeTypePanel extends JPanel {
         this.compose = compose;
         this.setLayout( new GridBagLayout( ) );
 
-        edit = new JButton( TextConstants.getText( "LOMES.Edit" ) );
+        edit = new JButton( TC.get( "LOMES.Edit" ) );
         edit.addActionListener( new EditButtonListener( ) );
         GridBagConstraints c = new GridBagConstraints( );
 

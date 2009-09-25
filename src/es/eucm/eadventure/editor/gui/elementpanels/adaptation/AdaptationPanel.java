@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.adaptation;
 
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
@@ -59,7 +59,7 @@ public class AdaptationPanel extends ElementPanel {
 
         public AdaptationEditionPanelTab( AdaptationProfileDataControl sDataControl ) {
 
-            super( TextConstants.getText( "AdaptationProfile.Title" ), sDataControl );
+            super( TC.get( "AdaptationProfile.Title" ), sDataControl );
             this.setHelpPath( "adaptation/adaptationProfile.html" );
             this.sDataControl = sDataControl;
         }

@@ -63,7 +63,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
@@ -204,7 +204,7 @@ public class ParagraphCellRendererEditor extends AbstractCellEditor implements T
         deleteContentButton.addActionListener( new DeleteContentButtonListener( ) );
         deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
         deleteContentButton.setMaximumSize( new Dimension( 20, 20 ) );
-        deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+        deleteContentButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
         panel.add( deleteContentButton, c2 );
 
         c2.gridx = 1;
@@ -218,7 +218,7 @@ public class ParagraphCellRendererEditor extends AbstractCellEditor implements T
         c2.gridx = 2;
         c2.fill = GridBagConstraints.NONE;
         c2.weightx = 0;
-        JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+        JButton selectButton = new JButton( TC.get( "Resources.Select" ) );
         selectButton.addActionListener( new ExamineButtonListener( ) );
         panel.add( selectButton, c2 );
     }

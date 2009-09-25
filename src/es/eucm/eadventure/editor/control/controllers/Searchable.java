@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public abstract class Searchable {
 
@@ -101,9 +101,9 @@ public abstract class Searchable {
                 if( properties.containsKey( ConditionsController.CONDITION_ID ) )
                     check( properties.get( ConditionsController.CONDITION_ID ), desc + " (ID)" );
                 if( properties.containsKey( ConditionsController.CONDITION_STATE ) )
-                    check( properties.get( ConditionsController.CONDITION_STATE ), desc + " (" + TextConstants.getText( "Search.State" ) + ")" );
+                    check( properties.get( ConditionsController.CONDITION_STATE ), desc + " (" + TC.get( "Search.State" ) + ")" );
                 if( properties.containsKey( ConditionsController.CONDITION_VALUE ) )
-                    check( properties.get( ConditionsController.CONDITION_VALUE ), desc + " (" + TextConstants.getText( "Search.Value" ) + ")" );
+                    check( properties.get( ConditionsController.CONDITION_VALUE ), desc + " (" + TC.get( "Search.Value" ) + ")" );
             }
         }
     }

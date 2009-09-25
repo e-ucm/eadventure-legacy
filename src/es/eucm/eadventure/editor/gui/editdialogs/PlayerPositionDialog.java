@@ -41,7 +41,7 @@ import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.ElementImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
@@ -78,7 +78,7 @@ public class PlayerPositionDialog extends ToolManagableDialog {
     public PlayerPositionDialog( String sceneId, int positionX, int positionY ) {
 
         // Call the super method
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "PlayerPosition.Title" ) );//, Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "PlayerPosition.Title" ) );//, Dialog.ModalityType.APPLICATION_MODAL );
 
         // Get the path to the scene image and the player
         String scenePath = Controller.getInstance( ).getSceneImagePath( sceneId );
@@ -104,7 +104,7 @@ public class PlayerPositionDialog extends ToolManagableDialog {
             positionY = -2000;
 
         playerPositionPanel = new PositionPanel( new ElementImagePanel( scenePath, playerPath, trajectory ), positionX, positionY );
-        playerPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "PlayerPosition.PositionPanel" ) ) );
+        playerPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "PlayerPosition.PositionPanel" ) ) );
         //playerPositionPanel.setPosition( positionX, positionY );
         add( playerPositionPanel, c );
 

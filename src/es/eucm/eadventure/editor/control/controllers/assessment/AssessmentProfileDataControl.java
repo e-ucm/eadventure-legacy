@@ -41,7 +41,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -88,7 +88,7 @@ public class AssessmentProfileDataControl extends DataControl {
         if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE ) {
             // Show a dialog asking for the ass rule id
             if( assRuleId == null )
-                assRuleId = controller.showInputDialog( TextConstants.getText( "Operation.AddAssessmentRuleTitle" ), TextConstants.getText( "Operation.AddAssessmentRuleMessage" ), TextConstants.getText( "Operation.AddAssessmentRuleDefaultValue" ) );
+                assRuleId = controller.showInputDialog( TC.get( "Operation.AddAssessmentRuleTitle" ), TC.get( "Operation.AddAssessmentRuleMessage" ), TC.get( "Operation.AddAssessmentRuleDefaultValue" ) );
 
             // If some value was typed and the identifier is valid
             if( assRuleId != null && controller.isElementIdValid( assRuleId ) ) {
@@ -196,7 +196,7 @@ public class AssessmentProfileDataControl extends DataControl {
         String references = String.valueOf( controller.countIdentifierReferences( assRuleId ) );
 
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { assRuleId, references } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { assRuleId, references } ) ) ) {
             if( this.profile.getRules( ).remove( dataControl.getContent( ) ) ) {
                 dataControls.remove( dataControl );
                 controller.deleteIdentifierReferences( assRuleId );
@@ -299,12 +299,12 @@ public class AssessmentProfileDataControl extends DataControl {
         }
 
         // Show confirmation dialog.
-        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAssessmentFile" ), TextConstants.getText( "Operation.RenameAssessmentFile.Message" ) ) ) {
+        if( name != null || controller.showStrictConfirmDialog( TC.get( "Operation.RenameAssessmentFile" ), TC.get( "Operation.RenameAssessmentFile.Message" ) ) ) {
 
             //Prompt for file name:
             String fileName = name;
             if( name == null || name.equals( "" ) )
-                fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName( ) );
+                fileName = controller.showInputDialog( TC.get( "Operation.RenameAssessmentFile.FileName" ), TC.get( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName( ) );
 
             if( fileName != null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName ) ) {
                 if( !controller.getIdentifierSummary( ).isAssessmentProfileId( name ) ) {
@@ -316,7 +316,7 @@ public class AssessmentProfileDataControl extends DataControl {
                     renamed = true;
                 }
                 else {
-                    controller.showErrorDialog( TextConstants.getText( "Operation.CreateAdaptationFile.FileName.ExistValue.Title" ), TextConstants.getText( "Operation.CreateAdaptationFile.FileName.ExistValue.Message" ) );
+                    controller.showErrorDialog( TC.get( "Operation.CreateAdaptationFile.FileName.ExistValue.Title" ), TC.get( "Operation.CreateAdaptationFile.FileName.ExistValue.Message" ) );
                 }
             }
 
@@ -357,7 +357,7 @@ public class AssessmentProfileDataControl extends DataControl {
         for( int i = 0; i < profile.getRules( ).size( ); i++ ) {
             info[i][0] = profile.getRules( ).get( i ).getId( );
             info[i][1] = IMPORTANCE_VALUES_PRINT[profile.getRules( ).get( i ).getImportance( )];
-            info[i][2] = ( profile.getRules( ).get( i ).getConditions( ).isEmpty( ) ) ? TextConstants.getText( "GeneralText.No" ) : TextConstants.getText( "GeneralText.Yes" );
+            info[i][2] = ( profile.getRules( ).get( i ).getConditions( ).isEmpty( ) ) ? TC.get( "GeneralText.No" ) : TC.get( "GeneralText.Yes" );
         }
         return info;
     }
@@ -493,11 +493,11 @@ public class AssessmentProfileDataControl extends DataControl {
 
         for( DataControl dc : dataControls )
             dc.recursiveSearch( );
-        check( getEmail( ), TextConstants.getText( "Search.EMail" ) );
-        check( this.getName( ), TextConstants.getText( "Search.Name" ) );
-        check( this.getSmtpPort( ), TextConstants.getText( "Search.SMTPPort" ) );
-        check( this.getSmtpServer( ), TextConstants.getText( "Search.SMTPServer" ) );
-        check( this.getSmtpUser( ), TextConstants.getText( "Search.SMTPUser" ) );
+        check( getEmail( ), TC.get( "Search.EMail" ) );
+        check( this.getName( ), TC.get( "Search.Name" ) );
+        check( this.getSmtpPort( ), TC.get( "Search.SMTPPort" ) );
+        check( this.getSmtpServer( ), TC.get( "Search.SMTPServer" ) );
+        check( this.getSmtpUser( ), TC.get( "Search.SMTPUser" ) );
     }
 
     @Override

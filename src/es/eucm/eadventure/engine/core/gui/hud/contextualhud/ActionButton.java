@@ -42,7 +42,7 @@ import java.awt.Image;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -147,19 +147,19 @@ public class ActionButton {
         switch( type ) {
             case HAND_BUTTON:
                 loadButtonImages( DescriptorData.USE_GRAB_BUTTON, "btnHand" );
-                actionName = TextConstants.getText( "ActionButton.GrabGiveUse" );
+                actionName = TC.get( "ActionButton.GrabGiveUse" );
                 break;
             case EYE_BUTTON:
                 loadButtonImages( DescriptorData.EXAMINE_BUTTON, "btnEye" );
-                actionName = TextConstants.getText( "ActionButton.Examine" );
+                actionName = TC.get( "ActionButton.Examine" );
                 break;
             case MOUTH_BUTTON:
                 loadButtonImages( DescriptorData.TALK_BUTTON, "btnMouth" );
-                actionName = TextConstants.getText( "ActionButton.Talk" );
+                actionName = TC.get( "ActionButton.Talk" );
                 break;
             case DRAG_BUTTON:
                 loadButtonImages( DescriptorData.USE_GRAB_BUTTON, "btnHand" );
-                actionName = TextConstants.getText( "ActionButton.Drag" );
+                actionName = TC.get( "ActionButton.Drag" );
                 break;
         }
         this.type = type;

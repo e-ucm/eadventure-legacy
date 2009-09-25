@@ -48,7 +48,7 @@ import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.SearchableNode;
@@ -127,9 +127,9 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
         c.gridy = 0;
         zoomPreviewPanel.add( zoomPanel, c );
 
-        JButton preview = new JButton( TextConstants.getText( "Conversation.OptionPreviewConversation" ) );
+        JButton preview = new JButton( TC.get( "Conversation.OptionPreviewConversation" ) );
         preview.addActionListener( new PreviewConversationActionListener( true ) );
-        previewFromNode = new JButton( TextConstants.getText( "Conversation.OptionPreviewPartialConversation" ) );
+        previewFromNode = new JButton( TC.get( "Conversation.OptionPreviewPartialConversation" ) );
         previewFromNode.addActionListener( new PreviewConversationActionListener( false ) );
         previewFromNode.setEnabled( false );
 

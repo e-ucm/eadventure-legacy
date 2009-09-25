@@ -39,7 +39,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMContributeDialog;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESMetaMetaDataControl;
 
 public class LOMESMetaMetaDataPanel extends JPanel {
@@ -51,10 +51,10 @@ public class LOMESMetaMetaDataPanel extends JPanel {
         GridBagConstraints c = new GridBagConstraints( );
 
         //Meta panels
-        LOMESTextPanel meta = new LOMESTextPanel( metaController.getMetadataschemeController( ), TextConstants.getText( "IMS.MetaMetaData.Metadatascheme" ), LOMESTextPanel.TYPE_FIELD );
-        LOMESCreateContainerPanel identifierPanel = new LOMESCreateContainerPanel( metaController.getIdentifier( ), TextConstants.getText( "LOMES.General.Identifier" ), LOMContributeDialog.NONE );
-        LOMESCreateContainerPanel contribute = new LOMESCreateContainerPanel( metaController.getContribute( ), TextConstants.getText( "LOMES.LifeCycle.Contribute" ), LOMContributeDialog.METAMETADATA );
-        LOMESOptionsPanel language = new LOMESOptionsPanel( metaController.getLanguageController( ), TextConstants.getText( "LOMES.MetaMetaData.Language" ) );
+        LOMESTextPanel meta = new LOMESTextPanel( metaController.getMetadataschemeController( ), TC.get( "IMS.MetaMetaData.Metadatascheme" ), LOMESTextPanel.TYPE_FIELD );
+        LOMESCreateContainerPanel identifierPanel = new LOMESCreateContainerPanel( metaController.getIdentifier( ), TC.get( "LOMES.General.Identifier" ), LOMContributeDialog.NONE );
+        LOMESCreateContainerPanel contribute = new LOMESCreateContainerPanel( metaController.getContribute( ), TC.get( "LOMES.LifeCycle.Contribute" ), LOMContributeDialog.METAMETADATA );
+        LOMESOptionsPanel language = new LOMESOptionsPanel( metaController.getLanguageController( ), TC.get( "LOMES.MetaMetaData.Language" ) );
         //LOMESOptionsPanel catalog = new LOMESOptionsPanel(metaController.getCatalog(), TextConstants.getText("LOMES.LifeCycle.Role"));
 
         // add Panels

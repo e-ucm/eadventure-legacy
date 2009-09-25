@@ -37,7 +37,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 
@@ -110,7 +110,7 @@ public class ResourcesTable extends JTable {
         public Object getValueAt( int rowIndex, int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "ResourcesList.ResourcesBlockNumber" ) + ( rowIndex + 1 );
+                return TC.get( "ResourcesList.ResourcesBlockNumber" ) + ( rowIndex + 1 );
             if( columnIndex == 1 ) {
                 if( dataControl.getResources( ).size( ) == 1 )
                     return null;
@@ -123,9 +123,9 @@ public class ResourcesTable extends JTable {
         public String getColumnName( int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "ResourcesList.ResourcesBlock" );
+                return TC.get( "ResourcesList.ResourcesBlock" );
             if( columnIndex == 1 )
-                return TextConstants.getText( "ResourcesList.Conditions" );
+                return TC.get( "ResourcesList.Conditions" );
             return "";
         }
 

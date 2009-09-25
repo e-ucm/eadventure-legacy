@@ -40,7 +40,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.AuxEditCellRendererEditor;
@@ -85,7 +85,7 @@ public class ExitsTable extends JTable {
         this.getColumnModel( ).getColumn( 2 ).setCellRenderer( new ExitLooksCellRendererEditor( ) );
         this.getColumnModel( ).getColumn( 2 ).setCellEditor( new ExitLooksCellRendererEditor( ) );
         this.getColumnModel( ).getColumn( 2 ).setMinWidth( 160 );
-        String text = TextConstants.getText( "ExitsList.Edit" );
+        String text = TC.get( "ExitsList.Edit" );
         this.getColumnModel( ).getColumn( 3 ).setCellRenderer( new AuxEditCellRendererEditor( previewAuxSplit, ExitsListPanel.VERTICAL_SPLIT_POSITION, text ) );
         this.getColumnModel( ).getColumn( 3 ).setCellEditor( new AuxEditCellRendererEditor( previewAuxSplit, ExitsListPanel.VERTICAL_SPLIT_POSITION, text ) );
         this.getColumnModel( ).getColumn( 3 ).setMaxWidth( 130 );
@@ -142,13 +142,13 @@ public class ExitsTable extends JTable {
         public String getColumnName( int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TextConstants.getText( "ExitsList.NextScene" );
+                return TC.get( "ExitsList.NextScene" );
             if( columnIndex == 1 )
-                return TextConstants.getText( "ExitsList.Transition" );
+                return TC.get( "ExitsList.Transition" );
             if( columnIndex == 2 )
-                return TextConstants.getText( "ExitsList.Appearance" );
+                return TC.get( "ExitsList.Appearance" );
             if( columnIndex == 3 )
-                return TextConstants.getText( "ExitsList.ConditionsAndEffects" );
+                return TC.get( "ExitsList.ConditionsAndEffects" );
             return "";
         }
 

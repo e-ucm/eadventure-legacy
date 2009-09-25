@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.general;
 
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
@@ -64,7 +64,7 @@ public class ChapterPanel extends ElementPanel {
 
         public ChapterPanelTab( ChapterDataControl sDataControl ) {
 
-            super( TextConstants.getText( "Chapter.Title" ), sDataControl );
+            super( TC.get( "Chapter.Title" ), sDataControl );
             this.sDataControl = sDataControl;
         }
 

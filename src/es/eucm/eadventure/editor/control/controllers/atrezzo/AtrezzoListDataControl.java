@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -123,7 +123,7 @@ public class AtrezzoListDataControl extends DataControl {
 
             // Show a dialog asking for the item id
             if( atrezzoId == null )
-                atrezzoId = controller.showInputDialog( TextConstants.getText( "Operation.AddAtrezzoTitle" ), TextConstants.getText( "Operation.AddAtrezzoMessage" ), TextConstants.getText( "Operation.AddAtrezzoDefaultValue" ) );
+                atrezzoId = controller.showInputDialog( TC.get( "Operation.AddAtrezzoTitle" ), TC.get( "Operation.AddAtrezzoMessage" ), TC.get( "Operation.AddAtrezzoDefaultValue" ) );
 
             // If some value was typed and the identifier is valid
             if( atrezzoId != null && controller.isElementIdValid( atrezzoId ) ) {
@@ -169,7 +169,7 @@ public class AtrezzoListDataControl extends DataControl {
     @Override
     public String getDefaultId( int type ) {
 
-        return TextConstants.getText( "Operation.AddAtrezzoDefaultValue" );
+        return TC.get( "Operation.AddAtrezzoDefaultValue" );
     }
 
     @Override
@@ -245,7 +245,7 @@ public class AtrezzoListDataControl extends DataControl {
         String references = String.valueOf( controller.countIdentifierReferences( atrezzoId ) );
 
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { atrezzoId, references } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { atrezzoId, references } ) ) ) {
             if( atrezzoList.remove( dataControl.getContent( ) ) ) {
                 atrezzoDataControlList.remove( dataControl );
                 controller.deleteIdentifierReferences( atrezzoId );
@@ -292,7 +292,7 @@ public class AtrezzoListDataControl extends DataControl {
         boolean valid = true;
 
         // Update the current path
-        currentPath += " >> " + TextConstants.getElementName( Controller.ATREZZO_LIST );
+        currentPath += " >> " + TC.getElement( Controller.ATREZZO_LIST );
 
         // Iterate through the atrezzo items
         for( AtrezzoDataControl atrezzoDataControl : atrezzoDataControlList ) {

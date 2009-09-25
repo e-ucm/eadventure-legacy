@@ -41,7 +41,7 @@ import javax.swing.JTabbedPane;
 
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ToolManagableDialog;
@@ -60,7 +60,7 @@ public class CustomizeGUIDialog extends ToolManagableDialog {
 
     public CustomizeGUIDialog( AdventureDataControl dControl ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "CustomizeGUI.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "CustomizeGUI.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
         this.dataControl = dControl;
         //Create the tabbed pane
         JTabbedPane tabbedPane = new JTabbedPane( );
@@ -70,11 +70,11 @@ public class CustomizeGUIDialog extends ToolManagableDialog {
         buttonsPanel = new ButtonsPanel( dataControl );
         inventoryPanel = null;
 
-        tabbedPane.insertTab( TextConstants.getText( "Cursors.Title" ), null, cursorsPanel, TextConstants.getText( "Cursors.Tip" ), 0 );
-        tabbedPane.insertTab( TextConstants.getText( "Buttons.Title" ), null, buttonsPanel, TextConstants.getText( "Buttons.Tip" ), 1 );
+        tabbedPane.insertTab( TC.get( "Cursors.Title" ), null, cursorsPanel, TC.get( "Cursors.Tip" ), 0 );
+        tabbedPane.insertTab( TC.get( "Buttons.Title" ), null, buttonsPanel, TC.get( "Buttons.Tip" ), 1 );
         if( dataControl.getGUIType( ) == DescriptorData.GUI_CONTEXTUAL ) {
             inventoryPanel = new InventoryPanel( dataControl );
-            tabbedPane.insertTab( TextConstants.getText( "Inventory.Title" ), null, inventoryPanel, TextConstants.getText( "Inventory.Tip" ), 2 );
+            tabbedPane.insertTab( TC.get( "Inventory.Title" ), null, inventoryPanel, TC.get( "Inventory.Tip" ), 2 );
         }
 
         this.getContentPane( ).setLayout( new BorderLayout( ) );

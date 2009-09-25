@@ -39,7 +39,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanel;
@@ -69,7 +69,7 @@ public class ConditionsDialog extends ToolManagableDialog {
     public ConditionsDialog( ConditionsController conditionsController ) {
 
         // Call to the JDialog constructor
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Conditions.Title" ), false );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "Conditions.Title" ), false );
 
         // Create the main panel and add it
         setLayout( new GridBagLayout( ) );

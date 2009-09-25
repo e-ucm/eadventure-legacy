@@ -69,7 +69,7 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerLastSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.WaitTimeEffect;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.assets.SelectResourceTool;
 import es.eucm.eadventure.editor.control.tools.general.effects.AddEffectTool;
@@ -355,81 +355,81 @@ public class EffectsController {
         switch( effect.getType( ) ) {
             case Effect.ACTIVATE:
                 ActivateEffect activateEffect = (ActivateEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.ActivateInfo", activateEffect.getTargetId( ) );
+                effectInfo = TC.get( "Effect.ActivateInfo", activateEffect.getTargetId( ) );
                 break;
             case Effect.DEACTIVATE:
                 DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.DeactivateInfo", deactivateEffect.getTargetId( ) );
+                effectInfo = TC.get( "Effect.DeactivateInfo", deactivateEffect.getTargetId( ) );
                 break;
             case Effect.SET_VALUE:
                 SetValueEffect setValueEffect = (SetValueEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.SetValueInfo", new String[] { setValueEffect.getTargetId( ), Integer.toString( setValueEffect.getValue( ) ) } );
+                effectInfo = TC.get( "Effect.SetValueInfo", new String[] { setValueEffect.getTargetId( ), Integer.toString( setValueEffect.getValue( ) ) } );
                 break;
             case Effect.INCREMENT_VAR:
                 IncrementVarEffect incrementEffect = (IncrementVarEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.IncrementVarInfo", new String[] { incrementEffect.getTargetId( ), Integer.toString( incrementEffect.getIncrement( ) ) } );
+                effectInfo = TC.get( "Effect.IncrementVarInfo", new String[] { incrementEffect.getTargetId( ), Integer.toString( incrementEffect.getIncrement( ) ) } );
                 break;
             case Effect.DECREMENT_VAR:
                 DecrementVarEffect decrementEffect = (DecrementVarEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.DecrementVarInfo", new String[] { decrementEffect.getTargetId( ), Integer.toString( decrementEffect.getDecrement( ) ) } );
+                effectInfo = TC.get( "Effect.DecrementVarInfo", new String[] { decrementEffect.getTargetId( ), Integer.toString( decrementEffect.getDecrement( ) ) } );
                 break;
             case Effect.MACRO_REF:
                 MacroReferenceEffect macroReferenceEffect = (MacroReferenceEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.MacroRefInfo", macroReferenceEffect.getTargetId( ) );
+                effectInfo = TC.get( "Effect.MacroRefInfo", macroReferenceEffect.getTargetId( ) );
                 break;
             case Effect.CONSUME_OBJECT:
                 ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.ConsumeObjectInfo", consumeObjectEffect.getTargetId( ) );
+                effectInfo = TC.get( "Effect.ConsumeObjectInfo", consumeObjectEffect.getTargetId( ) );
                 break;
             case Effect.GENERATE_OBJECT:
                 GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.GenerateObjectInfo", generateObjectEffect.getTargetId( ) );
+                effectInfo = TC.get( "Effect.GenerateObjectInfo", generateObjectEffect.getTargetId( ) );
                 break;
             case Effect.CANCEL_ACTION:
-                effectInfo = TextConstants.getText( "Effect.CancelActionInfo" );
+                effectInfo = TC.get( "Effect.CancelActionInfo" );
                 break;
             case Effect.SPEAK_PLAYER:
                 SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.SpeakPlayerInfo", speakPlayerEffect.getLine( ) );
+                effectInfo = TC.get( "Effect.SpeakPlayerInfo", speakPlayerEffect.getLine( ) );
                 break;
             case Effect.SPEAK_CHAR:
                 SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.SpeakCharacterInfo", new String[] { speakCharEffect.getTargetId( ), speakCharEffect.getLine( ) } );
+                effectInfo = TC.get( "Effect.SpeakCharacterInfo", new String[] { speakCharEffect.getTargetId( ), speakCharEffect.getLine( ) } );
                 break;
             case Effect.TRIGGER_BOOK:
                 TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.TriggerBookInfo", triggerBookEffect.getTargetId( ) );
+                effectInfo = TC.get( "Effect.TriggerBookInfo", triggerBookEffect.getTargetId( ) );
                 break;
             case Effect.PLAY_SOUND:
                 PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.PlaySoundInfo", playSoundEffect.getPath( ) );
+                effectInfo = TC.get( "Effect.PlaySoundInfo", playSoundEffect.getPath( ) );
                 break;
             case Effect.PLAY_ANIMATION:
                 PlayAnimationEffect playAnimationEffect = (PlayAnimationEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.PlayAnimationInfo", playAnimationEffect.getPath( ) );
+                effectInfo = TC.get( "Effect.PlayAnimationInfo", playAnimationEffect.getPath( ) );
                 break;
             case Effect.MOVE_PLAYER:
                 MovePlayerEffect movePlayerEffect = (MovePlayerEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.MovePlayerInfo", new String[] { String.valueOf( movePlayerEffect.getX( ) ), String.valueOf( movePlayerEffect.getY( ) ) } );
+                effectInfo = TC.get( "Effect.MovePlayerInfo", new String[] { String.valueOf( movePlayerEffect.getX( ) ), String.valueOf( movePlayerEffect.getY( ) ) } );
                 break;
             case Effect.MOVE_NPC:
                 MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.MoveCharacterInfo", new String[] { moveNPCEffect.getTargetId( ), String.valueOf( moveNPCEffect.getX( ) ), String.valueOf( moveNPCEffect.getY( ) ) } );
+                effectInfo = TC.get( "Effect.MoveCharacterInfo", new String[] { moveNPCEffect.getTargetId( ), String.valueOf( moveNPCEffect.getX( ) ), String.valueOf( moveNPCEffect.getY( ) ) } );
                 break;
             case Effect.TRIGGER_CONVERSATION:
                 TriggerConversationEffect triggerConversationEffect = (TriggerConversationEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.TriggerConversationInfo", triggerConversationEffect.getTargetId( ) );
+                effectInfo = TC.get( "Effect.TriggerConversationInfo", triggerConversationEffect.getTargetId( ) );
                 break;
             case Effect.TRIGGER_CUTSCENE:
                 TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.TriggerCutsceneInfo", triggerCutsceneEffect.getTargetId( ) );
+                effectInfo = TC.get( "Effect.TriggerCutsceneInfo", triggerCutsceneEffect.getTargetId( ) );
                 break;
             case Effect.TRIGGER_SCENE:
                 TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.TriggerSceneInfo", triggerSceneEffect.getTargetId( ) );
+                effectInfo = TC.get( "Effect.TriggerSceneInfo", triggerSceneEffect.getTargetId( ) );
                 break;
             case Effect.TRIGGER_LAST_SCENE:
-                effectInfo = TextConstants.getText( "Effect.TriggerLastSceneInfo" );
+                effectInfo = TC.get( "Effect.TriggerLastSceneInfo" );
                 break;
             case Effect.RANDOM_EFFECT:
                 RandomEffect randomEffect = (RandomEffect) effect;
@@ -438,32 +438,32 @@ public class EffectsController {
                 if( randomEffect.getPositiveEffect( ) != null )
                     posInfo = getEffectInfo( randomEffect.getPositiveEffect( ) );
                 negInfo = getEffectInfo( randomEffect.getNegativeEffect( ) );
-                effectInfo = TextConstants.getText( "Effect.RandomInfo", new String[] { Integer.toString( randomEffect.getProbability( ) ), Integer.toString( 100 - randomEffect.getProbability( ) ), posInfo, negInfo } );
+                effectInfo = TC.get( "Effect.RandomInfo", new String[] { Integer.toString( randomEffect.getProbability( ) ), Integer.toString( 100 - randomEffect.getProbability( ) ), posInfo, negInfo } );
                 break;
             case Effect.WAIT_TIME:
                 WaitTimeEffect waitTimeEffect = (WaitTimeEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.WaitTimeInfo", Integer.toString( waitTimeEffect.getTime( ) ) );
+                effectInfo = TC.get( "Effect.WaitTimeInfo", Integer.toString( waitTimeEffect.getTime( ) ) );
                 break;
             case Effect.SHOW_TEXT:
                 ShowTextEffect showTextInfo = (ShowTextEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.ShowTextInfo", new String[] { showTextInfo.getText( ), Integer.toString( showTextInfo.getX( ) ), Integer.toString( showTextInfo.getY( ) ) } );
+                effectInfo = TC.get( "Effect.ShowTextInfo", new String[] { showTextInfo.getText( ), Integer.toString( showTextInfo.getX( ) ), Integer.toString( showTextInfo.getY( ) ) } );
                 break;
             case Effect.HIGHLIGHT_ITEM:
                 HighlightItemEffect highlightItemEffect = (HighlightItemEffect) effect;
                 if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.NO_HIGHLIGHT)
-                    effectInfo = TextConstants.getText( "Effect.NoHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
+                    effectInfo = TC.get( "Effect.NoHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
                 if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_BLUE)
-                    effectInfo = TextConstants.getText( "Effect.BlueHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
+                    effectInfo = TC.get( "Effect.BlueHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
                 if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_GREEN)
-                    effectInfo = TextConstants.getText( "Effect.GreenHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
+                    effectInfo = TC.get( "Effect.GreenHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
                 if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_RED)
-                    effectInfo = TextConstants.getText( "Effect.RedHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
+                    effectInfo = TC.get( "Effect.RedHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
                 if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_BORDER)
-                    effectInfo = TextConstants.getText( "Effect.BorderHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
+                    effectInfo = TC.get( "Effect.BorderHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
                 break;
             case Effect.MOVE_OBJECT:
                 MoveObjectEffect moveObjectEffect = (MoveObjectEffect) effect;
-                effectInfo = TextConstants.getText( "Effect.MoveObjectInfo", moveObjectEffect.getTargetId( ) );
+                effectInfo = TC.get( "Effect.MoveObjectInfo", moveObjectEffect.getTargetId( ) );
                 break;
         }
         
@@ -949,7 +949,7 @@ public class EffectsController {
 
                 // Store the incidence
                 if( incidences != null )
-                    incidences.add( currentPath + " >> " + TextConstants.getText( "Operation.AdventureConsistencyErrorPlayAnimation" ) );
+                    incidences.add( currentPath + " >> " + TC.get( "Operation.AdventureConsistencyErrorPlayAnimation" ) );
             }
 
             // If the effect is a sound without asset, set as invalid
@@ -958,7 +958,7 @@ public class EffectsController {
 
                 // Store the incidence
                 if( incidences != null )
-                    incidences.add( currentPath + " >> " + TextConstants.getText( "Operation.AdventureConsistencyErrorPlaySound" ) );
+                    incidences.add( currentPath + " >> " + TC.get( "Operation.AdventureConsistencyErrorPlaySound" ) );
             }
 
             // If random effect
@@ -970,7 +970,7 @@ public class EffectsController {
                     e.add( randomEffect.getPositiveEffect( ) );
                 if( randomEffect.getNegativeEffect( ) != null )
                     e.add( randomEffect.getNegativeEffect( ) );
-                EffectsController.isValid( currentPath + " >> " + TextConstants.getText( "Effect.RandomEffect" ), incidences, e );
+                EffectsController.isValid( currentPath + " >> " + TC.get( "Effect.RandomEffect" ), incidences, e );
 
             }
         }

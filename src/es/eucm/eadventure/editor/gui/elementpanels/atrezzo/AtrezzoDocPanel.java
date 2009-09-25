@@ -47,7 +47,7 @@ import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.Named;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
@@ -94,7 +94,7 @@ public class AtrezzoDocPanel extends JPanel implements Updateable {
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) atrezzoDataControl.getContent( ) ) );
         documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Atrezzo.Documentation" ) ) );
+        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Atrezzo.Documentation" ) ) );
         add( documentationPanel, cDoc );
 
         // Create the field for the name
@@ -105,7 +105,7 @@ public class AtrezzoDocPanel extends JPanel implements Updateable {
         nameTextField = new JTextField( atrezzoDataControl.getName( ) );
         nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) atrezzoDataControl.getContent( ) ) );
         namePanel.add( nameTextField );
-        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Atrezzo.Name" ) ) );
+        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Atrezzo.Name" ) ) );
         add( namePanel, cDoc );
 
         cDoc.gridy = 2;

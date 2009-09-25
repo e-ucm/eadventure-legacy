@@ -54,7 +54,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESGeneralId;
@@ -98,13 +98,13 @@ public class LOMlIdentifierDialog extends JDialog {
         catalog = new JTextField( catalogValue );
         catalog.getDocument( ).addDocumentListener( new TextFieldListener( catalog ) );
         catalogPanel.add( catalog, c );
-        catalogPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.GeneralId.CatalogName" ) ) );
+        catalogPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.GeneralId.CatalogName" ) ) );
 
         JPanel entryPanel = new JPanel( new GridBagLayout( ) );
         entry = new JTextField( entryValue );
         entry.getDocument( ).addDocumentListener( new TextFieldListener( entry ) );
         entryPanel.add( entry, c );
-        entryPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.GeneralId.EntryName" ) ) );
+        entryPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "LOMES.GeneralId.EntryName" ) ) );
 
         JPanel buttonPanel = new JPanel( new GridBagLayout( ) );
         c = new GridBagConstraints( );
@@ -181,7 +181,7 @@ public class LOMlIdentifierDialog extends JDialog {
 
     private void showInfo( ) {
 
-        JOptionPane.showMessageDialog( this, TextConstants.getText( "LOMES.Identifier.EntryInfo" ), "Info", JOptionPane.INFORMATION_MESSAGE );
+        JOptionPane.showMessageDialog( this, TC.get( "LOMES.Identifier.EntryInfo" ), "Info", JOptionPane.INFORMATION_MESSAGE );
     }
 
     private class TextFieldListener implements DocumentListener {

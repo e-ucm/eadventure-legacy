@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -157,7 +157,7 @@ public class ActiveAreasListDataControl extends DataControl {
             // Show a dialog asking for the item id
             String itemId = id;
             if( id == null )
-                itemId = controller.showInputDialog( TextConstants.getText( "Operation.AddItemTitle" ), TextConstants.getText( "Operation.AddItemMessage" ), TextConstants.getText( "Operation.AddItemDefaultValue" ) );
+                itemId = controller.showInputDialog( TC.get( "Operation.AddItemTitle" ), TC.get( "Operation.AddItemMessage" ), TC.get( "Operation.AddItemDefaultValue" ) );
 
             // If some value was typed and the identifier is valid
             if( itemId != null && controller.isElementIdValid( itemId ) ) {
@@ -213,7 +213,7 @@ public class ActiveAreasListDataControl extends DataControl {
         String id = ( (ActiveAreaDataControl) dataControl ).getId( );
         String references = String.valueOf( controller.countIdentifierReferences( id ) );
 
-        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { id, references } ) ) ) {
+        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { id, references } ) ) ) {
             if( activeAreasList.remove( dataControl.getContent( ) ) ) {
                 activeAreasDataControlList.remove( dataControl );
                 controller.deleteIdentifierReferences( id );
@@ -278,7 +278,7 @@ public class ActiveAreasListDataControl extends DataControl {
 
         // Iterate through the activeAreas
         for( int i = 0; i < activeAreasDataControlList.size( ); i++ ) {
-            String activeAreaPath = currentPath + " >> " + TextConstants.getElementName( Controller.ACTIVE_AREA ) + " #" + ( i + 1 );
+            String activeAreaPath = currentPath + " >> " + TC.getElement( Controller.ACTIVE_AREA ) + " #" + ( i + 1 );
             valid &= activeAreasDataControlList.get( i ).isValid( activeAreaPath, incidences );
         }
 

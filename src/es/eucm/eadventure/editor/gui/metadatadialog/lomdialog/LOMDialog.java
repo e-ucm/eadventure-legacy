@@ -51,7 +51,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.HelpDialog;
@@ -70,7 +70,7 @@ public class LOMDialog extends JDialog {
 
     public LOMDialog( LOMDataControl dataControl ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "LOM.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "LOM.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
         this.dataControl = dataControl;
 
         JButton infoButton = new JButton( new ImageIcon( "img/icons/information.png" ) );
@@ -86,9 +86,9 @@ public class LOMDialog extends JDialog {
         } );
 
         tabs = new JTabbedPane( );
-        tabs.insertTab( TextConstants.getText( "LOM.General.Tab" ), null, new LOMGeneralPanel( dataControl.getGeneral( ) ), TextConstants.getText( "LOM.General.Tip" ), 0 );
-        tabs.insertTab( TextConstants.getText( "LOM.LifeCycle.Tab" ) + " & " + TextConstants.getText( "LOM.Technical.Tab" ), null, new LOMLifeCycleAndTechnicalPanel( dataControl.getLifeCycle( ), dataControl.getTechnical( ) ), TextConstants.getText( "LOM.LifeCycle.Tip" ) + " & " + TextConstants.getText( "LOM.Technical.Tip" ), 1 );
-        tabs.insertTab( TextConstants.getText( "LOM.Educational.Tab" ), null, new LOMEducationalPanel( dataControl.getEducational( ) ), TextConstants.getText( "LOM.Educational.Tip" ), 2 );
+        tabs.insertTab( TC.get( "LOM.General.Tab" ), null, new LOMGeneralPanel( dataControl.getGeneral( ) ), TC.get( "LOM.General.Tip" ), 0 );
+        tabs.insertTab( TC.get( "LOM.LifeCycle.Tab" ) + " & " + TC.get( "LOM.Technical.Tab" ), null, new LOMLifeCycleAndTechnicalPanel( dataControl.getLifeCycle( ), dataControl.getTechnical( ) ), TC.get( "LOM.LifeCycle.Tip" ) + " & " + TC.get( "LOM.Technical.Tip" ), 1 );
+        tabs.insertTab( TC.get( "LOM.Educational.Tab" ), null, new LOMEducationalPanel( dataControl.getEducational( ) ), TC.get( "LOM.Educational.Tip" ), 2 );
 
         tabs.add( new JPanel( ), 3 );
         tabs.setTabComponentAt( 3, infoButton );

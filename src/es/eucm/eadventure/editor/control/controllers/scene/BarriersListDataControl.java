@@ -38,7 +38,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -258,7 +258,7 @@ public class BarriersListDataControl extends DataControl {
 
         // Iterate through the activeAreas
         for( int i = 0; i < barriersDataControlList.size( ); i++ ) {
-            String activeAreaPath = currentPath + " >> " + TextConstants.getElementName( Controller.BARRIER ) + " #" + ( i + 1 );
+            String activeAreaPath = currentPath + " >> " + TC.getElement( Controller.BARRIER ) + " #" + ( i + 1 );
             valid &= barriersDataControlList.get( i ).isValid( activeAreaPath, incidences );
         }
 

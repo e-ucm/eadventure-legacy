@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.control;
 
 import java.util.TimerTask;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class AutoSave extends TimerTask {
 
@@ -76,7 +76,7 @@ public class AutoSave extends TimerTask {
         @Override
         public void run( ) {
 
-            Controller.getInstance( ).showLoadingScreen( TextConstants.getText( "GeneralText.FinishingBackup" ) );
+            Controller.getInstance( ).showLoadingScreen( TC.get( "GeneralText.FinishingBackup" ) );
             while( !finish ) {
                 try {
                     Thread.sleep( 100 );

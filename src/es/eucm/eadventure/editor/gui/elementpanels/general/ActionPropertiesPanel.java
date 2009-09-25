@@ -50,7 +50,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
@@ -109,7 +109,7 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel, Up
         documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
         // TODO Revisar problemas con el layout sin esta linea
         documentationPanel.setMinimumSize( new Dimension( 0, 108 ) );
-        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Action.Documentation" ) ) );
+        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Action.Documentation" ) ) );
         add( documentationPanel, c );
 
         // Create a effects panel and attach it
@@ -138,7 +138,7 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel, Up
 
         // Edit not effects
         JPanel notEffContainer = new JPanel( new GridBagLayout( ) );
-        final JButton editNotEff = new JButton( TextConstants.getText( "Exit.EditNotEffects" ) );
+        final JButton editNotEff = new JButton( TC.get( "Exit.EditNotEffects" ) );
         editNotEff.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -148,7 +148,7 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel, Up
         } );
         editNotEff.setEnabled( this.actionDataControl.isActivatedNotEffects( ) );
 
-        final JCheckBox enableNotEff = new JCheckBox( TextConstants.getText( "Action.ActiveWhenConditionsArent" ) );
+        final JCheckBox enableNotEff = new JCheckBox( TC.get( "Action.ActiveWhenConditionsArent" ) );
         enableNotEff.setSelected( this.actionDataControl.isActivatedNotEffects( ) );
         enableNotEff.addActionListener( new ActionListener( ) {
 

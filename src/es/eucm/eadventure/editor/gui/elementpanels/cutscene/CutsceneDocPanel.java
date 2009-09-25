@@ -47,7 +47,7 @@ import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.Named;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
@@ -103,7 +103,7 @@ public class CutsceneDocPanel extends JPanel implements Updateable {
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) cutsceneDataControl.getContent( ) ) );
         documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Cutscene.Documentation" ) ) );
+        documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Cutscene.Documentation" ) ) );
         add( documentationPanel, c );
 
         // Create the label for the name
@@ -114,7 +114,7 @@ public class CutsceneDocPanel extends JPanel implements Updateable {
         nameTextField = new JTextField( cutsceneDataControl.getName( ) );
         nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) cutsceneDataControl.getContent( ) ) );
         namePanel.add( nameTextField );
-        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Cutscene.Name" ) ) );
+        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Cutscene.Name" ) ) );
         add( namePanel, c );
     }
 

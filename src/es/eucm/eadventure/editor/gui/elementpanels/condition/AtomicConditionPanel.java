@@ -49,7 +49,7 @@ import javax.swing.JLabel;
 import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 
 public class AtomicConditionPanel extends EditablePanel {
 
@@ -146,7 +146,7 @@ public class AtomicConditionPanel extends EditablePanel {
     private Component getVerbRender( String type, String state ) {
 
         if( type.equals( ConditionsPanelController.CONDITION_TYPE_FLAG ) ) {
-            return new JLabel( TextConstants.getText( "GeneralText.Is.Singular" ) );
+            return new JLabel( TC.get( "GeneralText.Is.Singular" ) );
         }
 
         else if( type.equals( ConditionsPanelController.CONDITION_TYPE_VAR ) ) {
@@ -169,11 +169,11 @@ public class AtomicConditionPanel extends EditablePanel {
 
         else if( type.equals( ConditionsPanelController.CONDITION_TYPE_GS ) ) {
             if( state.equals( Integer.toString( GlobalStateCondition.GS_SATISFIED ) ) ) {
-                return new JLabel( TextConstants.getText( "Conditions.ConditionGroup.Satisfied" ) );
+                return new JLabel( TC.get( "Conditions.ConditionGroup.Satisfied" ) );
             }
 
             else if( state.equals( Integer.toString( GlobalStateCondition.GS_NOT_SATISFIED ) ) ) {
-                return new JLabel( TextConstants.getText( "Conditions.ConditionGroup.NotSatisfied" ) );
+                return new JLabel( TC.get( "Conditions.ConditionGroup.NotSatisfied" ) );
             }
         }
 
@@ -189,10 +189,10 @@ public class AtomicConditionPanel extends EditablePanel {
 
         if( type.equals( ConditionsPanelController.CONDITION_TYPE_FLAG ) ) {
             if( value.equals( Integer.toString( FlagCondition.FLAG_ACTIVE ) ) ) {
-                return new JLabel( TextConstants.getText( "Conditions.Flag.Active" ) );
+                return new JLabel( TC.get( "Conditions.Flag.Active" ) );
             }
             else if( value.equals( Integer.toString( FlagCondition.FLAG_INACTIVE ) ) ) {
-                return new JLabel( TextConstants.getText( "Conditions.Flag.Inactive" ) );
+                return new JLabel( TC.get( "Conditions.Flag.Inactive" ) );
             }
         }
 

@@ -35,7 +35,7 @@ package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.ArrayList;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -163,9 +163,9 @@ public class VarFlagsController {
 
         if( id == null || id.contains( " " ) || id.equals( "" ) ) {
             if( flag )
-                controller.showErrorDialog( TextConstants.getText( "Flags.AddFlag" ), TextConstants.getText( "Flags.ErrorFlagWhitespaces" ) );
+                controller.showErrorDialog( TC.get( "Flags.AddFlag" ), TC.get( "Flags.ErrorFlagWhitespaces" ) );
             else
-                controller.showErrorDialog( TextConstants.getText( "Vars.AddVar" ), TextConstants.getText( "Vars.ErrorVarWhitespaces" ) );
+                controller.showErrorDialog( TC.get( "Vars.AddVar" ), TC.get( "Vars.ErrorVarWhitespaces" ) );
         }
 
         else {
@@ -185,7 +185,7 @@ public class VarFlagsController {
             }
             else {
                 String[] options = new String[ similarFlags.length + 1 ];
-                options[0] = id + " (" + TextConstants.getText( "GeneralText.New" ) + ")";
+                options[0] = id + " (" + TC.get( "GeneralText.New" ) + ")";
                 for( int i = 1; i < options.length; i++ ) {
                     options[i] = similarFlags[i - 1];
                 }
@@ -193,18 +193,18 @@ public class VarFlagsController {
                 String option = null;
 
                 if( flag )
-                    option = Controller.getInstance( ).showInputDialog( TextConstants.getText( "Flags.ConfirmNewFlag.Title" )
+                    option = Controller.getInstance( ).showInputDialog( TC.get( "Flags.ConfirmNewFlag.Title" )
                     //"Confirm new flag", "You are about to create a new flag that is similar to others.\nIs this correct?\nPlease confirm you want to create that flag or select an existing one.", 
-                    , TextConstants.getText( "Flags.ConfirmNewFlag.Text" ), options );
+                    , TC.get( "Flags.ConfirmNewFlag.Text" ), options );
                 else
-                    option = Controller.getInstance( ).showInputDialog( TextConstants.getText( "Vars.ConfirmNewVar.Title" )
+                    option = Controller.getInstance( ).showInputDialog( TC.get( "Vars.ConfirmNewVar.Title" )
                     //"Confirm new flag", "You are about to create a new flag that is similar to others.\nIs this correct?\nPlease confirm you want to create that flag or select an existing one.", 
-                    , TextConstants.getText( "Vars.ConfirmNewVar.Text" ), options );
+                    , TC.get( "Vars.ConfirmNewVar.Text" ), options );
 
                 if( option != null ) {
 
                     // If it contains white spaces, show an error
-                    if( option.equals( id + " (" + TextConstants.getText( "GeneralText.New" ) + ")" ) ) {
+                    if( option.equals( id + " (" + TC.get( "GeneralText.New" ) + ")" ) ) {
                         flagVarAdded = id;
                         if( flag )
                             Controller.getInstance( ).getVarFlagSummary( ).addFlag( id );
@@ -242,9 +242,9 @@ public class VarFlagsController {
         // Ask for a flag name
         String id = null;
         if( isFlag )
-            id = controller.showInputDialog( TextConstants.getText( "Flags.AddFlag" ), TextConstants.getText( "Flags.AddFlagMessage" ), TextConstants.getText( "Flags.DefaultFlagId" ) );
+            id = controller.showInputDialog( TC.get( "Flags.AddFlag" ), TC.get( "Flags.AddFlagMessage" ), TC.get( "Flags.DefaultFlagId" ) );
         else
-            id = controller.showInputDialog( TextConstants.getText( "Vars.AddVar" ), TextConstants.getText( "Vars.AddVarMessage" ), TextConstants.getText( "Vars.DefaultVarId" ) );
+            id = controller.showInputDialog( TC.get( "Vars.AddVar" ), TC.get( "Vars.AddVarMessage" ), TC.get( "Vars.DefaultVarId" ) );
 
         // If some value was typed
         if( id != null ) {
@@ -263,12 +263,12 @@ public class VarFlagsController {
 
                 // If it exists, show an error
                 else
-                    controller.showErrorDialog( TextConstants.getText( "Ids.AddId" ), TextConstants.getText( "Ids.ErrorIdAlreadyExists" ) );
+                    controller.showErrorDialog( TC.get( "Ids.AddId" ), TC.get( "Ids.ErrorIdAlreadyExists" ) );
             }
 
             // If it contain white spaces, show an error
             else
-                controller.showErrorDialog( TextConstants.getText( "Ids.AddId" ), TextConstants.getText( "Ids.ErrorIdWhitespaces" ) );
+                controller.showErrorDialog( TC.get( "Ids.AddId" ), TC.get( "Ids.ErrorIdWhitespaces" ) );
         }
 
         return addedFlag;
@@ -292,7 +292,7 @@ public class VarFlagsController {
 
         // If not, show an error
         else
-            controller.showErrorDialog( TextConstants.getText( "Flags.DeleteFlag" ), TextConstants.getText( "Flags.ErrorFlagWithReferences" ) );
+            controller.showErrorDialog( TC.get( "Flags.DeleteFlag" ), TC.get( "Flags.ErrorFlagWithReferences" ) );
 
         return deletedFlag;
     }
@@ -315,7 +315,7 @@ public class VarFlagsController {
 
         // If not, show an error
         else
-            controller.showErrorDialog( TextConstants.getText( "Vars.DeleteVar" ), TextConstants.getText( "Vars.ErrorVarWithReferences" ) );
+            controller.showErrorDialog( TC.get( "Vars.DeleteVar" ), TC.get( "Vars.ErrorVarWithReferences" ) );
 
         return deletedVar;
     }

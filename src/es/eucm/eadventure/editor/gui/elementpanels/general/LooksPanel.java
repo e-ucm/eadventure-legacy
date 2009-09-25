@@ -53,7 +53,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
@@ -140,14 +140,14 @@ public abstract class LooksPanel extends JPanel implements Updateable {
         newResourcesBlock.setContentAreaFilled( false );
         newResourcesBlock.setMargin( new Insets( 0, 0, 0, 0 ) );
         newResourcesBlock.setBorder( BorderFactory.createEmptyBorder( ) );
-        newResourcesBlock.setToolTipText( TextConstants.getText( "ResourcesList.AddResourcesBlock" ) );
+        newResourcesBlock.setToolTipText( TC.get( "ResourcesList.AddResourcesBlock" ) );
         newResourcesBlock.addActionListener( new NewButtonListener( ) );
 
         this.deleteResourcesBlock = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deleteResourcesBlock.setContentAreaFilled( false );
         deleteResourcesBlock.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteResourcesBlock.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteResourcesBlock.setToolTipText( TextConstants.getText( "ResourcesList.DeleteResourcesBlock" ) );
+        deleteResourcesBlock.setToolTipText( TC.get( "ResourcesList.DeleteResourcesBlock" ) );
         deleteResourcesBlock.setEnabled( false );
         deleteResourcesBlock.addActionListener( new DeleteButtonListener( ) );
 
@@ -155,7 +155,7 @@ public abstract class LooksPanel extends JPanel implements Updateable {
         duplicateResourcesBlock.setContentAreaFilled( false );
         duplicateResourcesBlock.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicateResourcesBlock.setBorder( BorderFactory.createEmptyBorder( ) );
-        duplicateResourcesBlock.setToolTipText( TextConstants.getText( "ResourcesList.DuplicateResourcesBlock" ) );
+        duplicateResourcesBlock.setToolTipText( TC.get( "ResourcesList.DuplicateResourcesBlock" ) );
         duplicateResourcesBlock.setEnabled( false );
         duplicateResourcesBlock.addActionListener( new DuplicateButtonListener( ) );
 

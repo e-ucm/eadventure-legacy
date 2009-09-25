@@ -53,7 +53,7 @@ import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteLineAudioPathTool;
 import es.eucm.eadventure.editor.control.tools.conversation.SelectLineAudioPathTool;
@@ -97,7 +97,7 @@ public class AudioCellRendererEditor extends AbstractCellEditor implements Table
             }
             else {
                 ImageIcon icon = new ImageIcon( "img/icons/noAudio.png" );
-                label = new JLabel( TextConstants.getText( "Conversations.NoAudio" ), icon, SwingConstants.LEFT );
+                label = new JLabel( TC.get( "Conversations.NoAudio" ), icon, SwingConstants.LEFT );
             }
 
             return label;
@@ -124,7 +124,7 @@ public class AudioCellRendererEditor extends AbstractCellEditor implements Table
         }
         else {
             ImageIcon icon = new ImageIcon( "img/icons/noAudio.png" );
-            label = new JLabel( TextConstants.getText( "Conversations.NoAudio" ), icon, SwingConstants.LEFT );
+            label = new JLabel( TC.get( "Conversations.NoAudio" ), icon, SwingConstants.LEFT );
         }
         label.setOpaque( false );
         panel.add( label );
@@ -136,7 +136,7 @@ public class AudioCellRendererEditor extends AbstractCellEditor implements Table
         c.gridy = 0;
         c.weightx = 2.0;
 
-        JButton selectButton = new JButton( TextConstants.getText( "Conversations.Select" ) );
+        JButton selectButton = new JButton( TC.get( "Conversations.Select" ) );
         selectButton.setFocusable( false );
         selectButton.setEnabled( isSelected );
         selectButton.addActionListener( new ActionListener( ) {
@@ -148,7 +148,7 @@ public class AudioCellRendererEditor extends AbstractCellEditor implements Table
                     updateTable( line );
                 }
                 catch( CloneNotSupportedException e1 ) {
-                    ReportDialog.GenerateErrorReport( new Exception( "Could not clone resources" ), false, TextConstants.getText( "Error.Title" ) );
+                    ReportDialog.GenerateErrorReport( new Exception( "Could not clone resources" ), false, TC.get( "Error.Title" ) );
                 }
             }
         } );
@@ -158,7 +158,7 @@ public class AudioCellRendererEditor extends AbstractCellEditor implements Table
         c.gridx = 1;
         c.weightx = 0.2;
         deleteButton = new JButton( new ImageIcon( "img/icons/deleteContent.png" ) );
-        deleteButton.setToolTipText( TextConstants.getText( "Conversations.DeleteAudio" ) );
+        deleteButton.setToolTipText( TC.get( "Conversations.DeleteAudio" ) );
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setFocusable( false );
@@ -190,7 +190,7 @@ public class AudioCellRendererEditor extends AbstractCellEditor implements Table
         }
         else {
             ImageIcon icon = new ImageIcon( "img/icons/noAudio.png" );
-            label.setText( TextConstants.getText( "Conversations.NoAudio" ) );
+            label.setText( TC.get( "Conversations.NoAudio" ) );
             label.setIcon( icon );
         }
         panel.updateUI( );

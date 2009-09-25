@@ -47,7 +47,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 
 public class SpeakCharacterEffectDialog extends EffectDialog {
@@ -76,7 +76,7 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
     public SpeakCharacterEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "SpeakCharacterEffect.Title" ), false );
+        super( TC.get( "SpeakCharacterEffect.Title" ), false );
 
         // Take the list of characters
         String[] charactersArray = controller.getIdentifierSummary( ).getNPCIds( );
@@ -89,7 +89,7 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
             GridBagConstraints c = new GridBagConstraints( );
 
             // Set the border of the panel with the description
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "SpeakCharacterEffect.Description" ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "SpeakCharacterEffect.Description" ) ) ) );
 
             // Create and add the list of characters
             c.insets = new Insets( 2, 4, 4, 4 );
@@ -126,7 +126,7 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
 
         // If the list had no elements, show an error message
         else
-            controller.showErrorDialog( getTitle( ), TextConstants.getText( "SpeakCharacterEffect.ErrorNoCharacters" ) );
+            controller.showErrorDialog( getTitle( ), TC.get( "SpeakCharacterEffect.ErrorNoCharacters" ) );
     }
 
     @Override

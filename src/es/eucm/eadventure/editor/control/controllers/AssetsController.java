@@ -55,7 +55,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -220,11 +220,11 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
         File descriptorDTD = new File( "descriptor.dtd" );
         if( descriptorDTD.exists( ) ) {
             if( !descriptorDTD.copyTo( new File( projectDir, "descriptor.dtd" ) ) ) {
-                Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.DTD.NotCopied.Title" ), TextConstants.getText( "Error.DTD.NotCopied.Message", "descriptor.dtd" ) );
+                Controller.getInstance( ).showErrorDialog( TC.get( "Error.DTD.NotCopied.Title" ), TC.get( "Error.DTD.NotCopied.Message", "descriptor.dtd" ) );
             }
         }
         else {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.DTD.NotFound.Title" ), TextConstants.getText( "Error.DTD.NotFound.Message", "descriptor.dtd" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.DTD.NotFound.Title" ), TC.get( "Error.DTD.NotFound.Message", "descriptor.dtd" ) );
 
         }
 
@@ -232,11 +232,11 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
         File eadventureDTD = new File( "eadventure.dtd" );
         if( eadventureDTD.exists( ) ) {
             if( !eadventureDTD.copyTo( new File( projectDir, "eadventure.dtd" ) ) ) {
-                Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.DTD.NotCopied.Title" ), TextConstants.getText( "Error.DTD.NotCopied.Message", "eadventure.dtd" ) );
+                Controller.getInstance( ).showErrorDialog( TC.get( "Error.DTD.NotCopied.Title" ), TC.get( "Error.DTD.NotCopied.Message", "eadventure.dtd" ) );
             }
         }
         else {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.DTD.NotFound.Title" ), TextConstants.getText( "Error.DTD.NotFound.Message", "eadventure.dtd" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.DTD.NotFound.Title" ), TC.get( "Error.DTD.NotFound.Message", "eadventure.dtd" ) );
 
         }
 
@@ -244,11 +244,11 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
         File assessmentDTD = new File( "assessment.dtd" );
         if( assessmentDTD.exists( ) ) {
             if( !assessmentDTD.copyTo( new File( projectDir, "assessment.dtd" ) ) ) {
-                Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.DTD.NotCopied.Title" ), TextConstants.getText( "Error.DTD.NotCopied.Message", "assessment.dtd" ) );
+                Controller.getInstance( ).showErrorDialog( TC.get( "Error.DTD.NotCopied.Title" ), TC.get( "Error.DTD.NotCopied.Message", "assessment.dtd" ) );
             }
         }
         else {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.DTD.NotFound.Title" ), TextConstants.getText( "Error.DTD.NotFound.Message", "assessment.dtd" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.DTD.NotFound.Title" ), TC.get( "Error.DTD.NotFound.Message", "assessment.dtd" ) );
 
         }
 
@@ -256,11 +256,11 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
         File adaptationDTD = new File( "adaptation.dtd" );
         if( adaptationDTD.exists( ) ) {
             if( !adaptationDTD.copyTo( new File( projectDir, "adaptation.dtd" ) ) ) {
-                Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.DTD.NotCopied.Title" ), TextConstants.getText( "Error.DTD.NotCopied.Message", "adaptation.dtd" ) );
+                Controller.getInstance( ).showErrorDialog( TC.get( "Error.DTD.NotCopied.Title" ), TC.get( "Error.DTD.NotCopied.Message", "adaptation.dtd" ) );
             }
         }
         else {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.DTD.NotFound.Title" ), TextConstants.getText( "Error.DTD.NotFound.Message", "adaptation.dtd" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.DTD.NotFound.Title" ), TC.get( "Error.DTD.NotFound.Message", "adaptation.dtd" ) );
 
         }
 
@@ -268,11 +268,11 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
         File animationDTD = new File( "animation.dtd" );
         if( animationDTD.exists( ) ) {
             if( !animationDTD.copyTo( new File( projectDir, "animation.dtd" ) ) ) {
-                Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.DTD.NotCopied.Title" ), TextConstants.getText( "Error.DTD.NotCopied.Message", "animation.dtd" ) );
+                Controller.getInstance( ).showErrorDialog( TC.get( "Error.DTD.NotCopied.Title" ), TC.get( "Error.DTD.NotCopied.Message", "animation.dtd" ) );
             }
         }
         else {
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.DTD.NotFound.Title" ), TextConstants.getText( "Error.DTD.NotFound.Message", "animation.dtd" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.DTD.NotFound.Title" ), TC.get( "Error.DTD.NotFound.Message", "animation.dtd" ) );
 
         }
 
@@ -496,7 +496,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
                 image = ImageIO.read( inputStream );
                 //System.out.println("Size : " + image.getWidth(null) + " , " + image.getHeight(null));
                 if( image == null || image.getHeight( null ) == -1 || image.getWidth( null ) == -1 ) {
-                    Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.ImageTypeNotSupported" ) );
+                    Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.ImageTypeNotSupported" ) );
                 }
                 inputStream.close( );
             }
@@ -637,7 +637,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
                 File destinyFile = new File( categoryFolder, sourceFile.getName( ) );
 
                 if( !sourceFile.getAbsolutePath( ).toLowerCase( ).equals( destinyFile.getAbsolutePath( ).toLowerCase( ) ) ) {
-                    if( destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TextConstants.getText( "Assets.AddAsset" ), TextConstants.getText( "Assets.WarningAssetFound", sourceFile.getName( ) ) ) ) {
+                    if( destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Assets.AddAsset" ), TC.get( "Assets.WarningAssetFound", sourceFile.getName( ) ) ) ) {
                         deleteAsset( assetPath, false );
                     }
                     assetsAdded = sourceFile.copyTo( destinyFile );
@@ -674,7 +674,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
                 if( !sourceFile.getAbsolutePath( ).toLowerCase( ).equals( destinyFile.getAbsolutePath( ).toLowerCase( ) ) ) {
 
                     // Check if the asset is being overwritten, if so prompt the user for action
-                    if( destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TextConstants.getText( "Assets.AddAsset" ), TextConstants.getText( "Assets.WarningAssetFound", sourceFile.getName( ) ) ) ) {
+                    if( destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Assets.AddAsset" ), TC.get( "Assets.WarningAssetFound", sourceFile.getName( ) ) ) ) {
                         // If the user accepts to overwrite the asset, delete it first
                         deleteAsset( assetPath, false );
                     }
@@ -748,7 +748,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
             references = String.valueOf( Controller.getInstance( ).countAssetReferences( assetPath ) );
 
         // If the asset must be deleted (when the user is not asked, or is asked and answers "Yes")
-        if( !askForConfirmation || Controller.getInstance( ).showStrictConfirmDialog( TextConstants.getText( "Assets.DeleteAsset" ), TextConstants.getText( "Assets.DeleteAssetWarning", new String[] { getFilename( assetPath ), references } ) ) ) {
+        if( !askForConfirmation || Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Assets.DeleteAsset" ), TC.get( "Assets.DeleteAssetWarning", new String[] { getFilename( assetPath ), references } ) ) ) {
 
             // If it is an animation, delete all the files
             if( assetPath.startsWith( CATEGORY_ANIMATION_FOLDER ) ) {
@@ -825,7 +825,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
             sourceFile.copyTo( new File( zipFile, ASSET_DEFAULT_BOOK_IMAGE ) );
         // If the source file doesn't exist, show an error message
         else
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.SpecialAssetNotFound", "img/assets/DefaultBook.jpg" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/DefaultBook.jpg" ) );
 
         // Add the empty image
         sourceFile = new File( "img/assets/EmptyImage.png" );
@@ -834,7 +834,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
 
         // If the source file doesn't exist, show an error message
         else
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.SpecialAssetNotFound", "img/assets/EmptyImage.png" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/EmptyImage.png" ) );
 
         // Add the empty icon
         sourceFile = new File( "img/assets/EmptyIcon.png" );
@@ -843,7 +843,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
 
         // If the source file doesn't exist, show an error message
         else
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.SpecialAssetNotFound", "img/assets/EmptyIcon.png" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/EmptyIcon.png" ) );
 
         // Add the empty animation
         sourceFile = new File( "img/assets/EmptyAnimation_01.png" );
@@ -852,7 +852,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
 
         // If the source file doesn't exist, show an error message
         else
-            Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.SpecialAssetNotFound", "img/assets/EmptyAnimation_01.png" ) );
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/EmptyAnimation_01.png" ) );
     }
 
     /**
@@ -933,7 +933,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
 
             // The icon files must have a size of 80x48
             if( width != 80 || height != 48 ) {
-                controller.showErrorDialog( TextConstants.getText( "IconAssets.Title" ), TextConstants.getText( "IconAssets.ErrorIconSize", fileInformation ) );
+                controller.showErrorDialog( TC.get( "IconAssets.Title" ), TC.get( "IconAssets.ErrorIconSize", fileInformation ) );
                 assetValid = false;
             }
         }
@@ -948,7 +948,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
 
             // The background files must have a size of at least 800x400
             if( width < 800 || height < 400 ) {
-                controller.showErrorDialog( TextConstants.getText( "BackgroundAssets.Title" ), TextConstants.getText( "BackgroundAssets.ErrorBackgroundSize", fileInformation ) );
+                controller.showErrorDialog( TC.get( "BackgroundAssets.Title" ), TC.get( "BackgroundAssets.ErrorBackgroundSize", fileInformation ) );
                 assetValid = false;
             }
         }
@@ -983,7 +983,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
             }
             assetValid = file.exists( ) && file.isFile( ) && file.length( ) > 0;
             if( !assetValid ) {
-                message = TextConstants.getText( "Error.AssetNotFound" + assetCategory, assetPath );
+                message = TC.get( "Error.AssetNotFound" + assetCategory, assetPath );
             }
 
             // For images, only background and icon are checked
@@ -998,14 +998,14 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
 
                 // The background files must have a size of at least 800x400
                 if( assetCategory == CATEGORY_BACKGROUND && ( width < 800 || height < 400 ) ) {
-                    message = TextConstants.getText( "BackgroundAssets.ErrorBackgroundSize", fileInformation );
+                    message = TC.get( "BackgroundAssets.ErrorBackgroundSize", fileInformation );
                     assetValid = false;
                     notPresent = false;
                 }
 
                 // The icon files must have a size of 80x48
                 else if( assetCategory == CATEGORY_ICON && ( width != 80 || height != 48 ) ) {
-                    message = TextConstants.getText( "IconAssets.ErrorIconSize", fileInformation );
+                    message = TC.get( "IconAssets.ErrorIconSize", fileInformation );
                     assetValid = false;
                     notPresent = false;
                 }

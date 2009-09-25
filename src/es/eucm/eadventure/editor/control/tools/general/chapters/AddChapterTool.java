@@ -34,7 +34,7 @@
 package es.eucm.eadventure.editor.control.tools.general.chapters;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -79,13 +79,13 @@ public class AddChapterTool extends Tool {
     public boolean doTool( ) {
 
         // Show a dialog asking for the chapter title
-        chapterTitle = controller.showInputDialog( TextConstants.getText( "Operation.AddChapterTitle" ), TextConstants.getText( "Operation.AddChapterMessage" ), TextConstants.getText( "Operation.AddChapterDefaultValue" ) );
+        chapterTitle = controller.showInputDialog( TC.get( "Operation.AddChapterTitle" ), TC.get( "Operation.AddChapterMessage" ), TC.get( "Operation.AddChapterDefaultValue" ) );
 
         // If some value was typed
         if( chapterTitle != null ) {
             if( !chaptersController.exitsChapter( chapterTitle ) ) {
                 // Create the new chapter, and the controller
-                newChapter = new Chapter( chapterTitle, TextConstants.getText( "DefaultValue.SceneId" ) );
+                newChapter = new Chapter( chapterTitle, TC.get( "DefaultValue.SceneId" ) );
                 chaptersController.addChapterDataControl( newChapter );
                 index = chaptersController.getSelectedChapter( );
 
@@ -93,7 +93,7 @@ public class AddChapterTool extends Tool {
                 return true;
             }
             else {
-                controller.showErrorDialog( TextConstants.getText( "Operation.CreateAdaptationFile.FileName.ExistValue.Title" ), TextConstants.getText( "Operation.NewChapter.ExistingName" ) );
+                controller.showErrorDialog( TC.get( "Operation.CreateAdaptationFile.FileName.ExistValue.Title" ), TC.get( "Operation.NewChapter.ExistingName" ) );
                 return false;
             }
         }
@@ -105,7 +105,7 @@ public class AddChapterTool extends Tool {
     public boolean redoTool( ) {
 
         // Create the new chapter, and the controller
-        newChapter = new Chapter( chapterTitle, TextConstants.getText( "DefaultValue.SceneId" ) );
+        newChapter = new Chapter( chapterTitle, TC.get( "DefaultValue.SceneId" ) );
         chaptersController.addChapterDataControl( newChapter );
         index = chaptersController.getSelectedChapter( );
 

@@ -55,7 +55,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.structurepanel.DuplicateElementTool;
 import es.eucm.eadventure.editor.control.tools.structurepanel.RemoveElementTool;
@@ -248,7 +248,7 @@ public class StructureElementCell extends JPanel {
         optionsPanel.setLayout( new GridLayout( 1, 0 ) );
         optionsPanel.setBackground( Color.WHITE );
 
-        JButton rename = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+        JButton rename = new JButton( TC.get( "GeneralText.OK" ) );
         rename.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -259,7 +259,7 @@ public class StructureElementCell extends JPanel {
         rename.setFocusable( false );
         optionsPanel.add( rename );
 
-        JButton cancel = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        JButton cancel = new JButton( TC.get( "GeneralText.Cancel" ) );
         cancel.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -287,7 +287,7 @@ public class StructureElementCell extends JPanel {
         remove.setContentAreaFilled( false );
         remove.setMargin( new Insets( 0, 0, 0, 0 ) );
         remove.setBorder( BorderFactory.createEmptyBorder( ) );
-        remove.setToolTipText( TextConstants.getText( "GeneralText.Delete" ) );
+        remove.setToolTipText( TC.get( "GeneralText.Delete" ) );
         remove.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -316,7 +316,7 @@ public class StructureElementCell extends JPanel {
         remove.setContentAreaFilled( false );
         remove.setMargin( new Insets( 0, 0, 0, 0 ) );
         remove.setBorder( BorderFactory.createEmptyBorder( ) );
-        remove.setToolTipText( TextConstants.getText( "GeneralText.Duplicate" ) );
+        remove.setToolTipText( TC.get( "GeneralText.Duplicate" ) );
         remove.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
@@ -342,7 +342,7 @@ public class StructureElementCell extends JPanel {
      */
     private void addRenameButton( GridBagConstraints c, JPanel optionsPanel ) {
 
-        JButton rename = new JButton( TextConstants.getText( "GeneralText.Rename" ) );
+        JButton rename = new JButton( TC.get( "GeneralText.Rename" ) );
 
         rename.addActionListener( new ActionListener( ) {
 

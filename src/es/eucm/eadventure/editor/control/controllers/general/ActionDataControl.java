@@ -39,7 +39,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -335,7 +335,7 @@ public class ActionDataControl extends DataControlWithResources {
     public boolean isValid( String currentPath, List<String> incidences ) {
 
         // Check the effects of the action
-        return EffectsController.isValid( currentPath + " >> " + TextConstants.getText( "Element.Effects" ), incidences, action.getEffects( ) );
+        return EffectsController.isValid( currentPath + " >> " + TC.get( "Element.Effects" ), incidences, action.getEffects( ) );
     }
 
     @Override
@@ -453,11 +453,11 @@ public class ActionDataControl extends DataControlWithResources {
 
     @Override
     public void recursiveSearch( ) {
-        check( this.getConditions( ), TextConstants.getText( "Search.Conditions" ) );
-        check( this.getIdTarget( ), TextConstants.getText( "Search.IDTarget" ) );
+        check( this.getConditions( ), TC.get( "Search.Conditions" ) );
+        check( this.getIdTarget( ), TC.get( "Search.IDTarget" ) );
 
         for( int i = 0; i < this.getEffects( ).getEffectCount( ); i++ ) {
-            check( this.getEffects( ).getEffectInfo( i ), TextConstants.getText( "Search.Effect" ) );
+            check( this.getEffects( ).getEffectInfo( i ), TC.get( "Search.Effect" ) );
         }
     }
 

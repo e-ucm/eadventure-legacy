@@ -45,7 +45,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 
 public class TriggerBookEffectDialog extends EffectDialog {
@@ -69,7 +69,7 @@ public class TriggerBookEffectDialog extends EffectDialog {
     public TriggerBookEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
-        super( TextConstants.getText( "TriggerBookEffect.Title" ), false );
+        super( TC.get( "TriggerBookEffect.Title" ), false );
 
         // Take the list of books
         String[] booksArray = controller.getIdentifierSummary( ).getBookIds( );
@@ -82,7 +82,7 @@ public class TriggerBookEffectDialog extends EffectDialog {
             GridBagConstraints c = new GridBagConstraints( );
 
             // Set the border of the panel with the description
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TriggerBookEffect.Description" ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "TriggerBookEffect.Description" ) ) ) );
 
             // Create and add the list of flags
             c.insets = new Insets( 2, 4, 4, 4 );
@@ -110,7 +110,7 @@ public class TriggerBookEffectDialog extends EffectDialog {
 
         // If the list had no elements, show an error message
         else
-            controller.showErrorDialog( getTitle( ), TextConstants.getText( "TriggerBookEffect.ErrorNoBooks" ) );
+            controller.showErrorDialog( getTitle( ), TC.get( "TriggerBookEffect.ErrorNoBooks" ) );
     }
 
     @Override

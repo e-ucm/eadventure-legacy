@@ -56,7 +56,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -101,7 +101,7 @@ public class EffectsPanel extends JPanel implements Updateable {
         this.effectsController = effectsController;
 
         // Set properties of the panel
-        setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Effects.Title" ) ) );
+        setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Effects.Title" ) ) );
 
         // Set the panel
         setLayout( new BorderLayout( ) );
@@ -172,14 +172,14 @@ public class EffectsPanel extends JPanel implements Updateable {
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+        newButton.setToolTipText( TC.get( "ItemReferenceTable.AddParagraph" ) );
         newButton.addActionListener( new AddEffectListener( ) );
 
         deleteButton = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+        deleteButton.setToolTipText( TC.get( "ItemReferenceTable.Delete" ) );
         deleteButton.addActionListener( new DeleteEffectListener( ) );
         deleteButton.setEnabled( false );
 
@@ -187,7 +187,7 @@ public class EffectsPanel extends JPanel implements Updateable {
         moveUpButton.setContentAreaFilled( false );
         moveUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        moveUpButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveUp" ) );
+        moveUpButton.setToolTipText( TC.get( "ItemReferenceTable.MoveUp" ) );
         moveUpButton.addActionListener( new MoveUpEffectListener( ) );
         moveUpButton.setEnabled( false );
 
@@ -195,7 +195,7 @@ public class EffectsPanel extends JPanel implements Updateable {
         moveDownButton.setContentAreaFilled( false );
         moveDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
-        moveDownButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveDown" ) );
+        moveDownButton.setToolTipText( TC.get( "ItemReferenceTable.MoveDown" ) );
         moveDownButton.addActionListener( new MoveDownEffectListener( ) );
         moveDownButton.setEnabled( false );
 
@@ -317,19 +317,19 @@ public class EffectsPanel extends JPanel implements Updateable {
 
             // The first column is the effect number
             if( columnIndex == 0 )
-                columnName = TextConstants.getText( "Effects.EffectNumberColumnTitle" );
+                columnName = TC.get( "Effects.EffectNumberColumnTitle" );
 
             // The second one the effect information
             else if( columnIndex == 1 )
-                columnName = TextConstants.getText( "Effects.EffectDescriptionColumnTitle" );
+                columnName = TC.get( "Effects.EffectDescriptionColumnTitle" );
 
             // The third one edit the effect
             else if( columnIndex == 2 )
-                columnName = TextConstants.getText( "ActionList.EditEffect" );
+                columnName = TC.get( "ActionList.EditEffect" );
 
             // The fourth one has the condition of each effect
             else if( columnIndex == 3 )
-                columnName = TextConstants.getText( "ActionsList.Conditions" );
+                columnName = TC.get( "ActionsList.Conditions" );
 
             return columnName;
         }

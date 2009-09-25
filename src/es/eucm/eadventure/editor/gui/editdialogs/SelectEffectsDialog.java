@@ -53,7 +53,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
@@ -98,7 +98,7 @@ public class SelectEffectsDialog extends ToolManagableDialog {
 
     public SelectEffectsDialog( EffectsController controller ) {
 
-        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "SelectEffectDialog.Title" ), false );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "SelectEffectDialog.Title" ), false );
         this.controller = controller;
         effectsStructurePanel = new EffectsStructurePanel( false, this );
         allEffectsStructurePanel = new EffectsStructurePanel( true, this );
@@ -109,9 +109,9 @@ public class SelectEffectsDialog extends ToolManagableDialog {
         visitPanel = new MostVisitedPanel( this );
 
         tabPane = new JTabbedPane( SwingConstants.TOP );
-        tabPane.insertTab( TextConstants.getText( "SelectEffectDialog.ByCategory" ), null, effectsStructurePanel, TextConstants.getText( "SelectEffectDialog.ByCategory.ToolTipText" ), 0 );
-        tabPane.insertTab( TextConstants.getText( "SelectEffectDialog.Recent" ), null, visitPanel, TextConstants.getText( "SelectEffectDialog.Recent.ToolTipText" ), 1 );
-        tabPane.insertTab( TextConstants.getText( "SelectEffectDialog.AllEffects" ), null, allEffectsStructurePanel, TextConstants.getText( "SelectEffectDialog.AllEffects.ToolTipText" ), 2 );
+        tabPane.insertTab( TC.get( "SelectEffectDialog.ByCategory" ), null, effectsStructurePanel, TC.get( "SelectEffectDialog.ByCategory.ToolTipText" ), 0 );
+        tabPane.insertTab( TC.get( "SelectEffectDialog.Recent" ), null, visitPanel, TC.get( "SelectEffectDialog.Recent.ToolTipText" ), 1 );
+        tabPane.insertTab( TC.get( "SelectEffectDialog.AllEffects" ), null, allEffectsStructurePanel, TC.get( "SelectEffectDialog.AllEffects.ToolTipText" ), 2 );
         if( ConfigData.getEffectSelectorTab( ) <= 2 && ConfigData.getEffectSelectorTab( ) >= 0 ) {
             tabPane.setSelectedIndex( ConfigData.getEffectSelectorTab( ) );
         }
@@ -201,7 +201,7 @@ public class SelectEffectsDialog extends ToolManagableDialog {
         infoPlusButtons.add( infoPanel, BorderLayout.CENTER );
 
         JPanel buttonPane = new JPanel( new GridLayout( 0, 2 ) );
-        ok = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+        ok = new JButton( TC.get( "GeneralText.OK" ) );
         ok.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -212,7 +212,7 @@ public class SelectEffectsDialog extends ToolManagableDialog {
 
         } );
 
-        JButton cancel = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+        JButton cancel = new JButton( TC.get( "GeneralText.Cancel" ) );
         cancel.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -264,7 +264,7 @@ public class SelectEffectsDialog extends ToolManagableDialog {
     public HashMap<Integer, Object> buildEffectProperties( ) {
 
         // Create a list with the names of the effects (in the same order as the next)
-        final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ), TextConstants.getText( "Effect.DecrementVar" ), TextConstants.getText( "Effect.MacroReference" ), TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ), TextConstants.getText( "Effect.RandomEffect" ), TextConstants.getText( "Effect.ShowText" ), TextConstants.getText( "Effect.WaitTime" ), TextConstants.getText( "Effect.HighlightItem" ), TextConstants.getText( "Effect.MoveObject" ) };
+        final String[] effectNames = { TC.get( "Effect.Activate" ), TC.get( "Effect.Deactivate" ), TC.get( "Effect.SetValue" ), TC.get( "Effect.IncrementVar" ), TC.get( "Effect.DecrementVar" ), TC.get( "Effect.MacroReference" ), TC.get( "Effect.ConsumeObject" ), TC.get( "Effect.GenerateObject" ), TC.get( "Effect.CancelAction" ), TC.get( "Effect.SpeakPlayer" ), TC.get( "Effect.SpeakCharacter" ), TC.get( "Effect.TriggerBook" ), TC.get( "Effect.PlaySound" ), TC.get( "Effect.PlayAnimation" ), TC.get( "Effect.MovePlayer" ), TC.get( "Effect.MoveCharacter" ), TC.get( "Effect.TriggerConversation" ), TC.get( "Effect.TriggerCutscene" ), TC.get( "Effect.TriggerScene" ), TC.get( "Effect.TriggerLastScene" ), TC.get( "Effect.RandomEffect" ), TC.get( "Effect.ShowText" ), TC.get( "Effect.WaitTime" ), TC.get( "Effect.HighlightItem" ), TC.get( "Effect.MoveObject" ) };
 
         // Create a list with the types of the effects (in the same order as the previous)
         final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.SET_VALUE, Effect.INCREMENT_VAR, Effect.DECREMENT_VAR, Effect.MACRO_REF, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT, Effect.SHOW_TEXT, Effect.WAIT_TIME, Effect.HIGHLIGHT_ITEM, Effect.MOVE_OBJECT };
@@ -273,7 +273,7 @@ public class SelectEffectsDialog extends ToolManagableDialog {
 
         HashMap<Integer, Object> effectProperties = null;
         // Is not random effect
-        if( selectedValue != null && !selectedValue.equals( TextConstants.getText( "Effect.RandomEffect" ) ) ) {
+        if( selectedValue != null && !selectedValue.equals( TC.get( "Effect.RandomEffect" ) ) ) {
             // Store the type of the effect selected
             int selectedType = 0;
             for( int i = 0; i < effectNames.length; i++ )
@@ -281,7 +281,7 @@ public class SelectEffectsDialog extends ToolManagableDialog {
                     selectedType = effectTypes[i];
 
             if( selectedType == Effect.MOVE_PLAYER && Controller.getInstance( ).isPlayTransparent( ) ) {
-                Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.EffectMovePlayerNotAllowed.Title" ), TextConstants.getText( "Error.EffectMovePlayerNotAllowed.Message" ) );
+                Controller.getInstance( ).showErrorDialog( TC.get( "Error.EffectMovePlayerNotAllowed.Title" ), TC.get( "Error.EffectMovePlayerNotAllowed.Message" ) );
             }
             else {
                 effectProperties = EffectDialog.showAddEffectDialog( controller, selectedType );

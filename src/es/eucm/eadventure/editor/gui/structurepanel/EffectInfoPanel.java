@@ -45,7 +45,7 @@ import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 /**
@@ -103,7 +103,7 @@ public class EffectInfoPanel extends JPanel {
 
     public void writeFileNotFound( String path ) {
 
-        add( new JLabel( TextConstants.getText( "HelpDialog.FileNotFound" ) + " " + path ) );
+        add( new JLabel( TC.get( "HelpDialog.FileNotFound" ) + " " + path ) );
     }
 
 }

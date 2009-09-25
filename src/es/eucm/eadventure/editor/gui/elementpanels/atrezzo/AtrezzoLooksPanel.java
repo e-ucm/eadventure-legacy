@@ -37,7 +37,7 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
@@ -70,7 +70,7 @@ public class AtrezzoLooksPanel extends LooksPanel {
         String atrezzoImagePath = atrezzoDataControl.getPreviewImage( );
 
         imagePanel = new ImagePanel( atrezzoImagePath );
-        imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Atrezzo.Preview" ) ) );
+        imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Atrezzo.Preview" ) ) );
         lookPanel.add( imagePanel, cLook );
         // TODO Parche, arreglar
         lookPanel.setPreferredSize( new Dimension( 0, 120 ) );

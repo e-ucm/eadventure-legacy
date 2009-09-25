@@ -54,7 +54,7 @@ import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Titled;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
@@ -149,7 +149,7 @@ public class ChapterInfoPanel extends JPanel {
         titleTextField = new JTextField( chapterDataControl.getTitle( ) );
         titleTextField.getDocument( ).addDocumentListener( new TitleChangeListener( titleTextField, (Titled) chapterDataControl.getContent( ) ) );
         titlePanel.add( titleTextField );
-        titlePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Chapter.ChapterTitle" ) ) );
+        titlePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Chapter.ChapterTitle" ) ) );
         add( titlePanel, c );
 
         // Create the text area for the description
@@ -161,13 +161,13 @@ public class ChapterInfoPanel extends JPanel {
         descriptionTextArea.setWrapStyleWord( true );
         descriptionTextArea.getDocument( ).addDocumentListener( new DescriptionChangeListener( descriptionTextArea, (Described) chapterDataControl.getContent( ) ) );
         descriptionPanel.add( new JScrollPane( descriptionTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Chapter.Description" ) ) );
+        descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Chapter.Description" ) ) );
         add( descriptionPanel, c );
 
         // Create the assessment panel and set the border
         JPanel assessmentPathPanel = new JPanel( );
         assessmentPathPanel.setLayout( new GridBagLayout( ) );
-        assessmentPathPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Chapter.AssessmentPath" ) ) );
+        assessmentPathPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Chapter.AssessmentPath" ) ) );
         GridBagConstraints c2 = new GridBagConstraints( );
         c2.insets = new Insets( 4, 4, 4, 4 );
         c2.fill = GridBagConstraints.NONE;
@@ -178,7 +178,7 @@ public class ChapterInfoPanel extends JPanel {
         deleteAssessmentButton = new JButton( deleteContentIcon );
         deleteAssessmentButton.addActionListener( new GeneralButtonListener( ) );
         deleteAssessmentButton.setPreferredSize( new Dimension( 20, 20 ) );
-        deleteAssessmentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+        deleteAssessmentButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
         assessmentPathPanel.add( deleteAssessmentButton, c2 );
 
         // Create the text field and insert it
@@ -196,7 +196,7 @@ public class ChapterInfoPanel extends JPanel {
         c2.gridx = 2;
         c2.fill = GridBagConstraints.NONE;
         c2.weightx = 0;
-        selectAssessmentButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+        selectAssessmentButton = new JButton( TC.get( "Resources.Select" ) );
         selectAssessmentButton.addActionListener( new GeneralButtonListener( ) );
         assessmentPathPanel.add( selectAssessmentButton, c2 );
 
@@ -209,7 +209,7 @@ public class ChapterInfoPanel extends JPanel {
         // Create the adaptation panel and set the border
         JPanel adaptationPathPanel = new JPanel( );
         adaptationPathPanel.setLayout( new GridBagLayout( ) );
-        adaptationPathPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Chapter.AdaptationPath" ) ) );
+        adaptationPathPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Chapter.AdaptationPath" ) ) );
         c2 = new GridBagConstraints( );
         c2.insets = new Insets( 4, 4, 4, 4 );
         c2.fill = GridBagConstraints.NONE;
@@ -220,7 +220,7 @@ public class ChapterInfoPanel extends JPanel {
         deleteAdaptationButton = new JButton( deleteContentIcon );
         deleteAdaptationButton.addActionListener( new GeneralButtonListener( ) );
         deleteAdaptationButton.setPreferredSize( new Dimension( 20, 20 ) );
-        deleteAdaptationButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+        deleteAdaptationButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
         adaptationPathPanel.add( deleteAdaptationButton, c2 );
 
         // Create the text field and insert it
@@ -238,7 +238,7 @@ public class ChapterInfoPanel extends JPanel {
         c2.gridx = 2;
         c2.fill = GridBagConstraints.NONE;
         c2.weightx = 0;
-        selectAdaptationButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+        selectAdaptationButton = new JButton( TC.get( "Resources.Select" ) );
         selectAdaptationButton.addActionListener( new GeneralButtonListener( ) );
         adaptationPathPanel.add( selectAdaptationButton, c2 );
 
@@ -254,7 +254,7 @@ public class ChapterInfoPanel extends JPanel {
         initialSceneComboBox.setSelectedItem( chapterDataControl.getInitialScene( ) );
         initialSceneComboBox.addActionListener( new InitialSceneComboBoxListener( ) );
         initialScenePanel.add( initialSceneComboBox );
-        initialScenePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Chapter.InitialScene" ) ) );
+        initialScenePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Chapter.InitialScene" ) ) );
         add( initialScenePanel, c );
 
         // Add a filler

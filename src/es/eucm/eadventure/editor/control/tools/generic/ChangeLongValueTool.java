@@ -36,7 +36,7 @@ package es.eucm.eadventure.editor.control.tools.generic;
 import java.lang.reflect.Method;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
@@ -99,18 +99,18 @@ public class ChangeLongValueTool extends Tool {
             if( get.getReturnType( ) != Long.class ) {
                 get = set = null;
                 getName = setName = null;
-                ReportDialog.GenerateErrorReport( new Exception( "Get method must return Long value" ), false, TextConstants.getText( "Error.Title" ) );
+                ReportDialog.GenerateErrorReport( new Exception( "Get method must return Long value" ), false, TC.get( "Error.Title" ) );
             }
         }
         catch( SecurityException e ) {
             get = set = null;
             getName = setName = null;
-            ReportDialog.GenerateErrorReport( e, false, TextConstants.getText( "Error.Title" ) );
+            ReportDialog.GenerateErrorReport( e, false, TC.get( "Error.Title" ) );
         }
         catch( NoSuchMethodException e ) {
             get = set = null;
             getName = setName = null;
-            ReportDialog.GenerateErrorReport( e, false, TextConstants.getText( "Error.Title" ) );
+            ReportDialog.GenerateErrorReport( e, false, TC.get( "Error.Title" ) );
         }
 
     }
@@ -147,7 +147,7 @@ public class ChangeLongValueTool extends Tool {
                 }
             }
             catch( Exception e ) {
-                ReportDialog.GenerateErrorReport( e, false, TextConstants.getText( "Error.Title" ) );
+                ReportDialog.GenerateErrorReport( e, false, TC.get( "Error.Title" ) );
             }
 
         }
@@ -168,7 +168,7 @@ public class ChangeLongValueTool extends Tool {
             done = true;
         }
         catch( Exception e ) {
-            ReportDialog.GenerateErrorReport( e, false, TextConstants.getText( "Error.Title" ) );
+            ReportDialog.GenerateErrorReport( e, false, TC.get( "Error.Title" ) );
         }
         return done;
     }
@@ -186,7 +186,7 @@ public class ChangeLongValueTool extends Tool {
             done = true;
         }
         catch( Exception e ) {
-            ReportDialog.GenerateErrorReport( e, false, TextConstants.getText( "Error.Title" ) );
+            ReportDialog.GenerateErrorReport( e, false, TC.get( "Error.Title" ) );
         }
         return done;
     }

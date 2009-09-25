@@ -40,7 +40,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
@@ -73,7 +73,7 @@ public class ItemsListPanel extends ElementPanel {
 
         public ItemsListPanelTab( ItemsListDataControl sDataControl ) {
 
-            super( TextConstants.getText( "ItemsList.Title" ), sDataControl );
+            super( TC.get( "ItemsList.Title" ), sDataControl );
             this.sDataControl = sDataControl;
         }
 

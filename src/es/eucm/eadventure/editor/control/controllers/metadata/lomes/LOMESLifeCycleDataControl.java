@@ -33,7 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
-import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESLifeCycle;
 import es.eucm.eadventure.editor.data.meta.LangString;
@@ -72,7 +72,7 @@ public class LOMESLifeCycleDataControl {
 
                 String[] options = new String[ data.getStatus( ).getValues( ).length ];
                 for( int i = 0; i < options.length; i++ ) {
-                    options[i] = TextConstants.getText( "IMS.LifeCycle.Status" + i );
+                    options[i] = TC.get( "IMS.LifeCycle.Status" + i );
                 }
                 return options;
             }
