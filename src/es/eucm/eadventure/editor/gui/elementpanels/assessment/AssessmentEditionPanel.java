@@ -710,19 +710,58 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         return addChildPopupMenu;
     }
 
+    
+    private void sendByEmailCheck(){
+	
+	sendByEmailText.setEnabled( sendByEmailCheck.isSelected( ) );
+        smtpSSL.setEnabled( sendByEmailCheck.isSelected( ) );
+        smtpServer.setEnabled( sendByEmailCheck.isSelected( ) );
+        smtpPort.setEnabled( sendByEmailCheck.isSelected( ) );
+        smtpUser.setEnabled( sendByEmailCheck.isSelected( ) );
+        smtpPwd.setEnabled( sendByEmailCheck.isSelected( ) );
+	
+        if( sendByEmailCheck.isSelected( ) ) {
+            sendByEmailText.setText( dataControl.getEmail( ) );
+            smtpSSL.setSelected( dataControl.isSmtpSSL( ) );
+            smtpServer.setText( dataControl.getSmtpServer( ) );
+            smtpPort.setText( dataControl.getSmtpPort( ) );
+            smtpUser.setText( dataControl.getSmtpUser( ) );
+            smtpPwd.setText( dataControl.getSmtpPwd( ) );
+        }
+        else {
+            sendByEmailText.setText( "" );
+            smtpSSL.setSelected( false );
+            smtpServer.setText( "" );
+            smtpPort.setText( "" );
+            smtpUser.setText( "" );
+            smtpPwd.setText( "" );
+        }
+    }
+    
     private class SendByEmailActionListener implements ActionListener {
 
         public void actionPerformed( ActionEvent arg0 ) {
 
+            //dataControl.setSendByEmail( sendByEmailCheck.isSelected( ) );
+            
+            sendByEmailCheck( );
             dataControl.setSendByEmail( sendByEmailCheck.isSelected( ) );
-            sendByEmailText.setEnabled( sendByEmailCheck.isSelected( ) );
-            smtpSSL.setEnabled( sendByEmailCheck.isSelected( ) );
-            smtpServer.setEnabled( sendByEmailCheck.isSelected( ) );
-            smtpPort.setEnabled( sendByEmailCheck.isSelected( ) );
-            smtpUser.setEnabled( sendByEmailCheck.isSelected( ) );
-            smtpPwd.setEnabled( sendByEmailCheck.isSelected( ) );
+        }
+    }
 
-            if( sendByEmailCheck.isSelected( ) ) {
+    private void showReportCheck(){
+	boolean is =showReportAtEnd.isSelected( );
+	//if( dataControl.isShowReportAtEnd( ) != showReportAtEnd.isSelected( ) ) {
+	if( showReportAtEnd.isSelected( ) ) {
+            sendByEmailCheck.setEnabled( true );
+            sendByEmailCheck.setSelected( dataControl.isSendByEmail( ) );
+            sendByEmailText.setEnabled( dataControl.isSendByEmail( ) );
+            smtpSSL.setEnabled( dataControl.isSendByEmail( ) );
+            smtpServer.setEnabled( dataControl.isSendByEmail( ) );
+            smtpPort.setEnabled( dataControl.isSendByEmail( ) );
+            smtpUser.setEnabled( dataControl.isSendByEmail( ) );
+            smtpPwd.setEnabled( dataControl.isSendByEmail( ) );
+            if( dataControl.isSendByEmail( ) ) {
                 sendByEmailText.setText( dataControl.getEmail( ) );
                 smtpSSL.setSelected( dataControl.isSmtpSSL( ) );
                 smtpServer.setText( dataControl.getSmtpServer( ) );
@@ -730,54 +769,28 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
                 smtpUser.setText( dataControl.getSmtpUser( ) );
                 smtpPwd.setText( dataControl.getSmtpPwd( ) );
             }
-            else {
-                sendByEmailText.setText( "" );
-                smtpSSL.setSelected( false );
-                smtpServer.setText( "" );
-                smtpPort.setText( "" );
-                smtpUser.setText( "" );
-                smtpPwd.setText( "" );
-            }
-            dataControl.setSendByEmail( sendByEmailCheck.isSelected( ) );
         }
-    }
+        else {
+            sendByEmailCheck.setEnabled( false );
+            sendByEmailCheck.setSelected( false );
+            sendByEmailText.setEnabled( false );
+            sendByEmailText.setText( "" );
+            smtpSSL.setSelected( false );
+            smtpServer.setText( "" );
+            smtpPort.setText( "" );
+            smtpUser.setText( "" );
+            smtpPwd.setText( "" );
 
+        }
+   // }
+    
+    }
+    
     private class ShowReportAtEndActionListener implements ActionListener {
 
         public void actionPerformed( ActionEvent e ) {
 
-            if( dataControl.isShowReportAtEnd( ) != showReportAtEnd.isSelected( ) ) {
-                if( showReportAtEnd.isSelected( ) ) {
-                    sendByEmailCheck.setEnabled( true );
-                    sendByEmailCheck.setSelected( dataControl.isSendByEmail( ) );
-                    sendByEmailText.setEnabled( dataControl.isSendByEmail( ) );
-                    smtpSSL.setEnabled( dataControl.isSendByEmail( ) );
-                    smtpServer.setEnabled( dataControl.isSendByEmail( ) );
-                    smtpPort.setEnabled( dataControl.isSendByEmail( ) );
-                    smtpUser.setEnabled( dataControl.isSendByEmail( ) );
-                    smtpPwd.setEnabled( dataControl.isSendByEmail( ) );
-                    if( dataControl.isSendByEmail( ) ) {
-                        sendByEmailText.setText( dataControl.getEmail( ) );
-                        smtpSSL.setSelected( dataControl.isSmtpSSL( ) );
-                        smtpServer.setText( dataControl.getSmtpServer( ) );
-                        smtpPort.setText( dataControl.getSmtpPort( ) );
-                        smtpUser.setText( dataControl.getSmtpUser( ) );
-                        smtpPwd.setText( dataControl.getSmtpPwd( ) );
-                    }
-                }
-                else {
-                    sendByEmailCheck.setEnabled( false );
-                    sendByEmailCheck.setSelected( false );
-                    sendByEmailText.setEnabled( false );
-                    sendByEmailText.setText( "" );
-                    smtpSSL.setSelected( false );
-                    smtpServer.setText( "" );
-                    smtpPort.setText( "" );
-                    smtpUser.setText( "" );
-                    smtpPwd.setText( "" );
-
-                }
-            }
+            showReportCheck( );
             dataControl.setShowReportAtEnd( showReportAtEnd.isSelected( ) );
         }
     }
@@ -785,10 +798,9 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
     public boolean updateFields( ) {
 
         int selected = informationTable.getSelectedRow( );
-        int items = informationTable.getRowCount( );
-        //int selectedTab = rulesInfoPanel.getSelectedIndex();
-        if( rulesInfoPanel != null && rulesInfoPanel instanceof Updateable )
-            ( (Updateable) rulesInfoPanel ).updateFields( );     
+        // the call is not spread 
+        //if( rulesInfoPanel != null && rulesInfoPanel instanceof Updateable )
+          //  ( (Updateable) rulesInfoPanel ).updateFields( );     
         if( informationTable.getCellEditor( ) != null ) {
             informationTable.getCellEditor( ).cancelCellEditing( );
         }
@@ -801,17 +813,13 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
             comboProfile.setSelectedIndex( 0 );
         else
             comboProfile.setSelectedIndex( 2 );
-       
-        if( items == informationTable.getRowCount( ) ) {
-            if( selected != -1 ) {
-                if( selected >= items )
-                    selected = items - 1;
-                informationTable.changeSelection( selected, 0, false, false );
-                if( informationTable.getEditorComponent( ) != null )
-                    informationTable.editCellAt( selected, informationTable.getEditingColumn( ) );
-
-            }
-        }
+        
+        showReportAtEnd.setSelected(dataControl.isShowReportAtEnd());
+        showReportCheck( );
+        sendByEmailCheck.setSelected(dataControl.isSendByEmail());
+        sendByEmailCheck( );
+        
+        informationTable.getSelectionModel( ).setSelectionInterval( selected, selected );
 
        
         return true;

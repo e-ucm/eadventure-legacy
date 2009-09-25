@@ -43,6 +43,7 @@ import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeAssessmentProfileTypeTool;
@@ -51,6 +52,9 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AssessmentProfileDataControl extends DataControl {
 
+    
+    
+    
     /**
      * Controllers for each assessment rule
      */
@@ -66,7 +70,7 @@ public class AssessmentProfileDataControl extends DataControl {
         dataControls = new ArrayList<AssessmentRuleDataControl>( );
         this.profile = profile;
         for( AssessmentRule rule : profile.getRules( ) ) {
-            dataControls.add( new AssessmentRuleDataControl( rule, profile.getName() ) );
+            dataControls.add( new AssessmentRuleDataControl( rule, this.profile ) );
         }
     }
 
@@ -74,6 +78,8 @@ public class AssessmentProfileDataControl extends DataControl {
 
         this( new AssessmentProfile( assessmentRules, name ) );
     }
+    
+    
 
     public String getFileName( ) {
 
@@ -101,7 +107,7 @@ public class AssessmentProfileDataControl extends DataControl {
                     assRule = new AssessmentRule( assRuleId, AssessmentRule.IMPORTANCE_NORMAL );
                 }
                 this.profile.getRules( ).add( assRule );
-                dataControls.add( new AssessmentRuleDataControl( assRule, profile.getName() ) );
+                dataControls.add( new AssessmentRuleDataControl( assRule, profile ) );
                 controller.getIdentifierSummary( ).addAssessmentRuleId( assRuleId, profile.getName() );
                 //controller.dataModified( );
                 added = true;
@@ -177,7 +183,15 @@ public class AssessmentProfileDataControl extends DataControl {
 
         try {
             AssessmentRule newRule = (AssessmentRule) ( ( (AssessmentRule) ( dataControl.getContent( ) ) ).clone( ) );
-            dataControls.add( new AssessmentRuleDataControl( newRule, profile.getName() ) );
+            String id = newRule.getId( );
+            int i = 1;
+            do {
+                id = newRule.getId( ) + i;
+                i++;
+            } while( controller.getIdentifierSummary( ).isAssessmentRuleId(id, profile.getName()) );
+            newRule.setId( id );
+            dataControls.add( new AssessmentRuleDataControl( newRule, profile ) );
+            profile.addRule(newRule);
             controller.getIdentifierSummary( ).addAssessmentRuleId( newRule.getId( ), profile.getName() );
             return true;
         }
@@ -214,18 +228,12 @@ public class AssessmentProfileDataControl extends DataControl {
     public void deleteIdentifierReferences( String id ) {
 
         // profiles identifiers are deleted in assessmentProfilesDataControl
-        AssessmentRuleDataControl ruleToDelete = null;
-        AssessmentRuleDataControl rule = null;
         Iterator<AssessmentRuleDataControl> itera = this.dataControls.iterator( );
 
         while( itera.hasNext( ) ) {
-            rule = itera.next( );
-            if( id.equals( rule.getId( ) ) ) {
-                itera.remove( );
-
-            }
-            else
-                rule.deleteIdentifierReferences( id );
+            itera.next( ).deleteIdentifierReferences( id );
+            // the rule ID are unique, do not look in rule's IDs
+   
         }
 
     }

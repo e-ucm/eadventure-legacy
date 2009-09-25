@@ -794,10 +794,20 @@ public class IdentifierSummary {
 
         return this.adaptationIdentifiers.keySet().contains( id );
     }
+    
+    public boolean isAdaptationRuleId( String id, String profile ) {
+
+        return this.adaptationIdentifiers.get(profile).contains( id );
+    }
 
     public boolean isAssessmentProfileId( String id ) {
 
         return this.assessmentIdentifiers.keySet().contains( id );
+    }
+    
+    public boolean isAssessmentRuleId( String id, String profile ) {
+
+        return this.assessmentIdentifiers.get(profile).contains( id );
     }
 
     public boolean isGlobalStateId( String id ) {

@@ -1886,6 +1886,10 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="AdaptationProfiles.Title">Adaptation profiles</entry>
 	<entry key="AdaptationProfiles.Information">This section of the tree structure allows the creation and edition of new adaptation profiles. To select which should be the active profile for the chapter use the combo box in the chapter panel</entry>
 	
+	<entry key="SCORMDialog.Title">Edit the SCORM {#0} {#1} attribute.</entry>
+	<entry key="SCORMDialog.Field">Fields</entry>
+	<entry key="SCORMDialog.Index">Index</entry>
+	
 	<entry key="AdaptationRule.Title">Adaptation Rule</entry>
 	<entry key="AdaptationRule.Description">Description</entry>
 	<entry key="AdaptationRule.Information"> Use this section to edit a new adaptation rule. In &lt;e-Adventure&gt; adaptation rules are defined by linking a set of properties of the UoL deploying the game to a specified state of the game. Moreover, you are allowed to type a brief description for each rule.</entry>

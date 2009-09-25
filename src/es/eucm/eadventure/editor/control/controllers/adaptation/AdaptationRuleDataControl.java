@@ -35,9 +35,11 @@ package es.eucm.eadventure.editor.control.controllers.adaptation;
 
 import java.util.List;
 
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
@@ -50,14 +52,18 @@ import es.eucm.eadventure.editor.control.tools.adaptation.DeleteUOLPropertyTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.gui.editdialogs.SCORMAttributeDialog;
 
 public class AdaptationRuleDataControl extends DataControl {
 
     private AdaptationRule adaptationRule;
+    
+    private AdaptationProfile profile;
 
-    public AdaptationRuleDataControl( AdaptationRule adpRule ) {
+    public AdaptationRuleDataControl( AdaptationRule adpRule, AdaptationProfile profile ) {
 
         this.adaptationRule = adpRule;
+        this.profile = profile;
     }
 
     @Override
@@ -281,7 +287,9 @@ public class AdaptationRuleDataControl extends DataControl {
     }
 
     public void setUOLPropertyId( int rowIndex, String string ) {
-
+	if (SCORMConfigData.isEspecialAttribute(string)){
+	    string = SCORMAttributeDialog.showAttributeDialog(getProfileType(), string );
+	}
         controller.addTool( new ChangeUOLPropertyTool( adaptationRule, string, rowIndex, ChangeUOLPropertyTool.SET_ID ) );
     }
 
@@ -352,6 +360,17 @@ public class AdaptationRuleDataControl extends DataControl {
         }
     }
 
+    
+    public int getProfileType(){
+	if (profile.isScorm12())
+	    return SCORMConfigData.SCORM_V12;
+	else if (profile.isScorm2004())
+	    return SCORMConfigData.SCORM_2004;
+	else
+	    return -1;
+	
+    }
+    
     @Override
     public List<Searchable> getPathToDataControl( Searchable dataControl ) {
 

@@ -35,12 +35,15 @@ package es.eucm.eadventure.editor.control.controllers.assessment;
 
 import java.util.HashMap;
 import java.util.List;
+
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentEffect;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -49,6 +52,7 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController.Condit
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.tools.assessment.AddAssessmentPropertyTool;
 import es.eucm.eadventure.editor.control.tools.assessment.AddEffectTool;
+import es.eucm.eadventure.editor.control.tools.assessment.ChangeAssessmentPropertyTool;
 import es.eucm.eadventure.editor.control.tools.assessment.ChangeMinTimeValueTool;
 import es.eucm.eadventure.editor.control.tools.assessment.ChangeUsesEndCondition;
 import es.eucm.eadventure.editor.control.tools.assessment.DeleteAssessmentPropertyTool;
@@ -59,9 +63,12 @@ import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.gui.editdialogs.SCORMAttributeDialog;
 
 public class AssessmentRuleDataControl extends DataControl {
-
+    
+    
+    
     private AssessmentRule assessmentRule;
 
     private ConditionsController conditionsController;
@@ -70,12 +77,13 @@ public class AssessmentRuleDataControl extends DataControl {
 
     private ConditionsController endConditionsController;
     
-    private String profileName;
+    private AssessmentProfile profile;
 
-    public AssessmentRuleDataControl( AssessmentRule assessmentRule, String profileName ) {
+
+    public AssessmentRuleDataControl( AssessmentRule assessmentRule, AssessmentProfile profile ) {
 
         this.assessmentRule = assessmentRule;
-        this.profileName = profileName;
+        this.profile = profile;
 
         // Create subcontrollers
         if( this.isTimedRule( ) ) {
@@ -146,7 +154,7 @@ public class AssessmentRuleDataControl extends DataControl {
     public int countIdentifierReferences( String id ) {
 
         int count = 0;
-        if( id.equals(profileName+"."+assessmentRule.getId( )) ) {
+        if( id.equals(profile.getName()+"."+assessmentRule.getId( )) ) {
             count++;
         }
         if( this.isTimedRule( ) ) {
@@ -224,10 +232,10 @@ public class AssessmentRuleDataControl extends DataControl {
 
         // If some value was typed and the identifier is valid
         // To control the identifiers properly, the id must be composed by "profileName.asRuleId"
-        if( assRuleId != null && controller.isElementIdValid( profileName + "." + assRuleId ) ) {
+        if( assRuleId != null && controller.isElementIdValid( profile.getName() + "." + assRuleId ) ) {
       	    //controller.replaceIdentifierReferences( assessmentRule.getId( ), assRuleId );
-            controller.getIdentifierSummary( ).deleteAssessmentRuleId( oldName, profileName );
-            controller.getIdentifierSummary( ).addAssessmentRuleId( assRuleId, profileName );
+            controller.getIdentifierSummary( ).deleteAssessmentRuleId( oldName, profile.getName() );
+            controller.getIdentifierSummary( ).addAssessmentRuleId( assRuleId, profile.getName() );
             assessmentRule.setId( assRuleId );
             return oldName;
         }
@@ -432,7 +440,7 @@ public class AssessmentRuleDataControl extends DataControl {
             //Check only integers are set
 
             try {
-                controller.addTool( new ChangeStringValueTool( assessmentRule.getAssessmentProperties( ).get( rowIndex ), string, "getValue", "setValue" ) );
+                controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule, string, rowIndex, ChangeAssessmentPropertyTool.SET_VALUE ) );
             }
             catch( Exception e ) {
                 //Display error message
@@ -450,7 +458,7 @@ public class AssessmentRuleDataControl extends DataControl {
             AssessmentProperty property = tRule.getProperty( rowIndex, effect );
             if( property != null ) {
                 try {
-                    controller.addTool( new ChangeStringValueTool( property, string, "getValue", "setValue" ) );
+                    controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule, string, rowIndex, ChangeAssessmentPropertyTool.SET_VALUE ) );
 
                 }
                 catch( Exception e ) {
@@ -474,6 +482,8 @@ public class AssessmentRuleDataControl extends DataControl {
         }
 
     }
+    
+   
 
     public void setPropertyId( int rowIndex, int effect, String string ) {
 
@@ -481,17 +491,35 @@ public class AssessmentRuleDataControl extends DataControl {
             TimedAssessmentRule tRule = (TimedAssessmentRule) assessmentRule;
             AssessmentProperty property = tRule.getProperty( rowIndex, effect );
             if( property != null ) {
-                controller.addTool( new ChangeIdTool( property, string ) );
+        	// check if it is a especial SCORM attribute
+        	if (SCORMConfigData.isEspecialAttribute(string)){
+        	    string = SCORMAttributeDialog.showAttributeDialog(getProfileType(), string );
+        	}
+                controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule, string, rowIndex, ChangeAssessmentPropertyTool.SET_ID ) );
             }
         }
         else {
             if( rowIndex >= 0 && rowIndex < assessmentRule.getAssessmentProperties( ).size( ) ) {
                 if( controller.isElementIdValid( string ) ) {
-                    controller.addTool( new ChangeIdTool( assessmentRule.getAssessmentProperties( ).get( rowIndex ), string ) );
+                 // check if it is a especial SCORM attribute
+                    if (SCORMConfigData.isEspecialAttribute(string)){
+            	    string = SCORMAttributeDialog.showAttributeDialog(getProfileType(), string );
+            	}
+                    controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule, string, rowIndex, ChangeAssessmentPropertyTool.SET_ID ) );
                 }
             }
 
         }
+    }
+    
+    public int getProfileType(){
+	if (profile.isScorm12())
+	    return SCORMConfigData.SCORM_V12;
+	else if (profile.isScorm2004())
+	    return SCORMConfigData.SCORM_2004;
+	else
+	    return -1;
+	
     }
 
     public String getPropertyId( int rowIndex, int effect ) {

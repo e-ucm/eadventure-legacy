@@ -68,7 +68,7 @@ import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
  * operations, like adding and removing lines, editing end effects, remove links
  * and reposition lines and children
  */
-class AssessmentPropertiesPanel extends JPanel {
+public class AssessmentPropertiesPanel extends JPanel {
 
     /**
      * Required
@@ -140,7 +140,7 @@ class AssessmentPropertiesPanel extends JPanel {
         border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TC.get( "AssessmentRule.Effect.PropertiesTitle" ), TitledBorder.CENTER, TitledBorder.TOP );
         setBorder( border );
 
-        // Set a GridBagLayout
+        // Set a BorderLayout
         setLayout( new BorderLayout( ) );
 
         /* Common elements (for Node and Option panels) */
@@ -159,13 +159,11 @@ class AssessmentPropertiesPanel extends JPanel {
         propertiesTable.setRowSelectionAllowed( true );
 
         if( scorm12 ) {
-            //Edition of column 0: combo box (activate, deactivate)
             JComboBox actionValuesCB = new JComboBox( takesCorrectElements( SCORMConfigData.getPartsOfModel12( ), false ) );
             propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
         }
 
         if( scorm2004 ) {
-            //Edition of column 0: combo box (activate, deactivate)
             JComboBox actionValuesCB = new JComboBox( takesCorrectElements( SCORMConfigData.getPartsOfModel2004( ), true ) );
             propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
 
@@ -518,9 +516,11 @@ class AssessmentPropertiesPanel extends JPanel {
                 // If the value isn't an empty string
                 if( !value.toString( ).trim( ).equals( "" ) ) {
                     // If the name is being edited, and it has really changed
-                    if( columnIndex == 0 )
+                    if( columnIndex == 0 ){
+                	AssessmentPropertiesPanel.this.propertiesTable.updateUI();
                         assessmentRuleDataControl.setPropertyId( rowIndex, currentIndex, value.toString( ) );
-
+                        
+                    }
                     // If the text is being edited, and it has really changed
                     if( columnIndex == 1 )
                         assessmentRuleDataControl.setPropertyValue( rowIndex, currentIndex, value.toString( ) );

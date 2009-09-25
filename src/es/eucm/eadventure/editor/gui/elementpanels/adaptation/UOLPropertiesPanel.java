@@ -63,7 +63,7 @@ import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 
-class UOLPropertiesPanel extends JPanel implements Updateable {
+public class UOLPropertiesPanel extends JPanel implements Updateable {
 
     /**
      * Required
@@ -133,9 +133,7 @@ class UOLPropertiesPanel extends JPanel implements Updateable {
 
         // Column size properties
         propertiesTable.setAutoCreateColumnsFromModel( false );
-        //propertiesTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
-        //propertiesTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
-
+      
         // Set the operations values 
         JComboBox operations = new JComboBox( AdaptationProfile.getOperations( ) );
         propertiesTable.getColumnModel( ).getColumn( 1 ).setCellEditor( new DefaultCellEditor( operations ) );
@@ -510,9 +508,10 @@ class UOLPropertiesPanel extends JPanel implements Updateable {
                 if( !value.toString( ).trim( ).equals( "" ) ) {
                     if( rowIndex < adaptationRuleDataControl.getUOLPropertyCount( ) ) {
                         // If the name is being edited, and it has really changed
-                        if( columnIndex == 0 )
+                        if( columnIndex == 0 ){
+                            UOLPropertiesPanel.this.propertiesTable.updateUI();
                             adaptationRuleDataControl.setUOLPropertyId( rowIndex, value.toString( ) );
-
+                        }
                         // If the comparison operation is being edited, and it has really changed
                         if( columnIndex == 1 )
                             adaptationRuleDataControl.setUOLPropertyOp( rowIndex, AdaptationProfile.getOpName( value ) );
@@ -557,14 +556,17 @@ class UOLPropertiesPanel extends JPanel implements Updateable {
         }
     }
 
+    // the call is not spread 
     public boolean updateFields( ) {
-
-        propertiesTable.clearSelection( );
-        propertiesTable.updateUI( );
-
-        movePropertyDownButton.setEnabled( false );
-        movePropertyUpButton.setEnabled( false );
-        deletePropertyButton.setEnabled( false );
+	
+        int selected = propertiesTable.getSelectedRow( );
+        if( propertiesTable.getCellEditor( ) != null ) {
+            propertiesTable.getCellEditor( ).cancelCellEditing( );
+        }
+        ( (AbstractTableModel) propertiesTable.getModel( ) ).fireTableDataChanged( );
+         
+        propertiesTable.getSelectionModel( ).setSelectionInterval( selected, selected );
+        
         return true;
     }
 }

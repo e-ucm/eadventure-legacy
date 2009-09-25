@@ -21,14 +21,17 @@
 <entry key="cmi.comments">#1#1#CMIString4096</entry> 
 <entry key="cmi.comments_from_lms">#1#0#CMIString4096</entry> 
 <!-- <entry key="cmi.objectives._children">#1#0#CMIString255</entry> 
-<entry key="cmi.objectives._count">#1#0#CMIInteger</entry> 
+<entry key="cmi.objectives._count">#1#0#CMIInteger</entry> -->
+<!--   prueba    -->
+<entry key="cmi.objectives">#1#1#CMIIdentifier</entry> 
+<!--   prueba    -->
 <entry key="cmi.objectives.n.id">#1#1#CMIIdentifier</entry> 
-<entry key="cmi.objectives.n.score._children">#1#0#CMIString255</entry> 
+<!-- <entry key="cmi.objectives.n.score._children">#1#0#CMIString255</entry> -->
 <entry key="cmi.objectives.n.score.raw">#1#1#CMIDecimal,CMIBlank</entry> 
 <entry key="cmi.objectives.n.score.max">#1#1#CMIDecimal,CMIBlank</entry> 
-<entry key="cmi.objectives.n.score.min">#1#1#CMIDecimal,CMIBlank</entry> 
+<entry key="cmi.objectives.n.score.min">#1#1#CMIDecimal,CMIBlank</entry>
 <entry key="cmi.objectives.n.status">#1#1#CMIVocabulary(passed,completed,failed,incomplete,browsed,not attempted)</entry> 
-<entry key="cmi.student_data._children">#1#0#CMIString255</entry> -->
+<!-- <entry key="cmi.student_data._children">#1#0#CMIString255</entry> -->
 <entry key="cmi.student_data.mastery_score">#1#0#CMIDecimal</entry> 
 <entry key="cmi.student_data.max_time_allowed">#1#0#CMITimespan</entry> 
 <entry key="cmi.student_data.time_limit_action">#1#0#CMIVocabulary("exit,message","exit,no message","continue,message","continue,no message")</entry> 

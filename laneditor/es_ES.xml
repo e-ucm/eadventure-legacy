@@ -1892,6 +1892,10 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="AdaptationProfiles.Title">Perfiles de adaptación</entry>
 	<entry key="AdaptationProfiles.Information">Esta sección del árbol permite la creación y modificación de los perfiles de adaptación. Para activar uno de los perfiles, emplee el selector en la pantalla de edición de las propiedades generales del capítulo.</entry>
 	
+	<entry key="SCORMDialog.Title">Edcición del atributo {#1} de SCORM {#0}.</entry>
+	<entry key="SCORMDialog.Field">Campos</entry>
+	<entry key="SCORMDialog.Index">Índice</entry>
+	
 	<entry key="AdaptationRule.Title">Regla de adaptación</entry>
 	<entry key="AdaptationRule.Description">Descripción</entry>
 	<entry key="AdaptationRule.Information">En esta sección puede editar una regla de adaptación. Las reglas de adaptación en &lt;e-Adventure&gt; leen valores de un sistema externo (por defecto, propiedades de una Unidad de Aprendizaje de IMS Learning Design) y cambian el estado del juego (flags) para adaptarse a distintos contextos de ejecución. La regla consiste por tanto en un conjunto de propiedades que representa el estado de la Unidad de Aprendizaje y un conjunto de valores para los flags de la aventura que representan el estado que debe adoptar el juego en tal caso.</entry>
