@@ -60,10 +60,6 @@ public class ReleaseFolders {
 
     public static final String LANGUAGE_DIR_ENGINE = "lanengine";
 
-    private static final String ENGLISH_FILE_ENGINE4EDITOR = "en_EN_engine.xml";
-
-    private static final String SPANISH_FILE_ENGINE4EDITOR = "es_ES_engine.xml";
-
     private static final String ENGLISH_FILE = "en_EN.xml";
 
     private static final String SPANISH_FILE = "es_ES.xml";
@@ -145,8 +141,10 @@ public class ReleaseFolders {
         String path = LANGUAGE_DIR_EDITOR + "/";
         if( editor )
             path += ( ( language == LANGUAGE_SPANISH ) ? SPANISH_FILE : ENGLISH_FILE );
-        else
-            path += ( ( language == LANGUAGE_SPANISH ) ? SPANISH_FILE_ENGINE4EDITOR : ENGLISH_FILE_ENGINE4EDITOR );
+        else {
+            path = LANGUAGE_DIR_ENGINE + File.separator;
+            path += ( ( language == LANGUAGE_SPANISH ) ? SPANISH_FILE : ENGLISH_FILE );
+        }
         return path;
     }
 

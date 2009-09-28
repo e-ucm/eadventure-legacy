@@ -116,10 +116,10 @@ public class FunctionalMoveObjectEffect extends FunctionalEffect {
     }
     
     public void update( long elapsedTime ) {
-        float temp = (float) (System.currentTimeMillis( ) - time) * moveObjectEffect.getTranslateSpeed( ) / 20000;
+        float temp = (float) (System.currentTimeMillis( ) - time) * moveObjectEffect.getTranslateSpeed( ) / 60000;
         int newX = initialX + (int) ( (moveObjectEffect.getX( ) - initialX) * temp );
         int newY = initialY + (int) ( (moveObjectEffect.getY( ) - initialY) * temp );
-        temp = (float) (System.currentTimeMillis( ) - time) * moveObjectEffect.getScaleSpeed( ) / 20000;
+        temp = (float) (System.currentTimeMillis( ) - time) * moveObjectEffect.getScaleSpeed( ) / 60000;
         float newScale = scale + ((moveObjectEffect.getScale( ) - scale) * temp);
         if ((initialX < moveObjectEffect.getX( ) && newX > moveObjectEffect.getX( )) ||
                 (initialX > moveObjectEffect.getX( ) && newX < moveObjectEffect.getX()) ||
