@@ -69,7 +69,7 @@ public class InvalidReportDialog extends JDialog {
      * @param incidences
      *            List of strings containing the incidences
      */
-    public InvalidReportDialog( List<String> incidences ) {
+    public InvalidReportDialog( List<String> incidences, String text) {
 
         super( Controller.getInstance( ).peekWindow( ), TC.get( "Operation.AdventureConsistencyTitle" ) );
 
@@ -84,7 +84,7 @@ public class InvalidReportDialog extends JDialog {
         JTextPane informationTextPane = new JTextPane( );
         informationTextPane.setEditable( false );
         informationTextPane.setBackground( new JPanel( ).getBackground( ) );
-        informationTextPane.setText( TC.get( "Operation.AdventureInconsistentReport" ) );
+        informationTextPane.setText( text );
         add( informationTextPane, c );
 
         // Add the list with the inconsistencies

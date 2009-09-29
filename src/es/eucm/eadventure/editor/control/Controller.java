@@ -2470,7 +2470,7 @@ public class Controller {
             // If it is not valid, show a dialog with the problems
         }
         else
-            new InvalidReportDialog( incidences );
+            new InvalidReportDialog( incidences, TC.get( "Operation.AdventureInconsistentReport" ) );
 
         return valid;
     }

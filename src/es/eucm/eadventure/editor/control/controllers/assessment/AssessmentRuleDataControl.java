@@ -33,6 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers.assessment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -492,20 +493,28 @@ public class AssessmentRuleDataControl extends DataControl {
             AssessmentProperty property = tRule.getProperty( rowIndex, effect );
             if( property != null ) {
         	// check if it is a especial SCORM attribute
-        	if (SCORMConfigData.isEspecialAttribute(string)){
-        	    string = SCORMAttributeDialog.showAttributeDialog(getProfileType(), string );
+        	if (SCORMConfigData.isArrayAttribute(string)){
+        	  //check if "string" has a previous value of the same kind of selected attribute
+        	    if (assessmentRule.getAssessmentProperties().get(rowIndex).getId().startsWith(string))
+        		string = assessmentRule.getAssessmentProperties().get(rowIndex).getId();
+        	    string = SCORMAttributeDialog.showAttributeDialogForWrite(getProfileType(), string );
         	}
-                controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule, string, rowIndex, ChangeAssessmentPropertyTool.SET_ID ) );
+        	if (!SCORMConfigData.isArrayAttribute(string))
+        	    controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule, string, rowIndex, ChangeAssessmentPropertyTool.SET_ID ) );
             }
         }
         else {
             if( rowIndex >= 0 && rowIndex < assessmentRule.getAssessmentProperties( ).size( ) ) {
                 if( controller.isElementIdValid( string ) ) {
                  // check if it is a especial SCORM attribute
-                    if (SCORMConfigData.isEspecialAttribute(string)){
-            	    string = SCORMAttributeDialog.showAttributeDialog(getProfileType(), string );
-            	}
-                    controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule, string, rowIndex, ChangeAssessmentPropertyTool.SET_ID ) );
+                    if (SCORMConfigData.isArrayAttribute(string)){
+                	//check if "string" has a previous value of the same kind of selected attribute
+                	if (assessmentRule.getAssessmentProperties().get(rowIndex).getId().startsWith(string))
+            		string = assessmentRule.getAssessmentProperties().get(rowIndex).getId();
+            	    string = SCORMAttributeDialog.showAttributeDialogForWrite(getProfileType(), string );
+                    }
+                    if (!SCORMConfigData.isArrayAttribute(string))
+            		controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule, string, rowIndex, ChangeAssessmentPropertyTool.SET_ID ) );
                 }
             }
 
@@ -520,6 +529,26 @@ public class AssessmentRuleDataControl extends DataControl {
 	else
 	    return -1;
 	
+    }
+    
+    public boolean checkRulesDataModel( String currentRule, List<String> incidences, boolean isSCORM12, boolean isSCORM2004 ){
+        boolean valid=true;
+        for (AssessmentProperty prop:assessmentRule.getAssessmentProperties( )){
+            if (isSCORM12)
+                if ( !SCORMConfigData.isPartOfTheModel12( prop.getId( ) )){
+                    //TC 
+                    incidences.add( "Regla: "+currentRule+" la propiedad "+ prop.getId( )+ " no es parte del modelo de datos SCORM v1.2" );
+                    valid &= false;
+                }
+            if (isSCORM2004)
+                if ( !SCORMConfigData.isPartOfTheModel2004( prop.getId( ) )){
+                    //TC 
+                    incidences.add( "Regla: "+currentRule+" la propiedad "+ prop.getId( )+ " no es parte del modelo de datos SCORM 2004" );
+                    valid &= false;
+                }
+        }
+        return valid;
+        
     }
 
     public String getPropertyId( int rowIndex, int effect ) {

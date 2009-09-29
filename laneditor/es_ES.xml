@@ -1894,7 +1894,8 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	
 	<entry key="SCORMDialog.Title">Edcición del atributo {#1} de SCORM {#0}.</entry>
 	<entry key="SCORMDialog.Field">Campos</entry>
-	<entry key="SCORMDialog.Index">Índice</entry>
+	<entry key="SCORMDialog.IndexN">Índice "n"</entry>
+	<entry key="SCORMDialog.IndexM">Índice "m"</entry>
 	
 	<entry key="AdaptationRule.Title">Regla de adaptación</entry>
 	<entry key="AdaptationRule.Description">Descripción</entry>

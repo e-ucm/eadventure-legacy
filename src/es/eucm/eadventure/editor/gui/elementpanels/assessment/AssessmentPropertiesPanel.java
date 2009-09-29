@@ -159,12 +159,12 @@ public class AssessmentPropertiesPanel extends JPanel {
         propertiesTable.setRowSelectionAllowed( true );
 
         if( scorm12 ) {
-            JComboBox actionValuesCB = new JComboBox( takesCorrectElements( SCORMConfigData.getPartsOfModel12( ), false ) );
+            JComboBox actionValuesCB = new JComboBox(  SCORMConfigData.getPartsOfModel12( SCORMConfigData.WRITE ).toArray() );
             propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
         }
 
         if( scorm2004 ) {
-            JComboBox actionValuesCB = new JComboBox( takesCorrectElements( SCORMConfigData.getPartsOfModel2004( ), true ) );
+            JComboBox actionValuesCB = new JComboBox( SCORMConfigData.getPartsOfModel2004( SCORMConfigData.WRITE ).toArray() );
             propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
 
         }
@@ -216,36 +216,7 @@ public class AssessmentPropertiesPanel extends JPanel {
         addComponents( );
     }
 
-    /**
-     * Only takes the elements that can be written
-     * 
-     * @param dataModel
-     *            All scorm data model elements
-     * @param s2004
-     *            It is Scorm 2004?
-     * @return The elements that can be written
-     */
-    private String[] takesCorrectElements( ArrayList<String> dataModel, boolean s2004 ) {
-
-        ArrayList<String> canWrite = new ArrayList<String>( );
-        // the format of scorm data model in datamodel.xml and datamodel2004.xml:
-        // <entry key="part of scorm data model">#"can be read (0 or 1)"#"can be write (0 or 1)"#"Data type"</entry>
-        for( int i = 0; i < dataModel.size( ); i++ ) {
-            if( s2004 ) {
-                if( SCORMConfigData.getProperty2004( dataModel.get( i ) ).charAt( 1 ) == '1' ) {
-                    canWrite.add( dataModel.get( i ) );
-                }
-            }
-            else {
-                if( SCORMConfigData.getProperty12( dataModel.get( i ) ).charAt( 1 ) == '1' ) {
-                    canWrite.add( dataModel.get( i ) );
-                }
-            }
-        }
-        String[] result = new String[ canWrite.size( ) ];
-        return canWrite.toArray( result );
-
-    }
+    
 
     /**
      * Removes all elements in the panel, and sets a dialogue node panel

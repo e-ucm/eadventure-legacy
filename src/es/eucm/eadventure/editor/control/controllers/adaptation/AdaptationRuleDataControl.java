@@ -287,10 +287,15 @@ public class AdaptationRuleDataControl extends DataControl {
     }
 
     public void setUOLPropertyId( int rowIndex, String string ) {
-	if (SCORMConfigData.isEspecialAttribute(string)){
-	    string = SCORMAttributeDialog.showAttributeDialog(getProfileType(), string );
+	if (SCORMConfigData.isArrayAttribute(string)){
+	    //check if "string" has a previous value of the same kind of selected attribute
+	    if (adaptationRule.getUOLProperties().get(rowIndex).getId().startsWith(string))
+		string = adaptationRule.getUOLProperties().get(rowIndex).getId();
+	    string = SCORMAttributeDialog.showAttributeDialogForRead(getProfileType(), string );
 	}
-        controller.addTool( new ChangeUOLPropertyTool( adaptationRule, string, rowIndex, ChangeUOLPropertyTool.SET_ID ) );
+	
+	if (!SCORMConfigData.isArrayAttribute(string))
+	    controller.addTool( new ChangeUOLPropertyTool( adaptationRule, string, rowIndex, ChangeUOLPropertyTool.SET_ID ) );
     }
 
     public void setUOLPropertyOp( int rowIndex, String string ) {

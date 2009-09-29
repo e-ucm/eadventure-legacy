@@ -56,7 +56,12 @@ public class SCORMConfigData {
 
     private static final String FILE_NAME_2004 = "datamodel2004.xml";
     
-    public static final String[] ArrayNames = {"cmi.objectives", "cmi.interactions"};
+    public static final String[] ArrayNames = {"cmi.objectives", "cmi.interactions", "cmi.comments_from_lms","cmi.comments_from_learner"};
+    
+    /**
+     * Constant for especial case: an array inside array
+     */
+    public static final String[] ArrayInArray = {"cmi.interactions.n.objetives.m.id","cmi.interactions.n.correct_responses.m.pattern"};
     
     /**
      * Constants with the index in array of attribute`s name
@@ -65,6 +70,12 @@ public class SCORMConfigData {
     
     public static final int SCORM_INTERACTIONS = 1;
     
+    /**
+     * Constants to identify read/write elements.
+     */
+    public static final int READ = 0;
+    
+    public static final int WRITE = 1;
     
     
     public static final int SCORM_V12 = 0;
@@ -105,6 +116,14 @@ public class SCORMConfigData {
         }
 
     }
+    
+    public static boolean isArrayInsideArray( String att ){
+	for (int i=0; i<ArrayInArray.length; i++){
+	    if (att.equals(ArrayInArray[i]))
+		return true;
+	}
+	return false;
+    }
 
     
     public static String getProperty2004( String key ) {
@@ -123,7 +142,7 @@ public class SCORMConfigData {
      * @param att
      * @return
      */
-    private static boolean isArrayAttributeExtension(String att){
+    public static boolean isArrayAttributeExtension(String att){
 	
 	for (int i=0; i<ArrayNames.length; i++){
 	    if (att.startsWith(ArrayNames[i]+"."))
@@ -133,7 +152,14 @@ public class SCORMConfigData {
 	
     }
     
-    private static boolean isArrayAttribute( String att ){
+    /**
+     * Check if the parameter is one of the SCORM array data model attributes
+     * 
+     * @param att
+     * 		The attribute to check.
+     * @return
+     */
+    public static boolean isArrayAttribute( String att ){
 	for (int i=0; i<ArrayNames.length; i++){
 	    if (att.equals(ArrayNames[i]))
 		return true;
@@ -149,31 +175,60 @@ public class SCORMConfigData {
         else
             return null;
     }
-
-    public static ArrayList<String> getPartsOfModel2004( ) {
+    
+    public static boolean isPartOfTheModel12( String key ){
+        return properties12.containsKey( key ); 
+    }
+    
+    public static boolean isPartOfTheModel2004( String key ){
+        return properties2004.containsKey( key ); 
+    }
+    
+    public static ArrayList<String> getPartsOfModel2004( int readWrite ) {
 
         Set<String> prop = properties2004.stringPropertyNames( );
 
         ArrayList<String> elements = new ArrayList<String>( );
         for( Iterator<String> it = prop.iterator( ); it.hasNext( ); ) {
             String next = it.next( );
-            if ( !isArrayAttributeExtension( next ) )
+            // Only is added if not is an attribute extension and if can be read/write
+            if ( !isArrayAttributeExtension( next ) && canBeAdded( readWrite, next, SCORM_2004 ) )
         	elements.add( next );
         }
         return elements;
     }
 
-    public static ArrayList<String> getPartsOfModel12( ) {
+    public static ArrayList<String> getPartsOfModel12( int readWrite ) {
 
         Set<String> prop = properties12.stringPropertyNames( );
 
         ArrayList<String> elements = new ArrayList<String>( );
         for( Iterator<String> it = prop.iterator( ); it.hasNext( ); ) {
             String next = it.next( );
-            if ( !isArrayAttributeExtension( next ) )
+            
+            // Only is added if not is an attribute extension and if can be read/write
+            if ( !isArrayAttributeExtension( next ) && canBeAdded( readWrite, next, SCORM_V12 ) )
         	elements.add( next );
         }
         return elements;
+    }
+    
+    private static boolean canBeAdded(int readWrite, String attribute, int type){
+	//Select the index in the XML entry to identify if that attribute can be Read/Write
+        int index = 0;
+        if ( readWrite==READ )
+    	index = 1;
+        else if (readWrite==WRITE )
+    	index=3;
+        if ( type == SCORM_V12)
+            return SCORMConfigData.getProperty12( attribute ).charAt( index ) == '1' ;
+
+	else if ( type == SCORM_2004)
+	    return SCORMConfigData.getProperty2004( attribute ).charAt( index ) == '1' ;
+	else 
+	    return false;
+
+        
     }
     
     /**
@@ -184,10 +239,12 @@ public class SCORMConfigData {
      * 		The prefix to look for.
      * @param type
      * 		The type of SCORM.
+     * @param readWrite
+     * 		Identifies if the attributes must to be read or write
      * @return
      * 		All the fields for the "Attribute".
      */
-    public static ArrayList<String> getAttribute( String attribute, int type ){
+    public static ArrayList<String> getAttribute( String attribute, int type, int readWrite ){
 	
 	Set<String> prop = null;
 	if ( type == SCORM_V12)
@@ -200,26 +257,12 @@ public class SCORMConfigData {
         ArrayList<String> elements = new ArrayList<String>( );
         for( Iterator<String> it = prop.iterator( ); it.hasNext( ); ) {
             String next = it.next();
-            if ( next.startsWith(attribute)&&!isArrayAttribute(next))
+            if ( next.startsWith(attribute)&&!isArrayAttribute(next)&&canBeAdded(readWrite, next, type ))
         	elements.add( next );
         }
         return elements;
     }
     
-    /**
-     * Check if the parameter is one of the SCORM array data model attributes
-     * 
-     * @param at
-     * 		The 
-     * @return
-     */
-    public static boolean isEspecialAttribute(String at){
-	
-	for (int i=0;i<ArrayNames.length;i++){
-	    if (at.equals(ArrayNames[i]))
-		return true;
-	}
-	return false;
-    }
+
 
 }

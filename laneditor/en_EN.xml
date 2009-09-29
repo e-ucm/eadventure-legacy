@@ -1888,7 +1888,8 @@ When not customized, default arrows will be used in the game.</entry>
 	
 	<entry key="SCORMDialog.Title">Edit the SCORM {#0} {#1} attribute.</entry>
 	<entry key="SCORMDialog.Field">Fields</entry>
-	<entry key="SCORMDialog.Index">Index</entry>
+	<entry key="SCORMDialog.IndexN">Index "n"</entry>
+	<entry key="SCORMDialog.IndexM">Index "m"</entry>
 	
 	<entry key="AdaptationRule.Title">Adaptation Rule</entry>
 	<entry key="AdaptationRule.Description">Description</entry>
