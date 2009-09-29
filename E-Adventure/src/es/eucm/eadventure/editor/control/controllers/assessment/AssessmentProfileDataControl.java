@@ -49,6 +49,7 @@ import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeAssessmentProfileTypeTool;
 import es.eucm.eadventure.editor.control.tools.assessment.ChangeReportSettingsTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
 
 public class AssessmentProfileDataControl extends DataControl {
 
@@ -320,7 +321,7 @@ public class AssessmentProfileDataControl extends DataControl {
                     profile.setName( fileName );
                     
                     controller.getIdentifierSummary( ).renameAssessmentProfile(oldName, fileName);
-                    
+                    controller.replaceIdentifierReferences(oldName, fileName);
                     renamed = true;
                 }
                 else {
@@ -340,9 +341,7 @@ public class AssessmentProfileDataControl extends DataControl {
     public void replaceIdentifierReferences( String oldId, String newId ) {
 
         for( AssessmentRuleDataControl rule : dataControls )
-            if( rule.getId( ).equals( oldId ) ) {
-                boolean a=true;
-            }
+            rule.replaceIdentifierReferences(oldId, newId);
     }
 
     @Override
@@ -484,16 +483,32 @@ public class AssessmentProfileDataControl extends DataControl {
     public void changeToScorm2004Profile( ) {
 
         controller.addTool( new ChangeAssessmentProfileTypeTool( profile, ChangeAssessmentProfileTypeTool.SCORM2004, profile.isScorm12( ), profile.isScorm2004( ) ) );
+        checkRulesDataModel();
     }
 
     public void changeToScorm12Profile( ) {
 
         controller.addTool( new ChangeAssessmentProfileTypeTool( profile, ChangeAssessmentProfileTypeTool.SCORM12, profile.isScorm12( ), profile.isScorm2004( ) ) );
+        checkRulesDataModel();
     }
 
     public void changeToNormalProfile( ) {
 
         controller.addTool( new ChangeAssessmentProfileTypeTool( profile, ChangeAssessmentProfileTypeTool.NORMAL, profile.isScorm12( ), profile.isScorm2004( ) ) );
+        checkRulesDataModel();
+    }
+    
+    public void checkRulesDataModel(){
+        
+     // Create a list to store the incidences
+        List<String> incidences = new ArrayList<String>( );
+        boolean valid = true;
+        for (AssessmentRuleDataControl assRule : dataControls){
+            valid &= assRule.checkRulesDataModel( assRule.getId( ) , incidences, profile.isScorm12( ), profile.isScorm2004( ));   
+        }
+        if (!valid)
+            //TC
+            new InvalidReportDialog( incidences , "Al cambiar el tipo de perfil, hay partes del modelo de datos que no concuerdan. El juego se podrá exportar correctamente, pero la comunicación puede que no funcione como se desea. ");
     }
 
     @Override

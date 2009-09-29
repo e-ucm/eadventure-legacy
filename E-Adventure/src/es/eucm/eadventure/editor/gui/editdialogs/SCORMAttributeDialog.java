@@ -76,6 +76,11 @@ public class SCORMAttributeDialog extends JDialog{
     private static final int FINAL_INDEX = 50;
     
     /**
+     * Constant for especial panel configuration.
+     */
+    private static final String mIndex = "cmi.interactions";
+   
+    /**
      * The correct cmi value 
      */
     private String attribute;
@@ -91,9 +96,19 @@ public class SCORMAttributeDialog extends JDialog{
     private JComboBox fieldsCombo;
 
     /**
-     * The index in the data model array
+     * The index n in the data model array
      */
-    private JSpinner indexSpinner;
+    private JSpinner indexNSpinner;
+    
+    /**
+     * 
+     */
+    private JSpinner indexMSpinner;
+    
+    /**
+     * 
+     */
+    private int readWrite;
 
     /**
      *
@@ -105,15 +120,18 @@ public class SCORMAttributeDialog extends JDialog{
      * 		The name of the attribute.
      * @param lastIndex
      * 		Last index in the array.
+     * @param readWrite
+     * 		Shows the read/write field of the attribute.
+     * 
      */
-    public SCORMAttributeDialog( int type, String attribute ) {
+    public SCORMAttributeDialog( int type, String attribute, int readWrite ) {
 
 	// Call the super method
         super( Controller.getInstance( ).peekWindow( ), "", Dialog.ModalityType.TOOLKIT_MODAL );
 
         
 
-        
+        this.readWrite = readWrite;
         this.type = type;
         this.attribute = attribute;
         
@@ -132,30 +150,92 @@ public class SCORMAttributeDialog extends JDialog{
         
         c.insets = new Insets( 2, 4, 4, 4 );
         c.weightx = 0.5;
+        c.gridx=0;
+        c.gridy=0;
+        
+        String indexN = null;
+        String indexM = null;
+        String comboSelect = null;
+        // Check if attribute has an array value
+        if (SCORMConfigData.isArrayAttributeExtension(attribute)){
+            String aux = attribute.substring(attribute.indexOf("cmi."));
+            aux = aux.substring(attribute.indexOf(".")+1);
+            aux = aux.substring(aux.indexOf(".")+1);
+            String aux2= attribute.substring(0,attribute.indexOf(aux)-1);
+            indexN = aux.substring(0,1);
+            
+            comboSelect = attribute.replaceFirst("[.]"+indexN+"[.]", ".n.");
+            aux = aux.substring(aux.indexOf(".")+1);
+            if (aux.matches( ".*[.]\\d[.].*" ) ){
+        	aux = aux.substring(aux.indexOf(".")+1);
+        	indexM = aux.substring(0,1);
+        	comboSelect = comboSelect.replaceFirst("[.]"+indexM+"[.]", ".m.");
+            }
+            	attribute = aux2;
+        }
         
         // Get the attribute`s fields list
-        ArrayList<String> fields = SCORMConfigData.getAttribute(attribute, type);
+        ArrayList<String> fields = SCORMConfigData.getAttribute(attribute, type, readWrite );
+        JPanel comboContainer = new JPanel();
         fieldsCombo = new JComboBox( fields.toArray() );
         fieldsCombo.setEditable( false );
+        if (comboSelect!=null)
+            fieldsCombo.setSelectedItem(comboSelect);
         
         // Set the border of the fieldCombo with the description
-        fieldsCombo.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "SCORMDialog.Field" ) ) ) );
+        comboContainer.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "SCORMDialog.Field" ) ) ) );
+        comboContainer.add(fieldsCombo);
 
-
-        // Create the spinner for the value/increment
-        indexSpinner = new JSpinner( new SpinnerNumberModel(INIT_INDEX , INIT_INDEX, FINAL_INDEX, 1 ) );
-        indexSpinner.setPreferredSize(new Dimension(100,50));
-        indexSpinner.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "SCORMDialog.Index" ) ) ) );
+        // Create the spinner for the "n" index increment/decrement
+        JPanel spinnerContainer = new JPanel();
+        indexNSpinner = new JSpinner( new SpinnerNumberModel(INIT_INDEX , INIT_INDEX, FINAL_INDEX, 1 ) );
+        spinnerContainer .setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "SCORMDialog.IndexN" ) ) ) );
+        spinnerContainer.add(indexNSpinner);
+        if (indexN!=null)
+            indexNSpinner.setValue(Integer.parseInt(indexN));
         
-        mainPanel.add( fieldsCombo, c );
-        c.gridy++;
-        mainPanel.add( indexSpinner, c );
+        mainPanel.add( comboContainer, c );
+        c.gridx=1;
+        //c.gridy=1;
+        mainPanel.add( spinnerContainer, c );
+        this.setSize(400, 200);
+        
+        if (attribute.startsWith(mIndex)){
+            // Create the spinner for the "m" index increment/decrement
+            JPanel spinnerContainer2 = new JPanel();
+            indexMSpinner = new JSpinner( new SpinnerNumberModel(INIT_INDEX , INIT_INDEX, FINAL_INDEX, 1 ) );
+            spinnerContainer2.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "SCORMDialog.IndexM" ) ) ) );
+            spinnerContainer2.add(indexMSpinner);
+            indexMSpinner.setEnabled(false);
+            fieldsCombo.addActionListener(new ActionListener(){
 
+    	    @Override
+    	    public void actionPerformed(ActionEvent e) {
+    		
+    		if (SCORMConfigData.isArrayInsideArray((String)fieldsCombo.getSelectedItem()))
+    		    indexMSpinner.setEnabled( true );
+    		else 
+    		    indexMSpinner.setEnabled( false );
+    	    }
+                
+            });
+            
+            if (indexM!=null){
+        	indexMSpinner.setValue(Integer.parseInt(indexM));
+        	indexMSpinner.setEnabled(true);
+            }
+            c.gridx=2;
+            this.setSize(500, 200);
+            mainPanel.add( spinnerContainer2, c );
+            
+            }
+            
+        
         // Add the panel to the center
         add( mainPanel, BorderLayout.CENTER );
 
         // Set the dialog
-        pack( );
+        //pack( );
         setResizable( false );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
@@ -214,8 +294,15 @@ public class SCORMAttributeDialog extends JDialog{
 	String result = (String)fieldsCombo.getSelectedItem();
 	// get the selected index. Add "." at the beginning and at the end, because it is going
 	// to be changed for ".n."
-	String index = "."+String.valueOf(((Integer)indexSpinner.getValue()))+".";
-	this.attribute = result.replaceFirst("[.]n[.]", index);
+	String index = "."+String.valueOf(((Integer)indexNSpinner.getValue()))+".";
+	attribute = result.replaceFirst("[.]n[.]", index);
+	if (indexMSpinner!=null && indexMSpinner.isEnabled()){
+	 // get the selected index. Add "." at the beginning and at the end, because it is going
+	// to be changed for ".m."
+	index = "."+String.valueOf(((Integer)indexMSpinner.getValue()))+".";
+	attribute = attribute.replaceFirst("[.]m[.]", index);
+	}
+	    
 
     }
     
@@ -246,9 +333,15 @@ public class SCORMAttributeDialog extends JDialog{
         }
     }
     
-    public static String showAttributeDialog( int type, String attribute ){
+    public static String showAttributeDialogForRead( int type, String attribute ){
 	
-	SCORMAttributeDialog att = new SCORMAttributeDialog( type, attribute );
+	SCORMAttributeDialog att = new SCORMAttributeDialog( type, attribute, SCORMConfigData.READ );
+	return att.attribute;
+    }
+    
+    public static String showAttributeDialogForWrite( int type, String attribute ){
+	
+	SCORMAttributeDialog att = new SCORMAttributeDialog( type, attribute, SCORMConfigData.WRITE );
 	return att.attribute;
     }
 
