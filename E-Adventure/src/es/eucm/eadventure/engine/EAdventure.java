@@ -61,7 +61,7 @@ public class EAdventure {
 
     public static String VERSION = "1.0b";
 
-    public static int languageFile = ReleaseFolders.LANGUAGE_UNKNOWN;
+    public static String languageFile = ReleaseFolders.LANGUAGE_UNKNOWN;
 
     /**
      * Sets the current language of the editor. Accepted values are
@@ -73,9 +73,9 @@ public class EAdventure {
      * 
      * @param language
      */
-    public static void setLanguage( int language ) {
+    public static void setLanguage( String language ) {
 
-        if( language == ReleaseFolders.LANGUAGE_SPANISH && languageFile != ReleaseFolders.LANGUAGE_SPANISH || language == ReleaseFolders.LANGUAGE_ENGLISH && languageFile != ReleaseFolders.LANGUAGE_ENGLISH ) {
+        if( true ) {
             ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ) );
             languageFile = language;
             TC.loadStrings( ReleaseFolders.getLanguageFilePath4Engine( languageFile ) );

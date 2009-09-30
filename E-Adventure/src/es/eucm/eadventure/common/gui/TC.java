@@ -66,7 +66,6 @@ public class TC {
      *            Name of the file containing the text
      */
     public static void loadStrings( String languageFile ) {
-
         try {
             loadStrings( new FileInputStream( languageFile ) );
         }
@@ -85,7 +84,6 @@ public class TC {
      *            List with the names of the file containing the text
      */
     public static void loadStrings( String[] languageFiles ) {
-
         if( languageFiles != null && languageFiles.length > 0 ) {
             loadStrings( languageFiles[0] );
             for( int i = 1; i < languageFiles.length; i++ )

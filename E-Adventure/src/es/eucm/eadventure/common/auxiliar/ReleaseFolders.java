@@ -33,6 +33,16 @@
  */
 package es.eucm.eadventure.common.auxiliar;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.InvalidPropertiesFormatException;
+import java.util.List;
+import java.util.Properties;
+
 /**
  * The only purpose of this class is to keep the path of the folders and files
  * which will be in the release in a common place for both engine and editor
@@ -56,55 +66,49 @@ public class ReleaseFolders {
 
     private static final String CONFIG_FILE_PATH_ENGINE = "config_engine.xml";
 
-    public static final String LANGUAGE_DIR_EDITOR = "laneditor";
+    public static final String LANGUAGE_DIR_EDITOR = "i18n/editor";
 
-    public static final String LANGUAGE_DIR_ENGINE = "lanengine";
-
-    private static final String ENGLISH_FILE = "en_EN.xml";
-
-    private static final String SPANISH_FILE = "es_ES.xml";
-
-    private static final String ENGLISH_ABOUT_FILE = "aboutEN.html";
-
-    private static final String SPANISH_ABOUT_FILE = "aboutES.html";
+    public static final String LANGUAGE_DIR_ENGINE = "i18n/engine";
 
     private static final String ENGLISH_LOADING_IMAGE = "img/Editor2D-Loading-Eng.png";
 
     private static final String SPANISH_LOADING_IMAGE = "img/Editor2D-Loading-Esp.png";
+    
+    private static HashMap<String, String> languageNames = new HashMap<String, String>();
 
     /**
      * Language constant for Unknown language
      */
-    public static final int LANGUAGE_UNKNOWN = -1;
+    public static final String LANGUAGE_UNKNOWN = "es_ES";
 
     /**
      * Language constant for Spanish language
      */
-    public static final int LANGUAGE_SPANISH = 0;
+    public static final String LANGUAGE_SPANISH = "es_ES";
 
     /**
      * Language constant for English language
      */
-    public static final int LANGUAGE_ENGLISH = 1;
+    public static final String LANGUAGE_ENGLISH = "en_EN";
 
     /**
      * Language constant for Default language
      */
-    public static final int LANGUAGE_DEFAULT = LANGUAGE_ENGLISH;
+    public static final String LANGUAGE_DEFAULT = LANGUAGE_ENGLISH;
 
-    public static final File projectsFolder( ) {
+    public static final es.eucm.eadventure.common.auxiliar.File projectsFolder( ) {
 
-        return new File( PROJECTS_FOLDER );
+        return new es.eucm.eadventure.common.auxiliar.File( PROJECTS_FOLDER );
     }
 
-    public static final File exportsFolder( ) {
+    public static final es.eucm.eadventure.common.auxiliar.File exportsFolder( ) {
 
-        return new File( EXPORTS_FOLDER );
+        return new es.eucm.eadventure.common.auxiliar.File( EXPORTS_FOLDER );
     }
 
-    public static final File reportsFolder( ) {
+    public static final es.eucm.eadventure.common.auxiliar.File reportsFolder( ) {
 
-        return new File( REPORTS_FOLDER );
+        return new es.eucm.eadventure.common.auxiliar.File( REPORTS_FOLDER );
     }
 
     public static final File webFolder( ) {
@@ -112,9 +116,9 @@ public class ReleaseFolders {
         return new File( WEB_FOLDER );
     }
 
-    public static final File webTempFolder( ) {
+    public static final es.eucm.eadventure.common.auxiliar.File webTempFolder( ) {
 
-        return new File( WEB_TEMP_FOLDER );
+        return new es.eucm.eadventure.common.auxiliar.File( WEB_TEMP_FOLDER );
     }
 
     public static final File[] forbiddenFolders( ) {
@@ -136,14 +140,13 @@ public class ReleaseFolders {
      * Returns the relative path of a language file for both editor and engine
      * NOTE: To be used only from editor
      */
-    public static String getLanguageFilePath4Editor( boolean editor, int language ) {
-
+    public static String getLanguageFilePath4Editor( boolean editor, String language ) {
         String path = LANGUAGE_DIR_EDITOR + "/";
         if( editor )
-            path += ( ( language == LANGUAGE_SPANISH ) ? SPANISH_FILE : ENGLISH_FILE );
+            path += language + ".xml";
         else {
             path = LANGUAGE_DIR_ENGINE + File.separator;
-            path += ( ( language == LANGUAGE_SPANISH ) ? SPANISH_FILE : ENGLISH_FILE );
+            path += language + ".xml";
         }
         return path;
     }
@@ -152,10 +155,10 @@ public class ReleaseFolders {
      * Returns the relative path of a language file NOTE: To be used only from
      * engine
      */
-    public static String getLanguageFilePath4Engine( int language ) {
+    public static String getLanguageFilePath4Engine( String language ) {
 
         String path = LANGUAGE_DIR_ENGINE + "/";
-        path += ( ( language == LANGUAGE_SPANISH ) ? SPANISH_FILE : ENGLISH_FILE );
+        path += language + ".xml";
         return path;
     }
 
@@ -168,62 +171,34 @@ public class ReleaseFolders {
      * @param path
      * @return
      */
-    public static int getLanguageFromPath( String path ) {
-
-        if( path != null && path.toLowerCase( ).contains( ENGLISH_FILE.toLowerCase( ) ) ) {
-            return LANGUAGE_ENGLISH;
-        }
-        else if( path != null && path.toLowerCase( ).contains( SPANISH_FILE.toLowerCase( ) ) ) {
-            return LANGUAGE_SPANISH;
+    public static String getLanguageFromPath( String path ) {
+        if( path != null && path.endsWith( ".xml" ) ) {
+            return path.substring( path.length( ) - 9, path.length() - 4 );
         }
         else
             return LANGUAGE_DEFAULT;
 
     }
 
-    public static final String getAboutFilePath( int language ) {
-
-        if( language == LANGUAGE_ENGLISH ) {
-            return ENGLISH_ABOUT_FILE;
-        }
-
-        else if( language == LANGUAGE_SPANISH ) {
-            return SPANISH_ABOUT_FILE;
-        }
-
-        else {
-            return getAboutFilePath( LANGUAGE_DEFAULT );
-        }
+    public static final String getAboutFilePath( String string ) {
+        return "about-" + string + ".html";
     }
 
-    public static final String getLoadingImagePath( int language ) {
+    public static final String getLoadingImagePath( String language ) {
 
-        if( language == LANGUAGE_ENGLISH ) {
+        if( language.equals(LANGUAGE_ENGLISH) ) {
             return ENGLISH_LOADING_IMAGE;
         }
-
-        else if( language == LANGUAGE_SPANISH ) {
+        else if( language.equals(LANGUAGE_SPANISH) ) {
             return SPANISH_LOADING_IMAGE;
         }
-
         else {
             return getLoadingImagePath( LANGUAGE_DEFAULT );
         }
     }
 
-    public static final String getLanguageFilePath( int language ) {
-
-        if( language == LANGUAGE_ENGLISH ) {
-            return ENGLISH_FILE;
-        }
-
-        else if( language == LANGUAGE_SPANISH ) {
-            return SPANISH_FILE;
-        }
-
-        else {
-            return getLanguageFilePath( LANGUAGE_DEFAULT );
-        }
+    public static final String getLanguageFilePath( String language ) {
+        return language + ".xml";
     }
 
     /**
@@ -251,5 +226,32 @@ public class ReleaseFolders {
     public static void setReportsPath( String reports_folder ) {
 
         REPORTS_FOLDER = reports_folder;
+    }
+
+    public static List<String> getLanguages(String where ) {
+        File directory = new File("i18n" + File.separator + where); 
+        List<String> languages = new ArrayList<String>();
+        for (File file : directory.listFiles()) {
+            if (file.getName().endsWith("xml")) {
+                String identifier = file.getName().substring(0, file.getName().length() - 4);
+                languages.add( identifier );
+                Properties prop = new Properties();
+                try {
+                    prop.loadFromXML(new FileInputStream(file));
+                    languageNames.put( identifier,(String )prop.get( "Language.Name" ));
+                } catch (InvalidPropertiesFormatException e) {
+                    e.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return languages;
+    }
+    
+    public static String getLanguageName(String language) {
+        return languageNames.get( language );
     }
 }
