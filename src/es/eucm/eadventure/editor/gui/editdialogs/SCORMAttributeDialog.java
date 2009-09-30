@@ -52,7 +52,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingUtilities;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
@@ -209,7 +208,6 @@ public class SCORMAttributeDialog extends JDialog{
             indexMSpinner.setEnabled(false);
             fieldsCombo.addActionListener(new ActionListener(){
 
-    	    @Override
     	    public void actionPerformed(ActionEvent e) {
     		
     		if (SCORMConfigData.isArrayInsideArray((String)fieldsCombo.getSelectedItem()))
@@ -294,12 +292,12 @@ public class SCORMAttributeDialog extends JDialog{
 	String result = (String)fieldsCombo.getSelectedItem();
 	// get the selected index. Add "." at the beginning and at the end, because it is going
 	// to be changed for ".n."
-	String index = "."+String.valueOf(((Integer)indexNSpinner.getValue()))+".";
+	String index = "."+String.valueOf((indexNSpinner.getValue()))+".";
 	attribute = result.replaceFirst("[.]n[.]", index);
 	if (indexMSpinner!=null && indexMSpinner.isEnabled()){
 	 // get the selected index. Add "." at the beginning and at the end, because it is going
 	// to be changed for ".m."
-	index = "."+String.valueOf(((Integer)indexMSpinner.getValue()))+".";
+	index = "."+String.valueOf((indexMSpinner.getValue()))+".";
 	attribute = attribute.replaceFirst("[.]m[.]", index);
 	}
 	    

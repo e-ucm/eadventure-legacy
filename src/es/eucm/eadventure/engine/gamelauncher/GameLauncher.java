@@ -520,19 +520,19 @@ public class GameLauncher extends JFrame implements Runnable {
         buttonsPanel.add( btnRefresh, c );
 
         //Combo panel to switch the language
-        combo = new JComboBox( new String[] { TC.get( "MainWindow.SelectLanguage" ), TC.get( "MainWindow.English" ), TC.get( "MainWindow.Spanish" ) } );
+        final List<String> languages = ReleaseFolders.getLanguages( "engine");
+        String[] options = new String[languages.size( ) + 1];
+        options[0] = TC.get( "MainWindow.SelectLanguage" );
+        for (int i = 0 ; i < languages.size( ); i++)
+            options[i+1] = ReleaseFolders.getLanguageName( languages.get( i ) );
+        combo = new JComboBox( options );
         combo.addActionListener( new ActionListener( ) {
-
             public void actionPerformed( ActionEvent arg0 ) {
-
                 String args[] = new String[ 2 ];
                 args[0] = "";
 
-                if( combo.getSelectedItem( ).toString( ).equals( TC.get( "MainWindow.Spanish" ) ) ) {
-                    args[1] = ReleaseFolders.getLanguageFilePath( ReleaseFolders.LANGUAGE_SPANISH );
-                }
-                else
-                    args[1] = ReleaseFolders.getLanguageFilePath( ReleaseFolders.LANGUAGE_ENGLISH );
+                if (combo.getSelectedIndex( ) > 0)
+                    args[1] = ReleaseFolders.getLanguageFilePath( languages.get( combo.getSelectedIndex() - 1 ) );
 
                 EAdventure.main( args );
 

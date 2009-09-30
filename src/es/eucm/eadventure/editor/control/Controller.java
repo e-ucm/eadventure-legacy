@@ -527,7 +527,7 @@ public class Controller {
     /**
      * Stores the file that contains the GUI strings.
      */
-    private int languageFile;
+    private String languageFile;
 
     private LoadingScreen loadingScreen;
 
@@ -3263,7 +3263,7 @@ public class Controller {
      * 
      * @return
      */
-    public int getLanguage( ) {
+    public String getLanguage( ) {
 
         return this.languageFile;
     }
@@ -3278,8 +3278,7 @@ public class Controller {
      * 
      * @param language
      */
-    public void setLanguage( int language ) {
-
+    public void setLanguage( String language ) {
         setLanguage( language, true );
     }
 
@@ -3293,18 +3292,14 @@ public class Controller {
      * 
      * @param language
      */
-    public void setLanguage( int language, boolean reloadData ) {
-
-        if( language == ReleaseFolders.LANGUAGE_SPANISH && languageFile != ReleaseFolders.LANGUAGE_SPANISH || language == ReleaseFolders.LANGUAGE_ENGLISH && languageFile != ReleaseFolders.LANGUAGE_ENGLISH ) {
-            ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ), ReleaseFolders.getLoadingImagePath( language ) );
-            //null);
-            languageFile = language;
-            TC.loadStrings( ReleaseFolders.getLanguageFilePath4Editor( true, languageFile ) );
-            TC.appendStrings( ReleaseFolders.getLanguageFilePath4Editor( false, languageFile ) );
-            loadingScreen.setImage( getLoadingImage( ) );
-            if( reloadData )
-                mainWindow.reloadData( );
-        }
+    public void setLanguage( String language, boolean reloadData ) {
+        ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ), ReleaseFolders.getLoadingImagePath( language ) );
+        languageFile = language;
+        TC.loadStrings( ReleaseFolders.getLanguageFilePath4Editor( true, languageFile ) );
+        TC.appendStrings( ReleaseFolders.getLanguageFilePath4Editor( false, languageFile ) );
+        loadingScreen.setImage( getLoadingImage( ) );
+        if( reloadData )
+            mainWindow.reloadData( );
     }
 
     public String getLoadingImage( ) {

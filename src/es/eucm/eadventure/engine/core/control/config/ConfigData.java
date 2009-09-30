@@ -150,7 +150,6 @@ public class ConfigData {
     }
 
     private void checkConsistency( ) {
-
         if( languageFile == null ) {
             languageFile = ReleaseFolders.getLanguageFilePath( ReleaseFolders.LANGUAGE_ENGLISH );
         }

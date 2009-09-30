@@ -714,25 +714,17 @@ public class MainWindow extends JFrame {
             }
         } );
         //		configurationMenu.add( itAutoBackup );
-        JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.Language.English" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_ENGLISH );
-        itEnglish.addActionListener( new ActionListener( ) {
-
-            public void actionPerformed( ActionEvent e ) {
-
-                controller.setLanguage( ReleaseFolders.LANGUAGE_ENGLISH );
-            }
-        } );
-        JCheckBoxMenuItem itSpanish = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.Language.Spanish" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_SPANISH );
-        itSpanish.addActionListener( new ActionListener( ) {
-
-            public void actionPerformed( ActionEvent e ) {
-
-                controller.setLanguage( ReleaseFolders.LANGUAGE_SPANISH );
-            }
-        } );
+        
         JMenu languageMenu = new JMenu( TC.get( "MenuConfiguration.Language" ) );
-        languageMenu.add( itEnglish );
-        languageMenu.add( itSpanish );
+        for (final String language : ReleaseFolders.getLanguages("editor")) {
+            JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem( ReleaseFolders.getLanguageName( language ), controller.getLanguage( ).equals( language ) );
+            itEnglish.addActionListener( new ActionListener( ) {
+                public void actionPerformed( ActionEvent e ) {
+                    controller.setLanguage( language );
+                }
+            } );
+            languageMenu.add( itEnglish );
+        }
         configurationMenu.add( languageMenu );
 
         return windowMenu;
