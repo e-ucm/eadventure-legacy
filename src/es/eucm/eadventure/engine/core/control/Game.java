@@ -64,6 +64,7 @@ import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
@@ -574,12 +575,25 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         if( adaptedState != null ) {
 
             // If it has an initial scene, set it
-            if( adaptedState.getTargetId( ) != null )
+            if( adaptedState.getTargetId( ) != null ){
+                boolean found = false;
                 // check the scene is in chapter
                 for( Scene scene : gameData.getScenes( ) ) {
-                    if( scene.getId( ).equals( adaptedState.getTargetId( ) ) )
+                    if( scene.getId( ).equals( adaptedState.getTargetId( ) ) ){
                         firstScene.setNextSceneId( adaptedState.getTargetId( ) );
+                        found = true;
+                    }
+                    
                 }
+                if (!found){
+                // check the scene is a cutscene
+                for( Cutscene cutscene : gameData.getCutscenes( ) ) {
+                    if( cutscene.getId( ).equals( adaptedState.getTargetId( ) ) )
+                        firstScene.setNextSceneId( adaptedState.getTargetId( ) );
+                
+                      }
+                 }
+            }
             // Set the flags
             for( String flag : adaptedState.getActivatedFlags( ) )
                 if( flags.existFlag( flag ) )
