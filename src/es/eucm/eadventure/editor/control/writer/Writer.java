@@ -911,6 +911,7 @@ public class Writer {
 
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
             File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            addNeededLibrariesToJar(os, Controller.getInstance( ));
 
             // Create and copy the manifest into the output stream
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
@@ -1105,6 +1106,7 @@ public class Writer {
 
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
             File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            addNeededLibrariesToJar(os, Controller.getInstance( ));
 
             // Create and copy the manifest into the output stream
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
@@ -1297,6 +1299,7 @@ public class Writer {
 
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
             File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            addNeededLibrariesToJar(os, Controller.getInstance( ));
 
             // Create and copy the manifest into the output stream
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
@@ -1477,6 +1480,7 @@ public class Writer {
             ZipOutputStream os = new ZipOutputStream( mergedFile );
 
             File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            addNeededLibrariesToJar(os, Controller.getInstance( ));
 
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
             ZipEntry manifestEntry = new ZipEntry( "META-INF/MANIFEST.MF" );
