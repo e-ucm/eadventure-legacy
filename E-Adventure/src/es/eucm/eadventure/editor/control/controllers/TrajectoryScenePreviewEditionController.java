@@ -35,6 +35,11 @@ package es.eucm.eadventure.editor.control.controllers;
 
 import java.awt.event.MouseEvent;
 
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SideDataControl;
@@ -79,9 +84,10 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
     private TrajectoryDataControl tdc;
 
     private int selectedTool = NODE_EDIT;
+    
+    private JSpinner spinner;
 
     public TrajectoryScenePreviewEditionController( ScenePreviewEditionPanel spep, TrajectoryDataControl trajectoryDataControl ) {
-
         super( spep );
         this.spep = spep;
         this.tdc = trajectoryDataControl;
@@ -89,11 +95,18 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 
     @Override
     public void mouseClicked( MouseEvent e ) {
-
         int x = spep.getRealX( e.getX( ) );
         int y = spep.getRealY( e.getY( ) );
         setMouseUnder( e.getX( ), e.getY( ) );
 
+        if (spinner != null) {
+            spep.removeComponent(spinner);
+            spep.repaint( );
+            spinner = null;
+            return;
+        }
+        
+        
         if( selectedTool == NODE_EDIT ) {
             if( this.underMouse == null ) {
                 tdc.addNode( x, y );
@@ -122,6 +135,27 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
             }
         }
         else if( selectedTool == SIDE_EDIT ) {
+            for (final SideDataControl side : tdc.getSides( )) {
+                NodeDataControl start = side.getStart( );
+                NodeDataControl end = side.getEnd( );
+                int x1 = start.getX( ) + (end.getX( ) - start.getX( )) / 2;
+                int y1 = start.getY( ) + (end.getY( ) - start.getY( )) / 2;
+
+                if (x1 + 30 > x && x1 - 30 < x && y1 + 20 > y && y1 - 20 < y ) {
+                    spinner = new JSpinner(new SpinnerNumberModel(side.getLength(), 1, 2000, 1));
+                    spinner.addChangeListener( new ChangeListener() {
+                        public void stateChanged( ChangeEvent e ) {
+                            side.setLength((Integer) ((JSpinner) e.getSource( )).getValue( ));
+                            spep.repaint( );
+                        }
+                    });
+                    spep.addComponent(spinner,  x1, y1);
+                    spep.repaint( );
+                    return;
+                }
+                    
+            }
+
             if( underMouse != null ) {
                 if( spep.getFirstElement( ) == null ) {
                     spep.setFirstElement( underMouse );
@@ -261,6 +295,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
     public void mouseMoved( MouseEvent e ) {
 
         setMouseUnder( e.getX( ), e.getY( ) );
+
         if( spep.getFirstElement( ) != null ) {
             spep.repaint( );
         }
@@ -274,6 +309,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 
     public void setSelectedTool( int tool ) {
 
+        
         selectedTool = tool;
         spep.setFirstElement( null );
         if( selectedTool == EDIT_BARRIERS ) {

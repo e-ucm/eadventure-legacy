@@ -126,15 +126,18 @@ public class TrajectorySubParser extends SubParser {
             else if( qName.equals( "side" ) ) {
                 String idStart = "";
                 String idEnd = "";
-
+                int length = -1;
+                
                 for( int i = 0; i < attrs.getLength( ); i++ ) {
                     if( attrs.getQName( i ).equals( "idStart" ) )
                         idStart = attrs.getValue( i );
                     if( attrs.getQName( i ).equals( "idEnd" ) )
                         idEnd = attrs.getValue( i );
+                    if ( attrs.getQName( i ).equals( "length"))
+                        length = Integer.parseInt( attrs.getValue( i ) );
                 }
 
-                trajectory.addSide( idStart, idEnd );
+                trajectory.addSide( idStart, idEnd, length );
             }
 
             else if( qName.equals( "initialnode" ) ) {

@@ -66,7 +66,7 @@ public class Trajectory implements Cloneable {
         return node;
     }
 
-    public Side addSide( String idStart, String idEnd ) {
+    public Side addSide( String idStart, String idEnd, int length ) {
 
         if( idStart.equals( idEnd ) )
             return null;
@@ -74,11 +74,15 @@ public class Trajectory implements Cloneable {
         Node a = getNodeForId( idStart );
         Node b = getNodeForId( idEnd );
         if( a != null && b != null ) {
-            int x = a.getX( ) - b.getX( );
-            int y = a.getY( ) - b.getY( );
-            side.setLenght( (float) Math.sqrt( x * x + y * y ) );
+           int x = a.getX( ) - b.getX( );
+           int y = a.getY( ) - b.getY( );
+           if (length == -1)
+               side.setLenght( (float) Math.sqrt( x * x + y * y ) );
+           else
+               side.setLenght( length );
+           side.setRealLength((float) Math.sqrt( x * x + y * y ));
         }
-
+        
         if( sides.contains( side ) ) {
             return null;
         }
@@ -214,11 +218,17 @@ public class Trajectory implements Cloneable {
         private String idEnd;
 
         private float length = 1;
+        
+        private float realLength = 1;
 
         public Side( String idStart, String idEnd ) {
 
             this.idStart = idStart;
             this.idEnd = idEnd;
+        }
+
+        public void setRealLength( float realLength ) {
+            this.realLength = realLength;
         }
 
         public String getIDStart( ) {
@@ -262,6 +272,10 @@ public class Trajectory implements Cloneable {
             s.idStart = ( idStart != null ? new String( idStart ) : null );
             s.length = length;
             return s;
+        }
+
+        public float getRealLength( ) {
+            return realLength;
         }
     }
 

@@ -85,6 +85,7 @@ public class TrajectoryDOMWriter {
                 Element sideElement = doc.createElement( "side" );
                 sideElement.setAttribute( "idStart", side.getIDStart( ) );
                 sideElement.setAttribute( "idEnd", side.getIDEnd( ) );
+                sideElement.setAttribute( "length", String.valueOf( (int) side.getLength( )) );
                 itemElement.appendChild( sideElement );
             }
 

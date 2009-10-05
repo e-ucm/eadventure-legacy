@@ -36,8 +36,10 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
+import es.eucm.eadventure.editor.control.tools.scene.SetSideLengthTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class SideDataControl extends DataControl {
@@ -233,6 +235,14 @@ public class SideDataControl extends DataControl {
     public List<Searchable> getPathToDataControl( Searchable dataControl ) {
 
         return null;
+    }
+
+    public int getLength( ) {
+        return (int) side.getLength( );
+    }
+
+    public void setLength( Integer value ) {
+        Controller.getInstance( ).addTool( new SetSideLengthTool(side, value) );
     }
 
 }

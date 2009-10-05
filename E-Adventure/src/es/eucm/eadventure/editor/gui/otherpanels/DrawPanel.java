@@ -37,11 +37,14 @@ import java.awt.Adjustable;
 import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.LayoutManager2;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,6 +53,8 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -62,6 +67,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.controllers.ScenePreviewEditionController;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -141,14 +147,25 @@ public class DrawPanel extends JPanel {
      * The panel where the back-buffer is drawn
      */
     private JPanel insidePanel;
+    
+    private JPanel componentPanel;
 
     public DrawPanel( boolean zoomable ) {
-
         zoom = 1.0;
         this.setLayout( new BorderLayout( ) );
         insidePanel = createInsidePanel( );
 
-        this.add( insidePanel, BorderLayout.CENTER );
+        componentPanel = new JPanel();
+        componentPanel.setOpaque( false );
+
+        componentPanel.setLayout( new ComponentPanelLayout() );
+        componentPanel.add(insidePanel, "main");
+
+//        componentPanel.setLayout( new BorderLayout() );
+//        componentPanel.add(insidePanel, BorderLayout.CENTER);
+ //       componentPanel.add(new JButton("hola"), BorderLayout.NORTH);
+        
+        this.add( componentPanel, BorderLayout.CENTER );
         addZoomElements( zoomable );
     }
 
@@ -217,16 +234,12 @@ public class DrawPanel extends JPanel {
         scrollX.setValue( 45 );
         scrollY.setValue( 45 );
         scrollX.addAdjustmentListener( new AdjustmentListener( ) {
-
             public void adjustmentValueChanged( AdjustmentEvent arg0 ) {
-
                 DrawPanel.this.getParent( ).repaint( );
             }
         } );
         scrollY.addAdjustmentListener( new AdjustmentListener( ) {
-
             public void adjustmentValueChanged( AdjustmentEvent arg0 ) {
-
                 DrawPanel.this.getParent( ).repaint( );
             }
         } );
@@ -248,10 +261,9 @@ public class DrawPanel extends JPanel {
         insidePanel = new JPanel( ) {
 
             private static final long serialVersionUID = 1L;
-
+            
             @Override
             public void repaint( ) {
-
                 super.repaint( );
                 if( getSize( ).width > 0 && getSize( ).height > 0 ) {
                     calculateSize( );
@@ -275,10 +287,95 @@ public class DrawPanel extends JPanel {
                     g.drawImage( backBuffer, 0, 0, width, height, dx, dy, dx + dw, dy + dh, null );
                 }
             }
+            
+            
         };
+        
         return insidePanel;
     }
 
+    private class ComponentPanelLayout implements LayoutManager2 {
+
+        List<LayoutComponent> components = new ArrayList<LayoutComponent>();
+        
+        public void addLayoutComponent( Component comp, Object constraints ) {
+            components.add( new LayoutComponent(comp, (String) constraints) );
+        }
+
+        public float getLayoutAlignmentX( Container target ) {
+            return 0;
+        }
+
+        public float getLayoutAlignmentY( Container target ) {
+            return 0;
+        }
+
+        public void invalidateLayout( Container target ) {
+        }
+
+        public Dimension maximumLayoutSize( Container target ) {
+            return null;
+        }
+
+        public void addLayoutComponent( String name, Component comp ) {
+        }
+
+        public void layoutContainer( Container parent ) {
+            
+            for (LayoutComponent component : components) {
+                if (component.main)
+                    component.comp.setBounds( 0, 0, parent.getWidth( ), parent.getHeight( ) );
+            }
+            for (LayoutComponent component : components) {
+                if (!component.main) {
+                    component.comp.setBounds( DrawPanel.this.getRelativeX(component.x) - 30, DrawPanel.this.getRelativeY(component.y) - 20, 60 , 40);
+                }
+            }
+
+        }
+
+        public Dimension minimumLayoutSize( Container parent ) {
+            return new Dimension(0,0);
+        }
+
+        public Dimension preferredLayoutSize( Container parent ) {
+            return new Dimension( parent.getSize( ).width, parent.getSize( ).height );
+        }
+
+        public void removeLayoutComponent( Component comp ) {
+            LayoutComponent temp = null;
+            for (LayoutComponent component : components) {
+                if (component.comp == comp)
+                    temp = component;
+            }
+            if (temp != null)
+                components.remove( temp );
+        }
+        
+        private class LayoutComponent {
+            
+            public Component comp;
+            
+            boolean main;
+            
+            int x;
+            
+            int y;
+
+            public LayoutComponent( Component comp, String constraints ) {
+                this.comp = comp;
+                if (constraints.equals( "main" ))
+                    main = true;
+                else {
+                    main = false;
+                    x = Integer.parseInt( constraints.split( ";" )[0] );
+                    y = Integer.parseInt( constraints.split( ";" )[1] );
+                }
+            }
+        }
+
+    }
+    
     /**
      * Set the value for the zoom
      * 
@@ -288,13 +385,6 @@ public class DrawPanel extends JPanel {
     public void setZoom( double zoom ) {
 
         this.zoom = zoom;
-        /*		if (zoom > 1.0) {
-        			scrollX.setEnabled(true);
-        			scrollY.setEnabled(true);
-        		} else if (scrollX != null && scrollY != null){
-        			scrollX.setEnabled(false);
-        			scrollY.setEnabled(false);
-        		} */
     }
 
     /**
@@ -311,15 +401,18 @@ public class DrawPanel extends JPanel {
 
     @Override
     public void repaint( ) {
-
         super.repaint( );
         if( insidePanel != null )
             insidePanel.repaint( );
+        if (componentPanel != null) {
+            if (component != null)
+                componentPanel.updateUI( );
+            componentPanel.repaint( );
+        }
     }
 
     @Override
     public void paint( Graphics g ) {
-
         super.paint( g );
     }
 
@@ -697,6 +790,30 @@ public class DrawPanel extends JPanel {
         if( background != null )
             backgroundWidth = background.getWidth( null );
         return ( backgroundWidth > GUI.WINDOW_WIDTH ? backgroundWidth : GUI.WINDOW_WIDTH );
+    }
+
+    private Component component;
+    
+    public void addComponent(Component component, int x, int y) {
+        if (this.component != null)
+            this.componentPanel.remove( this.component );
+        this.componentPanel.add( component, "" + x + ";" + y );
+        this.component = component;
+        componentPanel.setComponentZOrder( component, 0 );
+        componentPanel.setComponentZOrder( insidePanel, 1 );
+        System.out.println("a–adido boton!");
+        componentPanel.updateUI( );
+        componentPanel.repaint( );
+    }
+    
+    private ScenePreviewEditionController controller;
+    
+    public void removeComponent(Component component) {
+        this.componentPanel.remove( component );
+        this.component = null;
+        componentPanel.setComponentZOrder( insidePanel, 0 );
+        componentPanel.updateUI( );
+        componentPanel.repaint( );
     }
 
 }

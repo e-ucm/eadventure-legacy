@@ -540,6 +540,8 @@ public class FunctionalTrajectory {
             nearestY = (int) y;
         }
         else if( dist >= speed * elapsedTime / 1000 ) {
+            speed = speed * currentSide.getRealLength( ) / currentSide.getLength();
+            
             speedX = (float) ( distX / rectDist * speed );
             speedY = (float) ( distY / rectDist * speed );
         }
@@ -580,8 +582,7 @@ public class FunctionalTrajectory {
      *            the end node of the side
      */
     private void updateScale( double dist2, Node startNode, Node endNode ) {
-
-        scale = (float) ( startNode.getScale( ) * dist2 / currentSide.getLength( ) + endNode.getScale( ) * ( 1 - ( dist2 / currentSide.getLength( ) ) ) );
+        scale = (float) ( startNode.getScale( ) * dist2 / currentSide.getRealLength( ) + endNode.getScale( ) * ( 1 - ( dist2 / currentSide.getRealLength( ) ) ) );
     }
 
     /**

@@ -33,7 +33,11 @@
  */
 package es.eucm.eadventure.editor.control.tools.scene;
 
+import java.util.HashMap;
+
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
+import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
@@ -53,8 +57,11 @@ public class SetNodeValuesTool extends Tool {
 
     private Node node;
 
-    public SetNodeValuesTool( Node node, int newX, int newY, float newScale ) {
-
+    private Trajectory trajectory;
+    
+    private HashMap<String, Float> oldLengths;
+    
+    public SetNodeValuesTool( Node node, Trajectory trajectory, int newX, int newY, float newScale ) {
         this.newX = newX;
         this.newY = newY;
         this.newScale = newScale;
@@ -62,6 +69,8 @@ public class SetNodeValuesTool extends Tool {
         this.oldY = node.getY( );
         this.oldScale = node.getScale( );
         this.node = node;
+        this.trajectory = trajectory;
+        this.oldLengths = new HashMap<String, Float>();
     }
 
     @Override
@@ -94,8 +103,19 @@ public class SetNodeValuesTool extends Tool {
 
     @Override
     public boolean doTool( ) {
-
         node.setValues( newX, newY, newScale );
+        if (newX != oldX || newY != oldY)
+            for (Side side : trajectory.getSides( )) {
+                if (side.getIDEnd( ).equals(node.getID( )) || side.getIDStart( ).equals( node.getID( ) ) ) {
+                    oldLengths.put( side.getIDStart( ) + ";" + side.getIDEnd( ) , side.getLength( ) );
+                    Node start = trajectory.getNodeForId( side.getIDStart( ) );
+                    Node end = trajectory.getNodeForId( side.getIDEnd( ) );
+                    double x = start.getX( ) - end.getX( );
+                    double y = start.getY( ) - end.getY( );
+                    side.setLenght( (float) Math.sqrt( Math.pow(x,2) + Math.pow( y,2 ) ) );
+                    side.setRealLength( (float) Math.sqrt( Math.pow(x,2) + Math.pow( y,2 ) ) );
+                }
+            }
         return true;
     }
 
@@ -103,6 +123,17 @@ public class SetNodeValuesTool extends Tool {
     public boolean redoTool( ) {
 
         node.setValues( newX, newY, newScale );
+        if (newX != oldX || newY != oldY)
+            for (Side side : trajectory.getSides( )) {
+                if (side.getIDEnd( ).equals(node.getID( )) || side.getIDStart( ).equals( node.getID( ) ) ) {
+                    Node start = trajectory.getNodeForId( side.getIDStart( ) );
+                    Node end = trajectory.getNodeForId( side.getIDEnd( ) );
+                    double x = start.getX( ) - end.getX( );
+                    double y = start.getY( ) - end.getY( );
+                    side.setLenght( (float) Math.sqrt( Math.pow(x,2) + Math.pow( y,2 ) ) );
+                    side.setRealLength( (float) Math.sqrt( Math.pow(x,2) + Math.pow( y,2 ) ) );
+                }
+            }
         Controller.getInstance( ).updatePanel( );
         return true;
     }
@@ -111,6 +142,21 @@ public class SetNodeValuesTool extends Tool {
     public boolean undoTool( ) {
 
         node.setValues( oldX, oldY, oldScale );
+        if (newX != oldX || newY != oldY)
+            for (Side side : trajectory.getSides( )) {
+                if (side.getIDEnd( ).equals(node.getID( )) || side.getIDStart( ).equals( node.getID( ) ) ) {
+                    Node start = trajectory.getNodeForId( side.getIDStart( ) );
+                    Node end = trajectory.getNodeForId( side.getIDEnd( ) );
+                    double x = start.getX( ) - end.getX( );
+                    double y = start.getY( ) - end.getY( );
+                    side.setRealLength( (float) Math.sqrt( Math.pow(x,2) + Math.pow( y,2 ) ) );
+                }
+
+                Float temp = oldLengths.get( side.getIDStart( ) + ";" + side.getIDEnd( ) );
+                if (temp != null)
+                    side.setLenght( temp );
+            }
+        
         Controller.getInstance( ).updatePanel( );
         return true;
     }
