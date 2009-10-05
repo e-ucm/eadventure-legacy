@@ -46,6 +46,8 @@ public class FunctionalSide {
 
     private float length;
 
+    private float realLength;
+    
     private Node startNode;
 
     private Node endNode;
@@ -62,6 +64,9 @@ public class FunctionalSide {
             startNode = trajectory.getNodeForId( side.getIDEnd( ) );
             endNode = trajectory.getNodeForId( side.getIDStart( ) );
         }
+        double x = endNode.getX( ) - startNode.getX( );
+        double y = endNode.getY( ) - startNode.getY( );
+        realLength = (float) Math.sqrt( Math.pow(x,2) + Math.pow(y,2) );
     }
 
     public float getLenght( ) {
@@ -211,6 +216,10 @@ public class FunctionalSide {
                 return true;
         }
         return false;
+    }
+
+    public float getRealLength( ) {
+        return realLength;
     }
 
 }

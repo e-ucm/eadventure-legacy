@@ -94,7 +94,7 @@ public class AddTrajectoryNodeTool extends Tool {
 
         String id = "node" + ( new Random( ) ).nextInt( 10000 );
         newNode = trajectory.addNode( id, x, y, 1.0f );
-        newNodeDataControl = new NodeDataControl( sceneDataControl, newNode );
+        newNodeDataControl = new NodeDataControl( sceneDataControl, newNode, trajectory );
         trajectoryDataControl.getNodes( ).add( newNodeDataControl );
         if( trajectory.getInitial( ) == newNode ) {
             trajectoryDataControl.initialNode = newNodeDataControl;

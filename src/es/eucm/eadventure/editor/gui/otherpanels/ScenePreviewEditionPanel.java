@@ -35,6 +35,7 @@ package es.eucm.eadventure.editor.gui.otherpanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -62,8 +63,8 @@ import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.ScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
@@ -792,6 +793,9 @@ public class ScenePreviewEditionPanel extends JPanel {
             Node start = trajectory.getNodeForId( side.getIDStart( ) );
             Node end = trajectory.getNodeForId( side.getIDEnd( ) );
             drawPanel.drawRelativeLine( start.getX( ), start.getY( ), end.getX( ), end.getY( ) );
+            int x1 = start.getX( ) + (end.getX( ) - start.getX( )) / 2;
+            int y1 = start.getY( ) + (end.getY() - start.getY( )) / 2;
+            drawPanel.drawRelativeString( "" + ((int) side.getLength( )), x1, y1 );
         }
 
         if( firstElement != null ) {
@@ -1461,13 +1465,20 @@ public class ScenePreviewEditionPanel extends JPanel {
     }
 
     public int getRealX( int mouseX ) {
-
         return drawPanel.getRealX( mouseX );
     }
 
     public int getRealY( int mouseY ) {
 
         return drawPanel.getRealY( mouseY );
+    }
+    
+    public int getRelativeX( int x) {
+        return drawPanel.getRelativeX( x );
+    }
+    
+    public int getRelativeY( int y) {
+        return drawPanel.getRelativeY( y );
     }
 
     public void setShowInfluenceArea( boolean b ) {
@@ -1509,6 +1520,14 @@ public class ScenePreviewEditionPanel extends JPanel {
             else
                 dataControlSelectionListener.dataControlSelected( selectedElement.getDataControl( ) );
         }
+    }
+
+    public void addComponent( Component button, int x1, int y1 ) {
+        drawPanel.addComponent( button, x1, y1 );
+    }
+    
+    public void removeComponent(Component component) {
+        drawPanel.removeComponent( component );
     }
 
 }

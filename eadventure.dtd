@@ -75,6 +75,7 @@
 <!ATTLIST side
    idStart IDREF #REQUIRED
    idEnd IDREF #REQUIRED
+   length NMTOKEN "-1"
 >
 <!ELEMENT initialnode EMPTY>
 <!ATTLIST initialnode

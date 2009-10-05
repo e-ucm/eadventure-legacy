@@ -44,10 +44,10 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.TrajectoryScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.TrajectoryDataControl;
-import es.eucm.eadventure.common.gui.TC;
 
 /**
  * A Panel for the edition of the trajectory and barriers, including the
@@ -156,7 +156,6 @@ public class TrajectoryEditionPanel extends JPanel {
      * @return the preview panel
      */
     public ScenePreviewEditionPanel getScenePreviewEditionPanel( ) {
-
         return spep;
     }
 

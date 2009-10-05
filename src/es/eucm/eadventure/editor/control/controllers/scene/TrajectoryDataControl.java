@@ -99,7 +99,7 @@ public class TrajectoryDataControl extends DataControl {
         nodeDataControlList = new ArrayList<NodeDataControl>( );
         if( trajectory != null ) {
             for( Node node : trajectory.getNodes( ) ) {
-                nodeDataControlList.add( new NodeDataControl( sceneDataControl, node ) );
+                nodeDataControlList.add( new NodeDataControl( sceneDataControl, node, trajectory ) );
                 if( node == trajectory.getInitial( ) ) {
                     initialNode = nodeDataControlList.get( nodeDataControlList.size( ) - 1 );
                     initialNode.setInitial( true );

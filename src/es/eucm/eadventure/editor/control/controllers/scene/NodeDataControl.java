@@ -35,6 +35,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -48,6 +49,8 @@ public class NodeDataControl extends DataControl {
      * the id of the scene).
      */
     private SceneDataControl sceneDataControl;
+    
+    private Trajectory trajectory;
 
     /**
      * Contained node.
@@ -64,10 +67,11 @@ public class NodeDataControl extends DataControl {
      * @param activeArea
      *            Exit of the data control structure
      */
-    public NodeDataControl( SceneDataControl sceneDataControl, Node node ) {
+    public NodeDataControl( SceneDataControl sceneDataControl, Node node, Trajectory trajectory ) {
 
         this.sceneDataControl = sceneDataControl;
         this.node = node;
+        this.trajectory = trajectory;
         initial = false;
     }
 
@@ -113,7 +117,7 @@ public class NodeDataControl extends DataControl {
      */
     public void setNode( int x, int y, float scale ) {
 
-        controller.addTool( new SetNodeValuesTool( node, x, y, scale ) );
+        controller.addTool( new SetNodeValuesTool( node, trajectory, x, y, scale ) );
     }
 
     @Override
