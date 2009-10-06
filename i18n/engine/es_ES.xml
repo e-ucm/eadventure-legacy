@@ -133,7 +133,8 @@
 	<entry key="Report.Importance.High">Alto</entry>
 	<entry key="Report.Importance.VeryHigh">Muy alto</entry>
 	<entry key="Report.OKSend">Aceptar y enviar informe</entry>
-	<entry key="Report.OKDontSend">Aceptar pero no enviar informe</entry>
+	<entry key="Report.OKDontSend">No enviar informe</entry>
+	<entry key="Report.Name">Nombre:</entry>
 	<entry key="Reports.InputReportName">Escriba el nombre que aparecerá en el informe</entry>
 	<entry key="Reports.NameInput">Nombre del jugador</entry>
 	

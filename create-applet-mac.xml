@@ -9,8 +9,8 @@
 	<property name="gui.dir" value="gui" />
 	<property name="img.dir" value="img" />
 	<property name="web.dir" value="web" />
-	<property name="lanengine.dir" value="lanengine" />
-	<property name="laneditor.dir" value="laneditor" />
+	<property name="lanengine.dir" value="i18n/editor" />
+	<property name="laneditor.dir" value="i18n/engine" />
 	<property name="release.version" value="1.0" />
 
 	<path id="project.class.path">
@@ -40,7 +40,8 @@
 		<delete dir="web/tempcompile"/>
 		<delete dir="web/temp/es"/>
 		<delete dir="web/temp/gui"/>
-		<delete dir="web/temp/lanengine"/>
+		<delete dir="web/temp/i18n/engine"/>
+		<delete dir="web/temp/i18n/editor"/>
 	</target>
 
 	<target name="jar" depends="compile" description="generate the eadventure applet">
@@ -54,7 +55,7 @@
 				<include name="assessment.dtd" />-->
 				
 				<include name="gui/**" />
-				<include name="lanengine/en_EN.xml" />
+<!--				<include name="i18n/engine/*.xml" /> -->
 				<include name="java.policy.applet" />
 			</fileset>
 			<fileset dir="./web/tempcompile">
@@ -73,7 +74,9 @@
 			<zipfileset src="jars/mp3spi1.9.4.jar" />
 			<zipfileset src="jars/jmf.jar" />
 			<zipfileset src="jars/jl1.0.jar" />
-<!--			
+<!--
+			<zipfileset src="jars/mailapi.jar" />
+			<zipfileset src="jars/smtp.jar" />
 			<zipfileset src="jars/jffmpeg-1.1.0.jar" />
 			<zipfileset src="jars/cmu_time_awb.jar" />
 			<zipfileset src="jars/cmu_us_kal.jar"/>
@@ -82,7 +85,7 @@
 			<zipfileset src="jars/cmutimelex.jar" />
 			<zipfileset src="jars/en_us.jar" />
 			<zipfileset src="jars/freetts.jar" />
-	-->		
+-->		
 			<manifest>
 				<attribute name="Main-Class" value="es.eucm.eadventure.engine.EAdventureApplet" />
 			</manifest>

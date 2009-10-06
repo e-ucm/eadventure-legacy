@@ -59,6 +59,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
@@ -71,6 +72,7 @@ import es.eucm.eadventure.editor.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
@@ -565,6 +567,9 @@ public class Writer {
         boolean needsFreeTts = false;
 
         boolean needsJFFMpeg = false;
+        
+        boolean needsEmail = false;
+        
         for (ChapterDataControl chapter :controller.getCharapterList( ).getChapters( )) {
             for (CutsceneDataControl cutscene : chapter.getCutscenesList( ).getCutscenes( )) {
                 if (cutscene.getType( ) == Controller.CUTSCENE_VIDEO)
@@ -583,7 +588,10 @@ public class Writer {
                             needsFreeTts = true;
                 }
             }
-        }        
+        }
+        for (AssessmentProfileDataControl profile : Controller.getInstance( ).getAssessmentController( ).getProfiles( )) {
+            needsEmail = needsEmail || profile.isSendByEmail( );
+        }
         if (needsFreeTts) {
             File.addJarContentsToZip("jars/en_us.jar", os);
             File.addJarContentsToZip("jars/freetts.jar", os);
@@ -596,6 +604,13 @@ public class Writer {
         if (needsJFFMpeg) {
            File.addJarContentsToZip("jars/jffmpeg-1.1.0.jar", os );
         }
+        if (needsEmail) {
+            File.addJarContentsToZip( "jars/mailapi.jar", os );
+            File.addJarContentsToZip( "jars/smtp.jar", os);
+            File.addJarContentsToZip( "jars/activation.jar", os );
+        }
+        
+        File.addFileToZip( new File(ReleaseFolders.getLanguageFilePath4Engine( Controller.getInstance( ).getLanguage( ) )), "i18n/engine/en_EN.xml", os );
         
     }
     

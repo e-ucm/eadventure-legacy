@@ -34,11 +34,14 @@
 package es.eucm.eadventure.engine.assessment;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -50,9 +53,13 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -74,6 +81,8 @@ import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.TimerEventListener;
@@ -82,8 +91,6 @@ import es.eucm.eadventure.engine.core.control.VarSummary;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.common.loader.Loader;
-import es.eucm.eadventure.common.loader.incidences.Incidence;
 
 /**
  * This engine stores the rules to be processed when the flags change in the
@@ -486,14 +493,68 @@ public class AssessmentEngine implements TimerEventListener {
 					});
 					buttonPanel.add(ok);
 				} else {
-					JButton ok_send = new JButton(TC
+					final JButton ok_send = new JButton(TC
 							.get("Report.OKSend"));
+					if (playerName == null || playerName.equals("")) {
+					    ok_send.setEnabled( false );
+					    JLabel label =new JLabel(TC.get("Report.Name"));
+					    label.setForeground( Color.white );
+					    buttonPanel.add(label);
+					    JTextField nameTextField = new JTextField(30);
+					    nameTextField.getDocument( ).addDocumentListener( new DocumentListener() {
+                            public void changedUpdate( DocumentEvent e ) {
+                                update(e);
+                            }
+                            public void insertUpdate( DocumentEvent e ) {
+                                update(e);
+                            }
+                            public void removeUpdate( DocumentEvent e ) {
+                                update(e);
+                            }
+                            private void update(DocumentEvent e) {
+                                try {
+                                    playerName = e.getDocument( ).getText( 0, e.getDocument( ).getLength( ));
+                                }
+                                catch( BadLocationException e1 ) {
+                                    e1.printStackTrace();
+                                }
+                                if (playerName == null || playerName.equals(""))
+                                    ok_send.setEnabled( false );
+                                else
+                                    ok_send.setEnabled( true );
+                            }
+					    });
+					    buttonPanel.add(nameTextField);
+					}
+					
+					
 					ok_send.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							String[] to = new String[1];
 							to[0] = assessmentProfile.getEmail();
 							String subject = "Report eAdventure";
 							String message = "Report from: " + playerName;
+							
+							//TODO: eliminar esto, se a–adi— para las pruebas en medicina
+							File report = new File(reportAbsoluteFile);
+							try {
+							    FileReader fir = new FileReader(report);
+	                            BufferedReader br = new BufferedReader(fir);
+	                            String line = br.readLine( );
+	                            String text = "";
+	                            while (line != null) {
+	                                text += line + "\n\r";
+	                                line = br.readLine( );
+	                            }
+	                            es.eucm.eadventure.common.auxiliar.ReportDialog.sendReport(subject + "\n\r" + message + "\n\r" + text);
+                            }
+                            catch( FileNotFoundException e1 ) {
+                                e1.printStackTrace();
+                            }
+                            catch( IOException e1 ) {
+                                e1.printStackTrace();
+                            }
+							
 							SendMail sm = new SendMail(assessmentProfile.getSmtpServer(), assessmentProfile.getSmtpUser(), assessmentProfile.getSmtpPwd());
 							sm.setPort(Integer.parseInt(assessmentProfile.getSmtpPort()));
 							sm.setRequiersSSL(assessmentProfile.isSmtpSSL());
