@@ -45,38 +45,38 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.IOException;
-import javax.mail.AuthenticationFailedException;
-import javax.mail.MessagingException;
-
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.io.FileNotFoundException;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import java.util.InvalidPropertiesFormatException;
 import java.text.ParseException;
-import java.io.UnsupportedEncodingException;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
+import java.util.InvalidPropertiesFormatException;
+
+import javax.mail.AuthenticationFailedException;
+import javax.mail.MessagingException;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.text.BadLocationException;
-
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.BadLocationException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import es.eucm.eadventure.common.gui.TC;
 
@@ -579,7 +579,6 @@ public class ReportDialog extends JDialog {
             out.flush( );
             out.close( );
             BufferedReader in = new BufferedReader( new InputStreamReader( con.getInputStream( ) ) );
-            //System.out.print(in.readLine());
             in.readLine( );
         }
         catch( Exception e ) {
@@ -588,6 +587,32 @@ public class ReportDialog extends JDialog {
 
     }
 
+    //TODO: eliminar este método, se añadió para las pruebas de medicina
+    public static void sendReport(String comment) {
+        try {
+            URL url = new URL( "http://backend-ea.e-ucm.es/reports.php" );
+            HttpURLConnection con = (HttpURLConnection) url.openConnection( );
+            con.setRequestMethod( "POST" );
+            con.setDoInput( true );
+            con.setDoOutput( true );
+
+            con.setUseCaches( false );
+            con.setAllowUserInteraction( true );
+            HttpURLConnection.setFollowRedirects( true );
+            con.setInstanceFollowRedirects( true );
+            DataOutputStream out = new DataOutputStream( con.getOutputStream( ) );
+            String content = "type=comment" + "&version=medicina_informe" + "&file=" + comment;
+            out.writeBytes( content );
+            out.flush( );
+            out.close( );
+            BufferedReader in = new BufferedReader( new InputStreamReader( con.getInputStream( ) ) );
+            in.readLine( );
+        }
+        catch( Exception e ) {
+            //e.printStackTrace();
+        }
+
+    }
     /**
      * Create the panel where the name and email are inputed
      * 

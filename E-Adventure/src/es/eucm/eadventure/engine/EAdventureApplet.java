@@ -81,7 +81,7 @@ public class EAdventureApplet extends CommManagerLD {
     @Override
     public void init( ) {
 
-        TC.loadStrings( EAdventureApplet.class.getResourceAsStream( "/lanengine/en_EN.xml" ) );
+        TC.loadStrings( EAdventureApplet.class.getResourceAsStream( "/i18n/engine/en_EN.xml" ) );
         File.setDefaultArchiveDetector( new DefaultArchiveDetector( ArchiveDetector.NULL, // delegate
         new String[] {
         //"ead", "de.schlichtherle.io.archive.zip.JarDriver",
