@@ -647,7 +647,6 @@ public class Writer {
 
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
             File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", projectDirectory, os );
-
             addNeededLibrariesToJar(os, Controller.getInstance( ));
             
             // Create and copy the manifest into the output stream
