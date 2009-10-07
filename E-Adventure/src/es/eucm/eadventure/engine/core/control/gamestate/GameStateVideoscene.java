@@ -54,10 +54,10 @@ import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.InputStreamDataSource;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
  * A game main loop while a "videoscene" is being displayed
@@ -106,10 +106,14 @@ public class GameStateVideoscene extends GameState implements ControllerListener
             GUI.getInstance( ).endDraw( );
             g.dispose( );
 
-            Resources resources = createResourcesBlock( );
+            final Resources resources = createResourcesBlock( );
 
-            // TODO Revisar, se ha eliminado el getResourceAsURL
-            mediaPlayer = Manager.createRealizedPlayer( ResourceHandler.getInstance( ).getResourceAsMediaLocator( resources.getAssetPath( Videoscene.RESOURCE_TYPE_VIDEO ) ) );
+            // TODO se ha cambiado el c—digo para utilizar el nuevo sistema que carga directamente los videos como InputStreams
+            // mediaPlayer = Manager.createRealizedPlayer( ResourceHandler.getInstance( ).getResourceAsMediaLocator( resources.getAssetPath( Videoscene.RESOURCE_TYPE_VIDEO ) ) );
+            InputStreamDataSource ds = new InputStreamDataSource(resources.getAssetPath( Videoscene.RESOURCE_TYPE_VIDEO ) );
+            ds.connect( );
+            mediaPlayer = Manager.createRealizedPlayer( ds );
+            
             mediaPlayer.addControllerListener( this );
             this.blockingPrefetch( );
             //mediaPlayer.start( );
@@ -246,4 +250,5 @@ public class GameStateVideoscene extends GameState implements ControllerListener
         }
         return newResources;
     }
+
 }

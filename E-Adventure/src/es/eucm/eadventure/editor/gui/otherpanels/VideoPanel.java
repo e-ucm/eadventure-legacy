@@ -41,8 +41,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.MissingResourceException;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.media.ControllerErrorEvent;
 import javax.media.ControllerEvent;
 import javax.media.ControllerListener;
@@ -53,6 +51,8 @@ import javax.media.Player;
 import javax.media.PrefetchCompleteEvent;
 import javax.media.RealizeCompleteEvent;
 import javax.media.StopEvent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
@@ -179,7 +179,7 @@ public class VideoPanel extends JPanel implements ControllerListener {
             this.removeAll( );
 
             player = Manager.createPlayer( AssetsController.getVideo( videoPath ) );
-
+            
             if( player != null ) {
                 player.addControllerListener( this );
 
