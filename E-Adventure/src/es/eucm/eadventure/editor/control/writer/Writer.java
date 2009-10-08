@@ -562,8 +562,13 @@ public class Writer {
     }
     
     public static void addNeededLibrariesToJar(ZipOutputStream os, Controller controller ) {
-        //TODO: check for used libraries and add as needed
-        
+
+        File.addJarContentsToZip("jars/tritonus_share.jar", os);
+        File.addJarContentsToZip("jars/plugin.jar", os);
+        File.addJarContentsToZip("jars/mp3spi1.9.4.jar", os);
+        File.addJarContentsToZip("jars/jl1.0.jar", os);
+        File.addJarContentsToZip("jars/jmf.jar", os );
+
         boolean needsFreeTts = false;
 
         boolean needsJFFMpeg = false;

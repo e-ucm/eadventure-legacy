@@ -20,8 +20,10 @@
 	</path>
 
 	<target name="compile">
-		<mkdir dir="./web/tempcompile/" />
-		<javac srcdir="./src/es/eucm/eadventure/" destdir="./web/tempcompile/" source="1.5" target="1.5">
+		<mkdir dir="web/tempcompile/" />
+		<javac srcdir="src/es/eucm/eadventure/" destdir="web/tempcompile/" source="1.5" target="1.5">
+			<exclude name="src/es/eucm/eadventure/editor/**" />
+			<exclude name="src/es/eucm/eadventure/assistant/**" />
 			<classpath refid="project.class.path" />
 		</javac>
 		
@@ -59,6 +61,8 @@
 				<include name="java.policy.applet" />
 			</fileset>
 			<fileset dir="./web/tempcompile">
+				<exclude name="es/eucm/eadventure/editor/**" />
+				<exclude name="es/eucm/eadventure/assistant/**" />
 				<include name="**" />
 			</fileset>
 		</copy>
@@ -68,16 +72,16 @@
 				<exclude name=".svn/**" />
 				<include name="**" />
 			</fileset>
-			<zipfileset src="jars/truezip-6.jar" />
+			<!--
 			<zipfileset src="jars/tritonus_share.jar" />
 			<zipfileset src="jars/plugin.jar" />
 			<zipfileset src="jars/mp3spi1.9.4.jar" />
-			<zipfileset src="jars/jmf.jar" />
 			<zipfileset src="jars/jl1.0.jar" />
-<!--
 			<zipfileset src="jars/mailapi.jar" />
 			<zipfileset src="jars/smtp.jar" />
+			<zipfileset src="jars/activation.jar" />
 			<zipfileset src="jars/jffmpeg-1.1.0.jar" />
+			<zipfileset src="jars/jmf.jar" />
 			<zipfileset src="jars/cmu_time_awb.jar" />
 			<zipfileset src="jars/cmu_us_kal.jar"/>
 			<zipfileset src="jars/cmudict04.jar" />
