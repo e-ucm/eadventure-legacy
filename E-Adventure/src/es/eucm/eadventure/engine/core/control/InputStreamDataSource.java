@@ -202,7 +202,6 @@ public class InputStreamDataSource extends PullDataSource implements SourceClone
         }
 
         public long getContentLength( ) {
-
             return -1;
         }
 

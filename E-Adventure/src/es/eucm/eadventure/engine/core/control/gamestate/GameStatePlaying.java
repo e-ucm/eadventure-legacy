@@ -33,7 +33,6 @@
  */
 package es.eucm.eadventure.engine.core.control.gamestate;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -59,7 +58,6 @@ public class GameStatePlaying extends GameState {
      * Constructor.
      */
     public GameStatePlaying( ) {
-
         super( );
         vMouse = new ArrayList<MouseEvent>( );
     }
@@ -104,8 +102,8 @@ public class GameStatePlaying extends GameState {
         GUI.getInstance( ).drawHUD( g );
 
         // Draw the FPS
-        g.setColor( Color.WHITE );
-        g.drawString( Integer.toString( fps ), 780, 14 );
+        //g.setColor( Color.WHITE );
+        //g.drawString( Integer.toString( fps ) + " fps", 700, 14 );
 
         // If there is an adapted state to be executed
         if( game.getAdaptedStateToExecute( ) != null ) {

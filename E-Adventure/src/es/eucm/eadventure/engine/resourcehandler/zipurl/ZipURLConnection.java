@@ -43,6 +43,7 @@
  */
 package es.eucm.eadventure.engine.resourcehandler.zipurl;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,7 +51,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import de.schlichtherle.io.FileInputStream;
 
 /**
  * @author Cañizal, G., Del Blanco, A., Torrente, F.J. (alphabetical order) *

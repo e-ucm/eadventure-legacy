@@ -36,8 +36,6 @@ package es.eucm.eadventure.common.loader;
 import java.io.InputStream;
 import java.net.URL;
 
-import javax.media.MediaLocator;
-
 /**
  * Constructs the InputStream of a file located in a parent structure, which is
  * abstracted by this entity Entities aiming to use Loader must implement this
@@ -65,11 +63,6 @@ public interface InputStreamCreator {
      * @return
      */
     public String[] listNames( String filePath );
-
-    /**
-     * 
-     */
-    public MediaLocator buildMediaLocator( String file );
 
     public URL buildURL( String path );
 }

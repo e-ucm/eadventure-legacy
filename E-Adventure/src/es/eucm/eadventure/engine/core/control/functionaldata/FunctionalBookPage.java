@@ -38,6 +38,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -53,11 +54,9 @@ import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 import javax.swing.text.rtf.RTFEditorKit;
 
-import de.schlichtherle.io.File;
-
-import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -89,8 +88,8 @@ public class FunctionalBookPage extends JPanel {
         this.bookPage = bookPage;
         this.background = background;
         this.addMouseListener( new FunctionalBookMouseListener( ) );
-        URL url = null;
         if( bookPage.getType( ) == BookPage.TYPE_URL ) {
+            URL url = null;
             try {
                 url = new URL( bookPage.getUri( ) );
                 url.openStream( ).close( );
@@ -121,17 +120,14 @@ public class FunctionalBookPage extends JPanel {
 
         }
         else if( bookPage.getType( ) == BookPage.TYPE_RESOURCE ) {
-            //System.out.println( bookPage.getUri( ) );
-            url = ResourceHandler.getInstance( ).getResourceAsURLFromZip( bookPage.getUri( ) );
-            //System.out.println( url );
-            String ext = url.getFile( ).substring( url.getFile( ).lastIndexOf( '.' ) + 1, url.getFile( ).length( ) ).toLowerCase( );
+            String uri = bookPage.getUri( );
+            String ext = uri.substring( uri.lastIndexOf( '.' ) + 1, uri.length( ) ).toLowerCase( );
             if( ext.equals( "html" ) || ext.equals( "htm" ) || ext.equals( "rtf" ) ) {
 
                 //Read the text
                 StringBuffer textBuffer = new StringBuffer( );
-                InputStream is = null;
+                InputStream is = ResourceHandler.getInstance( ).getResourceAsStreamFromZip( uri );//null;
                 try {
-                    is = url.openStream( );
                     int c;
                     while( ( c = is.read( ) ) != -1 ) {
                         textBuffer.append( (char) c );
@@ -168,12 +164,7 @@ public class FunctionalBookPage extends JPanel {
 
         }
         else if( bookPage.getType( ) == BookPage.TYPE_IMAGE ) {
-            url = ResourceHandler.getInstance( ).getResourceAsURLFromZip( bookPage.getUri( ) );
             image = MultimediaManager.getInstance( ).loadImageFromZip( bookPage.getUri( ), MultimediaManager.IMAGE_SCENE );
-        }
-
-        if( url == null ) {
-            isValid = false;
         }
 
         if( editorPane != null ) {
@@ -375,7 +366,6 @@ public class FunctionalBookPage extends JPanel {
                         replaceReference( currentPos - reference.length( ), reference.length( ) );
                     }
                 }
-
             }
 
             return html;

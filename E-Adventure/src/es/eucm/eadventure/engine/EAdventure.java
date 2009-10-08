@@ -33,15 +33,14 @@
  */
 package es.eucm.eadventure.engine;
 
+import java.io.File;
+
 import javax.media.Codec;
 import javax.media.Format;
 import javax.media.PlugInManager;
 import javax.media.format.VideoFormat;
 import javax.swing.JOptionPane;
 
-import de.schlichtherle.io.ArchiveDetector;
-import de.schlichtherle.io.DefaultArchiveDetector;
-import de.schlichtherle.io.File;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
@@ -99,11 +98,6 @@ public class EAdventure {
         else
             setLanguage( ReleaseFolders.getLanguageFromPath( ConfigData.getLanguangeFile( ) ) );
 
-        File.setDefaultArchiveDetector( new DefaultArchiveDetector( ArchiveDetector.NULL, // delegate
-        new String[] {
-        //"ead", "de.schlichtherle.io.archive.zip.JarDriver",
-        //"ead", "de.schlichtherle.io.archive.zip.Zip32Driver",
-        "ead", "es.eucm.eadventure.common.auxiliar.EADDriver", } ) );
         try {
             Codec video = (Codec) Class.forName( "net.sourceforge.jffmpeg.VideoDecoder" ).newInstance( );
             PlugInManager.addPlugIn( "net.sourceforge.jffmpeg.VideoDecoder", video.getSupportedInputFormats( ), new Format[] { new VideoFormat( VideoFormat.MPEG ) }, PlugInManager.CODEC );

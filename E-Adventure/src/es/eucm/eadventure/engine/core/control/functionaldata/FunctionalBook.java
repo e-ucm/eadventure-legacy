@@ -121,7 +121,6 @@ public abstract class FunctionalBook {
      * @return the book's data
      */
     public Book getBook( ) {
-
         return book;
     }
 

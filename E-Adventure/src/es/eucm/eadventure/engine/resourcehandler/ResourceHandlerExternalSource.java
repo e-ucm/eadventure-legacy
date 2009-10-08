@@ -37,8 +37,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 
-import javax.media.MediaLocator;
-
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 
 public class ResourceHandlerExternalSource extends ResourceHandler {
@@ -69,12 +67,6 @@ public class ResourceHandlerExternalSource extends ResourceHandler {
     }
 
     @Override
-    public MediaLocator getResourceAsMediaLocator( String path ) {
-
-        return isCreator.buildMediaLocator( path );
-    }
-
-    @Override
     public InputStream getResourceAsStream( String path ) {
 
         return buildInputStream( path );
@@ -100,12 +92,6 @@ public class ResourceHandlerExternalSource extends ResourceHandler {
     public String[] listNames( String filePath ) {
 
         return isCreator.listNames( filePath );
-    }
-
-    @Override
-    public MediaLocator buildMediaLocator( String file ) {
-
-        return isCreator.buildMediaLocator( file );
     }
 
     @Override

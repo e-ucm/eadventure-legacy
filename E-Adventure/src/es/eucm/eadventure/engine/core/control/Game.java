@@ -784,7 +784,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             // Init the assessment and adaptation engines
             adaptationEngine = new AdaptationEngine( );
             assessmentEngine = new AssessmentEngine( );
-
+            
+            
             // Init interaction queues
             //this.highLevelInteraction = new ArrayDeque<HighLevelInteraction>();
             //this.lowLevelInteraction = new ArrayDeque<LowLevelInteraction>();
