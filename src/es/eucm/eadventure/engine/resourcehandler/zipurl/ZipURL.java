@@ -43,10 +43,9 @@
  */
 package es.eucm.eadventure.engine.resourcehandler.zipurl;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import de.schlichtherle.io.File;
 
 /**
  * @author Cañizal, G., Del Blanco, A., Torrente, F.J. (alphabetical order) *

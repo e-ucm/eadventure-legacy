@@ -34,6 +34,7 @@
 package es.eucm.eadventure.engine.resourcehandler;
 
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -43,9 +44,7 @@ import java.util.Random;
 import java.util.zip.ZipFile;
 
 import javax.imageio.ImageIO;
-import javax.media.MediaLocator;
 
-import de.schlichtherle.io.File;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 
 /**
@@ -334,8 +333,6 @@ public abstract class ResourceHandler implements InputStreamCreator {
     //////////////////////////////////////////NEW/////////////////////////////////////////////////////////
     public abstract URL getResourceAsURLFromZip( String path );
 
-    public abstract MediaLocator getResourceAsMediaLocator( String path );
-
     /**
      * Returns the extension of the given asset.
      * 
@@ -387,11 +384,6 @@ public abstract class ResourceHandler implements InputStreamCreator {
     public boolean isExtraRestriction( ) {
 
         return ResourceHandler.extraRestriction;
-    }
-
-    public MediaLocator buildMediaLocator( String file ) {
-
-        return this.getResourceAsMediaLocator( file );
     }
 
     public URL buildURL( String path ) {

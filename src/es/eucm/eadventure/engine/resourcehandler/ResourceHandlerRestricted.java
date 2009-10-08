@@ -41,8 +41,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 
-import javax.media.MediaLocator;
-
 /**
  * This resource handler loads files for being used on an applet
  */
@@ -166,7 +164,7 @@ class ResourceHandlerRestricted extends ResourceHandler {
             path = "/" + path;
         InputStream is = this.getClass( ).getResourceAsStream( path );
         byte[] data = new byte[ 1024 ];
-        de.schlichtherle.io.File osFile = new de.schlichtherle.io.File( path.substring( path.lastIndexOf( "/" ) + 1 ) );
+        File osFile = new File( path.substring( path.lastIndexOf( "/" ) + 1 ) );
 
         boolean copy = true;
         for( TempFile file : tempFiles ) {
@@ -181,7 +179,7 @@ class ResourceHandlerRestricted extends ResourceHandler {
             int i = 0;
             while( osFile.exists( ) ) {
                 i++;
-                osFile = new de.schlichtherle.io.File( i + "_" + path.substring( path.lastIndexOf( "/" ) + 1 ) );
+                osFile = new File( i + "_" + path.substring( path.lastIndexOf( "/" ) + 1 ) );
             }
             TempFile tempFile = new TempFile( ( osFile ).getAbsolutePath( ) );
             tempFile.setOriginalAssetPath( path );
@@ -211,17 +209,6 @@ class ResourceHandlerRestricted extends ResourceHandler {
             e.printStackTrace( );
             return null;
         }
-
-    }
-
-    @Override
-    public MediaLocator getResourceAsMediaLocator( String path ) {
-
-        MediaLocator mediaLocator = null;
-        URL url = getResourceAsURL( path );
-        if( url != null )
-            mediaLocator = new MediaLocator( url );
-        return mediaLocator;
 
     }
 

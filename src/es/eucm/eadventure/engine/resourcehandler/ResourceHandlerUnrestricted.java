@@ -33,9 +33,12 @@
  */
 package es.eucm.eadventure.engine.resourcehandler;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -44,9 +47,6 @@ import java.net.URL;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
-import javax.media.MediaLocator;
-
-import de.schlichtherle.io.File;
 import es.eucm.eadventure.engine.resourcehandler.zipurl.ZipURL;
 
 /**
@@ -165,35 +165,7 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
         catch( FileNotFoundException e ) {
             is = null;
         }
-
         return is;
-    }
-
-    @Override
-    public MediaLocator getResourceAsMediaLocator( String path ) {
-
-        // Add the file
-        String absolutePath = generateTempFileAbsolutePath( getExtension( path ) );
-        File sourceFile = new File( zipPath, path );
-        File destinyFile = new File( absolutePath );
-        if( sourceFile.exists( ) )
-            sourceFile.copyTo( destinyFile );
-
-        if( destinyFile.exists( ) )
-            try {
-
-                MediaLocator mediaLocator = new MediaLocator( destinyFile.toURI( ).toURL( ) );
-                TempFile tempFile = new TempFile( destinyFile.getAbsolutePath( ) );
-                tempFile.setOriginalAssetPath( path );
-                tempFiles.add( tempFile );
-                return mediaLocator;
-            }
-            catch( MalformedURLException e ) {
-                e.printStackTrace( );
-                return null;
-            }
-        else
-            return null;
     }
 
     @Override
@@ -230,10 +202,11 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
 
         URL toReturn = null;
         try {
+            InputStream is = this.getResourceAsStreamFromZip( assetPath );
             String filePath = generateTempFileAbsolutePath( getExtension( assetPath ) );
-            File sourceFile = new File( zipPath, assetPath );
+//            File sourceFile = new File( zipPath, assetPath );
             File destinyFile = new File( filePath );
-            if( sourceFile.copyTo( destinyFile ) ) {
+            if( writeFile(is, destinyFile ) ) {
                 toReturn = destinyFile.toURI( ).toURL( );
                 TempFile tempFile = new TempFile( destinyFile.getAbsolutePath( ) );
                 tempFile.setOriginalAssetPath( assetPath );
@@ -247,5 +220,40 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
         }
 
         return toReturn;
+    }
+    
+    public boolean writeFile(InputStream is, File dest) {
+        try {
+//        FileWriter out = new FileWriter(dest);
+        FileOutputStream os = new FileOutputStream(dest);
+        int c;
+        byte[] buffer = new byte[512];
+            while ((c = is.read(buffer)) != -1)
+                os.write( buffer, 0, c );
+            os.close( );
+            return true;
+        }
+        catch( IOException e ) {
+            return false;
+        }
+        
+    }
+    
+    public boolean copyFile(File source, File dest) {
+        try {
+            FileReader in = new FileReader(source);
+            FileWriter out = new FileWriter(dest);
+            int c;
+
+            while ((c = in.read()) != -1)
+              out.write(c);
+
+            in.close();
+            out.close();        
+            return true;
+            } catch (Exception e) {
+                return false;
+            }
+
     }
 }

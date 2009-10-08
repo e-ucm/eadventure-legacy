@@ -124,7 +124,7 @@ public class MainWindow extends JFrame {
     private JMenuItem undo;
 
     private JMenuItem redo;
-
+    
     private JCheckBoxMenuItem itAutoBackup;
 
     /**
@@ -212,8 +212,8 @@ public class MainWindow extends JFrame {
         // Set size and position
         setMinimumSize( new Dimension( 640, 400 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        int width = 900;
-        int height = 740;
+        int width = 960;
+        int height = 720;
         setSize( width, height );
         setLocation( ( screenSize.width - width ) / 2, ( screenSize.height - height ) / 2 );
 

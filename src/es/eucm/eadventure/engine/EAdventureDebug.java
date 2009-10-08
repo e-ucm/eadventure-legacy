@@ -33,12 +33,12 @@
  */
 package es.eucm.eadventure.engine;
 
-import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.data.GameText;
-import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.data.GameText;
+import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
  * This is the main class, when run standalone. Creates a new game and runs it.

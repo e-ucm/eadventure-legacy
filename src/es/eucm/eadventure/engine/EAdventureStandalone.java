@@ -38,9 +38,6 @@ import javax.media.Format;
 import javax.media.PlugInManager;
 import javax.media.format.VideoFormat;
 
-import de.schlichtherle.io.ArchiveDetector;
-import de.schlichtherle.io.DefaultArchiveDetector;
-import de.schlichtherle.io.File;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -78,11 +75,8 @@ public class EAdventureStandalone {
         TC.loadStrings( EAdventureApplet.class.getResourceAsStream( "/i18n/engine/en_EN.xml" ) );
         startTime = System.currentTimeMillis( );
         printElapsedTime( "Starting" );
-        File.setDefaultArchiveDetector( new DefaultArchiveDetector( ArchiveDetector.NULL, // delegate
-        new String[] {
-        //"ead", "de.schlichtherle.io.archive.zip.JarDriver",
-        //"ead", "de.schlichtherle.io.archive.zip.Zip32Driver",
-        "ead", "es.eucm.eadventure.common.auxiliar.EADDriver", } ) );
+
+
         try {
             Codec video = (Codec) Class.forName( "net.sourceforge.jffmpeg.VideoDecoder" ).newInstance( );
             PlugInManager.addPlugIn( "net.sourceforge.jffmpeg.VideoDecoder", video.getSupportedInputFormats( ), new Format[] { new VideoFormat( VideoFormat.MPEG ) }, PlugInManager.CODEC );
