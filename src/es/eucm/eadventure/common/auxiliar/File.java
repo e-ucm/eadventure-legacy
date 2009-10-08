@@ -45,6 +45,7 @@ import java.util.jar.JarInputStream;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedInputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
@@ -438,32 +439,29 @@ public class File extends java.io.File {
     public static void addJarContentsToZip(String library, ZipOutputStream zos) {
         try {
             FileInputStream fis = new FileInputStream( library );
-//            CheckedInputStream checksum = new CheckedInputStream( fis, new Adler32( ) )
             ZipInputStream zis = new ZipInputStream( new BufferedInputStream( fis/*checksum*/ ) );
             ZipEntry entry = null;
 
-            // Write the contents of the origin zip file to the destiny jar file
             while( ( entry = zis.getNextEntry( ) ) != null ) {
-                if (!entry.getName( ).equals( "META-INF/" ) && !entry.getName( ).equals( "META-INF/MANIFEST.MF" )) {
-                try {    
-                     //System.out.println("Extracting: " +entry);
-                    // write the files to the disk
-                    zos.putNextEntry( entry );
-                    byte[] readBuffer = new byte[ 1024 ];
-                    int bytesIn = 0;
-                    while( ( bytesIn = zis.read( readBuffer ) ) != -1 ) {
-                        zos.write( readBuffer, 0, bytesIn );
+                if (!entry.getName( ).contains( "META-INF/" ) || entry.getName( ).contains( "services" )) {
+                    try {
+                        zos.putNextEntry( entry );
+                        byte[] readBuffer = new byte[ 1024 ];
+                        int bytesIn = 0;
+                        while( ( bytesIn = zis.read( readBuffer ) ) != -1 ) {
+                            zos.write( readBuffer, 0, bytesIn );
+                        }
+                        zos.closeEntry( );
+                    } catch( ZipException e) {
+                        if (!e.getMessage( ).contains( "duplicate entry" ))
+                            ReportDialog.GenerateErrorReport( e, true, "Problem adding library: " + library );
                     }
-                    //close the Stream
-                    zos.closeEntry( );
-                } catch (java.util.zip.ZipException e) {}
                 }
-                
             }
             zis.close( );
         }
         catch( Exception e ) {
-            ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+            ReportDialog.GenerateErrorReport( e, true, "Problem adding library: " + library );
         }
     }
     
