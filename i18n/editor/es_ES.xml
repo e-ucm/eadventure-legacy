@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>comment</comment>
@@ -61,6 +61,7 @@
 <entry key="IMS.Educational.Contex8">Professional Formation</entry>
 <entry key="Adventure.ModePlayerVisible.Description">El jugador se muestra y se mueve por la pantalla</entry>
 <entry key="LOM.Educational.Tip">Información educativa del recurso</entry>
+<entry key="SceneLocation.Scale">Escala</entry>
 <entry key="IMS.Educational.Contex7">Technical School Second Cycle</entry>
 <entry key="MenuFile.AllLOMProperties">Editor de Metadatos Lom</entry>
 <entry key="IMS.Educational.Contex6">Technical School First Cycle</entry>
@@ -128,6 +129,7 @@ A las variables se les puede asignar un valor entero en cualquier punto del jueg
 De esta manera luego se pueden definir condiciones en función del valor de una variable.</entry>
 <entry key="Exit.AdvancedOptions">Opciones avanzadas</entry>
 <entry key="Button.examine.Description">Boton examinar</entry>
+<entry key="ActionsList.CustomInteractAction">Interacción personalizada con {#0}</entry>
 <entry key="ActionsList.Conditions">Condiciones</entry>
 <entry key="Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title">Error: los credenciales introducidos no son válidos</entry>
 <entry key="SPEP.GoToReferencedElement">Ir al elemento</entry>
@@ -174,6 +176,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="TreeNode.AddElement41">Añadir perfil de adaptación</entry>
 <entry key="TreeNode.AddElement40">Añadir perfil de evaluación</entry>
 <entry key="Animation.Preview">Previsualizar animación</entry>
+<entry key="Operation.RenameAssessmentFile">Renombrar fichero evaluación</entry>
 <entry key="ActivateEffect.Title">Efecto activar</entry>
 <entry key="MenuRun.Normal">Normal</entry>
 <entry key="BookPage.NotApplicable">no aplicable</entry>
@@ -507,8 +510,8 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="GeneralText.Close">Cerrar</entry>
 <entry key="Conversation.OptionMoveNode">Mover nodo a...</entry>
 <entry key="MenuChapters.AddChapter">Añadir capítulo</entry>
-<entry key="Effect.GreenHighlightItemInfo">Reslatar {#0} en verde</entry>
 <entry key="LOM.Educational.TypicalLearningTime">Typical learning time</entry>
+<entry key="Effect.GreenHighlightItemInfo">Reslatar {#0} en verde</entry>
 <entry key="Timer.InitConditions">Condiciones para activación del temporizador</entry>
 <entry key="Search.Documentation">Documentación</entry>
 <entry key="Effect.SetValue">Dar valor a variable</entry>
@@ -674,7 +677,7 @@ donde XX es un múmero cualquiera.</entry>
 <entry key="Conditions.Flag.Title">Campos de la condición basada en flag</entry>
 <entry key="AdaptationProfile.NormalProfile">Perfil Normal</entry>
 <entry key="Search.LMSPropertyValue">Valor de propiedad del LMS</entry>
-<entry key="Edition.UndoRedo.Name."/>
+<entry key="Edition.UndoRedo.Name."></entry>
 <entry key="Resources.DescriptionActionAnimationLeft">Animación hacia la izquierda para cuando realiza la acción (opcional)</entry>
 <entry key="Search.SMTPPort">SMTP Port</entry>
 <entry key="MenuEdit.Undo">Deshacer</entry>
@@ -794,6 +797,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="LOMES.LifeCycle.Entity">Entidad</entry>
 <entry key="ErrorReport.Cancel">Cancelar</entry>
 <entry key="Resources.DescriptionSlidesceneSlides">Conjunto de diapositivas de la escena</entry>
+<entry key="Operation.RenameMacroTitle">Renombrar macro</entry>
 <entry key="Conversation.ConfirmDeleteNode">¿Está seguro de que quiere eliminar este nodo?
 		El nodo se eliminará junto con sus hijos, si estos no están enlazados a otras
 		partes de la conversación. Los datos eliminados no podrán recuperarse.</entry>
@@ -836,6 +840,7 @@ función de estos estados</entry>
 <entry key="Element.Name53">Barrera</entry>
 <entry key="Element.Name52">Barreras y trayectoria</entry>
 <entry key="Element.Name51">Zona activa</entry>
+<entry key="Operation.RenameMacroMessage">Introduzca un nuevo identificador para el macro</entry>
 <entry key="Element.Name50">Zonas activas</entry>
 <entry key="Operation.ExportToLOM.Message">Por favor, seleccione el nombre del Objeto de Aprendizaje.
 	No tiene por qué ser igual que el nombre del archivo: Este nombre será empleado por el LMS para identificar la aventura</entry>
@@ -1283,11 +1288,11 @@ Por favor escribe otro nombre.</entry>
 <entry key="AssessmentRule.Title">Regla de evaluación</entry>
 <entry key="Conditions.Context.NoOwner"> Esta es la lista de condiciones: </entry>
 <entry key="LOMES.GeneralId.DescriptionName">Descripción</entry>
-<entry key="StartDialog.Recent.ColumnHeader2"/>
+<entry key="StartDialog.Recent.ColumnHeader2"></entry>
 <entry key="Operation.LoadProject">Operación: Cargando proyecto</entry>
 <entry key="Barrier.MainPanelTitle">Barrera</entry>
 <entry key="StartDialog.Recent.ColumnHeader1">Archivo</entry>
-<entry key="StartDialog.Recent.ColumnHeader0"/>
+<entry key="StartDialog.Recent.ColumnHeader0"></entry>
 <entry key="Search.EffectText">Texto del efecto</entry>
 <entry key="BackgroundAssets.Preview">Previsualización del fondo</entry>
 <entry key="NPC.DocPanelTitle">Información</entry>
@@ -1872,6 +1877,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="IMS.Rights.Tip">Rights Data</entry>
 <entry key="Buttons.Information"> Desde este menú puede personalizar la apariencia de los botones para las distintas acciones del juego. 
 Si no los cambia, el juego empleará los botones por defecto.</entry>
+<entry key="LOM.Duration.MiliSeconds">Milisegundos</entry>
 <entry key="MoveObjectEffect.NoSceneSelected">Ninguna escena seleccionada</entry>
 <entry key="SCORMDialog.Title">Edcición del atributo {#1} de SCORM {#0}.</entry>
 <entry key="SmallAction.Conditions">Condiciones</entry>
@@ -2107,6 +2113,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="AtrezzoList.Information">Los objetos de atrezo son elementos con los que el protagonista no puede interactuar. Son meramente decorativos, y solo pueden ser colocados en las escenas con ese fin. </entry>
 <entry key="ActiveAreasList.Documentation">Documentación</entry>
 <entry key="ExitLook.CustomizeCursor">Cursor personalizado</entry>
+<entry key="LOM.Duration.Timezone">Zona horaria</entry>
 <entry key="IMS.Educational.LearningResourceType9">Narrative Text</entry>
 <entry key="IMS.Educational.LearningResourceType8">Table</entry>
 <entry key="IMS.Educational.LearningResourceType7">Slide</entry>
@@ -2132,8 +2139,8 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="Operation.NewProject.FolderNotCreatedMessage">La carpeta no ha sido creada. ¿Desea crearla ahora?</entry>
 <entry key="SelectEffectDialog.Recent.ToolTipText">Muestra los efectos más recientemente usados</entry>
 <entry key="SmallAction.Effects">Efectos</entry>
-<entry key="IMS.Educational.LearningResourceType13">Self Assessment</entry>
 <entry key="LOM.General.Keyword">Keyword</entry>
+<entry key="IMS.Educational.LearningResourceType13">Self Assessment</entry>
 <entry key="IMS.Educational.LearningResourceType12">Problem Statement</entry>
 <entry key="MenuFile.LOMSCORMProperties">Propiedades de Objeto de Aprendizaje para paquetes SCORM 1.2 (IMS-LOM)</entry>
 <entry key="IMS.Educational.LearningResourceType11">Experiment</entry>
