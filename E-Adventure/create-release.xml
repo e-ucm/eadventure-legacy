@@ -24,8 +24,8 @@ to the generated zip file.
 	<property name="gui.dir" value="gui" />
 	<property name="img.dir" value="img" />
 	<property name="web.dir" value="web" />
-	<property name="lanengine.dir" value="lanengine" />
-	<property name="laneditor.dir" value="laneditor" />
+	<property name="lanengine.dir" value="i18n/engine" />
+	<property name="laneditor.dir" value="i18n/editor" />
 	<property name="release.version" value="0.9" />
 
 	<path id="project.class.path">
@@ -126,12 +126,12 @@ to the generated zip file.
 				<include name="eAdventure_temp.jar" />
 			</fileset>
 		</copy>
-		<copy todir="${basedir}/release/eadventure/lanengine" flatten="true">
+		<copy todir="${basedir}/release/eadventure/i18n/engine" flatten="true">
 			<fileset dir="${lanengine.dir}">
 				<exclude name=".snv/**" />
 			</fileset>
 		</copy>
-		<copy todir="${basedir}/release/eadventure/laneditor" flatten="true">
+		<copy todir="${basedir}/release/eadventure/i18n/editor" flatten="true">
 			<fileset dir="${laneditor.dir}">
 				<exclude name=".snv/**" />
 			</fileset>
