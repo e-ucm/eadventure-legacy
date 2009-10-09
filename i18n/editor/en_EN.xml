@@ -14,6 +14,7 @@
 <entry key="Operation.RenameCutsceneTitle">Rename cutscene</entry>
 <entry key="CustomAction.SelectTypeTitle">Select the type of the custom action</entry>
 <entry key="AssessmentProperties.MoveDown">Move selected property down</entry>
+<entry key="SmallAction.NeedsGetTo">Needs get to</entry>
 <entry key="ItemsList.Information">The items are one of the principal elements that the player can interact with. They can be placed in the scenes, generated, consumed or placed in the inventory. Also, a wide variety of actions can be performed with the items.</entry>
 <entry key="MoveObjectEffect.Animated">Animate</entry>
 <entry key="LOMES.LifeCycle.Role9">Technical validator</entry>
@@ -112,6 +113,7 @@ All the references to the resource were deleted.</entry>
 <entry key="AssetsChooser.Icon">Choose an icon image</entry>
 <entry key="AdaptationRule.InitialState.InitialScene">Initial scene (optional)</entry>
 <entry key="Resources.SpeakingAnimations">Talking Animations</entry>
+<entry key="SmallAction.Appearence">Appearence</entry>
 <entry key="Operation.RenameXMLFile.ErrorSlash.Message">The name of the file cannot contain slashes or back slashes</entry>
 <entry key="ItemsList.ColumnHeader1">Number of actions</entry>
 <entry key="ItemsList.ColumnHeader0">Item identifier</entry>
@@ -1871,6 +1873,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="LOM.Duration.MiliSeconds">Mili Seconds</entry>
 <entry key="MoveObjectEffect.NoSceneSelected">No scene selected</entry>
 <entry key="SCORMDialog.Title">Edit the SCORM {#0} {#1} attribute.</entry>
+<entry key="SmallAction.Conditions">Conditions</entry>
 <entry key="Operation.ExportToLOM.LOMAppletRunInsideBrowser">The applet runs inside the browser</entry>
 <entry key="UOLProperties.DeleteProperty">Delete selected property</entry>
 <entry key="Effect.SetValueInfo">Set var "{#0}" with value "{#1}"</entry>
@@ -2030,6 +2033,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="CustomAction.PersonalizationTitle">Personalization</entry>
 <entry key="CutscenesList.Slidescene">Slidescene</entry>
 <entry key="StartDialog.Recent.OpenedOlder">Older</entry>
+<entry key="SmallAction.EditNotEffects">Edit not-effects</entry>
 <entry key="Resources.DescriptionSceneForeground">Foreground mask for the scene</entry>
 <entry key="Operation.OverwriteAdaptationFile">File already exists</entry>
 <entry key="ExitLook.CursorPanelTitle">Cursor</entry>
@@ -2045,6 +2049,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="GlobalStatesList.ID">Global state ID</entry>
 <entry key="Item.ReturnsWhenDragged">Object returns to it's original position after being dragged</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicate rule</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent">Active when conditions are not</entry>
 <entry key="NPCReference.NPCId">Id of the referenced character</entry>
 <entry key="Inventory.normalleft.Tip">This is the arrow in the left in its normal state.</entry>
 <entry key="NPCsList.Title">Characters</entry>
@@ -2125,6 +2130,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Synthesizer.BorderVoices">Current voice</entry>
 <entry key="Operation.NewProject.FolderNotCreatedMessage">The folder does not exist yet. Do you want to create it?</entry>
 <entry key="SelectEffectDialog.Recent.ToolTipText">Displays the most frequently used effects</entry>
+<entry key="SmallAction.Effects">Effects</entry>
 <entry key="LOM.General.Keyword">Keyword</entry>
 <entry key="IMS.Educational.LearningResourceType13">Self Assessment</entry>
 <entry key="IMS.Educational.LearningResourceType12">Problem Statement</entry>

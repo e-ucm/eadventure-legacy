@@ -35,6 +35,7 @@ package es.eucm.eadventure.editor.gui.editdialogs;
 
 import java.awt.event.WindowEvent;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,7 +44,6 @@ import java.io.OutputStreamWriter;
 
 import javax.swing.text.BadLocationException;
 
-import de.schlichtherle.io.File;
 import de.xeinfach.kafenio.KafenioPanel;
 import de.xeinfach.kafenio.component.MutableFilter;
 import de.xeinfach.kafenio.interfaces.KafenioPanelConfigurationInterface;
@@ -79,7 +79,7 @@ public class HTMLEditPanel extends KafenioPanel {
 
         File file = null;
         if( tempfile != null )
-            file = new File( tempfile.getAbsoluteFile( ) );
+            file = new File( tempfile.getAbsolutePath( ) );
         HTMLEditPanel temp = new HTMLEditPanel( newConfig, file );
         return temp;
     }
