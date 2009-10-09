@@ -14,6 +14,7 @@
 <entry key="Operation.RenameCutsceneTitle">Renombrar escena intermedia</entry>
 <entry key="CustomAction.SelectTypeTitle">Elija el tipo de la acción personalizada</entry>
 <entry key="AssessmentProperties.MoveDown">Mover propiedad seleccionada hacia abajo</entry>
+<entry key="SmallAction.NeedsGetTo">Necesita alcanzar</entry>
 <entry key="ItemsList.Information">Los objetos son uno de los principales elementos con los que puede interactuar el protagonista. Pueden ser colocados en las escenas, generados, consumidos o colocados en el inventario. Además, se pueden realizar una amplia variedad de acciones con los objetos.</entry>
 <entry key="MoveObjectEffect.Animated">Animar</entry>
 <entry key="LOMES.LifeCycle.Role9">Technical validator</entry>
@@ -112,6 +113,7 @@ Las referencias a dicho recurso fueron eliminadas.</entry>
 <entry key="AssetsChooser.Icon">Escoja una imagen de icono</entry>
 <entry key="AdaptationRule.InitialState.InitialScene">Escena inicial (opcional)</entry>
 <entry key="Resources.SpeakingAnimations">Animaciones hablando</entry>
+<entry key="SmallAction.Appearence">Apariencia</entry>
 <entry key="Operation.RenameXMLFile.ErrorSlash.Message">El nombre del fichero no puede contener / ni \</entry>
 <entry key="ItemsList.ColumnHeader1">Número de acciones</entry>
 <entry key="ItemsList.ColumnHeader0">Identificador del objeto</entry>
@@ -1872,6 +1874,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="MoveObjectEffect.NoSceneSelected">Ninguna escena seleccionada</entry>
 <entry key="SCORMDialog.Title">Edcición del atributo {#1} de SCORM {#0}.</entry>
+<entry key="SmallAction.Conditions">Condiciones</entry>
 <entry key="Operation.ExportToLOM.LOMAppletRunInsideBrowser">El applet se ejecuta dentro del explorador</entry>
 <entry key="UOLProperties.DeleteProperty">Eliminar propiedad seleccionada</entry>
 <entry key="Effect.SetValueInfo">Dar a la variable "{#0}" el valor "{#1}"</entry>
@@ -2031,6 +2034,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="CustomAction.PersonalizationTitle">Personalización</entry>
 <entry key="CutscenesList.Slidescene">Escena de diapositivas</entry>
 <entry key="StartDialog.Recent.OpenedOlder">Anteriores</entry>
+<entry key="SmallAction.EditNotEffects">Editar no-efectos</entry>
 <entry key="Resources.DescriptionSceneForeground">Máscara frontal de la escena</entry>
 <entry key="Operation.OverwriteAdaptationFile">El archivo ya existe</entry>
 <entry key="ExitLook.CursorPanelTitle">Cursor</entry>
@@ -2046,6 +2050,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="GlobalStatesList.ID">Identificador de estado global</entry>
 <entry key="Item.ReturnsWhenDragged">El objeto vuelve a su posición inicial después de ser arrastrado</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicar regla</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent">Activa cuando condiciones inactivas</entry>
 <entry key="NPCReference.NPCId">Identificador del personaje referenciado</entry>
 <entry key="Inventory.normalleft.Tip">Esta es la fecha izquierda en su estado normal</entry>
 <entry key="NPCsList.Title">Personajes</entry>
@@ -2126,6 +2131,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="Synthesizer.BorderVoices">Voz actual</entry>
 <entry key="Operation.NewProject.FolderNotCreatedMessage">La carpeta no ha sido creada. ¿Desea crearla ahora?</entry>
 <entry key="SelectEffectDialog.Recent.ToolTipText">Muestra los efectos más recientemente usados</entry>
+<entry key="SmallAction.Effects">Efectos</entry>
 <entry key="IMS.Educational.LearningResourceType13">Self Assessment</entry>
 <entry key="LOM.General.Keyword">Keyword</entry>
 <entry key="IMS.Educational.LearningResourceType12">Problem Statement</entry>

@@ -63,6 +63,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
+import es.eucm.eadventure.editor.gui.editdialogs.AppearenceDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 
@@ -133,13 +134,18 @@ public class SmallActionCellRendererEditor extends AbstractCellEditor implements
 
         if( value.getType( ) == Controller.ACTION_CUSTOM || value.getType( ) == Controller.ACTION_CUSTOM_INTERACT ) {
             c.gridy++;
-            JButton appearence = new JButton( "Appearence" );
+            JButton appearence = new JButton( TC.get("SmallAction.Appearence") );
             appearence.setFocusable( false );
+            appearence.addActionListener( new ActionListener() {
+                public void actionPerformed( ActionEvent arg0 ) {
+                    new AppearenceDialog( value );
+                }
+            });
             temp.add( appearence, c );
         }
 
         c.gridy++;
-        JButton conditionsButton = new JButton( "Conditions" );
+        JButton conditionsButton = new JButton( TC.get( "SmallAction.Conditions" ) );
         conditionsButton.setFocusable( false );
         conditionsButton.addActionListener( new ActionListener( ) {
 
@@ -151,7 +157,7 @@ public class SmallActionCellRendererEditor extends AbstractCellEditor implements
         temp.add( conditionsButton, c );
 
         c.gridy++;
-        JButton effectsButton = new JButton( "Effects" );
+        JButton effectsButton = new JButton( TC.get( "SmallAction.Effects" ) );
         effectsButton.setFocusable( false );
         effectsButton.addActionListener( new ActionListener( ) {
 
@@ -164,8 +170,8 @@ public class SmallActionCellRendererEditor extends AbstractCellEditor implements
 
         c.gridy++;
 
-        final JCheckBox enableNotEff = new JCheckBox( TC.get( "ActiveAreasList.ActiveWhenConditionsArent" ) );
-        final JButton notEffectsButton = new JButton( TC.get( "Exit.EditNotEffects" ) );
+        final JCheckBox enableNotEff = new JCheckBox( TC.get( "SmallAction.ActiveWhenConditionsArent" ) );
+        final JButton notEffectsButton = new JButton( TC.get( "SmallAction.EditNotEffects" ) );
 
         enableNotEff.setSelected( value.isActivatedNotEffects( ) );
         enableNotEff.addActionListener( new ActionListener( ) {
@@ -192,7 +198,7 @@ public class SmallActionCellRendererEditor extends AbstractCellEditor implements
         temp.add( notEffectsButton, c );
 
         c.gridy++;
-        final JCheckBox getToCheckBox = new JCheckBox( "Needs get to" );
+        final JCheckBox getToCheckBox = new JCheckBox( TC.get( "SmallAction.NeedsGetTo" ) );
         getToCheckBox.setSelected( value.getNeedsGoTo( ) );
         if( Controller.getInstance( ).isPlayTransparent( ) )
             getToCheckBox.setEnabled( false );
