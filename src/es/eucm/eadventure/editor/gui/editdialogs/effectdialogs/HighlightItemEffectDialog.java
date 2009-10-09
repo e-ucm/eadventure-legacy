@@ -45,6 +45,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
@@ -110,13 +111,22 @@ public class HighlightItemEffectDialog extends EffectDialog {
             GridBagConstraints c = new GridBagConstraints( );
 
             // Set the border of the panel with the description
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( dialogDescriptions[type] ) ) ) );
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "HighlightItemEffect.ShortDescription" ) ) ) );
 
+            
             // Create and add the list of flags
             c.insets = new Insets( 2, 4, 4, 4 );
             c.fill = GridBagConstraints.HORIZONTAL;
             c.weightx = 1;
             c.gridy = 0;
+            
+            JTextPane informationTextPane = new JTextPane( );
+            informationTextPane.setEditable( false );
+            informationTextPane.setBackground( getBackground( ) );
+            informationTextPane.setText(TC.get( dialogDescriptions[type] ));
+            mainPanel.add( informationTextPane, c);
+            
+            c.gridy++;
             itemsComboBox = new JComboBox( controller.getIdentifierSummary( ).getItemIds( ) );
             mainPanel.add( itemsComboBox, c );
 
@@ -150,6 +160,7 @@ public class HighlightItemEffectDialog extends EffectDialog {
             // Set the dialog
             setResizable( false );
             pack( );
+            setSize(400, 300);
             Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
             setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
             setVisible( true );

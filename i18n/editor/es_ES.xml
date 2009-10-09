@@ -151,6 +151,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Operation.AddConversationReferenceErrorNoConversations">Debe haber al menos una conversación en el capítulo para añadir una referencia</entry>
 <entry key="Book.Contents.Tip">Panel para editar los contenidos del libro</entry>
 <entry key="Inventory.OnlyBottom">Solo abajo</entry>
+<entry key="IMS.Classification.Purpose8">Competency</entry>
 <entry key="IMS.Classification.Purpose7">Security Level</entry>
 <entry key="Inventory.highlightedright.Description">Flecha derecha resaltada</entry>
 <entry key="IMS.Classification.Purpose6">Skill level</entry>

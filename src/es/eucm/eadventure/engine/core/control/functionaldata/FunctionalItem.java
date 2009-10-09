@@ -381,8 +381,10 @@ public class FunctionalItem extends FunctionalElement {
             if( action.getType( ) == Action.USE ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     canBeUsedAlone = true;
-                }
-            }
+                } else if (action.isActivatedNotEffects( ))
+                    canBeUsedAlone = true;
+                
+             }
         }
 
         return canBeUsedAlone;
@@ -396,7 +398,8 @@ public class FunctionalItem extends FunctionalElement {
             if (action.getType( ) == Action.DRAG_TO) {
                 if ( new FunctionalConditions( action.getConditions( )).allConditionsOk( )){
                     canBeDragged = true;
-                }
+                } else if (action.isActivatedNotEffects( ))
+                    canBeDragged = true;
             }
         }
         return canBeDragged;
