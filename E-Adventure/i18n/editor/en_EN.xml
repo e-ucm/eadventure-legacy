@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>comment</comment>
@@ -273,6 +273,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Operation.RenameXMLFile.ErrorSlash">Error</entry>
 <entry key="Operation.AddExitTitle">Add exit</entry>
 <entry key="Conversation.OperationLinkNode">Link node</entry>
+<entry key="ActoinsList.CustomIteractAction">Custom interaction with {#0}</entry>
 <entry key="Vars.Var">Variable</entry>
 <entry key="LinesPanel.NoNodeSelected">No node selected</entry>
 <entry key="Resources.DescriptionBookBackground">Background image of the book</entry>
@@ -508,8 +509,8 @@ Otherwise you can select one of those found similar from the list.</entry>
 <entry key="GeneralText.Close">Close</entry>
 <entry key="Conversation.OptionMoveNode">Move node to...</entry>
 <entry key="MenuChapters.AddChapter">Add chapter</entry>
-<entry key="Effect.GreenHighlightItemInfo">Highlight {#0} in green</entry>
 <entry key="LOM.Educational.TypicalLearningTime">Typical learning time</entry>
+<entry key="Effect.GreenHighlightItemInfo">Highlight {#0} in green</entry>
 <entry key="Timer.InitConditions">Conditions to start the timer</entry>
 <entry key="Search.Documentation">Documentation</entry>
 <entry key="Effect.SetValue">Set value</entry>
@@ -674,7 +675,7 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 <entry key="Conditions.Flag.Title">Fields of the flag</entry>
 <entry key="AdaptationProfile.NormalProfile">Normal Profile</entry>
 <entry key="Search.LMSPropertyValue">LMS Property Value</entry>
-<entry key="Edition.UndoRedo.Name."/>
+<entry key="Edition.UndoRedo.Name."></entry>
 <entry key="Resources.DescriptionActionAnimationLeft">Animation looking left used when the action is executed (optional)</entry>
 <entry key="Search.SMTPPort">SMTP Port</entry>
 <entry key="MenuEdit.Undo">Undo</entry>
@@ -1284,11 +1285,11 @@ Please type another name.</entry>
 <entry key="AssessmentRule.Title">Assessment Rule</entry>
 <entry key="Conditions.Context.NoOwner"> This is the list of conditions: </entry>
 <entry key="LOMES.GeneralId.DescriptionName">Description</entry>
-<entry key="StartDialog.Recent.ColumnHeader2"/>
+<entry key="StartDialog.Recent.ColumnHeader2"></entry>
 <entry key="Operation.LoadProject">Operation: Loading project</entry>
 <entry key="Barrier.MainPanelTitle">Barrier</entry>
 <entry key="StartDialog.Recent.ColumnHeader1">File</entry>
-<entry key="StartDialog.Recent.ColumnHeader0"/>
+<entry key="StartDialog.Recent.ColumnHeader0"></entry>
 <entry key="Search.EffectText">Effect Text</entry>
 <entry key="BackgroundAssets.Preview">Preview of the background</entry>
 <entry key="NPC.DocPanelTitle">Documentation</entry>
@@ -1750,6 +1751,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="DeleteUnusedAssets.Title">Delete unused assets</entry>
 <entry key="Error.LoadDescriptor.SAX">An error occurred with the XML consistency of the adventure descriptor file</entry>
 <entry key="BookPage.NotScrollable">No</entry>
+<entry key="Operation.FileLoadedWithErrorTitle">Project loaded with problems</entry>
 <entry key="ItemReferenceTable.MoveUp">Move up current reference changing its layer (making deeper)</entry>
 <entry key="NextSceneCell.EditDestinyPosition">Edit destiny position</entry>
 <entry key="AssessmentRule.Conditions">Conditions</entry>
@@ -1793,6 +1795,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Adventure.Title">Adventure data</entry>
 <entry key="Operation.AddGlobalStateDefaultValue">GlobalStateId</entry>
 <entry key="Error.LoadDescriptor.NoDescriptor">An error occurred reading the adventure descriptor file: descriptor file is missing</entry>
+<entry key="Search.SMTPPwd">SMTP Pwd</entry>
 <entry key="LinesPanel.DialogueNode">Dialogue node</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="Error.CreateAssessmentFile.Message">An error occurred when creating the assessment file</entry>
@@ -1870,7 +1873,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="IMS.Rights.Tip">Rights Data</entry>
 <entry key="Buttons.Information">Here you can customize how the action buttons look. 
 When not customized, default buttons will be used in the game.</entry>
-<entry key="LOM.Duration.MiliSeconds">Mili Seconds</entry>
+<entry key="LOM.Duration.MiliSeconds">Miliseconds</entry>
 <entry key="MoveObjectEffect.NoSceneSelected">No scene selected</entry>
 <entry key="SCORMDialog.Title">Edit the SCORM {#0} {#1} attribute.</entry>
 <entry key="SmallAction.Conditions">Conditions</entry>
@@ -2072,6 +2075,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Button.examine.normal.Description">Normal examine button</entry>
 <entry key="Conversations.DeleteLink">Delete link</entry>
 <entry key="Operation.LoadFileMessage">The file has unsaved changes. Do you want to save those changes before loading the new data?</entry>
+<entry key="Operation.RenameAssesssmentFile">Rename assessment file</entry>
 <entry key="LOMES.General.AggregationLevel">Aggregation Level</entry>
 <entry key="Search.DetailedDescription">Detailed Description</entry>
 <entry key="Conditions.Value">Value</entry>
