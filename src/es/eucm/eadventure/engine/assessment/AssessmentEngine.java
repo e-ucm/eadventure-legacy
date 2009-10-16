@@ -200,6 +200,7 @@ public class AssessmentEngine implements TimerEventListener {
 	public void processRules() {
 		int i = 0;
 
+		if (assessmentRules!=null){
 		// For every rule
 		while (i < assessmentRules.size()) {
 
@@ -222,6 +223,7 @@ public class AssessmentEngine implements TimerEventListener {
 			// Else, check the next rule
 			else
 				i++;
+		}
 		}
 	}
 
