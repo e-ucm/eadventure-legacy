@@ -502,7 +502,8 @@ public class FunctionalTrajectory {
 
         if( currentPath != null ) {
             Node nextNode = getNextNode( );
-            moveInDirectionToTheNode( elapsedTime, x, y, speed, nextNode );
+            if (nextNode!=null)
+                moveInDirectionToTheNode( elapsedTime, x, y, speed, nextNode );
         }
         else {
             speedX = 0;
