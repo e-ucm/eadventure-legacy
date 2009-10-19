@@ -792,7 +792,7 @@ public class ScenePreviewEditionPanel extends JPanel {
         for( Side side : trajectory.getSides( ) ) {
             Node start = trajectory.getNodeForId( side.getIDStart( ) );
             Node end = trajectory.getNodeForId( side.getIDEnd( ) );
-            drawPanel.drawRelativeLine( start.getX( ), start.getY( ), end.getX( ), end.getY( ) );
+            drawPanel.drawRelativeLineWithBorder( start.getX( ), start.getY( ), end.getX( ), end.getY( ) );
             int x1 = start.getX( ) + (end.getX( ) - start.getX( )) / 2;
             int y1 = start.getY( ) + (end.getY() - start.getY( )) / 2;
             drawPanel.drawRelativeString( "" + ((int) side.getLength( )), x1, y1 );

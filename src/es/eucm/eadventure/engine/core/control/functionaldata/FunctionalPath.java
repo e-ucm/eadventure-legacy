@@ -136,7 +136,7 @@ public class FunctionalPath implements Comparable<FunctionalPath> {
             return -1;
         }
         int distDif = (int) ( arg0.distance - distance );
-        if( Math.abs( distDif ) < 100 ) {
+        if( Math.abs( distDif ) < 200 ) {
             return (int) ( arg0.length - length );
         }
         else {
