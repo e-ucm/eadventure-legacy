@@ -45,6 +45,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -54,14 +59,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -70,14 +76,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JFileChooser;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
@@ -528,11 +526,7 @@ public class StartDialog extends JFileChooser {
             helpPath = "startDialog/Description.html";
         }
 
-        String folder = "help/";
-        if( Controller.getInstance( ).getLanguage( ) == ReleaseFolders.LANGUAGE_SPANISH )
-            folder += "es_ES/";
-        else if( Controller.getInstance( ).getLanguage( ) == ReleaseFolders.LANGUAGE_ENGLISH )
-            folder += "en_EN/";
+        String folder = "help/" + Controller.getInstance( ).getLanguage( ) + "/";
         File file = new File( folder + helpPath );
         if( file.exists( ) ) {
             try {

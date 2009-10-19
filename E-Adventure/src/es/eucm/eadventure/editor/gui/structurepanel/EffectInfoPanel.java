@@ -44,7 +44,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.auxiliar.File;
-import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
@@ -76,11 +75,7 @@ public class EffectInfoPanel extends JPanel {
 
         //this.removeAll();
 
-        String folder = "help/";
-        if( Controller.getInstance( ).getLanguage( ) == ReleaseFolders.LANGUAGE_SPANISH )
-            folder += "es_ES/";
-        else if( Controller.getInstance( ).getLanguage( ) == ReleaseFolders.LANGUAGE_ENGLISH )
-            folder += "en_EN/";
+        String folder = "help/" + Controller.getInstance( ).getLanguage( ) + "/";
         File file = new File( folder + helpPath );
         if( file.exists( ) ) {
             try {
