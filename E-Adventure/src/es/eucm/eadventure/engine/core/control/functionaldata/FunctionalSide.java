@@ -137,7 +137,8 @@ public class FunctionalSide {
                 end = true;
             }
             else if( destinationElement != null && inInfluenceArea( posX, posY, destinationElement ) ) {
-                dist = FunctionalTrajectory.getDistanceFast( posX, posY, destinationElement.getX( ), destinationElement.getY( ) );
+//                dist = FunctionalTrajectory.getDistanceFast( posX, posY, destinationElement.getX( ), destinationElement.getY( ) );
+                dist = 0;
                 this.posX = posX;
                 this.posY = posY;
                 getsTo = true;

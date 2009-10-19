@@ -174,36 +174,6 @@ public class TrajectoryPanel extends JPanel implements Updateable {
         }
     }
 
-    // NOT USED!!
-    private JPanel createInitialPositionPanel( ) {
-
-        JPanel initialPositionPanel = new JPanel( );
-        initialPositionPanel.setLayout( new GridLayout( 0, 1 ) );
-        initialPositionRadioButton = new JRadioButton( TC.get( "Scene.UseInitialPosition" ), !sceneDataControl.getTrajectory( ).hasTrajectory( ) );
-        //initialPositionRadioButton.addActionListener( new InitialPositionCheckBoxListener( ) );
-
-        initialPositionPanel.add( initialPositionRadioButton );
-        initialPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Scene.DefaultInitialPosition" ) ) );
-
-        JPanel fullPanel = new JPanel( );
-        fullPanel.setLayout( new BorderLayout( ) );
-        fullPanel.add( initialPositionPanel, BorderLayout.NORTH );
-
-        spep = new ScenePreviewEditionPanel( false, scenePath );
-        fillSpep( );
-        fullPanel.add( spep, BorderLayout.CENTER );
-        spep.setShowTextEdition( true );
-
-        if( initialPositionRadioButton.isSelected( ) ) {
-            Image image = AssetsController.getImage( Controller.getInstance( ).getPlayerImagePath( ) );
-            spep.addPlayer( sceneDataControl, image );
-            spep.setSelectedElement( new ImageElementPlayer( image, sceneDataControl ) );
-            spep.setFixedSelectedElement( true );
-        }
-        spep.repaint( );
-
-        return fullPanel;
-    }
 
     /**
      * Listener for the "Use initial position in this scene" check box.

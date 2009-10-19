@@ -35,6 +35,7 @@ package es.eucm.eadventure.editor.gui.otherpanels;
 
 import java.awt.Adjustable;
 import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -538,6 +539,24 @@ public class DrawPanel extends JPanel {
         }
     }
 
+    protected void drawRelativeLineWithBorder( int x1, int y1, int x2, int y2 ) {
+
+        if( checkBackBuffer( ) ) {
+            int posX1 = marginX + (int) ( x1 * sizeRatio );
+            int posY1 = marginY + (int) ( y1 * sizeRatio );
+            int posX2 = marginX + (int) ( x2 * sizeRatio );
+            int posY2 = marginY + (int) ( y2 * sizeRatio );
+            Graphics2D g = (Graphics2D) backBuffer.getGraphics( );
+            g.setStroke( new BasicStroke(3.0f) );
+            g.setColor( Color.BLACK );
+            g.drawLine( posX1, posY1, posX2, posY2 );
+            g.setStroke( new BasicStroke(0.0f) );
+            g.setColor( Color.WHITE );
+            g.drawLine( posX1, posY1, posX2, posY2 );
+
+        }
+    }
+
     /**
      * Calculate the size of the images, depending on the size of the panel and
      * the size of the background image
@@ -717,7 +736,14 @@ public class DrawPanel extends JPanel {
         if( checkBackBuffer( ) ) {
             int posX1 = marginX + (int) ( posX * sizeRatio );
             int posY1 = marginY + (int) ( posY * sizeRatio );
-            backBuffer.getGraphics( ).drawString( id, posX1, posY1 );
+            Graphics2D g = (Graphics2D) backBuffer.getGraphics( );
+            g.setColor( Color.BLACK );
+            g.drawString( id, posX1 - 1, posY1 - 1 );
+            g.drawString( id, posX1 - 1, posY1 + 1 );
+            g.drawString( id, posX1 + 1, posY1 - 1 );
+            g.drawString( id, posX1 + 1, posY1 + 1 );
+            g.setColor( Color.WHITE );
+            g.drawString( id, posX1, posY1 );
         }
     }
 

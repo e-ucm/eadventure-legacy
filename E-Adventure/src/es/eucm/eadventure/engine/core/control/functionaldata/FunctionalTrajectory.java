@@ -193,7 +193,8 @@ public class FunctionalTrajectory {
         for( FunctionalSide currentSide : currentSides ) {
             List<FunctionalSide> tempSides = new ArrayList<FunctionalSide>( );
             tempSides.add( currentSide );
-            float dist = getDistanceFast( fromX, fromY, currentSide.getEndNode( ).getX( ), currentSide.getEndNode( ).getY( ) );
+            float distReal = getDistanceFast( fromX, fromY, currentSide.getEndNode( ).getX( ), currentSide.getEndNode( ).getY( ) );
+            float dist = currentSide.getLenght( ) / currentSide.getRealLength( ) * distReal;
             FunctionalPath newPath = new FunctionalPath( dist, Float.MAX_VALUE, tempSides );
             tempPaths.add( newPath );
         }
@@ -233,11 +234,9 @@ public class FunctionalTrajectory {
      *            The position along the y-axis of the second point
      * @return The distance between to given points
      */
-    private float getDistance( float x1, float y1, float x2, float y2 ) {
+    public static float getDistance( float x1, float y1, float x2, float y2 ) {
 
-        double xsq = Math.pow( x1 - x2, 2 );
-        double ysq = Math.pow( y1 - y2, 2 );
-        return (float) Math.sqrt( xsq + ysq );
+         return (float) Math.sqrt( Math.pow( x1 - x2, 2 ) + Math.pow( y1 - y2, 2 ) );
     }
 
     static float getDistanceFast( float x1, float y1, float x2, float y2 ) {
@@ -282,7 +281,7 @@ public class FunctionalTrajectory {
 
         for( FunctionalPath tempPath : fullPathList ) {
             FunctionalPath newPath = new FunctionalPath( 0, Float.MAX_VALUE, new ArrayList<FunctionalSide>( ) );
-            float length = getDistanceFast( fromX, fromY, tempPath.getSides( ).get( 0 ).getEndNode( ).getX( ), tempPath.getSides( ).get( 0 ).getEndNode( ).getY( ) );
+            float length = getDistance( fromX, fromY, tempPath.getSides( ).get( 0 ).getEndNode( ).getX( ), tempPath.getSides( ).get( 0 ).getEndNode( ).getY( ) ) / tempPath.getSides( ).get( 0 ).getRealLength() * tempPath.getSides( ).get( 0 ).getLenght( );
             newPath.addSide( length, Float.MAX_VALUE, tempPath.getSides( ).get( 0 ) );
 
             float posX = fromX;
@@ -304,7 +303,8 @@ public class FunctionalTrajectory {
                         if( inBarrier( posX, posY ) )
                             end = true;
                         else if( destinationElement != null && inInfluenceArea( posX, posY ) ) {
-                            float dist = getDistanceFast( posX, posY, destinationElement.getX( ), destinationElement.getY( ) );
+//                            float dist = getDistanceFast( posX, posY, destinationElement.getX( ), destinationElement.getY( ) );
+                            float dist = 0;
                             newPath.updateUpTo( dist, posX, posY );
                             newPath.setGetsTo( true );
                             end = true;
@@ -324,8 +324,9 @@ public class FunctionalTrajectory {
                     posY = side.posY;
                 }
 
-                if( best == null )
+                if( best == null ) {
                     best = newPath;
+                }
                 else if( best.compareTo( newPath ) < 0 ) {
                     best = newPath;
                 }
