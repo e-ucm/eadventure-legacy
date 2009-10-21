@@ -274,9 +274,7 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel, Updat
             JMenuItem addChildMenuItem = new JMenuItem( TC.get( "TreeNode.AddElement" + type ) );
             addChildMenuItem.setEnabled( true );
             addChildMenuItem.addActionListener( new ActionListener( ) {
-
                 public void actionPerformed( ActionEvent arg0 ) {
-
                     Controller.getInstance( ).addTool( new AddActionTool( dataControl, type ) );
                     ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
                     table.changeSelection( table.getRowCount( ) - 1, table.getRowCount( ) - 1, false, false );
