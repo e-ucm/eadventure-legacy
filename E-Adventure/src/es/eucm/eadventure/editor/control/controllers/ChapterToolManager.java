@@ -66,12 +66,10 @@ public class ChapterToolManager {
     // METHODS TO MANAGE UNDO/REDO
 
     public boolean addTool( Tool tool ) {
-
         return addTool( true, tool );
     }
 
     public boolean addTool( boolean execute, Tool tool ) {
-
         if( localToolManagers.isEmpty( ) ) {
             boolean added = globalToolManager.addTool( execute, tool );
             if( added )
@@ -91,7 +89,6 @@ public class ChapterToolManager {
     }
 
     public void undoTool( ) {
-
         if( localToolManagers.isEmpty( ) ) {
             globalToolManager.undoTool( );
             System.out.println( "[ToolManager] Global Tool Manager: Undo Performed" );

@@ -51,8 +51,6 @@ public class ToolManager {
 
     private List<Tool> redoList;
 
-    private Tool lastUndo = null;
-
     private boolean notifyController;
 
     /**
@@ -98,7 +96,6 @@ public class ToolManager {
             Tool temp = undoList.remove( undoList.size( ) - 1 );
             boolean undone = temp.undoTool( );
             if( undone ) {
-                lastUndo = temp;
                 if( temp.canRedo( ) )
                     redoList.add( temp );
                 else

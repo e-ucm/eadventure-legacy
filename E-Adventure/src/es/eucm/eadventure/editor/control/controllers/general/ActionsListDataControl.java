@@ -230,7 +230,7 @@ public class ActionsListDataControl extends DataControl {
         }
         else if( type == Controller.ACTION_CUSTOM_INTERACT ) {
             String name = JOptionPane.showInputDialog( null, TC.get( "CustomAction.GetNameMessage" ), TC.get( "CustomAction.GetNameTitle" ), JOptionPane.QUESTION_MESSAGE );
-            if( name.equals( "" ) ) {
+            if( name == null || name.equals( "" ) ) {
                 name = "NONAME_" + ( new Random( ) ).nextInt( 1000 );
             }
 
