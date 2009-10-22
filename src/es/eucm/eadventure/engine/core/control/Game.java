@@ -1819,8 +1819,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
      */
     public void mouseDragged( MouseEvent e ) {
-
         currentState.mouseDragged( e );
+        lastMouseEvent = e;
         removeFakeDrags( e );
     }
 

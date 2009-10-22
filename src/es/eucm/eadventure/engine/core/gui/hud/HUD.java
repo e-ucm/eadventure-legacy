@@ -172,4 +172,8 @@ public abstract class HUD {
 
     public abstract boolean mouseDragged( MouseEvent e );
 
+    public void setLastMouseMove( MouseEvent e ) {
+
+    }
+
 }

@@ -204,7 +204,7 @@ public class GameStatePlaying extends GameState {
      */
     public void mouseClickedEvent( MouseEvent e ) {
 
-        if( !GUI.getInstance( ).mouseClickedInHud( e ) )
+        if(!GUI.getInstance( ).mouseClickedInHud( e ) && game.getActionManager( ).getDragElement( ) == null)
             game.getActionManager( ).mouseClicked( e );
     }
 
@@ -218,23 +218,30 @@ public class GameStatePlaying extends GameState {
 
         game.getActionManager( ).setExitCustomized( null, null );
         game.getActionManager( ).setElementOver( null );
-        if( !GUI.getInstance( ).mouseMovedinHud( e ) )
+        if( game.getActionManager( ).getDragElement() != null || !GUI.getInstance( ).mouseMovedinHud( e ) ) {
             game.getActionManager( ).mouseMoved( e );
+            if (game.getActionManager( ).getDragElement( ) != null)
+                GUI.getInstance( ).setLastMouseMove(e);
+            
+        }
     }
 
     private void mouseReleasedEvent( MouseEvent e ) {
 
-        GUI.getInstance( ).mouseReleasedinHud( e );
+        if( game.getActionManager( ).getDragElement() == null)
+            GUI.getInstance( ).mouseReleasedinHud( e );
     }
 
     private void mousePressedEvent( MouseEvent e ) {
 
-        GUI.getInstance( ).mousePressedinHud( e );
+        if( game.getActionManager( ).getDragElement() == null)
+            GUI.getInstance( ).mousePressedinHud( e );
     }
 
     private void mouseDraggedEvent( MouseEvent e ) {
 
-        GUI.getInstance( ).mouseDraggedinHud( e );
+        if( game.getActionManager( ).getDragElement() == null)
+            GUI.getInstance( ).mouseDraggedinHud( e );
     }
 
     @Override

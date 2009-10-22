@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>comment</comment>
@@ -137,6 +137,7 @@
 <entry key="ErrorReport.Title">Error report</entry>
 <entry key="Report.GenerateHTML">Generate report</entry>
 <entry key="ErrorReport.FoundException">Found exception:</entry>
+<entry key="ActionButton.Drag">Drag to..</entry>
 <entry key="Report.TextHTMLReport">The HTML report contain game information in an easy read and printing format</entry>
 <entry key="Report.BtnExamine">Examine...</entry>
 <entry key="GameText.TextSpeed">Text Speed</entry>

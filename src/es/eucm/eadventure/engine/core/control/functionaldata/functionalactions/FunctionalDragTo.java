@@ -134,7 +134,7 @@ public class FunctionalDragTo extends FunctionalAction {
                 }
                 finished = true;
             }
-        }
+        } 
     }
 
 }

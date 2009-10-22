@@ -146,6 +146,8 @@ public class ActionManager {
      */
     private HashMap<Exit, Cursor> cursors;
 
+    private FunctionalElement dragElement = null;
+
     /**
      * Constructor.
      */
@@ -281,9 +283,15 @@ public class ActionManager {
         FunctionalScene functionalScene = game.getFunctionalScene( );
         if( functionalScene == null )
             return;
-        FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), null );
+        
+        FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), dragElement );
         Exit exit = functionalScene.getExitInside( e.getX( ), e.getY( ) );
 
+        if (dragElement != null) {
+            dragElement.setX( e.getX( ) );
+            dragElement.setY( e.getY( ) );
+        }
+        
         if( elementInside != null ) {
             setElementOver( elementInside );
         }
@@ -354,6 +362,14 @@ public class ActionManager {
     public String getCustomActionName( ) {
 
         return customActionName;
+    }
+
+    public void setDragElement( FunctionalElement object ) {
+        this.dragElement  = object;
+    }
+
+    public FunctionalElement getDragElement( ) {
+        return dragElement;
     }
 
 }
