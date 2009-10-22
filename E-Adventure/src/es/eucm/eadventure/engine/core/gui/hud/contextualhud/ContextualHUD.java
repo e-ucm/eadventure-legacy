@@ -330,8 +330,7 @@ public class ContextualHUD extends HUD {
                 }
             }
             //else the inventory is not shown
-        }
-        else {
+        } else {
             //If the mouse is in the upper inventory window offset, show it 
             if( e.getY( ) > GUI.WINDOW_HEIGHT - INVENTORY_OFF_OFFSET && Game.getInstance( ).showBottomInventory( ) ) {
                 inventory.setUpperInventory( false );
@@ -513,7 +512,7 @@ public class ContextualHUD extends HUD {
                 originalDragY = draggingElement.getY( );
                 pressedElement = null;
                 pressedTime = Long.MAX_VALUE;                
-                return false;
+                return true;
          } else {
                 FunctionalScene functionalScene = game.getFunctionalScene( );
                 if( functionalScene != null ) {
@@ -527,7 +526,7 @@ public class ContextualHUD extends HUD {
                     draggingElement.setY( originalDragY - pressedY + e.getY( ) );
                 }
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -829,4 +828,9 @@ public class ContextualHUD extends HUD {
 
     private static int NUPDATES = 0;
 
+    @Override
+    public void setLastMouseMove(MouseEvent e) {
+        this.lastMouseMoved = e;
+    }
+    
 }

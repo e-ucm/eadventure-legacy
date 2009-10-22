@@ -35,6 +35,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Image;
 import java.awt.Transparency;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -577,8 +578,10 @@ public class FunctionalScene implements Renderable {
         player.update( elapsedTime );
 
         // Update the offset
-        if( updateOffset( ) && Game.getInstance( ).getLastMouseEvent( ) != null )
+        if( updateOffset( ) && Game.getInstance( ).getLastMouseEvent( ) != null && Game.getInstance( ).getLastMouseEvent( ).getID( ) != MouseEvent.MOUSE_DRAGGED )
             Game.getInstance( ).mouseMoved( Game.getInstance( ).getLastMouseEvent( ) );
+        else if( updateOffset( ) && Game.getInstance( ).getLastMouseEvent( ) != null)
+            Game.getInstance( ).mouseDragged( Game.getInstance( ).getLastMouseEvent( ) );
     }
 
     /**

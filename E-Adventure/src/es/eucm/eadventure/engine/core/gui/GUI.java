@@ -1430,4 +1430,8 @@ public abstract class GUI implements FocusListener {
         this.moveOffsetLeft = moveOffsetLeft;
     }
 
+    public void setLastMouseMove( MouseEvent e ) {
+        hud.setLastMouseMove( e );
+    }
+
 }

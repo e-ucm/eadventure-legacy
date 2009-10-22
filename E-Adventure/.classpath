@@ -6,7 +6,6 @@
 	<classpathentry kind="lib" path="jars/plugin.jar"/>
 	<classpathentry kind="lib" path="jars/tools.jar"/>
 	<classpathentry kind="lib" path="jars/tritonus_share.jar"/>
-	<classpathentry kind="lib" path="jars/truezip-6.jar" sourcepath="jars/truezip-6-src.zip"/>
 	<classpathentry kind="lib" path="jars/gnu-regexp-1.1.4.jar"/>
 	<classpathentry kind="lib" path="jars/kafenio-config.jar"/>
 	<classpathentry kind="lib" path="jars/kafenio-icons.jar"/>
@@ -23,6 +22,6 @@
 	<classpathentry kind="lib" path="jars/jl1.0.jar"/>
 	<classpathentry kind="lib" path="jars/mp3spi1.9.4.jar"/>
 	<classpathentry kind="lib" path="jars/activation.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/JVM 1.6.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

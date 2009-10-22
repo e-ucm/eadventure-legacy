@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>comment</comment>
@@ -677,7 +677,7 @@ donde XX es un múmero cualquiera.</entry>
 <entry key="Conditions.Flag.Title">Campos de la condición basada en flag</entry>
 <entry key="AdaptationProfile.NormalProfile">Perfil Normal</entry>
 <entry key="Search.LMSPropertyValue">Valor de propiedad del LMS</entry>
-<entry key="Edition.UndoRedo.Name."></entry>
+<entry key="Edition.UndoRedo.Name."/>
 <entry key="Resources.DescriptionActionAnimationLeft">Animación hacia la izquierda para cuando realiza la acción (opcional)</entry>
 <entry key="Search.SMTPPort">SMTP Port</entry>
 <entry key="MenuEdit.Undo">Deshacer</entry>
@@ -1288,11 +1288,11 @@ Por favor escribe otro nombre.</entry>
 <entry key="AssessmentRule.Title">Regla de evaluación</entry>
 <entry key="Conditions.Context.NoOwner"> Esta es la lista de condiciones: </entry>
 <entry key="LOMES.GeneralId.DescriptionName">Descripción</entry>
-<entry key="StartDialog.Recent.ColumnHeader2"></entry>
+<entry key="StartDialog.Recent.ColumnHeader2"/>
 <entry key="Operation.LoadProject">Operación: Cargando proyecto</entry>
 <entry key="Barrier.MainPanelTitle">Barrera</entry>
 <entry key="StartDialog.Recent.ColumnHeader1">Archivo</entry>
-<entry key="StartDialog.Recent.ColumnHeader0"></entry>
+<entry key="StartDialog.Recent.ColumnHeader0"/>
 <entry key="Search.EffectText">Texto del efecto</entry>
 <entry key="BackgroundAssets.Preview">Previsualización del fondo</entry>
 <entry key="NPC.DocPanelTitle">Información</entry>
