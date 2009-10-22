@@ -420,7 +420,8 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         // Start the voice
         speak( text );
         draw( );
-        talkingAnimation.setSpeakFreeTTS( text, voice );
+        if (voice!=null && !voice.equals( "" ))
+            talkingAnimation.setSpeakFreeTTS( text, voice );
     }
 
     public void stopTalking( ) {
