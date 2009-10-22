@@ -42,7 +42,6 @@ import com.sun.speech.freetts.VoiceManager;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
-import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -286,6 +285,8 @@ public class FunctionalSpeak extends FunctionalAction {
             this.deallocate = false;
             VoiceManager voiceManager = VoiceManager.getInstance( );
             voice = voiceManager.getVoice( voiceText );
+            // this call could throw a java.io.IOException if voiceText is not a valid voice (for example "")
+            // now, in the editor we only can choose a valid void or no voice. Both behaviors are controled.
             voice.allocate( );
 
         }

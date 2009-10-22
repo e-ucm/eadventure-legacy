@@ -613,8 +613,11 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         if( text != null ) {
             DebugLog.player( "Player speaks with text-to-speech" );
             FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text );
-            functionalSpeak.setSpeakFreeTTS( text, voice );
+            if (voice != null && !voice.equals( "" ))
+                functionalSpeak.setSpeakFreeTTS( text, voice );
+            
             addAction( functionalSpeak );
+            
         }
     }
 
