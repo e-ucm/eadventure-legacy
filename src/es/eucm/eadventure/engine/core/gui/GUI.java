@@ -1463,6 +1463,10 @@ public abstract class GUI implements FocusListener {
         hud.setLastMouseMove( e );
     }
 
+    public void setDragElement( FunctionalElement dragElement ) {
+
+    }
+
     
     /**
      * @return the elementsToDraw

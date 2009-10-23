@@ -364,12 +364,4 @@ public class ActionManager {
         return customActionName;
     }
 
-    public void setDragElement( FunctionalElement object ) {
-        this.dragElement  = object;
-    }
-
-    public FunctionalElement getDragElement( ) {
-        return dragElement;
-    }
-
 }

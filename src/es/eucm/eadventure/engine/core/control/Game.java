@@ -1714,7 +1714,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      *            transition in the FSM
      */
     private void removeFakeDrags( MouseEvent e ) {
-
         if( e.getID( ) == MouseEvent.MOUSE_PRESSED ) {
             state = "P";
             lastPressedEvent = e;
