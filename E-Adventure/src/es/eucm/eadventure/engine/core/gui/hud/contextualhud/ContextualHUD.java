@@ -167,6 +167,8 @@ public class ContextualHUD extends HUD {
 
     private boolean mouseReleased = false;
 
+    private boolean pressed = false;
+    
     /**
      * Function that initializa the HUD class
      */
@@ -290,63 +292,96 @@ public class ContextualHUD extends HUD {
      */
     @Override
     public boolean mouseMoved( MouseEvent e ) {
-
         boolean inHud = false;
-
-        //Reset the action overed button
-        actionButtons.mouseMoved( null );
-
-        //Propagate the event to the action buttons only if are shown
-        if( showActionButtons ) {
-            actionButtons.mouseMoved( e );
-            inHud = actionButtons.getButtonOver( ) != null;
-            //else if the inventory is shown
-        }
-        else if( showInventory ) {
-            //If the inventory is the upper window one
-            if( inventory.isUpperInventory( ) ) {
-                //The mouse event is in the inventory
-                if( e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) {
-                    //propagate the event
-                    inventory.mouseMoved( e );
-                    inHud = true;
-                    //else if the mouse is not in the inventory or its offset, hide it
-                }
-                else if( e.getY( ) > Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT + INVENTORY_ON_OFFSET ) {
-                    showInventory = false;
-                }
-                //else the inventory is the bottom window one
-            }
-            else {
-                //The mouse event is in the inventory
-                if( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y ) {
-                    //propagate the event
-                    inventory.mouseMoved( e );
-                    inHud = true;
-                    //else if the mouse is not in the inventory or its offset, hide it
-                }
-                else if( e.getY( ) < Inventory.BOTTOM_INVENTORY_PANEL_Y - INVENTORY_ON_OFFSET ) {
-                    showInventory = false;
-                }
-            }
-            //else the inventory is not shown
-        } else {
-            //If the mouse is in the upper inventory window offset, show it 
-            if( e.getY( ) > GUI.WINDOW_HEIGHT - INVENTORY_OFF_OFFSET && Game.getInstance( ).showBottomInventory( ) ) {
-                inventory.setUpperInventory( false );
-                showInventory = true;
-                //else if the mouse is in the lower inventory window offset, show it 
-            }
-            else if( e.getY( ) < INVENTORY_OFF_OFFSET && Game.getInstance( ).showTopInventory( ) ) {
-                inventory.setUpperInventory( true );
-                showInventory = true;
-            }
-        }
-
-        //update the last mouse event with this one
+        if (!pressed)
+            inHud =  moved(e);
+        if (pressed)
+            inHud = dragged(e);
+        
         lastMouseMoved = e;
 
         return inHud;
+    }
+    
+    private boolean moved(MouseEvent e) {
+        boolean inHud = false;
+
+        actionButtons.mouseMoved( null );
+        if( showActionButtons ) {
+            actionButtons.mouseMoved( e );
+            inHud = actionButtons.getButtonOver( ) != null;
+        }
+        else if( showInventory ) {
+            inHud = processInventoryMove(e, inHud);
+        } else if( e.getY( ) > GUI.WINDOW_HEIGHT - INVENTORY_OFF_OFFSET && Game.getInstance( ).showBottomInventory( ) ) {
+                inventory.setUpperInventory( false );
+                showInventory = true;
+        } else if( e.getY( ) < INVENTORY_OFF_OFFSET && Game.getInstance( ).showTopInventory( ) ) {
+                inventory.setUpperInventory( true );
+                showInventory = true;
+        }
+
+        return inHud;
+    }
+    
+    private boolean processInventoryMove(MouseEvent e, boolean inHud) {
+        if( inventory.isUpperInventory( ) ) {
+            if( e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) {
+                inventory.mouseMoved( e );
+                return true;
+            }
+            else if( e.getY( ) > Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT + INVENTORY_ON_OFFSET ) 
+                showInventory = false;
+        }
+        else {
+            if( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y ) {
+                inventory.mouseMoved( e );
+                return true;
+            }
+            else if( e.getY( ) < Inventory.BOTTOM_INVENTORY_PANEL_Y - INVENTORY_ON_OFFSET )
+                showInventory = false;
+        }
+        return inHud;
+    }
+    
+    private boolean dragged(MouseEvent e) {
+        if( System.currentTimeMillis( ) - pressedTime >= 0 && System.currentTimeMillis( ) - pressedTime <= 60000 && Math.abs( pressedX - e.getX( ) ) < 10 && Math.abs( pressedY - e.getY( ) ) < 10 )
+            return true;
+
+        if (pressedElement != null && pressedElement.canBeDragged()) {
+            return startDragging(pressedElement);
+        } else {
+            gui.setDefaultCursor( );
+            return dragElement(e);
+       }        
+    }
+    
+    public boolean startDragging(FunctionalElement pressedElement2) {
+        elementAction = pressedElement2;
+        elementInCursor = elementAction;
+        game.getActionManager( ).setActionSelected( ActionManager.ACTION_DRAG_TO );
+        game.getFunctionalPlayer( ).performActionInElement( elementAction );
+        draggingElement = pressedElement2;
+        originalDragX = draggingElement.getX( );
+        originalDragY = draggingElement.getY( );
+        pressedElement = null;
+        pressedTime = Long.MAX_VALUE;
+        pressed = true;
+        return true;
+    }
+    
+    public boolean dragElement(MouseEvent e) {
+        FunctionalScene functionalScene = game.getFunctionalScene( );
+        if( functionalScene != null ) {
+            FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), draggingElement );
+            game.getActionManager( ).setElementOver( elementInside );
+        }
+        pressedTime = Long.MAX_VALUE;
+        if (draggingElement != null) {
+            draggingElement.setX( originalDragX - pressedX + e.getX() );
+            draggingElement.setY( originalDragY - pressedY + e.getY( ) );
+        }
+        return true;
     }
 
     /*
@@ -364,6 +399,10 @@ public class ContextualHUD extends HUD {
         }
         pressedTime = Long.MAX_VALUE;
 
+        if( draggingElement != null  && game.getFunctionalPlayer( ).getCurrentAction( ).getType( ) == Action.DRAG_TO) {
+            return processDragTo(e);
+        }
+
         ActionManager actionManager = game.getActionManager( );
 
         if( e.getButton( ) != MouseEvent.BUTTON1 && e.getButton( ) != MouseEvent.BUTTON3 )
@@ -380,7 +419,7 @@ public class ContextualHUD extends HUD {
                 ( e.getClickCount( ) == 2 && System.getProperty( "os.name" ).contains( "Windows" ) ) || 
                 ( !button && actionManager.getElementOver( ) == null && elementInCursor != null ) ) {
             System.out.println( "RIGHT CLICK o similar" );
-            inHud = processRightClickNoButton( actionManager.getElementOver( ), e );
+            inHud = processRightClickNoButton( pressedElement, e );
             DebugLog.user( "Mouse click, no action button. " + e.getX( ) + " , " + e.getY( ) );
         }
 
@@ -402,7 +441,7 @@ public class ContextualHUD extends HUD {
             elementAction = null;
         }
 
-        else if( actionManager.getElementOver( ) != null ) {
+        else if( /*actionManager.getElementOver( )*/ pressedElement != null ) {
             DebugLog.user( "Mouse click over element at " + e.getX( ) + " , " + e.getY( ) );
             inHud = processElementClick( actionManager );
             System.out.println( "INHUD = " + inHud );
@@ -420,9 +459,9 @@ public class ContextualHUD extends HUD {
 
     @Override
     public boolean mousePressed( MouseEvent e ) {
-
+        pressed = true;
+        
         ActionManager actionManager = game.getActionManager( );
-
         pressedTime = System.currentTimeMillis( );
         pressedX = e.getX( );
         pressedY = e.getY( );
@@ -447,50 +486,39 @@ public class ContextualHUD extends HUD {
 
     @Override
     public boolean mouseReleased( MouseEvent e ) {
-     
-        mouseReleased = false;
+        pressed = false;
+        
+        mouseReleased = true;
         if( pressedElement == null ) {
             if( draggingElement != null  && game.getFunctionalPlayer( ).getCurrentAction( ).getType( ) == Action.DRAG_TO) {
-                game.getActionManager( ).setActionSelected( ActionManager.ACTION_DRAG_TO );
-                FunctionalScene functionalScene = game.getFunctionalScene( );
-                if( functionalScene == null ) {
-                    clearDraggingElement();
-                    return false;
-                }
-                FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), draggingElement );
-
-                game.getFunctionalPlayer( ).performActionInElement( elementInside );
-                elementInCursor = null;
-                gui.setDefaultCursor( );
-                mouseReleased = true;
-                clearDraggingElement();
-                return true;
+                return processDragTo(e);
             }
-            pressedTime = Long.MAX_VALUE;
-            clearDraggingElement();
-            return false;
+            mouseReleased = false;
+            return true;
         }
 
         pressedTime = System.currentTimeMillis( ) - pressedTime;
-
+        System.out.println("" + pressedTime);
+        
         DebugLog.user( "Mouse released after " + pressedTime );
 
-        
         if( pressedTime >= 800 && pressedTime < 60000 ) {
             if( Math.abs( pressedX - e.getX( ) ) < 20 && Math.abs( pressedY - e.getY( ) ) < 20 ) {
                 processRightClickNoButton( pressedElement, e );
-                mouseReleased = true;
                 pressedTime = Long.MAX_VALUE;
                 return true;
             }
         }
-        else if( pressedTime < 600 ) {
-            if( Math.abs( pressedX - e.getX( ) ) < 30 && Math.abs( pressedY - e.getY( ) ) < 30 && pressedX != e.getX( ) && pressedY != e.getY( ) ) {
-                System.out.println( "Emulate left click" );
+        else if( pressedTime >= 0 && pressedTime < 600 ) {
+            if( Math.abs( pressedX - e.getX( ) ) < 30 && Math.abs( pressedY - e.getY( ) ) < 30 /*&& pressedX != e.getX( ) && pressedY != e.getY( )*/ ) {
                 mouseReleased = false;
                 pressedTime = Long.MAX_VALUE;
-                MouseEvent d = new MouseEvent( e.getComponent( ), e.getID( ), e.getWhen( ), e.getModifiers( ), pressedX, pressedY, e.getXOnScreen( ), e.getYOnScreen( ), 1, false, MouseEvent.BUTTON1 );
-                return this.mouseClicked( d );
+                if (pressedTime >= 80 && pressedX != e.getX( ) && pressedY != e.getY( )) {
+                    System.out.println( "Emulate left click" );
+                    MouseEvent d = new MouseEvent( e.getComponent( ), e.getID( ), e.getWhen( ), e.getModifiers( ), pressedX, pressedY, e.getXOnScreen( ), e.getYOnScreen( ), 1, false, MouseEvent.BUTTON1 );
+                    return this.mouseClicked( d );
+                }
+                return true;
             }
         }
 
@@ -499,39 +527,33 @@ public class ContextualHUD extends HUD {
         return false;
     }
 
-    @Override
-    public boolean mouseDragged( MouseEvent e ) {
-        if( System.currentTimeMillis( ) - pressedTime >= 0 && System.currentTimeMillis( ) - pressedTime <= 800 && Math.abs( pressedX - e.getX( ) ) < 20 && Math.abs( pressedY - e.getY( ) ) < 20 )
-             return true;
-        if (pressedElement != null && pressedElement.canBeDragged()) {
-                elementAction = pressedElement;
-                elementInCursor = elementAction;
-                // TODO: set specific cursor for dragging
-                // gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ( (FunctionalItem) elementInCursor ).getIconImage( ), new Point( 5, 5 ), "elementInCursor" ) );
-                game.getActionManager( ).setActionSelected( ActionManager.ACTION_DRAG_TO );
-                game.getFunctionalPlayer( ).performActionInElement( elementAction );
-                draggingElement = pressedElement;
-                originalDragX = draggingElement.getX( );
-                originalDragY = draggingElement.getY( );
-                pressedElement = null;
-                pressedTime = Long.MAX_VALUE;                
-                return true;
-         } else {
-                FunctionalScene functionalScene = game.getFunctionalScene( );
-                if( functionalScene != null ) {
-                    FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), draggingElement );
-                    game.getActionManager( ).setElementOver( elementInside );
-                }
-                lastMouseMoved = e;
-                pressedTime = Long.MAX_VALUE;
-                if (draggingElement != null) {
-                    draggingElement.setX( originalDragX - pressedX + e.getX() );
-                    draggingElement.setY( originalDragY - pressedY + e.getY( ) );
-                }
+    private boolean processDragTo( MouseEvent e ) {
+        game.getActionManager( ).setActionSelected( ActionManager.ACTION_DRAG_TO );
+        FunctionalScene functionalScene = game.getFunctionalScene( );
+        if( functionalScene == null ) {
+            clearDraggingElement();
+            return false;
         }
+        FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), draggingElement );
+        
+        if (elementInside == null)
+            game.getFunctionalPlayer( ).cancelActions( );
+        else
+            game.getFunctionalPlayer( ).performActionInElement( elementInside );
+        elementInCursor = null;
+        gui.setDefaultCursor( );
+        pressedTime = Long.MAX_VALUE;
+        clearDraggingElement();
         return true;
     }
 
+    @Override
+    public boolean mouseDragged( MouseEvent e ) {
+        return true;
+    }
+
+    
+    
     @Override
     public boolean keyTyped( KeyEvent e ) {
 
@@ -565,7 +587,7 @@ public class ContextualHUD extends HUD {
                 actionManager.setActionSelected( ActionManager.ACTION_DRAG_TO );
             }
             else {
-                if( actionManager.getElementOver( ).canPerform( ActionManager.ACTION_GIVE_TO ) ) {
+                if( pressedElement.canPerform( ActionManager.ACTION_GIVE_TO ) ) {
                     actionManager.setActionSelected( ActionManager.ACTION_GIVE );
                     game.getFunctionalPlayer( ).performActionInElement( elementInCursor );
                     actionManager.setActionSelected( ActionManager.ACTION_GIVE_TO );
@@ -576,13 +598,13 @@ public class ContextualHUD extends HUD {
                     actionManager.setActionSelected( ActionManager.ACTION_USE_WITH );
                 }
             }
-            game.getFunctionalPlayer( ).performActionInElement( actionManager.getElementOver( ) );
+            game.getFunctionalPlayer( ).performActionInElement( pressedElement );
             elementInCursor = null;
             gui.setDefaultCursor( );
         }
         else {
             actionManager.setActionSelected( ActionManager.ACTION_LOOK );
-            game.getFunctionalPlayer( ).performActionInElement( actionManager.getElementOver( ) );
+            game.getFunctionalPlayer( ).performActionInElement( pressedElement );
         }
         return true;
     }
@@ -655,10 +677,11 @@ public class ContextualHUD extends HUD {
                 break;
             case ActionButton.DRAG_BUTTON:
                 elementInCursor = elementAction;
-                // TODO: set the specific cursor for dragging
-                //gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ( (FunctionalItem) elementInCursor ).getIconImage( ), new Point( 5, 5 ), "elementInCursor" ) );
-                actionManager.setActionSelected( ActionManager.ACTION_DRAG_TO );
-                game.getFunctionalPlayer( ).performActionInElement( elementAction );
+                this.startDragging( elementInCursor );
+                this.draggingElement.setX( pressedX );
+                this.draggingElement.setY( pressedY + this.draggingElement.getHeight( ) / 2);
+                pressedX = (int) this.originalDragX;
+                pressedY = (int) this.originalDragY - this.draggingElement.getHeight( ) / 2;
                 break;
             case ActionButton.CUSTOM_BUTTON:
                 if( actionButtons.getButtonPressed( ).getCustomAction( ).getType( ) == Action.CUSTOM ) {

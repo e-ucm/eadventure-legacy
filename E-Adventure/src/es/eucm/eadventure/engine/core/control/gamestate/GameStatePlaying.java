@@ -38,6 +38,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.chapter.Exit;
@@ -52,14 +54,14 @@ public class GameStatePlaying extends GameState {
     /**
      * List of mouse events.
      */
-    private ArrayList<MouseEvent> vMouse;
+    private Queue<MouseEvent> vMouse;
 
     /**
      * Constructor.
      */
     public GameStatePlaying( ) {
         super( );
-        vMouse = new ArrayList<MouseEvent>( );
+        vMouse = new ConcurrentLinkedQueue<MouseEvent>( );
     }
 
     /*
@@ -69,19 +71,26 @@ public class GameStatePlaying extends GameState {
     @Override
     public synchronized void mainLoop( long elapsedTime, int fps ) {
  
+
         // Process the mouse events
-        while( vMouse.size( ) > 0 ) {
-            if( vMouse.get( 0 ).getID( ) == MouseEvent.MOUSE_CLICKED )
-                mouseClickedEvent( vMouse.get( 0 ) );
-            else if( vMouse.get( 0 ).getID( ) == MouseEvent.MOUSE_MOVED )
-                mouseMovedEvent( vMouse.get( 0 ) );
-            else if( vMouse.get( 0 ).getID( ) == MouseEvent.MOUSE_PRESSED )
-                mousePressedEvent( vMouse.get( 0 ) );
-            else if( vMouse.get( 0 ).getID( ) == MouseEvent.MOUSE_RELEASED )
-                mouseReleasedEvent( vMouse.get( 0 ) );
-            else if( vMouse.get( 0 ).getID( ) == MouseEvent.MOUSE_DRAGGED )
-                mouseDraggedEvent( vMouse.get( 0 ) );
-            vMouse.remove( 0 );
+        MouseEvent e;
+        while( (e = vMouse.poll( )) != null ) {
+            switch (e.getID( )) {
+                case MouseEvent.MOUSE_CLICKED:
+                    mouseClickedEvent( e );
+                    break;
+                case MouseEvent.MOUSE_MOVED:
+                    mouseMovedEvent( e );
+                    break;
+                case MouseEvent.MOUSE_PRESSED:
+                    mousePressedEvent( e );
+                    break;
+                case MouseEvent.MOUSE_RELEASED:
+                    mouseReleasedEvent( e );
+                    break;
+                case MouseEvent.MOUSE_DRAGGED:
+                    mouseMovedEvent( e );
+            }
         }
 
         // Update the time elapsed in the functional scene and in the GUI
@@ -186,7 +195,7 @@ public class GameStatePlaying extends GameState {
 
     @Override
     public synchronized void mouseReleased( MouseEvent e ) {
-
+       
         vMouse.add( e );
     }
 
@@ -203,8 +212,7 @@ public class GameStatePlaying extends GameState {
      *            Mouse event
      */
     public void mouseClickedEvent( MouseEvent e ) {
-
-        if(!GUI.getInstance( ).mouseClickedInHud( e ) && game.getActionManager( ).getDragElement( ) == null)
+        if(!GUI.getInstance( ).mouseClickedInHud( e ))
             game.getActionManager( ).mouseClicked( e );
     }
 
@@ -215,33 +223,20 @@ public class GameStatePlaying extends GameState {
      *            Mouse event
      */
     public void mouseMovedEvent( MouseEvent e ) {
-
         game.getActionManager( ).setExitCustomized( null, null );
         game.getActionManager( ).setElementOver( null );
-        if( game.getActionManager( ).getDragElement() != null || !GUI.getInstance( ).mouseMovedinHud( e ) ) {
+
+        if(!GUI.getInstance( ).mouseMovedinHud( e ) ) {
             game.getActionManager( ).mouseMoved( e );
-            if (game.getActionManager( ).getDragElement( ) != null)
-                GUI.getInstance( ).setLastMouseMove(e);
-            
         }
     }
 
     private void mouseReleasedEvent( MouseEvent e ) {
-
-        if( game.getActionManager( ).getDragElement() == null)
-            GUI.getInstance( ).mouseReleasedinHud( e );
+        GUI.getInstance( ).mouseReleasedinHud( e );
     }
 
     private void mousePressedEvent( MouseEvent e ) {
-
-        if( game.getActionManager( ).getDragElement() == null)
-            GUI.getInstance( ).mousePressedinHud( e );
-    }
-
-    private void mouseDraggedEvent( MouseEvent e ) {
-
-        if( game.getActionManager( ).getDragElement() == null)
-            GUI.getInstance( ).mouseDraggedinHud( e );
+        GUI.getInstance( ).mousePressedinHud( e );
     }
 
     @Override

@@ -444,13 +444,11 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                     popAction();
                     if (nextAction != null && element != null && nextAction instanceof FunctionalDragTo) {
                         ((FunctionalDragTo) nextAction).setAnotherElement(element);
-                        game.getActionManager( ).setDragElement(null);
                     }
                 }
                 else {
                     nextAction = new FunctionalDragTo( element );
                     game.getActionManager( ).setActionSelected( ActionManager.ACTION_DRAG_TO );
-                    game.getActionManager( ).setDragElement(element);
                 }
                 break;
             case ActionManager.ACTION_CUSTOM:
