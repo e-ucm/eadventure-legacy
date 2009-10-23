@@ -39,6 +39,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
@@ -673,16 +674,19 @@ public class FunctionalScene implements Renderable {
      * @return the element in the given position
      */
     public FunctionalElement getElementInside( int x, int y, FunctionalElement exclude ) {
-
+    
         FunctionalElement element = null;
         if( isInsideOffsetArrow( x, y ) )
             return null;
 
-        Iterator<FunctionalItem> ito = items.iterator( );
-        while( ito.hasNext( ) && element == null ) {
-            FunctionalItem currentItem = ito.next( );
-            if( currentItem != exclude && currentItem.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
-                element = currentItem;
+           
+           List<FunctionalElement> er = GUI.getInstance( ).getElementsToInteract( ); 
+           int i=er.size( )-1; 
+           while( i>=0 && element == null ) {
+            FunctionalElement currentElement = er.get( i );
+            i--;
+            if( currentElement != exclude && currentElement.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
+                element = currentElement;
         }
 
         Iterator<FunctionalActiveArea> ita = areas.iterator( );
@@ -692,12 +696,12 @@ public class FunctionalScene implements Renderable {
                 element = currentActiveArea;
         }
 
-        Iterator<FunctionalNPC> itp = npcs.iterator( );
+      /*  Iterator<FunctionalNPC> itp = npcs.iterator( );
         while( itp.hasNext( ) && element == null ) {
             FunctionalNPC currentNPC = itp.next( );
             if( currentNPC != exclude && currentNPC.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
                 element = currentNPC;
-        }
+        }*/
         
         return element;
     }

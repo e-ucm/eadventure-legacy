@@ -124,7 +124,8 @@ public class FunctionalMoveObjectEffect extends FunctionalEffect {
         if ((initialX < moveObjectEffect.getX( ) && newX > moveObjectEffect.getX( )) ||
                 (initialX > moveObjectEffect.getX( ) && newX < moveObjectEffect.getX()) ||
                 (initialY < moveObjectEffect.getY( ) && newY > moveObjectEffect.getY( )) ||
-                (initialY > moveObjectEffect.getY( ) && newY < moveObjectEffect.getY())) {
+                (initialY > moveObjectEffect.getY( ) && newY < moveObjectEffect.getY()) ||
+                 (initialX==moveObjectEffect.getX( ) && initialY == moveObjectEffect.getY( ) )) {
             newX = moveObjectEffect.getX( );
             newY = moveObjectEffect.getY( );
             newScale = moveObjectEffect.getScale( );
