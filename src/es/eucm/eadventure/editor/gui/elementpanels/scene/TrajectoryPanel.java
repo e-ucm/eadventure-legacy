@@ -120,6 +120,8 @@ public class TrajectoryPanel extends JPanel implements Updateable {
     private void changePanel( ) {
 
         if( useTrajectoryRadioButton.isSelected( ) ) {
+            if (tep != null)
+                remove( tep );
             tep = new TrajectoryEditionPanel( scenePath, dataControl );
             spep = tep.getScenePreviewEditionPanel( );
             fillSpep( );
