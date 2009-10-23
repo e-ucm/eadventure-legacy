@@ -273,14 +273,14 @@ public class FunctionalItem extends FunctionalElement {
                 oldScale = scale;
             }
             if( layer == -1 )
-                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ), highlight );
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ), highlight, this );
             else
-                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ), highlight );
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ), highlight, this );
         }
         else if( layer == -1 )
-            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round( y ), highlight );
+            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round( y ), highlight, this  );
         else
-            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round( y ), highlight );
+            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round( y ), highlight, this  );
     }
 
     @Override

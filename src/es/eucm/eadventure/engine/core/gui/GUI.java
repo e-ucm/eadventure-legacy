@@ -55,10 +55,12 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
 import es.eucm.eadventure.engine.core.control.TimerManager;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalhighlights.FunctionalHighlight;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 
@@ -167,6 +169,12 @@ public abstract class GUI implements FocusListener {
     private boolean moveOffsetRight = false;
 
     private boolean moveOffsetLeft = false;
+    
+    /**
+     * This attribute store the interactive elements (which can be painted) in the same order
+     * that they will be painted.
+     */
+    private List<FunctionalElement> elementsToInteract = null;
 
     /**
      * Return the GUI instance. GUI is a singleton class.
@@ -712,6 +720,14 @@ public abstract class GUI implements FocusListener {
             transition.update( g );
         }
     }
+    
+    private void recalculateInteractiveElementsOrder(){
+        elementsToInteract = new ArrayList<FunctionalElement>();
+        for (ElementImage ei:elementsToDraw){
+            if (ei.getFunctionalElement( )!=null)
+            elementsToInteract.add( ei.getFunctionalElement( ) );
+        }
+    }
 
     public void drawToGraphics( Graphics2D g ) {
         if( background != null ) {
@@ -721,6 +737,7 @@ public abstract class GUI implements FocusListener {
  
         for( ElementImage element : elementsToDraw )
             element.draw( g );
+        recalculateInteractiveElementsOrder();
         elementsToDraw.clear( );
 
  
@@ -913,13 +930,13 @@ public abstract class GUI implements FocusListener {
      * @param depth
      *            Depth of the image
      */
-    public void addElementToDraw( Image image, int x, int y, int depth, int originalY, FunctionalHighlight highlight ) {
+    public void addElementToDraw( Image image, int x, int y, int depth, int originalY, FunctionalHighlight highlight, FunctionalElement fe ) {
 
         boolean added = false;
         int i = 0;
 
         // Create the image to store it 
-        ElementImage element = new ElementImage( image, x, y, depth, originalY, highlight );
+        ElementImage element = new ElementImage( image, x, y, depth, originalY, highlight, fe );
 
         // While the element has not been added, and
         // we haven't checked every previous element
@@ -1187,6 +1204,8 @@ public abstract class GUI implements FocusListener {
 
         private FunctionalHighlight highlight;
         
+        private FunctionalElement functionalElement;
+        
         /**
          * Constructor of the class
          * 
@@ -1208,9 +1227,10 @@ public abstract class GUI implements FocusListener {
             this.highlight = null;
         }
         
-        public ElementImage( Image image, int x, int y, int depth, int originalY, FunctionalHighlight highlight) {
+        public ElementImage( Image image, int x, int y, int depth, int originalY, FunctionalHighlight highlight, FunctionalElement fe) {
             this(image, x, y, depth, originalY);
             this.highlight = highlight;
+            this.functionalElement = fe;
         }
 
         /**
@@ -1265,6 +1285,15 @@ public abstract class GUI implements FocusListener {
         public int getOriginalY( ) {
 
             return originalY;
+        }
+
+        
+        /**
+         * @return the functionalElement
+         */
+        public FunctionalElement getFunctionalElement( ) {
+        
+            return functionalElement;
         }
     }
 
@@ -1432,6 +1461,24 @@ public abstract class GUI implements FocusListener {
 
     public void setLastMouseMove( MouseEvent e ) {
         hud.setLastMouseMove( e );
+    }
+
+    
+    /**
+     * @return the elementsToDraw
+     */
+    public ArrayList<ElementImage> getElementsToDraw( ) {
+    
+        return elementsToDraw;
+    }
+
+    
+    /**
+     * @return the elementsToInteract
+     */
+    public List<FunctionalElement> getElementsToInteract( ) {
+    
+        return elementsToInteract;
     }
 
 }

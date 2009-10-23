@@ -530,7 +530,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
             if( layer == Scene.PLAYER_WITHOUT_LAYER || layer == Scene.PLAYER_NO_ALLOWED )
                 GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round( y ) );
             else
-                GUI.getInstance( ).addElementToDraw( image, realX, realY, layer, Math.round( y ), null );
+                GUI.getInstance( ).addElementToDraw( image, realX, realY, layer, Math.round( y ), null, null );
         }
         if( getCurrentAction( ).isStarted( ) && !getCurrentAction( ).isFinished( ) )
             getCurrentAction( ).drawAditionalElements( );

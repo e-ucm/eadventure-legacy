@@ -127,28 +127,10 @@ public class NPCDialogPanel extends JPanel {
         // Create ComboBox for select the voices
         String[] voices = availableVoices( );
         // alan voice doesn't work
-        String[] usefullVoices = new String[ voices.length - 1 ];
-        int j = 0;
-        boolean hasAlan = false;
-        for( int k = 0; k < voices.length; k++ ) {
-            if( k <= usefullVoices.length ) {
-                if( !voices[k].equals( "alan" ) ) {
-                    usefullVoices[j] = voices[k];
-                    j++;
-                }
-                else {
-                    hasAlan = true;
-                }
-            }
-        }
-        if( !hasAlan ) {
+     
             voicesComboBox = new JComboBox( voices );
             checkVoices = voices;
-        }
-        else {
-            voicesComboBox = new JComboBox( usefullVoices );
-            checkVoices = usefullVoices;
-        }
+       
         voicesComboBox.addItemListener( new VoiceComboBoxListener( ) );
         if( dataControl.getVoice( ) != null ) {
             for( int i = 1; i < checkVoices.length; i++ )
@@ -291,7 +273,7 @@ public class NPCDialogPanel extends JPanel {
      *         text
      */
     private String[] availableVoices( ) {
-
+        System.setProperty( "freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory" );
         VoiceManager voiceManager = VoiceManager.getInstance( );
         Voice[] availableVoices = voiceManager.getVoices( );
         String[] voiceName = new String[ availableVoices.length + 1 ];

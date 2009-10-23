@@ -306,9 +306,9 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     public void draw( ) {
 
         if( layer == -1 )
-            currentState.draw( Math.round( x ), Math.round( y ), scale, -1 );
+            currentState.draw( Math.round( x ), Math.round( y ), scale, -1, this );
         else
-            currentState.draw( Math.round( x ), Math.round( y ), scale, layer );
+            currentState.draw( Math.round( x ), Math.round( y ), scale, layer, this );
     }
 
     /*

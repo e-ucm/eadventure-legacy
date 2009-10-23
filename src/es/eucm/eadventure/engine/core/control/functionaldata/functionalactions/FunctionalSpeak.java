@@ -280,7 +280,7 @@ public class FunctionalSpeak extends FunctionalAction {
         private boolean deallocate;
 
         public TTask( String voiceText, String text ) {
-
+            System.setProperty( "freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory" );
             this.text = text;
             this.deallocate = false;
             VoiceManager voiceManager = VoiceManager.getInstance( );

@@ -39,13 +39,14 @@ import java.util.TimerTask;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
-import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.control.Options;
-import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.Options;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
@@ -188,9 +189,9 @@ public class NPCTalking extends NPCState {
     }
 
     @Override
-    public void draw( int x, int y, float scale, int depth ) {
+    public void draw( int x, int y, float scale, int depth, FunctionalElement fe) {
 
-        super.draw( x, y, scale, depth );
+        super.draw( x, y, scale, depth, fe );
         // If there is a line to speak, draw it
         if( text.length >= 1 && !text[0].equals( "" ) ) {
             if( npc.getShowsSpeechBubbles( ) )

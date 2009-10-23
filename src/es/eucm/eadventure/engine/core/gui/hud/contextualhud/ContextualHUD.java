@@ -376,7 +376,9 @@ public class ContextualHUD extends HUD {
                 button = true;
         }
 
-        if( ( !button && e.getButton( ) == MouseEvent.BUTTON3 && elementInCursor == null ) || ( e.getClickCount( ) == 2 && System.getProperty( "os.name" ).contains( "Windows" ) ) || ( !button && actionManager.getElementOver( ) == null && elementInCursor != null ) ) {
+        if( ( !button && e.getButton( ) == MouseEvent.BUTTON3 && elementInCursor == null ) || 
+                ( e.getClickCount( ) == 2 && System.getProperty( "os.name" ).contains( "Windows" ) ) || 
+                ( !button && actionManager.getElementOver( ) == null && elementInCursor != null ) ) {
             System.out.println( "RIGHT CLICK o similar" );
             inHud = processRightClickNoButton( actionManager.getElementOver( ), e );
             DebugLog.user( "Mouse click, no action button. " + e.getX( ) + " , " + e.getY( ) );
@@ -392,7 +394,8 @@ public class ContextualHUD extends HUD {
             }
         }
 
-        else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
+        else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || 
+                e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
             DebugLog.user( "Mouse click in inventory" );
             inHud = processInventoryClick( actionManager, e );
             showActionButtons = false;

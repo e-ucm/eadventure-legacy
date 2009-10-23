@@ -41,6 +41,7 @@ import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -166,7 +167,7 @@ public abstract class AnimationState {
      * @param depth
      *            Position where will be drawn
      */
-    public void draw( int x, int y, float scale, int depth ) {
+    public void draw( int x, int y, float scale, int depth, FunctionalElement fe ) {
 
         Image image = getCurrentAnimation( ).getImage( );
         int realX = (int) ( x - ( image.getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ) );
@@ -192,7 +193,7 @@ public abstract class AnimationState {
         if( depth == Scene.PLAYER_WITHOUT_LAYER || depth == Scene.PLAYER_NO_ALLOWED )
             GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round( y ) );
         else
-            GUI.getInstance( ).addElementToDraw( image, realX, realY, depth, Math.round( y ), null );
+            GUI.getInstance( ).addElementToDraw( image, realX, realY, depth, Math.round( y ), null , fe);
     }
 
     /**

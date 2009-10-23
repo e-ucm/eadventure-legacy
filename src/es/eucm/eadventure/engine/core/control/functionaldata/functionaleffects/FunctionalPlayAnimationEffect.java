@@ -99,7 +99,7 @@ public class FunctionalPlayAnimationEffect extends FunctionalEffect {
 
     public void draw( Graphics2D g ) {
 
-        GUI.getInstance( ).addElementToDraw( animation.getImage( ), Math.round( ( (PlayAnimationEffect) effect ).getX( ) - ( animation.getImage( ).getWidth( null ) / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), Math.round( ( (PlayAnimationEffect) effect ).getY( ) - ( animation.getImage( ).getHeight( null ) / 2 ) ), Math.round( ( (PlayAnimationEffect) effect ).getY( ) ), Math.round( ( (PlayAnimationEffect) effect ).getY( ) ), null );
+        GUI.getInstance( ).addElementToDraw( animation.getImage( ), Math.round( ( (PlayAnimationEffect) effect ).getX( ) - ( animation.getImage( ).getWidth( null ) / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), Math.round( ( (PlayAnimationEffect) effect ).getY( ) - ( animation.getImage( ).getHeight( null ) / 2 ) ), Math.round( ( (PlayAnimationEffect) effect ).getY( ) ), Math.round( ( (PlayAnimationEffect) effect ).getY( ) ), null, null );
     }
 
 }
