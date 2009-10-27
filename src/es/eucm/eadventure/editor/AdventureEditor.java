@@ -33,6 +33,8 @@
  */
 package es.eucm.eadventure.editor;
 
+//Prueba
+
 import javax.media.Codec;
 import javax.media.Format;
 import javax.media.PlugInManager;
