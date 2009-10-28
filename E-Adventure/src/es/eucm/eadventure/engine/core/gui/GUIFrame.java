@@ -66,10 +66,17 @@ import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 public class GUIFrame extends GUI implements FocusListener {
 
-    /*
+    /**
      * The frame to keep the screen black behind the game
      */
     private JFrame bkgFrame;
+    
+    /**
+     * The special layout for the bkgFrame. It has two different behaviors, at the programmer's hand:
+     * 1) Maximize the size of the component embedded in bkgFrame to fit all the window
+     * 2) Maximize the size of the component, but respects a specific width/height ratio. That is essential for displaying videos. 
+     */
+    private GUILayout guiLayout;
 
     private static DisplayMode originalDisplayMode;
 
@@ -151,7 +158,10 @@ public class GUIFrame extends GUI implements FocusListener {
 
         bkgFrame.setBackground( Color.BLACK );
         bkgFrame.setForeground( Color.BLACK );
-        bkgFrame.setLayout( new GUILayout( ) );//new BorderLayout());
+        
+        guiLayout = new GUILayout( );
+        
+        bkgFrame.setLayout( guiLayout );//new BorderLayout());
 
         gameFrame = new Canvas( );
         background = null;
@@ -323,6 +333,61 @@ public class GUIFrame extends GUI implements FocusListener {
 
     private class GUILayout implements LayoutManager {
 
+        /**
+         * Constant for behavior 1. The layout will maximize the size of the component embedded in bkgFrame to fit all the window,
+         * using all the available space (some exceptions may apply in debugging mode so other panels are also allocated the appropriate space).
+         */
+        public static final int MODE_USE_ALL_WINDOW = 0;
+        
+        /**
+         * Constant for behavior 2. Maximize the size of the component, but respects a specific width/height ratio. That is essential for displaying videos.
+         *  (some exceptions may apply in debugging mode so other panels are also allocated the appropriate space).
+         */
+        public static final int MODE_RESPECT_WHRATIO = 1;
+        
+        /**
+         * The current mode in use
+         * @see {@link #MODE_RESPECT_WHRATIO}, {@link #MODE_USE_ALL_WINDOW}
+         */
+        private int mode;
+        
+        
+        /**
+         * The width/height ratio that should be respected when setting the size of the component contained in bkgFrame.
+         * This param. will only be used if mode == MODE_RESPECT_WHRATIO
+         */
+        private int fixedWidth;
+        
+        private int fixedHeight;
+        
+        public void setFixedSize(int w, int h){
+            this.fixedHeight = h;
+            this.fixedWidth = w;
+        }
+        
+        public GUILayout(){
+            // Default mode
+            this.mode = MODE_USE_ALL_WINDOW;
+        }
+        
+        /**
+         * Sets the current behavior
+         * @param mode Accepted values: {@link #MODE_RESPECT_WHRATIO}, {@link #MODE_USE_ALL_WINDOW}
+         */
+        public void setMode( int mode ){
+            if ( mode == MODE_USE_ALL_WINDOW || mode ==MODE_RESPECT_WHRATIO ){
+                this.mode = mode;
+            }
+        }
+        
+        /**
+         * Returns the current behavior
+         * @return {@link #MODE_RESPECT_WHRATIO} or {@link #MODE_USE_ALL_WINDOW}
+         */
+        public int getMode ( ){
+            return mode;
+        }
+        
         public void addLayoutComponent( String arg0, Component arg1 ) {
 
         }
@@ -335,19 +400,30 @@ public class GUIFrame extends GUI implements FocusListener {
                 if( bkgFrame != null ) {
                     int posX = ( screenSize.width - GUI.WINDOW_WIDTH ) / 2 - (int) bkgFrame.getLocation( ).getX( );
                     int posY = ( screenSize.height - GUI.WINDOW_HEIGHT ) / 2 - (int) bkgFrame.getLocation( ).getY( );
+                    
+                    // New Lines //
+                    int w = GUI.WINDOW_WIDTH;
+                    int h = GUI.WINDOW_HEIGHT;
+                    if ( mode == MODE_RESPECT_WHRATIO ){
+                        w = fixedWidth;
+                        h = fixedHeight;
+                        posX = ( screenSize.width - w ) / 2 - (int) bkgFrame.getLocation( ).getX( );
+                        posY = ( screenSize.height - h ) / 2 - (int) bkgFrame.getLocation( ).getY( );
+                    }
+                    
                     if( Game.getInstance( ).isDebug( ) ) {
-                        posX = ( screenSize.width - GUI.WINDOW_WIDTH );
+                        posX = ( screenSize.width - w );
                         posY = ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 );
                     }
 
                     if( components[i] instanceof DebugLogPanel ) {
-                        components[i].setBounds( 0, GUI.WINDOW_HEIGHT + ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ), screenSize.width, screenSize.height - GUI.WINDOW_HEIGHT - ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ) );
+                        components[i].setBounds( 0, h + ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ), screenSize.width, screenSize.height - h - ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ) );
                     }
                     else if( components[i] instanceof DebugValuesPanel ) {
-                        components[i].setBounds( 0, ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ), screenSize.width - GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
+                        components[i].setBounds( 0, ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ), screenSize.width - w, h );
                     }
                     else
-                        components[i].setBounds( posX, posY, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
+                        components[i].setBounds( posX, posY, w, h );
                 }
                 else {
                     components[i].setLocation( 0, 0 );
@@ -369,5 +445,11 @@ public class GUIFrame extends GUI implements FocusListener {
         public void removeLayoutComponent( Component arg0 ) {
 
         }
+    }
+
+    @Override
+    public JFrame showComponent( Component component, int w, int h ) {
+        guiLayout.setFixedSize( w, h );
+        return showComponent (component);
     }
 }
