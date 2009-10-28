@@ -161,4 +161,10 @@ public class GUIApplet extends GUI {
         applet = adventureApplet;
     }
 
+    @Override
+    public JFrame showComponent( Component component, int w, int h ) {
+        //TODO To implement
+        return showComponent (component);
+    }
+
 }

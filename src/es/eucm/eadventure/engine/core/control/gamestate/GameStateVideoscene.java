@@ -120,10 +120,22 @@ public class GameStateVideoscene extends GameState implements ControllerListener
             Manager.setHint( Manager.LIGHTWEIGHT_RENDERER, true );
             video = mediaPlayer.getVisualComponent( );
 
+            /*
+             * To keep original width/height rate 
+             */
+            int w=video.getPreferredSize( ).width;
+            
+            int h=video.getPreferredSize( ).height;
+            //int w=0; int h=0;
+            
             if( video != null ) {
                 video.addMouseListener( Game.getInstance( ) );
                 //GUI.getInstance( ).getFrame( ).removeAll( );
-                GUI.getInstance( ).showComponent( video );
+                if ( w>0 && h>0 ){
+                    GUI.getInstance( ).showComponent( video, w, h );
+                } else { 
+                    GUI.getInstance( ).showComponent( video );
+                }
                 ////GUI.getInstance( ).getFrame( ).add( video, BorderLayout.CENTER );
                 //GUI.getInstance( ).getFrame( ).createBufferStrategy( 1 );
                 //GUI.getInstance( ).getFrame( ).validate( );

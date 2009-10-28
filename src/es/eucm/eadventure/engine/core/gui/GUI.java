@@ -224,6 +224,8 @@ public abstract class GUI implements FocusListener {
      * @return
      */
     public abstract JFrame showComponent( Component component );
+    
+    public abstract JFrame showComponent( Component component, int w, int h );
 
     /**
      * Restores the frame to its original state after displaying a Swing or AWT
