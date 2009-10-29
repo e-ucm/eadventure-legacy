@@ -176,7 +176,23 @@ public class GUIApplet extends GUI {
         this.component.setForeground( Color.BLACK );
         ((JPanel) this.component).setLayout( null );
         ((JPanel) this.component).add( component );
-        component.setBounds(0,0, w, h);
+        
+        int fixedWidth = w;
+        int fixedHeight = h;
+        w = GUI.WINDOW_WIDTH;
+        h = GUI.WINDOW_HEIGHT;
+        if (fixedWidth / fixedHeight >= w / h) {
+            w = GUI.WINDOW_WIDTH;
+            h = (int) ((float) fixedHeight / (float) fixedWidth * GUI.WINDOW_WIDTH);
+        } else {
+            h = GUI.WINDOW_HEIGHT;
+            w = (int) ((float) fixedWidth / (float) fixedHeight * GUI.WINDOW_HEIGHT);
+        }
+        
+        int posX = ( GUI.WINDOW_WIDTH - w ) / 2;
+        int posY = ( GUI.WINDOW_HEIGHT - h ) / 2;
+
+        component.setBounds(posX,posY, w, h);
         applet.add( component );
         applet.validate( );
         component.repaint( );
