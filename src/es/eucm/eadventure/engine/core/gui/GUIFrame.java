@@ -411,11 +411,11 @@ public class GUIFrame extends GUI implements FocusListener {
                     int h = GUI.WINDOW_HEIGHT;
                     if ( mode == MODE_RESPECT_WHRATIO ){
                         if (fixedWidth / fixedHeight >= w / h) {
-                            w = 800;
-                            h = (int) ((float) fixedHeight / (float) fixedWidth * 800.0f);
+                            w = GUI.WINDOW_WIDTH;
+                            h = (int) ((float) fixedHeight / (float) fixedWidth * GUI.WINDOW_WIDTH);
                         } else {
-                            h = 600;
-                            w = (int) ((float) fixedWidth / (float) fixedHeight * 600.f);
+                            h = GUI.WINDOW_HEIGHT;
+                            w = (int) ((float) fixedWidth / (float) fixedHeight * GUI.WINDOW_HEIGHT);
                         }
                         
                         posX = ( screenSize.width - w ) / 2 - (int) bkgFrame.getLocation( ).getX( );

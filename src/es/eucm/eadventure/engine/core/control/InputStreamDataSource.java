@@ -58,7 +58,6 @@ public class InputStreamDataSource extends PullDataSource implements SourceClone
 
     @Override
     public PullSourceStream[] getStreams( ) {
-        System.out.println( "getStreams" );
         return pullSourceStreams;
     }
 
