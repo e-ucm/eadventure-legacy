@@ -46,6 +46,7 @@ import java.util.ArrayList;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -163,6 +164,23 @@ public class GUIApplet extends GUI {
 
     @Override
     public JFrame showComponent( Component component, int w, int h ) {
+        gameFrame.setVisible( false );
+        if( this.component != null )
+            applet.remove( this.component );
+        this.component = new JPanel();
+        
+//        this.component = component;
+        component.setBackground( Color.BLACK );
+        component.setForeground( Color.BLACK );
+        this.component.setBackground( Color.BLACK );
+        this.component.setForeground( Color.BLACK );
+        ((JPanel) this.component).setLayout( null );
+        ((JPanel) this.component).add( component );
+        component.setBounds(0,0, w, h);
+        applet.add( component );
+        applet.validate( );
+        component.repaint( );
+
         //TODO To implement
         return showComponent (component);
     }

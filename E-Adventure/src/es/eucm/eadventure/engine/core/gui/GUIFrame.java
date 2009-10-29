@@ -284,8 +284,11 @@ public class GUIFrame extends GUI implements FocusListener {
 
         gameFrame.setVisible( false );
         bkgFrame.setIgnoreRepaint( true );
-        if( this.component != null )
+        if( this.component != null ) {
             bkgFrame.remove( this.component );
+            guiLayout.setFixedSize( 800, 600 );
+            guiLayout.setMode( GUILayout.MODE_USE_ALL_WINDOW  );
+        }
         this.component = component;
         component.setBackground( Color.BLACK );
         component.setForeground( Color.BLACK );
@@ -307,6 +310,8 @@ public class GUIFrame extends GUI implements FocusListener {
 
         if( component != null ) {
             bkgFrame.remove( component );
+            guiLayout.setFixedSize( 800, 600 );
+            guiLayout.setMode( GUILayout.MODE_USE_ALL_WINDOW  );
         }
         component = null;
 
@@ -405,8 +410,14 @@ public class GUIFrame extends GUI implements FocusListener {
                     int w = GUI.WINDOW_WIDTH;
                     int h = GUI.WINDOW_HEIGHT;
                     if ( mode == MODE_RESPECT_WHRATIO ){
-                        w = fixedWidth;
-                        h = fixedHeight;
+                        if (fixedWidth / fixedHeight >= w / h) {
+                            w = 800;
+                            h = (int) ((float) fixedHeight / (float) fixedWidth * 800.0f);
+                        } else {
+                            h = 600;
+                            w = (int) ((float) fixedWidth / (float) fixedHeight * 600.f);
+                        }
+                        
                         posX = ( screenSize.width - w ) / 2 - (int) bkgFrame.getLocation( ).getX( );
                         posY = ( screenSize.height - h ) / 2 - (int) bkgFrame.getLocation( ).getY( );
                     }
@@ -449,7 +460,12 @@ public class GUIFrame extends GUI implements FocusListener {
 
     @Override
     public JFrame showComponent( Component component, int w, int h ) {
+        if( this.component != null ) {
+            bkgFrame.remove( this.component );
+            this.component = null;
+        }
         guiLayout.setFixedSize( w, h );
+        guiLayout.setMode( GUILayout.MODE_RESPECT_WHRATIO  );
         return showComponent (component);
     }
 }
