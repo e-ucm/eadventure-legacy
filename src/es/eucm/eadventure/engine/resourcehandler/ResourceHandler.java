@@ -340,7 +340,7 @@ public abstract class ResourceHandler implements InputStreamCreator {
      *            Path to the asset
      * @return Extension of the file
      */
-    protected static String getExtension( String assetPath ) {
+    public static String getExtension( String assetPath ) {
 
         return assetPath.substring( assetPath.lastIndexOf( '.' ) + 1, assetPath.length( ) );
     }

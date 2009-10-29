@@ -125,21 +125,16 @@ public class GameStateVideoscene extends GameState implements ControllerListener
              */
             int w=video.getPreferredSize( ).width;
             
-            int h=video.getPreferredSize( ).height;
-            //int w=0; int h=0;
+            int h=video.getPreferredSize( ).height - 14;
+            
             
             if( video != null ) {
                 video.addMouseListener( Game.getInstance( ) );
-                //GUI.getInstance( ).getFrame( ).removeAll( );
                 if ( w>0 && h>0 ){
                     GUI.getInstance( ).showComponent( video, w, h );
                 } else { 
                     GUI.getInstance( ).showComponent( video );
                 }
-                ////GUI.getInstance( ).getFrame( ).add( video, BorderLayout.CENTER );
-                //GUI.getInstance( ).getFrame( ).createBufferStrategy( 1 );
-                //GUI.getInstance( ).getFrame( ).validate( );
-                //GUI.getInstance( ).getFrame( ).repaint( );
 
                 stop = false;
                 mediaPlayer.start( );

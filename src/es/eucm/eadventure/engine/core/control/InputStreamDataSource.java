@@ -51,7 +51,6 @@ public class InputStreamDataSource extends PullDataSource implements SourceClone
     private String resource;
 
     public InputStreamDataSource( String resource ) {
-
         this.resource = resource;
         this.pullSourceStreams = new PullSourceStream[ 1 ];
         pullSourceStreams[0] = new InputStreamPullSourceStream( resource );
@@ -59,7 +58,6 @@ public class InputStreamDataSource extends PullDataSource implements SourceClone
 
     @Override
     public PullSourceStream[] getStreams( ) {
-
         System.out.println( "getStreams" );
         return pullSourceStreams;
     }
@@ -77,7 +75,6 @@ public class InputStreamDataSource extends PullDataSource implements SourceClone
     @Override
     public String getContentType( ) {
         return pullSourceStreams[0].getContentDescriptor( ).getContentType( );
-        //return new ContentDescriptor( ContentDescriptor.RAW ).getContentType( );
     }
 
     @Override
@@ -130,12 +127,40 @@ public class InputStreamDataSource extends PullDataSource implements SourceClone
 
         private long currentPosition = 0;
         
-        private String type;
+        private String type = null;
 
         public InputStreamPullSourceStream( String resource2 ) {
-
             this.resource = resource2;
+            String ext = ResourceHandler.getExtension(resource);
+            ext = ext.toLowerCase( );
+            setTypeFromExtension(ext);
             is = new BufferedInputStream( ResourceHandler.getInstance( ).getResourceAsStreamFromZip( resource ) );
+        }
+
+        /**
+         * Mime types extracted from: http://www.w3schools.com/media/media_mimeref.asp
+         * 
+         * @param ext
+         */
+        private void setTypeFromExtension( String ext ) {
+            if (ext.equals( "mp2" ) || ext.equals( "mpa" ) || ext.equals( "mpe" ) || ext.equals("mpeg") || ext.equals( "mpg" ) || ext.equals("mpv2")) {
+                type = "video.mpeg";
+            } 
+            if (ext.equals( "mov") || ext.equals("qt")) {
+                type = "video.quicktime";
+            } 
+            if (ext.equals( "lsf") || ext.equals("lsx")) {
+                type = "video.x_la_asf";
+            }
+            if (ext.equals( "asf") || ext.equals("asr") || ext.equals( "asx" )) {
+                type = "video.x_ms_asf";
+            }
+            if (ext.equals( "avi" )) {
+                type = "video.x_msvideo";
+            } 
+            if (ext.equals( "movie" )) {
+                type = "video.x-sgi-movie";
+            } 
         }
 
         public int read( byte[] arg0, int arg1, int arg2 ) throws IOException {
@@ -202,6 +227,7 @@ public class InputStreamDataSource extends PullDataSource implements SourceClone
         }
 
         public long getContentLength( ) {
+            //return 1278622;
             return -1;
         }
 
