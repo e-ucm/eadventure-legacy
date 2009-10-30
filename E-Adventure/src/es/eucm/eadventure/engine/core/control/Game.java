@@ -470,6 +470,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         // Load the script data
         gameData = Loader.loadChapterData( ResourceHandler.getInstance( ), chapter.getChapterPath( ), new ArrayList<Incidence>( ), true );
 
+        
+        GUI.getInstance( ).loading( 60 );
+        
         preLoadAnimations( );
 
         // Create the flags & vars summaries and the assessment engine
@@ -520,10 +523,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         stackOfState = new Stack<GameState>( );
 
         // Initialize the FIFO of interactions
-        g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
-        GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
-        GUI.drawString( g, GameText.TEXT_LOADING_DATA, 400, 300 );
-        GUI.getInstance( ).endDraw( );
+//        g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
+//        GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
+//        GUI.drawString( g, GameText.TEXT_LOADING_DATA, 400, 300 );
+//        GUI.getInstance( ).endDraw( );
+        GUI.getInstance( ).loading(70);
 
         // Load images to cache
         new GameStateOptions( );
@@ -551,9 +555,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             gameTimers.put( new Integer( id ), timer );
         }
 
-        g.clearRect( 0, 0, 800, 600 );
-        GUI.drawString( g, GameText.TEXT_LOADING_FINISHED, 400, 300 );
-        GUI.getInstance( ).endDraw( );
+//        g.clearRect( 0, 0, 800, 600 );
+//        GUI.drawString( g, GameText.TEXT_LOADING_FINISHED, 400, 300 );
+//        GUI.getInstance( ).endDraw( );
+        GUI.getInstance( ).loading(90);
 
         currentState = new GameStateNextScene( );
 
@@ -773,9 +778,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             }
 
             Graphics2D g = GUI.getInstance( ).getGraphics( );
-            GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
-            GUI.drawString( g, GameText.TEXT_LOADING_XML, 400, 300 );
-            GUI.getInstance( ).endDraw( );
+
+            GUI.getInstance( ).loading(0);
+//            GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
+//            GUI.drawString( g, GameText.TEXT_LOADING_XML, 400, 300 );
+//            GUI.getInstance( ).endDraw( );
 
             // Load the options
             options = new Options( );
@@ -807,8 +814,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 assessmentEngine.setPlayerName( name );
             }
 
+            GUI.getInstance( ).loading( 10 );
+            
             while( !gameOver ) {
                 loadCurrentChapter( g );
+                
+                GUI.getInstance( ).loading( 100 );
 
                 if( debug ) {
                     if( debugChangesPanel != null )
