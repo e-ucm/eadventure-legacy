@@ -56,7 +56,10 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import es.eucm.eadventure.engine.core.control.TimerManager;
@@ -175,7 +178,15 @@ public abstract class GUI implements FocusListener {
      * that they will be painted.
      */
     private List<FunctionalElement> elementsToInteract = null;
-
+    
+    private Image loadingImage;
+    
+    private int loading;
+    
+    private Timer loadingTimer;
+    
+    private TimerTask loadingTask;
+    
     /**
      * Return the GUI instance. GUI is a singleton class.
      * 
@@ -1485,6 +1496,51 @@ public abstract class GUI implements FocusListener {
     public List<FunctionalElement> getElementsToInteract( ) {
     
         return elementsToInteract;
+    }
+
+    public void loading( int percent ) {
+        if (percent == 0) {
+            this.loadingImage =  new ImageIcon("gui/loading.png").getImage();//ResourceHandler.getInstance( ).getResourceAsImage( "gui/loading.gif" );
+            this.loading = percent;
+            loadingTimer = new Timer();
+            loadingTask = new TimerTask() {
+                private int cont = 0;
+                
+                @Override
+                public void run( ) {
+                    Graphics2D g = GUI.this.getGraphics( );
+                    g.drawImage( loadingImage, 0, 0, null);
+                    
+                    g.setColor( Color.BLUE );
+                    g.fillRect( 200, 400, loading * 4, 50 );
+                    g.fillArc( 350, 250, 50, 50, cont, 20 );
+                    
+                    g.setColor( Color.BLACK );
+                    g.drawRect( 200, 400, 400, 50 );
+                    g.drawOval( 350, 250, 50, 50 );
+                    
+                    cont -= 5;
+                    
+                    GUI.this.endDraw( );
+                }
+            };
+            loadingTimer.scheduleAtFixedRate( loadingTask, 20, 20 );
+        }
+        if (percent == 100) {
+            loadingTimer.cancel( );
+        }
+        this.loading = percent;
+        
+        Graphics2D g = this.getGraphics( );
+        g.drawImage( loadingImage, 0, 0, null);
+        
+        g.setColor( Color.BLUE );
+        g.fillRect( 200, 400, percent * 4, 50 );
+        
+        g.setColor( Color.BLACK );
+        g.drawRect( 200, 400, 400, 50 );
+        
+        this.endDraw( );
     }
 
 }
