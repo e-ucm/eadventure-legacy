@@ -49,7 +49,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
@@ -340,6 +339,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 
         c.gridy++;
         final JCheckBox activeWhenFalseConditions = new JCheckBox( TC.get( "Exit.ActiveWhenConditionsArent" ) );
+        activeWhenFalseConditions.setToolTipText( TC.get( "Exit.ActiveWhenConditionsArent.ToolTip" ) );
         activeWhenFalseConditions.setSelected( exit.isHasNotEffects( ) );
         auxPanel.add( activeWhenFalseConditions, c );
 

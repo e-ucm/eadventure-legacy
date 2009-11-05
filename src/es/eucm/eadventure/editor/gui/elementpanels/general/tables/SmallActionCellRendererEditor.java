@@ -171,6 +171,7 @@ public class SmallActionCellRendererEditor extends AbstractCellEditor implements
         c.gridy++;
 
         final JCheckBox enableNotEff = new JCheckBox( TC.get( "SmallAction.ActiveWhenConditionsArent" ) );
+        enableNotEff.setToolTipText( TC.get( "SmallAction.ActiveWhenConditionsArent.ToolTip" ) );
         final JButton notEffectsButton = new JButton( TC.get( "SmallAction.EditNotEffects" ) );
 
         enableNotEff.setSelected( value.isActivatedNotEffects( ) );

@@ -45,6 +45,7 @@
 <entry key="ScenesList.ListTitle">Lista de escenas</entry>
 <entry key="EffectsGroup.Trigger">Lanzar evento</entry>
 <entry key="BookParagraphsList.Information">Cada libro está compuesto por una serie de párrafos que son mostrados en orden. Estos parrafos pueden almacenar texto, títulos, listas, imágenes... y pueden ser combinados en cualquier orden.</entry>
+<entry key="Action.ActiveWhenConditionsArent.ToolTip">Cuando esta casilla esté activa, el motor lanzará el bloque de "no-efectos" siempre que no se cumplan las condiciones de la acción</entry>
 <entry key="Conversation.StatusBarNormal">Estado: Normal</entry>
 <entry key="Error.DTD.NotFound.Title">Archivo importante no encontrado</entry>
 <entry key="Conditions.Context.2B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará nada más comenzar a contar&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
@@ -58,9 +59,9 @@
 <entry key="Operation.ExportT.Success.Message">Se completó la exportación de forma satisfactoria.</entry>
 <entry key="NextSceneCell.UsePosition">Usar posición de destino</entry>
 <entry key="IMS.Educational.Contex9">Continuous Formation</entry>
+<entry key="LOM.Educational.Tip">Información educativa del recurso</entry>
 <entry key="IMS.Educational.Contex8">Professional Formation</entry>
 <entry key="Adventure.ModePlayerVisible.Description">El jugador se muestra y se mueve por la pantalla</entry>
-<entry key="LOM.Educational.Tip">Información educativa del recurso</entry>
 <entry key="SceneLocation.Scale">Escala</entry>
 <entry key="IMS.Educational.Contex7">Technical School Second Cycle</entry>
 <entry key="MenuFile.AllLOMProperties">Editor de Metadatos Lom</entry>
@@ -323,6 +324,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="FormattedTextAssets.Preview">Previsualización</entry>
 <entry key="SpeakPlayerEffect.Description">Introduzca la línea que el protagonista pronunciará:</entry>
 <entry key="Scene.Documentation">Documentación de la escena</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent.ToolTip">Cuando esta casilla esté activa, el motor lanzará el bloque de "no-efectos" siempre que no se cumplan las condiciones de la acción</entry>
 <entry key="ActionsList.ActionName">Acción</entry>
 <entry key="Operation.AddSceneTitle">Añadir nueva escena</entry>
 <entry key="Timer.Effects">Efectos a ejecutar si expira el temporizador</entry>
@@ -1155,7 +1157,7 @@ Dicha operación no se completó.</entry>
 <entry key="CutsceneTypes.Title">Seleccione el tipo de escena intermedia</entry>
 <entry key="BookTypes.Simple">Contenido Simple</entry>
 <entry key="Operation.ExportToLOM.LONameNotValid.Message">El nombre seleccionado no es válido. No puede contener espacios ni ser vacío</entry>
-<entry key="Exit.ActiveWhenConditionsArent">Salida activa cuando condiciones inactivas</entry>
+<entry key="Exit.ActiveWhenConditionsArent">Activar "no-efectos"</entry>
 <entry key="IMS.Educational.IntendedEndUserRole">Usuario principal para el cual está diseñado el recurso</entry>
 <entry key="Operation.ExportToLOM.LOMAppletProperties">Propiedades del applet</entry>
 <entry key="AdaptationProfile.TabbedInitialState">Estado de juego</entry>
@@ -1337,7 +1339,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 <entry key="MenuFile.Export">Exportar proyecto...</entry>
 <entry key="MacrosList.DuplicateMacro">Duplicar la macro seleccionada</entry>
 <entry key="CustomAction.OtherConfiguration">Otra configuración de la acción</entry>
-<entry key="Action.ActiveWhenConditionsArent">Acción activa cuando condiciones inactivas</entry>
+<entry key="Action.ActiveWhenConditionsArent">Activar "no-efectos"</entry>
 <entry key="Conversation.OperationDeleteLink">Eliminar enlace</entry>
 <entry key="TriggerConversationEffect.Description">Seleccione la conversación que se ejecutará:</entry>
 <entry key="AssetsChooser.Cursor">Escoja una imagen de cursor</entry>
@@ -1704,6 +1706,7 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 <entry key="Flags.Flag">Flag</entry>
 <entry key="Error.ImageTypeNotSupported">La image no se pudo cargar correctamente, posiblemente debido a que el formato no es completamente soportado.</entry>
 <entry key="Conditions.Context.1B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará&lt;/b&gt; (dejará de contar) cuando se cumpla la siguiente condición:</entry>
+<entry key="Exit.ActiveWhenConditionsArent.ToolTip">Cuando esta casilla esté activa, el motor lanzará el bloque de "no-efectos" siempre que no se cumplan las condiciones de la salida</entry>
 <entry key="AssessmentRulesList.ColumnHeader2">Tiene condiciones</entry>
 <entry key="Error.DTD.NotCopied.Message">El archivo "{#0}" no pudo copiarse al proyecto (quizá el fichero esté corrupto o no exista).
 Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
@@ -2056,7 +2059,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="GlobalStatesList.ID">Identificador de estado global</entry>
 <entry key="Item.ReturnsWhenDragged">El objeto vuelve a su posición inicial después de ser arrastrado</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicar regla</entry>
-<entry key="SmallAction.ActiveWhenConditionsArent">Activa cuando condiciones inactivas</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent">Activar "no-efectos"</entry>
 <entry key="NPCReference.NPCId">Identificador del personaje referenciado</entry>
 <entry key="Inventory.normalleft.Tip">Esta es la fecha izquierda en su estado normal</entry>
 <entry key="NPCsList.Title">Personajes</entry>

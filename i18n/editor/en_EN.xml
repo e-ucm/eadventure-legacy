@@ -45,6 +45,7 @@
 <entry key="ScenesList.ListTitle">List of scenes</entry>
 <entry key="EffectsGroup.Trigger">Trigger an event</entry>
 <entry key="BookParagraphsList.Information">Every book consists of a group of paragraphs, that are shown in order. These paragraphs represent plain text, titles, images, bullet paragraphs... and can be combined in any way.</entry>
+<entry key="Action.ActiveWhenConditionsArent.ToolTip">When this check box is active, If conditions are NOT met the no-effects block will be triggered</entry>
 <entry key="Conversation.StatusBarNormal">Status: Normal</entry>
 <entry key="Error.DTD.NotFound.Title">Important file not found</entry>
 <entry key="Conditions.Context.2B.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will stop immediately&lt;/b&gt;, as no condition has been defined:</entry>
@@ -58,9 +59,9 @@
 <entry key="Operation.ExportT.Success.Message">The export process was successfully completed.</entry>
 <entry key="NextSceneCell.UsePosition">Use destiny position</entry>
 <entry key="IMS.Educational.Contex9">Continuous Formation</entry>
+<entry key="LOM.Educational.Tip">Educational data</entry>
 <entry key="IMS.Educational.Contex8">Professional Formation</entry>
 <entry key="Adventure.ModePlayerVisible.Description">When this mode is selected, the player is normally painted in the game, as another character of the adventure. This mode is suitable for the production of common point-and-click adventures, such as the Monkey IslandTM saga.</entry>
-<entry key="LOM.Educational.Tip">Educational data</entry>
 <entry key="SceneLocation.Scale">Scale</entry>
 <entry key="IMS.Educational.Contex7">Technical School Second Cycle</entry>
 <entry key="MenuFile.AllLOMProperties">LOM Metadata Editor</entry>
@@ -322,6 +323,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="FormattedTextAssets.Preview">Preview of the text</entry>
 <entry key="SpeakPlayerEffect.Description">Type the line you want the player to say</entry>
 <entry key="Scene.Documentation">Full description of the scene</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent.ToolTip">When this check box is active, If conditions are NOT met the no-effects block will be triggered</entry>
 <entry key="ActionsList.ActionName">Action</entry>
 <entry key="Operation.AddSceneTitle">Add scene</entry>
 <entry key="Timer.Effects">Effects to be executed if the timer expires</entry>
@@ -1152,7 +1154,7 @@ The operation was aborted.</entry>
 <entry key="CutsceneTypes.Title">Select the cutscene type</entry>
 <entry key="BookTypes.Simple">Simple content</entry>
 <entry key="Operation.ExportToLOM.LONameNotValid.Message">The name of the learning object is not valid. It must not contain blank spaces, nor be blank</entry>
-<entry key="Exit.ActiveWhenConditionsArent">Active when conditions are not</entry>
+<entry key="Exit.ActiveWhenConditionsArent">Activate "no-effects" block</entry>
 <entry key="IMS.Educational.IntendedEndUserRole">Principal user for which this resource was designed</entry>
 <entry key="Operation.ExportToLOM.LOMAppletProperties">Applet properties</entry>
 <entry key="AdaptationProfile.TabbedInitialState">Game State</entry>
@@ -1334,7 +1336,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 <entry key="MenuFile.Export">Export project...</entry>
 <entry key="MacrosList.DuplicateMacro">Duplicate selected macro</entry>
 <entry key="CustomAction.OtherConfiguration">Other configuration of the action</entry>
-<entry key="Action.ActiveWhenConditionsArent">Active when conditions are not</entry>
+<entry key="Action.ActiveWhenConditionsArent">Activate "no-effects" block</entry>
 <entry key="Conversation.OperationDeleteLink">Delete link</entry>
 <entry key="TriggerConversationEffect.Description">Select the conversation you want to trigger</entry>
 <entry key="AssetsChooser.Cursor">Choose an image for the cursor</entry>
@@ -1700,6 +1702,7 @@ avoids retyping.</entry>
 <entry key="Flags.Flag">Flag</entry>
 <entry key="Error.ImageTypeNotSupported">The image could not be loaded, possible because the image type is not completly supported.</entry>
 <entry key="Conditions.Context.1B.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will stop&lt;/b&gt; when the next condition is satisfied:</entry>
+<entry key="Exit.ActiveWhenConditionsArent.ToolTip">When this check box is active, If conditions are NOT met the no-effects block will be triggered</entry>
 <entry key="AssessmentRulesList.ColumnHeader2">Has conditions</entry>
 <entry key="Error.DTD.NotCopied.Message">The file "{#0}" was not copied to the project (maybe the file is corrupt or not present).
 This could provoke errors when executing the adventure with the game engine.</entry>
@@ -2052,7 +2055,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="GlobalStatesList.ID">Global state ID</entry>
 <entry key="Item.ReturnsWhenDragged">Object returns to it's original position after being dragged</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicate rule</entry>
-<entry key="SmallAction.ActiveWhenConditionsArent">Active when conditions are not</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent">Activate "no-effects" block</entry>
 <entry key="NPCReference.NPCId">Id of the referenced character</entry>
 <entry key="Inventory.normalleft.Tip">This is the arrow in the left in its normal state.</entry>
 <entry key="NPCsList.Title">Characters</entry>
