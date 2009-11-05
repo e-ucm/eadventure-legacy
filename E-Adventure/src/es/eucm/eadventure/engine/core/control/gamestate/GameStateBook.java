@@ -92,7 +92,6 @@ public class GameStateBook extends GameState {
      */
     @Override
     public void mainLoop( long elapsedTime, int fps ) {
-
         if( book.getBook( ).getType( ) == Book.TYPE_PARAGRAPHS ) {
             Graphics2D g = GUI.getInstance( ).getGraphics( );
             g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
@@ -109,6 +108,7 @@ public class GameStateBook extends GameState {
         }
     }
 
+       
     @Override
     public void mouseClicked( MouseEvent e ) {
 

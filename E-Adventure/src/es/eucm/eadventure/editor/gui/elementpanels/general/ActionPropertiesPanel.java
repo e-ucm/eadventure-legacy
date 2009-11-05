@@ -149,6 +149,7 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel, Up
         editNotEff.setEnabled( this.actionDataControl.isActivatedNotEffects( ) );
 
         final JCheckBox enableNotEff = new JCheckBox( TC.get( "Action.ActiveWhenConditionsArent" ) );
+        enableNotEff.setToolTipText( TC.get( "Action.ActiveWhenConditionsArent.ToolTip" ) );
         enableNotEff.setSelected( this.actionDataControl.isActivatedNotEffects( ) );
         enableNotEff.addActionListener( new ActionListener( ) {
 
