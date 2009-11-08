@@ -117,7 +117,12 @@ public class ResourcesDataControl extends DataControl {
                 assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionVideoscenes" , "video", true, AssetsConstants.CATEGORY_VIDEO, AssetsController.FILTER_NONE ) };
                 break;
             case Controller.BOOK:
-                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionBookBackground" , "background", true, AssetsConstants.CATEGORY_BACKGROUND, AssetsController.FILTER_JPG ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionBookBackground" , "background", true, AssetsConstants.CATEGORY_BACKGROUND, AssetsController.FILTER_JPG ), 
+                        new AssetInformation( "Resources.DescriptionBookBackground", "arrowLeftNormal", false, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_PNG),
+                        new AssetInformation( "Resources.DescriptionBookBackground", "arrowRightNormal", false, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_PNG),
+                        new AssetInformation( "Resources.DescriptionBookBackground", "arrowLeftOver", false, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_PNG),
+                        new AssetInformation( "Resources.DescriptionBookBackground", "arrowRightOver", false, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_PNG)};
+                //TODO
                 break;
             case Controller.ITEM:
                 assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionItemImage" , "image", false, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionItemIcon" , "icon", false, AssetsConstants.CATEGORY_ICON, AssetsController.FILTER_NONE ) };

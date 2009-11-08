@@ -147,6 +147,36 @@ public class BookDataControl extends DataControlWithResources {
 
         return resourcesDataControlList.get( selectedResources ).getAssetPath( "background" );
     }
+    
+    public final static int ARROW_LEFT = 0,
+                      ARROW_RIGHT = 1,
+                      ARROW_NORMAL = 0,
+                      ARROW_OVER = 1;
+    /**
+     * Get the path of image for the specified arrow.
+     * @param arrowOrientation Arrow orientation. It can be <i>ARROW_LEFT</i> or <i>ARROW_RIGHT</i>
+     * @param arrowState Arrow state. It can be <i>ARROW_NORMAL</i> or <i>ARROW_OVER<i>
+     * @return
+     */
+    public String getArrowImagePath( int arrowOrientation, int arrowState ) {
+
+        String asset = "";
+        switch ( arrowOrientation ){
+            case ARROW_LEFT: asset += "arrowLeft";
+                break;
+            case ARROW_RIGHT: asset += "arrowRight";
+                break;
+        }
+        
+        switch ( arrowState ){
+            case ARROW_NORMAL: asset+= "Normal";
+                break;
+            case ARROW_OVER: asset += "Over";
+                break;
+        }
+        
+        return resourcesDataControlList.get( selectedResources ).getAssetPath( asset );
+    }
 
     /**
      * Sets the new documentation of the book.

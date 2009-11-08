@@ -826,6 +826,20 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
         // If the source file doesn't exist, show an error message
         else
             Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/DefaultBook.jpg" ) );
+        
+        sourceFile = new File( "img/assets/DefaultLeftNormalArrow.png" );
+        if( sourceFile.exists( ) )
+            sourceFile.copyTo( new File( zipFile, ASSET_DEFAULT_ARROW_NORMAL ) );
+        // If the source file doesn't exist, show an error message
+        else
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/DefaultLeftNormalArrow.png" ) );
+        
+        sourceFile = new File( "img/assets/DefaultLeftOverArrow.png" );
+        if( sourceFile.exists( ) )
+            sourceFile.copyTo( new File( zipFile, ASSET_DEFAULT_ARROW_OVER ) );
+        // If the source file doesn't exist, show an error message
+        else
+            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/DefaultLeftOverArrow.png" ) );
 
         // Add the empty image
         sourceFile = new File( "img/assets/EmptyImage.png" );
