@@ -42,7 +42,6 @@ import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -161,6 +160,8 @@ public class BooksListDataControl extends DataControl {
                     // Set default background
                     Resources resources = new Resources( );
                     resources.addAsset( "background", SpecialAssetPaths.ASSET_DEFAULT_BOOK_IMAGE );
+                    resources.addAsset( "arrowLeftNormal", SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL );
+                    resources.addAsset( "arrowLeftOver", SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER );
                     newBook.addResources( resources );
                     booksList.add( newBook );
 
