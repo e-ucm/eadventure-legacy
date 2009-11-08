@@ -55,4 +55,6 @@ public interface SpecialAssetPaths {
      * Asset path for the default book image. For use only in assets.
      */
     public static final String ASSET_DEFAULT_BOOK_IMAGE = "assets/special/DefaultBook.jpg";
+    public static final String ASSET_DEFAULT_ARROW_NORMAL = "assets/special/DefaultLeftNormalArrow.png";
+    public static final String ASSET_DEFAULT_ARROW_OVER = "assets/special/DefaultLeftNormalOverArrow.png";
 }
