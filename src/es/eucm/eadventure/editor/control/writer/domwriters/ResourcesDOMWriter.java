@@ -44,7 +44,6 @@ import org.w3c.dom.Node;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 public class ResourcesDOMWriter {
 
@@ -76,7 +75,7 @@ public class ResourcesDOMWriter {
 
     public static Node buildDOM( Resources resources, int resourcesType ) {
 
-        Node resourcesNode = null;
+        Element resourcesNode = null;
 
         try {
             // Create the necessary elements to create the DOM
@@ -86,6 +85,7 @@ public class ResourcesDOMWriter {
 
             // Create the root node
             resourcesNode = doc.createElement( "resources" );
+            resourcesNode.setAttribute( "name", resources.getName( ) );
 
             // Append the conditions block (if there is one)
             if( !resources.getConditions( ).isEmpty( ) ) {

@@ -38,7 +38,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.tools.structurepanel.RenameElementTool;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 
 public class ResourcesTable extends JTable {
@@ -109,8 +111,15 @@ public class ResourcesTable extends JTable {
 
         public Object getValueAt( int rowIndex, int columnIndex ) {
 
-            if( columnIndex == 0 )
-                return TC.get( "ResourcesList.ResourcesBlockNumber" ) + ( rowIndex + 1 );
+            if( columnIndex == 0) {
+                String name = dataControl.getResources( ).get( rowIndex ).getName( );
+                if (name == null || name.equals( "" ))
+                    name = "No name";
+                if(getSelectedRow() != rowIndex)
+                    return TC.get( "ResourcesList.ResourcesBlockNumber" ) + ( rowIndex + 1 ) + ": " + name;
+                else
+                    return name;
+            }
             if( columnIndex == 1 ) {
                 if( dataControl.getResources( ).size( ) == 1 )
                     return null;
@@ -131,13 +140,15 @@ public class ResourcesTable extends JTable {
 
         @Override
         public void setValueAt( Object value, int rowIndex, int columnIndex ) {
-
+            if (columnIndex == 0) {
+                Controller.getInstance( ).addTool( new RenameElementTool(dataControl.getResources( ).get( rowIndex ), (String) value));
+            }
         }
 
         @Override
         public boolean isCellEditable( int row, int column ) {
 
-            return getSelectedRow( ) == row && column == 1;
+            return getSelectedRow( ) == row;
         }
     }
 }

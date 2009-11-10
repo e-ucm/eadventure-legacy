@@ -320,7 +320,7 @@ public class ResourcesDataControl extends DataControl {
     @Override
     public boolean canBeRenamed( ) {
 
-        return false;
+        return true;
     }
 
     @Override
@@ -349,8 +349,8 @@ public class ResourcesDataControl extends DataControl {
 
     @Override
     public String renameElement( String name ) {
-
-        return null;
+        resources.setName( name );
+        return name;
     }
 
     @Override
@@ -575,6 +575,10 @@ public class ResourcesDataControl extends DataControl {
             s = "";
         s = s + n;
         return s;
+    }
+
+    public String getName( ) {
+        return this.resources.getName( );
     }
 
 }

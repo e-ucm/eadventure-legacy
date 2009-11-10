@@ -154,6 +154,12 @@ public class CharacterSubParser extends SubParser {
             // If it is a resources tag, create the new resources, and switch the element being parsed
             else if( qName.equals( "resources" ) ) {
                 currentResources = new Resources( );
+                
+                for (int i = 0; i < attrs.getLength( ); i++) {
+                    if (attrs.getQName( i ).equals( "name" ))
+                        currentResources.setName( attrs.getValue( i ) );
+                }
+
                 reading = READING_RESOURCES;
             }
 

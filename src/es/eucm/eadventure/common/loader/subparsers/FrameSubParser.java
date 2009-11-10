@@ -81,6 +81,12 @@ public class FrameSubParser extends DefaultHandler {
 
         if( qName.equals( "resources" ) ) {
             currentResources = new Resources( );
+            
+            for (int i = 0; i < attrs.getLength( ); i++) {
+                if (attrs.getQName( i ).equals( "name" ))
+                    currentResources.setName( attrs.getValue( i ) );
+            }
+
         }
 
         if( qName.equals( "asset" ) ) {

@@ -115,6 +115,12 @@ public class PlayerSubParser extends SubParser {
             // If it is a resources tag, create new resources
             else if( qName.equals( "resources" ) ) {
                 currentResources = new Resources( );
+                
+                for (int i = 0; i < attrs.getLength( ); i++) {
+                    if (attrs.getQName( i ).equals( "name" ))
+                        currentResources.setName( attrs.getValue( i ) );
+                }
+
             }
 
             // If it is a condition tag, create new conditions, new subparser and switch the state

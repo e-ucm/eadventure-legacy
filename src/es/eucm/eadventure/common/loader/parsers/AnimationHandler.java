@@ -141,6 +141,11 @@ public class AnimationHandler extends DefaultHandler {
 
             if( qName.equals( "resources" ) ) {
                 currentResources = new Resources( );
+                
+                for (int i = 0; i < attrs.getLength( ); i++) {
+                    if (attrs.getQName( i ).equals( "name" ))
+                        currentResources.setName( attrs.getValue( i ) );
+                }
             }
 
             else if( qName.equals( "asset" ) ) {
