@@ -35,12 +35,13 @@ package es.eucm.eadventure.common.data.chapter.resources;
 
 import java.util.HashMap;
 
+import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
 /**
  * The list of resources of an element in the game under certain conditions.
  */
-public class Resources implements Cloneable {
+public class Resources implements Cloneable, Named {
 
     /**
      * Conditions of the resource
@@ -52,13 +53,15 @@ public class Resources implements Cloneable {
      */
     private HashMap<String, String> assets;
 
+    private String name;
+    
     /**
      * Creates a new Resources.
      */
     public Resources( ) {
-
         assets = new HashMap<String, String>( );
         conditions = new Conditions( );
+        name = "No name";
     }
 
     /**
@@ -70,7 +73,6 @@ public class Resources implements Cloneable {
      *            Path of the asset
      */
     public boolean addAsset( String type, String path ) {
-
         boolean alreadyExists = existAsset( type ) && getAssetPath( type ).equals( path );
         // Remove the asset (if it was present), and insert the new one
         deleteAsset( type );
@@ -85,7 +87,6 @@ public class Resources implements Cloneable {
      *            the asset to be added
      */
     public boolean addAsset( Asset asset ) {
-
         return addAsset( asset.getType( ), asset.getPath( ) );
     }
 
@@ -96,7 +97,6 @@ public class Resources implements Cloneable {
      *            Identifier of the asset
      */
     public void deleteAsset( String type ) {
-
         assets.remove( type );
     }
 
@@ -178,7 +178,15 @@ public class Resources implements Cloneable {
 
         return existAsset;
     }
-
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
     @Override
     public Object clone( ) throws CloneNotSupportedException {
 
@@ -190,6 +198,7 @@ public class Resources implements Cloneable {
                 r.assets.put( new String( s ), s2 );
             }
         }
+        r.name = ( name != null ? new String(name) : null);
         r.conditions = ( conditions != null ? (Conditions) conditions.clone( ) : null );
         return r;
     }

@@ -112,14 +112,12 @@ public class GlobalStatesTable extends JTable {
 
         @Override
         public void setValueAt( Object value, int rowIndex, int columnIndex ) {
-
             if( columnIndex == 0 )
                 Controller.getInstance( ).addTool( new RenameGlobalStateTool( ( dataControl ).getGlobalStates( ).get( rowIndex ), (String) value ) );
         }
 
         @Override
         public boolean isCellEditable( int row, int column ) {
-
             return getSelectedRow( ) == row;
         }
     }

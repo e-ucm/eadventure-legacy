@@ -17,6 +17,7 @@
 <!ELEMENT resources (condition?, asset+)>
 <!ATTLIST resources
 	id ID #IMPLIED
+	name CDATA ""
 >
 <!ELEMENT asset EMPTY>
 <!ATTLIST asset
