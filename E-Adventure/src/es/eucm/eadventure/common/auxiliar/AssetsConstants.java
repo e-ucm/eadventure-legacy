@@ -96,9 +96,16 @@ public interface AssetsConstants {
      * Animation sound category
      */
     public static final int CATEGORY_ANIMATION_AUDIO = 10;
+    
+    /**
+     * Arrows for books
+     */
+    public static final int CATEGORY_ARROW_BOOK = 11;
 
     /**
      * Number of categories.
      */
-    public static final int CATEGORIES_COUNT = 11;
+    public static final int CATEGORIES_COUNT = 12;
+    
+    
 }

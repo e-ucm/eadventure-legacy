@@ -52,9 +52,17 @@ public interface SpecialAssetPaths {
     public static final String ASSET_EMPTY_ANIMATION = "assets/special/EmptyAnimation";
 
     /**
-     * Asset path for the default book image. For use only in assets.
+     * Asset path for the default book background image. For use only in assets.
      */
     public static final String ASSET_DEFAULT_BOOK_IMAGE = "assets/special/DefaultBook.jpg";
+    
+    /**
+     * Asset path for the default book normal arrow image. For use only in assets.
+     */
     public static final String ASSET_DEFAULT_ARROW_NORMAL = "assets/special/DefaultLeftNormalArrow.png";
+    
+    /**
+     * Asset path for the default book over arrow image. For use only in assets.
+     */
     public static final String ASSET_DEFAULT_ARROW_OVER = "assets/special/DefaultLeftNormalOverArrow.png";
 }

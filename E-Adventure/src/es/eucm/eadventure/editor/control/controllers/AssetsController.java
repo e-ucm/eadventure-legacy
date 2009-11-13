@@ -33,6 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -49,6 +50,7 @@ import javax.imageio.ImageIO;
 import javax.media.MediaLocator;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
+import es.eucm.eadventure.common.auxiliar.AssetsImageDimensions;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.FileFilter;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
@@ -86,7 +88,7 @@ import es.eucm.eadventure.editor.gui.assetchooser.VideoChooser;
  * 
  * @author Bruno Torijano Bueno
  */
-public class AssetsController implements SpecialAssetPaths, AssetsConstants {
+public class AssetsController implements SpecialAssetPaths, AssetsConstants, AssetsImageDimensions {
 
     /**
      * Assessment files category.
@@ -163,6 +165,11 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
      * Path for the custom button assets.
      */
     private static final String CATEGORY_BUTTON_PATH = "gui/buttons";
+    
+    /**
+     * Path for the arrows of books
+     */
+    private static final String CATEGORY_ARROW_BOOK_PATH = "assets/arrows";
 
     /**
      * Static class. Private constructor.
@@ -927,47 +934,85 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
      * @return True if the asset can be added to the set, false otherwise
      */
     private static boolean checkAsset( String assetPath, int assetCategory ) {
-
         boolean assetValid = true;
-
-        // Take the instance of the controller, and the filename of the asset
-        Controller controller = Controller.getInstance( );
-        String assetFilename = getFilename( assetPath );
-
-        // For images, only background and icon are checked
-        if( assetCategory == CATEGORY_ICON ) {
+        
+        // For images, only those who have restricted dimension are checked
+        if ( isImageWithRestrictedDimension( assetCategory ) ){
+         // Take the instance of the controller, and the filename of the asset
+            Controller controller = Controller.getInstance( );
+            String assetFilename = getFilename( assetPath );
+            
             // Take the data from the file
-            //Image image = new ImageIcon( assetPath ).getImage( );
+            // Image image = new ImageIcon( assetPath ).getImage( );
             Image image = getImage( assetPath );
             int width = image.getWidth( null );
             int height = image.getHeight( null );
 
             // Prepare the string array for the error message
             String[] fileInformation = new String[] { assetFilename, String.valueOf( width ), String.valueOf( height ) };
-
-            // The icon files must have a size of 80x48
-            if( width != 80 || height != 48 ) {
-                controller.showErrorDialog( TC.get( "IconAssets.Title" ), TC.get( "IconAssets.ErrorIconSize", fileInformation ) );
-                assetValid = false;
+            
+            // Restrict dimensions for the asset category
+            Dimension d = getRestrictedDimension( assetCategory );
+            int res_width = (int) d.getWidth( );
+            int res_height = (int) d.getHeight( );
+            
+            // Icon must be exactly restricted dimensions
+            if ( assetCategory == CATEGORY_ICON ) {
+                if ( width != res_width || height != res_height ){
+                    controller.showErrorDialog( TC.get( "IconAssets.Title" ), TC.get( "IconAssets.ErrorIconSize", fileInformation ) );
+                    assetValid = false;
+                }
             }
-        }
-        else if( assetCategory == CATEGORY_BACKGROUND ) {
-            // Take the data from the file
-            Image image = getImage( assetPath );
-            int width = image.getWidth( null );
-            int height = image.getHeight( null );
-
-            // Prepare the string array for the error message
-            String[] fileInformation = new String[] { assetFilename, String.valueOf( width ), String.valueOf( height ) };
-
-            // The background files must have a size of at least 800x400
-            if( width < 800 || height < 400 ) {
-                controller.showErrorDialog( TC.get( "BackgroundAssets.Title" ), TC.get( "BackgroundAssets.ErrorBackgroundSize", fileInformation ) );
-                assetValid = false;
+            // Backgrond must be bigger than restricted dimensions
+            else if ( assetCategory == CATEGORY_BACKGROUND ){
+                if( width < res_width || height < res_height ) {
+                    controller.showErrorDialog( TC.get( "BackgroundAssets.Title" ), TC.get( "BackgroundAssets.ErrorBackgroundSize", fileInformation ) );
+                    assetValid = false;
+                }
+            }
+            // Arrow book must be smaller than restricted dimensions
+            else if ( assetCategory == CATEGORY_ARROW_BOOK ){
+                if( width > res_width || height > res_height ) {
+                    controller.showErrorDialog( TC.get( "ArrowAssets.Title" ), TC.get( "ArrowAssets.ErrorArrowSize", fileInformation ) );
+                    assetValid = false;
+                }
             }
         }
 
         return assetValid;
+    }
+
+    private static boolean isImageWithRestrictedDimension( int assetCategory ) {
+        return (assetCategory == CATEGORY_BACKGROUND ||
+                assetCategory == CATEGORY_ICON ||
+                assetCategory == CATEGORY_ARROW_BOOK );
+    }
+
+    /**
+     * 
+     * @param assetCategory The asset category
+     * @return Return the maximum dimensions for an asset category
+     */
+    private static Dimension getRestrictedDimension( int assetCategory ) {
+        int rest_width = 0;
+        int rest_height = 0;
+        
+        switch ( assetCategory ){
+            case CATEGORY_BACKGROUND: 
+                rest_width = BACKGROUND_MAX_WIDTH;
+                rest_height = BACKGROUND_MAX_HEIGHT;
+                break;
+            case CATEGORY_ICON: 
+                rest_width = ICON_MAX_WIDTH;
+                rest_height = ICON_MAX_HEIGHT;
+                break;
+            case CATEGORY_ARROW_BOOK: 
+                rest_width = ARROW_BOOK_MAX_WIDTH;
+                rest_height = ARROW_BOOK_MAX_HEIGHT;
+                break;
+        }
+        
+        return new Dimension( rest_width, rest_height );
     }
 
     public static void checkAssetFilesConsistency( List<Incidence> incidences ) {
@@ -1104,6 +1149,9 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
             case CATEGORY_BUTTON:
                 folder = CATEGORY_BUTTON_PATH;
                 break;
+            case CATEGORY_ARROW_BOOK:
+                folder = CATEGORY_ARROW_BOOK_PATH;
+                break;
 
         }
 
@@ -1149,6 +1197,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
             case CATEGORY_CURSOR:
             case CATEGORY_ICON:
             case CATEGORY_BUTTON:
+            case CATEGORY_ARROW_BOOK:
                 fileFilter = new ImageFileFilter( );
                 break;
             case CATEGORY_AUDIO:
@@ -1198,6 +1247,9 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
                 break;
             case CATEGORY_BUTTON:
                 assetChooser = new ButtonChooser( );
+                break;
+            case CATEGORY_ARROW_BOOK:
+                assetChooser = new ImageChooser( filter );
                 break;
 
         }

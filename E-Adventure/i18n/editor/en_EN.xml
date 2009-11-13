@@ -45,7 +45,6 @@
 <entry key="ScenesList.ListTitle">List of scenes</entry>
 <entry key="EffectsGroup.Trigger">Trigger an event</entry>
 <entry key="BookParagraphsList.Information">Every book consists of a group of paragraphs, that are shown in order. These paragraphs represent plain text, titles, images, bullet paragraphs... and can be combined in any way.</entry>
-<entry key="Action.ActiveWhenConditionsArent.ToolTip">When this check box is active, If conditions are NOT met the no-effects block will be triggered</entry>
 <entry key="Conversation.StatusBarNormal">Status: Normal</entry>
 <entry key="Error.DTD.NotFound.Title">Important file not found</entry>
 <entry key="Conditions.Context.2B.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will stop immediately&lt;/b&gt;, as no condition has been defined:</entry>
@@ -269,6 +268,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="LOM.Educational.Tab">Educational</entry>
 <entry key="Operation.FileNotSavedMessage">An error occurred and the project was not successfully saved</entry>
 <entry key="BookPages.List">List of the available pages</entry>
+<entry key="Resources.ArrowRightNormal">Image for right normal arrow</entry>
 <entry key="FormattedTextAssets.NotAvailable">Not available</entry>
 <entry key="Item.Name">Name of the item</entry>
 <entry key="Operation.RenameXMLFile.ErrorSlash">Error</entry>
@@ -323,7 +323,6 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="FormattedTextAssets.Preview">Preview of the text</entry>
 <entry key="SpeakPlayerEffect.Description">Type the line you want the player to say</entry>
 <entry key="Scene.Documentation">Full description of the scene</entry>
-<entry key="SmallAction.ActiveWhenConditionsArent.ToolTip">When this check box is active, If conditions are NOT met the no-effects block will be triggered</entry>
 <entry key="ActionsList.ActionName">Action</entry>
 <entry key="Operation.AddSceneTitle">Add scene</entry>
 <entry key="Timer.Effects">Effects to be executed if the timer expires</entry>
@@ -773,6 +772,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 <entry key="MenuRun.Title">Run</entry>
 <entry key="Resources.Edit">Edit</entry>
 <entry key="Timer.ShowWhenStopped">Show when stopped</entry>
+<entry key="Resources.ArrowLeftNormal">Image for left normal arrow</entry>
 <entry key="Run.CanBeRun.Title">The project is not saved</entry>
 <entry key="Search.FileName">File Name</entry>
 <entry key="DecrementVarEffect.Description">Select the variable and the decrement</entry>
@@ -992,6 +992,7 @@ based on the state of the flags.</entry>
 <entry key="Options.versionError2">The saved game has another version of the current game</entry>
 <entry key="Options.versionError1">Version error</entry>
 <entry key="GraphicConfig.WindowedDescription">The adventure appears in a window on top of the users desktop</entry>
+<entry key="Resources.ArrowLeftOver">Image for left over arrow</entry>
 <entry key="Error.EffectMovePlayerNotAllowed.Title">Operation not allowed</entry>
 <entry key="BarriersList.AddBarrier">Add new barrier</entry>
 <entry key="LOMES.Classification.TaxonPathTaxon">Taxon</entry>
@@ -1154,7 +1155,7 @@ The operation was aborted.</entry>
 <entry key="CutsceneTypes.Title">Select the cutscene type</entry>
 <entry key="BookTypes.Simple">Simple content</entry>
 <entry key="Operation.ExportToLOM.LONameNotValid.Message">The name of the learning object is not valid. It must not contain blank spaces, nor be blank</entry>
-<entry key="Exit.ActiveWhenConditionsArent">Activate "no-effects" block</entry>
+<entry key="Exit.ActiveWhenConditionsArent">Active when conditions are not</entry>
 <entry key="IMS.Educational.IntendedEndUserRole">Principal user for which this resource was designed</entry>
 <entry key="Operation.ExportToLOM.LOMAppletProperties">Applet properties</entry>
 <entry key="AdaptationProfile.TabbedInitialState">Game State</entry>
@@ -1241,6 +1242,7 @@ The operation was aborted.</entry>
 <entry key="LOMES.Educational.LearningResourceType20">Open problem</entry>
 <entry key="LOM.Educational.Difficulty1">Easy</entry>
 <entry key="MoveObjectEffect.Title">Effect to move object in a scene</entry>
+<entry key="ArrowAssets.Title">Resource for arrow</entry>
 <entry key="LOM.Educational.Difficulty0">Very easy</entry>
 <entry key="ElementList.Layer">Layer</entry>
 <entry key="TreeNode.DeleteElement">Delete element</entry>
@@ -1277,8 +1279,7 @@ Please type another name.</entry>
 <entry key="StartDialog.DoNotShow">Do not show this dialog again</entry>
 <entry key="LOMES.Educational.LearningResourceType10">Computer graphics</entry>
 <entry key="Effect.Deactivate">Deactivate</entry>
-<entry key="BackgroundAssets.ErrorBackgroundSize">The file "{#0}" can't be added to the background assets.
-		The minimun dimensions for a background are 800x400 pixels, whilst the file's are {#1}x{#2}</entry>
+<entry key="BackgroundAssets.ErrorBackgroundSize">The file "{#0}" can't be added to the background assets. 		The minimun dimensions for a background are 800x400 pixels, whilst the file's are {#1}x{#2}</entry>
 <entry key="Tools.Back">Back</entry>
 <entry key="BarriersList.Conditions">Conditions</entry>
 <entry key="Flags.AddFlag">Add flag</entry>
@@ -1316,6 +1317,7 @@ Please type another name.</entry>
 <entry key="SetValueEffect.Title">Set value effect</entry>
 <entry key="Player.Name">Name of the player</entry>
 <entry key="LOMES.Classification.Identifier">Identifier</entry>
+<entry key="Resources.ArrowRightOver">Image for right over arrow</entry>
 <entry key="Resources.StandingAnimations">Standing Animations</entry>
 <entry key="Operation.RenameGlobalStateTitle">Rename global state</entry>
 <entry key="Player.LookPanelTip">Panel for the edition of the different appearances of the player </entry>
@@ -1336,7 +1338,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 <entry key="MenuFile.Export">Export project...</entry>
 <entry key="MacrosList.DuplicateMacro">Duplicate selected macro</entry>
 <entry key="CustomAction.OtherConfiguration">Other configuration of the action</entry>
-<entry key="Action.ActiveWhenConditionsArent">Activate "no-effects" block</entry>
+<entry key="Action.ActiveWhenConditionsArent">Active when conditions are not</entry>
 <entry key="Conversation.OperationDeleteLink">Delete link</entry>
 <entry key="TriggerConversationEffect.Description">Select the conversation you want to trigger</entry>
 <entry key="AssetsChooser.Cursor">Choose an image for the cursor</entry>
@@ -1702,7 +1704,6 @@ avoids retyping.</entry>
 <entry key="Flags.Flag">Flag</entry>
 <entry key="Error.ImageTypeNotSupported">The image could not be loaded, possible because the image type is not completly supported.</entry>
 <entry key="Conditions.Context.1B.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will stop&lt;/b&gt; when the next condition is satisfied:</entry>
-<entry key="Exit.ActiveWhenConditionsArent.ToolTip">When this check box is active, If conditions are NOT met the no-effects block will be triggered</entry>
 <entry key="AssessmentRulesList.ColumnHeader2">Has conditions</entry>
 <entry key="Error.DTD.NotCopied.Message">The file "{#0}" was not copied to the project (maybe the file is corrupt or not present).
 This could provoke errors when executing the adventure with the game engine.</entry>
@@ -1756,6 +1757,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="BookPage.NotScrollable">No</entry>
 <entry key="Operation.FileLoadedWithErrorTitle">Project loaded with problems</entry>
 <entry key="ItemReferenceTable.MoveUp">Move up current reference changing its layer (making deeper)</entry>
+<entry key="ArrowAssets.ErrorArrowSize">The file "{#0}" can't be added to the arrow assets. 		The maximun dimensions for a background are 300x200 pixels, whilst the file's are {#1}x{#2}</entry>
 <entry key="NextSceneCell.EditDestinyPosition">Edit destiny position</entry>
 <entry key="AssessmentRule.Conditions">Conditions</entry>
 <entry key="Effect.WaitTimeInfo">Wait {#0} seconds</entry>
@@ -2055,7 +2057,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="GlobalStatesList.ID">Global state ID</entry>
 <entry key="Item.ReturnsWhenDragged">Object returns to it's original position after being dragged</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicate rule</entry>
-<entry key="SmallAction.ActiveWhenConditionsArent">Activate "no-effects" block</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent">Active when conditions are not</entry>
 <entry key="NPCReference.NPCId">Id of the referenced character</entry>
 <entry key="Inventory.normalleft.Tip">This is the arrow in the left in its normal state.</entry>
 <entry key="NPCsList.Title">Characters</entry>
