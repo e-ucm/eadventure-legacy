@@ -1,79 +1,29 @@
 <html>
-<head></head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="../../help.css" type="text/css" rel="stylesheet">
+</head>
 <body>
-
-<img src="../logo-editor.png" alt="TEST IMAGE fail!"/>
-
+<img src="../logo-editor.png" alt="TEST IMAGE fail!" style="display:block; margin:10px" />
 <h1>Reglas de evaluaci&oacute;n</h1>
-
-
-
-<p>Para editar una regla, debemos selecionarla de la lista de reglas (o crearla en caso de que no haya ninguna, 
-<A href="../general/Tables.html" label="Tablas" title="Tablas">m&aacute;s informaci&oacute;n al respecto</A>). 
+<p>Para editar una regla, debemos seleccionarla de la lista de reglas (o crearla en caso de que no haya ninguna, 
+<a href="../general/Tables.html" label="Tablas" title="Tablas">m&aacute;s informaci&oacute;n al respecto</a>). 
 Una regla de evaluaci&oacute;n consta de los siguientes campos que pueden ser editados:</p>
-
-
-<p><center><img src="AssessmentRules_Files/assessmentRules2.jpg" alt="ASSESSMENT RULES.JPG fail!"/></center> </p>
-
-
-<UL>
-
-<LI><p><b>Importancia: </b>Por defecto tomar&aacute; el valor ?Normal?. Admite los siguientes valores: Muy baja,
-baja, normal, alta y muy alta. </p>
-<br>
-
-<LI><p><b>Concepto: </b>Descripci&oacute;n breve del concepto que trata de evaluar la regla. </p>
-<br>
-
-<LI><p><b>Condiciones: </b>Indica las condiciones que deben cumplirse para que se ejecute la regla. Puede
-usarse estas condiciones para provocar una evaluaci&oacute;n en el estudiante cuando se lleva a cabo
-una determinada acci&oacute;n gracias al lanzamiento de efectos que activen o desactiven los flags
-de los que depende la condici&oacute;n. Por ejemplo, activar un flag cuando el estudiante realiza
-demasiados intentos para lograr algo, y mediante una regla de evaluaci&oacute;n que dependa de este
-flag suspender al alumno. (mas informaci&oacute;n sobre 
-<A href="../general/Conditions.html" label="Condiciones" title="Condiciones">condiciones</A> )</p>
-<br>
-
-<LI><p><b>Texto: </b>Texto que debe ser impreso en el informe de evaluaci&oacute;n que se puede generar de
-forma autom&aacute;tica. </p>
-<br>
-
-<LI><p><b>Propiedades: </b>Cada propiedad es un par de la forma variable, valor. Cuando las condiciones
-se satisfacen a cada variable se le asigna el valor indicado. Pueden usarse para a&ntilde;adir o quitar
-notas parciales, o para evaluar al alumno con una nota global. Estas propiedades no saldr&aacute;n
-reflejadas en el informe, sino que est&aacute;n pensadas para ser enviadas a un servidor de
-aprendizaje que recoja la evaluaci&oacute;n del alumno y la incluya en su expediente. Si se seleccion&oacute;
-la opci&oacute;n de perfil SCORM 1.2 o 2004, en el campo Id aparecer&aacute; una lista con las partes del
-modelo de datos de SCORM a las que podemos acceder. (mas info en 
-<A href="../assessment/assessmentProfileType.html" label="Tipo de perfil" title="Tipo de perfil">Tipo de perfil</A> )</p>
-<br>
-
-</UL>
-
+<p class="mejorar"><!-- Se echa de menos un formato común que ayude a situar al lector en determinados aspectos. Por ejemplo, que las referencias a literales de la interfaz tuvieran un formato común, o que cada vez que se añada un vínculo de más información aparezca siempre igual, con las mismas palabras y formato --><img src="AssessmentRules_Files/assessmentRules2.jpg" alt="ASSESSMENT RULES.JPG fail!" style="display:block; margin:10px" /> </p>
+<ul>
+    <li><b>Importancia: </b>Por defecto tomar&aacute; el valor &quot;Normal&quot;. Admite los siguientes valores: <em>Muy baja,
+    baja, normal, alta y muy alta</em>. Cuando una evaluación es generada manualmente por el estudiante (usando la opción apropiada en el menú de juego), podrá elegir su importancia. Así sólo recibirá la evaluación de las cuestiones que considere relevantes.</li>
+	<li><b>Concepto: </b>Descripci&oacute;n breve del concepto que trata de evaluar la regla.</li>
+	<li><b>Condiciones: </b>Indica las condiciones que deben cumplirse para que se ejecute la regla. Puede usarse estas condiciones para provocar una evaluaci&oacute;n en el estudiante cuando se lleva a cabo una determinada acci&oacute;n gracias al lanzamiento de efectos que activen o desactiven los flags de los que depende la condici&oacute;n. Por ejemplo, activar un flag cuando el estudiante realiza demasiados intentos para lograr algo, y mediante una regla de evaluaci&oacute;n que dependa de este
+    flag suspender al alumno. (m&aacute;s informaci&oacute;n sobre <a href="../general/Conditions.html" label="Condiciones" title="Condiciones">condiciones</a> )</li><li><b>Texto:</b>Texto que debe ser impreso en el informe de evaluaci&oacute;n que se puede generar de
+    forma autom&aacute;tica.</li><li><b>Propiedades: </b>Cada propiedad es un par de la forma variable, valor. Cuando las condiciones se satisfacen, a cada variable se le asigna el valor indicado. Pueden usarse para a&ntilde;adir o quitar notas parciales, o para evaluar al alumno con una nota global. Estas propiedades no saldr&aacute;n reflejadas en el informe, sino que est&aacute;n pensadas para ser enviadas a un servidor de aprendizaje que recoja la evaluaci&oacute;n del alumno y la incluya en su expediente. Si se seleccion&oacute; la opci&oacute;n de perfil SCORM 1.2 o 2004, en el campo &quot;Id&quot; aparecer&aacute; una lista con las partes del modelo de datos de SCORM a las que podemos acceder. (más info en <a href="../assessment/assessmentProfileType.html" label="Tipo de perfil" title="Tipo de perfil">Tipo de perfil</a> )</li>
+</ul>
 <h1>Reglas de temporizadas</h1>
-
-
-<p>Estas reglas disparan un
-temporizador cuando se satisfacen las condiciones iniciales, y se para cuando se cumplen las
-condiciones finales. En ese momento se toma el tiempo transcurrido y se procede a evaluar al
-alumno seg&uacute;n el rango de tiempo (s) en el que se encuentre.</p>
-
-<p><center><img src="AssessmentRules_Files/assessmentRules.jpg" alt="ASSESSMENT RULES.JPG fail!"/></center> </p>
-
-<p>De esta manera pueden definirse m&uacute;ltiples parejas de texto y propiedades para diferentes
-rangos de tiempo (efectos). De esta manera, si el tiempo transcurrido pertenece a un rango se
-asignaran valores a una serie de variables y se mostrar&aacute; una l&iacute;nea de texto en el informe de
- manera distinta a si el tiempo pertenece a otro rango. Si el tiempo transcurrido no pertenece
-a ninguno de los rangos la regla no tiene ning&uacute;n efecto. Si por el contrario dicho tiempo
-pertenece a dos intervalos al mismo tiempo se lanzar&aacute; el efecto correspondiente al primero
-de ellos.</p>
-
-
-<p> Por &uacute;ltimo, remarcar que con los resultados de las diferentes reglas de evaluaci&oacute;n se puede,
-como ya se ha dicho previamente, generar un informe en XML (dirigido a un Servidor de
-Aprendizaje) o un informe HTML (dirigido al instructor de la materia) como este: </p>
-
-<p><center><img src="AssessmentRules_Files/assessmentRules3.jpg" alt="ASSESSMENT RULES.JPG fail!"/></center> </p>
-
-
+<p>Estas reglas disparan un temporizador cuando se satisfacen las condiciones iniciales, y se para cuando se cumplen las
+condiciones finales. En ese momento se toma el tiempo transcurrido y se procede a evaluar al alumno seg&uacute;n el rango de tiempo(s) en el que se encuentre.</p>
+<p><img src="AssessmentRules_Files/assessmentRules.jpg" alt="ASSESSMENT RULES.JPG fail!" style="display:block; margin:10px" /> </p>
+<p>De esta manera pueden definirse m&uacute;ltiples parejas de texto y propiedades para diferentes rangos de tiempo (efectos). Así, si el tiempo transcurrido pertenece a un rango se asignaran valores a una serie de variables y se mostrar&aacute; una l&iacute;nea de texto en el informe de manera distinta a si el tiempo pertenece a otro rango. Si el tiempo transcurrido no pertenece a ninguno de los rangos la regla no tiene ning&uacute;n efecto. Si por el contrario dicho tiempo pertenece a dos intervalos al mismo tiempo se lanzar&aacute; el efecto correspondiente al primero de ellos.</p>
+<p> Por &uacute;ltimo, remarcar que con los resultados de las diferentes reglas de evaluaci&oacute;n se puede, como ya se ha dicho previamente, generar un informe en XML (dirigido a un Servidor de Aprendizaje) o un informe HTML (dirigido al instructor de la materia) como éste:</p>
+<p><img src="AssessmentRules_Files/assessmentRules3.jpg" alt="ASSESSMENT RULES.JPG fail!" style="display:block; margin:10px" /> </p>
 </body>
+</html>

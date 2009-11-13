@@ -1,53 +1,43 @@
 <html>
-<head></head>
-<body lang=ES>
-
-<img src="../logo-editor.png" alt="TEST IMAGE fail!"/>
-
-<p><span lang=ES-TRAD><b><h1><center>Edici&oacute;n de los flags</center></b></h1><br><br>
-
-&nbsp;&nbsp;Los flags se pueden considerar como indicadores de una propiedad en concreto. El sent&iacute;do de dicha propiedad viene dado por el nombre
-del flag. Si est&aacute; activo, la propiedad se cumple. Los flags permiten dar un sentido narrativo a los juegos &lt e-Adventure &gt . La forma
-de dar dicha narraci&oacute;n radica en el uso de flags (tambi&eacute;n de <A href="../flagsVars/vars.html" label="variables" title="variables">variables</A>)
-dentro de las condiciones, en las cuales se comprueba si estan activados o desactivados un conjunto de flags. <br><br>
-
-&nbsp;&nbsp;Por ejemplo, definimos un flag llamado "telefonoCogido". Asociamos una condici&oacute;n a la acci&oacute;n examinar de un objeto "telefono", en la que
-dicho flag deber&aacute; estar activado para que se lancen los efectos asociados a la acci&oacute;n. Si cuando pretendemos examinar el objeto "telefono"
-el flag est&aacute; activado, se lanzar&aacute;n los efectos asociados a la acci&oacute;n, y sino no ocurrir&aacute; nada. 
-
-
-
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="../../help.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<img src="../logo-editor.png" alt="TEST IMAGE fail!" style="display:block; margin:10px" />
+<h1>Edici&oacute;n de los flags</h1>
+<p>Los flags se pueden considerar como indicadores de una propiedad en concreto. El sentido de dicha propiedad viene dado por el nombre
+del flag. Si est&aacute; activo, la propiedad se cumple. </p>
+<p>Los flags permiten dar un sentido narrativo a los juegos &lt;e-Adventure&gt; . La forma
+  de dar dicha narraci&oacute;n radica en el uso de flags (tambi&eacute;n de <a href="../flagsVars/vars.html" label="variables" title="variables">variables</a>)
+  dentro de las condiciones, en las cuales se comprueba si estan activados o desactivados un conjunto de flags. </p>
+<p>Por ejemplo, definimos un flag llamado "<strong>telefonoCogido</strong>". Asociamos una condici&oacute;n a la acci&oacute;n examinar de un objeto "<strong>telefono</strong>", en la que
+  dicho flag deber&aacute; estar activado para que se lancen los efectos asociados a la acci&oacute;n. Si cuando pretendemos examinar el objeto "<strong>telefono</strong>"
+  el flag est&aacute; activado, se lanzar&aacute;n los efectos asociados a la acci&oacute;n, y sino no ocurrir&aacute; nada.</p>
 <h2>Una condici&oacute;n simple</h2>
-
-&nbsp;&nbsp;Supongamos que tenemos un juego con dos objetos: una chuleta de carne y un pescado. La idea es que el jugador s&oacute;lo pueda 
-coger el pescado cuando se haya cogido previamente la carne. En nuestra aventura traducimos esa condici&oacute;n al ?lenguaje de flags?; para 
-ello definimos un flag ?carneCogida?, que estar&aacute; inactivo hasta que la carne sea cogida. En ese momento el flag pasar&aacute; a estar activo, 
-y por tanto el pescado estar&aacute; a disposici&oacute;n del jugador. Veamos el proceso completo:<br><br>
-
-&nbsp;&nbsp;Primero necesitamos a&ntilde;adir un flag nuevo. Para ello nos vamos al men&uacute; de Cap&iacute;tulo que encontramos en la barra superior.
-All&iacute; seleccionamos la opci&oacute;n ?Editar flags del cap&iacute;tulo? (abreviado ctrl. + F). A continuaci&oacute;n se mostrar&aacute; una ventana como la que 
-indica la figura siguiente. Pulse en el bot&oacute;n ?A&ntilde;adir flag? y escriba ?carneCogida?. Pulse Aceptar y se crear&aacute; un nuevo flag con 0 
-referencias.<br><br>
-<center><img src="Flags_Files/flags1.jpg" alt="FLAG CREATION.JPG fail!"/></center><br>
-
-&nbsp;&nbsp;Puede usarse este di&aacute;logo para a&ntilde;adir o borrar flags (y variables) del cap&iacute;tulo (los flags son &uacute;nicos para cada cap&iacute;tulo). 
-Sin embargo, si se quiere borrar un flag primero debe tener 0 referencias (hablamos por referencias a flags de aquellos elementos del 
-juego que utilizan ese flag, ya sea en una condici&oacute;n o en un efecto). Adem&aacute;s hay que tener en cuenta algunas restricciones a la hora de 
-definir flags: no se permiten espacios en blanco y el primer car&aacute;cter debe ser una letra.<br><br>
-
-&nbsp;&nbsp;Una vez el flag ha sido creado, ya se pueden hacer referencias a &eacute;l. Entonces podemos ir a nuestro objeto ?Pescado? y
- a&ntilde;adir una nueva acci&oacute;n coger. Como recordatorio: Expandir el nodo del objeto > Bot&oacute;n derecho en ?Acciones? > A&ntilde;adir acci&oacute;n coger. Despu&eacute;s de eso
- pulse en el bot&oacute;n ?Editar condiciones? situado en el panel de la acci&oacute;n. Se abrir&aacute; un di&aacute;logo para editar las condiciones. Presione 
- el bot&oacute;n ?A&ntilde;adir condici&oacute;n? y se le preguntar&aacute; que flag formar&aacute; la condici&oacute;n y en qu&eacute; estado debe estar para que la condici&oacute;n se eval&uacute;e
- como cierta (activo o inactivo). En nuestro caso seleccionamos ?activo? y el flag ?carneCogida?.<br><br>
-
- <center><img src="Flags_Files/flags2.jpg" alt="FLAG SELECTION.JPG fail!"/></center><br>
- 
-&nbsp;&nbsp;N&oacute;tese que la lista desplegable donde se selecciona el flag es editable. De esta manera podemos escribir a mano el nombre del flag.
- Si este no existe a&uacute;n, se crear&aacute; autom&aacute;ticamente, evitando as&iacute; recurrir al men&uacute; de cap&iacute;tulo tan a menudo.<br><br>
-
-
-</span>
+<p>Supongamos que tenemos un juego con dos objetos: una chuleta de carne y un pescado. </p>
+<p>La idea es que el jugador s&oacute;lo pueda 
+  coger el pescado cuando se haya cogido previamente la carne. En nuestra aventura traducimos esa condici&oacute;n al &quot;lenguaje de flags&quot;.</p>
+<p>Para 
+  ello definimos un flag &quot;carneCogida&quot;, que estar&aacute; inactivo hasta que la carne sea cogida. En ese momento el flag pasar&aacute; a estar activo, 
+  y por tanto el pescado estar&aacute; a disposici&oacute;n del jugador. </p>
+<p>Veamos el proceso completo:<ol>
+  <li>Primero necesitamos a&ntilde;adir un flag nuevo. Para ello nos vamos al men&uacute; de Cap&iacute;tulo que encontramos en la barra superior. All&iacute; seleccionamos la opci&oacute;n &quot;Editar flags del cap&iacute;tulo&quot; (abreviado ctrl. + F).</li>
+  <li> A continuaci&oacute;n se mostrar&aacute; una ventana como la que 
+    indica la figura siguiente. Pulse en el bot&oacute;n &quot;A&ntilde;adir flag&quot; y escriba &quot;carneCogida&quot;. Pulse Aceptar y se crear&aacute; un nuevo flag con 0 referencias.<img src="Flags_Files/flags1.jpg" alt="FLAG CREATION.JPG fail!" style="display:block; margin:10px" /></li><li>Puede usarse este di&aacute;logo para a&ntilde;adir o borrar flags (y variables) del cap&iacute;tulo (los flags son &uacute;nicos para cada cap&iacute;tulo).  Sin embargo, si se quiere borrar un flag primero debe tener 0 referencias (hablamos por referencias a flags de aquellos elementos del 
+  juego que utilizan ese flag, ya sea en una condici&oacute;n o en un efecto). </li>
+    <li>Adem&aacute;s hay que tener en cuenta algunas restricciones a la hora de 
+      definir flags: no se permiten espacios en blanco y el primer car&aacute;cter debe ser una letra.Una vez el flag ha sido creado, ya se pueden hacer referencias a &eacute;l.</li>
+    <li> Entonces podemos ir a nuestro objeto &quot;Pescado&quot; y
+      a&ntilde;adir una nueva acci&oacute;n coger. Expandir el nodo del objeto > Bot&oacute;n derecho en ?Acciones? > A&ntilde;adir acci&oacute;n coger. Despu&eacute;s de eso
+      pulse en el bot&oacute;n &quot;Editar condiciones&quot; situado en el panel de la acci&oacute;n. Se abrir&aacute; un di&aacute;logo para editar las condiciones. </li>
+    <li>Presione 
+      el bot&oacute;n &quot;A&ntilde;adir condici&oacute;n&quot; y se le preguntar&aacute; que flag formar&aacute; la condici&oacute;n y en qu&eacute; estado debe estar para que la condici&oacute;n se eval&uacute;e
+      como cierta (activo o inactivo). En nuestro caso seleccionamos &quot;activo&quot; y el flag &quot;carneCogida&quot;. <img src="Flags_Files/flags2.jpg" alt="FLAG SELECTION.JPG fail!" style="display:block; margin:10px" /></li>
+  <li>
+  N&oacute;tese que la lista desplegable donde se selecciona el flag es editable. De esta manera podemos escribir a mano el nombre del flag.
+  Si este no existe a&uacute;n, se crear&aacute; autom&aacute;ticamente, evitando as&iacute; recurrir al men&uacute; de cap&iacute;tulo tan a menudo.
+</li>
+</ol>
 </body>
-
 </html>
