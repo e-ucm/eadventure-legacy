@@ -365,6 +365,7 @@ public class ResourcesPanel extends JPanel {
             case AssetsConstants.CATEGORY_IMAGE:
             case AssetsConstants.CATEGORY_ICON:
             case AssetsConstants.CATEGORY_BUTTON:
+            case AssetsConstants.CATEGORY_ARROW_BOOK:
                 previewText = TC.get( "Resources.ViewAsset" );
                 break;
             case AssetsConstants.CATEGORY_AUDIO:
@@ -655,6 +656,7 @@ public class ResourcesPanel extends JPanel {
                 case AssetsConstants.CATEGORY_IMAGE:
                 case AssetsConstants.CATEGORY_ICON:
                 case AssetsConstants.CATEGORY_BUTTON:
+                case AssetsConstants.CATEGORY_ARROW_BOOK:
                     new ImageDialog( assetPath );
                     break;
                 case AssetsConstants.CATEGORY_ANIMATION:

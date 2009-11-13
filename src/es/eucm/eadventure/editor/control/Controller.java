@@ -2557,9 +2557,12 @@ public class Controller {
         for( String temp : AssetsController.getAssetsList( AssetsController.CATEGORY_STYLED_TEXT ) )
             if( !assets.contains( temp ) )
                 assets.add( temp );
+        for( String temp : AssetsController.getAssetsList( AssetsController.CATEGORY_ARROW_BOOK ) )
+            if( !assets.contains( temp ) )
+                assets.add( temp );
 
-        assets.remove( "gui/cursors/arrow_left.png" );
-        assets.remove( "gui/cursors/arrow_right.png" );
+      /*  assets.remove( "gui/cursors/arrow_left.png" );
+        assets.remove( "gui/cursors/arrow_right.png" ); */
 
         for( String temp : assets ) {
             int references = 0;

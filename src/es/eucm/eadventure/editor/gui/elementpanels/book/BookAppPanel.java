@@ -136,7 +136,6 @@ public class BookAppPanel extends JPanel {
             lookPanel.add( previewPanel, cLook );
             // TODO Parche, arreglar
             lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
-            ResourcesPanel r = (ResourcesPanel) lookPanel.getComponent( 0 );
         }
 
         @Override

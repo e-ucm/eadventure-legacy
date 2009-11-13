@@ -45,7 +45,6 @@
 <entry key="ScenesList.ListTitle">Lista de escenas</entry>
 <entry key="EffectsGroup.Trigger">Lanzar evento</entry>
 <entry key="BookParagraphsList.Information">Cada libro está compuesto por una serie de párrafos que son mostrados en orden. Estos parrafos pueden almacenar texto, títulos, listas, imágenes... y pueden ser combinados en cualquier orden.</entry>
-<entry key="Action.ActiveWhenConditionsArent.ToolTip">Cuando esta casilla esté activa, el motor lanzará el bloque de "no-efectos" siempre que no se cumplan las condiciones de la acción</entry>
 <entry key="Conversation.StatusBarNormal">Estado: Normal</entry>
 <entry key="Error.DTD.NotFound.Title">Archivo importante no encontrado</entry>
 <entry key="Conditions.Context.2B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará nada más comenzar a contar&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
@@ -270,6 +269,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="LOM.Educational.Tab">Educational</entry>
 <entry key="Operation.FileNotSavedMessage">Ocurrió un error y el proyecto no pudo guardarse correctamente</entry>
 <entry key="BookPages.List">Lista de páginas</entry>
+<entry key="Resources.ArrowRightNormal">Imagen normal para la flecha derecha</entry>
 <entry key="FormattedTextAssets.NotAvailable">No disponible</entry>
 <entry key="Item.Name">Nombre del objeto</entry>
 <entry key="Operation.RenameXMLFile.ErrorSlash">Error</entry>
@@ -324,7 +324,6 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="FormattedTextAssets.Preview">Previsualización</entry>
 <entry key="SpeakPlayerEffect.Description">Introduzca la línea que el protagonista pronunciará:</entry>
 <entry key="Scene.Documentation">Documentación de la escena</entry>
-<entry key="SmallAction.ActiveWhenConditionsArent.ToolTip">Cuando esta casilla esté activa, el motor lanzará el bloque de "no-efectos" siempre que no se cumplan las condiciones de la acción</entry>
 <entry key="ActionsList.ActionName">Acción</entry>
 <entry key="Operation.AddSceneTitle">Añadir nueva escena</entry>
 <entry key="Timer.Effects">Efectos a ejecutar si expira el temporizador</entry>
@@ -775,6 +774,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="MenuRun.Title">Ejecutar</entry>
 <entry key="Resources.Edit">Editar</entry>
 <entry key="Timer.ShowWhenStopped">Mostrar cuando esta parado</entry>
+<entry key="Resources.ArrowLeftNormal">Imagen normal para la flecha izquierda</entry>
 <entry key="Run.CanBeRun.Title">El proyecto no ha sido guardado</entry>
 <entry key="Search.FileName">Nombre de fichero</entry>
 <entry key="DecrementVarEffect.Description">Seleccione la variable y el valor a decrementar</entry>
@@ -995,6 +995,7 @@ función de estos estados</entry>
 <entry key="Options.versionError2">La partida guardada es de otra versión distinta a la del juego actual</entry>
 <entry key="Options.versionError1">Error de versión</entry>
 <entry key="GraphicConfig.WindowedDescription">La aventura aparece en una ventana sobre el escritorio del usuario</entry>
+<entry key="Resources.ArrowLeftOver">Imagen para la flecha izquierda cuándo el ratón está encima</entry>
 <entry key="Error.EffectMovePlayerNotAllowed.Title">Operación no permitida</entry>
 <entry key="BarriersList.AddBarrier">Añadir nueva barrera</entry>
 <entry key="LOMES.Classification.TaxonPathTaxon">Taxón</entry>
@@ -1157,7 +1158,7 @@ Dicha operación no se completó.</entry>
 <entry key="CutsceneTypes.Title">Seleccione el tipo de escena intermedia</entry>
 <entry key="BookTypes.Simple">Contenido Simple</entry>
 <entry key="Operation.ExportToLOM.LONameNotValid.Message">El nombre seleccionado no es válido. No puede contener espacios ni ser vacío</entry>
-<entry key="Exit.ActiveWhenConditionsArent">Activar "no-efectos"</entry>
+<entry key="Exit.ActiveWhenConditionsArent">Salida activa cuando condiciones inactivas</entry>
 <entry key="IMS.Educational.IntendedEndUserRole">Usuario principal para el cual está diseñado el recurso</entry>
 <entry key="Operation.ExportToLOM.LOMAppletProperties">Propiedades del applet</entry>
 <entry key="AdaptationProfile.TabbedInitialState">Estado de juego</entry>
@@ -1244,6 +1245,7 @@ Dicha operación no se completó.</entry>
 <entry key="LOMES.Educational.LearningResourceType20">Open problem</entry>
 <entry key="LOM.Educational.Difficulty1">Easy</entry>
 <entry key="MoveObjectEffect.Title">Efecto para mover un object en la escena</entry>
+<entry key="ArrowAssets.Title">Recurso para flecha</entry>
 <entry key="LOM.Educational.Difficulty0">Very easy</entry>
 <entry key="ElementList.Layer">Capa</entry>
 <entry key="TreeNode.DeleteElement">Eliminar elemento</entry>
@@ -1280,8 +1282,7 @@ Por favor escribe otro nombre.</entry>
 <entry key="StartDialog.DoNotShow">No mostrar este diálogo la próxima vez</entry>
 <entry key="LOMES.Educational.LearningResourceType10">Computer graphics</entry>
 <entry key="Effect.Deactivate">Desactivar</entry>
-<entry key="BackgroundAssets.ErrorBackgroundSize">El archivo "{#0}" no puede ser añadido como recurso de fondo.
-		El tamaño mínimo para un fondo es de 800x400 pixels, mientras que el archivo tiene {#1}x{#2}</entry>
+<entry key="BackgroundAssets.ErrorBackgroundSize">El archivo "{#0}" no puede ser añadido como recurso de fondo. 		El tamaño mínimo para un fondo es de 800x400 pixels, mientras que el archivo tiene {#1}x{#2}</entry>
 <entry key="Tools.Back">Atras</entry>
 <entry key="BarriersList.Conditions">Condiciones</entry>
 <entry key="Flags.AddFlag">Añadir flag</entry>
@@ -1319,6 +1320,7 @@ Por favor escribe otro nombre.</entry>
 <entry key="SetValueEffect.Title">Efecto asignar valor a variable</entry>
 <entry key="Player.Name">Nombre del protagonista</entry>
 <entry key="LOMES.Classification.Identifier">Identificador</entry>
+<entry key="Resources.ArrowRightOver">Imagn para la flecha derecha cuándo el ratón está encima</entry>
 <entry key="Resources.StandingAnimations">Animaciones parado</entry>
 <entry key="Operation.RenameGlobalStateTitle">Renombrar estado global</entry>
 <entry key="Player.LookPanelTip">Panel para la edición de las posibles apariencias del protagonista</entry>
@@ -1339,7 +1341,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 <entry key="MenuFile.Export">Exportar proyecto...</entry>
 <entry key="MacrosList.DuplicateMacro">Duplicar la macro seleccionada</entry>
 <entry key="CustomAction.OtherConfiguration">Otra configuración de la acción</entry>
-<entry key="Action.ActiveWhenConditionsArent">Activar "no-efectos"</entry>
+<entry key="Action.ActiveWhenConditionsArent">Acción activa cuando condiciones inactivas</entry>
 <entry key="Conversation.OperationDeleteLink">Eliminar enlace</entry>
 <entry key="TriggerConversationEffect.Description">Seleccione la conversación que se ejecutará:</entry>
 <entry key="AssetsChooser.Cursor">Escoja una imagen de cursor</entry>
@@ -1706,7 +1708,6 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 <entry key="Flags.Flag">Flag</entry>
 <entry key="Error.ImageTypeNotSupported">La image no se pudo cargar correctamente, posiblemente debido a que el formato no es completamente soportado.</entry>
 <entry key="Conditions.Context.1B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará&lt;/b&gt; (dejará de contar) cuando se cumpla la siguiente condición:</entry>
-<entry key="Exit.ActiveWhenConditionsArent.ToolTip">Cuando esta casilla esté activa, el motor lanzará el bloque de "no-efectos" siempre que no se cumplan las condiciones de la salida</entry>
 <entry key="AssessmentRulesList.ColumnHeader2">Tiene condiciones</entry>
 <entry key="Error.DTD.NotCopied.Message">El archivo "{#0}" no pudo copiarse al proyecto (quizá el fichero esté corrupto o no exista).
 Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
@@ -1760,6 +1761,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="BookPage.NotScrollable">No</entry>
 <entry key="Operation.FileLoadedWithErrorTitle">Proyecto cargado con incidencias</entry>
 <entry key="ItemReferenceTable.MoveUp">Subir la referencia en la tabla cambiando la capa (se aumenta la profundidad)</entry>
+<entry key="ArrowAssets.ErrorArrowSize">El archivo "{#0}" no puede ser añadido a los recursos de la flecha. 		El máximo tamaño para una flecha es 300x200 pixels, mientras que los de este archivo son {#1}x{#2}</entry>
 <entry key="NextSceneCell.EditDestinyPosition">Editar posición destino</entry>
 <entry key="AssessmentRule.Conditions">Condición</entry>
 <entry key="Effect.WaitTimeInfo">Esperar {#0} segundos</entry>
@@ -2059,7 +2061,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="GlobalStatesList.ID">Identificador de estado global</entry>
 <entry key="Item.ReturnsWhenDragged">El objeto vuelve a su posición inicial después de ser arrastrado</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicar regla</entry>
-<entry key="SmallAction.ActiveWhenConditionsArent">Activar "no-efectos"</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent">Activa cuando condiciones inactivas</entry>
 <entry key="NPCReference.NPCId">Identificador del personaje referenciado</entry>
 <entry key="Inventory.normalleft.Tip">Esta es la fecha izquierda en su estado normal</entry>
 <entry key="NPCsList.Title">Personajes</entry>
