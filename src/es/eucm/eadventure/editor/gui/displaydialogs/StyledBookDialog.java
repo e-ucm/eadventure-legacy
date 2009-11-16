@@ -35,7 +35,6 @@ package es.eucm.eadventure.editor.gui.displaydialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.List;
 
@@ -44,11 +43,15 @@ import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
 
 public class StyledBookDialog extends JDialog {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4700072971985623062L;
 
     /**
      * X position of the upper left corner of the next page button
@@ -85,8 +88,6 @@ public class StyledBookDialog extends JDialog {
     private BookDataControl dataControl;
 
     private List<BookPage> pages;
-
-    private Image background;
 
     private int currentPage;
 
@@ -147,12 +148,17 @@ public class StyledBookDialog extends JDialog {
 
         return currentPage == numPages - 1;
     }
+    
+    public boolean isInFirstPage( ){
+        
+        return currentPage == 0;
+    }
 
     public void nextPage( ) {
 
         if( currentPage < numPages - 1 ) {
             currentPage++;
-            previewPanel = new BookPagePreviewPanel( this, pages.get( currentPage ), background );
+            previewPanel = new BookPagePreviewPanel( this, pages.get( currentPage ), dataControl );
             getContentPane( ).removeAll( );
             getContentPane( ).add( previewPanel, BorderLayout.CENTER );
             previewPanel.updateUI( );
@@ -163,7 +169,7 @@ public class StyledBookDialog extends JDialog {
 
         if( currentPage > 0 ) {
             currentPage--;
-            previewPanel = new BookPagePreviewPanel( this, pages.get( currentPage ), background );
+            previewPanel = new BookPagePreviewPanel( this, pages.get( currentPage ), dataControl );
             getContentPane( ).removeAll( );
             getContentPane( ).add( previewPanel, BorderLayout.CENTER );
             previewPanel.updateUI( );
@@ -187,18 +193,11 @@ public class StyledBookDialog extends JDialog {
         numPages = pages.size( );
         this.setTitle( "Preview of the book: " + dataControl.getId( ) );
 
-        //Get the background image
-        String backgroundPath = dataControl.getPreviewImage( );
-        if( backgroundPath != null && backgroundPath.length( ) > 0 )
-            background = AssetsController.getImage( backgroundPath );
-        else
-            background = null;
-
         if( currentPage < 0 || currentPage >= numPages )
             currentPage = 0;
 
         if( numPages > 0 ) {
-            previewPanel = new BookPagePreviewPanel( this, pages.get( currentPage ), background );
+            previewPanel = new BookPagePreviewPanel( this, pages.get( currentPage ), dataControl );
             getContentPane( ).add( previewPanel, BorderLayout.CENTER );
         }
         else {

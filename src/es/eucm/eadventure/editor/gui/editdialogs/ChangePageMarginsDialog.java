@@ -35,7 +35,6 @@ package es.eucm.eadventure.editor.gui.editdialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
@@ -46,6 +45,7 @@ import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
 
@@ -96,7 +96,7 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
     /**
      * Background image for the book
      */
-    private Image background;
+    private BookDataControl dataControl;
 
     /**
      * This value is only used to avoid that invoking updateFileds will modify
@@ -113,16 +113,16 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
      * @param background
      *            The image to display in the background
      */
-    public ChangePageMarginsDialog( BookPagesListDataControl bookPagesList, Image background ) {
+    public ChangePageMarginsDialog( BookPagesListDataControl bookPagesList, BookDataControl dControl ) {
 
         super( Controller.getInstance( ).peekWindow( ), TC.get( "BookPage.MarginDialog" ), true );
         this.bookPagesList = bookPagesList;
-        this.background = background;
+        this.dataControl = dControl;
         setChanges = true;
         this.setLayout( new BorderLayout( ) );
         this.setTitle( TC.get( "BookPage.MarginDialog" ) );
 
-        bookPagePreview = new BookPagePreviewPanel( null, bookPagesList.getSelectedPage( ), background );
+        bookPagePreview = new BookPagePreviewPanel( null, bookPagesList.getSelectedPage( ), dataControl );
         this.add( bookPagePreview, BorderLayout.CENTER );
 
         createMarginSlider( );
@@ -262,7 +262,7 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
             this.bookPagesList.setMargins( marginSlider.getValue( ), -marginTopSlider.getValue( ), marginBottomSlider.getValue( ), -marginEndSlider.getValue( ) );
 
             this.remove( bookPagePreview );
-            bookPagePreview = new BookPagePreviewPanel( null, bookPagesList.getSelectedPage( ), background );
+            bookPagePreview = new BookPagePreviewPanel( null, bookPagesList.getSelectedPage( ), dataControl );
             this.add( bookPagePreview, BorderLayout.CENTER );
 
             bookPagePreview.updateUI( );
@@ -279,7 +279,7 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
         marginTopSlider.setValue( ( bookPagesList != null ) ? bookPagesList.getSelectedPage( ).getMarginTop( ) : 0 );
         marginBottomSlider.setValue( ( bookPagesList != null ) ? bookPagesList.getSelectedPage( ).getMarginBottom( ) : 0 );
         this.remove( bookPagePreview );
-        bookPagePreview = new BookPagePreviewPanel( null, bookPagesList.getSelectedPage( ), background );
+        bookPagePreview = new BookPagePreviewPanel( null, bookPagesList.getSelectedPage( ), dataControl );
         this.add( bookPagePreview, BorderLayout.CENTER );
 
         bookPagePreview.updateUI( );

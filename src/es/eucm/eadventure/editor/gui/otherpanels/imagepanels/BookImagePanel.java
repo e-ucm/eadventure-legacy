@@ -50,7 +50,7 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListDataControl;
 
-public class BookImagePanel extends ImagePanel {
+public class BookImagePanel extends BookPreviewImagePanel {
 
     /**
      * Required.
@@ -152,9 +152,9 @@ public class BookImagePanel extends ImagePanel {
      * @param bookParagraphsListDataControl
      *            Data controller of the list of paragraphs
      */
-    public BookImagePanel( String imagePath, BookParagraphsListDataControl bookParagraphsListDataControl ) {
+    public BookImagePanel( String backgroundImagePath, String leftArrowImagePath, String rightArrowImagePath, BookParagraphsListDataControl bookParagraphsListDataControl ) {
 
-        super( imagePath );
+        super( backgroundImagePath, leftArrowImagePath, rightArrowImagePath );
         this.bookParagraphsListDataControl = bookParagraphsListDataControl;
         updatePreview( );
 

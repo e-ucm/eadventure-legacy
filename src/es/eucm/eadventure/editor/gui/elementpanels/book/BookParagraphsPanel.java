@@ -52,7 +52,6 @@ import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -100,8 +99,11 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
     public BookParagraphsPanel( BookDataControl dControl ) {
 
         this.dataControl = dControl;
-
-        previewPanel = new BookImagePanel( dControl.getPreviewImage( ), dControl.getBookParagraphsList( ) );
+        
+        // We extract the image path for arrows
+        String arrowLeftPath = dControl.getArrowImagePath( BookDataControl.ARROW_LEFT, BookDataControl.ARROW_NORMAL );
+        String arrowRightPath = dControl.getArrowImagePath( BookDataControl.ARROW_RIGHT, BookDataControl.ARROW_NORMAL );
+        previewPanel = new BookImagePanel( dControl.getPreviewImage( ), arrowLeftPath, arrowRightPath, dControl.getBookParagraphsList( ) );
 
         createParagraphsPanel( previewPanel );
 

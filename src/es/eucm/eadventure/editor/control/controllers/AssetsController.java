@@ -827,21 +827,21 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
         String zipFile = Controller.getInstance( ).getProjectFolder( );
 
         // Add the defaultBook
-        File sourceFile = new File( "img/assets/DefaultBook.jpg" );
+        File sourceFile = new File( FILE_DEFAULT_BOOK_IMAGE );
         if( sourceFile.exists( ) )
             sourceFile.copyTo( new File( zipFile, ASSET_DEFAULT_BOOK_IMAGE ) );
         // If the source file doesn't exist, show an error message
         else
             Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/DefaultBook.jpg" ) );
         
-        sourceFile = new File( "img/assets/DefaultLeftNormalArrow.png" );
+        sourceFile = new File( FILE_DEFAULT_ARROW_NORMAL );
         if( sourceFile.exists( ) )
             sourceFile.copyTo( new File( zipFile, ASSET_DEFAULT_ARROW_NORMAL ) );
         // If the source file doesn't exist, show an error message
         else
             Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/DefaultLeftNormalArrow.png" ) );
         
-        sourceFile = new File( "img/assets/DefaultLeftOverArrow.png" );
+        sourceFile = new File( FILE_DEFAULT_ARROW_OVER );
         if( sourceFile.exists( ) )
             sourceFile.copyTo( new File( zipFile, ASSET_DEFAULT_ARROW_OVER ) );
         // If the source file doesn't exist, show an error message
@@ -849,7 +849,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
             Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/DefaultLeftOverArrow.png" ) );
 
         // Add the empty image
-        sourceFile = new File( "img/assets/EmptyImage.png" );
+        sourceFile = new File( FILE_EMPTY_IMAGE );
         if( sourceFile.exists( ) )
             sourceFile.copyTo( new File( zipFile, ASSET_EMPTY_IMAGE ) );
 
@@ -858,7 +858,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
             Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/EmptyImage.png" ) );
 
         // Add the empty icon
-        sourceFile = new File( "img/assets/EmptyIcon.png" );
+        sourceFile = new File( FILE_EMPTY_ICON );
         if( sourceFile.exists( ) )
             sourceFile.copyTo( new File( zipFile, ASSET_EMPTY_ICON ) );
 
@@ -867,7 +867,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
             Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/EmptyIcon.png" ) );
 
         // Add the empty animation
-        sourceFile = new File( "img/assets/EmptyAnimation_01.png" );
+        sourceFile = new File( FILE_EMPTY_ANIMATION );
         if( sourceFile.exists( ) )
             sourceFile.copyTo( new File( zipFile, ASSET_EMPTY_ANIMATION + "_01.png" ) );
 

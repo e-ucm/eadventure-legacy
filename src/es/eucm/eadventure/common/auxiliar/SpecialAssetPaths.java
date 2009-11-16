@@ -64,5 +64,36 @@ public interface SpecialAssetPaths {
     /**
      * Asset path for the default book over arrow image. For use only in assets.
      */
-    public static final String ASSET_DEFAULT_ARROW_OVER = "assets/special/DefaultLeftNormalOverArrow.png";
+    public static final String ASSET_DEFAULT_ARROW_OVER = "assets/special/DefaultLeftOverArrow.png";
+    
+    /**
+     * Default file for the empty image.
+     */
+    public static final String FILE_EMPTY_IMAGE = "img/assets/EmptyImage.png";
+
+    /**
+     * Default file for the empty icon.
+     */
+    public static final String FILE_EMPTY_ICON = "img/assets/EmptyIcon.png";
+
+    /**
+     * Default file for the empty animation.
+     */
+    public static final String FILE_EMPTY_ANIMATION = "img/assets/EmptyAnimation_01.png";
+
+    /**
+     * Default file for the default book background image.
+     */
+    public static final String FILE_DEFAULT_BOOK_IMAGE = "img/assets/DefaultBook.jpg";
+    
+    /**
+     * Default file for the book normal arrow image.
+     */
+    public static final String FILE_DEFAULT_ARROW_NORMAL = "img/assets/DefaultLeftNormalArrow.png";
+    
+    /**
+     * Default file for the book over arrow image.
+     */
+    public static final String FILE_DEFAULT_ARROW_OVER = "img/assets/DefaultLeftOverArrow.png";
+    
 }
