@@ -35,7 +35,6 @@ package es.eucm.eadventure.editor.gui.elementpanels.book;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,7 +48,7 @@ import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ChangePageMarginsDialog;
 
@@ -103,13 +102,8 @@ public class MarginsCellRendererEditor extends AbstractCellEditor implements Tab
 
             public void actionPerformed( ActionEvent arg0 ) {
 
-                String backgroundPath = parentPanel.getDataControl( ).getPreviewImage( );
-                Image background;
-                if( backgroundPath != null && backgroundPath.length( ) > 0 )
-                    background = AssetsController.getImage( backgroundPath );
-                else
-                    background = null;
-                new ChangePageMarginsDialog( control, background );
+                BookDataControl dControl = parentPanel.getDataControl( );              
+                new ChangePageMarginsDialog( control, dControl );
                 parentPanel.updatePreview( );
             }
         } );

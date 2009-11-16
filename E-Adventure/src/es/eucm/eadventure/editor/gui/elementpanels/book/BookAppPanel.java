@@ -36,26 +36,19 @@ package es.eucm.eadventure.editor.gui.elementpanels.book;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Transparency;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ResourcesPanel;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
+import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookPreviewImagePanel;
 
 public class BookAppPanel extends JPanel {
 
@@ -111,7 +104,7 @@ public class BookAppPanel extends JPanel {
         /**
          * Preview image panel.
          */
-        private BookImagePanel imagePanel;
+        private BookPreviewImagePanel imagePanel;
 
         public BookLooksPanel( DataControlWithResources control ) {
 
@@ -129,7 +122,7 @@ public class BookAppPanel extends JPanel {
             JPanel previewPanel = new JPanel( );
             previewPanel.setLayout( new BorderLayout( ) );
             
-            imagePanel = new BookImagePanel( bookImagePath, arrowLeftNormalImagePath, arrowRightNormalImagePath  );
+            imagePanel = new BookPreviewImagePanel( bookImagePath, arrowLeftNormalImagePath, arrowRightNormalImagePath  );
             
             previewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Book.Preview" ) ) );
             previewPanel.add( imagePanel, BorderLayout.CENTER );
@@ -157,6 +150,12 @@ public class BookAppPanel extends JPanel {
                 getParent( ).getParent( ).repaint( );
         }
         
+        /**
+         * By default, ResourcesPanel has its components ordered in one column.
+         * With this method, we remove all the components form ResourcePanel
+         * and we put them again just like we want.
+         * 
+         */
         private void reorganizeResourcesPanel(ResourcesPanel r){
             
             Component components[] = r.getComponents( );
@@ -184,127 +183,5 @@ public class BookAppPanel extends JPanel {
                     k++;
                 }
          }
-        
-        private class BookImagePanel extends ImagePanel {
-
-            /**
-             * Required
-             */
-            private static final long serialVersionUID = 1L;
-            private static final int MARGIN = 40;
-            
-            /**
-             * Vars for images for arrows.
-             */
-            private Image arrowLeftNormalImage,
-                          arrowRightNormalImage;
-            
-            /**
-             * Vars for relative positions of the arrows
-             */
-            private int xLeft, xRight, yLeft, yRight;
-            
-            /**
-             * Constructor.
-             * @param imagePath Path of background image
-             * @param arrowLeftNormalPath Path of image for the left normal arrow
-             * @param arrowRightNormalPath Path of image for the right normal arrow
-             */
-            public BookImagePanel ( String imagePath, String arrowLeftNormalPath, String arrowRightNormalPath ){
-                super( imagePath );
-                
-                loadArrowImages( arrowLeftNormalPath, arrowRightNormalPath );
-            }
-            
-            /**
-             * Load arrow images.
-             * @param arrowLeftNormalPath Path of image for the left normal arrow
-             * @param arrowRightNormalPath Path of image for the right normal arrow
-             */
-            public void loadArrowImages( String arrowLeftNormalPath, String arrowRightNormalPath ){
-                
-              // If we have only left arrow, we use the mirror image for the right arrow
-              if ( arrowLeftNormalPath != null && arrowRightNormalPath == null ){
-              
-                arrowLeftNormalImage = AssetsController.getImage( arrowLeftNormalPath );
-                arrowRightNormalImage = getScaledImage( arrowLeftNormalImage, -1.0f, 1.0f );
-                
-              }
-              // If we have onlye right arrow, we use the mirror image for the left arrow
-              else if ( arrowLeftNormalPath == null && arrowRightNormalPath != null ){
-                  arrowRightNormalImage = AssetsController.getImage( arrowRightNormalPath );
-                  arrowLeftNormalImage =  getScaledImage( arrowRightNormalImage, -1.0f, 1.0f );
-              }
-              // If we have both arrows, we load them
-              else if ( arrowLeftNormalPath != null && arrowRightNormalPath != null ){
-                  arrowLeftNormalImage = AssetsController.getImage( arrowLeftNormalPath );
-                  arrowRightNormalImage = AssetsController.getImage( arrowRightNormalPath );
-              }
-              // If we have none
-              else {
-                  arrowLeftNormalImage = null;
-                  arrowRightNormalImage = null;
-              }
-
-            }
-            
-            private Image getScaledImage( Image image, float x, float y ) {
-
-                Image newImage = null;
-
-                if( image != null ) {
-
-                    // set up the transform
-                    AffineTransform transform = new AffineTransform( );
-                    transform.scale( x, y );
-                    transform.translate( ( x - 1 ) * image.getWidth( null ) / 2, ( y - 1 ) * image.getHeight( null ) / 2 );
-
-                    // create a transparent (not translucent) image
-                    newImage = new BufferedImage( image.getWidth( null ), image.getHeight( null ), Transparency.BITMASK );
-
-                    // draw the transformed image
-                    Graphics2D g = (Graphics2D) newImage.getGraphics( );
-
-                    g.drawImage( image, transform, null );
-                    g.dispose( );
-                }
-
-                return newImage;
-            }
-            
-            /**
-             * 
-             * @return If image arrows are loaded.
-             */
-            public boolean isArrowsLoaded(){
-                return ( arrowLeftNormalImage != null ) && ( arrowRightNormalImage != null );
-            }
-            
-            @Override
-            public void paint( Graphics g ){
-                super.paint( g );
-                
-                if (super.isImageLoaded( ) && isArrowsLoaded( )){                  
-                    int widthRight = getAbsoluteWidth( arrowRightNormalImage.getWidth( null ) );
-                    int widthLeft = getAbsoluteWidth( arrowLeftNormalImage.getWidth( null ) );
-                    int heightRight = getAbsoluteHeight( arrowRightNormalImage.getHeight( null ) );
-                    int heightLeft = getAbsoluteWidth( arrowLeftNormalImage.getHeight( null ) );
-                    
-                    int margin = getAbsoluteWidth( MARGIN );
-                    
-                    xLeft = x + margin;
-                    xRight = x + width - widthRight - margin; 
-                    
-                    yLeft =  y + height - heightLeft - margin;
-                    yRight = y + height - heightRight - margin;
-                    
-                    g.drawImage( arrowLeftNormalImage, xLeft, yLeft, widthLeft, heightLeft, null ); 
-                    g.drawImage( arrowRightNormalImage, xRight, yRight, widthRight, heightRight, null );
-                }
-            }
-            
-        }
-
     }
-
 }

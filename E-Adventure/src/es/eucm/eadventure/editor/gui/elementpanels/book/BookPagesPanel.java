@@ -68,7 +68,6 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -177,15 +176,8 @@ public class BookPagesPanel extends JPanel {
 
         pageNotLoadedPanel = null;
         if( currentPage != null ) {
-            //Get the background image
-            String backgroundPath = dataControl.getPreviewImage( );
-            Image background;
-            if( backgroundPath != null && backgroundPath.length( ) > 0 )
-                background = AssetsController.getImage( backgroundPath );
-            else
-                background = null;
 
-            previewPanel = new BookPagePreviewPanel( null, currentPage, background );
+            previewPanel = new BookPagePreviewPanel( null, currentPage, dataControl );
             previewPanel.setPreferredSize( new Dimension( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT ) );
             previewPanel.repaint( );
             Image image = previewPanel.paintToImage( );
@@ -237,15 +229,8 @@ public class BookPagesPanel extends JPanel {
                 previewPanelContainer.remove( previewLabel );
 
             pageNotLoadedPanel = null;
-            //Get the background image
-            String backgroundPath = dataControl.getPreviewImage( );
-            Image background;
-            if( backgroundPath != null && backgroundPath.length( ) > 0 )
-                background = AssetsController.getImage( backgroundPath );
-            else
-                background = null;
 
-            previewPanel = new BookPagePreviewPanel( null, currentPage, background );
+            previewPanel = new BookPagePreviewPanel( null, currentPage, dataControl );
             previewPanel.setPreferredSize( new Dimension( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT ) );
             previewPanel.repaint( );
             Image image = previewPanel.paintToImage( );
