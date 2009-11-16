@@ -430,7 +430,7 @@ public class BookPagePreviewPanel extends JPanel {
         
         if( background != null && !bookPage.getScrollable( ) )
             g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
-        if ( currentArrowLeft != null && currentArrowRight != null ){
+        if ( parent != null && currentArrowLeft != null && currentArrowRight != null ){
             if ( !parent.isInFirstPage( ) )
                 g.drawImage( currentArrowLeft, xLeft, yLeft, null );
             
