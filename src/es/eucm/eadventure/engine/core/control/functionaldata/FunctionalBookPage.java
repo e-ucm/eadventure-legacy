@@ -36,8 +36,10 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,9 +71,13 @@ public class FunctionalBookPage extends JPanel {
 
     private boolean isValid;
 
-    private Image background;
+    private Image background, currentArrowLeft, currentArrowRight;
+    
+    private Point previousPage, nextPage;
 
     private Image image;
+    
+    private FunctionalStyledBook fBook;
 
     private JEditorPane editorPane;
 
@@ -80,14 +86,23 @@ public class FunctionalBookPage extends JPanel {
         this.background = background;
     }
 
-    public FunctionalBookPage( BookPage bookPage, Image background, boolean listenHyperLinks ) {
+    public FunctionalBookPage( BookPage bookPage, FunctionalStyledBook fBook, Image background, Image currentArrowLeft, Image currentArrowRight, Point previousPage, Point nextPage,  boolean listenHyperLinks ) {
 
         super( );
         editorPane = new JEditorPane( );
         isValid = true;
         this.bookPage = bookPage;
+        this.fBook = fBook;
         this.background = background;
-        this.addMouseListener( new FunctionalBookMouseListener( ) );
+        this.currentArrowLeft = currentArrowLeft;
+        this.currentArrowRight = currentArrowRight;
+        this.previousPage = previousPage;
+        this.nextPage = nextPage;
+        
+        FunctionalBookMouseListener bookListener = new FunctionalBookMouseListener( );
+        this.addMouseListener( bookListener );
+        this.addMouseMotionListener( bookListener );
+        
         if( bookPage.getType( ) == BookPage.TYPE_URL ) {
             URL url = null;
             try {
@@ -168,7 +183,9 @@ public class FunctionalBookPage extends JPanel {
         }
 
         if( editorPane != null ) {
-            editorPane.addMouseListener( new FunctionalBookMouseListener( ) );
+            FunctionalBookMouseListener bookListener2 = new FunctionalBookMouseListener( );
+            editorPane.addMouseListener( bookListener2 );
+            editorPane.addMouseMotionListener( bookListener2 );
             editorPane.setOpaque( false );
             editorPane.setEditable( false );
 
@@ -184,11 +201,22 @@ public class FunctionalBookPage extends JPanel {
         }
     }
 
-    private class FunctionalBookMouseListener extends MouseAdapter {
+    private class FunctionalBookMouseListener extends MouseAdapter implements MouseMotionListener {
 
         @Override
         public void mouseClicked( MouseEvent evt ) {
-
+            MouseEvent nEvt = createMouseEvent( evt );
+            Game.getInstance( ).mouseClicked( nEvt );
+        }
+        
+        
+        @Override
+        public void mouseMoved( MouseEvent evt ){
+            MouseEvent nEvt = createMouseEvent( evt );
+            Game.getInstance( ).mouseMoved( nEvt );
+        }
+        
+        private MouseEvent createMouseEvent( MouseEvent evt ){
             int x = evt.getX( );
             int y = evt.getY( );
             if( evt.getSource( ) == editorPane ) {
@@ -197,8 +225,8 @@ public class FunctionalBookPage extends JPanel {
                 y += bookPage.getMarginTop( );
             }
 
-            MouseEvent nEvt = new MouseEvent( (Component) evt.getSource( ), evt.getID( ), evt.getWhen( ), evt.getModifiers( ), x, y, evt.getClickCount( ), evt.isPopupTrigger( ), evt.getButton( ) );
-            Game.getInstance( ).mouseClicked( nEvt );
+            MouseEvent nEvt = new MouseEvent( (Component) evt.getSource( ), evt.getID( ), evt.getWhen( ), evt.getModifiers( ), x, y, evt.getClickCount( ), evt.isPopupTrigger( ), evt.getButton( ) );    
+            return nEvt;
         }
 
     }
@@ -238,6 +266,13 @@ public class FunctionalBookPage extends JPanel {
         g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
         if( image != null )
             g.drawImage( image, bookPage.getMargin( ), bookPage.getMarginTop( ), this.getWidth( ) - bookPage.getMarginEnd( ), this.getHeight( ) - bookPage.getMarginBottom( ), 0, 0, image.getWidth( null ), image.getHeight( null ), null );
+        if ( currentArrowLeft != null && currentArrowRight != null ){
+            if ( !fBook.isInFirstPage( ) )
+                g.drawImage( currentArrowLeft, previousPage.x, previousPage.y, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
+            
+            if ( !fBook.isInLastPage( ) )
+                g.drawImage( currentArrowRight, nextPage.x, nextPage.y, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
+        }
         super.paint( g );
     }
 
@@ -389,6 +424,16 @@ public class FunctionalBookPage extends JPanel {
                 ReportDialog.GenerateErrorReport( e, Game.getInstance( ).isFromEditor( ), "UNKNOWERROR" );
             }
         }
+    }
+
+    public void setCurrentArrowLeft( Image currentArrowLeft ) {
+        this.currentArrowLeft = currentArrowLeft;
+        this.repaint( );
+    }
+
+    public void setCurrentArrowRight( Image currentArrowRight ) {
+        this.currentArrowRight = currentArrowRight;
+        this.repaint( );
     }
 
 }

@@ -92,9 +92,14 @@ public class FunctionalTextBook extends FunctionalBook {
     public static final int TEXT_LINES = PAGE_TEXT_HEIGHT / LINE_HEIGHT;
 
     /**
-     * Background image of the book.
+     * Image of the book.
      */
     protected Image imgBook;
+    
+    /**
+     * Background image of the book
+     */
+    protected Image background;
 
     /**
      * Total height of the book.
@@ -112,9 +117,8 @@ public class FunctionalTextBook extends FunctionalBook {
      * @param book
      *            the book's data
      */
-    public FunctionalTextBook( Book book ) {
-
-        this.book = book;
+    public FunctionalTextBook( Book b ) {
+        super( b );
 
         // Create the list of paragraphs and add it
         functionalParagraphs = new ArrayList<FunctionalBookParagraph>( );
@@ -173,6 +177,12 @@ public class FunctionalTextBook extends FunctionalBook {
 
         return ( currentPage == numPages - 1 || currentPage == numPages - 2 );
     }
+    
+    @Override
+    public boolean isInFirstPage( ) {
+        
+        return ( currentPage == 0 || currentPage == 1 );
+    }
 
     /**
      * Displays the next page
@@ -205,7 +215,8 @@ public class FunctionalTextBook extends FunctionalBook {
      *            the graphics where the book must be painted
      */
     public void draw( Graphics2D g ) {
-
+        
+        super.draw( g );
         g.setColor( Color.DARK_GRAY );
 
         // Draw the first page
