@@ -33,7 +33,17 @@
  */
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+
 import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.data.chapter.resources.Asset;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.editor.gui.auxiliar.ImageTransformer;
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
  * This class manages the eGame "bookscenes".
@@ -42,34 +52,24 @@ import es.eucm.eadventure.common.data.chapter.book.Book;
 public abstract class FunctionalBook {
 
     /**
-     * X position of the upper left corner of the next page button
+     * Position of the upper left corner of the next page button
      */
-    public static final int NEXT_PAGE_X = 685;
+    protected Point nextPage;
 
     /**
-     * Y position of the upper left corner of the next page button
+     * Position of the upper left corner of the previous page button
      */
-    public static final int NEXT_PAGE_Y = 475;
+    protected Point previousPage;
 
     /**
-     * X position of the upper left corner of the previous page button
+     * Dimensions for next page arrow
      */
-    public static final int PREVIOUS_PAGE_X = 45;
+    protected Dimension nextPageDimension;
 
     /**
-     * Y position of the upper left corner of the previous page button
+     * Dimensions of the previous page arrow
      */
-    public static final int PREVIOUS_PAGE_Y = 475;
-
-    /**
-     * Width of the change page button
-     */
-    public static final int CHANGE_PAGE_WIDTH = 80;
-
-    /**
-     * Height of the change page button
-     */
-    public static final int CHANGE_PAGE_HEIGHT = 80;
+    protected Dimension previousPageDimension;
 
     /**
      * Book with the information
@@ -80,6 +80,21 @@ public abstract class FunctionalBook {
      * Current page.
      */
     protected int currentPage;
+    
+    /**
+     * Image for background
+     */
+    protected Image background;
+    
+    /**
+     * Current images for the arrows
+     */
+    protected Image currentArrowLeft, currentArrowRight;
+    
+    /**
+     * All images for the arrows
+     */
+    protected Image arrowLeftNormal, arrowLeftOver, arrowRightNormal, arrowRightOver;
 
     /**
      * Number of pages.
@@ -97,9 +112,19 @@ public abstract class FunctionalBook {
      */
     public boolean isInNextPage( int x, int y ) {
 
-        return ( NEXT_PAGE_X < x ) && ( x < NEXT_PAGE_X + CHANGE_PAGE_WIDTH ) && ( NEXT_PAGE_Y < y ) && ( y < NEXT_PAGE_Y + CHANGE_PAGE_HEIGHT );
+        return ( nextPage.getX( ) < x ) && ( x < nextPage.getX( ) + nextPageDimension.getWidth( ) ) && ( nextPage.getY( ) < y ) && ( y < nextPage.getY( ) + nextPageDimension.getHeight( ) );
     }
 
+    protected FunctionalBook( Book b ){
+        
+        this.book = b;
+        // Create necessaries resources to display the book
+        Resources r = createResourcesBlock( book );
+        // Load images and positions
+        loadImages( r );
+        
+    }
+    
     /**
      * Returns wheter the mouse pointer is in the "previous page" button
      * 
@@ -112,7 +137,7 @@ public abstract class FunctionalBook {
      */
     public boolean isInPreviousPage( int x, int y ) {
 
-        return ( PREVIOUS_PAGE_X < x ) && ( x < PREVIOUS_PAGE_X + CHANGE_PAGE_WIDTH ) && ( PREVIOUS_PAGE_Y < y ) && ( y < PREVIOUS_PAGE_Y + CHANGE_PAGE_HEIGHT );
+        return ( previousPage.x < x ) && ( x < previousPage.x + previousPageDimension.getWidth( ) ) && ( previousPage.y < y ) && ( y < previousPage.y + previousPageDimension.height );
     }
 
     /**
@@ -130,6 +155,13 @@ public abstract class FunctionalBook {
      * @return true if the book is in its last page, false otherwise
      */
     public abstract boolean isInLastPage( );
+    
+    /**
+     * Returns whether the book is in its first page
+     * 
+     * @return true if the book is in its first page, false otherwise
+     */
+    public abstract boolean isInFirstPage( );
 
     /**
      * Changes the current page to the next one
@@ -140,4 +172,121 @@ public abstract class FunctionalBook {
      * Changes the current page to the previous one
      */
     public abstract void previousPage( );
+    
+    /**
+     * Load the necessaries images for displaying the book. This method is pretty much the same
+     * as "loadImages" from BookPagePreviewPanel.
+     */
+    protected void loadImages( Resources r ){
+        background = MultimediaManager.getInstance( ).loadImageFromZip( r.getAssetPath( Book.RESOURCE_TYPE_BACKGROUND ), MultimediaManager.IMAGE_SCENE );
+        
+        try {
+            arrowLeftNormal = MultimediaManager.getInstance( ).loadImageFromZip( r.getAssetPath( Book.RESOURCE_TYPE_ARROW_LEFT_NORMAL ), MultimediaManager.IMAGE_SCENE );
+        }
+        catch ( Exception e ){
+            arrowLeftNormal = null;
+        }
+        
+        try {
+            arrowRightNormal = MultimediaManager.getInstance( ).loadImageFromZip( r.getAssetPath( Book.RESOURCE_TYPE_ARROW_RIGHT_NORMAL ), MultimediaManager.IMAGE_SCENE );
+        } catch ( Exception e ){
+            arrowRightNormal = null;
+        }
+        
+        try {
+            arrowLeftOver = MultimediaManager.getInstance( ).loadImageFromZip( r.getAssetPath( Book.RESOURCE_TYPE_ARROW_LEFT_OVER ), MultimediaManager.IMAGE_SCENE );
+        } catch ( Exception e ){
+            arrowLeftOver = null;
+        }
+        
+        try {
+            arrowRightOver = MultimediaManager.getInstance( ).loadImageFromZip( r.getAssetPath( Book.RESOURCE_TYPE_ARROW_RIGHT_OVER ), MultimediaManager.IMAGE_SCENE );
+        } catch ( Exception e ){
+            arrowRightOver = null;
+        }
+        //TODO Si faltan todas las flechas, utilizar las de por defecto
+        // If we have only left arrow, we use the mirrored image for the right arrow
+        if ( arrowLeftNormal != null && arrowRightNormal == null ){          
+            arrowRightNormal = ImageTransformer.getInstance().getScaledImage( arrowLeftNormal, -1.0f, 1.0f );
+        }
+        // If we have only right arrow, we use the mirrored image for the left arrow
+        else if ( arrowLeftNormal == null && arrowRightNormal != null ){
+              arrowLeftNormal =  ImageTransformer.getInstance( ).getScaledImage( arrowRightNormal, -1.0f, 1.0f );
+        }
+        
+        // If we don't have an over image, we use the normal image for it
+        if ( arrowRightOver == null && arrowLeftOver == null ){
+            arrowLeftOver = arrowLeftNormal;
+            arrowRightOver = arrowRightNormal;
+        }
+        // If we have only one image, we use the mirrored image for the one missing
+        else if ( arrowRightOver != null && arrowLeftOver == null ){
+            arrowLeftOver = ImageTransformer.getInstance( ).getScaledImage( arrowRightOver, -1.0f, 1.0f );
+        }
+        else if ( arrowRightOver == null && arrowLeftOver != null ){
+            arrowRightOver = ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, -1.0f, 1.0f );
+        }
+        
+        previousPageDimension = new Dimension( arrowLeftNormal.getWidth( null ), arrowLeftNormal.getHeight( null ) );
+        nextPageDimension = new Dimension( arrowRightNormal.getWidth( null ), arrowRightNormal.getHeight( null ) );
+        
+        int margin = 20;
+        int xLeft = margin;
+        int yLeft = background.getHeight( null ) - (int) previousPageDimension.getHeight( ) - margin;
+        int xRight = background.getWidth( null ) - (int) nextPageDimension.getWidth( ) - margin;
+        int yRight = background.getHeight( null ) - (int) nextPageDimension.getHeight( ) - margin;
+        
+        previousPage = new Point( xLeft, yLeft );
+        nextPage = new Point( xRight, yRight );
+        
+        
+        currentArrowLeft = arrowLeftNormal;
+        currentArrowRight = arrowRightNormal;
+    }
+    
+    /**
+     * Creates the current resource block to be used
+     */
+    protected Resources createResourcesBlock( Book b ) {
+
+        // Get the active resources block
+        Resources newResources = null;
+        for( int i = 0; i < b.getResources( ).size( ) && newResources == null; i++ )
+            if( new FunctionalConditions( b.getResources( ).get( i ).getConditions( ) ).allConditionsOk( ) )
+                newResources = b.getResources( ).get( i );
+
+        // If no resource block is available, create a default one 
+        if( newResources == null ) {
+            newResources = new Resources( );
+            newResources.addAsset( new Asset( Book.RESOURCE_TYPE_BACKGROUND, ResourceHandler.DEFAULT_BACKGROUND ) );
+        }
+        return newResources;
+    }
+    
+    public void draw( Graphics g ){
+        g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
+        
+        if ( !isInFirstPage( ) )
+            g.drawImage( currentArrowLeft, previousPage.x, previousPage.y, previousPageDimension.width, previousPageDimension.height, null );
+        
+        if ( !isInLastPage( ) )
+            g.drawImage( currentArrowRight, nextPage.x, nextPage.y, nextPageDimension.width, nextPageDimension.height, null );
+    }
+
+    public void mouseOverPreviousPage( boolean mouseOverPreviousPage ) {
+        if ( !mouseOverPreviousPage )
+            currentArrowLeft = arrowLeftNormal;
+        else
+            currentArrowLeft = arrowLeftOver;
+        
+    }
+
+    public void mouseOverNextPage( boolean mouseOverNextPage ) {
+        if ( !mouseOverNextPage )
+            currentArrowRight = arrowRightNormal;
+        else
+            currentArrowRight = arrowRightOver;
+        
+    }
+    
 }

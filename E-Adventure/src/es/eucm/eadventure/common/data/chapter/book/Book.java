@@ -49,6 +49,15 @@ public class Book implements Cloneable, Documented, HasId {
      * The xml tag for the background image of the bookscene
      */
     public static final String RESOURCE_TYPE_BACKGROUND = "background";
+    
+    /**
+     * XML tags for the arrows image for the book
+     */
+    public static final String RESOURCE_TYPE_ARROW_LEFT_NORMAL = "arrowLeftNormal";
+    public static final String RESOURCE_TYPE_ARROW_RIGHT_NORMAL = "arrowRightNormal";
+    public static final String RESOURCE_TYPE_ARROW_LEFT_OVER = "arrowLeftOver";
+    public static final String RESOURCE_TYPE_ARROW_RIGHT_OVER = "arrowRightOver";
+    
 
     public static final int TYPE_PARAGRAPHS = 0;
 

@@ -218,14 +218,17 @@ public class BookPagePreviewPanel extends JPanel {
         else if ( arrowRightOver == null && arrowLeftOver != null ){
             arrowRightOver = ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, -1.0f, 1.0f );
         }
-        int margin = 20;
-        xLeft = margin;
-        yLeft = background.getHeight( null ) - arrowLeftNormal.getHeight( null ) - margin;
-        xRight = background.getWidth( null ) - arrowRightNormal.getWidth( null ) - margin;
-        yRight = background.getHeight( null ) - arrowRightNormal.getHeight( null ) - margin;
-        
-        currentArrowLeft = arrowLeftNormal;
-        currentArrowRight = arrowRightNormal;
+
+        if ( arrowLeftNormal != null && arrowRightNormal != null ){
+            int margin = 20;
+            xLeft = bookPage.getMarginStart( );
+            yLeft = background.getHeight( null ) - arrowLeftNormal.getHeight( null ) - margin;
+            xRight = background.getWidth( null ) - arrowRightNormal.getWidth( null ) - bookPage.getMarginEnd( );
+            yRight = background.getHeight( null ) - arrowRightNormal.getHeight( null ) - margin;
+            
+            currentArrowLeft = arrowLeftNormal;
+            currentArrowRight = arrowRightNormal;
+        }
   
     }
 
@@ -430,17 +433,17 @@ public class BookPagePreviewPanel extends JPanel {
         
         if( background != null && !bookPage.getScrollable( ) )
             g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
-        if ( parent != null && currentArrowLeft != null && currentArrowRight != null ){
-            if ( !parent.isInFirstPage( ) )
-                g.drawImage( currentArrowLeft, xLeft, yLeft, null );
-            
-            if ( !parent.isInLastPage( ) )
-                g.drawImage( currentArrowRight, xRight, yRight, null );
-        }
         if( this.image != null )
             g.drawImage( this.image, bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginBottom( ), 0, 0, this.image.getWidth( null ), this.image.getHeight( null ), null );
         if( editorPane != null )
             super.paint( g );
+        if ( parent != null && currentArrowLeft != null && currentArrowRight != null ){
+            if ( !parent.isInFirstPage( ) )
+                g.drawImage( currentArrowLeft, xLeft, yLeft, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
+            
+            if ( !parent.isInLastPage( ) )
+                g.drawImage( currentArrowRight, xRight, yRight, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
+        }
     }
 
     /**
@@ -454,14 +457,14 @@ public class BookPagePreviewPanel extends JPanel {
         Graphics g = image.getGraphics( );
         if( background != null && !bookPage.getScrollable( ) )
             g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
-        if ( arrowLeftNormal != null && arrowRightNormal != null ){
-            g.drawImage( arrowLeftNormal, xLeft, yLeft, null );
-            g.drawImage( arrowRightNormal, xRight, yRight, null );
-        }
         if( editorPane != null )
             editorPane.paint( g.create( bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMargin( ) - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginTop( ) - bookPage.getMarginBottom( ) ) );
         if( this.image != null )
             g.drawImage( this.image, bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginBottom( ), 0, 0, this.image.getWidth( null ), this.image.getHeight( null ), null );
+        if ( arrowLeftNormal != null && arrowRightNormal != null ){
+            g.drawImage( arrowLeftNormal, xLeft, yLeft, null );
+            g.drawImage( arrowRightNormal, xRight, yRight, null );
+        }
         return image;
     }
     
@@ -487,8 +490,8 @@ public class BookPagePreviewPanel extends JPanel {
                 int y = evt.getY( );
                 if( evt.getSource( ) == editorPane ) {
                     //Spread the call gauging the positions so the margin is taken into account
-                    /*x += bookPage.getMargin( );
-                    y += bookPage.getMarginTop( );*/
+                    x += bookPage.getMargin( );
+                    y += bookPage.getMarginTop( );
                     if ( isInNextPage( x, y ) ){
                         parent.nextPage( );
                     }
@@ -505,6 +508,8 @@ public class BookPagePreviewPanel extends JPanel {
             if ( evt.getSource( ) == editorPane ){
                 int x = evt.getX( );
                 int y = evt.getY( );
+                x += bookPage.getMargin( );
+                y += bookPage.getMarginTop( );
                         
                 if ( isInPreviousPage( x, y ) ){
                     currentArrowLeft = arrowLeftOver;                

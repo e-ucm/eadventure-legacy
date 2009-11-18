@@ -34,14 +34,12 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Component;
-import java.awt.Image;
 import java.util.ArrayList;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 public class FunctionalStyledBook extends FunctionalBook {
 
@@ -50,11 +48,10 @@ public class FunctionalStyledBook extends FunctionalBook {
      */
     private ArrayList<FunctionalBookPage> functionalPages;
 
-    public FunctionalStyledBook( Book book ) {
-
+    public FunctionalStyledBook( Book b ) {
+        super( b );
         //Create EditorPanes
         functionalPages = new ArrayList<FunctionalBookPage>( );
-        this.book = book;
 
         //Get the background image
         Resources resources = null;
@@ -62,11 +59,11 @@ public class FunctionalStyledBook extends FunctionalBook {
             if( new FunctionalConditions( book.getResources( ).get( i ).getConditions( ) ).allConditionsOk( ) )
                 resources = book.getResources( ).get( i );
 
-        Image background = MultimediaManager.getInstance( ).loadImageFromZip( resources.getAssetPath( Book.RESOURCE_TYPE_BACKGROUND ), MultimediaManager.IMAGE_SCENE );
+        //Image background = MultimediaManager.getInstance( ).loadImageFromZip( resources.getAssetPath( Book.RESOURCE_TYPE_BACKGROUND ), MultimediaManager.IMAGE_SCENE );
 
         //ADD the functional pages: only those valid are used 
         for( BookPage pageURL : book.getPageURLs( ) ) {
-            FunctionalBookPage newFPage = new FunctionalBookPage( pageURL, background, false );
+            FunctionalBookPage newFPage = new FunctionalBookPage( pageURL, this, background, arrowLeftNormal, arrowRightNormal, previousPage, nextPage, false );
 
             if( newFPage.isValid( ) ) {
                 functionalPages.add( newFPage );
@@ -96,11 +93,20 @@ public class FunctionalStyledBook extends FunctionalBook {
 
         return currentPage == numPages - 1;
     }
+    
+    @Override
+    public boolean isInFirstPage( ) {
+
+        return currentPage == 0;
+    }
 
     @Override
     public void nextPage( ) {
 
         if( currentPage < numPages - 1 ) {
+            // We put the normal arrow image. If we don't put this method, when we return
+            // to this page, the image for the arrow is still the over image
+            functionalPages.get( currentPage ).setCurrentArrowRight( arrowRightNormal );
             currentPage++;
             GUI.getInstance( ).showComponent( functionalPages.get( currentPage ) );
             functionalPages.get( currentPage ).updateUI( );
@@ -112,6 +118,9 @@ public class FunctionalStyledBook extends FunctionalBook {
     public void previousPage( ) {
 
         if( currentPage > 0 ) {
+            // We put the normal arrow image. If we don't put this method, when we return
+            // to this page, the image for the arrow is still the over image
+            functionalPages.get( currentPage ).setCurrentArrowLeft( arrowLeftNormal );
             currentPage--;
             GUI.getInstance( ).showComponent( functionalPages.get( currentPage ) );
             functionalPages.get( currentPage ).updateUI( );
@@ -123,4 +132,23 @@ public class FunctionalStyledBook extends FunctionalBook {
 
         return functionalPages.get( currentPage );
     }
+    
+    @Override
+    public void mouseOverPreviousPage( boolean mouseOverPreviousPage ){
+        if ( mouseOverPreviousPage ){
+            functionalPages.get( currentPage ).setCurrentArrowLeft( arrowLeftOver );
+        }
+        else
+            functionalPages.get( currentPage ).setCurrentArrowLeft( arrowLeftNormal );
+    }
+    
+    @Override
+    public void mouseOverNextPage( boolean mouseOverNextPage ){
+        if ( mouseOverNextPage ){
+            functionalPages.get( currentPage ).setCurrentArrowRight( arrowRightOver );
+        }
+        else
+            functionalPages.get( currentPage ).setCurrentArrowRight( arrowRightNormal );
+    }
+    
 }
