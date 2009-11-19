@@ -1228,7 +1228,8 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
                 assetChooser = new IconChooser( filter );
                 break;
             case CATEGORY_IMAGE:
-                assetChooser = new ImageChooser( filter );
+            case CATEGORY_ARROW_BOOK:
+                assetChooser = new ImageChooser( filter, category );
                 break;
             case CATEGORY_BACKGROUND:
                 assetChooser = new BackgroundChooser( filter );
@@ -1247,9 +1248,6 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
                 break;
             case CATEGORY_BUTTON:
                 assetChooser = new ButtonChooser( );
-                break;
-            case CATEGORY_ARROW_BOOK:
-                assetChooser = new ImageChooser( filter );
                 break;
 
         }
