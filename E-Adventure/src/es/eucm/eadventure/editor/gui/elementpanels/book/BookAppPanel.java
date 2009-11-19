@@ -146,6 +146,7 @@ public class BookAppPanel extends JPanel {
 
             super.updateResources( );
             reorganizeResourcesPanel( resourcesPanel );
+            
             if( getParent( ) != null && getParent( ).getParent( ) != null )
                 getParent( ).getParent( ).repaint( );
         }
@@ -180,6 +181,7 @@ public class BookAppPanel extends JPanel {
                     c.gridx = j;
                     c.gridy = i;
                     r.add( components[k], c );
+                    components[k].repaint( );
                     k++;
                 }
          }

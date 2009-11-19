@@ -48,8 +48,8 @@ public class ImageChooser extends AssetChooser {
     
     private ImagePanel imagePanel;
 
-    public ImageChooser( int filter ) {
-        super( AssetsConstants.CATEGORY_IMAGE, filter, AssetChooser.PREVIEW_LOCATION_SOUTH, TC.get( "AssetsChooser.Image" ) );
+    public ImageChooser( int filter, int category ) {
+        super( category, filter, AssetChooser.PREVIEW_LOCATION_SOUTH, TC.get( "AssetsChooser.Image" ) );
     }
 
     @Override
