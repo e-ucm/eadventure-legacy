@@ -53,6 +53,7 @@ import javax.swing.text.rtf.RTFEditorKit;
 
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
@@ -197,25 +198,52 @@ public class BookPagePreviewPanel extends JPanel {
         arrowLeftOver = AssetsController.getImage( dControl.getArrowImagePath( BookDataControl.ARROW_LEFT, BookDataControl.ARROW_OVER ) );
         arrowRightOver = AssetsController.getImage( dControl.getArrowImagePath( BookDataControl.ARROW_RIGHT, BookDataControl.ARROW_OVER ) );
         
-        // If we have only left arrow, we use the mirrored image for the right arrow
-        if ( arrowLeftNormal != null && arrowRightNormal == null ){          
-            arrowRightNormal = ImageTransformer.getInstance().getScaledImage( arrowLeftNormal, -1.0f, 1.0f );
-        }
-        // If we have only right arrow, we use the mirrored image for the left arrow
-        else if ( arrowLeftNormal == null && arrowRightNormal != null ){
-              arrowLeftNormal =  ImageTransformer.getInstance( ).getScaledImage( arrowRightNormal, -1.0f, 1.0f );
+        // We check the arrowLeftNormal
+        if ( arrowLeftNormal == null ){
+            // We look for first in the over arrow
+            if ( arrowLeftOver != null ){
+                
+                arrowLeftNormal = arrowLeftOver;
+            }
+            else if ( arrowRightNormal != null ){
+                
+                arrowLeftNormal = ImageTransformer.getInstance( ).getScaledImage( arrowRightNormal, -1.0f, 1.0f );
+            }
+            else if ( arrowRightOver != null ){
+                
+                arrowLeftNormal = ImageTransformer.getInstance( ).getScaledImage( arrowRightOver, -1.0f, 1.0f );
+            }
+            //  Else, we load defaults left arrows
+            else{
+                
+                arrowLeftNormal = AssetsController.getImage( SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL );
+                arrowLeftOver = AssetsController.getImage( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER );
+            }
         }
         
-        // If we don't have an over image, we use the normal image for it
-        if ( arrowRightOver == null && arrowLeftOver == null ){
+        // We check the arrowRightNormal
+        if ( arrowRightNormal == null ){
+            //We look for first in the over arrow
+            if ( arrowRightOver != null ){
+                
+                arrowRightNormal = arrowRightOver;
+            }
+            // Else, we use the mirrored left arrow
+            else {
+                
+                arrowRightNormal = ImageTransformer.getInstance( ).getScaledImage( arrowLeftNormal, -1.0f, 1.0f );
+            }
+        }
+        
+        // We check the arrowLeftNormal
+        if ( arrowLeftOver == null ){
+            
             arrowLeftOver = arrowLeftNormal;
-            arrowRightOver = arrowRightNormal;
         }
-        // If we have only one image, we use the mirrored image for the one missing
-        else if ( arrowRightOver != null && arrowLeftOver == null ){
-            arrowLeftOver = ImageTransformer.getInstance( ).getScaledImage( arrowRightOver, -1.0f, 1.0f );
-        }
-        else if ( arrowRightOver == null && arrowLeftOver != null ){
+        
+        // We check the arrowRightNormal
+        if ( arrowRightOver == null ){
+            
             arrowRightOver = ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, -1.0f, 1.0f );
         }
 

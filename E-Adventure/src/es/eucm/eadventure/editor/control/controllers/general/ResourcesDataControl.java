@@ -121,7 +121,7 @@ public class ResourcesDataControl extends DataControl {
                         new AssetInformation( "Resources.ArrowLeftNormal", "arrowLeftNormal", false, AssetsConstants.CATEGORY_ARROW_BOOK, AssetsController.FILTER_PNG),
                         new AssetInformation( "Resources.ArrowRightNormal", "arrowRightNormal", false, AssetsConstants.CATEGORY_ARROW_BOOK, AssetsController.FILTER_PNG),
                         new AssetInformation( "Resources.ArrowLeftOver", "arrowLeftOver", false, AssetsConstants.CATEGORY_ARROW_BOOK, AssetsController.FILTER_PNG),
-                        new AssetInformation( "Resources.ArrowRightOver", "arrowRightOver", false, AssetsConstants.CATEGORY_ARROW_BOOK, AssetsController.FILTER_PNG)};
+                        new AssetInformation( "Resources.ArrowRightOver", "arrowRightOver", false, AssetsConstants.CATEGORY_ARROW_BOOK, AssetsController.FILTER_PNG) };
                 break;
             case Controller.ITEM:
                 assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionItemImage" , "image", false, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionItemIcon" , "icon", false, AssetsConstants.CATEGORY_ICON, AssetsController.FILTER_NONE ) };
