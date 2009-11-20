@@ -38,6 +38,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 
+import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -204,26 +205,53 @@ public abstract class FunctionalBook {
         } catch ( Exception e ){
             arrowRightOver = null;
         }
-        //TODO Si faltan todas las flechas, utilizar las de por defecto
-        // If we have only left arrow, we use the mirrored image for the right arrow
-        if ( arrowLeftNormal != null && arrowRightNormal == null ){          
-            arrowRightNormal = ImageTransformer.getInstance().getScaledImage( arrowLeftNormal, -1.0f, 1.0f );
-        }
-        // If we have only right arrow, we use the mirrored image for the left arrow
-        else if ( arrowLeftNormal == null && arrowRightNormal != null ){
-              arrowLeftNormal =  ImageTransformer.getInstance( ).getScaledImage( arrowRightNormal, -1.0f, 1.0f );
+        
+        // We check the arrowLeftNormal
+        if ( arrowLeftNormal == null ){
+            // We look for first in the over arrow
+            if ( arrowLeftOver != null ){
+                
+                arrowLeftNormal = arrowLeftOver;
+            }
+            else if ( arrowRightNormal != null ){
+                
+                arrowLeftNormal = ImageTransformer.getInstance( ).getScaledImage( arrowRightNormal, -1.0f, 1.0f );
+            }
+            else if ( arrowRightOver != null ){
+                
+                arrowLeftNormal = ImageTransformer.getInstance( ).getScaledImage( arrowRightOver, -1.0f, 1.0f );
+            }
+            //  Else, we load defaults left arrows
+            else{
+                
+                arrowLeftNormal = MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL, MultimediaManager.IMAGE_SCENE );
+                arrowLeftOver = MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER, MultimediaManager.IMAGE_SCENE );
+            }
         }
         
-        // If we don't have an over image, we use the normal image for it
-        if ( arrowRightOver == null && arrowLeftOver == null ){
+        // We check the arrowRightNormal
+        if ( arrowRightNormal == null ){
+            //We look for first in the over arrow
+            if ( arrowRightOver != null ){
+                
+                arrowRightNormal = arrowRightOver;
+            }
+            // Else, we use the mirrored left arrow
+            else {
+                
+                arrowRightNormal = ImageTransformer.getInstance( ).getScaledImage( arrowLeftNormal, -1.0f, 1.0f );
+            }
+        }
+        
+        // We check the arrowLeftNormal
+        if ( arrowLeftOver == null ){
+            
             arrowLeftOver = arrowLeftNormal;
-            arrowRightOver = arrowRightNormal;
         }
-        // If we have only one image, we use the mirrored image for the one missing
-        else if ( arrowRightOver != null && arrowLeftOver == null ){
-            arrowLeftOver = ImageTransformer.getInstance( ).getScaledImage( arrowRightOver, -1.0f, 1.0f );
-        }
-        else if ( arrowRightOver == null && arrowLeftOver != null ){
+        
+        // We check the arrowRightOver
+        if ( arrowRightOver == null ){
+            
             arrowRightOver = ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, -1.0f, 1.0f );
         }
         
@@ -242,6 +270,13 @@ public abstract class FunctionalBook {
         
         currentArrowLeft = arrowLeftNormal;
         currentArrowRight = arrowRightNormal;
+    }
+    
+    void loadDefaultArrows( ){
+        arrowLeftNormal = 
+        arrowRightNormal = ImageTransformer.getInstance( ).getScaledImage( arrowLeftNormal, 1.0f, 1.0f );
+        arrowLeftOver = MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER, MultimediaManager.IMAGE_SCENE );
+        arrowRightOver = ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, 1.0f, 1.0f );
     }
     
     /**
