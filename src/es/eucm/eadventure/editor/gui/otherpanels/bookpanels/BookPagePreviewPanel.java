@@ -31,7 +31,7 @@
  * Place, Suite 330, Boston, MA 02111-1307 USA
  * 
  */
-package es.eucm.eadventure.editor.gui.otherpanels;
+package es.eucm.eadventure.editor.gui.otherpanels.bookpanels;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
@@ -53,15 +53,13 @@ import javax.swing.text.rtf.RTFEditorKit;
 
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
-import es.eucm.eadventure.editor.gui.auxiliar.ImageTransformer;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
-public class BookPagePreviewPanel extends JPanel {
+public class BookPagePreviewPanel extends BookPreviewPanel {
 
     /**
      * Required
@@ -71,18 +69,6 @@ public class BookPagePreviewPanel extends JPanel {
     private BookPage bookPage;
 
     private boolean isValid;
-
-    private Image background, arrowLeftNormal, arrowRightNormal, arrowLeftOver, arrowRightOver;
-    
-    /**
-     * Current state for arrows
-     */
-    private Image currentArrowLeft, currentArrowRight;
-    
-    /**
-     * Coordinates for arrows
-     */
-    private int xLeft, xRight, yLeft, yRight;
 
     private JEditorPane editorPane;
 
@@ -97,7 +83,7 @@ public class BookPagePreviewPanel extends JPanel {
         isValid = true;
         this.bookPage = bookPage;
         
-        loadImages( dControl );
+        super.loadImages( dControl );
         
         this.addMouseListener( new BookPageMouseListener( ) );
         URL url = null;
@@ -187,78 +173,7 @@ public class BookPagePreviewPanel extends JPanel {
         }
     }
 
-    /**
-     * Load the required images for the book
-     * @param dControl Controller with the required information
-     */
-    private void loadImages( BookDataControl dControl ) {
-        background = AssetsController.getImage( dControl.getPreviewImage( ) );
-        arrowLeftNormal = AssetsController.getImage( dControl.getArrowImagePath( BookDataControl.ARROW_LEFT, BookDataControl.ARROW_NORMAL ) );
-        arrowRightNormal = AssetsController.getImage( dControl.getArrowImagePath( BookDataControl.ARROW_RIGHT, BookDataControl.ARROW_NORMAL ) );
-        arrowLeftOver = AssetsController.getImage( dControl.getArrowImagePath( BookDataControl.ARROW_LEFT, BookDataControl.ARROW_OVER ) );
-        arrowRightOver = AssetsController.getImage( dControl.getArrowImagePath( BookDataControl.ARROW_RIGHT, BookDataControl.ARROW_OVER ) );
-        
-        // We check the arrowLeftNormal
-        if ( arrowLeftNormal == null ){
-            // We look for first in the over arrow
-            if ( arrowLeftOver != null ){
-                
-                arrowLeftNormal = arrowLeftOver;
-            }
-            else if ( arrowRightNormal != null ){
-                
-                arrowLeftNormal = ImageTransformer.getInstance( ).getScaledImage( arrowRightNormal, -1.0f, 1.0f );
-            }
-            else if ( arrowRightOver != null ){
-                
-                arrowLeftNormal = ImageTransformer.getInstance( ).getScaledImage( arrowRightOver, -1.0f, 1.0f );
-            }
-            //  Else, we load defaults left arrows
-            else{
-                
-                arrowLeftNormal = AssetsController.getImage( SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL );
-                arrowLeftOver = AssetsController.getImage( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER );
-            }
-        }
-        
-        // We check the arrowRightNormal
-        if ( arrowRightNormal == null ){
-            //We look for first in the over arrow
-            if ( arrowRightOver != null ){
-                
-                arrowRightNormal = arrowRightOver;
-            }
-            // Else, we use the mirrored left arrow
-            else {
-                
-                arrowRightNormal = ImageTransformer.getInstance( ).getScaledImage( arrowLeftNormal, -1.0f, 1.0f );
-            }
-        }
-        
-        // We check the arrowLeftNormal
-        if ( arrowLeftOver == null ){
-            
-            arrowLeftOver = arrowLeftNormal;
-        }
-        
-        // We check the arrowRightNormal
-        if ( arrowRightOver == null ){
-            
-            arrowRightOver = ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, -1.0f, 1.0f );
-        }
-
-        if ( arrowLeftNormal != null && arrowRightNormal != null ){
-            int margin = 20;
-            xLeft = bookPage.getMarginStart( );
-            yLeft = background.getHeight( null ) - arrowLeftNormal.getHeight( null ) - margin;
-            xRight = background.getWidth( null ) - arrowRightNormal.getWidth( null ) - bookPage.getMarginEnd( );
-            yRight = background.getHeight( null ) - arrowRightNormal.getHeight( null ) - margin;
-            
-            currentArrowLeft = arrowLeftNormal;
-            currentArrowRight = arrowRightNormal;
-        }
-  
-    }
+    
 
     private void addEditorPane( ) {
 
@@ -496,16 +411,14 @@ public class BookPagePreviewPanel extends JPanel {
         return image;
     }
     
-    private boolean isInPreviousPage( int x, int y ){
-        int xLeftEnd = xLeft + arrowLeftNormal.getWidth( null );
-        int yLeftEnd = yLeft + arrowLeftNormal.getHeight( null );
-        return ( xLeft < x ) && ( x < xLeftEnd ) && ( yLeft < y ) && ( y < yLeftEnd );
+    @Override
+    protected boolean isInNextPage( int x, int y ){
+        return super.isInNextPage( x, y );
     }
     
-    private boolean isInNextPage( int x, int y ){
-        int xRightEnd = xRight + arrowRightNormal.getWidth( null );
-        int yRightEnd = yRight + arrowRightNormal.getHeight( null );
-        return ( xRight < x ) && ( x < xRightEnd ) && ( yRight < y ) && ( y < yRightEnd );
+    @Override
+    protected boolean isInPreviousPage( int x, int y ){
+        return super.isInPreviousPage( x, y );
     }
 
     private class BookPageMouseListener extends MouseAdapter implements MouseMotionListener {

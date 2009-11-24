@@ -39,13 +39,18 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
+import es.eucm.eadventure.editor.gui.editdialogs.ChangeArrowsPositionDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ResourcesPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookPreviewImagePanel;
@@ -127,8 +132,29 @@ public class BookAppPanel extends JPanel {
             previewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Book.Preview" ) ) );
             previewPanel.add( imagePanel, BorderLayout.CENTER );
             lookPanel.add( previewPanel, cLook );
+            
+            // Adding the button for edit the arrows position
+            addButtonEditArrowPosition( );
+            
+            
             // TODO Parche, arreglar
             lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
+        }
+
+        private void addButtonEditArrowPosition( ) {
+
+         // TODO Palabra para el JButton
+            JButton bEditArrow = new JButton( "Edit arrows position");
+            bEditArrow.addActionListener( new ActionListener( ){
+                public void actionPerformed( ActionEvent e ) {
+                    new ChangeArrowsPositionDialog( Controller.getInstance( ).peekWindow( ), bookDataControl );
+                }
+            }
+                    );
+            cLook.gridy = 3;
+            cLook.weighty = 0.01;
+            lookPanel.add( bEditArrow, cLook );
+            
         }
 
         @Override
@@ -184,6 +210,7 @@ public class BookAppPanel extends JPanel {
                     components[k].repaint( );
                     k++;
                 }
+            
          }
     }
 }

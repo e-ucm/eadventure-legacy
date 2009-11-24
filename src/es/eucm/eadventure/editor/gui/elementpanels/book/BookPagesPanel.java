@@ -73,7 +73,7 @@ import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataContr
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
-import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPagePreviewPanel;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class BookPagesPanel extends JPanel {
