@@ -47,7 +47,7 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
-import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPagePreviewPanel;
 
 /**
  * Class that shows a dialog to change the margins of a page in a book

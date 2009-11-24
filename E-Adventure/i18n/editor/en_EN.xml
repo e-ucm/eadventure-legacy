@@ -2055,7 +2055,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Effect.TriggerLastSceneInfo">Trigger last scene</entry>
 <entry key="IMS.Classification.Tip">Classification Data</entry>
 <entry key="GlobalStatesList.ID">Global state ID</entry>
-<entry key="Item.ReturnsWhenDragged">Object returns to it's original position after being dragged</entry>
+<entry key="Item.ReturnsWhenDragged">Object returns to its original position after being dragged</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicate rule</entry>
 <entry key="SmallAction.ActiveWhenConditionsArent">Active when conditions are not</entry>
 <entry key="NPCReference.NPCId">Id of the referenced character</entry>
