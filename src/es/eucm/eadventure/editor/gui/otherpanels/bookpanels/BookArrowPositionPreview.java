@@ -34,10 +34,12 @@ package es.eucm.eadventure.editor.gui.otherpanels.bookpanels;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
+import es.eucm.eadventure.editor.gui.editdialogs.ChangeArrowsPositionDialog;
 
 /**
  * This class represents the panel in which we can define
@@ -56,33 +58,42 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
     
     private MouseArrowsListener mouseListener = new MouseArrowsListener( this );
     
-    public BookArrowPositionPreview( BookDataControl dControl ){
+    private ChangeArrowsPositionDialog parent;
+    
+    public BookArrowPositionPreview( BookDataControl dControl, ChangeArrowsPositionDialog parent ){
+        this.parent = parent;
         loadImages( dControl );
         if ( background != null ){
             Dimension d = new Dimension( background.getWidth( null ), background.getHeight( null ) );
             this.setPreferredSize( d );
         }
         this.addMouseListener( mouseListener );
+        this.addMouseMotionListener( mouseListener );
     }
     
     @Override
     public void paint( Graphics g ) {
         super.paint( g );
+        g.setColor( new Color( 1.0f, 0.0f, 0.0f, 0.5f ) );
         if( background != null )
             g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
         
-        if ( currentArrowLeft != null && currentArrowRight != null )
-            g.drawImage( currentArrowLeft, xLeft, yLeft, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );                
-        
-        if ( currentArrowRight != null )            
-            g.drawImage( currentArrowRight, xRight, yRight, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
-        
-        g.setColor( new Color( 1.0f, 0.0f, 0.0f, 0.5f ) );
-        if ( selectedLeft ){
+        if ( currentArrowLeft != null ){
+            g.drawImage( currentArrowLeft, xLeft, yLeft, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
             g.drawRect( xLeft, yLeft, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ) );
         }
-        else if ( selectedRight ){
+        
+        if ( currentArrowRight != null ){            
+            g.drawImage( currentArrowRight, xRight, yRight, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
             g.drawRect( xRight, yRight, currentArrowRight.getWidth( null ), currentArrowRight.getHeight( null ) );
+        }
+        
+        g.setColor( new Color( 0.0f, 1.0f, 0.0f, 0.5f ) );
+        if ( selectedLeft ){
+            g.fillRect( xLeft, yLeft, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ) );
+        }
+        else if ( selectedRight ){
+            g.fillRect( xRight, yRight, currentArrowRight.getWidth( null ), currentArrowRight.getHeight( null ) );
         }
     }
     
@@ -97,16 +108,7 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
             bookPreview = bPreview;
         }
         @Override
-        public void mouseClicked( MouseEvent e ) {
-            // If we have one arrow selected, we release it.
-            if ( selectedLeft || selectedRight ){
-                selectedLeft = false;
-                selectedRight = false;
-                bookPreview.removeMouseMotionListener( this );
-                bookPreview.repaint( );
-            }
-            // Else, we check if we just selected one
-            else {
+        public void mousePressed( MouseEvent e ) {
                 int x = e.getX( );
                 int y = e.getY( );
                 if ( isInPreviousPage( x, y ) ){
@@ -129,14 +131,12 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
                     selectedRight = false;
                 }
                 if ( selectedLeft || selectedRight ){
-                    bookPreview.addMouseMotionListener( this );
                     bookPreview.repaint( );
                 }
-            }
         }
 
         @Override
-        public void mouseMoved( MouseEvent e ) {
+        public void mouseDragged( MouseEvent e ) {            
             if ( selectedLeft ){
                 bookPreview.setLeftArrowPosition( e.getX( ) - marginX, e.getY( ) - marginY );
             }
@@ -144,6 +144,19 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
                 bookPreview.setRightArrowPosition( e.getX( ) - marginX, e.getY( ) - marginY );
             }
             bookPreview.repaint( );
+            parent.updateSpinners( );
+        }
+        
+        @Override
+        public void mouseReleased( MouseEvent e){
+            // If we have one arrow selected, we release it.
+            if ( selectedLeft || selectedRight ){
+                selectedLeft = false;
+                selectedRight = false;
+                bookPreview.repaint( );
+                bookPreview.dispatchEvent( new ActionEvent( bookPreview, ActionEvent.ACTION_PERFORMED, "mouseReleased" ) );
+                parent.updateSpinners( );
+            }
         }
         
     }
