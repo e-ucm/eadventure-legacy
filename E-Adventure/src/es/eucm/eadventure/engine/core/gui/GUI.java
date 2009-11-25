@@ -1500,26 +1500,42 @@ public abstract class GUI implements FocusListener {
 
     public void loading( int percent ) {
         if (percent == 0) {
-            this.loadingImage =  new ImageIcon("gui/loading.png").getImage();//ResourceHandler.getInstance( ).getResourceAsImage( "gui/loading.gif" );
+            this.loadingImage =  new ImageIcon("gui/loading.jpg").getImage();
             this.loading = percent;
             loadingTimer = new Timer();
             loadingTask = new TimerTask() {
-                private int cont = 0;
+                private int cont = 20;
+                private boolean contracting = false;
                 
                 @Override
                 public void run( ) {
                     Graphics2D g = GUI.this.getGraphics( );
                     g.drawImage( loadingImage, 0, 0, null);
                     
-                    g.setColor( Color.BLUE );
-                    g.fillRect( 200, 400, loading * 4, 50 );
-                    g.fillArc( 350, 250, 50, 50, cont, 20 );
+                    g.setColor( new Color(250, 173, 6) );
+                    g.fillRoundRect( 200, 300, loading * 4, 50, 10, 10 );
+//                    g.setColor( Color.BLUE );
+//                    g.fillArc( 350, 250, 50, 50, cont, 20 );
                     
-                    g.setColor( Color.BLACK );
-                    g.drawRect( 200, 400, 400, 50 );
-                    g.drawOval( 350, 250, 50, 50 );
+                    g.setStroke( new BasicStroke(4.0f) );
+                    g.setColor( new Color(90, 32, 2) );
+                    g.drawRoundRect( 200, 300, 400, 50, 10, 10 );
+
+                    g.setColor( new Color(247, 215, 105) );
+                    g.fillOval( 400 - cont / 2, 100 - cont / 2, cont, cont );
                     
-                    cont -= 5;
+//                    g.setColor( Color.BLACK );
+//                    g.drawOval( 350, 250, 50, 50 );
+
+                    if (!contracting) {
+                        cont += 1;
+                        if (cont > 60)
+                            contracting = true;
+                    } else {
+                        cont -= 1;
+                        if (cont < 10)
+                            contracting = false;
+                    }
                     
                     GUI.this.endDraw( );
                 }
@@ -1533,12 +1549,13 @@ public abstract class GUI implements FocusListener {
         
         Graphics2D g = this.getGraphics( );
         g.drawImage( loadingImage, 0, 0, null);
+
+        g.setColor( new Color(250, 173, 6) );
+        g.fillRoundRect( 200, 300, loading * 4, 50, 10, 10 );
         
-        g.setColor( Color.BLUE );
-        g.fillRect( 200, 400, percent * 4, 50 );
-        
-        g.setColor( Color.BLACK );
-        g.drawRect( 200, 400, 400, 50 );
+        g.setStroke( new BasicStroke(4.0f) );
+        g.setColor( new Color(90, 32, 2) );
+        g.drawRoundRect( 200, 300, 400, 50, 10, 10 );
         
         this.endDraw( );
     }
