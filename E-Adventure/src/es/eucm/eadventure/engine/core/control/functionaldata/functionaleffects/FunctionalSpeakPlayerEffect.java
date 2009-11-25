@@ -94,5 +94,18 @@ public class FunctionalSpeakPlayerEffect extends FunctionalEffect {
 
         return Game.getInstance( ).getCharacterCurrentlyTalking( ) != null;
     }
+    
+    @Override
+    public boolean canSkip( ) {
+        return true;
+    }
+
+    @Override
+    public void skip( ) {
+        if( Game.getInstance( ).getCharacterCurrentlyTalking( ) != null && Game.getInstance( ).getCharacterCurrentlyTalking( ).isTalking( ) )
+            Game.getInstance( ).getCharacterCurrentlyTalking( ).stopTalking( );
+        Game.getInstance( ).setCharacterCurrentlyTalking( null );
+    }
+
 
 }
