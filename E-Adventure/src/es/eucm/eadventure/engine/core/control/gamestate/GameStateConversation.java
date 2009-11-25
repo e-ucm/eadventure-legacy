@@ -39,17 +39,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
-import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -331,8 +331,17 @@ public class GameStateConversation extends GameState {
      */
     private void optionNodeWithOptionSelected( ) {
 
-        if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
-            return;
+        if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) ) {
+            if( mouseClickedButton == MouseEvent.BUTTON1) {
+                DebugLog.user( "Skipped line in conversation" );
+                game.getCharacterCurrentlyTalking( ).stopTalking( );
+                mouseClickedButton = MouseEvent.NOBUTTON;
+            } else if ( mouseClickedButton == MouseEvent.BUTTON3 ) {
+                DebugLog.user( "Skipped conversation" );
+                game.getCharacterCurrentlyTalking( ).stopTalking( );
+            } else
+                return;
+        }
 
         if( currentNode.hasValidEffect( ) && !currentNode.isEffectConsumed( ) ) {
             currentNode.consumeEffect( );
@@ -413,14 +422,17 @@ public class GameStateConversation extends GameState {
     @Override
     public synchronized void mouseClicked( MouseEvent e ) {
 
-        if( currentNode.getType( ) == ConversationNodeView.OPTION && GUI.getInstance( ).getResponseTextY( ) <= e.getY( ) && GUI.getInstance( ).getResponseTextY( ) + currentNode.getLineCount( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) && !isOptionSelected ) {
+        if( currentNode.getType( ) == ConversationNodeView.OPTION &&
+                GUI.getInstance( ).getResponseTextY( ) <= e.getY( ) &&
+                GUI.getInstance( ).getResponseTextY( ) + currentNode.getLineCount( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) &&
+                !isOptionSelected) {
             optionSelected = ( e.getY( ) - GUI.getInstance( ).getResponseTextY( ) ) / RESPONSE_TEXT_HEIGHT;
             if( optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES )
                 selectDisplayedOption( );
             else
                 selectNoAllDisplayedOption( );
         }
-        else if( currentNode.getType( ) == ConversationNodeView.DIALOGUE ) {
+        else if( currentNode.getType( ) == ConversationNodeView.DIALOGUE || isOptionSelected) {
             if( e.getButton( ) == MouseEvent.BUTTON1 )
                 mouseClickedButton = MouseEvent.BUTTON1;
             else if( e.getButton( ) == MouseEvent.BUTTON3 )
