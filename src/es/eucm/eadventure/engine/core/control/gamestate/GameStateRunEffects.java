@@ -34,6 +34,7 @@
 package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalMoveObjectEffect;
@@ -55,6 +56,11 @@ public class GameStateRunEffects extends GameState {
      * Distinguish when the State run effects are called from a conversation
      */
     private boolean fromConversation;
+
+    /**
+     * Last mouse button pressed
+     */
+    private int mouseClickedButton = MouseEvent.NOBUTTON;
 
     /**
      * Constructor
@@ -146,6 +152,10 @@ public class GameStateRunEffects extends GameState {
         // Special conditions for the play animation effect
         // FIXME Edu: ¿Mover esto de aqui?
         else if( currentExecutingEffect != null && currentExecutingEffect.isStillRunning( ) ) {
+            if (mouseClickedButton == MouseEvent.BUTTON3 && currentExecutingEffect.canSkip())  {
+                currentExecutingEffect.skip();
+            }
+
             if( currentExecutingEffect instanceof FunctionalPlayAnimationEffect ) {
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).draw( g );
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).update( elapsedTime );
@@ -154,8 +164,20 @@ public class GameStateRunEffects extends GameState {
                 ((FunctionalMoveObjectEffect) currentExecutingEffect).update(elapsedTime);
             }
         }
+        
+        mouseClickedButton = MouseEvent.NOBUTTON;
 
         GUI.getInstance( ).endDraw( );
         g.dispose( );
     }
+    
+    @Override
+    public synchronized void mouseClicked( MouseEvent e ) {
+        mouseClickedButton = MouseEvent.NOBUTTON;
+        if( e.getButton( ) == MouseEvent.BUTTON1 )
+            mouseClickedButton = MouseEvent.BUTTON1;
+        else if( e.getButton( ) == MouseEvent.BUTTON3 )
+            mouseClickedButton = MouseEvent.BUTTON3;
+    }
+
 }

@@ -197,4 +197,11 @@ public abstract class FunctionalEffect {
         return fe;
     }
 
+    public boolean canSkip( ) {
+        return false;
+    }
+
+    public void skip( ) {
+    }
+
 }
