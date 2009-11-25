@@ -34,12 +34,14 @@ package es.eucm.eadventure.editor.gui.editdialogs;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
@@ -62,7 +64,10 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
     
     private BookArrowPositionPreview bookPreview;
     
-    private JSpinner xLeftSpinner, yLeftSpinner, xRightSpinner, yRightSpinner;
+    private JSpinner xLeftSpinner = new JSpinner( ), 
+                     yLeftSpinner = new JSpinner( ), 
+                     xRightSpinner = new JSpinner( ), 
+                     yRightSpinner = new JSpinner( );
     
     private final static int SPINNER_LEFT = 0, SPINNER_RIGHT = 1, SPINNER_X = 2, SPINNER_Y = 3;
 
@@ -71,7 +76,7 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
      // TODO Título para el diálogo
         super( window, TC.get( "Error" ) );
         
-        bookPreview = new BookArrowPositionPreview( dControl );
+        bookPreview = new BookArrowPositionPreview( dControl, this );
         
         JPanel p = new JPanel( new GridBagLayout( ));
         GridBagConstraints c = new GridBagConstraints( );
@@ -102,20 +107,74 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
     
     private JPanel getTopPanel( ){
         //TODO cadena
-        JPanel bottomPanel = new JPanel( );
+        JPanel bottomPanel = new JPanel( new GridBagLayout( ) );
+        
         JButton bDefaultPosition = new JButton ( "Default position" );
         bDefaultPosition.addActionListener( new ActionListener( ){
             public void actionPerformed( ActionEvent e ) {
                 bookPreview.setDefaultArrowsPosition( );
+                updateSpinners( );
                 bookPreview.repaint( );
             }
         });
         
-        JSpinner xLeftSpinner = new JSpinner( );
+        GridBagConstraints c = new GridBagConstraints( );
+        c.gridheight = 1;
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 0;
         
+        bottomPanel.add(  bDefaultPosition, c );
+        // TODO Labels strings
+        c.gridx = 1;
+        c.gridy = 0;
+        bottomPanel.add( new JLabel( "Previous page x: " ), c );
         
-        bottomPanel.add(  bDefaultPosition );
+        xLeftSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_LEFT ) );
+        c.gridx = 2;
+        c.gridy = 0;
+        bottomPanel.add( xLeftSpinner, c );
+        
+        c.gridx = 3;
+        c.gridy = 0;
+        bottomPanel.add( new JLabel( "Previous page y: " ), c );
+        
+        yLeftSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_LEFT ) );
+        
+        c.gridx = 4;
+        c.gridy = 0;
+        bottomPanel.add( yLeftSpinner, c );
+        
+        c.gridx = 1;
+        c.gridy = 1;
+        bottomPanel.add(  new JLabel( "Next page x: " ), c );
+        
+        xRightSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_RIGHT ) );
+        
+        c.gridx = 2;
+        c.gridy = 1;
+        bottomPanel.add( xRightSpinner, c );
+        
+        c.gridx = 3;
+        c.gridy = 1;
+        bottomPanel.add(  new JLabel( "Next page y: " ), c );
+        
+        yRightSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_RIGHT ) );
+        
+        c.gridx = 4;
+        c.gridy = 1;
+        bottomPanel.add( yRightSpinner, c );
+        
+        updateSpinners( );
+        
         return bottomPanel;
+    }
+    
+    public void updateSpinners( ){
+        xLeftSpinner.setValue( bookPreview.getLeftArrowPosition( ).x );
+        yLeftSpinner.setValue( bookPreview.getLeftArrowPosition( ).y );
+        xRightSpinner.setValue( bookPreview.getRightArrowPosition( ).x );
+        yRightSpinner.setValue( bookPreview.getRightArrowPosition( ).y );
     }
     
     private class CoordinateChange implements ChangeListener {
@@ -136,10 +195,28 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
         
         private void update( int value ){
             if ( side == SPINNER_LEFT ){
+                Point p = bookPreview.getLeftArrowPosition( );
                 if ( coordinate == SPINNER_X ){
-                    //bookPreview.set
+                    bookPreview.setLeftArrowPosition( value, p.y );
+                    updateSpinners( );
+                }
+                else if ( coordinate == SPINNER_Y ){
+                    bookPreview.setLeftArrowPosition( p.x, value );
+                    updateSpinners( );
                 }
             }
+            else if ( side == SPINNER_RIGHT ){
+                Point p = bookPreview.getRightArrowPosition( );
+                if ( coordinate == SPINNER_X ){
+                    bookPreview.setRightArrowPosition( value, p.y );
+                    updateSpinners( );
+                }
+                else if ( coordinate == SPINNER_Y ){
+                    bookPreview.setRightArrowPosition( p.x, value );
+                    updateSpinners( );
+                }
+            }
+            bookPreview.repaint( );
         }
         
     }

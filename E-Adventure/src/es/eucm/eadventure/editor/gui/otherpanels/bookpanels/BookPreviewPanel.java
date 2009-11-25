@@ -32,6 +32,7 @@
 package es.eucm.eadventure.editor.gui.otherpanels.bookpanels;
 
 import java.awt.Image;
+import java.awt.Point;
 
 import javax.swing.JPanel;
 
@@ -69,14 +70,62 @@ public abstract class BookPreviewPanel extends JPanel {
      * @param x Coordinate x
      * @param y Coordiante y
      */
-    public void setLeftArrowPosition( int x, int y ){ xLeft = x; yLeft = y; }
+    public void setLeftArrowPosition( int x, int y ){
+        if ( x < 0 )
+            xLeft = 0;
+        else if ( x > background.getWidth( null ) - arrowLeftNormal.getWidth( null ) ){
+            xLeft = background.getWidth( null ) - arrowLeftNormal.getWidth( null );
+        }
+        else{
+            xLeft = x;
+        }
+        
+        if ( y < 0 ){
+            yLeft = 0; 
+        }
+        else if ( y > background.getHeight( null ) - arrowLeftNormal.getHeight( null ) ){
+            yLeft = background.getHeight( null ) - arrowLeftNormal.getHeight( null );
+        }
+        else
+            yLeft = y;
+    }
     
     /**
      * Setter for the right arrow position
      * @param x Coordinate x
      * @param y Coordiante y
      */
-    public void setRightArrowPosition( int x, int y ){ xRight = x; yRight = y; }
+    public void setRightArrowPosition( int x, int y ){
+        if ( x < 0 )
+            xRight = 0;
+        else if ( x > background.getWidth( null ) - arrowRightNormal.getWidth( null ) ){
+            xRight = background.getWidth( null ) - arrowRightNormal.getWidth( null );
+        }
+        else{
+            xRight = x;
+        }
+        
+        if ( y < 0 ){
+            yRight = 0; 
+        }
+        else if ( y > background.getHeight( null ) - arrowRightNormal.getHeight( null ) ){
+            yRight = background.getHeight( null ) - arrowRightNormal.getHeight( null );
+        }
+        else
+            yRight = y;
+    }
+    
+    /**
+     * 
+     * @return Left arrow position.
+     */
+    public Point getLeftArrowPosition( ){ return new Point( xLeft, yLeft ); }
+    
+    /**
+     * 
+     * @return Right arrow position.
+     */
+    public Point getRightArrowPosition( ){ return new Point( xRight, yRight ); }
     
     /**
      * Load the required images for the book
