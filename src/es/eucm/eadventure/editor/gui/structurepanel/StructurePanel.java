@@ -196,7 +196,6 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
     }
 
     public void update( int oldIndex, final int newIndex ) {
-
         if( oldIndex != newIndex && oldIndex != -1 ) {
             this.setEnabled( false );
             setCursor( new Cursor( Cursor.WAIT_CURSOR ) );
@@ -221,9 +220,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
             }
             selectedElement = newIndex;
             new Thread( new Runnable( ) {
-
                 public void run( ) {
-
                     removeAll( );
                     setIgnoreRepaint( true );
                     for( int i = 0; i < cont; i++ ) {
@@ -247,18 +244,14 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
                     setEnabled( true );
                     setIgnoreRepaint( false );
                     SwingUtilities.invokeLater( new Runnable( ) {
-
                         public void run( ) {
-
                             setCursor( new Cursor( Cursor.DEFAULT_CURSOR ) );
                         }
                     } );
                 }
             } ).start( );
             SwingUtilities.invokeLater( new Runnable( ) {
-
                 public void run( ) {
-
                     if( editorContainer != null ) {
                         editorContainer.removeAll( );
                         editorContainer.add( structureElements.get( newIndex ).getEditPanel( ) );
