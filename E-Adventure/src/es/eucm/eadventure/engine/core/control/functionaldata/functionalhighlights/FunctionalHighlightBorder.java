@@ -31,8 +31,10 @@
 */
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalhighlights;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Transparency;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -64,7 +66,11 @@ public class FunctionalHighlightBorder extends FunctionalHighlight {
             oldImage = image;
             newImage = temp;
         }
-        return newImage.getScaledInstance( (int)(image.getWidth(null) * scale), (int)(image.getHeight( null ) * scale), Image.SCALE_SMOOTH );
+        BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.BITMASK );
+        ((Graphics2D) temp.getGraphics( )).drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
+        return temp;
+
+//        return newImage.getScaledInstance( (int)(image.getWidth(null) * scale), (int)(image.getHeight( null ) * scale), Image.SCALE_SMOOTH );
     }
 
 }

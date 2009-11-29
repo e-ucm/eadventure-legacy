@@ -34,7 +34,10 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Transparency;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -516,7 +519,9 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
             }
             else if( scale != 1 ) {
                 oldOriginalImage = image;
-                image = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
+                //image = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
+                image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.BITMASK );
+                ((Graphics2D) image.getGraphics( )).drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
             }
             else {
                 oldOriginalImage = image;
