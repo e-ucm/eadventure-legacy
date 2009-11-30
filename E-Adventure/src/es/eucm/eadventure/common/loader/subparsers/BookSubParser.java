@@ -33,6 +33,8 @@
  */
 package es.eucm.eadventure.common.loader.subparsers;
 
+import java.awt.Point;
+
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
@@ -112,12 +114,42 @@ public class BookSubParser extends SubParser {
             // If it is a book tag, store the id of the book
             if( qName.equals( "book" ) ) {
                 String bookId = "";
+                String xPrevious = "", xNext = "", yPrevious = "", yNext = ""; 
 
-                for( int i = 0; i < attrs.getLength( ); i++ )
+                for( int i = 0; i < attrs.getLength( ); i++ ){
                     if( attrs.getQName( i ).equals( "id" ) )
                         bookId = attrs.getValue( i );
+                    else if ( attrs.getQName( i ).equals( "xPreviousPage" ) )
+                        xPrevious = attrs.getValue( i );
+                    else if ( attrs.getQName( i ).equals( "xNextPage" ) )
+                        xNext = attrs.getValue( i );
+                    else if ( attrs.getQName( i ).equals( "yPreviousPage" ) )
+                        yPrevious = attrs.getValue( i );
+                    else if ( attrs.getQName( i ).equals( "yNextPage" ) )
+                        yNext = attrs.getValue( i );
+                }
 
                 book = new Book( bookId );
+                
+                if ( xPrevious != "" && yPrevious != "" ){
+                    try {
+                        int x = Integer.parseInt( xPrevious );
+                        int y = Integer.parseInt( yPrevious );
+                        book.setPreviousPagePoint( new Point( x, y) );
+                    } catch ( NumberFormatException e ){
+                        // Number in XML is wrong -> Do nothing
+                    }
+                }
+                
+                if ( xNext != "" && yNext != "" ){
+                    try {
+                        int x = Integer.parseInt( xNext );
+                        int y = Integer.parseInt( yNext );
+                        book.setNextPagePoint( new Point( x, y) );
+                    } catch ( NumberFormatException e ){
+                        // Number in XML is wrong -> Do nothing
+                    }
+                }
             }
 
             // If it is a resources tag, create the new resources

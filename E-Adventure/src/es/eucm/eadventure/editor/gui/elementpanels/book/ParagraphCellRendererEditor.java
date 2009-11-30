@@ -66,7 +66,7 @@ import javax.swing.table.TableCellRenderer;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
+import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPreviewParagraphPanel;
 
 public class ParagraphCellRendererEditor extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
 
@@ -78,9 +78,9 @@ public class ParagraphCellRendererEditor extends AbstractCellEditor implements T
 
     private JTextField textField;
 
-    private BookImagePanel previewPanel;
+    private BookPreviewParagraphPanel previewPanel;
 
-    public ParagraphCellRendererEditor( BookImagePanel previewPanel2 ) {
+    public ParagraphCellRendererEditor( BookPreviewParagraphPanel previewPanel2 ) {
 
         this.previewPanel = previewPanel2;
     }

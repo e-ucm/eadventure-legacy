@@ -67,7 +67,7 @@ public class ImagePanel extends JPanel {
     /**
      * Image to show.
      */
-    private Image image;
+    protected Image image;
 
     /**
      * X position of the image in the panel.

@@ -31,7 +31,7 @@
  * Place, Suite 330, Boston, MA 02111-1307 USA
  * 
  */
-package es.eucm.eadventure.editor.gui.otherpanels.imagepanels;
+package es.eucm.eadventure.editor.gui.otherpanels.bookpanels;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -47,10 +47,16 @@ import java.util.List;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListDataControl;
 
-public class BookImagePanel extends BookPreviewImagePanel {
+/**
+ * Class for book paragraph view in Content tab.
+ * @author Ángel
+ *
+ */
+public class BookPreviewParagraphPanel extends BookPreviewPanel {
 
     /**
      * Required.
@@ -152,9 +158,9 @@ public class BookImagePanel extends BookPreviewImagePanel {
      * @param bookParagraphsListDataControl
      *            Data controller of the list of paragraphs
      */
-    public BookImagePanel( String backgroundImagePath, String leftArrowImagePath, String rightArrowImagePath, BookParagraphsListDataControl bookParagraphsListDataControl ) {
+    public BookPreviewParagraphPanel( BookDataControl bookDataControl, BookParagraphsListDataControl bookParagraphsListDataControl ) {
 
-        super( backgroundImagePath, leftArrowImagePath, rightArrowImagePath );
+        super( bookDataControl );
         this.bookParagraphsListDataControl = bookParagraphsListDataControl;
         updatePreview( );
 
@@ -215,10 +221,11 @@ public class BookImagePanel extends BookPreviewImagePanel {
     @Override
     public void paint( Graphics g ) {
 
-        super.paint( g );
+        //super.paint( g );
 
         // If the image is loaded, draw the elements
         if( isImageLoaded( ) ) {
+            paintBackground( g );
             // Draw the first page
             g.drawImage( bookContinousImage, getAbsoluteX( TEXT_FIRST_COLUMN ), getAbsoluteY( TEXT_TOP_POSITION + 5 ), getAbsoluteX( TEXT_FIRST_COLUMN + TEXT_WIDTH ), getAbsoluteY( TEXT_TOP_POSITION + PAGE_TEXT_HEIGHT + 5 ), 0, currentPage * PAGE_TEXT_HEIGHT + 5, TEXT_WIDTH, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT + 5, null );
 
@@ -226,6 +233,7 @@ public class BookImagePanel extends BookPreviewImagePanel {
             if( currentPage < pageCount - 1 ) {
                 g.drawImage( bookContinousImage, getAbsoluteX( TEXT_SECOND_COLUMN ), getAbsoluteY( TEXT_TOP_POSITION + 5 ), getAbsoluteX( TEXT_SECOND_COLUMN + TEXT_WIDTH ), getAbsoluteY( TEXT_TOP_POSITION + PAGE_TEXT_HEIGHT + 5 ), 0, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT + 5, TEXT_WIDTH, ( currentPage + 2 ) * PAGE_TEXT_HEIGHT + 5, null );
             }
+            paintArrows( g );
         }
     }
 

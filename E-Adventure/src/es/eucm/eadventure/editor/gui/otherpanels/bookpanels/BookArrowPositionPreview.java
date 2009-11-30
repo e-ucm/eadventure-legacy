@@ -54,17 +54,17 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
     /**
      * To know if we have any arrows selected
      */
-    private boolean selectedLeft = false, selectedRight = false;
+    private boolean selectedPrevious = false, selectedNext = false;
     
     private MouseArrowsListener mouseListener = new MouseArrowsListener( this );
     
     private ChangeArrowsPositionDialog parent;
     
     public BookArrowPositionPreview( BookDataControl dControl, ChangeArrowsPositionDialog parent ){
+        super( dControl );
         this.parent = parent;
-        loadImages( dControl );
-        if ( background != null ){
-            Dimension d = new Dimension( background.getWidth( null ), background.getHeight( null ) );
+        if ( image != null ){
+            Dimension d = new Dimension( image.getWidth( null ), image.getHeight( null ) );
             this.setPreferredSize( d );
         }
         this.addMouseListener( mouseListener );
@@ -73,27 +73,28 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
     
     @Override
     public void paint( Graphics g ) {
-        super.paint( g );
+        // Background
+        this.paintBackground( g );
+        
+        // Arrows
+        paintArrows( g );
+        
+        // Square for arrows
         g.setColor( new Color( 1.0f, 0.0f, 0.0f, 0.5f ) );
-        if( background != null )
-            g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
+        if ( arrowLeftNormal != null )
+            g.drawRect( getAbsoluteX( previousPagePoint.x ), getAbsoluteY( previousPagePoint.y ), getAbsoluteWidth( arrowLeftNormal.getWidth( null ) ), getAbsoluteHeight( arrowLeftNormal.getHeight( null )) );
         
-        if ( currentArrowLeft != null ){
-            g.drawImage( currentArrowLeft, xLeft, yLeft, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
-            g.drawRect( xLeft, yLeft, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ) );
+        if ( arrowRightNormal != null ){            
+            g.drawRect( getAbsoluteX( nextPagePoint.x ), getAbsoluteY( nextPagePoint.y ), getAbsoluteWidth( arrowRightNormal.getWidth( null ) ), getAbsoluteHeight( arrowRightNormal.getHeight( null )) );
         }
         
-        if ( currentArrowRight != null ){            
-            g.drawImage( currentArrowRight, xRight, yRight, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
-            g.drawRect( xRight, yRight, currentArrowRight.getWidth( null ), currentArrowRight.getHeight( null ) );
-        }
-        
+        // Rectangles if an arrow is selected
         g.setColor( new Color( 0.0f, 1.0f, 0.0f, 0.5f ) );
-        if ( selectedLeft ){
-            g.fillRect( xLeft, yLeft, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ) );
+        if ( selectedPrevious ){
+            g.fillRect( getAbsoluteX( previousPagePoint.x ), getAbsoluteY( previousPagePoint.y ), getAbsoluteWidth( arrowLeftNormal.getWidth( null ) ), getAbsoluteHeight( arrowLeftNormal.getHeight( null )) );
         }
-        else if ( selectedRight ){
-            g.fillRect( xRight, yRight, currentArrowRight.getWidth( null ), currentArrowRight.getHeight( null ) );
+        else if ( selectedNext ){
+            g.fillRect( getAbsoluteX( nextPagePoint.x ), getAbsoluteY( nextPagePoint.y ), getAbsoluteWidth( arrowRightNormal.getWidth( null ) ), getAbsoluteHeight( arrowRightNormal.getHeight( null )) );
         }
     }
     
@@ -112,36 +113,36 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
                 int x = e.getX( );
                 int y = e.getY( );
                 if ( isInPreviousPage( x, y ) ){
-                    selectedLeft = true;
+                    selectedPrevious = true;
                     // With this, we avoid selecting both arrows
-                    selectedRight = false;
+                    selectedNext = false;
                     // Calculate margins
-                    marginX = x - xLeft;
-                    marginY = y - yLeft;
+                    marginX = x - previousPagePoint.x;
+                    marginY = y - previousPagePoint.y;
                 }
                 else if ( isInNextPage( x, y ) ){
-                    selectedRight = true;
-                    selectedLeft = false;
+                    selectedNext = true;
+                    selectedPrevious = false;
                     // Calculate margins
-                    marginX = x - xRight;
-                    marginY = y - yRight;
+                    marginX = x - nextPagePoint.x;
+                    marginY = y - nextPagePoint.y;
                 }
                 else {
-                    selectedLeft = false;
-                    selectedRight = false;
+                    selectedPrevious = false;
+                    selectedNext = false;
                 }
-                if ( selectedLeft || selectedRight ){
+                if ( selectedPrevious || selectedNext ){
                     bookPreview.repaint( );
                 }
         }
 
         @Override
         public void mouseDragged( MouseEvent e ) {            
-            if ( selectedLeft ){
-                bookPreview.setLeftArrowPosition( e.getX( ) - marginX, e.getY( ) - marginY );
+            if ( selectedPrevious ){
+                bookPreview.setPreviousPagePosition( e.getX( ) - marginX, e.getY( ) - marginY );
             }
-            else if ( selectedRight ){
-                bookPreview.setRightArrowPosition( e.getX( ) - marginX, e.getY( ) - marginY );
+            else if ( selectedNext ){
+                bookPreview.setNextPagePosition( e.getX( ) - marginX, e.getY( ) - marginY );
             }
             bookPreview.repaint( );
             parent.updateSpinners( );
@@ -150,9 +151,9 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
         @Override
         public void mouseReleased( MouseEvent e){
             // If we have one arrow selected, we release it.
-            if ( selectedLeft || selectedRight ){
-                selectedLeft = false;
-                selectedRight = false;
+            if ( selectedPrevious || selectedNext ){
+                selectedPrevious = false;
+                selectedNext = false;
                 bookPreview.repaint( );
                 bookPreview.dispatchEvent( new ActionEvent( bookPreview, ActionEvent.ACTION_PERFORMED, "mouseReleased" ) );
                 parent.updateSpinners( );

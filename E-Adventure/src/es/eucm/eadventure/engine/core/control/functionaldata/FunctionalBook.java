@@ -124,6 +124,14 @@ public abstract class FunctionalBook {
         // Load images and positions
         loadImages( r );
         
+        // Load arrows position
+        this.previousPage = book.getPreviousPagePoint( );
+        this.nextPage = book.getNextPagePoint( );
+        
+        if ( previousPage == null || nextPage == null ){
+            this.setDefaultArrowsPosition( );
+        }
+        
     }
     
     /**
@@ -258,6 +266,18 @@ public abstract class FunctionalBook {
         previousPageDimension = new Dimension( arrowLeftNormal.getWidth( null ), arrowLeftNormal.getHeight( null ) );
         nextPageDimension = new Dimension( arrowRightNormal.getWidth( null ), arrowRightNormal.getHeight( null ) );
         
+        currentArrowLeft = arrowLeftNormal;
+        currentArrowRight = arrowRightNormal;
+    }
+    
+    void loadDefaultArrows( ){
+        arrowLeftNormal = MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL, MultimediaManager.IMAGE_SCENE );
+        arrowRightNormal = ImageTransformer.getInstance( ).getScaledImage( arrowLeftNormal, 1.0f, 1.0f );
+        arrowLeftOver = MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER, MultimediaManager.IMAGE_SCENE );
+        arrowRightOver = ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, 1.0f, 1.0f );
+    }
+    
+    void setDefaultArrowsPosition( ){
         int margin = 20;
         int xLeft = margin;
         int yLeft = background.getHeight( null ) - (int) previousPageDimension.getHeight( ) - margin;
@@ -266,17 +286,6 @@ public abstract class FunctionalBook {
         
         previousPage = new Point( xLeft, yLeft );
         nextPage = new Point( xRight, yRight );
-        
-        
-        currentArrowLeft = arrowLeftNormal;
-        currentArrowRight = arrowRightNormal;
-    }
-    
-    void loadDefaultArrows( ){
-        arrowLeftNormal = 
-        arrowRightNormal = ImageTransformer.getInstance( ).getScaledImage( arrowLeftNormal, 1.0f, 1.0f );
-        arrowLeftOver = MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER, MultimediaManager.IMAGE_SCENE );
-        arrowRightOver = ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, 1.0f, 1.0f );
     }
     
     /**

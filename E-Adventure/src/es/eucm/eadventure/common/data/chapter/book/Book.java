@@ -33,6 +33,7 @@
  */
 package es.eucm.eadventure.common.data.chapter.book;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +89,40 @@ public class Book implements Cloneable, Documented, HasId {
      * {@value #TYPE_SCROLL_PAGE}.
      */
     private ArrayList<BookPage> pages;
+    
+    /**
+     * Previous page point
+     */
+    private Point previousPagePoint;
+    
+    /**
+     * Next page point
+     */
+    private Point nextPagePoint;
+
+    
+    public Point getPreviousPagePoint( ) {
+    
+        return previousPagePoint;
+    }
+
+    
+    public void setPreviousPagePoint( Point previousPagePoint ) {
+    
+        this.previousPagePoint = previousPagePoint;
+    }
+
+    
+    public Point getNextPagePoint( ) {
+    
+        return nextPagePoint;
+    }
+
+    
+    public void setNextPagePoint( Point nextPagePoint ) {
+    
+        this.nextPagePoint = nextPagePoint;
+    }
 
     /**
      * {@link #TYPE_PAGES}, {@link #TYPE_PARAGRAPHS}

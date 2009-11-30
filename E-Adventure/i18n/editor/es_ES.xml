@@ -172,6 +172,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="TreeNode.AddElement47">Añadir perfil de evaluación</entry>
 <entry key="AudioAssets.Preview">Reproductor de audio</entry>
 <entry key="TreeNode.AddElement44">Añadir temporizador</entry>
+<entry key="Arrows.PositionDialog">Posicionar flechas</entry>
 <entry key="TreeNode.AddElement43">Añadir página</entry>
 <entry key="TreeNode.AddElement41">Añadir perfil de adaptación</entry>
 <entry key="TreeNode.AddElement40">Añadir perfil de evaluación</entry>
@@ -425,6 +426,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="ActionsList.CustomName">Nombre personalizado</entry>
 <entry key="ErrorReport.FoundException">Excepción encontrada:</entry>
 <entry key="Menu.SendComments">Enviar comentarios o sugerencias</entry>
+<entry key="Arrows.DefaultPosition">Posición por defecto</entry>
 <entry key="MenuChapters.Title">Capítulos</entry>
 <entry key="LOM.Duration.Years">Years</entry>
 <entry key="Synthesizer.Title">Selecionar sintetizar linea de conversacion</entry>

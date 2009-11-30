@@ -33,6 +33,7 @@
  */
 package es.eucm.eadventure.editor.control.controllers.book;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -426,6 +427,22 @@ public class BookDataControl extends DataControlWithResources {
         if( path != null )
             return path;
         return getPathFromSearchableChild( dataControl, bookPagesListDataControl );
+    }
+    
+    public Point getNextPagePosition(){
+        return book.getNextPagePoint( );
+    }
+    
+    public Point getPreviousPagePosition(){
+        return book.getPreviousPagePoint( );
+    }
+    
+    public void setNextPagePosition( Point p ){
+        book.setNextPagePoint( p );
+    }
+    
+    public void setPreviousPagePosition( Point p ){
+        book.setPreviousPagePoint( p );
     }
 
 }

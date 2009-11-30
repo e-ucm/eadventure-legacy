@@ -159,6 +159,11 @@
 <!ELEMENT book (documentation?, resources+, (text | pages))>
 <!ATTLIST book
 	id ID #REQUIRED
+	xNextPage NMTOKEN #IMPLIED
+	yNextPage NMTOKEN #IMPLIED
+	xPreviousPage NMTOKEN #IMPLIED
+	yPreviousPage NMTOKEN #IMPLIED
+	
 >
 <!ELEMENT pages (page)*>
 <!ELEMENT page EMPTY>
