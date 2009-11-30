@@ -64,18 +64,16 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
     
     private BookArrowPositionPreview bookPreview;
     
-    private JSpinner xLeftSpinner = new JSpinner( ), 
-                     yLeftSpinner = new JSpinner( ), 
-                     xRightSpinner = new JSpinner( ), 
-                     yRightSpinner = new JSpinner( );
+    private JSpinner xPreviousPageSpinner = new JSpinner( ), 
+                     yPreviousPageSpinner = new JSpinner( ), 
+                     xNextPageSpinner = new JSpinner( ), 
+                     yNextPageSpinner = new JSpinner( );
     
     private final static int SPINNER_LEFT = 0, SPINNER_RIGHT = 1, SPINNER_X = 2, SPINNER_Y = 3;
 
     public ChangeArrowsPositionDialog( Window window, BookDataControl dControl ) {
 
-     // TODO Título para el diálogo
-        super( window, TC.get( "Error" ) );
-        
+        super( window, TC.get( "Arrows.PositionDialog" ) );
         bookPreview = new BookArrowPositionPreview( dControl, this );
         
         JPanel p = new JPanel( new GridBagLayout( ));
@@ -106,10 +104,9 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
     }
     
     private JPanel getTopPanel( ){
-        //TODO cadena
         JPanel bottomPanel = new JPanel( new GridBagLayout( ) );
         
-        JButton bDefaultPosition = new JButton ( "Default position" );
+        JButton bDefaultPosition = new JButton ( TC.get( "Arrows.DefaultPosition" ) );
         bDefaultPosition.addActionListener( new ActionListener( ){
             public void actionPerformed( ActionEvent e ) {
                 bookPreview.setDefaultArrowsPosition( );
@@ -128,42 +125,42 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
         // TODO Labels strings
         c.gridx = 1;
         c.gridy = 0;
-        bottomPanel.add( new JLabel( "Previous page x: " ), c );
+        bottomPanel.add( new JLabel( TC.get( "SPEP.XCoordinate" ) ), c );
         
-        xLeftSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_LEFT ) );
+        xPreviousPageSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_LEFT ) );
         c.gridx = 2;
         c.gridy = 0;
-        bottomPanel.add( xLeftSpinner, c );
+        bottomPanel.add( xPreviousPageSpinner, c );
         
         c.gridx = 3;
         c.gridy = 0;
-        bottomPanel.add( new JLabel( "Previous page y: " ), c );
+        bottomPanel.add( new JLabel(TC.get( "SPEP.YCoordinate" )  ), c );
         
-        yLeftSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_LEFT ) );
+        yPreviousPageSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_LEFT ) );
         
         c.gridx = 4;
         c.gridy = 0;
-        bottomPanel.add( yLeftSpinner, c );
+        bottomPanel.add( yPreviousPageSpinner, c );
         
         c.gridx = 1;
         c.gridy = 1;
-        bottomPanel.add(  new JLabel( "Next page x: " ), c );
+        bottomPanel.add(  new JLabel( TC.get( "SPEP.XCoordinate" )), c );
         
-        xRightSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_RIGHT ) );
+        xNextPageSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_RIGHT ) );
         
         c.gridx = 2;
         c.gridy = 1;
-        bottomPanel.add( xRightSpinner, c );
+        bottomPanel.add( xNextPageSpinner, c );
         
         c.gridx = 3;
         c.gridy = 1;
-        bottomPanel.add(  new JLabel( "Next page y: " ), c );
+        bottomPanel.add(  new JLabel( TC.get( "SPEP.YCoordinate" )  ), c );
         
-        yRightSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_RIGHT ) );
+        yNextPageSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_RIGHT ) );
         
         c.gridx = 4;
         c.gridy = 1;
-        bottomPanel.add( yRightSpinner, c );
+        bottomPanel.add( yNextPageSpinner, c );
         
         updateSpinners( );
         
@@ -171,10 +168,10 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
     }
     
     public void updateSpinners( ){
-        xLeftSpinner.setValue( bookPreview.getLeftArrowPosition( ).x );
-        yLeftSpinner.setValue( bookPreview.getLeftArrowPosition( ).y );
-        xRightSpinner.setValue( bookPreview.getRightArrowPosition( ).x );
-        yRightSpinner.setValue( bookPreview.getRightArrowPosition( ).y );
+        xPreviousPageSpinner.setValue( bookPreview.getPreviousPagePosition( ).x );
+        yPreviousPageSpinner.setValue( bookPreview.getPreviousPagePosition( ).y );
+        xNextPageSpinner.setValue( bookPreview.getNextPagePosition( ).x );
+        yNextPageSpinner.setValue( bookPreview.getNextPagePosition( ).y );
     }
     
     private class CoordinateChange implements ChangeListener {
@@ -195,24 +192,24 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
         
         private void update( int value ){
             if ( side == SPINNER_LEFT ){
-                Point p = bookPreview.getLeftArrowPosition( );
+                Point p = bookPreview.getPreviousPagePosition( );
                 if ( coordinate == SPINNER_X ){
-                    bookPreview.setLeftArrowPosition( value, p.y );
+                    bookPreview.setPreviousPagePosition( value, p.y );
                     updateSpinners( );
                 }
                 else if ( coordinate == SPINNER_Y ){
-                    bookPreview.setLeftArrowPosition( p.x, value );
+                    bookPreview.setPreviousPagePosition( p.x, value );
                     updateSpinners( );
                 }
             }
             else if ( side == SPINNER_RIGHT ){
-                Point p = bookPreview.getRightArrowPosition( );
+                Point p = bookPreview.getNextPagePosition( );
                 if ( coordinate == SPINNER_X ){
-                    bookPreview.setRightArrowPosition( value, p.y );
+                    bookPreview.setNextPagePosition( value, p.y );
                     updateSpinners( );
                 }
                 else if ( coordinate == SPINNER_Y ){
-                    bookPreview.setRightArrowPosition( p.x, value );
+                    bookPreview.setNextPagePosition( p.x, value );
                     updateSpinners( );
                 }
             }

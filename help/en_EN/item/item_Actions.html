@@ -1,10 +1,32 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Documento sin título</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="../../help.css" type="text/css" rel="stylesheet">
 </head>
-
 <body>
+<img src="../logo-editor.png" alt="e-Adventure logo"/>
+<h1>Items: Actions</h1>
+<h2>actions table</h2>
+<p>We can define actions and their consequences (effects) for each <span class="concepto">item</span>. To add a new action you click on <img src="../../common_img/add_icon.png" width="16" height="16">. Availables actions are:</p>
+<ul>
+  <li><strong>Normal actions</strong>: with <span class="referencia_literal">Examine</span>, <span class="referencia_literal">Grab</span>, <span class="referencia_literal">Use</span>.</li>
+  <li><strong><span id="result_box"><span title="Acciones que necesitan de otro elemento">Actions that need another element</span></span></strong>: 
+    <ul>
+      <li><span class="referencia_literal">Use with</span>: <span class="concepto">Item</span> must be used with another one. Then, the effecs will be triggered. This <span class="concepto">item</span> is choosen by a list.</li>
+      <li><span class="referencia_literal">Give to: <span class="concepto">Item</span> </span>must be used with a character. Then, the effecs will be triggered. This character is decided making a choice in a list which is displayed to the user.</li>
+    </ul>
+  </li>
+  <li>    <strong>Custom action</strong>:  <span class="referencia_literal">Custom</span> action allows us defining one action which adapts to our requirements. Once selected, a dialog will ask us for a name for the action, (e.g.: buy, open, throw, etc. ) and then if the action needs of another <span class="concepto">item</span>:
+<ul>
+      <li>If we select <span class="referencia_literal">Action</span>, interaction with antoher item will not be necessary.</li>
+      <li>If we select <span class="referencia_literal">Interaction</span>, a dialog will ask us for the item which interacts with it.</li>
+      <li>Once decided, we can custom the button appearance for the action in the tab <span class="referencia_literal">Personalization</span>.</li>
+    </ul>
+  </li>
+</ul>
+<h2>Description and effects</h2>
+<p>Any action has a <span class="referencia_literal">Full description for the action</span> and <span class="referencia_literal">Effects</span>.</p>
+<p>In the first, we can add all the information we want about the action.</p>
+<p>In the second, clicking on <img src="../../common_img/add_icon.png" alt="añadir" width="16" height="16"> we can add <a href="../effects/Effects_General.html">Effects</a> for the action. <a href="../effects/Effects_General.html">More about effects</a>.</p>
 </body>
 </html>

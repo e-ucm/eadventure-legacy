@@ -171,6 +171,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TreeNode.AddElement47">Add assessment profile</entry>
 <entry key="AudioAssets.Preview">Audio player</entry>
 <entry key="TreeNode.AddElement44">Add timer</entry>
+<entry key="Arrows.PositionDialog">Arrows position</entry>
 <entry key="TreeNode.AddElement43">Add page</entry>
 <entry key="TreeNode.AddElement41">Add adaptation profile</entry>
 <entry key="TreeNode.AddElement40">Add assessment profile</entry>
@@ -424,6 +425,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="ActionsList.CustomName">Custom Name</entry>
 <entry key="ErrorReport.FoundException">Found exception:</entry>
 <entry key="Menu.SendComments">Send comments or suggestions</entry>
+<entry key="Arrows.DefaultPosition">Default position</entry>
 <entry key="MenuChapters.Title">Chapters</entry>
 <entry key="LOM.Duration.Years">Years</entry>
 <entry key="Synthesizer.Title">Select synthetize conversation line</entry>

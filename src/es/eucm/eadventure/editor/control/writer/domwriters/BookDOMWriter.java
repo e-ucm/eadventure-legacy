@@ -69,6 +69,18 @@ public class BookDOMWriter {
             // Create the root node
             bookElement = doc.createElement( "book" );
             bookElement.setAttribute( "id", book.getId( ) );
+            
+            // Adding next page position
+            if ( book.getNextPagePoint( ) != null ){
+                bookElement.setAttribute( "xNextPage", book.getNextPagePoint( ).x + "" );
+                bookElement.setAttribute( "yNextPage", book.getNextPagePoint( ).y + "" );
+            }
+            
+            // Adding previous page position
+            if ( book.getPreviousPagePoint( ) != null ){
+                bookElement.setAttribute( "xPreviousPage", book.getPreviousPagePoint( ).x + "" );
+                bookElement.setAttribute( "yPreviousPage", book.getPreviousPagePoint( ).y + "" );
+            }
 
             // Append the documentation (if avalaible)
             if( book.getDocumentation( ) != null ) {

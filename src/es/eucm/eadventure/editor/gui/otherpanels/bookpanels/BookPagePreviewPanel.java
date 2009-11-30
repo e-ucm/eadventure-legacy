@@ -59,6 +59,11 @@ import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
+/**
+ * Class for the preview of HTML books in Content tab.
+ * @author Ángel S.
+ *
+ */
 public class BookPagePreviewPanel extends BookPreviewPanel {
 
     /**
@@ -72,13 +77,18 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
     private JEditorPane editorPane;
 
-    private Image image;
+    private Image imagePage;
+    
+    /**
+     * Current state for arrows
+     */
+    protected Image currentArrowLeft, currentArrowRight;
 
     private StyledBookDialog parent;
 
     public BookPagePreviewPanel( StyledBookDialog parent, BookPage bookPage, BookDataControl dControl ) {
 
-        super( );
+        super( dControl );
         this.parent = parent;
         isValid = true;
         this.bookPage = bookPage;
@@ -161,7 +171,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
         else if( bookPage.getType( ) == BookPage.TYPE_IMAGE ) {
             url = AssetsController.getResourceAsURLFromZip( bookPage.getUri( ) );
             if( bookPage.getUri( ) != null && bookPage.getUri( ).length( ) > 0 )
-                image = AssetsController.getImage( bookPage.getUri( ) );
+                imagePage = AssetsController.getImage( bookPage.getUri( ) );
         }
 
         if( url == null ) {
@@ -171,6 +181,9 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
         if( editorPane != null ) {
             addEditorPane( );
         }
+        
+        currentArrowLeft = arrowLeftNormal;
+        currentArrowRight = arrowRightNormal;
     }
 
     
@@ -201,8 +214,8 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
                 @Override
                 public void paint( Graphics g ) {
 
-                    if( background != null )
-                        g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
+                    if( image != null )
+                        g.drawImage( image, 0, 0, image.getWidth( null ), image.getHeight( null ), null );
                     super.paint( g );
                 }
             };
@@ -374,18 +387,18 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
     @Override
     public void paint( Graphics g ) {
         
-        if( background != null && !bookPage.getScrollable( ) )
-            g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
-        if( this.image != null )
-            g.drawImage( this.image, bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginBottom( ), 0, 0, this.image.getWidth( null ), this.image.getHeight( null ), null );
+        if( image != null && !bookPage.getScrollable( ) )
+            g.drawImage( image, 0, 0, image.getWidth( null ), image.getHeight( null ), null );
+        if( this.imagePage != null )
+            g.drawImage( this.imagePage, bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginBottom( ), 0, 0, this.imagePage.getWidth( null ), this.imagePage.getHeight( null ), null );
         if( editorPane != null )
             super.paint( g );
         if ( parent != null && currentArrowLeft != null && currentArrowRight != null ){
             if ( !parent.isInFirstPage( ) )
-                g.drawImage( currentArrowLeft, xLeft, yLeft, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
+                this.paintPreviousPageArrow( g );
             
             if ( !parent.isInLastPage( ) )
-                g.drawImage( currentArrowRight, xRight, yRight, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
+                this.paintNextPageArrow( g );
         }
     }
 
@@ -396,19 +409,18 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
      */
     public Image paintToImage( ) {
 
-        Image image = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_3BYTE_BGR );
-        Graphics g = image.getGraphics( );
-        if( background != null && !bookPage.getScrollable( ) )
-            g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
+        Image i = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_3BYTE_BGR );
+        Graphics g = i.getGraphics( );
+        if( image != null && !bookPage.getScrollable( ) )
+            g.drawImage( image, 0, 0, image.getWidth( null ), image.getHeight( null ), null );
         if( editorPane != null )
             editorPane.paint( g.create( bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMargin( ) - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginTop( ) - bookPage.getMarginBottom( ) ) );
-        if( this.image != null )
-            g.drawImage( this.image, bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginBottom( ), 0, 0, this.image.getWidth( null ), this.image.getHeight( null ), null );
-        if ( arrowLeftNormal != null && arrowRightNormal != null ){
-            g.drawImage( arrowLeftNormal, xLeft, yLeft, null );
-            g.drawImage( arrowRightNormal, xRight, yRight, null );
-        }
-        return image;
+        if( this.imagePage != null )
+            g.drawImage( this.imagePage, bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginBottom( ), 0, 0, this.imagePage.getWidth( null ), this.imagePage.getHeight( null ), null );
+        
+        this.paintArrows( g );
+        
+        return i;
     }
     
     @Override

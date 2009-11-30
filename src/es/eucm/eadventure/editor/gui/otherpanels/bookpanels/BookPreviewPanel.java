@@ -31,63 +31,88 @@
 */
 package es.eucm.eadventure.editor.gui.otherpanels.bookpanels;
 
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-
-import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.ImageTransformer;
+import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
 /**
  * This class contains all the basic information about the preview
- * of a book and the methods to load required images.
+ * of a book and the methods to load required images. It extends ImagePanel.
+ * The background is stored in the image atrribute of ImagePanel
  * 
- * BookPreviewPanel extends this class. 
  * @author Ángel S.
  *
  */
-public abstract class BookPreviewPanel extends JPanel {
+public class BookPreviewPanel extends ImagePanel {
 
     protected static final long serialVersionUID = 1L;
 
-    protected Image background, arrowLeftNormal, arrowRightNormal, arrowLeftOver, arrowRightOver;
-    
     /**
-     * Current state for arrows
+     * Images for the arrows
      */
-    protected Image currentArrowLeft, currentArrowRight;
+    protected Image arrowLeftNormal, arrowRightNormal, arrowLeftOver, arrowRightOver;
     
     /**
      * Coordinates for arrows
      */
-    protected int xLeft, xRight, yLeft, yRight;
+    protected Point nextPagePoint, previousPagePoint;
+    
+    /**
+     * Book data control
+     */
+    protected BookDataControl dataControl;
+    
+    /**
+     * Constructor.
+     * @param backgroundPath Image for background.
+     */
+    public BookPreviewPanel( String backgroundPath ){
+        super( backgroundPath );
+    }
+    
+    /**
+     * Constructor.
+     * @param dControl Data control of the book.
+     */
+    public BookPreviewPanel( BookDataControl dControl ){
+        this.dataControl = dControl;
+        // Initialize points to avoid NullPointer exception
+        previousPagePoint = new Point( 0, 0 );
+        nextPagePoint = new Point( 0, 0 );
+        this.loadImages( dataControl );
+    }
     
     /**
      * Setter for the left arrow position
      * @param x Coordinate x
      * @param y Coordiante y
      */
-    public void setLeftArrowPosition( int x, int y ){
+    public void setPreviousPagePosition( int x, int y ){
         if ( x < 0 )
-            xLeft = 0;
-        else if ( x > background.getWidth( null ) - arrowLeftNormal.getWidth( null ) ){
-            xLeft = background.getWidth( null ) - arrowLeftNormal.getWidth( null );
+            previousPagePoint.x = 0;
+        else if ( x > image.getWidth( null ) - arrowLeftNormal.getWidth( null ) ){
+            previousPagePoint.x = image.getWidth( null ) - arrowLeftNormal.getWidth( null );
         }
         else{
-            xLeft = x;
+            previousPagePoint.x = x;
         }
         
         if ( y < 0 ){
-            yLeft = 0; 
+            previousPagePoint.y = 0; 
         }
-        else if ( y > background.getHeight( null ) - arrowLeftNormal.getHeight( null ) ){
-            yLeft = background.getHeight( null ) - arrowLeftNormal.getHeight( null );
+        else if ( y > image.getHeight( null ) - arrowLeftNormal.getHeight( null ) ){
+            previousPagePoint.y = image.getHeight( null ) - arrowLeftNormal.getHeight( null );
         }
         else
-            yLeft = y;
+            previousPagePoint.y = y;
+        
+        dataControl.setPreviousPagePosition( previousPagePoint );
     }
     
     /**
@@ -95,44 +120,46 @@ public abstract class BookPreviewPanel extends JPanel {
      * @param x Coordinate x
      * @param y Coordiante y
      */
-    public void setRightArrowPosition( int x, int y ){
+    public void setNextPagePosition( int x, int y ){
         if ( x < 0 )
-            xRight = 0;
-        else if ( x > background.getWidth( null ) - arrowRightNormal.getWidth( null ) ){
-            xRight = background.getWidth( null ) - arrowRightNormal.getWidth( null );
+            nextPagePoint.x = 0;
+        else if ( x > image.getWidth( null ) - arrowRightNormal.getWidth( null ) ){
+            nextPagePoint.x = image.getWidth( null ) - arrowRightNormal.getWidth( null );
         }
         else{
-            xRight = x;
+            nextPagePoint.x = x;
         }
         
         if ( y < 0 ){
-            yRight = 0; 
+            nextPagePoint.y = 0; 
         }
-        else if ( y > background.getHeight( null ) - arrowRightNormal.getHeight( null ) ){
-            yRight = background.getHeight( null ) - arrowRightNormal.getHeight( null );
+        else if ( y > image.getHeight( null ) - arrowRightNormal.getHeight( null ) ){
+            nextPagePoint.y = image.getHeight( null ) - arrowRightNormal.getHeight( null );
         }
         else
-            yRight = y;
+            nextPagePoint.y = y;
+        
+        dataControl.setNextPagePosition( nextPagePoint );
     }
     
     /**
      * 
      * @return Left arrow position.
      */
-    public Point getLeftArrowPosition( ){ return new Point( xLeft, yLeft ); }
+    public Point getPreviousPagePosition( ){ return previousPagePoint;  }
     
     /**
      * 
      * @return Right arrow position.
      */
-    public Point getRightArrowPosition( ){ return new Point( xRight, yRight ); }
+    public Point getNextPagePosition( ){ return nextPagePoint; }
     
     /**
      * Load the required images for the book
      * @param dControl Controller with the required information
      */
-    protected void loadImages( BookDataControl dControl ) {
-        background = AssetsController.getImage( dControl.getPreviewImage( ) );
+    public void loadImages( BookDataControl dControl ) {
+        image = AssetsController.getImage( dControl.getPreviewImage( ) );
         arrowLeftNormal = AssetsController.getImage( dControl.getArrowImagePath( BookDataControl.ARROW_LEFT, BookDataControl.ARROW_NORMAL ) );
         arrowRightNormal = AssetsController.getImage( dControl.getArrowImagePath( BookDataControl.ARROW_RIGHT, BookDataControl.ARROW_NORMAL ) );
         arrowLeftOver = AssetsController.getImage( dControl.getArrowImagePath( BookDataControl.ARROW_LEFT, BookDataControl.ARROW_OVER ) );
@@ -188,32 +215,81 @@ public abstract class BookPreviewPanel extends JPanel {
         }
 
         if ( arrowLeftNormal != null && arrowRightNormal != null ){
-            setDefaultArrowsPosition( );
-            
-            currentArrowLeft = arrowLeftNormal;
-            currentArrowRight = arrowRightNormal;
+            if (!setArrowsPosition( dControl ))
+                setDefaultArrowsPosition( );
+         
         }
   
     }
     
+    private boolean setArrowsPosition( BookDataControl dControl ) {
+        Point npPosition = dControl.getNextPagePosition( );
+        if ( npPosition != null ){
+            this.setNextPagePosition( npPosition.x, npPosition.y );
+        }
+        else
+            return false;
+        
+        Point ppPosition = dControl.getPreviousPagePosition( );
+        if ( ppPosition != null ){
+            this.setPreviousPagePosition( ppPosition.x, ppPosition.y );
+        }
+        else
+            return false;
+        
+        return true;
+        
+    }
+
     protected boolean isInPreviousPage( int x, int y ){
-        int xLeftEnd = xLeft + arrowLeftNormal.getWidth( null );
-        int yLeftEnd = yLeft + arrowLeftNormal.getHeight( null );
-        return ( xLeft < x ) && ( x < xLeftEnd ) && ( yLeft < y ) && ( y < yLeftEnd );
+        int xLeftEnd = previousPagePoint.x + arrowLeftNormal.getWidth( null );
+        int yLeftEnd = previousPagePoint.y + arrowLeftNormal.getHeight( null );
+        return ( previousPagePoint.x < x ) && ( x < xLeftEnd ) && ( previousPagePoint.y < y ) && ( y < yLeftEnd );
     }
     
     protected boolean isInNextPage( int x, int y ){
-        int xRightEnd = xRight + arrowRightNormal.getWidth( null );
-        int yRightEnd = yRight + arrowRightNormal.getHeight( null );
-        return ( xRight < x ) && ( x < xRightEnd ) && ( yRight < y ) && ( y < yRightEnd );
+        int xRightEnd = nextPagePoint.x + arrowRightNormal.getWidth( null );
+        int yRightEnd = nextPagePoint.y + arrowRightNormal.getHeight( null );
+        return ( nextPagePoint.x < x ) && ( x < xRightEnd ) && ( nextPagePoint.y < y ) && ( y < yRightEnd );
     }
     
     public void setDefaultArrowsPosition( ){
         int margin = 20;
-        xLeft = margin;
-        yLeft = background.getHeight( null ) - arrowLeftNormal.getHeight( null ) - margin;
-        xRight = background.getWidth( null ) - arrowRightNormal.getWidth( null ) - margin;
-        yRight = background.getHeight( null ) - arrowRightNormal.getHeight( null ) - margin;
+        this.setPreviousPagePosition( margin, image.getHeight( null ) - arrowLeftNormal.getHeight( null ) - margin );
+        this.setNextPagePosition( image.getWidth( null ) - arrowRightNormal.getWidth( null ) - margin, image.getHeight( null ) - arrowRightNormal.getHeight( null ) - margin );
+    }
+    
+    @Override
+    public void paint( Graphics g ){
+        if ( isImageLoaded( )) {
+            // Paint the background
+            paintBackground( g );
+            // Paint the arrows
+            paintArrows( g );
+        }
+        
+    }
+    
+    protected void paintArrows( Graphics g ){
+        paintPreviousPageArrow( g );
+        paintNextPageArrow( g );
+
+    }
+    
+    protected void paintPreviousPageArrow( Graphics g ){
+        if ( arrowLeftNormal != null ){
+            g.drawImage( arrowLeftNormal, getAbsoluteX( previousPagePoint.x ), getAbsoluteY( previousPagePoint.y ), getAbsoluteWidth( arrowLeftNormal.getWidth( null ) ), getAbsoluteHeight( arrowLeftNormal.getHeight( null ) ), null );
+        }
+    }
+    
+    protected void paintNextPageArrow( Graphics g ){
+        if ( arrowRightNormal != null ){
+            g.drawImage( arrowRightNormal, getAbsoluteX( nextPagePoint.x ), getAbsoluteY( nextPagePoint.y ), getAbsoluteWidth( arrowRightNormal.getWidth( null ) ), getAbsoluteHeight( arrowRightNormal.getHeight( null ) ), null );
+        }
+    }
+    
+    protected void paintBackground( Graphics g ){
+        super.paint( g );
     }
 
 }

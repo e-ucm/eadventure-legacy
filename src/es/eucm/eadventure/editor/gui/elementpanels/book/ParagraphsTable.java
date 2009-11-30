@@ -48,7 +48,7 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListDataControl;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
+import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPreviewParagraphPanel;
 
 public class ParagraphsTable extends JTable {
 
@@ -59,7 +59,7 @@ public class ParagraphsTable extends JTable {
 
     private BookParagraphsListDataControl dataControl;
 
-    public ParagraphsTable( BookParagraphsListDataControl dControl, BookImagePanel previewPanel2 ) {
+    public ParagraphsTable( BookParagraphsListDataControl dControl, BookPreviewParagraphPanel previewPanel2 ) {
 
         super( );
         this.setModel( new ParagraphsTableModel( ) );

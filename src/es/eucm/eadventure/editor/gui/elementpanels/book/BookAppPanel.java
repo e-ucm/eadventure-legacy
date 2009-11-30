@@ -53,7 +53,7 @@ import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ChangeArrowsPositionDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ResourcesPanel;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookPreviewImagePanel;
+import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPreviewPanel;
 
 public class BookAppPanel extends JPanel {
 
@@ -109,7 +109,7 @@ public class BookAppPanel extends JPanel {
         /**
          * Preview image panel.
          */
-        private BookPreviewImagePanel imagePanel;
+        private BookPreviewPanel imagePanel;
 
         public BookLooksPanel( DataControlWithResources control ) {
 
@@ -119,15 +119,11 @@ public class BookAppPanel extends JPanel {
 
         @Override
         protected void createPreview( ) {
-
-            String bookImagePath = bookDataControl.getPreviewImage( );
-            String arrowLeftNormalImagePath = bookDataControl.getArrowImagePath( BookDataControl.ARROW_LEFT, BookDataControl.ARROW_NORMAL );
-            String arrowRightNormalImagePath = bookDataControl.getArrowImagePath( BookDataControl.ARROW_RIGHT, BookDataControl.ARROW_NORMAL );
     
             JPanel previewPanel = new JPanel( );
             previewPanel.setLayout( new BorderLayout( ) );
             
-            imagePanel = new BookPreviewImagePanel( bookImagePath, arrowLeftNormalImagePath, arrowRightNormalImagePath  );
+            imagePanel = new BookPreviewPanel( bookDataControl );
             
             previewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Book.Preview" ) ) );
             previewPanel.add( imagePanel, BorderLayout.CENTER );
@@ -148,6 +144,7 @@ public class BookAppPanel extends JPanel {
             bEditArrow.addActionListener( new ActionListener( ){
                 public void actionPerformed( ActionEvent e ) {
                     new ChangeArrowsPositionDialog( Controller.getInstance( ).peekWindow( ), bookDataControl );
+                    //imagePanel
                 }
             }
                     );
@@ -160,8 +157,7 @@ public class BookAppPanel extends JPanel {
         @Override
         public void updatePreview( ) {
 
-            imagePanel.loadImage( bookDataControl.getPreviewImage( ) );
-            imagePanel.loadArrowImages( bookDataControl.getArrowImagePath( BookDataControl.ARROW_LEFT, BookDataControl.ARROW_NORMAL ), bookDataControl.getArrowImagePath( BookDataControl.ARROW_RIGHT, BookDataControl.ARROW_NORMAL ) );
+            imagePanel.loadImages( bookDataControl );
             imagePanel.repaint( );
             if( getParent( ) != null && getParent( ).getParent( ) != null )
                 getParent( ).getParent( ).repaint( );
