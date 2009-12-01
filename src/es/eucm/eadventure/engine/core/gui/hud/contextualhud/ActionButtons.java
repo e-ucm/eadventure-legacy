@@ -325,15 +325,22 @@ public class ActionButtons {
 
         buttons.add( eyeButton );
 
+        boolean addHandButton = false;
+        
         if( !item.isInInventory( ) ) {
             handButton.setName( TC.get( "ActionButton.Grab" ) );
-            if( item.getFirstValidAction( Action.USE ) != null )
+            if (item.getFirstValidAction( Action.GRAB ) != null)
+                addHandButton = true;
+            if( item.getFirstValidAction( Action.USE ) != null ) {
                 handButton.setName( TC.get( "ActionButton.Use" ) );
+                addHandButton = true;
+            }
         }
         else {
             boolean useAlone = item.canBeUsedAlone( );
             boolean giveTo = item.getFirstValidAction( Action.GIVE_TO ) != null;
             boolean useWith = item.getFirstValidAction( Action.USE_WITH ) != null;
+            addHandButton = (useAlone || giveTo) || useWith; 
             if( useAlone && !giveTo && !useWith ) {
                 handButton.setName( TC.get( "ActionButton.Use" ) );
             }
@@ -350,7 +357,8 @@ public class ActionButtons {
                 handButton.setName( TC.get( "ActionButton.Use" ) );
             }
         }
-        buttons.add( handButton );
+        if (addHandButton)
+            buttons.add( handButton );
     }
 
     /**
