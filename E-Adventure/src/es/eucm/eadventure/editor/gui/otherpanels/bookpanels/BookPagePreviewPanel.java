@@ -43,6 +43,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
 
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
@@ -56,7 +57,6 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
-import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -71,122 +71,202 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
      */
     private static final long serialVersionUID = 1L;
 
-    private BookPage bookPage;
-
     private boolean isValid;
 
     private JEditorPane editorPane;
 
+    /**
+     * Image if the page is the type Image
+     */
     private Image imagePage;
     
     /**
      * Current state for arrows
      */
     protected Image currentArrowLeft, currentArrowRight;
-
-    private StyledBookDialog parent;
-
-    public BookPagePreviewPanel( StyledBookDialog parent, BookPage bookPage, BookDataControl dControl ) {
-
+    
+    /**
+     * Current book page
+     */
+    private BookPage currentBookPage;
+    
+    /**
+     * Index for the page
+     */
+    private int pageIndex;
+    
+    /**
+     * List of pages
+     */
+    private List<BookPage> bookPageList;
+    
+    /**
+     * Mouse listener
+     */
+    private BookPageMouseListener mouseListener;
+    
+    public BookPagePreviewPanel( BookDataControl dControl ){
         super( dControl );
-        this.parent = parent;
-        isValid = true;
-        this.bookPage = bookPage;
         
+        isValid = true;
+        bookPageList = dControl.getBookPagesList( ).getBookPages( );
         super.loadImages( dControl );
         
-        this.addMouseListener( new BookPageMouseListener( ) );
-        URL url = null;
-        if( bookPage.getType( ) == BookPage.TYPE_URL ) {
-            editorPane = new JEditorPane( );
-            try {
-                url = new URL( bookPage.getUri( ) );
-                url.openStream( ).close( );
-            }
-            catch( Exception e ) {
-                isValid = false;
-            }
-
-            try {
-                if( isValid ) {
-                    editorPane.setPage( url );
-                    editorPane.setEditable( false );
-                    if( !( editorPane.getEditorKit( ) instanceof HTMLEditorKit ) && !( editorPane.getEditorKit( ) instanceof RTFEditorKit ) ) {
-                        isValid = false;
-                    }
-                    else {
-                    }
-
-                }
-            }
-            catch( IOException e ) {
-            }
-
-        }
-        else if( bookPage.getType( ) == BookPage.TYPE_RESOURCE ) {
-            editorPane = new JEditorPane( );
-            url = AssetsController.getResourceAsURLFromZip( bookPage.getUri( ) );
-            String ext = url.getFile( ).substring( url.getFile( ).lastIndexOf( '.' ) + 1, url.getFile( ).length( ) ).toLowerCase( );
-            if( ext.equals( "html" ) || ext.equals( "htm" ) || ext.equals( "rtf" ) ) {
-
-                //Read the text
-                StringBuffer textBuffer = new StringBuffer( );
-                InputStream is = null;
-                try {
-                    is = url.openStream( );
-                    int c;
-                    while( ( c = is.read( ) ) != -1 ) {
-                        textBuffer.append( (char) c );
-                    }
-                }
-                catch( IOException e ) {
-                    isValid = false;
-                }
-                finally {
-                    if( is != null ) {
-                        try {
-                            is.close( );
-                        }
-                        catch( IOException e ) {
-                            isValid = false;
-                        }
-                    }
-                }
-
-                //Set the proper content type
-                if( ext.equals( "html" ) || ext.equals( "htm" ) ) {
-                    editorPane.setContentType( "text/html" );
-                    ProcessHTML processor = new ProcessHTML( textBuffer.toString( ) );
-                    String htmlProcessed = processor.start( );
-                    editorPane.setText( htmlProcessed );
-                }
-                else {
-                    editorPane.setContentType( "text/rtf" );
-                    editorPane.setText( textBuffer.toString( ) );
-                }
-                isValid = true;
-
-            }
-        }
-        else if( bookPage.getType( ) == BookPage.TYPE_IMAGE ) {
-            url = AssetsController.getResourceAsURLFromZip( bookPage.getUri( ) );
-            if( bookPage.getUri( ) != null && bookPage.getUri( ).length( ) > 0 )
-                imagePage = AssetsController.getImage( bookPage.getUri( ) );
-        }
-
-        if( url == null ) {
-            isValid = false;
-        }
-
-        if( editorPane != null ) {
-            addEditorPane( );
-        }
-        
+        mouseListener = new BookPageMouseListener( );
+        this.addMouseListener( mouseListener );
+       
         currentArrowLeft = arrowLeftNormal;
         currentArrowRight = arrowRightNormal;
     }
 
+    /**
+     * Constructor for the class
+     * @param dControl Book data control
+     * @param initPage initial page to display in the book
+     */
+    public BookPagePreviewPanel( BookDataControl dControl, int initPage ) {
+        this( dControl );
+        
+        setCurrentBookPage( initPage );
+    }
     
+    /**
+     * Set the current page of the using its index
+     * @param numPage Number of page
+     * @return true if it was possible to set the page, false otherwise
+     */
+    public boolean setCurrentBookPage( int numPage ){
+
+        try {
+            currentBookPage = bookPageList.get( numPage );
+            pageIndex = numPage;
+        } catch ( Exception e ){
+            // We catch all the exceptions that can happen in the command. Only thing counting
+            // is if currentBookPage is null or not
+            return false;
+        }
+        
+        if ( currentBookPage != null ){
+            return setCurrentBookPage( currentBookPage );
+        }
+        else
+            return false;
+    }
+    
+    /**
+     * Set the current page of the using the page itself
+     * @param bookPage The book page.
+     * @return true if it was possible to set the page, false otherwise
+     */
+    public boolean setCurrentBookPage( BookPage bookPage ){
+        
+        currentBookPage = bookPage;
+        if ( currentBookPage != null ){
+            
+            if( currentBookPage.getType( ) == BookPage.TYPE_URL ) {
+                isValid = createURLPage( currentBookPage );            
+            }
+            else if( currentBookPage.getType( ) == BookPage.TYPE_RESOURCE ) {
+                isValid = createResourcePage( currentBookPage );
+            }
+                
+            else if( currentBookPage.getType( ) == BookPage.TYPE_IMAGE ) {
+                isValid = createImagePage( currentBookPage );
+            }
+
+            if( editorPane != null ) {
+                addEditorPane( );
+                repaint( );
+            }
+            return isValid;
+        }
+        else
+            return false;
+        
+        
+    }
+
+    
+
+    private boolean createImagePage( BookPage bookPage ) {
+        
+        if( bookPage.getUri( ) != null && bookPage.getUri( ).length( ) > 0 )
+            imagePage = AssetsController.getImage( bookPage.getUri( ) );
+        return ( imagePage != null );
+    }
+
+    private boolean createResourcePage( BookPage bookPage ) {
+        
+        editorPane = new JEditorPane( );
+        URL url = AssetsController.getResourceAsURLFromZip( bookPage.getUri( ) );
+        String ext = url.getFile( ).substring( url.getFile( ).lastIndexOf( '.' ) + 1, url.getFile( ).length( ) ).toLowerCase( );
+        if( ext.equals( "html" ) || ext.equals( "htm" ) || ext.equals( "rtf" ) ) {
+
+            //Read the text
+            StringBuffer textBuffer = new StringBuffer( );
+            InputStream is = null;
+            try {
+                is = url.openStream( );
+                int c;
+                while( ( c = is.read( ) ) != -1 ) {
+                    textBuffer.append( (char) c );
+                }
+            }
+            catch( IOException e ) {
+                isValid = false;
+            }
+            finally {
+                if( is != null ) {
+                    try {
+                        is.close( );
+                    }
+                    catch( IOException e ) {
+                        isValid = false;
+                    }
+                }
+            }
+
+            //Set the proper content type
+            if( ext.equals( "html" ) || ext.equals( "htm" ) ) {
+                editorPane.setContentType( "text/html" );
+                ProcessHTML processor = new ProcessHTML( textBuffer.toString( ) );
+                String htmlProcessed = processor.start( );
+                editorPane.setText( htmlProcessed );
+            }
+            else {
+                editorPane.setContentType( "text/rtf" );
+                editorPane.setText( textBuffer.toString( ) );
+            }
+            isValid = true;
+
+        }
+        return isValid;
+    }
+
+    private boolean createURLPage( BookPage bookPage ) {
+        URL url = null;
+        editorPane = new JEditorPane( );
+        try {
+            url = new URL( bookPage.getUri( ) );
+            url.openStream( ).close( );
+        }
+        catch( Exception e ) {
+            isValid = false;
+        }
+
+        try {
+            if( isValid ) {
+                editorPane.setPage( url );
+                editorPane.setEditable( false );
+                if( !( editorPane.getEditorKit( ) instanceof HTMLEditorKit ) && !( editorPane.getEditorKit( ) instanceof RTFEditorKit ) ) {
+                    isValid = false;
+                }
+            }
+        }
+        catch( IOException e ) {
+        }
+        return isValid;
+    }
 
     private void addEditorPane( ) {
 
@@ -194,16 +274,15 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
         //editorPane.setCaret( null );
         editorPane.setEditable( false );
         //editorPane.setHighlighter( null );
-        BookPageMouseListener bookListener = new BookPageMouseListener( );
-        editorPane.addMouseListener( bookListener );
-        editorPane.addMouseMotionListener( bookListener );
+        editorPane.addMouseListener( mouseListener );
+        editorPane.addMouseMotionListener( mouseListener );
 
         this.setOpaque( false );
 
         //this.setLayout( new BoxLayout(this, BoxLayout.LINE_AXIS) );
         this.setLayout( null );
-        if( !bookPage.getScrollable( ) ) {
-            editorPane.setBounds( bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMargin( ) - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginTop( ) - bookPage.getMarginBottom( ) );
+        if( !currentBookPage.getScrollable( ) ) {
+            editorPane.setBounds( currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), GUI.WINDOW_WIDTH - currentBookPage.getMargin( ) - currentBookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - currentBookPage.getMarginTop( ) - currentBookPage.getMarginBottom( ) );
             this.add( editorPane );
         }
         else {
@@ -222,7 +301,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
             viewPort.setLayout( new BorderLayout( ) );
             viewPort.setOpaque( false );
 
-            editorPane.setBounds( bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMargin( ) - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginTop( ) - bookPage.getMarginBottom( ) );
+            editorPane.setBounds( currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), GUI.WINDOW_WIDTH - currentBookPage.getMargin( ) - currentBookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - currentBookPage.getMarginTop( ) - currentBookPage.getMarginBottom( ) );
 
             viewPort.add( editorPane, BorderLayout.CENTER );
             JScrollPane scroll = new JScrollPane( viewPort, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED );
@@ -236,18 +315,9 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
     /**
      * @return the bookPage
      */
-    public BookPage getBookPage( ) {
+    public BookPage getCurrentBookPage( ) {
 
-        return bookPage;
-    }
-
-    /**
-     * @param bookPage
-     *            the bookPage to set
-     */
-    public void setBookPage( BookPage bookPage ) {
-
-        this.bookPage = bookPage;
+        return currentBookPage;
     }
 
     /**
@@ -367,8 +437,8 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
         private void replaceReference( int index, int length ) {
 
             try {
-                int lastSlash = Math.max( bookPage.getUri( ).lastIndexOf( "/" ), bookPage.getUri( ).lastIndexOf( "\\" ) );
-                String assetPath = bookPage.getUri( ).substring( 0, lastSlash ) + "/" + reference;
+                int lastSlash = Math.max( currentBookPage.getUri( ).lastIndexOf( "/" ), currentBookPage.getUri( ).lastIndexOf( "\\" ) );
+                String assetPath = currentBookPage.getUri( ).substring( 0, lastSlash ) + "/" + reference;
                 String destinyPath = AssetsController.extractResource( assetPath );
                 if( destinyPath != null ) {
                     String leftSide = html.substring( 0, index );
@@ -387,19 +457,28 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
     @Override
     public void paint( Graphics g ) {
         
-        if( image != null && !bookPage.getScrollable( ) )
+        if( image != null && !currentBookPage.getScrollable( ) )
             g.drawImage( image, 0, 0, image.getWidth( null ), image.getHeight( null ), null );
-        if( this.imagePage != null )
-            g.drawImage( this.imagePage, bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginBottom( ), 0, 0, this.imagePage.getWidth( null ), this.imagePage.getHeight( null ), null );
-        if( editorPane != null )
-            super.paint( g );
-        if ( parent != null && currentArrowLeft != null && currentArrowRight != null ){
-            if ( !parent.isInFirstPage( ) )
-                this.paintPreviousPageArrow( g );
-            
-            if ( !parent.isInLastPage( ) )
-                this.paintNextPageArrow( g );
+        if( imagePage != null )
+            g.drawImage( imagePage, getAbsoluteX( currentBookPage.getMargin( ) ), getAbsoluteY( currentBookPage.getMarginTop( ) ), getAbsoluteWidth( GUI.WINDOW_WIDTH - currentBookPage.getMarginEnd( ) ), getAbsoluteHeight( GUI.WINDOW_HEIGHT - currentBookPage.getMarginBottom( ) ), 0, 0, getAbsoluteWidth( this.imagePage.getWidth( null ) ), getAbsoluteHeight( this.imagePage.getHeight( null ) ), null );
+        /*if( editorPane != null )
+            super.paint( g );*/
+        /*if( editorPane != null )
+            editorPane.paint( g.create( getAbsoluteX( currentBookPage.getMargin( ) ), getAbsoluteY( currentBookPage.getMarginTop( )), getAbsoluteWidth( image.getWidth( null ) - currentBookPage.getMargin( ) - currentBookPage.getMarginEnd( ) ), getAbsoluteHeight( image.getHeight( null ) - currentBookPage.getMarginTop( ) - currentBookPage.getMarginBottom( ) ) ) );*/
+        if ( editorPane != null ){
+            editorPane.paint( g );
         }
+        
+        if ( !isInFirstPage( ) )
+            if ( currentArrowLeft != null ){
+                g.drawImage( currentArrowLeft, getAbsoluteX( previousPagePoint.x ), getAbsoluteY( previousPagePoint.y ), getAbsoluteWidth( arrowLeftNormal.getWidth( null ) ), getAbsoluteHeight( arrowLeftNormal.getHeight( null ) ), null );
+            }
+            
+        if ( !isInLastPage( ) )
+            if ( currentArrowRight != null ){
+                g.drawImage( currentArrowRight, getAbsoluteX( nextPagePoint.x ), getAbsoluteY( nextPagePoint.y ), getAbsoluteWidth( currentArrowRight.getWidth( null ) ), getAbsoluteHeight( currentArrowRight.getHeight( null ) ), null );
+            }
+      
     }
 
     /**
@@ -411,16 +490,42 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
         Image i = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_3BYTE_BGR );
         Graphics g = i.getGraphics( );
-        if( image != null && !bookPage.getScrollable( ) )
+        if( image != null && !currentBookPage.getScrollable( ) )
             g.drawImage( image, 0, 0, image.getWidth( null ), image.getHeight( null ), null );
         if( editorPane != null )
-            editorPane.paint( g.create( bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMargin( ) - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginTop( ) - bookPage.getMarginBottom( ) ) );
+            editorPane.paint( g.create( currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), GUI.WINDOW_WIDTH - currentBookPage.getMargin( ) - currentBookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - currentBookPage.getMarginTop( ) - currentBookPage.getMarginBottom( ) ) );
         if( this.imagePage != null )
-            g.drawImage( this.imagePage, bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginBottom( ), 0, 0, this.imagePage.getWidth( null ), this.imagePage.getHeight( null ), null );
-        
-        this.paintArrows( g );
+            g.drawImage( this.imagePage, currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), GUI.WINDOW_WIDTH - currentBookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - currentBookPage.getMarginBottom( ), 0, 0, this.imagePage.getWidth( null ), this.imagePage.getHeight( null ), null );
+        if ( currentArrowLeft != null ){
+            g.drawImage( currentArrowLeft, getAbsoluteX( previousPagePoint.x ), getAbsoluteY( previousPagePoint.y ), getAbsoluteWidth( arrowLeftNormal.getWidth( null ) ), getAbsoluteHeight( arrowLeftNormal.getHeight( null ) ), null );
+        }
+        if ( currentArrowRight != null ){
+            g.drawImage( currentArrowRight, getAbsoluteX( previousPagePoint.x ), getAbsoluteY( previousPagePoint.y ), getAbsoluteWidth( arrowLeftNormal.getWidth( null ) ), getAbsoluteHeight( arrowLeftNormal.getHeight( null ) ), null );
+        }
         
         return i;
+    }
+    
+    public void nextPage( ){
+        if ( !isInLastPage( ) ){
+            pageIndex++;
+            this.setCurrentBookPage( pageIndex );
+        }
+    }
+    
+    public void previousPage( ){
+        if ( !isInFirstPage( ) ){
+            pageIndex--;
+            this.setCurrentBookPage( pageIndex );
+        }
+    }
+    
+    public boolean isInFirstPage( ){
+        return ( pageIndex == 0 );
+    }
+    
+    public boolean isInLastPage( ){
+        return ( pageIndex == bookPageList.size( ) - 1 );
     }
     
     @Override
@@ -437,32 +542,36 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
         @Override
         public void mouseClicked( MouseEvent evt ) {
-
-            if( parent != null ) {
                 int x = evt.getX( );
                 int y = evt.getY( );
-                if( evt.getSource( ) == editorPane ) {
-                    //Spread the call gauging the positions so the margin is taken into account
-                    x += bookPage.getMargin( );
-                    y += bookPage.getMarginTop( );
+                
+                // In case event happened in editor pane, we have to add
+                // page's margins
+                if ( evt.getSource( ) == editorPane ){
+                    x += currentBookPage.getMarginStart( );
+                    y += currentBookPage.getMarginTop( );
+                }
+
                     if ( isInNextPage( x, y ) ){
-                        parent.nextPage( );
+                        nextPage( );
                     }
                     else if ( isInPreviousPage ( x, y ) ){
-                        parent.previousPage( );
+                        previousPage( );
                     }
-                }
-                //parent.mouseClicked( x, y );
-            }
+                repaint( );
         }
         
         @Override
         public void mouseMoved( MouseEvent evt ) {
-            if ( evt.getSource( ) == editorPane ){
                 int x = evt.getX( );
                 int y = evt.getY( );
-                x += bookPage.getMargin( );
-                y += bookPage.getMarginTop( );
+                
+                // In case event happened in editor pane, we have to add
+                // page's margins
+                if ( evt.getSource( ) == editorPane ){
+                    x += currentBookPage.getMarginStart( );
+                    y += currentBookPage.getMarginTop( );
+                }
                         
                 if ( isInPreviousPage( x, y ) ){
                     currentArrowLeft = arrowLeftOver;                
@@ -476,8 +585,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
                 else
                     currentArrowRight = arrowRightNormal;
                 
-                editorPane.repaint( );
-            }
+                repaint( );
         }
 
     }

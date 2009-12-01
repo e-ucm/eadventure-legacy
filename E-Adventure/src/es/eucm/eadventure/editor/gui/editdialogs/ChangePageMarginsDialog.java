@@ -122,7 +122,8 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
         this.setLayout( new BorderLayout( ) );
         this.setTitle( TC.get( "BookPage.MarginDialog" ) );
 
-        bookPagePreview = new BookPagePreviewPanel( null, bookPagesList.getSelectedPage( ), dataControl );
+        bookPagePreview = new BookPagePreviewPanel( dataControl  );
+        bookPagePreview.setCurrentBookPage( bookPagesList.getSelectedPage( ) );
         this.add( bookPagePreview, BorderLayout.CENTER );
 
         createMarginSlider( );
@@ -262,7 +263,8 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
             this.bookPagesList.setMargins( marginSlider.getValue( ), -marginTopSlider.getValue( ), marginBottomSlider.getValue( ), -marginEndSlider.getValue( ) );
 
             this.remove( bookPagePreview );
-            bookPagePreview = new BookPagePreviewPanel( null, bookPagesList.getSelectedPage( ), dataControl );
+            bookPagePreview = new BookPagePreviewPanel( dataControl );
+            bookPagePreview.setCurrentBookPage( bookPagesList.getSelectedPage( ) );
             this.add( bookPagePreview, BorderLayout.CENTER );
 
             bookPagePreview.updateUI( );
@@ -279,7 +281,8 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
         marginTopSlider.setValue( ( bookPagesList != null ) ? bookPagesList.getSelectedPage( ).getMarginTop( ) : 0 );
         marginBottomSlider.setValue( ( bookPagesList != null ) ? bookPagesList.getSelectedPage( ).getMarginBottom( ) : 0 );
         this.remove( bookPagePreview );
-        bookPagePreview = new BookPagePreviewPanel( null, bookPagesList.getSelectedPage( ), dataControl );
+        bookPagePreview = new BookPagePreviewPanel( dataControl );
+        bookPagePreview.setCurrentBookPage( bookPagesList.getSelectedPage( ) );
         this.add( bookPagePreview, BorderLayout.CENTER );
 
         bookPagePreview.updateUI( );

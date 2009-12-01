@@ -31,6 +31,7 @@
 */
 package es.eucm.eadventure.editor.gui.otherpanels.bookpanels;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -86,6 +87,9 @@ public class BookPreviewPanel extends ImagePanel {
         previousPagePoint = new Point( 0, 0 );
         nextPagePoint = new Point( 0, 0 );
         this.loadImages( dataControl );
+        if ( image != null ){
+            this.setMinimumSize( new Dimension( image.getWidth( null ), image.getHeight( null ) ) );
+        }
     }
     
     /**
@@ -242,15 +246,15 @@ public class BookPreviewPanel extends ImagePanel {
     }
 
     protected boolean isInPreviousPage( int x, int y ){
-        int xLeftEnd = previousPagePoint.x + arrowLeftNormal.getWidth( null );
-        int yLeftEnd = previousPagePoint.y + arrowLeftNormal.getHeight( null );
-        return ( previousPagePoint.x < x ) && ( x < xLeftEnd ) && ( previousPagePoint.y < y ) && ( y < yLeftEnd );
+        int xLeftEnd = getAbsoluteX( previousPagePoint.x ) + getAbsoluteWidth( arrowLeftNormal.getWidth( null ) );
+        int yLeftEnd = getAbsoluteY( previousPagePoint.y ) + getAbsoluteHeight( arrowLeftNormal.getHeight( null ) );
+        return ( getAbsoluteX( previousPagePoint.x )< x ) && ( x < xLeftEnd ) && ( getAbsoluteY( previousPagePoint.y ) < y ) && ( y < yLeftEnd );
     }
     
     protected boolean isInNextPage( int x, int y ){
-        int xRightEnd = nextPagePoint.x + arrowRightNormal.getWidth( null );
-        int yRightEnd = nextPagePoint.y + arrowRightNormal.getHeight( null );
-        return ( nextPagePoint.x < x ) && ( x < xRightEnd ) && ( nextPagePoint.y < y ) && ( y < yRightEnd );
+        int xRightEnd = getAbsoluteX( nextPagePoint.x ) + getAbsoluteWidth( arrowRightNormal.getWidth( null ) );
+        int yRightEnd = getAbsoluteY( nextPagePoint.y ) + getAbsoluteHeight( arrowRightNormal.getHeight( null ) );
+        return ( getAbsoluteX( nextPagePoint.x ) < x ) && ( x < xRightEnd ) && ( getAbsoluteY( nextPagePoint.y ) < y ) && ( y < yRightEnd );
     }
     
     public void setDefaultArrowsPosition( ){

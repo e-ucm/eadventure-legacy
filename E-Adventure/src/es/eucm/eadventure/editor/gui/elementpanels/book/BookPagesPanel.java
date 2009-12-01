@@ -140,7 +140,6 @@ public class BookPagesPanel extends JPanel {
 
                 StyledBookDialog dialog = new StyledBookDialog( dataControl );
                 dialog.setVisible( true );
-                dialog.updatePreview( );
             }
         } );
 
@@ -177,7 +176,8 @@ public class BookPagesPanel extends JPanel {
         pageNotLoadedPanel = null;
         if( currentPage != null ) {
 
-            previewPanel = new BookPagePreviewPanel( null, currentPage, dataControl );
+            previewPanel = new BookPagePreviewPanel( dataControl );
+            previewPanel.setCurrentBookPage( currentPage );
             previewPanel.setPreferredSize( new Dimension( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT ) );
             previewPanel.repaint( );
             Image image = previewPanel.paintToImage( );
@@ -222,7 +222,7 @@ public class BookPagesPanel extends JPanel {
             //Enable moveUp and moveDown buttons when there is more than one element
             moveUpButton.setEnabled( dataControl.getBookPagesList( ).getBookPages( ).size( ) > 1 && selectedPage > 0 );
             moveDownButton.setEnabled( dataControl.getBookPagesList( ).getBookPages( ).size( ) > 1 && selectedPage < pagesTable.getRowCount( ) - 1 );
-            BookPage currentPage = dataControl.getBookPagesList( ).getSelectedPage( );
+            
             if( pageNotLoadedPanel != null )
                 previewPanelContainer.remove( previewPanelScroll );
             else if( previewPanel != null )
@@ -230,7 +230,8 @@ public class BookPagesPanel extends JPanel {
 
             pageNotLoadedPanel = null;
 
-            previewPanel = new BookPagePreviewPanel( null, currentPage, dataControl );
+            previewPanel = new BookPagePreviewPanel( dataControl );
+            previewPanel.setCurrentBookPage( selectedPage );
             previewPanel.setPreferredSize( new Dimension( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT ) );
             previewPanel.repaint( );
             Image image = previewPanel.paintToImage( );

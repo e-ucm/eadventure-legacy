@@ -69,7 +69,7 @@ import es.eucm.eadventure.editor.control.tools.books.MoveParagraphElementUpTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
-import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPreviewParagraphPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookParagraphPreviewPanel;
 
 public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 
@@ -86,7 +86,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 
     private ParagraphsTable paragraphsTable;
 
-    private BookPreviewParagraphPanel previewPanel;
+    private BookParagraphPreviewPanel previewPanel;
 
     private JButton deleteButton;
 
@@ -100,7 +100,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 
         this.dataControl = dControl;
         
-        previewPanel = new BookPreviewParagraphPanel( dControl, dControl.getBookParagraphsList( ) );
+        previewPanel = new BookParagraphPreviewPanel( dControl, dControl.getBookParagraphsList( ) );
 
         createParagraphsPanel( previewPanel );
 
@@ -143,7 +143,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
         previewPanel.updatePreview( );
     }
 
-    private void createParagraphsPanel( BookPreviewParagraphPanel previewPanel2 ) {
+    private void createParagraphsPanel( BookParagraphPreviewPanel previewPanel2 ) {
 
         // Create the main panel
         paragraphsPanel = new JPanel( );
