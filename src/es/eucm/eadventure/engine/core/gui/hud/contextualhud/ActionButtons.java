@@ -204,7 +204,7 @@ public class ActionButtons {
                     added.add( (CustomAction) action );
                 }
             }
-            else if( action.getType( ) == Action.CUSTOM_INTERACT && functionalElement.isInInventory( ) ) {
+            else if( action.getType( ) == Action.CUSTOM_INTERACT /*&& functionalElement.isInInventory( )*/ ) {
                 boolean add = functionalElement.getFirstValidCustomInteraction( ( (CustomAction) action ).getName( ) ) != null;
                 for( CustomAction customAction : added ) {
                     if( customAction.getName( ).equals( ( (CustomAction) action ).getName( ) ) )
@@ -340,7 +340,7 @@ public class ActionButtons {
             boolean useAlone = item.canBeUsedAlone( );
             boolean giveTo = item.getFirstValidAction( Action.GIVE_TO ) != null;
             boolean useWith = item.getFirstValidAction( Action.USE_WITH ) != null;
-            addHandButton = (useAlone || giveTo) || useWith; 
+            addHandButton = useAlone || giveTo || useWith; 
             if( useAlone && !giveTo && !useWith ) {
                 handButton.setName( TC.get( "ActionButton.Use" ) );
             }
