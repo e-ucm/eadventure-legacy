@@ -56,7 +56,7 @@ import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListData
  * @author Ángel
  *
  */
-public class BookPreviewParagraphPanel extends BookPreviewPanel {
+public class BookParagraphPreviewPanel extends BookPreviewPanel {
 
     /**
      * Required.
@@ -158,7 +158,7 @@ public class BookPreviewParagraphPanel extends BookPreviewPanel {
      * @param bookParagraphsListDataControl
      *            Data controller of the list of paragraphs
      */
-    public BookPreviewParagraphPanel( BookDataControl bookDataControl, BookParagraphsListDataControl bookParagraphsListDataControl ) {
+    public BookParagraphPreviewPanel( BookDataControl bookDataControl, BookParagraphsListDataControl bookParagraphsListDataControl ) {
 
         super( bookDataControl );
         this.bookParagraphsListDataControl = bookParagraphsListDataControl;
