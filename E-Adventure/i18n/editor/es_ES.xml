@@ -1322,7 +1322,7 @@ Por favor escribe otro nombre.</entry>
 <entry key="SetValueEffect.Title">Efecto asignar valor a variable</entry>
 <entry key="Player.Name">Nombre del protagonista</entry>
 <entry key="LOMES.Classification.Identifier">Identificador</entry>
-<entry key="Resources.ArrowRightOver">Imagn para la flecha derecha cuándo el ratón está encima</entry>
+<entry key="Resources.ArrowRightOver">Imagen para la flecha derecha cuándo el ratón está encima</entry>
 <entry key="Resources.StandingAnimations">Animaciones parado</entry>
 <entry key="Operation.RenameGlobalStateTitle">Renombrar estado global</entry>
 <entry key="Player.LookPanelTip">Panel para la edición de las posibles apariencias del protagonista</entry>

@@ -32,14 +32,13 @@
 package es.eucm.eadventure.editor.gui.otherpanels.bookpanels;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
-import es.eucm.eadventure.editor.gui.editdialogs.ChangeArrowsPositionDialog;
+import es.eucm.eadventure.editor.gui.elementpanels.book.ArrowsPositionPanel;
 
 /**
  * This class represents the panel in which we can define
@@ -47,7 +46,7 @@ import es.eucm.eadventure.editor.gui.editdialogs.ChangeArrowsPositionDialog;
  * @author Ángel S.
  *
  */
-public class BookArrowPositionPreview extends BookPreviewPanel {
+public class BookArrowPositionPreviewPanel extends BookPreviewPanel {
 
     private static final long serialVersionUID = 1L;
     
@@ -56,19 +55,23 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
      */
     private boolean selectedPrevious = false, selectedNext = false;
     
+    private ArrowsPositionPanel aPanel;
+    
     private MouseArrowsListener mouseListener = new MouseArrowsListener( this );
     
-    private ChangeArrowsPositionDialog parent;
-    
-    public BookArrowPositionPreview( BookDataControl dControl, ChangeArrowsPositionDialog parent ){
+    public BookArrowPositionPreviewPanel( BookDataControl dControl ){
         super( dControl );
-        this.parent = parent;
-        if ( image != null ){
+        /*if ( image != null ){
             Dimension d = new Dimension( image.getWidth( null ), image.getHeight( null ) );
             this.setPreferredSize( d );
-        }
+            this.setMaximumSize( d );
+        }*/
         this.addMouseListener( mouseListener );
         this.addMouseMotionListener( mouseListener );
+    }
+    
+    public void setArrowsPositionPanel( ArrowsPositionPanel aPanel ){
+        this.aPanel = aPanel;
     }
     
     @Override
@@ -100,12 +103,12 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
     
     private class MouseArrowsListener extends MouseAdapter {
         
-        BookArrowPositionPreview bookPreview;
+        BookArrowPositionPreviewPanel bookPreview;
         
         // Margin of the mouse relative to the image
         int marginX, marginY;
         
-        public MouseArrowsListener( BookArrowPositionPreview bPreview ){
+        public MouseArrowsListener( BookArrowPositionPreviewPanel bPreview ){
             bookPreview = bPreview;
         }
         @Override
@@ -117,15 +120,15 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
                     // With this, we avoid selecting both arrows
                     selectedNext = false;
                     // Calculate margins
-                    marginX = x - previousPagePoint.x;
-                    marginY = y - previousPagePoint.y;
+                    marginX = getRelativeX( x ) - previousPagePoint.x;
+                    marginY = getRelativeY( y ) - previousPagePoint.y;
                 }
                 else if ( isInNextPage( x, y ) ){
                     selectedNext = true;
                     selectedPrevious = false;
                     // Calculate margins
-                    marginX = x - nextPagePoint.x;
-                    marginY = y - nextPagePoint.y;
+                    marginX = getRelativeX( x ) - nextPagePoint.x;
+                    marginY = getRelativeY( y ) - nextPagePoint.y;
                 }
                 else {
                     selectedPrevious = false;
@@ -139,13 +142,13 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
         @Override
         public void mouseDragged( MouseEvent e ) {            
             if ( selectedPrevious ){
-                bookPreview.setPreviousPagePosition( e.getX( ) - marginX, e.getY( ) - marginY );
+                bookPreview.setPreviousPagePosition( getRelativeX( e.getX( ) ) - marginX, getRelativeY( e.getY( ) ) - marginY ) ;
             }
             else if ( selectedNext ){
-                bookPreview.setNextPagePosition( e.getX( ) - marginX, e.getY( ) - marginY );
+                bookPreview.setNextPagePosition( getRelativeX( e.getX( ) ) - marginX, getRelativeY( e.getY( ) ) - marginY );
             }
             bookPreview.repaint( );
-            parent.updateSpinners( );
+            aPanel.updateSpinners( );
         }
         
         @Override
@@ -156,7 +159,7 @@ public class BookArrowPositionPreview extends BookPreviewPanel {
                 selectedNext = false;
                 bookPreview.repaint( );
                 bookPreview.dispatchEvent( new ActionEvent( bookPreview, ActionEvent.ACTION_PERFORMED, "mouseReleased" ) );
-                parent.updateSpinners( );
+                aPanel.updateSpinners( );
             }
         }
         
