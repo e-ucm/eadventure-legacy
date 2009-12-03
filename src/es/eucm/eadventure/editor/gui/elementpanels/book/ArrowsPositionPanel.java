@@ -29,17 +29,15 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
-package es.eucm.eadventure.editor.gui.editdialogs;
+package es.eucm.eadventure.editor.gui.elementpanels.book;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -48,21 +46,21 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
-import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookArrowPositionPreview;
+import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookArrowPositionPreviewPanel;
 
 /**
- * This class represents the dialog which is used to define
- * the arrows position in the books.
- * 
+ * This panel contains the spinners and buttons for set the arrows position
  * @author Ángel S.
  *
  */
-public class ChangeArrowsPositionDialog extends ToolManagableDialog {
+public class ArrowsPositionPanel extends JPanel {
 
+    /**
+     * 
+     */
     private static final long serialVersionUID = 1L;
     
-    private BookArrowPositionPreview bookPreview;
+    private BookArrowPositionPreviewPanel bookPreview;
     
     private JSpinner xPreviousPageSpinner = new JSpinner( ), 
                      yPreviousPageSpinner = new JSpinner( ), 
@@ -71,12 +69,12 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
     
     private final static int SPINNER_LEFT = 0, SPINNER_RIGHT = 1, SPINNER_X = 2, SPINNER_Y = 3;
 
-    public ChangeArrowsPositionDialog( Window window, BookDataControl dControl ) {
+    public ArrowsPositionPanel( BookArrowPositionPreviewPanel bPreview ) {
 
-        super( window, TC.get( "Arrows.PositionDialog" ) );
-        bookPreview = new BookArrowPositionPreview( dControl, this );
+        bookPreview = bPreview;
+        //this.setPreferredSize( new Dimension ( 300, 200 ) );
         
-        JPanel p = new JPanel( new GridBagLayout( ));
+        this.setLayout( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
         
         c.fill = GridBagConstraints.BOTH;
@@ -86,25 +84,15 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
         
         c.gridy = 0;
         c.weighty = 0.01;
-        p.add( getTopPanel( ), c);
+        this.add( getButtonPanel( ), c);
         
         c.gridy = 1;
         c.weighty = 1;
-        p.add(  bookPreview, c );
 
-
-        this.setContentPane( p );
-        
-        //this.setSize( 830, 630 );
-        this.pack( );
-        this.setResizable( false );
-        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-        this.setVisible( true );
     }
     
-    private JPanel getTopPanel( ){
-        JPanel bottomPanel = new JPanel( new GridBagLayout( ) );
+    private JPanel getButtonPanel( ){
+        JPanel buttonPanel = new JPanel( new GridBagLayout( ) );
         
         JButton bDefaultPosition = new JButton ( TC.get( "Arrows.DefaultPosition" ) );
         bDefaultPosition.addActionListener( new ActionListener( ){
@@ -116,55 +104,75 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
         });
         
         GridBagConstraints c = new GridBagConstraints( );
+        c.fill = GridBagConstraints.BOTH;
         c.gridheight = 1;
-        c.gridwidth = 1;
+        c.gridwidth = 2;
         c.gridx = 0;
         c.gridy = 0;
         
-        bottomPanel.add(  bDefaultPosition, c );
+        buttonPanel.add(  bDefaultPosition, c );
         // TODO Labels strings
-        c.gridx = 1;
-        c.gridy = 0;
-        bottomPanel.add( new JLabel( TC.get( "SPEP.XCoordinate" ) ), c );
+        // Previous page panel
+        JPanel previousPagePanel = new JPanel( new GridBagLayout( ) );
+        previousPagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Previous page" ) );
+        GridBagConstraints c2 = new GridBagConstraints( );
+        
+        c2.gridx = 0;
+        c2.gridy = 0;
+        previousPagePanel.add( new JLabel( TC.get( "SPEP.XCoordinate" ) ), c2 );
         
         xPreviousPageSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_LEFT ) );
-        c.gridx = 2;
-        c.gridy = 0;
-        bottomPanel.add( xPreviousPageSpinner, c );
+        c2.gridx = 1;
+        c2.gridy = 0;
+        previousPagePanel.add( xPreviousPageSpinner, c2 );
         
-        c.gridx = 3;
-        c.gridy = 0;
-        bottomPanel.add( new JLabel(TC.get( "SPEP.YCoordinate" )  ), c );
+        c2.gridx = 0;
+        c2.gridy = 1;
+        previousPagePanel.add( new JLabel(TC.get( "SPEP.YCoordinate" )  ), c2 );
         
         yPreviousPageSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_LEFT ) );
         
-        c.gridx = 4;
-        c.gridy = 0;
-        bottomPanel.add( yPreviousPageSpinner, c );
+        c2.gridx = 1;
+        c2.gridy = 1;
+        previousPagePanel.add( yPreviousPageSpinner, c2 );
         
-        c.gridx = 1;
-        c.gridy = 1;
-        bottomPanel.add(  new JLabel( TC.get( "SPEP.XCoordinate" )), c );
+        // Next page panel
+        JPanel nextPagePanel = new JPanel( new GridBagLayout( ) );
+        nextPagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Next page" ) );
+        GridBagConstraints c3 = new GridBagConstraints( );
+        
+        c3.gridx = 0;
+        c3.gridy = 0;
+        nextPagePanel.add(  new JLabel( TC.get( "SPEP.XCoordinate" )), c3 );
         
         xNextPageSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_RIGHT ) );
         
-        c.gridx = 2;
-        c.gridy = 1;
-        bottomPanel.add( xNextPageSpinner, c );
+        c3.gridx = 1;
+        c3.gridy = 0;
+        nextPagePanel.add( xNextPageSpinner, c3 );
         
-        c.gridx = 3;
-        c.gridy = 1;
-        bottomPanel.add(  new JLabel( TC.get( "SPEP.YCoordinate" )  ), c );
+        c3.gridx = 0;
+        c3.gridy = 1;
+        nextPagePanel.add(  new JLabel( TC.get( "SPEP.YCoordinate" )  ), c3 );
         
         yNextPageSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_RIGHT ) );
         
-        c.gridx = 4;
+        c3.gridx = 1;
+        c3.gridy = 1;
+        nextPagePanel.add( yNextPageSpinner, c3 );
+        
+        // Add panels to main panel
+        c.gridx = 0;
         c.gridy = 1;
-        bottomPanel.add( yNextPageSpinner, c );
+        buttonPanel.add( previousPagePanel, c );
+        
+        c.gridx = 0;
+        c.gridy = 2;
+        buttonPanel.add(  nextPagePanel, c );
         
         updateSpinners( );
         
-        return bottomPanel;
+        return buttonPanel;
     }
     
     public void updateSpinners( ){
@@ -217,5 +225,7 @@ public class ChangeArrowsPositionDialog extends ToolManagableDialog {
         }
         
     }
+    
+    
 
 }

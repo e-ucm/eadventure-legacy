@@ -35,25 +35,19 @@ package es.eucm.eadventure.editor.gui.elementpanels.book;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
-import es.eucm.eadventure.editor.gui.editdialogs.ChangeArrowsPositionDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ResourcesPanel;
-import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPreviewPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookArrowPositionPreviewPanel;
 
 public class BookAppPanel extends JPanel {
 
@@ -109,7 +103,7 @@ public class BookAppPanel extends JPanel {
         /**
          * Preview image panel.
          */
-        private BookPreviewPanel imagePanel;
+        private BookArrowPositionPreviewPanel imagePanel;
 
         public BookLooksPanel( DataControlWithResources control ) {
 
@@ -122,36 +116,25 @@ public class BookAppPanel extends JPanel {
     
             JPanel previewPanel = new JPanel( );
             previewPanel.setLayout( new BorderLayout( ) );
+            GridBagConstraints c = new GridBagConstraints( );
+            c.fill = GridBagConstraints.BOTH;
             
-            imagePanel = new BookPreviewPanel( bookDataControl );
+            imagePanel = new BookArrowPositionPreviewPanel( bookDataControl );
+            ArrowsPositionPanel aPanel = new ArrowsPositionPanel( imagePanel );
+            imagePanel.setArrowsPositionPanel( aPanel );
             
             previewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Book.Preview" ) ) );
+            c.gridx = 0;
+            c.gridy = 0;
+            c.weightx = 1;
             previewPanel.add( imagePanel, BorderLayout.CENTER );
+            
+            c.gridx = 1;
+            previewPanel.add( aPanel, BorderLayout.LINE_END );
             lookPanel.add( previewPanel, cLook );
             
-            // Adding the button for edit the arrows position
-            addButtonEditArrowPosition( );
-            
-            
             // TODO Parche, arreglar
-            lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
-        }
-
-        private void addButtonEditArrowPosition( ) {
-
-         // TODO Palabra para el JButton
-            JButton bEditArrow = new JButton( "Edit arrows position");
-            bEditArrow.addActionListener( new ActionListener( ){
-                public void actionPerformed( ActionEvent e ) {
-                    new ChangeArrowsPositionDialog( Controller.getInstance( ).peekWindow( ), bookDataControl );
-                    //imagePanel
-                }
-            }
-                    );
-            cLook.gridy = 3;
-            cLook.weighty = 0.01;
-            lookPanel.add( bEditArrow, cLook );
-            
+            //lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
         }
 
         @Override
