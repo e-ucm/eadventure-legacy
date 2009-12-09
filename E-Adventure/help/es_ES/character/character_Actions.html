@@ -9,22 +9,19 @@
 <h2>Tabla de acciones</h2>
 <p>Podemos definir las <span class="concepto">acciones </span>y consecuencias de las mismas para cada uno de los <span class="concepto">personajes</span>. Para añadir nuevas acciones pulsamos <img src="../../common_img/add_icon.png" width="16" height="16">. Las acciones disponibles son de tres tipos:</p>
 <ul>
-  <li><strong>Acciones normales</strong>: dónde encontramos <span class="referencia_literal">Examinar</span></li>
+  <li><strong>Acciones normales</strong>: dónde encontramos <span class="referencia_literal">Examinar</span>, <span class="referencia_literal">Usar</span></li>
   <li><strong>Acciones que necesitan de otro elemento</strong>:
     <ul>
-      <li><span class="referencia_literal">Usar con</span>: para que surtan los efectos, el <span class="concepto">Objeto</span> debe ser utilizado con otro. Este objeto se decide a través de un desplegable que nos muestra todos los objetos.</li>
-      <li><span class="referencia_literal">Entregar a</span>: para que surtan los efectos, el <span class="concepto">Objeto</span> debe ser entregado a un presonaje. Este personaje se decide a través de un desplegable que nos muestra todos los personajes.</li>
+      <li><span class="referencia_literal">Hablar con</span>: en esta acción, debemos elegir la <a href="../conversations/conversation_General.html">conversación</a> que tendrá lugar cuándo se ejecute.</li>
     </ul>
   </li>
-  <li> <strong>Acciones personalizables</strong>: La acción <span class="referencia_literal">Personalizable</span> nos permite definir una acción que se adapte a nuestras necesidades. Cuándo la seleccionemos, nos pedirá un nombre para la acción (P. ej: comprar, abrir, tirar, etc. ) y después se nos preguntará si la acción necesita de otro elemento con el que interactuar:
+  <li> <strong>Acciones personalizables</strong>: La acción <span class="referencia_literal">Personalizable</span> nos permite definir una acción que se adapte a nuestras necesidades. Cuándo la seleccionemos, nos pedirá un nombre para la acción (P. ej: comprar, abrir, tirar, etc. )s.
     <ul>
-      <li>Si seleccionamos <span class="referencia_literal">Acción</span>, no será necesaria la interacción con otro objeto.</li>
-      <li>Si seleccionamos <span class="referencia_literal">Interacción</span>, un diálogo nos pedirá que especifiquemos que con objeto se ha de interactuar para que surtan los efectos.</li>
       <li>Una vez decidido, podremos decidir la apariencia del botón a través de la pestaña de <span class="referencia_literal">Personalización</span>.</li>
     </ul>
   </li>
 </ul>
-<p>Cada uno de las <span class="concepto">acciones</span> tiene asociada, además de unos <strong>efectos</strong> que explicaremos después, unas condiciones que aparecen en la tabla de la parte superior:</p>
+<p>Cada una de las <span class="concepto">acciones</span> tiene asociada, además de unos <strong><a href="../effects/Effects_General.html">efectos</a></strong> que explicaremos después, unas <a href="../general/Conditions.html">condiciones</a> que aparecen en la tabla de la parte superior:</p>
 <ul>
   <li><span class="referencia_literal"><a href="../actions/NeedsGetTo.html">Necesita alcanzar objeto</a></span>: que especifica si es necesario llegar hasta el objeto para poder realizar la acción. Se puede especificar la distancia mínima a la que debe estar el personaje del objeto para poder realizar la acción. Está condición sólo tiene sentido en aventuras en <strong>tercera persona</strong>.</li>
   <li><a href="../general/Conditions.html"><span class="referencia_literal">Condiciones</span></a>: en este apartado definimos las condiciones que deben cumplirse para que la acción esté disponible en el objeto. <a href="../general/Conditions.html">Más información sobre condicones</a>.</li>
