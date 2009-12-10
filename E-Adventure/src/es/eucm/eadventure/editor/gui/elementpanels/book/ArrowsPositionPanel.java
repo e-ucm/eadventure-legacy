@@ -31,6 +31,7 @@
 */
 package es.eucm.eadventure.editor.gui.elementpanels.book;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Point;
@@ -73,6 +74,10 @@ public class ArrowsPositionPanel extends JPanel {
 
         bookPreview = bPreview;
         //this.setPreferredSize( new Dimension ( 300, 200 ) );
+        xPreviousPageSpinner.setMinimumSize( new Dimension(100, 20) );
+        yPreviousPageSpinner.setMinimumSize( new Dimension(100, 20) );
+        xNextPageSpinner.setMinimumSize( new Dimension(100, 20) );
+        yNextPageSpinner.setMinimumSize( new Dimension(100, 20) );
         
         this.setLayout( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
