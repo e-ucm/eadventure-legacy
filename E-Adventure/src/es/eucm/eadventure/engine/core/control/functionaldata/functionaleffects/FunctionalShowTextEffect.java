@@ -111,6 +111,7 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
     @Override
     public void triggerEffect( ) {
 
+        // FIXME: Convendría cambiar esto para que no se use un timer
         timer = new Timer( timeShown * 2, new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -130,5 +131,16 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
         FontMetrics fontMetrics = GUI.getInstance( ).getGraphics( ).getFontMetrics( );
         GUI.getInstance( ).addTextToDraw( text, ( (ShowTextEffect) effect ).getX( ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), ( (ShowTextEffect) effect ).getY( ), new Color( ( (ShowTextEffect) effect ).getRgbFrontColor( ) ), new Color( ( (ShowTextEffect) effect ).getRgbBorderColor( ) ) );
 
+    }
+    
+    @Override
+    public boolean canSkip( ) {
+        return true;
+    }
+
+    @Override
+    public void skip( ) {
+        isStillRunning=false;
+        timer.stop( );
     }
 }

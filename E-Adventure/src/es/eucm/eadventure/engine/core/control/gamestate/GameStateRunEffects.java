@@ -152,8 +152,14 @@ public class GameStateRunEffects extends GameState {
         // Special conditions for the play animation effect
         // FIXME Edu: ¿Mover esto de aqui?
         else if( currentExecutingEffect != null && currentExecutingEffect.isStillRunning( ) ) {
-            if (mouseClickedButton == MouseEvent.BUTTON3 && currentExecutingEffect.canSkip())  {
+            // I've modified this (JAvier): I've replaced mouseClickedButton==MouseEvent.BUTTON3 
+            // by ( mouseClickedButton == MouseEvent.BUTTON1
+            //      || mouseClickedButton == MouseEvent.BUTTON3 )
+            // Therefore you can skip effects with left button
+            if ( (mouseClickedButton == MouseEvent.BUTTON1 || mouseClickedButton == MouseEvent.BUTTON3) && currentExecutingEffect.canSkip())  {
+                System.out.println( "!!!!! SKIPPING :"+currentExecutingEffect.getClass( ).getName( ) );
                 currentExecutingEffect.skip();
+                
             }
 
             if( currentExecutingEffect instanceof FunctionalPlayAnimationEffect ) {
