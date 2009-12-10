@@ -9,7 +9,7 @@
 	<property name="gui.dir" value="gui" />
 	<property name="img.dir" value="img" />
 	<property name="web.dir" value="web" />
-	<property name="plugin.dir" value="/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home/lib" />
+	<property name="plugin.dir" value="C:/Program Files/Java/jre1.5.0_19/lib/" />
 	<property name="lanengine.dir" value="i18n/editor" />
 	<property name="laneditor.dir" value="i18n/engine" />
 	<property name="release.version" value="1.0" />
