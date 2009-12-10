@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
-To create a release, a directory named "release" must be created in
+To create a release, a directory named "release-dir" must be created in
 the root directory of the project and the following files must be downloaded
 from the wiki and included:
 * config_editor.xml
@@ -15,7 +15,7 @@ Any documentation, example games, readme-files, etc. and be added manually
 to the generated zip file.
 -->
 
-<project basedir="." default="" name="build.eAdventureApplet">
+<project basedir="." default="build" name="build.eAdventureApplet">
 	<description>
     This ant build file is used to build the project as a jar file.
 	</description>
@@ -24,9 +24,10 @@ to the generated zip file.
 	<property name="gui.dir" value="gui" />
 	<property name="img.dir" value="img" />
 	<property name="web.dir" value="web" />
+	<property name="help.dir" value="help" />
 	<property name="lanengine.dir" value="i18n/engine" />
 	<property name="laneditor.dir" value="i18n/editor" />
-	<property name="release.version" value="0.9" />
+	<property name="release.version" value="1.0D-Pablo-20091209" />
 
 	<path id="project.class.path">
 		<fileset dir="${lib.dir}">
@@ -35,7 +36,7 @@ to the generated zip file.
 	</path>
 
 	<target name="complie">
-		<javac srcdir="./src/" destdir="release/">
+		<javac srcdir="./src/" destdir="release-dir/">
 			<classpath refid="project.class.path" />
 		</javac>
 	</target>
@@ -46,9 +47,9 @@ to the generated zip file.
 	</pathconvert>
 
 	<target name="jar-engine" description="generate the engine jar" depends="complie">
-		<delete file="release/eadventure/eadventure-engine.jar" />
-		<jar compress="true" destfile="release/eadventure/eadventure-engine.jar">
-			<fileset dir="release/">
+		<delete file="release-dir/eadventure/eadventure-engine.jar" />
+		<jar compress="true" destfile="release-dir/eadventure/eadventure-engine.jar">
+			<fileset dir="release-dir/">
 				<include name="es/eucm/eadventure/engine/*.class" />
 				<include name="es/eucm/eadventure/engine/**/*.class" />
 			</fileset>
@@ -61,9 +62,9 @@ to the generated zip file.
 	</target>
 
 	<target name="jar-editor" description="generate the editor jar" depends="complie">
-		<delete file="release/eadventure/eadventure-editor.jar" />
-		<jar compress="true" destfile="release/eadventure/eadventure-editor.jar">
-			<fileset dir="release/">
+		<delete file="release-dir/eadventure/eadventure-editor.jar" />
+		<jar compress="true" destfile="release-dir/eadventure/eadventure-editor.jar">
+			<fileset dir="release-dir/">
 				<include name="es/eucm/eadventure/editor/*.class" />
 				<include name="es/eucm/eadventure/editor/**/*.class" />
 			</fileset>
@@ -75,9 +76,9 @@ to the generated zip file.
 	</target>
 
 	<target name="jar-comm" description="generate the comm jar" depends="complie">
-		<delete file="release/eadventure/jars/eadventure-comm.jar" />
-		<jar compress="true" destfile="release/eadventure/jars/eadventure-comm.jar">
-			<fileset dir="release/">
+		<delete file="release-dir/eadventure/jars/eadventure-comm.jar" />
+		<jar compress="true" destfile="release-dir/eadventure/jars/eadventure-comm.jar">
+			<fileset dir="release-dir/">
 				<include name="es/eucm/eadventure/comm/*.class" />
 				<include name="es/eucm/eadventure/comm/**/*.class" />
 			</fileset>
@@ -85,9 +86,9 @@ to the generated zip file.
 	</target>
 
 	<target name="jar-common" description="generate the common jar" depends="complie">
-		<delete file="release/eadventure/jars/eadventure-common.jar" />
-		<jar compress="true" destfile="release/eadventure/jars/eadventure-common.jar">
-			<fileset dir="release/">
+		<delete file="release-dir/eadventure/jars/eadventure-common.jar" />
+		<jar compress="true" destfile="release-dir/eadventure/jars/eadventure-common.jar">
+			<fileset dir="release-dir/">
 				<include name="es/eucm/eadventure/common/*.class" />
 				<include name="es/eucm/eadventure/common/**/*.class" />
 			</fileset>
@@ -96,7 +97,7 @@ to the generated zip file.
 
 	<target name="clear-all" description="clear all the generated files">
 		<delete>
-			<fileset dir="${basedir}/release">
+			<fileset dir="${basedir}/release-dir">
 				<include name="es/**/*.*" />
 				<include name="eadventure/**/*.*" />
 			</fileset>
@@ -104,45 +105,50 @@ to the generated zip file.
 	</target>
 
 	<target name="copy-files" description="copy the necessary files">
-		<copy todir="${basedir}/release/eadventure/jars" flatten="true">
+		<copy todir="${basedir}/release-dir/eadventure/jars" flatten="true">
 			<fileset dir="${lib.dir}">
 				<include name="*.jar" />
 			</fileset>
 		</copy>
-		<copy todir="${basedir}/release/eadventure/gui" flatten="false">
+		<copy todir="${basedir}/release-dir/eadventure/gui" flatten="false">
 			<fileset dir="${gui.dir}">
 				<include name="**/*.*" />
 				<exclude name=".svn*/**" />
 			</fileset>
 		</copy>
-		<copy todir="${basedir}/release/eadventure/img" flatten="false">
+		<copy todir="${basedir}/release-dir/eadventure/img" flatten="false">
 			<fileset dir="${img.dir}">
 				<include name="**/*.*" />
 				<exclude name=".svn*/**" />
 			</fileset>
 		</copy>
-		<copy todir="${basedir}/release/eadventure/web" flatten="true">
+		<copy todir="${basedir}/release-dir/eadventure/web" flatten="true">
 			<fileset dir="${web.dir}">
 				<include name="eAdventure_temp.jar" />
 			</fileset>
 		</copy>
-		<copy todir="${basedir}/release/eadventure/i18n/engine" flatten="true">
+		<copy todir="${basedir}/release-dir/eadventure/i18n/engine" flatten="true">
 			<fileset dir="${lanengine.dir}">
 				<exclude name=".snv/**" />
 			</fileset>
 		</copy>
-		<copy todir="${basedir}/release/eadventure/i18n/editor" flatten="true">
+		<copy todir="${basedir}/release-dir/eadventure/i18n/editor" flatten="true">
 			<fileset dir="${laneditor.dir}">
 				<exclude name=".snv/**" />
 			</fileset>
 		</copy>
-		<copy todir="${basedir}/release/eadventure" flatten="true">
+		<copy todir="${basedir}/release-dir/eadventure/help" flatten="true">
+			<fileset dir="${help.dir}">
+				<exclude name=".snv/**" />
+			</fileset>
+		</copy>
+		<copy todir="${basedir}/release-dir/eadventure" flatten="true">
 			<fileset dir="${basedir}">
 				<include name="*.dtd" />
 			</fileset>
 		</copy>
-		<copy todir="${basedir}/release/eadventure" flatten="true">
-			<fileset dir="${basedir}/release">
+		<copy todir="${basedir}/release-dir/eadventure" flatten="true">
+			<fileset dir="${basedir}/release-dir">
 				<include name="*.xml" />
 			</fileset>
 		</copy>
@@ -151,19 +157,19 @@ to the generated zip file.
 
 	<target name="create-zip" description="creates the release zip">
 		<delete>
-			<fileset dir="${basedir}/release">
+			<fileset dir="${basedir}/release-dir">
 				<include name="es/**/*.*" />
 			</fileset>
 		</delete>
-		<zip destfile="${basedir}/release/eAdventure-v${release.version}-multiplatform-nodoc.zip">
-			<zipfileset dir="${basedir}/release">
+		<zip destfile="${basedir}/release-dir/eAdventure-v${release.version}-multiplatform-nodoc.zip">
+			<zipfileset dir="${basedir}/release-dir">
 				<exclude name="*.zip" />
 				<exclude name="es*/**" />
 				<exclude name="*.xml" />
 			</zipfileset>
 		</zip>
 		<delete>
-			<fileset dir="${basedir}/release">
+			<fileset dir="${basedir}/release-dir">
 				<include name="eadventure/**/*.*" />
 			</fileset>
 		</delete>
@@ -171,7 +177,7 @@ to the generated zip file.
 
 	<target name="cleanup">
 		<delete>
-			<fileset dir="${basedir}/release">
+			<fileset dir="${basedir}/release-dir">
 				<include name="es/**/*.*" />
 				<include name="eadventure/**/*.*" />
 			</fileset>
@@ -180,9 +186,9 @@ to the generated zip file.
 
 	<target name="build" description="build a project release">
 		<antcall target="clear-all" />
-		<ant antfile="create-applet.xml" target="generate" />
-		<mkdir dir="release/eadventure" />
-		<mkdir dir="release/eadventure/jars" />
+		<ant antfile="create-applet-mac.xml" target="generate" />
+		<mkdir dir="release-dir/eadventure" />
+		<mkdir dir="release-dir/eadventure/jars" />
 		<antcall target="jar-engine" />
 		<antcall target="jar-editor" />
 		<antcall target="jar-comm" />
