@@ -63,10 +63,7 @@ public class GlobalStateCondition extends Condition {
      * @param state
      */
     public GlobalStateCondition( String id, int state ) {
-
-        super( Condition.GLOBAL_STATE_CONDITION, id, state );
-        if( state != GS_SATISFIED && state != GS_NOT_SATISFIED )
-            state = GS_SATISFIED;
+        super( Condition.GLOBAL_STATE_CONDITION, id, ( state != GS_SATISFIED && state != GS_NOT_SATISFIED ? GS_SATISFIED : state) );
     }
 
     @Override
