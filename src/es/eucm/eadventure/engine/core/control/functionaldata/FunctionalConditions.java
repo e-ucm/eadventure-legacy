@@ -34,11 +34,10 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
-import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
-import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.VarSummary;
@@ -101,8 +100,7 @@ public class FunctionalConditions {
                     String globalStateId = condition.getId( );
                     GlobalState gs = Game.getInstance( ).getCurrentChapterData( ).getGlobalState( globalStateId );
                     evaluation = new FunctionalConditions( gs ).allConditionsOk( );
-                    if (condition.getState( ) == GlobalStateCondition.GS_NOT_SATISFIED)
-                        evaluation = !evaluation;
+
                 }
             }
         }
