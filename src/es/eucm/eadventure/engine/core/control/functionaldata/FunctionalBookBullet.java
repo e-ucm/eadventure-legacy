@@ -176,11 +176,11 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
         for( int i = 0; i < textLines.size( ); i++ ) {
             //if its the first line, we draw the bullet
             if( i == 0 ) {
-                g.drawImage( imgBullet, xIni, y + 4, null );
+                g.drawImage( imgBullet, xIni, y - 3, null );
             }
             //the the string
             String line = textLines.get( i );
-            g.drawString( line, x, y + FunctionalTextBook.LINE_HEIGHT );
+            g.drawString( line, x, y + FunctionalTextBook.LINE_HEIGHT - 9 );
 
             //add the line height to the Y coordinate for the next line
             y = y + FunctionalTextBook.LINE_HEIGHT;

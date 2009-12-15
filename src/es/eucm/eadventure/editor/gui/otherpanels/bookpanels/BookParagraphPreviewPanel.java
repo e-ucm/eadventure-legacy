@@ -29,7 +29,6 @@
  * You should have received a copy of the GNU General Public License along with
  * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  */
 package es.eucm.eadventure.editor.gui.otherpanels.bookpanels;
 
@@ -53,8 +52,9 @@ import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListData
 
 /**
  * Class for book paragraph view in Content tab.
+ * 
  * @author Ángel
- *
+ * 
  */
 public class BookParagraphPreviewPanel extends BookPreviewPanel {
 
@@ -104,36 +104,6 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
     private static final int TITLE_HEIGHT = 50;
 
     /**
-     * X position of the upper left corner of the next page button
-     */
-    private static final int NEXT_PAGE_X = 685;
-
-    /**
-     * Y position of the upper left corner of the next page button
-     */
-    private static final int NEXT_PAGE_Y = 475;
-
-    /**
-     * X position of the upper left corner of the previous page button
-     */
-    private static final int PREVIOUS_PAGE_X = 45;
-
-    /**
-     * Y position of the upper left corner of the previous page button
-     */
-    private static final int PREVIOUS_PAGE_Y = 475;
-
-    /**
-     * Width of the change page button
-     */
-    private static final int CHANGE_PAGE_WIDTH = 80;
-
-    /**
-     * Height of the change page button
-     */
-    private static final int CHANGE_PAGE_HEIGHT = 80;
-
-    /**
      * Contains the image that holds the entire book.
      */
     private Image bookContinousImage;
@@ -148,6 +118,11 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
      */
     private int currentPage;
 
+    /**
+     * Current state for arrows
+     */
+    protected Image currentArrowLeft, currentArrowRight;
+
     private BookParagraphsListDataControl bookParagraphsListDataControl;
 
     /**
@@ -161,11 +136,15 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
     public BookParagraphPreviewPanel( BookDataControl bookDataControl, BookParagraphsListDataControl bookParagraphsListDataControl ) {
 
         super( bookDataControl );
+        currentArrowLeft = arrowLeftNormal;
+        currentArrowRight = arrowRightNormal;
         this.bookParagraphsListDataControl = bookParagraphsListDataControl;
         updatePreview( );
 
         // Add the click listener
-        addMouseListener( new ClickMouseListener( ) );
+        ClickMouseListener l = new ClickMouseListener( );
+        addMouseListener( l );
+        this.addMouseMotionListener( l );
     }
 
     public void updatePreview( ) {
@@ -202,17 +181,47 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
 
         // Create the image of the book and extract the graphics
         int y = 0;
-        bookContinousImage = new BufferedImage( TEXT_WIDTH, totalHeight + 20, BufferedImage.TYPE_INT_ARGB );
+        bookContinousImage = new BufferedImage( TEXT_WIDTH, totalHeight + PAGE_TEXT_HEIGHT, BufferedImage.TYPE_INT_ARGB );
 
         // Paint each paragraph image
         for( ParagraphImage paragraphImage : paragraphImages ) {
-            // If the paragraph can't be splitted and doesn't fit in the current page, jump to the next one
-            if( !paragraphImage.canBeSplitted && ( y % PAGE_TEXT_HEIGHT ) + paragraphImage.image.getHeight( null ) > PAGE_TEXT_HEIGHT )
+            // If the paragraph can't be split and doesn't fit in the current page, jump to the next one
+            if( !paragraphImage.canBeSplitted && ( y % PAGE_TEXT_HEIGHT ) + paragraphImage.image.getHeight( null ) > PAGE_TEXT_HEIGHT ) {
                 y += ( PAGE_TEXT_HEIGHT - ( y % PAGE_TEXT_HEIGHT ) );
+                // Paint the entire paragraph
+                bookContinousImage.getGraphics( ).drawImage( paragraphImage.image, 0, y, null );
 
-            // Paint the entire paragraph
-            bookContinousImage.getGraphics( ).drawImage( paragraphImage.image, 0, y, null );
-            y += paragraphImage.image.getHeight( null );
+                y += paragraphImage.image.getHeight( null );
+            }
+            // It it's a title and the next line doesn't fit in the current line
+            else if( paragraphImage.isTitle && ( y % PAGE_TEXT_HEIGHT ) + paragraphImage.image.getHeight( null ) > PAGE_TEXT_HEIGHT ) {
+                // Lines in the title
+                int linesNumber = paragraphImage.image.getHeight( null ) / TITLE_HEIGHT;
+                // Lines that still fit
+                int linesRemain = (int) Math.floor( ( PAGE_TEXT_HEIGHT - ( y % PAGE_TEXT_HEIGHT ) ) / TITLE_HEIGHT );
+
+                if( linesRemain > linesNumber ) {
+                    // Paint the entire title
+                    bookContinousImage.getGraphics( ).drawImage( paragraphImage.image, 0, y, null );
+
+                    y += paragraphImage.image.getHeight( null );
+                }
+                else {
+                    int height_tal = TITLE_HEIGHT * linesRemain;
+                    //bookContinousImage.getGraphics( ).drawImage( paragraphImage.image, 0, y, paragraphImage.image.getWidth( null ), height_tal, null );
+                    bookContinousImage.getGraphics( ).drawImage( paragraphImage.image, 0, y, paragraphImage.image.getWidth( null ), y + height_tal, 0, 0, paragraphImage.image.getWidth( null ), linesRemain * TITLE_HEIGHT, null );
+                    // Change page and draw the remaining lines
+                    y += ( PAGE_TEXT_HEIGHT - ( y % PAGE_TEXT_HEIGHT ) );
+                    bookContinousImage.getGraphics( ).drawImage( paragraphImage.image, 0, y, paragraphImage.image.getWidth( null ), y + TITLE_HEIGHT * ( linesNumber - linesRemain ), 0, TITLE_HEIGHT * linesRemain, paragraphImage.image.getWidth( null ), TITLE_HEIGHT * linesNumber, null );
+                    y += TITLE_HEIGHT * ( linesNumber - linesRemain );
+                }
+            }
+            else {
+                // Paint the entire paragraph
+                bookContinousImage.getGraphics( ).drawImage( paragraphImage.image, 0, y, paragraphImage.image.getWidth( null ), paragraphImage.image.getHeight( null ), null );
+
+                y += paragraphImage.image.getHeight( null );
+            }
         }
 
         updateUI( );
@@ -227,13 +236,21 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
         if( isImageLoaded( ) ) {
             paintBackground( g );
             // Draw the first page
-            g.drawImage( bookContinousImage, getAbsoluteX( TEXT_FIRST_COLUMN ), getAbsoluteY( TEXT_TOP_POSITION + 5 ), getAbsoluteX( TEXT_FIRST_COLUMN + TEXT_WIDTH ), getAbsoluteY( TEXT_TOP_POSITION + PAGE_TEXT_HEIGHT + 5 ), 0, currentPage * PAGE_TEXT_HEIGHT + 5, TEXT_WIDTH, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT + 5, null );
-
+            g.drawImage( bookContinousImage, getAbsoluteX( TEXT_FIRST_COLUMN ), getAbsoluteY( TEXT_TOP_POSITION + 5 ), getAbsoluteX( TEXT_FIRST_COLUMN + TEXT_WIDTH ), getAbsoluteY( TEXT_TOP_POSITION + PAGE_TEXT_HEIGHT + 5 ), 0, currentPage * PAGE_TEXT_HEIGHT, TEXT_WIDTH, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT, null );
             // If there is second page, draw it
             if( currentPage < pageCount - 1 ) {
-                g.drawImage( bookContinousImage, getAbsoluteX( TEXT_SECOND_COLUMN ), getAbsoluteY( TEXT_TOP_POSITION + 5 ), getAbsoluteX( TEXT_SECOND_COLUMN + TEXT_WIDTH ), getAbsoluteY( TEXT_TOP_POSITION + PAGE_TEXT_HEIGHT + 5 ), 0, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT + 5, TEXT_WIDTH, ( currentPage + 2 ) * PAGE_TEXT_HEIGHT + 5, null );
+                g.drawImage( bookContinousImage, getAbsoluteX( TEXT_SECOND_COLUMN ), getAbsoluteY( TEXT_TOP_POSITION + 5 ), getAbsoluteX( TEXT_SECOND_COLUMN + TEXT_WIDTH ), getAbsoluteY( TEXT_TOP_POSITION + PAGE_TEXT_HEIGHT + 5 ), 0, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT, TEXT_WIDTH, ( currentPage + 2 ) * PAGE_TEXT_HEIGHT, null );
             }
-            paintArrows( g );
+
+            if( currentPage > 1 )
+                if( currentArrowLeft != null ) {
+                    g.drawImage( currentArrowLeft, getAbsoluteX( previousPagePoint.x ), getAbsoluteY( previousPagePoint.y ), getAbsoluteWidth( arrowLeftNormal.getWidth( null ) ), getAbsoluteHeight( arrowLeftNormal.getHeight( null ) ), null );
+                }
+
+            if( currentPage < pageCount - 1 )
+                if( currentArrowRight != null ) {
+                    g.drawImage( currentArrowRight, getAbsoluteX( nextPagePoint.x ), getAbsoluteY( nextPagePoint.y ), getAbsoluteWidth( currentArrowRight.getWidth( null ) ), getAbsoluteHeight( currentArrowRight.getHeight( null ) ), null );
+                }
         }
     }
 
@@ -268,7 +285,7 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
                     line = line + word;
                     // Add the line to the text of the bullet book
                     textLines.add( line );
-                    // Empy line and word
+                    // Empty line and word
                     word = "";
                     line = "";
                 }
@@ -325,7 +342,7 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
         for( int i = 0; i < textLines.size( ); i++ ) {
             // Draw the line string
             line = textLines.get( i );
-            g.drawString( line, x, y + LINE_HEIGHT );
+            g.drawString( line, x, y + LINE_HEIGHT - 9 );
 
             // Add the line height to the Y coordinate for the next line
             y = y + LINE_HEIGHT;
@@ -427,13 +444,13 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
         for( int i = 0; i < textLines.size( ); i++ ) {
             // Draw the line string
             line = textLines.get( i );
-            g.drawString( line, x, y + TITLE_HEIGHT );
+            g.drawString( line, x, y + TITLE_HEIGHT - 16 );
 
             // Add the line height to the Y coordinate for the next line
             y = y + TITLE_HEIGHT;
         }
 
-        return new ParagraphImage( paragraphImage, true );
+        return new ParagraphImage( paragraphImage, true, true );
     }
 
     /**
@@ -469,7 +486,7 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
                     line = line + word;
                     // Add the line to the text of the bullet book
                     textLines.add( line );
-                    // Empy line and word
+                    // Empty line and word
                     word = "";
                     line = "";
                 }
@@ -519,7 +536,7 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
         textLines.add( line );
 
         // Create the image to draw
-        Image paragraphImage = new BufferedImage( TEXT_WIDTH, textLines.size( ) * TITLE_HEIGHT, BufferedImage.TYPE_INT_ARGB );
+        Image paragraphImage = new BufferedImage( TEXT_WIDTH, textLines.size( ) * LINE_HEIGHT, BufferedImage.TYPE_INT_ARGB );
         Graphics g = paragraphImage.getGraphics( );
         g.setFont( font );
         g.setColor( Color.DARK_GRAY );
@@ -530,11 +547,11 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
         for( int i = 0; i < textLines.size( ); i++ ) {
             // If its the first line, we draw the bullet
             if( i == 0 )
-                g.fillOval( 5, y + 10, x - 10, x - 10 );
+                g.fillOval( 5, y + 5, x - 15, x - 15 );
 
             // Paint the string
             line = textLines.get( i );
-            g.drawString( line, x, y + LINE_HEIGHT );
+            g.drawString( line, x, y + LINE_HEIGHT - 9 );
 
             // Add the line height to the Y coordinate for the next line
             y = y + LINE_HEIGHT;
@@ -575,21 +592,45 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
         public void mouseClicked( MouseEvent e ) {
 
             // Take the position of the click
-            int x = getRelativeX( e.getX( ) );
-            int y = getRelativeY( e.getY( ) );
+            int x = e.getX( );
+            int y = e.getY( );
 
-            // If the "Previous page" button was pressed
-            if( currentPage > 0 && PREVIOUS_PAGE_X < x && x < PREVIOUS_PAGE_X + CHANGE_PAGE_WIDTH && PREVIOUS_PAGE_Y < y && y < PREVIOUS_PAGE_Y + CHANGE_PAGE_HEIGHT ) {
+            if( isInPreviousPage( x, y ) ) {
+                // If the "Previous page" button was pressed
                 currentPage -= 2;
                 repaint( );
             }
 
             // If the "Next page" button was pressed
-            else if( currentPage < pageCount - 2 && NEXT_PAGE_X < x && x < NEXT_PAGE_X + CHANGE_PAGE_WIDTH && NEXT_PAGE_Y < y && y < NEXT_PAGE_Y + CHANGE_PAGE_HEIGHT ) {
+            else if( isInNextPage( x, y ) ) {
                 currentPage += 2;
                 repaint( );
             }
         }
+
+        @Override
+        public void mouseMoved( MouseEvent e ) {
+
+            // Take the position of the click
+            int x = e.getX( );
+            int y = e.getY( );
+
+            if( isInPreviousPage( x, y ) ) {
+                // If the "Previous page" button was pressed
+                currentArrowLeft = arrowLeftOver;
+            }
+            else
+                currentArrowLeft = arrowLeftNormal;
+            // If the "Next page" button was pressed
+            if( isInNextPage( x, y ) ) {
+                currentArrowRight = arrowRightOver;
+            }
+            else
+                currentArrowRight = arrowRightNormal;
+
+            repaint( );
+        }
+
     }
 
     /**
@@ -608,6 +649,11 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
         public boolean canBeSplitted;
 
         /**
+         * True if the paragraph is a title
+         */
+        public boolean isTitle;
+
+        /**
          * Constructor.
          * 
          * @param image
@@ -615,10 +661,16 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
          * @param canBeSplitted
          *            True if the paragraph can be splitted
          */
-        public ParagraphImage( Image image, boolean canBeSplitted ) {
+        public ParagraphImage( Image image, boolean canBeSplitted, boolean isTitle ) {
 
+            this.isTitle = isTitle;
             this.image = image;
             this.canBeSplitted = canBeSplitted;
+        }
+
+        public ParagraphImage( Image image, boolean canBeSplitted ) {
+
+            this( image, canBeSplitted, false );
         }
     }
 }
