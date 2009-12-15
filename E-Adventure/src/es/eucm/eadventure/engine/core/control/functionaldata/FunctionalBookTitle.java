@@ -56,6 +56,11 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
      * The text of the book
      */
     private ArrayList<String> textLines;
+    
+    /**
+     * Extra height necessary for drawing the book
+     */
+    private int extraHeight = 0;
 
     /**
      * Creates a new FunctionalBookText
@@ -165,11 +170,18 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
         for( int i = 0; i < textLines.size( ); i++ ) {
             //draw the line string
             String line = textLines.get( i );
+            
+            // If the line doesn't fit, we change the line and add extra height
+            // to paragraph height
+            if ( FunctionalTextBook.PAGE_TEXT_HEIGHT - ( y % FunctionalTextBook.PAGE_TEXT_HEIGHT ) < FunctionalTextBook.TITLE_HEIGHT ){
+                extraHeight += ( FunctionalTextBook.PAGE_TEXT_HEIGHT - ( y % FunctionalTextBook.PAGE_TEXT_HEIGHT ) );
+                y += ( FunctionalTextBook.PAGE_TEXT_HEIGHT - ( y % FunctionalTextBook.PAGE_TEXT_HEIGHT ) );
+            }
 
             // TODO ¿parche?
             Font font = g.getFont( );
             g.setFont( font.deriveFont( Font.PLAIN, 30 ) );
-            g.drawString( line, x, y + FunctionalTextBook.TITLE_HEIGHT );
+            g.drawString( line, x, y + FunctionalTextBook.TITLE_HEIGHT - 15 );
             g.setFont( font );
 
             //add the line height to the Y coordinate for the next line
@@ -189,7 +201,7 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
     @Override
     public int getHeight( ) {
 
-        return textLines.size( ) * FunctionalTextBook.TITLE_HEIGHT;
+        return textLines.size( ) * FunctionalTextBook.TITLE_HEIGHT + extraHeight;
     }
 
 }

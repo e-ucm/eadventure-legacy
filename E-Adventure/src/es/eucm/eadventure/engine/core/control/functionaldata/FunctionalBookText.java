@@ -161,7 +161,7 @@ public class FunctionalBookText extends FunctionalBookParagraph {
         for( int i = 0; i < textLines.size( ); i++ ) {
             //draw the line string
             String line = textLines.get( i );
-            g.drawString( line, x, y + FunctionalTextBook.LINE_HEIGHT );
+            g.drawString( line, x, y + FunctionalTextBook.LINE_HEIGHT - 9 );
 
             //add the line height to the Y coordinate for the next line
             y = y + FunctionalTextBook.LINE_HEIGHT;

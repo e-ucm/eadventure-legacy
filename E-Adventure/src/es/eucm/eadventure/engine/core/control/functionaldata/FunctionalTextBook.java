@@ -148,7 +148,7 @@ public class FunctionalTextBook extends FunctionalBook {
 
         // Create the image of the book and extract the graphics
         int y = 0;
-        imgBook = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( TEXT_WIDTH, totalHeight + 20, Transparency.BITMASK );
+        imgBook = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( TEXT_WIDTH, totalHeight + PAGE_TEXT_HEIGHT, Transparency.BITMASK );
         Graphics2D g = (Graphics2D) imgBook.getGraphics( );
         g.setFont( new Font( "Dialog", Font.PLAIN, 18 ) );
         g.setColor( Color.DARK_GRAY );
@@ -220,11 +220,11 @@ public class FunctionalTextBook extends FunctionalBook {
         g.setColor( Color.DARK_GRAY );
 
         // Draw the first page
-        g.drawImage( imgBook, TEXT_X_1, TEXT_Y + 5, TEXT_X_1 + TEXT_WIDTH, TEXT_Y + PAGE_TEXT_HEIGHT + 5, 0, currentPage * PAGE_TEXT_HEIGHT + 5, TEXT_WIDTH, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT + 5, null );
+        g.drawImage( imgBook, TEXT_X_1, TEXT_Y, TEXT_X_1 + TEXT_WIDTH, TEXT_Y + PAGE_TEXT_HEIGHT, 0, currentPage * PAGE_TEXT_HEIGHT, TEXT_WIDTH, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT, null );
 
         // If there is second page, draw it
         if( currentPage < numPages - 1 ) {
-            g.drawImage( imgBook, TEXT_X_2, TEXT_Y + 5, TEXT_X_2 + TEXT_WIDTH, TEXT_Y + PAGE_TEXT_HEIGHT + 5, 0, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT + 5, TEXT_WIDTH, ( currentPage + 2 ) * PAGE_TEXT_HEIGHT + 5, null );
+            g.drawImage( imgBook, TEXT_X_2, TEXT_Y, TEXT_X_2 + TEXT_WIDTH, TEXT_Y + PAGE_TEXT_HEIGHT, 0, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT, TEXT_WIDTH, ( currentPage + 2 ) * PAGE_TEXT_HEIGHT, null );
         }
     }
 }

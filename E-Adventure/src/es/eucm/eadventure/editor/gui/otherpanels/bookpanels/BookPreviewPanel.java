@@ -215,7 +215,7 @@ public class BookPreviewPanel extends ImagePanel {
         // We check the arrowRightNormal
         if ( arrowRightOver == null ){
             
-            arrowRightOver = ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, -1.0f, 1.0f );
+            arrowRightOver = ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, -1.0f, 1.0f );;
         }
 
         if ( arrowLeftNormal != null && arrowRightNormal != null ){
