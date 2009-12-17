@@ -37,6 +37,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
@@ -51,9 +52,15 @@ public class StyledBookDialog extends JDialog {
         super( );
         if( book.getType( ) == Book.TYPE_PAGES ) {
             
-            BookPagePreviewPanel previewPanel = new BookPagePreviewPanel( book, 0 );
+            BookPagePreviewPanel previewPanel = new BookPagePreviewPanel( book, true, 0 );
+            JPanel contentPane = new JPanel( null );
+            contentPane.setPreferredSize( new Dimension( 800, 600 ) );
+            previewPanel.setPreferredSize( new Dimension( 800, 600 ) );
+            previewPanel.setBounds( 0, 0, 800, 600 );
+            contentPane.add( previewPanel );
             this.setContentPane( previewPanel );
-            this.setSize( previewPanel.getMinimumSize( ) );
+            //this.setSize( 800, 600 );
+            this.pack();
             setResizable( false );
             
             Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );

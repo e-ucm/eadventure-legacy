@@ -29,7 +29,6 @@
  * You should have received a copy of the GNU General Public License along with
  * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  */
 package es.eucm.eadventure.editor.gui.elementpanels.book;
 
@@ -57,7 +56,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
@@ -74,7 +72,6 @@ import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPagePreviewPanel;
-import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class BookPagesPanel extends JPanel {
 
@@ -91,9 +88,9 @@ public class BookPagesPanel extends JPanel {
 
     private JPanel previewPanelContainer;
 
-    private JScrollPane previewPanelScroll;
+    // private JScrollPane previewPanelScroll;
 
-    private BookPagePreviewPanel previewPanel;
+    // private BookPagePreviewPanel previewPanel;
 
     private JPanel pageNotLoadedPanel;
 
@@ -103,9 +100,11 @@ public class BookPagesPanel extends JPanel {
 
     private JButton moveDownButton;
 
-    private JLabel previewLabel;
+    //private JLabel previewLabel;
 
     private JSplitPane infoAndPreview;
+
+    private BookPagePreviewPanel bookPanel;
 
     private JPanel createPageNotLoadedPanel( ) {
 
@@ -128,9 +127,11 @@ public class BookPagesPanel extends JPanel {
 
         previewPanelContainer = new JPanel( );
         previewPanelContainer.setLayout( new BorderLayout( ) );
+        bookPanel = new BookPagePreviewPanel( dataControl, false );
 
         this.pageNotLoadedPanel = this.createPageNotLoadedPanel( );
-        previewPanelScroll = new JScrollPane( pageNotLoadedPanel );
+
+        // previewPanelScroll = new JScrollPane( pageNotLoadedPanel );
         //		previewPanelContainer.add( previewPanelScroll, BorderLayout.CENTER );
 
         JButton previewButton = new JButton( TC.get( "Book.Preview" ) );
@@ -143,8 +144,13 @@ public class BookPagesPanel extends JPanel {
             }
         } );
 
+        /*GridBagConstraints c = new GridBagConstraints( );
+        c.fill = GridBagConstraints.BOTH;
+        c.gridx = 0;
+        c.gridy = 1;
+        c.weighty = 0.1;*/
         previewPanelContainer.add( previewButton, BorderLayout.SOUTH );
-        //updateSelectedPage();
+        updateSelectedPage( );
 
         previewPanelContainer.setMinimumSize( new Dimension( 100, 150 ) );
         pagesPanel.setMinimumSize( new Dimension( 0, 150 ) );
@@ -168,24 +174,24 @@ public class BookPagesPanel extends JPanel {
     public void updatePreview( ) {
 
         BookPage currentPage = dataControl.getBookPagesList( ).getSelectedPage( );
-        if( pageNotLoadedPanel != null )
-            previewPanelContainer.remove( previewPanelScroll );
-        else if( previewLabel != null )
-            previewPanelContainer.remove( previewLabel );
+        /* if( pageNotLoadedPanel != null )
+             previewPanelContainer.remove( previewPanelScroll );
+         else if( previewLabel != null )
+             previewPanelContainer.remove( previewLabel );*/
 
         pageNotLoadedPanel = null;
         if( currentPage != null ) {
 
-            previewPanel = new BookPagePreviewPanel( dataControl );
+            /* previewPanel = new BookPagePreviewPanel( dataControl );
             previewPanel.setCurrentBookPage( currentPage );
             previewPanel.setPreferredSize( new Dimension( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT ) );
             previewPanel.repaint( );
-            Image image = previewPanel.paintToImage( );
+            Image image = previewPanel.paintToImage( );*/
 
-            previewLabel = new JLabel( );
+            /*previewLabel = new JLabel( );
             previewLabel.setIcon( new ImageIcon( getResizedImage( image ) ) );
 
-            previewPanelContainer.add( previewLabel, BorderLayout.CENTER );
+            previewPanelContainer.add( previewLabel, BorderLayout.CENTER );*/
 
             previewPanelContainer.updateUI( );
         }
@@ -204,7 +210,7 @@ public class BookPagesPanel extends JPanel {
             //Disable moveUp and moveDown buttons
             moveUpButton.setEnabled( false );
             moveDownButton.setEnabled( false );
-            if( pageNotLoadedPanel != null )
+            /*if( pageNotLoadedPanel != null )
                 previewPanelContainer.remove( previewPanelScroll );
             else if( previewLabel != null )
                 previewPanelContainer.remove( previewLabel );
@@ -212,7 +218,7 @@ public class BookPagesPanel extends JPanel {
             pageNotLoadedPanel = this.createPageNotLoadedPanel( );
             previewLabel = null;
             previewPanelScroll = new JScrollPane( pageNotLoadedPanel );
-            previewPanelContainer.add( previewPanelScroll, BorderLayout.CENTER );
+            previewPanelContainer.add( previewPanelScroll, BorderLayout.CENTER );*/
         }
 
         //When a page has been selected
@@ -222,28 +228,37 @@ public class BookPagesPanel extends JPanel {
             //Enable moveUp and moveDown buttons when there is more than one element
             moveUpButton.setEnabled( dataControl.getBookPagesList( ).getBookPages( ).size( ) > 1 && selectedPage > 0 );
             moveDownButton.setEnabled( dataControl.getBookPagesList( ).getBookPages( ).size( ) > 1 && selectedPage < pagesTable.getRowCount( ) - 1 );
+
+            /* if( pageNotLoadedPanel != null )
+                 previewPanelContainer.remove( previewPanelScroll );
+             else if( previewPanel != null )
+                 previewPanelContainer.remove( previewLabel ); */
             
-            if( pageNotLoadedPanel != null )
-                previewPanelContainer.remove( previewPanelScroll );
-            else if( previewPanel != null )
-                previewPanelContainer.remove( previewLabel );
+            GridBagConstraints c = new GridBagConstraints( );
+            c.fill = GridBagConstraints.BOTH;
+            c.ipadx = 800;
+            c.gridx = 0;
+            c.gridy = 0;
+            c.weighty = 0.9;
+            bookPanel.setCurrentBookPage( selectedPage );
+            previewPanelContainer.add( bookPanel, BorderLayout.CENTER );
 
             pageNotLoadedPanel = null;
 
-            previewPanel = new BookPagePreviewPanel( dataControl );
+            /*previewPanel = new BookPagePreviewPanel( dataControl );
             previewPanel.setCurrentBookPage( selectedPage );
             previewPanel.setPreferredSize( new Dimension( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT ) );
             previewPanel.repaint( );
-            Image image = previewPanel.paintToImage( );
-            previewLabel = new JLabel( );
+            Image image = previewPanel.paintToImage( );*/
+            /*previewLabel = new JLabel( );
             previewLabel.setIcon( new ImageIcon( getResizedImage( image ) ) );
-            previewPanelContainer.add( previewLabel, BorderLayout.CENTER );
+            previewPanelContainer.add( previewLabel, BorderLayout.CENTER );*/
         }
 
         previewPanelContainer.updateUI( );
-        previewPanelScroll.updateUI( );
+        //previewPanelScroll.updateUI( );
         previewPanelContainer.repaint( );
-        previewPanel.repaint( );
+        // previewPanel.repaint( );
     }
 
     private Image getResizedImage( Image image ) {

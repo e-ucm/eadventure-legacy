@@ -247,7 +247,7 @@ public class ImagePanel extends JPanel {
      *            X position of the image
      * @return X position of the panel
      */
-    protected int getAbsoluteX( int x ) {
+    public int getAbsoluteX( int x ) {
 
         int absoluteX = 0;
 
@@ -265,7 +265,7 @@ public class ImagePanel extends JPanel {
      *            Y position of the image
      * @return Y position of the panel
      */
-    protected int getAbsoluteY( int y ) {
+    public int getAbsoluteY( int y ) {
 
         int absoluteY = 0;
 

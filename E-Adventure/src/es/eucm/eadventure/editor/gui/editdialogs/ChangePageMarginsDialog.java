@@ -29,7 +29,6 @@
  * You should have received a copy of the GNU General Public License along with
  * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  */
 package es.eucm.eadventure.editor.gui.editdialogs;
 
@@ -119,12 +118,17 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
         this.bookPagesList = bookPagesList;
         this.dataControl = dControl;
         setChanges = true;
-        this.setLayout( new BorderLayout( ) );
+
+        this.setLayout( null );
         this.setTitle( TC.get( "BookPage.MarginDialog" ) );
 
-        bookPagePreview = new BookPagePreviewPanel( dataControl  );
+        bookPagePreview = new BookPagePreviewPanel( dataControl, true );
         bookPagePreview.setCurrentBookPage( bookPagesList.getSelectedPage( ) );
-        this.add( bookPagePreview, BorderLayout.CENTER );
+
+        bookPagePreview.setPreferredSize( new Dimension( 800, 600 ) );
+        bookPagePreview.setBounds( 30, 30, 800, 600 );
+        bookPagePreview.setDrawArrows( false );
+        this.add( bookPagePreview );
 
         createMarginSlider( );
         createMarginEndSlider( );
@@ -133,17 +137,9 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
         topPanel.setLayout( new BorderLayout( ) );
         topPanel.add( marginSlider, BorderLayout.WEST );
         topPanel.add( marginEndSlider, BorderLayout.EAST );
-
-        // This code is used to create a square block in the top left
-        // corner of the window, for esthetic ends
-        JPanel block = new JPanel( );
-        block.setLayout( new BorderLayout( ) );
-        JPanel block2 = new JPanel( );
-        block2.setPreferredSize( new Dimension( 30, 30 ) );
-        block.add( block2, BorderLayout.LINE_START );
-        block.add( topPanel, BorderLayout.CENTER );
-
-        this.add( block, BorderLayout.NORTH );
+        topPanel.setPreferredSize( new Dimension( 800, 30 ) );
+        topPanel.setBounds( 30, 0, 800, 30 );
+        this.add( topPanel );
 
         createMarginTopSlider( );
         createMarginBottomSlider( );
@@ -153,9 +149,12 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
         sidePanel.add( marginTopSlider, BorderLayout.NORTH );
         sidePanel.add( marginBottomSlider, BorderLayout.SOUTH );
 
-        this.add( sidePanel, BorderLayout.LINE_START );
+        sidePanel.setPreferredSize( new Dimension( 30, 600 ) );
+        sidePanel.setBounds( 0, 30, 30, 600 );
+        this.add( sidePanel );
 
-        this.setSize( 830, 630 );
+        this.setSize( 840, 660 );
+        //this.pack( );
         this.setResizable( false );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
@@ -259,16 +258,12 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
      */
     protected void marginChanged( ) {
 
-        if( setChanges ) {
-            this.bookPagesList.setMargins( marginSlider.getValue( ), -marginTopSlider.getValue( ), marginBottomSlider.getValue( ), -marginEndSlider.getValue( ) );
-
-            this.remove( bookPagePreview );
-            bookPagePreview = new BookPagePreviewPanel( dataControl );
-            bookPagePreview.setCurrentBookPage( bookPagesList.getSelectedPage( ) );
-            this.add( bookPagePreview, BorderLayout.CENTER );
-
-            bookPagePreview.updateUI( );
-        }
+        //if( setChanges ) {
+        this.bookPagesList.setMargins( marginSlider.getValue( ), -marginTopSlider.getValue( ), marginBottomSlider.getValue( ), -marginEndSlider.getValue( ) );
+        bookPagePreview.updateBounds( );
+        bookPagePreview.updateUI( );
+        bookPagePreview.repaint( );
+        //}
     }
 
     @Override
@@ -281,7 +276,7 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
         marginTopSlider.setValue( ( bookPagesList != null ) ? bookPagesList.getSelectedPage( ).getMarginTop( ) : 0 );
         marginBottomSlider.setValue( ( bookPagesList != null ) ? bookPagesList.getSelectedPage( ).getMarginBottom( ) : 0 );
         this.remove( bookPagePreview );
-        bookPagePreview = new BookPagePreviewPanel( dataControl );
+        bookPagePreview = new BookPagePreviewPanel( dataControl, true );
         bookPagePreview.setCurrentBookPage( bookPagesList.getSelectedPage( ) );
         this.add( bookPagePreview, BorderLayout.CENTER );
 
