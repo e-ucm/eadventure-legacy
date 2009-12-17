@@ -58,6 +58,7 @@ import javax.swing.text.rtf.RTFEditorKit;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
+import es.eucm.eadventure.common.gui.BookEditorPane;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
@@ -79,7 +80,7 @@ public class FunctionalBookPage extends JPanel {
     
     private FunctionalStyledBook fBook;
 
-    private JEditorPane editorPane;
+    private BookEditorPane editorPane;
 
     public FunctionalBookPage( Image background ) {
 
@@ -89,7 +90,7 @@ public class FunctionalBookPage extends JPanel {
     public FunctionalBookPage( BookPage bookPage, FunctionalStyledBook fBook, Image background, Image currentArrowLeft, Image currentArrowRight, Point previousPage, Point nextPage,  boolean listenHyperLinks ) {
 
         super( );
-        editorPane = new JEditorPane( );
+        editorPane = new BookEditorPane( bookPage );
         isValid = true;
         this.bookPage = bookPage;
         this.fBook = fBook;
@@ -193,7 +194,7 @@ public class FunctionalBookPage extends JPanel {
 
             this.setLayout( null );
 
-            editorPane.setBounds( bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMargin( ) - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginTop( ) - bookPage.getMarginBottom( ) );
+           editorPane.setBounds( bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMargin( ) - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginTop( ) - bookPage.getMarginBottom( ) );
             if( bookPage.getScrollable( ) )
                 this.add( new JScrollPane( editorPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED ) );
             else
