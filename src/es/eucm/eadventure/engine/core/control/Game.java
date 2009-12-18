@@ -768,6 +768,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             GUI.create( );
 
             currentState = new GameStateLoading( );
+            
+            // Just in case this is an Applet, hide the loading Message that appears on the HTML file
+            if (comm!=null){
+                String command = "javascript:hideText();";
+                comm.sendJavaScript( command );
+            }
 
             GUI.getInstance( ).initGUI( gameDescriptor.getGUIType( ), gameDescriptor.isGUICustomized( ) );
 

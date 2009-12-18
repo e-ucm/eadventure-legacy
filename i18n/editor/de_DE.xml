@@ -2,6 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>comment</comment>
+<entry key="Applet.LoadingMessage">The game is initiating... please be patient while the digital signature is verified (this action may take some minutes)</entry>
 <entry key="ImageAssets.Preview">Bild Vorschau</entry>
 <entry key="GeneralText.EditEffects">Effekte bearbeiten</entry>
 <entry key="UOLProperties.InsertProperty">Neue Eigenschaft einfügen</entry>
