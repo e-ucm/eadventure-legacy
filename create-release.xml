@@ -175,6 +175,7 @@ Steps:
 				<include name="*.zip" />
 				<include name="*.js" />
 				<include name="*.xsd" />
+				<include name="*.gif" />
 			</fileset>
 		</copy>
 		<copy todir="${basedir}/release-dir/eadventure/i18n/engine" flatten="true">
