@@ -497,15 +497,31 @@ public class Writer {
         boolean dataSaved = true;
         try {
             String jscript = "";
+            
+            // THE NEXT CODE WAS ADDED ON 18th Dec 2009. This will be used to remove the loading message dynamically
+            jscript += "\t\t<script type='text/javascript' language='JavaScript'>\n";
+            jscript += "\t\t\t<!--\n";
+            jscript += "\t\t\tfunction hideText(){\n";
+            jscript += "\t\t\t\tmsg = document.getElementById('loadingMessage');\n";
+            jscript += "\t\t\t\tmsg.style.display = 'none';\n";
+            jscript += "\t\t\t}\n";
+            jscript += "\t\t//-->\n";
+            jscript += "\t\t</script>\n";
+            // END ADDED CODE
+            
             if( mainClass.equals( "es.eucm.eadventure.engine.EAdventureAppletScorm" ) ) {
-                jscript = "\t\t<script type='text/javascript' src='egame.js'></script>\n";
+                jscript += "\n\t\t<script type='text/javascript' src='eadventure.js'></script>\n";
             }
 
             String webPage = "<html>\n" + "\t<head>\n" +
             //"\t\t<script type='text/javascript' src='commapi.js'></script>\n"+
             //"\t\t<script type='text/javascript' src='ajax-wrapper.js'></script>\n"+
             //"\t\t<script type='text/javascript' src='egame.js'></script>\n"+
-            jscript + "\t</head>\n" + "\t<body>\n" + "\t\t<applet code=\"" + mainClass + "\" archive=\"./" + loName + ".jar\" name=\"eadventure\" id=\"eadventure\" " + ( windowed ? "width=\"260\" height=\"100\"" : "width=\"800\" height=\"600\"" ) + " MAYSCRIPT>\n" + "\t\t<param name=\"USER_ID\" value=\"567\"/>\n" + "\t\t<param name=\"RUN_ID\" value=\"5540\"/>\n" + "\t\t<param name=\"WINDOWED\" value=\"" + ( windowed ? "yes" : "no" ) + "\"/>\n" + "\t\t<PARAM name=\"java_arguments\" value=\"-Xms512m -Xmx512m\">\n" + "\t\t</applet>\n" + "<p><b>The game is initating.. please be patient while the digital sign is verified</b></p>\n" + "\t</body>\n" + "</html>\n";
+            
+            //"\t\t<param name=\"USER_ID\" value=\"567\"/>\n" + "\t\t<param name=\"RUN_ID\" value=\"5540\"/>\n" +
+            //The game is initating.. please be patient while the digital sign is verified
+            
+            jscript + "\t</head>\n" + "\t<body>\n" + "\t\t<applet code=\"" + mainClass + "\" archive=\"./" + loName + ".jar\" name=\"eadventure\" id=\"eadventure\" " + ( windowed ? "width=\"200\" height=\"150\"" : "width=\"800\" height=\"600\"" ) + " MAYSCRIPT>\n" + "\t\t<param name=\"WINDOWED\" value=\"" + ( windowed ? "yes" : "no" ) + "\"/>\n" + "\t\t<param name=\"java_arguments\" value=\"-Xms512m -Xmx512m\"/>\n"+ "\t\t<param name=\"image\" value=\"splashScreen.gif\"/>\n" + "\t\t</applet>\n" + "<div id=\"loadingMessage\"><p><b>"+TC.get( "Applet.LoadingMessage" )+"</b></p></div>\n" + "\t</body>\n" + "</html>\n";
 
             File pageFile = new File( "web/temp/" + loName + ".html" );
             pageFile.createNewFile( );
@@ -837,6 +853,10 @@ public class Writer {
             Element file5 = doc.createElement( "file" );
             file5.setAttribute( "href", loName + ".jar" );
             resource.appendChild( file5 );
+            
+            Element file4 = doc.createElement( "file" );
+            file4.setAttribute( "href", "splashScreen.gif" );
+            resource.appendChild( file4 );
 
             resources.appendChild( resource );
             manifest.appendChild( resources );
@@ -858,6 +878,14 @@ public class Writer {
             //sourceFile = new File("web/temp/imsmanifest.xml");
             //destinyFile = new File (zipFilename, "imsmanifest.xml");
             //dataSaved &= sourceFile.copyTo( destinyFile );
+            
+            //copy loadingImage
+            File splashScreen = new File( "web/splashScreen.gif" );
+            if ( windowed ){
+                splashScreen = new File( "web/splashScreen_red.gif");
+            }
+            splashScreen.copyTo( new File( "web/temp/splashScreen.gif" ) );
+            
             /** ******** END WRITING THE MANIFEST ********** */
 
             /** COPY EVERYTHING TO THE ZIP */
@@ -1013,12 +1041,16 @@ public class Writer {
             resource.appendChild( file );
 
             Element file2 = doc.createElement( "file" );
-            file2.setAttribute( "href", "egame.js" );
+            file2.setAttribute( "href", "eadventure.js" );
             resource.appendChild( file2 );
 
             Element file3 = doc.createElement( "file" );
             file3.setAttribute( "href", loName + ".jar" );
             resource.appendChild( file3 );
+            
+            Element file4 = doc.createElement( "file" );
+            file4.setAttribute( "href", "splashScreen.gif" );
+            resource.appendChild( file4 );
 
             resources.appendChild( resource );
             manifest.appendChild( resources );
@@ -1048,8 +1080,16 @@ public class Writer {
             xsd.copyTo( new File( "web/temp/imsmd_rootv1p2p1.xsd" ) );
 
             //copy javascript
-            File javaScript = new File( "web/egame.js" );
-            javaScript.copyTo( new File( "web/temp/egame.js" ) );
+            File javaScript = new File( "web/eadventure.js" );
+            javaScript.copyTo( new File( "web/temp/eadventure.js" ) );
+            
+            //copy loadingImage
+            File splashScreen = new File( "web/splashScreen.gif" );
+            if ( windowed ){
+                splashScreen = new File( "web/splashScreen_red.gif");
+            }
+            splashScreen.copyTo( new File( "web/temp/splashScreen.gif" ) );
+            
             //sourceFile = new File("web/temp/imsmanifest.xml");
             //destinyFile = new File (zipFilename, "imsmanifest.xml");
             //dataSaved &= sourceFile.copyTo( destinyFile );
@@ -1216,13 +1256,17 @@ public class Writer {
             resource.appendChild( file );
 
             Element file2 = doc.createElement( "file" );
-            file2.setAttribute( "href", "egame.js" );
+            file2.setAttribute( "href", "eadventure.js" );
             resource.appendChild( file2 );
 
             Element file3 = doc.createElement( "file" );
             file3.setAttribute( "href", loName + ".jar" );
             resource.appendChild( file3 );
-
+            
+            Element file4 = doc.createElement( "file" );
+            file4.setAttribute( "href", "splashScreen.gif" );
+            resource.appendChild( file4 );
+            
             resources.appendChild( resource );
             manifest.appendChild( resources );
             indentDOM( manifest, 0 );
@@ -1244,8 +1288,15 @@ public class Writer {
             File.unzipDir( "web/Scorm2004Content.zip", "web/temp/" );
 
             //copy javascript
-            File javaScript = new File( "web/egame.js" );
-            javaScript.copyTo( new File( "web/temp/egame.js" ) );
+            File javaScript = new File( "web/eadventure.js" );
+            javaScript.copyTo( new File( "web/temp/eadventure.js" ) );
+            
+            //copy loadingImage
+            File splashScreen = new File( "web/splashScreen.gif" );
+            if ( windowed ){
+                splashScreen = new File( "web/splashScreen_red.gif");
+            }
+            splashScreen.copyTo( new File( "web/temp/splashScreen.gif" ) );
             /** ******** END WRITING THE MANIFEST ********** */
 
             /** COPY EVERYTHING TO THE ZIP */
@@ -1406,12 +1457,16 @@ public class Writer {
             resource.appendChild( file );
 
             Element file2 = doc.createElement( "file" );
-            file2.setAttribute( "href", "egame.js" );
+            file2.setAttribute( "href", "eadventure.js" );
             resource.appendChild( file2 );
 
             Element file3 = doc.createElement( "file" );
             file3.setAttribute( "href", loName + ".jar" );
             resource.appendChild( file3 );
+            
+            Element file4 = doc.createElement( "file" );
+            file4.setAttribute( "href", "splashScreen.gif" );
+            resource.appendChild( file4 );
 
             resources.appendChild( resource );
             manifest.appendChild( resources );
@@ -1434,8 +1489,15 @@ public class Writer {
             File.unzipDir( "web/Scorm2004AgregaContent.zip", "web/temp/" );
 
             //copy javascript
-            File javaScript = new File( "web/egame.js" );
-            javaScript.copyTo( new File( "web/temp/egame.js" ) );
+            File javaScript = new File( "web/eadventure.js" );
+            javaScript.copyTo( new File( "web/temp/eadventure.js" ) );
+            
+            //copy loadingImage
+            File splashScreen = new File( "web/splashScreen.gif" );
+            if ( windowed ){
+                splashScreen = new File( "web/splashScreen_red.gif");
+            }
+            splashScreen.copyTo( new File( "web/temp/splashScreen.gif" ) );
             /** ******** END WRITING THE MANIFEST ********** */
 
             /** COPY EVERYTHING TO THE ZIP */
@@ -1520,6 +1582,13 @@ public class Writer {
             File webpage = new File( "web/temp/" + loName + ".html" );
             webpage.copyTo( new File( "web/temp/CMD_6988980_M/my_files/" + fixedLoName + ".html" ) );
             webpage.delete( );
+            
+            //copy loadingImage
+            File splashScreen = new File( "web/splashScreen.gif" );
+            if ( windowed ){
+                splashScreen = new File( "web/splashScreen_red.gif");
+            }
+            splashScreen.copyTo( new File( "web/temp/CMD_6988980_M/my_files/splashScreen.gif" ) );
 
             File.zipDirectory( "web/temp/", zipFilename );
         }

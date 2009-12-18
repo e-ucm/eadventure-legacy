@@ -59,13 +59,13 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalhighlights.FunctionalHighlight;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
  * This is the main class related with the graphics in eAdventure, including the
@@ -1500,7 +1500,13 @@ public abstract class GUI implements FocusListener {
 
     public void loading( int percent ) {
         if (percent == 0) {
-            this.loadingImage =  new ImageIcon("gui/loading.jpg").getImage();
+            
+            // FIXME Chapucilla que huele a pipi
+            //this.loadingImage =  new ImageIcon("gui/loading.jpg").getImage();
+            this.loadingImage = MultimediaManager.getInstance( ).loadImage( "gui/loading.jpg", MultimediaManager.IMAGE_MENU );
+            if (this.loadingImage == null ){
+                this.loadingImage = MultimediaManager.getInstance( ).loadImageFromZip( "gui/loading.jpg", MultimediaManager.IMAGE_MENU );
+            }
             this.loading = percent;
             loadingTimer = new Timer();
             loadingTask = new TimerTask() {
