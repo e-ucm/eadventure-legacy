@@ -315,7 +315,7 @@ public class AssessmentEngine implements TimerEventListener {
 
 			// Header
 			file.print("<title>");
-			file.print(Game.getInstance().getGameDescriptor().getTitle());
+			file.print(Game.getInstance( ).processText( Game.getInstance().getGameDescriptor().getTitle()) );
 			file.println("</title>");
 
 			// Body and content table
@@ -327,7 +327,7 @@ public class AssessmentEngine implements TimerEventListener {
 
 			// Title
 			file.print("<center><h1>");
-			file.print(Game.getInstance().getGameDescriptor().getTitle());
+			file.print(Game.getInstance( ).processText(Game.getInstance().getGameDescriptor().getTitle()));
 			file.print(" report");
 			file.println("</h1></center>");
 
@@ -341,7 +341,7 @@ public class AssessmentEngine implements TimerEventListener {
 			for (ProcessedRule rule : processedRules) {
 				// First check the importance
 				if (rule.getImportance() >= minImportance) {
-					file.println(rule.getHTMLCode());
+					file.println(Game.getInstance( ).processText(rule.getHTMLCode()));
 					file.println("<br/><br/>");
 				}
 			}
