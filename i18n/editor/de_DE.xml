@@ -486,29 +486,29 @@ Se han borrado las referencias a dicho perfil.</entry>
 <entry key="LOMES.Educational.IntendedEndUserRole12">Informatiker</entry>
 <entry key="LOMES.Educational.IntendedEndUserRole11">Informatiker</entry>
 <entry key="LOMES.Educational.IntendedEndUserRole10">Familie</entry>
-<entry key="Search.ParagraphContent">Contenido del parrafo</entry>
+<entry key="Search.ParagraphContent">Absatz Inhalt</entry>
 <entry key="LOM.Duration.Hours">Stunden</entry>
-<entry key="Cutscene.ChapterEnd">Termina el capítulo</entry>
+<entry key="Cutscene.ChapterEnd">Ende der Kapitel</entry>
 <entry key="Resources.New">Neue</entry>
-<entry key="Animation.MoveFrameRight">Mover el cuadro seleccionado un lugar a la derecha</entry>
-<entry key="Flags.ConfirmNewFlag.Text">El nombre introducido se parece mucho a otros.
-¿Estás seguro de que quieres crearlo? 
-Si no puedes seleccionar alguno de los que son similares de la lista</entry>
-<entry key="Conversation.OptionAddDialogueNode">Añadir nodo de diálogo</entry>
-<entry key="BookTypes.FormattedDescription">Este tipo soporta contenido con formato que se puede leer de un archivo RTF o HTML.</entry>
+<entry key="Animation.MoveFrameRight">Bewegen Sie den ausgewählten Feld eine Position nach Rechts</entry>
+<entry key="Flags.ConfirmNewFlag.Text">Der eingegebene Name ist fast gleich wie andere.
+Sind Sie sicher, dass Sie erstellen wollen?
+Sie können auch ähnliche Namen aus der Liste auswählen</entry>
+<entry key="Conversation.OptionAddDialogueNode">Unterhaltung Knoten hinzufügen</entry>
+<entry key="BookTypes.FormattedDescription">Diese Typ unterstützt die Inhalt mit Format, die aus einer RTF oder HTML Datei gelesen werden können.</entry>
 <entry key="ElementList.Player">Spieler</entry>
 <entry key="MenuEdit.Redo">Wiederherstellen</entry>
-<entry key="GlobalStatesList.DuplicateGlobalState">Duplicar el estado global seleccionado</entry>
+<entry key="GlobalStatesList.DuplicateGlobalState">Ausgewählte Global Zustand verdoppeln</entry>
 <entry key="ImageDialog.Title">Bild Vorschau - {#0}</entry>
 <entry key="HighlightItemEffect.Blue">Resaltar en azul</entry>
-<entry key="Conversation.OperationAddGoBackTag">Añadir marca "Volver"</entry>
+<entry key="Conversation.OperationAddGoBackTag">"Zurück" Mark hinzufügen</entry>
 <entry key="ActiveAreasList.Conditions">Bedingung</entry>
-<entry key="TriggerBookEffect.Title">Efecto lanzar libro</entry>
-<entry key="BookParagraphs.DeleteParagraph">Borrar el párrafo seleccionado</entry>
-<entry key="DeactivateEffect.Description">Seleccione el flag que será desactivado:</entry>
+<entry key="TriggerBookEffect.Title">Buch starten Effekt</entry>
+<entry key="BookParagraphs.DeleteParagraph">Ausgewählte Absatz löschen</entry>
+<entry key="DeactivateEffect.Description">Wählen Sie die Flag, die es abgeschaltet werden:</entry>
 <entry key="GeneralText.Cancel">Abbrechen</entry>
-<entry key="GlobalStatesList.ListTitle">Lista completa de referencias a los estados globales</entry>
-<entry key="Operation.RenameItemMessage">Introduzca un nuevo identificador con el que renombrar el objeto:</entry>
+<entry key="GlobalStatesList.ListTitle">Voll Liste von globale Zustand Referenzen</entry>
+<entry key="Operation.RenameItemMessage">Geben Sie einen neuen ID, mit dem das Objekt umbenennen wollen:</entry>
 <entry key="GeneralText.EditDocumentation">Dokumentation bearbeiten</entry>
 <entry key="AssessmentRule.Concept">Konzept</entry>
 <entry key="GeneralText.Close">Schließen</entry>
@@ -516,33 +516,33 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="MenuChapters.AddChapter">Kapiteln hinzufügen</entry>
 <entry key="LOM.Educational.TypicalLearningTime">Typical learning time</entry>
 <entry key="Effect.GreenHighlightItemInfo">Reslatar {#0} en verde</entry>
-<entry key="Timer.InitConditions">Condiciones para activación del temporizador</entry>
+<entry key="Timer.InitConditions">Bedingungen für die Aktivierung des Timers</entry>
 <entry key="Search.Documentation">Dokumentation</entry>
-<entry key="Effect.SetValue">Dar valor a variable</entry>
-<entry key="BackgroundAssets.Title">Recursos de fondos</entry>
-<entry key="NextScene.EditDestinyPosition">Editar la posición de destino para el protagonista en la nueva escena</entry>
+<entry key="Effect.SetValue">Geben Wert nach Variable</entry>
+<entry key="BackgroundAssets.Title">Hintergrund Ressourcen</entry>
+<entry key="NextScene.EditDestinyPosition">Bearbeiten Sie die Ziel Position für den Protagonist in der neuen Szene</entry>
 <entry key="Cursors.Title">Pointers</entry>
 <entry key="GeneralText.EditInitConditions">Erste Bedingungen bearbeiten</entry>
 <entry key="NPCReferencesList.Title">Charakter Referenzen</entry>
 <entry key="Conversation.OptionLinkNode">Knoten linken mit...</entry>
 <entry key="Item.LookPanelTitle">Aussehen</entry>
-<entry key="Operation.AdventureConsistencyErrorPlayAnimation">El efecto "Reproducir animación" no tiene ninguna animación asociada</entry>
-<entry key="IMS.Educational.InteractivityLevel">Grado de interacción entre el recurso y el usuario</entry>
+<entry key="Operation.AdventureConsistencyErrorPlayAnimation">Die Wirkung von "Animation abspielen" hat keine Animation verbunden</entry>
+<entry key="IMS.Educational.InteractivityLevel">Der Grad der Interaktion zwischen den Ressourcen und der Benutzer</entry>
 <entry key="LOMES.Rights.Access">Zugang</entry>
-<entry key="Animation.DeleteFrame">Quitar el cuadro seleccionado de la animación</entry>
-<entry key="Action.MessageSelectNPC">Seleccione un personaje para ser el objetivo de la acción:</entry>
+<entry key="Animation.DeleteFrame">Entfernen Sie das ausgewählte Bild der Animation</entry>
+<entry key="Action.MessageSelectNPC">Wählen Sie ein Charakter, um das Ziel der Aktion zu sein:</entry>
 <entry key="GeneralText.Is">Ist</entry>
 <entry key="Search.Where">Wo</entry>
 <entry key="ConversationsList.Title">Unterhaltungen</entry>
-<entry key="Adventure.CompletePath">Ruta completa</entry>
+<entry key="Adventure.CompletePath">Vollständiger Pfad</entry>
 <entry key="CutsceneTypes.Slides">Dias Szene</entry>
 <entry key="AdaptationRule.GameState.ActionFlags">Flagszustand</entry>
 <entry key="Cutscene.Doc">Dokumentation</entry>
-<entry key="Operation.ExportToLOM.LOMName.Description">No tiene por qué ser igual que el nombre del archivo: Este nombre será empleado por el LMS para identificar la aventura</entry>
+<entry key="Operation.ExportToLOM.LOMName.Description">Es muss nicht die gleichen sein wie die Datei Name: Dieser Name wird von der LMS verwendet werden, um das Abenteuer zu identifizieren</entry>
 <entry key="NPCsList.ConversationsNumber">{#0} unterhaltungen</entry>
 <entry key="Operation.ExportProject.AsJAR">Operación: Exportando proyecto como juego autocontenido (.JAR)</entry>
-<entry key="ErrorSolving.AdaptationReferenced.Deleted.Message">No se encontró el perfil de adaptación referenciado: "{#0}".
-Se han borrado las referencias a dicho perfil.</entry>
+<entry key="ErrorSolving.AdaptationReferenced.Deleted.Message">Das referenzierte Anpassungsprofil wird nicht gefunden "{#0}".
+Referenzen werden gelöscht</entry>
 <entry key="Operation.AdventureConsistencyTitle">Gültigkeit des Abenteuers</entry>
 <entry key="NPC.Documentation">Charakter Dokumentation (in Editor nicht benutzt)</entry>
 <entry key="Button.examine.pressed.Tip">Este es el botón de examinar presionado, el que se eseña cuando el ratón está pulsado sobre él</entry>
@@ -553,21 +553,21 @@ Se han borrado las referencias a dicho perfil.</entry>
 <entry key="BookPage.AssetPath">Ort des ausgewählte Ressource</entry>
 <entry key="Operation.NewProject.FolderNotEmptyMessage">Der ausgewählte Ordner ist nicht leer.
 Wollten Sie der Inhalt löschen? (Daten wird verloren).
-Si la carpeta del proyecto no está vacía, por favor compruebe
-que no contiene ningún fichero con el nombre 'descriptor.xml' o 'chapterXX.xml',
-donde XX es un múmero cualquiera.</entry>
+Wenn der Projekt Ordner nicht leer ist, überprüfen Sie bitte,
+dass gibt es keinen Datei mit dem Namen 'descriptor.xml "oder" chapterXX.xml "
+wobei XX für eine beliebige Zahl.</entry>
 <entry key="Search.EffectConditions">Effektesbedingung</entry>
-<entry key="AnimationAssets.Title">Recursos de animaciones</entry>
-<entry key="MenuAdventure.CommentariesLabel">Marcar para habilitar los comentarios automáticos del jugador</entry>
-<entry key="ExitsList.Information">Las salidas son áreas definidas en la escena, a través de las cuales el protagonista puede acceder a otras localizaciones. Cuando el protagonista se mueve dentro del área de la salida, se desplaza hasta el lugar indicado por la estructura de "Siguiente escena" que esté activa en la salida.</entry>
+<entry key="AnimationAssets.Title">Animationen Ressourcen</entry>
+<entry key="MenuAdventure.CommentariesLabel">Markieren Sie bitte, um automatische Kommentare des Spieler zu ermölichen</entry>
+<entry key="ExitsList.Information">Die Ausgänge sind definierte Bereiche in der Szene, durch die der Spieler auf andere Websites zugreifen können. Wenn der Protagonist bewegt sich in der Abflughalle, reist zu den angegebenen Ort durch die Struktur der "nächste Schritt" in der Ausgang aktiv ist.</entry>
 <entry key="SPEP.YCoordinate">Koordinate Y</entry>
 <entry key="MenuAdventure.AdventureData">Bearbeiten von Daten des Abenteuers...</entry>
 <entry key="Atrezzo.DetailedDescription">Descripción detallada del objeto de atrezo (se muestra al examinar el objeto)</entry>
 <entry key="LOM.Educational.SemanticDensity">Semantic Density</entry>
 <entry key="DeactivateEffect.Title">Effekt aus</entry>
-<entry key="Search.PreviewImage">Imagen de previsualización</entry>
-<entry key="Conversation.ConfirmationAddChildToNodeWithEffects">¿Está seguro de que quiere añadir un hijo al nodo terminal seleccionado?
-		Si se añade un hijo, los efectos de este nodo se perderán.</entry>
+<entry key="Search.PreviewImage">Vorschau Bild</entry>
+<entry key="Conversation.ConfirmationAddChildToNodeWithEffects">Sind Sie sicher, dass Sie ein Kind, im ausgewählt Terminal Knoten hinzufügen wollen?
+Wenn ein Kind aufgenommen wird, wird die Auswirkungen dieses Knotens verloren</entry>
 <entry key="Resources.DescriptionCharacterAnimationSpeakUp">Nach oben</entry>
 <entry key="BookParagraph.Preview">Vorschau des angezeigte Bild</entry>
 <entry key="Operation.AddNPCReferenceErrorNoNPCs">Es muss mindestens einen Charakter in dem Kapitel, um eine Referenz hinzufügen</entry>
@@ -576,23 +576,23 @@ donde XX es un múmero cualquiera.</entry>
 		Nachdem löschen wird unmöglich sein, gelöschte Informationen abzurufen.</entry>
 <entry key="MenuRun.Debug">Debuggen</entry>
 <entry key="BarriersList.DeleteBarrier">Ausgewählte Barrier löschen</entry>
-<entry key="Player.DocPanelTip">Panel para editar la información del protagonista</entry>
+<entry key="Player.DocPanelTip">Paneel, um die Information des Protagonist zu bearbeiten</entry>
 <entry key="Cursors.Preview">Pointer sehen</entry>
 <entry key="Animation.Timeline">Zeit Linie</entry>
 <entry key="GlobalStatesList.AddGlobalState">Neues Global Zustand hinzufügen</entry>
 <entry key="SPEP.ConvertToIrregularArea">Unregelmäßige Bereich konvertieren</entry>
-<entry key="Button.talk.pressed.Description">Boton de hablar presionado</entry>
+<entry key="Button.talk.pressed.Description">Sprechen Taste gedrückt</entry>
 <entry key="Operation.ExportToLOM.OK">Akzeptieren</entry>
 <entry key="ImageAssets.Title">Bild Ressourcen</entry>
 <entry key="HTMLEditor.QuitMessageTitle">Beenden des Editors</entry>
-<entry key="PlayAnimationEffect.Description">Seleccione una animación y una posición de destino para reproducirla:</entry>
+<entry key="PlayAnimationEffect.Description">Wählen Sie eine Animation und eine Zielposition zu spielen:</entry>
 <entry key="ActionsList.Information">Cada objeto puede tener enlazado una serie de acciones, cada una con sus condiciones y efectos. Estas acciones se ejecutarán cuando el jugador interaccione con los objetos de determinadas maneras.</entry>
-<entry key="Operation.ErrorLastScene">No se puede eliminar la última escena del capítulo.
-		Todo capítulo debe tener al menos una escena o escena intermedia.</entry>
+<entry key="Operation.ErrorLastScene">Letzte Szene konnte nicht gelöscht werden.
+		Jedes Kapitel muss mindestens eine Szene oder Zwischeszene haben.</entry>
 <entry key="Effect.TriggerCutsceneInfo">Zwischen Szene starten {#0}</entry>
-<entry key="NPCReference.Documentation">Documentación de la referencia a personaje (no se usa en el motor)</entry>
-<entry key="NPC.Name">Character Name</entry>
-<entry key="Operation.DeleteResourcesErrorLastResources">El último bloque de recursos de la estructura no puede ser eliminado</entry>
+<entry key="NPCReference.Documentation">Charakter Referenz Dokumentation (nicht benutzt im Engine)</entry>
+<entry key="NPC.Name">Charakter Name</entry>
+<entry key="Operation.DeleteResourcesErrorLastResources">Letzte Ressource Block der Struktur kann nicht gelöscht werden</entry>
 <entry key="ActionList.EditEffect">Effekt bearbeiten</entry>
 <entry key="LOMES.Educational.CognitiveProcess42">Wert</entry>
 <entry key="ConversationReference.ConversationId">Referenzierte Unterhaltung ID</entry>
@@ -603,17 +603,17 @@ donde XX es un múmero cualquiera.</entry>
 <entry key="Atrezzo.Documentation">Atrezzo Objekte Dokumentation (Im Engine nicht benutzt)</entry>
 <entry key="ExitsList.NextScene">Nächste Szene</entry>
 <entry key="Cursor.talk.Description">"Sprechen" Cursor</entry>
-<entry key="SceneLocation.SceneListDescription">Seleccione la escena para escoger el punto de destino:</entry>
+<entry key="SceneLocation.SceneListDescription">Wählen Sie der Szene aus, um der Zielpunkt auszuwählen:</entry>
 <entry key="Resources.DescriptionCharacterAnimationSpeakDown">Nach unter</entry>
 <entry key="MenuChapters.MoveChapterUp">Kapiteln nach oben</entry>
 <entry key="Player.BorderColor">Randfarbe bearbeiten</entry>
 <entry key="BooksList.ListTitle">Buchliste</entry>
 <entry key="Conditions.Var.Title">Variable Felder</entry>
-<entry key="Resources.DescriptionButtonOver">Imagen para el botón cuando tiene el ratón encima</entry>
+<entry key="Resources.DescriptionButtonOver">Bild für die Taste, wenn der Maus darüber ist</entry>
 <entry key="Operation.RenameAssessmentRuleTitle">Neue ID</entry>
 <entry key="Error.VideoGeneralError">Fehler beim Video-Laden</entry>
 <entry key="LOMES.Educational.CognitiveProcess39">Solve</entry>
-<entry key="Operation.ExportSCORM12.BadProfiles.Title">Flasche Profile</entry>
+<entry key="Operation.ExportSCORM12.BadProfiles.Title">Falsche Profile</entry>
 <entry key="LOMES.Educational.CognitiveProcess38">Represent</entry>
 <entry key="LOMES.Educational.CognitiveProcess37">Verbinden</entry>
 <entry key="MenuReturnMode.Option">Zum Abenteuer Bearbeiten Modus</entry>
