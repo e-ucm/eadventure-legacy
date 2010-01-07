@@ -390,9 +390,11 @@ public class GameStateConversation extends GameState {
             else if( line.getSynthesizerVoice( ) || player.isAlwaysSynthesizer( ) ) {
                 player.speakWithFreeTTS( line.getText( ), player.getPlayerVoice( ) );
             }
-            else {
+            else if (!game.isTransparent( )) {
                 player.speak( line.getText( ) );
             }
+            else
+                player.speak( "" );
 
             game.setCharacterCurrentlyTalking( player );
             isOptionSelected = true;
