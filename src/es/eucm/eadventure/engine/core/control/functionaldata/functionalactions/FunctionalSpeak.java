@@ -333,7 +333,7 @@ public class FunctionalSpeak extends FunctionalAction {
                 posY = Math.round( GUI.WINDOW_HEIGHT * 1.0f / 6.0f + ( functionalPlayer != null ? functionalPlayer.getHeight( ) : 0 ) );
             }
             if( functionalPlayer.getShowsSpeechBubbles( ) ) {
-                GUI.getInstance( ).addTextToDraw( text, posX, posY - 15, functionalPlayer.getTextFrontColor( ), functionalPlayer.getTextBorderColor( ), functionalPlayer.getBubbleBkgColor( ), functionalPlayer.getBubbleBorderColor( ) );
+                GUI.getInstance( ).addTextToDraw( text, posX, posY - 15, functionalPlayer.getTextFrontColor( ), functionalPlayer.getTextBorderColor( ), functionalPlayer.getBubbleBkgColor( ), functionalPlayer.getBubbleBorderColor( ), functionalPlayer != null && !functionalPlayer.isTransparent( ) );
             }
             else
                 GUI.getInstance( ).addTextToDraw( text, posX, posY, functionalPlayer.getTextFrontColor( ), functionalPlayer.getTextBorderColor( ) );

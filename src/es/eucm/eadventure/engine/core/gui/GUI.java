@@ -523,7 +523,7 @@ public abstract class GUI implements FocusListener {
      * @param bubbleBorder
      *            Color of the border of the bubble
      */
-    public static void drawStringOnto( Graphics2D g, String[] strings, int x, int y, Color textColor, Color borderColor, Color bkgColor, Color bubbleBorder ) {
+    public static void drawStringOnto( Graphics2D g, String[] strings, int x, int y, Color textColor, Color borderColor, Color bkgColor, Color bubbleBorder, boolean showArrow ) {
 
         FontMetrics fontMetrics = g.getFontMetrics( );
         int textBlockHeight = fontMetrics.getHeight( ) * strings.length - fontMetrics.getLeading( );
@@ -551,17 +551,19 @@ public abstract class GUI implements FocusListener {
         g.setColor( bubbleBorder );
         g.drawRoundRect( tempX - maxWidth / 2 - 5, tempY - textBlockHeight - 5, maxWidth + 10, textBlockHeight + 10, 20, 20 );
 
-        g.setComposite( alphaComposite );
-        g.setColor( bkgColor );
-        int x_p[] = new int[] { tempX - 10, tempX + 10, tempX };
-        int y_p[] = new int[] { tempY + 5, tempY + 5, tempY + 15 };
-        g.fillPolygon( x_p, y_p, 3 );
-
-        g.setComposite( temp );
-        g.setColor( bubbleBorder );
-        g.drawLine( x_p[0], y_p[0], x_p[2], y_p[2] );
-        g.drawLine( x_p[1], y_p[1], x_p[2], y_p[2] );
-
+        if (showArrow) {
+            g.setComposite( alphaComposite );
+            g.setColor( bkgColor );
+            int x_p[] = new int[] { tempX - 10, tempX + 10, tempX };
+            int y_p[] = new int[] { tempY + 5, tempY + 5, tempY + 15 };
+            g.fillPolygon( x_p, y_p, 3 );
+    
+            g.setComposite( temp );
+            g.setColor( bubbleBorder );
+            g.drawLine( x_p[0], y_p[0], x_p[2], y_p[2] );
+            g.drawLine( x_p[1], y_p[1], x_p[2], y_p[2] );
+        }
+        
         drawStringOnto( g, strings, x, y, textColor, borderColor );
     }
 
@@ -1092,8 +1094,7 @@ public abstract class GUI implements FocusListener {
      * @param borderColor
      *            Color if the border of the string
      */
-    public void addTextToDraw( String[] string, int x, int y, Color textColor, Color borderColor ) {
-
+    public void addTextToDraw( String[] string, int x, int y, Color textColor, Color borderColor) {
         boolean added = false;
         int i = 0;
         Text text = new Text( string, x, y, textColor, borderColor );
@@ -1126,11 +1127,11 @@ public abstract class GUI implements FocusListener {
      * @param bubbleBorderColor
      *            Color of the bubbles border
      */
-    public void addTextToDraw( String[] string, int x, int y, Color textColor, Color borderColor, Color bubbleBkgColor, Color bubbleBorderColor ) {
+    public void addTextToDraw( String[] string, int x, int y, Color textColor, Color borderColor, Color bubbleBkgColor, Color bubbleBorderColor, boolean showArrow  ) {
 
         boolean added = false;
         int i = 0;
-        Text text = new Text( string, x, y, textColor, borderColor, bubbleBkgColor, bubbleBorderColor );
+        Text text = new Text( string, x, y, textColor, borderColor, bubbleBkgColor, bubbleBorderColor, showArrow );
         while( !added && i < textToDraw.size( ) ) {
             if( y <= textToDraw.get( i ).getY( ) ) {
                 textToDraw.add( i, text );
@@ -1344,6 +1345,8 @@ public abstract class GUI implements FocusListener {
         private Color bubbleBkgColor;
 
         private Color bubbleBorderColor;
+        
+        private boolean showArrow = true;
 
         private boolean showBubble = false;
 
@@ -1384,7 +1387,7 @@ public abstract class GUI implements FocusListener {
          * @param borderColor
          *            Color of the borde of the text
          */
-        public Text( String[] text, int x, int y, Color textColor, Color borderColor, Color bubbleBkgColor, Color bubbleBorderColor ) {
+        public Text( String[] text, int x, int y, Color textColor, Color borderColor, Color bubbleBkgColor, Color bubbleBorderColor, boolean showArrow ) {
 
             this.text = text;
             this.x = x;
@@ -1394,6 +1397,7 @@ public abstract class GUI implements FocusListener {
             this.showBubble = true;
             this.bubbleBkgColor = bubbleBkgColor;
             this.bubbleBorderColor = bubbleBorderColor;
+            this.showArrow = showArrow;
         }
 
         /**
@@ -1405,7 +1409,7 @@ public abstract class GUI implements FocusListener {
         public void draw( Graphics2D g ) {
 
             if( showBubble )
-                GUI.drawStringOnto( g, text, x, y, textColor, borderColor, bubbleBkgColor, bubbleBorderColor );
+                GUI.drawStringOnto( g, text, x, y, textColor, borderColor, bubbleBkgColor, bubbleBorderColor, showArrow );
             else
                 GUI.drawStringOnto( g, text, x, y, textColor, borderColor );
         }
