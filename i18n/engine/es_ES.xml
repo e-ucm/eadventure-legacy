@@ -19,7 +19,6 @@
 <entry key="GameText.TextGiveNPC1">¿¿Qué??</entry>
 <entry key="GameText.Effects">Efectos</entry>
 <entry key="Report.TextXMLReport">El informe XML contiene información del juego que puede ser procesada por otras aplicaciones</entry>
-<entry key="DebugFrameLog.GeneralTip">Muestra el log general del juego</entry>
 <entry key="DebugFrame.AllFlagsAndVars">Todos los flags y variables</entry>
 <entry key="GameText.TextTalkCannot2">No es el momento ni el lugar</entry>
 <entry key="SendMail.UnableToSendEmail">El sistema no puedo enviar el e-mail</entry>
@@ -65,7 +64,6 @@
 <entry key="Report.Importance.VeryLow">Muy bajo</entry>
 <entry key="GameText.Load">Cargar</entry>
 <entry key="MainWindow.TabOpen">Abrir juego</entry>
-<entry key="MainWindow.English">Inglés</entry>
 <entry key="GameText.GenerateReport">Generar Informe</entry>
 <entry key="Options.OptionsPanel">gui/options/OptionsPanelES.png</entry>
 <entry key="DebugFrame.GlobalStatesTip">Esta tabla muestra todos los estados globales del juego con sus respectivos valores</entry>
@@ -78,13 +76,12 @@
 <entry key="MainWindow.buttonCancel">Cancelar</entry>
 <entry key="ActionButton.UseGive">Usar con../Dar a..</entry>
 <entry key="GUI.NoFullscreenTitle">Problema entrando a modo pantalla-completa</entry>
-<entry key="DebugFrame.Title">Información para depuración</entry>
 <entry key="Report.SelectFolder">Selecciona el directorio donde quieres que se guarde el informe</entry>
 <entry key="Options.LoadPanel">gui/options/LoadPanelES.png</entry>
 <entry key="Information.FileAbout">aboutES.html</entry>
 <entry key="ErrorReport.ShortDescription">Por favor escriba una breve descripición de lo que estaba haciendo</entry>
-<entry key="Report.GenerateXML">Generar Informe XML</entry>
 <entry key="GameText.TextTalkObject2">No voy a hacer eso</entry>
+<entry key="Report.GenerateXML">Generar Informe XML</entry>
 <entry key="Options.versionError2">La partida guardada es de otra versión distinta a la del juego actual</entry>
 <entry key="GameText.TextTalkObject1">Eso es estúpido</entry>
 <entry key="Options.versionError1">Error de versión</entry>
@@ -113,7 +110,6 @@
 <entry key="GameText.Give">Dar</entry>
 <entry key="GameText.PleaseWait">Por favor, espera</entry>
 <entry key="Report.OKDontSend">No enviar informe</entry>
-<entry key="MainWindow.Spanish">Castellano</entry>
 <entry key="GameText.LoadingData">Cargando datos...</entry>
 <entry key="ErrorMessage.Title">Fichero no válido. Por favor, selecciona otro nuevamente</entry>
 <entry key="DebugFrameLog.Entry">Entrada</entry>
@@ -144,7 +140,6 @@
 <entry key="MainWindow.buttonRefresh">Actualizar</entry>
 <entry key="GameText.Off">Desactivado</entry>
 <entry key="Report.Importance.VeryHigh">Muy alto</entry>
-<entry key="DebugFrameLog.Title">Log</entry>
 <entry key="ErrorReport.Send">Enviar</entry>
 <entry key="Reports.NameInput">Nombre del jugador</entry>
 <entry key="ActionButton.GrabGiveUse">Coger/Dar/Usar</entry>
