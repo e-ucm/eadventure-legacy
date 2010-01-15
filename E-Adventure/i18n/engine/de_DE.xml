@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-<comment>Kommentar</comment>
+<comment>comment</comment>
 <entry key="MainWindow.SelectGameText">[Wählen Sie ein Spiel, um die Beschreibung zu zeigen...]</entry>
 <entry key="Options.ConfigurationPanel">gui/options/ConfigurationPanelDE.png</entry>
 <entry key="GameText.Save/Load">Speichern/Laden</entry>
@@ -19,7 +19,6 @@
 <entry key="GameText.TextGiveNPC1">Was??</entry>
 <entry key="GameText.Effects">Effekten</entry>
 <entry key="Report.TextXMLReport">Das XML-Report enthält Informationen, die in anderen Anwendungen verarbeitet werden können</entry>
-<entry key="DebugFrameLog.GeneralTip">Zeigt die allgemeinen Spiel log-Datei</entry>
 <entry key="DebugFrame.AllFlagsAndVars">Alle Flaggen und vars</entry>
 <entry key="GameText.TextTalkCannot2">Dies ist nicht den Moment, nicht der Ort,</entry>
 <entry key="SendMail.UnableToSendEmail">Das System konnte der E-Mail nicht senden</entry>
@@ -65,7 +64,6 @@
 <entry key="Report.Importance.VeryLow">Sehr niedrig</entry>
 <entry key="GameText.Load">Laden</entry>
 <entry key="MainWindow.TabOpen">Spiel Öffnen</entry>
-<entry key="MainWindow.English">Englisch</entry>
 <entry key="GameText.GenerateReport">Bericht erstellen</entry>
 <entry key="Options.OptionsPanel">gui/options/OptionsPanelDE.png</entry>
 <entry key="DebugFrame.GlobalStatesTip">Diese Tabelle zeigt alle globalen Staaten und ihre Werte</entry>
@@ -78,13 +76,12 @@
 <entry key="MainWindow.buttonCancel">Abbrechen</entry>
 <entry key="ActionButton.UseGive">Nutzt mit../Geben nach..</entry>
 <entry key="GUI.NoFullscreenTitle">Problem mit Vollbildmodus</entry>
-<entry key="DebugFrame.Title">Debug info</entry>
 <entry key="Report.SelectFolder">Wählen Sie den Ordner, wo Sie die Berichte speichern wollen</entry>
 <entry key="Options.LoadPanel">gui/options/LoadPanelDE.png</entry>
 <entry key="Information.FileAbout">aboutDE.html</entry>
 <entry key="ErrorReport.ShortDescription">Bitte schreiben Sie eine kurze Beschreibung dessen, was Sie tun</entry>
-<entry key="Report.GenerateXML">XML Bericht erstellent</entry>
 <entry key="GameText.TextTalkObject2">Ich werde das nicht machen!</entry>
+<entry key="Report.GenerateXML">XML Bericht erstellent</entry>
 <entry key="Options.versionError2">Die gespeicherte Spiel hat eine andere Version des aktuellen Spiels</entry>
 <entry key="GameText.TextTalkObject1">Das ist Dump!</entry>
 <entry key="Options.versionError1">Version Fehler</entry>
@@ -113,7 +110,6 @@
 <entry key="GameText.Give">Geben</entry>
 <entry key="GameText.PleaseWait">Bitte warten</entry>
 <entry key="Report.OKDontSend">Schick nicht den Bericht</entry>
-<entry key="MainWindow.Spanish">Spanisch</entry>
 <entry key="GameText.LoadingData">Lädt data...</entry>
 <entry key="ErrorMessage.Title">Datei nicht gültig. Bitte wählen Sie eine neue Datei</entry>
 <entry key="DebugFrameLog.Entry">Eintrag</entry>
@@ -144,7 +140,6 @@
 <entry key="MainWindow.buttonRefresh">Neu laden</entry>
 <entry key="GameText.Off">Off</entry>
 <entry key="Report.Importance.VeryHigh">Very High</entry>
-<entry key="DebugFrameLog.Title">Log</entry>
 <entry key="ErrorReport.Send">Send</entry>
 <entry key="Reports.NameInput">Name input</entry>
 <entry key="ActionButton.GrabGiveUse">Grab/Give/Use</entry>

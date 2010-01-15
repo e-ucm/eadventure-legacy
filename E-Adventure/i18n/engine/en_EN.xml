@@ -19,7 +19,6 @@
 <entry key="GameText.TextGiveNPC1">What??</entry>
 <entry key="GameText.Effects">Effects</entry>
 <entry key="Report.TextXMLReport">The XML Report contains information which can be processed in other applications</entry>
-<entry key="DebugFrameLog.GeneralTip">Shows the general game log</entry>
 <entry key="DebugFrame.AllFlagsAndVars">All flags and vars</entry>
 <entry key="GameText.TextTalkCannot2">This is not the moment, not the place</entry>
 <entry key="SendMail.UnableToSendEmail">The system was unable to send the e-mail</entry>
@@ -65,7 +64,6 @@
 <entry key="Report.Importance.VeryLow">Very Low</entry>
 <entry key="GameText.Load">Load</entry>
 <entry key="MainWindow.TabOpen">Open Game</entry>
-<entry key="MainWindow.English">English</entry>
 <entry key="GameText.GenerateReport">Generate Report</entry>
 <entry key="Options.OptionsPanel">gui/options/OptionsPanelEN.png</entry>
 <entry key="DebugFrame.GlobalStatesTip">This table shows all the global states and their values</entry>
@@ -78,13 +76,12 @@
 <entry key="MainWindow.buttonCancel">Cancel</entry>
 <entry key="ActionButton.UseGive">Use With../Give To..</entry>
 <entry key="GUI.NoFullscreenTitle">Problem displaying fullscreen</entry>
-<entry key="DebugFrame.Title">Debug info</entry>
 <entry key="Report.SelectFolder">Select the directory where you want to save the report</entry>
 <entry key="Options.LoadPanel">gui/options/LoadPanelEN.png</entry>
 <entry key="Information.FileAbout">aboutEN.html</entry>
 <entry key="ErrorReport.ShortDescription">Please write a short description of what you where doing</entry>
-<entry key="Report.GenerateXML">Generate XML Report</entry>
 <entry key="GameText.TextTalkObject2">I'm not going to do that!</entry>
+<entry key="Report.GenerateXML">Generate XML Report</entry>
 <entry key="Options.versionError2">The saved game has another version of the current game</entry>
 <entry key="GameText.TextTalkObject1">That's silly</entry>
 <entry key="Options.versionError1">Version error</entry>
@@ -113,7 +110,6 @@
 <entry key="GameText.Give">Give</entry>
 <entry key="GameText.PleaseWait">Please Wait</entry>
 <entry key="Report.OKDontSend">Don't send report</entry>
-<entry key="MainWindow.Spanish">Spanish</entry>
 <entry key="GameText.LoadingData">Loading Data...</entry>
 <entry key="ErrorMessage.Title">File not valid. Please, select a new file</entry>
 <entry key="DebugFrameLog.Entry">Entry</entry>
@@ -144,7 +140,6 @@
 <entry key="MainWindow.buttonRefresh">Refresh</entry>
 <entry key="GameText.Off">Off</entry>
 <entry key="Report.Importance.VeryHigh">Very High</entry>
-<entry key="DebugFrameLog.Title">Log</entry>
 <entry key="ErrorReport.Send">Send</entry>
 <entry key="Reports.NameInput">Name input</entry>
 <entry key="ActionButton.GrabGiveUse">Grab/Give/Use</entry>
