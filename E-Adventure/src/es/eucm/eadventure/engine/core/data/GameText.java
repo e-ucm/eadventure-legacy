@@ -182,7 +182,7 @@ public class GameText {
     /**
      * Action text for "Grab"
      */
-    public static String TEXT_GRAB = TC.get( "GameText.Examine" );
+    public static String TEXT_GRAB = TC.get( "GameText.Grab" );
 
     /**
      * Action text for "Talk"
@@ -347,7 +347,7 @@ public class GameText {
     /**
      * Text to display when the character can't grab an item
      */
-    private static String[] TEXT_GRAB_CANNOT = { TC.get( "GameText.TextGiveCannot1" ), TC.get( "GameText.TextGiveCannot2" ) };
+    private static String[] TEXT_GRAB_CANNOT = { TC.get( "GameText.TextGrabCannot1" ), TC.get( "GameText.TextGrabCannot2" ) };
 
     /**
      * Text to display when the character tries to use another character
