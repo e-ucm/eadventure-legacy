@@ -514,18 +514,15 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
             int realX = (int) ( x - ( image.getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ) );
             int realY = (int) ( y - ( image.getHeight( null ) * scale ) );
 
-            if( image == oldOriginalImage && scale == oldScale ) {
+            if( image == oldOriginalImage && scale == oldScale )
                 image = oldImage;
-            }
             else if( scale != 1 ) {
                 oldOriginalImage = image;
-                //image = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
                 image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.BITMASK );
-                ((Graphics2D) image.getGraphics( )).drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
+                ((Graphics2D) image.getGraphics( )).drawImage( oldOriginalImage, AffineTransform.getScaleInstance( scale, scale ), null );
             }
-            else {
+            else
                 oldOriginalImage = image;
-            }
 
             oldScale = scale;
             oldImage = image;
