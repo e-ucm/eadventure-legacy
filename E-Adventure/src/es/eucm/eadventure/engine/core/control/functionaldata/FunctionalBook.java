@@ -47,11 +47,11 @@ import java.awt.image.PixelGrabber;
 
 import javax.swing.ImageIcon;
 
+import es.eucm.eadventure.common.auxiliar.ImageTransformer;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.editor.gui.auxiliar.ImageTransformer;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 

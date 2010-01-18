@@ -29,7 +29,7 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
-package es.eucm.eadventure.editor.gui.auxiliar;
+package es.eucm.eadventure.common.auxiliar;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
