@@ -1127,6 +1127,7 @@ public class Controller {
             SCORMConfigData.init( );
 
             AssetsController.createFolderStructure( );
+            AssetsController.addSpecialAssets( );
 
             // Check the consistency of the chapters
             boolean valid = chaptersController.isValid( null, null );
@@ -1492,6 +1493,7 @@ public class Controller {
 
                     ProjectConfigData.loadFromXML( );
                     AssetsController.createFolderStructure( );
+                    AssetsController.addSpecialAssets( );
 
                     dataModified = false;
 

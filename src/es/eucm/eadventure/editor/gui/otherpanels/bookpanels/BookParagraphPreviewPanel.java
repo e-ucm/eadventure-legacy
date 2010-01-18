@@ -247,7 +247,7 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
                     g.drawImage( currentArrowLeft, getAbsoluteX( previousPagePoint.x ), getAbsoluteY( previousPagePoint.y ), getAbsoluteWidth( arrowLeftNormal.getWidth( null ) ), getAbsoluteHeight( arrowLeftNormal.getHeight( null ) ), null );
                 }
 
-            if( currentPage < pageCount - 1 )
+            if( currentPage +2 < pageCount - 1 )
                 if( currentArrowRight != null ) {
                     g.drawImage( currentArrowRight, getAbsoluteX( nextPagePoint.x ), getAbsoluteY( nextPagePoint.y ), getAbsoluteWidth( currentArrowRight.getWidth( null ) ), getAbsoluteHeight( currentArrowRight.getHeight( null ) ), null );
                 }
@@ -597,12 +597,14 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
 
             if( isInPreviousPage( x, y ) ) {
                 // If the "Previous page" button was pressed
-                currentPage -= 2;
+                if (currentPage-2>=0)
+                    currentPage -= 2;
                 repaint( );
             }
 
             // If the "Next page" button was pressed
             else if( isInNextPage( x, y ) ) {
+                if (currentPage+2<pageCount)
                 currentPage += 2;
                 repaint( );
             }
