@@ -35,6 +35,7 @@ package es.eucm.eadventure.editor.gui.assetchooser;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;

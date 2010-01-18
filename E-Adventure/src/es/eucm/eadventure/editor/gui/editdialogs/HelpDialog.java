@@ -29,7 +29,6 @@
  * You should have received a copy of the GNU General Public License along with
  * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  */
 package es.eucm.eadventure.editor.gui.editdialogs;
 
@@ -41,6 +40,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -49,7 +50,6 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -58,6 +58,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.gui.BookEditorPane;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
@@ -72,7 +73,7 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
 
     private static final int HELP_HEIGHT = 600;
 
-    private JEditorPane pane;
+    private BookEditorPane pane;
 
     private List<URL> backList;
 
@@ -95,9 +96,24 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
         String folder = "help/" + Controller.getInstance( ).getLanguage( ) + "/";
         File file = new File( folder + helpPath );
         if( file.exists( ) ) {
-            pane = new JEditorPane( );
+            pane = new BookEditorPane( );
             try {
                 pane.setPage( file.toURI( ).toURL( ) );
+                // Load StyleSheet
+                BufferedReader f = new BufferedReader( new FileReader( new java.io.File( "help/help.css" ) ) );
+                String line = null;
+                String cssText = "";
+                while( ( line = f.readLine( ) ) != null ) {
+                    cssText += line;
+                }
+                
+               /* while( cssText.length( ) > 1 ) {                 
+                    int end = cssText.indexOf( '}' ) + 1;
+                    String rule = cssText.substring( 0, end );
+                    ( (HTMLDocument) pane.getDocument( ) ).getStyleSheet( ).addRule( rule );
+                    cssText = cssText.substring( end );
+                }*/
+                
                 backList.add( file.toURI( ).toURL( ) );
                 pane.setEditable( false );
                 pane.setHighlighter( null );

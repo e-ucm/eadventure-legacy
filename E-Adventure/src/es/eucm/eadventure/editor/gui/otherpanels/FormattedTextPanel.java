@@ -34,18 +34,20 @@
 package es.eucm.eadventure.editor.gui.otherpanels;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.gui.BookEditorPane;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
@@ -60,14 +62,15 @@ public class FormattedTextPanel extends JPanel {
 
     private String uri;
 
-    private JEditorPane editorPane;
+    private BookEditorPane editorPane;
 
     private JPanel errorPanel;
 
     public FormattedTextPanel( ) {
 
         super( );
-        editorPane = new JEditorPane( );
+        
+        editorPane = new BookEditorPane( );
 
         errorPanel = new JPanel( );
         errorPanel.setLayout( new GridBagLayout( ) );
@@ -117,11 +120,19 @@ public class FormattedTextPanel extends JPanel {
             }
 
             //Set the proper content type
-            if( ext.equals( "html" ) || ext.equals( "htm" ) ) {
+            if( ext.equals( "html" ) || ext.equals( "htm" ) ) {                
                 editorPane.setContentType( "text/html" );
                 ProcessHTML processor = new ProcessHTML( textBuffer.toString( ) );
                 String htmlProcessed = processor.start( );
-                editorPane.setText( htmlProcessed );
+                editorPane.setText( htmlProcessed.toString( ) );
+                File f = new File( uri );
+                try {
+                    editorPane.setDocumentBase( f.toURI( ).toURL( ) );
+                }
+                catch( MalformedURLException e ) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
             else {
                 editorPane.setContentType( "text/rtf" );
@@ -131,11 +142,11 @@ public class FormattedTextPanel extends JPanel {
 
         }
 
-        this.removeAll( );
+        /* this.removeAll( );
         if( isValid )
             this.add( editorPane, BorderLayout.CENTER );
         else
-            this.add( errorPanel, BorderLayout.CENTER );
+            this.add( errorPanel, BorderLayout.CENTER );*/
 
         this.updateUI( );
     }
@@ -163,6 +174,12 @@ public class FormattedTextPanel extends JPanel {
     public void setValid( boolean isValid ) {
 
         this.isValid = isValid;
+    }
+    
+    @Override
+    public void paint( Graphics g ){
+        if( editorPane != null )
+            editorPane.paint( g, 0, 0, getWidth(), getHeight() );
     }
 
     public class ProcessHTML {

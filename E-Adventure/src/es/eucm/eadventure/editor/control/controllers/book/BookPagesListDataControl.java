@@ -58,7 +58,7 @@ import es.eucm.eadventure.editor.control.tools.books.DeleteBookPageTool;
 import es.eucm.eadventure.editor.control.tools.books.MoveBookPageDownTool;
 import es.eucm.eadventure.editor.control.tools.books.MoveBookPageUpTool;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
-import es.eucm.eadventure.editor.gui.otherpanels.FormattedTextPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPagePreviewPanel;
 
 public class BookPagesListDataControl extends Searchable {
 
@@ -74,6 +74,8 @@ public class BookPagesListDataControl extends Searchable {
     private int defaultMargin;
 
     private int defaultType;
+    
+    private BookDataControl dControl;
 
     /**
      * Constructor.
@@ -81,9 +83,10 @@ public class BookPagesListDataControl extends Searchable {
      * @param bookParagraphsList
      *            List of book paragraphs
      */
-    public BookPagesListDataControl( List<BookPage> bookPagesList ) {
+    public BookPagesListDataControl( List<BookPage> bookPagesList, BookDataControl dControl ) {
 
         this.bookPagesList = bookPagesList;
+        this.dControl = dControl;
         selectedPage = -1;
         defaultType = BookPage.TYPE_RESOURCE;
         defaultMargin = 0;
@@ -323,8 +326,8 @@ public class BookPagesListDataControl extends Searchable {
         boolean isValid = false;
         try {
             if( page.getType( ) == BookPage.TYPE_RESOURCE ) {
-                FormattedTextPanel panel = new FormattedTextPanel( );
-                panel.loadFile( page.getUri( ) );
+                BookPagePreviewPanel panel = new BookPagePreviewPanel(dControl, false );
+                panel.setCurrentBookPage( page );
                 isValid = !page.getUri( ).equals( "" ) && panel.isValid( );
             }
             else if( page.getType( ) == BookPage.TYPE_URL ) {

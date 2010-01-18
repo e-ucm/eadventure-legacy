@@ -96,7 +96,7 @@ public class BookDataControl extends DataControlWithResources {
         if( book.getType( ) == Book.TYPE_PARAGRAPHS )
             bookParagraphsListDataControl = new BookParagraphsListDataControl( book.getParagraphs( ) );
         else if( book.getType( ) == Book.TYPE_PAGES )
-            bookPagesListDataControl = new BookPagesListDataControl( book.getPageURLs( ) );
+            bookPagesListDataControl = new BookPagesListDataControl( book.getPageURLs( ), this );
     }
 
     /**

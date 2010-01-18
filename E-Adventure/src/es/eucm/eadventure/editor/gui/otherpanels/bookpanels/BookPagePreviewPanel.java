@@ -32,7 +32,6 @@
  */
 package es.eucm.eadventure.editor.gui.otherpanels.bookpanels;
 
-import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -40,22 +39,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.rtf.RTFEditorKit;
 
-import es.eucm.eadventure.common.auxiliar.File;
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.BookEditorPane;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
-import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
  * Class for the preview of HTML books in Content tab.
@@ -214,14 +208,14 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
         if( bookPage.getUri( ) != null && bookPage.getUri( ).length( ) > 0 )
             imagePage = AssetsController.getImage( bookPage.getUri( ) );
-        return ( imagePage != null );
+        isValid = ( imagePage != null );
+        return isValid;
     }
 
     private boolean createResourcePage( BookPage bookPage ) {
 
         editorPane = new BookEditorPane( currentBookPage );
-        editorPane.addMouseMotionListener( mouseListener );
-        editorPane.addMouseListener( mouseListener );
+
         URL url = AssetsController.getResourceAsURLFromZip( bookPage.getUri( ) );
         String ext = url.getFile( ).substring( url.getFile( ).lastIndexOf( '.' ) + 1, url.getFile( ).length( ) ).toLowerCase( );
         if( ext.equals( "html" ) || ext.equals( "htm" ) || ext.equals( "rtf" ) ) {
@@ -253,9 +247,19 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
             //Set the proper content type
             if( ext.equals( "html" ) || ext.equals( "htm" ) ) {
                 editorPane.setContentType( "text/html" );
-                ProcessHTML processor = new ProcessHTML( textBuffer.toString( ) );
-                String htmlProcessed = processor.start( );
-                editorPane.setText( htmlProcessed );
+                /*ProcessHTML processor = new ProcessHTML( textBuffer.toString( ) );
+                String htmlProcessed = processor.start( );*/
+                editorPane.setText( textBuffer.toString( ) );
+
+                //String fileName = url.getPath( ).substring( 0, url.getPath( ).lastIndexOf( "/" ) );
+                //File f = new File( url.getFile( ) );
+
+                try {
+                    editorPane.setDocumentBase( new URL( url.getProtocol( ), url.getHost( ), url.getPort( ), url.getFile( ) ) );
+                }
+                catch( MalformedURLException e ) {
+                    e.printStackTrace( );
+                }
             }
             else {
                 editorPane.setContentType( "text/rtf" );
@@ -271,8 +275,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
         URL url = null;
         editorPane = new BookEditorPane( currentBookPage );
-        editorPane.addMouseMotionListener( mouseListener );
-        editorPane.addMouseListener( mouseListener );
+
         try {
             url = new URL( bookPage.getUri( ) );
             url.openStream( ).close( );
@@ -288,6 +291,8 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
                 if( !( editorPane.getEditorKit( ) instanceof HTMLEditorKit ) && !( editorPane.getEditorKit( ) instanceof RTFEditorKit ) ) {
                     isValid = false;
                 }
+                else
+                    isValid = true;
             }
         }
         catch( IOException e ) {
@@ -295,49 +300,50 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
         return isValid;
     }
 
-    private void addEditorPane( ) {
+    // TODO Borrar si no se necesita en el futuro
+    /*private void addEditorPane( ) {
 
-        editorPane.setOpaque( false );
-        //editorPane.setCaret( null );
-        editorPane.setEditable( false );
-        //editorPane.setHighlighter( null );
-        editorPane.addMouseListener( mouseListener );
-        editorPane.addMouseMotionListener( mouseListener );
+         editorPane.setOpaque( false );
+         //editorPane.setCaret( null );
+         editorPane.setEditable( false );
+         //editorPane.setHighlighter( null );
+         editorPane.addMouseListener( mouseListener );
+         editorPane.addMouseMotionListener( mouseListener );
 
-        this.setOpaque( false );
+         this.setOpaque( false );
 
-        //this.setLayout( new BoxLayout(this, BoxLayout.LINE_AXIS) );
-        this.setLayout( null );
-        if( !currentBookPage.getScrollable( ) ) {
-            editorPane.setBounds( currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), GUI.WINDOW_WIDTH - currentBookPage.getMargin( ) - currentBookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - currentBookPage.getMarginTop( ) - currentBookPage.getMarginBottom( ) );
-            this.add( editorPane );
-        }
-        else {
-            JPanel viewPort = new JPanel( ) {
+         //this.setLayout( new BoxLayout(this, BoxLayout.LINE_AXIS) );
+         this.setLayout( null );
+         if( !currentBookPage.getScrollable( ) ) {
+             editorPane.setBounds( currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), GUI.WINDOW_WIDTH - currentBookPage.getMargin( ) - currentBookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - currentBookPage.getMarginTop( ) - currentBookPage.getMarginBottom( ) );
+             this.add( editorPane );
+         }
+         else {
+             JPanel viewPort = new JPanel( ) {
 
-                private static final long serialVersionUID = 1L;
+                 private static final long serialVersionUID = 1L;
 
-                @Override
-                public void paint( Graphics g ) {
+                 @Override
+                 public void paint( Graphics g ) {
 
-                    if( image != null )
-                        g.drawImage( image, 0, 0, image.getWidth( null ), image.getHeight( null ), null );
-                    super.paint( g );
-                }
-            };
-            viewPort.setLayout( new BorderLayout( ) );
-            viewPort.setOpaque( false );
+                     if( image != null )
+                         g.drawImage( image, 0, 0, image.getWidth( null ), image.getHeight( null ), null );
+                     super.paint( g );
+                 }
+             };
+             viewPort.setLayout( new BorderLayout( ) );
+             viewPort.setOpaque( false );
 
-            editorPane.setBounds( currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), GUI.WINDOW_WIDTH - currentBookPage.getMargin( ) - currentBookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - currentBookPage.getMarginTop( ) - currentBookPage.getMarginBottom( ) );
+             editorPane.setBounds( currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), GUI.WINDOW_WIDTH - currentBookPage.getMargin( ) - currentBookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - currentBookPage.getMarginTop( ) - currentBookPage.getMarginBottom( ) );
 
-            viewPort.add( editorPane, BorderLayout.CENTER );
-            JScrollPane scroll = new JScrollPane( viewPort, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED );
-            scroll.getViewport( ).setOpaque( false );
-            scroll.getViewport( ).setBorder( null );
-            scroll.setOpaque( false );
-            this.add( scroll );
-        }
-    }
+             viewPort.add( editorPane, BorderLayout.CENTER );
+             JScrollPane scroll = new JScrollPane( viewPort, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+             scroll.getViewport( ).setOpaque( false );
+             scroll.getViewport( ).setBorder( null );
+             scroll.setOpaque( false );
+             this.add( scroll );
+         }
+     }*/
 
     /**
      * @return the bookPage
@@ -365,7 +371,9 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
         this.isValid = isValid;
     }
 
-    public class ProcessHTML {
+    // TODO Sustituía las referencias por archivos temporales
+    // Borrar si no se necesita más
+    /*public class ProcessHTML {
 
         private String html;
 
@@ -479,7 +487,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
                 ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
             }
         }
-    }
+    } */
 
     @Override
     public void paint( Graphics g ) {
@@ -491,7 +499,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
                 // Paint editorPane
                 if( editorPane != null )
                     editorPane.paint( g, currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), getWidth( ), getHeight( ) );
-                if ( imagePage != null ){
+                if( imagePage != null ) {
                     g.drawImage( imagePage, currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), imagePage.getWidth( null ), imagePage.getHeight( null ), null );
                 }
             }
@@ -504,7 +512,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
                     //int heightPane = height - getAbsoluteHeight( currentBookPage.getMarginTop( ) + currentBookPage.getMarginBottom( ) );
                     editorPane.paint( g, getAbsoluteX( currentBookPage.getMargin( ) ), getAbsoluteY( currentBookPage.getMarginTop( ) ), width, height );
                 }
-                if ( imagePage != null ){
+                if( imagePage != null ) {
                     g.drawImage( imagePage, getAbsoluteX( currentBookPage.getMargin( ) ), getAbsoluteY( currentBookPage.getMarginTop( ) ), getAbsoluteWidth( imagePage.getWidth( null ) ), getAbsoluteHeight( imagePage.getHeight( null ) ), null );
                 }
             }
