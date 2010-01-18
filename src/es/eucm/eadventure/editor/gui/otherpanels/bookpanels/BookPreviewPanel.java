@@ -36,10 +36,10 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 
+import es.eucm.eadventure.common.auxiliar.ImageTransformer;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
-import es.eucm.eadventure.editor.gui.auxiliar.ImageTransformer;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
 /**
