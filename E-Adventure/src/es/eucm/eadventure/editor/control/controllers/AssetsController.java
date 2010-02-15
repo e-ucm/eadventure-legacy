@@ -29,14 +29,15 @@
  * You should have received a copy of the GNU General Public License along with
  * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  */
 package es.eucm.eadventure.editor.control.controllers;
 
 import java.awt.Dimension;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -159,13 +160,13 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
     /**
      * Path for the video assets.
      */
-    private static final String CATEGORY_STYLED_TEXT_PATH = "assets/styledtext";
+    private static final String CATEGORY_STYLED_TEXT_PATH = "assets/styledtext"; 
 
     /**
      * Path for the custom button assets.
      */
     private static final String CATEGORY_BUTTON_PATH = "gui/buttons";
-    
+
     /**
      * Path for the arrows of books
      */
@@ -590,8 +591,12 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
         return assetsAdded;
     }
+    
+    public static boolean addSingleAsset( int assetsCategory, String assetPath ){
+        return addSingleAsset( assetsCategory, assetPath, true );
+    }
 
-    public static boolean addSingleAsset( int assetsCategory, String assetPath ) {
+    public static boolean addSingleAsset( int assetsCategory, String assetPath, boolean checkIfAssetExists ) {
 
         boolean assetsAdded = false;
         // Take the category folder, from the ZIP file name
@@ -638,7 +643,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
             }
             else if( assetsCategory == CATEGORY_ANIMATION ) {
 
-                Animation animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), assetPath, new EditorImageLoader() );
+                Animation animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), assetPath, new EditorImageLoader( ) );
                 animation.setAbsolutePath( assetPath );
                 File sourceFile = new File( assetPath );
                 File destinyFile = new File( categoryFolder, sourceFile.getName( ) );
@@ -659,7 +664,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
                         sourceFile = new File( image );
                         destinyFile = new File( categoryFolder, sourceFile.getName( ) );
                         sourceFile.copyTo( destinyFile );
-                        
+
                         String sound = frame.getSoundAbsolutePath( );
                         if( sound != null ) {
                             sourceFile = new File( sound );
@@ -671,6 +676,10 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
             }
 
+            // If it's a styled text, images associated with it have to be imported too
+            else if( assetsCategory == CATEGORY_STYLED_TEXT && ( assetPath.endsWith( ".html" ) || assetPath.endsWith( ".htm" ) ) ) {
+                assetsAdded = addStyledText( assetPath, categoryFolder );
+            }
             // If it is not an animation asset, just add the file
             else {
                 // Open source file, and create destiny file in the ZIP
@@ -681,7 +690,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
                 if( !sourceFile.getAbsolutePath( ).toLowerCase( ).equals( destinyFile.getAbsolutePath( ).toLowerCase( ) ) ) {
 
                     // Check if the asset is being overwritten, if so prompt the user for action
-                    if( destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Assets.AddAsset" ), TC.get( "Assets.WarningAssetFound", sourceFile.getName( ) ) ) ) {
+                    if( checkIfAssetExists && destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Assets.AddAsset" ), TC.get( "Assets.WarningAssetFound", sourceFile.getName( ) ) ) ) {
                         // If the user accepts to overwrite the asset, delete it first
                         deleteAsset( assetPath, false );
                     }
@@ -704,6 +713,60 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
                 }*/
             }
         }
+        return assetsAdded;
+
+    }
+
+    private static boolean addStyledText( String assetPath, File categoryFolder ) {
+
+        boolean assetsAdded = true;
+
+        try {
+            File sourceFile = new File( assetPath );
+            File destinyFile = new File( categoryFolder, sourceFile.getName( ) );
+
+            // Read sourceFile content
+            BufferedReader r = new BufferedReader( new FileReader( sourceFile ) );
+            String html = "";
+            String line = null;
+            while( ( line = r.readLine( ) ) != null ) {
+                html += line + "\n";
+            }
+            r.close( );
+
+            // Look for css sheet
+            if ( html.indexOf( "<link rel=\"stylesheet\"" ) != -1  ){
+                String cssFile = html.substring( html.indexOf( "href=\"") + 6, html.indexOf( '"', html.indexOf( "href=\"") + 8 ));
+                File sourceCssFile = new File( sourceFile.getParent( ), cssFile );
+                File destinyCssFile = new File( categoryFolder, cssFile );
+                assetsAdded = sourceCssFile.copyTo( destinyCssFile );
+                
+            }
+
+            // Look for images
+            String htmlProcessed = new String( html );
+            while( assetsAdded && htmlProcessed.indexOf( "src=\"" ) != -1 ) {
+                htmlProcessed = htmlProcessed.substring( htmlProcessed.indexOf( "src=\"" ) + 5, htmlProcessed.length( ) - 1 );
+                String imgName = htmlProcessed.substring( 0, htmlProcessed.indexOf( '"' ) );
+                // Copy image to project folder
+                File sourceImgFile = new File( sourceFile.getParent( ), imgName );
+                File destinyImgFile = new File( categoryFolder, imgName );
+                assetsAdded = sourceImgFile.copyTo( destinyImgFile );
+            }
+
+            assetsAdded = sourceFile.copyTo( destinyFile );
+            /*BufferedWriter w = new BufferedWriter( new FileWriter( destinyFile ) );
+            w.write( html.replaceAll( "src=\"", "src=\"" + folderName ) );
+            w.close( );*/
+
+        }
+        catch( FileNotFoundException e ) {
+            assetsAdded = false;
+        }
+        catch( IOException e ) {
+            assetsAdded = false;
+        }
+
         return assetsAdded;
 
     }
@@ -833,14 +896,14 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
         // If the source file doesn't exist, show an error message
         else
             Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/DefaultBook.jpg" ) );
-        
+
         sourceFile = new File( FILE_DEFAULT_ARROW_NORMAL );
         if( sourceFile.exists( ) )
             sourceFile.copyTo( new File( zipFile, ASSET_DEFAULT_ARROW_NORMAL ) );
         // If the source file doesn't exist, show an error message
         else
             Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.SpecialAssetNotFound", "img/assets/DefaultLeftNormalArrow.png" ) );
-        
+
         sourceFile = new File( FILE_DEFAULT_ARROW_OVER );
         if( sourceFile.exists( ) )
             sourceFile.copyTo( new File( zipFile, ASSET_DEFAULT_ARROW_OVER ) );
@@ -934,14 +997,15 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
      * @return True if the asset can be added to the set, false otherwise
      */
     private static boolean checkAsset( String assetPath, int assetCategory ) {
+
         boolean assetValid = true;
-        
+
         // For images, only those who have restricted dimension are checked
-        if ( isImageWithRestrictedDimension( assetCategory ) ){
-         // Take the instance of the controller, and the filename of the asset
+        if( isImageWithRestrictedDimension( assetCategory ) ) {
+            // Take the instance of the controller, and the filename of the asset
             Controller controller = Controller.getInstance( );
             String assetFilename = getFilename( assetPath );
-            
+
             // Take the data from the file
             // Image image = new ImageIcon( assetPath ).getImage( );
             Image image = getImage( assetPath );
@@ -950,28 +1014,28 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
             // Prepare the string array for the error message
             String[] fileInformation = new String[] { assetFilename, String.valueOf( width ), String.valueOf( height ) };
-            
+
             // Restrict dimensions for the asset category
             Dimension d = getRestrictedDimension( assetCategory );
             int res_width = (int) d.getWidth( );
             int res_height = (int) d.getHeight( );
-            
+
             // Icon must be exactly restricted dimensions
-            if ( assetCategory == CATEGORY_ICON ) {
-                if ( width != res_width || height != res_height ){
+            if( assetCategory == CATEGORY_ICON ) {
+                if( width != res_width || height != res_height ) {
                     controller.showErrorDialog( TC.get( "IconAssets.Title" ), TC.get( "IconAssets.ErrorIconSize", fileInformation ) );
                     assetValid = false;
                 }
             }
             // Backgrond must be bigger than restricted dimensions
-            else if ( assetCategory == CATEGORY_BACKGROUND ){
+            else if( assetCategory == CATEGORY_BACKGROUND ) {
                 if( width < res_width || height < res_height ) {
                     controller.showErrorDialog( TC.get( "BackgroundAssets.Title" ), TC.get( "BackgroundAssets.ErrorBackgroundSize", fileInformation ) );
                     assetValid = false;
                 }
             }
             // Arrow book must be smaller than restricted dimensions
-            else if ( assetCategory == CATEGORY_ARROW_BOOK ){
+            else if( assetCategory == CATEGORY_ARROW_BOOK ) {
                 if( width > res_width || height > res_height ) {
                     controller.showErrorDialog( TC.get( "ArrowAssets.Title" ), TC.get( "ArrowAssets.ErrorArrowSize", fileInformation ) );
                     assetValid = false;
@@ -983,35 +1047,36 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
     }
 
     private static boolean isImageWithRestrictedDimension( int assetCategory ) {
-        return (assetCategory == CATEGORY_BACKGROUND ||
-                assetCategory == CATEGORY_ICON ||
-                assetCategory == CATEGORY_ARROW_BOOK );
+
+        return ( assetCategory == CATEGORY_BACKGROUND || assetCategory == CATEGORY_ICON || assetCategory == CATEGORY_ARROW_BOOK );
     }
 
     /**
      * 
-     * @param assetCategory The asset category
+     * @param assetCategory
+     *            The asset category
      * @return Return the maximum dimensions for an asset category
      */
     private static Dimension getRestrictedDimension( int assetCategory ) {
+
         int rest_width = 0;
         int rest_height = 0;
-        
-        switch ( assetCategory ){
-            case CATEGORY_BACKGROUND: 
+
+        switch( assetCategory ) {
+            case CATEGORY_BACKGROUND:
                 rest_width = BACKGROUND_MAX_WIDTH;
                 rest_height = BACKGROUND_MAX_HEIGHT;
                 break;
-            case CATEGORY_ICON: 
+            case CATEGORY_ICON:
                 rest_width = ICON_MAX_WIDTH;
                 rest_height = ICON_MAX_HEIGHT;
                 break;
-            case CATEGORY_ARROW_BOOK: 
+            case CATEGORY_ARROW_BOOK:
                 rest_width = ARROW_BOOK_MAX_WIDTH;
                 rest_height = ARROW_BOOK_MAX_HEIGHT;
                 break;
         }
-        
+
         return new Dimension( rest_width, rest_height );
     }
 
@@ -1376,9 +1441,9 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
             if( absolutePath == null ) {
                 if( filePath.startsWith( "/" ) || filePath.startsWith( "\\" ) ) {
-                   String os = System.getProperty( "os.name" ).toLowerCase( );
-                   if ( !os.contains("mac") )
-                       filePath = filePath.substring( 1, filePath.length( ) );
+                    String os = System.getProperty( "os.name" ).toLowerCase( );
+                    if( !os.contains( "mac" ) )
+                        filePath = filePath.substring( 1, filePath.length( ) );
                 }
                 return getInputStream( filePath );
             }

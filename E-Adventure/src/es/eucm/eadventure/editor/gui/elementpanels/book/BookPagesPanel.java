@@ -35,10 +35,8 @@ package es.eucm.eadventure.editor.gui.elementpanels.book;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,13 +44,10 @@ import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -92,7 +87,7 @@ public class BookPagesPanel extends JPanel {
 
     // private BookPagePreviewPanel previewPanel;
 
-    private JPanel pageNotLoadedPanel;
+    // private JPanel pageNotLoadedPanel;
 
     private JButton deleteButton;
 
@@ -106,7 +101,7 @@ public class BookPagesPanel extends JPanel {
 
     private BookPagePreviewPanel bookPanel;
 
-    private JPanel createPageNotLoadedPanel( ) {
+    /* private JPanel createPageNotLoadedPanel( ) {
 
         JPanel panel = new JPanel( );
 
@@ -117,7 +112,7 @@ public class BookPagesPanel extends JPanel {
 
         panel.add( new JLabel( "Page not available" ), c );
         return panel;
-    }
+    } */
 
     public BookPagesPanel( BookDataControl dControl ) {
 
@@ -127,12 +122,7 @@ public class BookPagesPanel extends JPanel {
 
         previewPanelContainer = new JPanel( );
         previewPanelContainer.setLayout( new BorderLayout( ) );
-        bookPanel = new BookPagePreviewPanel( dataControl, false );
-
-        this.pageNotLoadedPanel = this.createPageNotLoadedPanel( );
-
-        // previewPanelScroll = new JScrollPane( pageNotLoadedPanel );
-        //		previewPanelContainer.add( previewPanelScroll, BorderLayout.CENTER );
+        bookPanel = new BookPagePreviewPanel( dataControl, false,  pagesTable );
 
         JButton previewButton = new JButton( TC.get( "Book.Preview" ) );
         previewButton.addActionListener( new ActionListener( ) {
@@ -144,11 +134,6 @@ public class BookPagesPanel extends JPanel {
             }
         } );
 
-        /*GridBagConstraints c = new GridBagConstraints( );
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 1;
-        c.weighty = 0.1;*/
         previewPanelContainer.add( previewButton, BorderLayout.SOUTH );
         updateSelectedPage( );
 
@@ -174,12 +159,12 @@ public class BookPagesPanel extends JPanel {
     public void updatePreview( ) {
 
         BookPage currentPage = dataControl.getBookPagesList( ).getSelectedPage( );
+        
         /* if( pageNotLoadedPanel != null )
              previewPanelContainer.remove( previewPanelScroll );
          else if( previewLabel != null )
              previewPanelContainer.remove( previewLabel );*/
 
-        pageNotLoadedPanel = null;
         if( currentPage != null ) {
 
             /* previewPanel = new BookPagePreviewPanel( dataControl );
@@ -243,8 +228,6 @@ public class BookPagesPanel extends JPanel {
             bookPanel.setCurrentBookPage( selectedPage );
             previewPanelContainer.add( bookPanel, BorderLayout.CENTER );
 
-            pageNotLoadedPanel = null;
-
             /*previewPanel = new BookPagePreviewPanel( dataControl );
             previewPanel.setCurrentBookPage( selectedPage );
             previewPanel.setPreferredSize( new Dimension( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT ) );
@@ -261,7 +244,7 @@ public class BookPagesPanel extends JPanel {
         // previewPanel.repaint( );
     }
 
-    private Image getResizedImage( Image image ) {
+    /*private Image getResizedImage( Image image ) {
 
         // set up the transform
         AffineTransform transform = new AffineTransform( );
@@ -283,7 +266,7 @@ public class BookPagesPanel extends JPanel {
         g.dispose( );
 
         return newImage;
-    }
+    }*/
 
     private void createPagesPanel( ) {
 

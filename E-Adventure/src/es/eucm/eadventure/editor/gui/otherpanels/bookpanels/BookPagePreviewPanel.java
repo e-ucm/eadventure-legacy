@@ -50,6 +50,7 @@ import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.BookEditorPane;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.book.PagesTable;
 
 /**
  * Class for the preview of HTML books in Content tab.
@@ -98,18 +99,14 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
      */
     private BookPageMouseListener mouseListener;
 
-    /**
-     * If the panel represents a real size preview panel of the book
-     */
-    private boolean previewPanel;
-
     private boolean drawArrows = true;
+
+    private PagesTable pagesTable;
 
     public BookPagePreviewPanel( BookDataControl dControl, boolean previewPanel ) {
 
         super( dControl );
         this.setOpaque( false );
-        this.previewPanel = previewPanel;
         isValid = true;
         bookPageList = dControl.getBookPagesList( ).getBookPages( );
         super.loadImages( dControl );
@@ -120,6 +117,18 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
         currentArrowLeft = arrowLeftNormal;
         currentArrowRight = arrowRightNormal;
+    }
+    
+    /**
+     * Constructor which includes the pages table. When a page is changed, table
+     * changes its index.
+     * @param dControl DataController
+     * @param previewPanel If it's a preview panel.
+     * @param pages Pages table.
+     */
+    public BookPagePreviewPanel( BookDataControl dControl, boolean previewPanel, PagesTable pages ){
+        this( dControl, previewPanel );
+        this.pagesTable = pages;
     }
 
     /**
@@ -192,6 +201,10 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
                 //addEditorPane( );
                 repaint( );
             }
+            
+            if ( isValid && pagesTable != null ){
+                pagesTable.changeSelection( pageIndex, 0, false, false );
+            }
             return isValid;
         }
         else
@@ -247,8 +260,8 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
             //Set the proper content type
             if( ext.equals( "html" ) || ext.equals( "htm" ) ) {
                 editorPane.setContentType( "text/html" );
-                /*ProcessHTML processor = new ProcessHTML( textBuffer.toString( ) );
-                String htmlProcessed = processor.start( );*/
+                //ProcessHTML processor = new ProcessHTML( textBuffer.toString( ) );
+                //String htmlProcessed = processor.start( );
                 editorPane.setText( textBuffer.toString( ) );
 
                 //String fileName = url.getPath( ).substring( 0, url.getPath( ).lastIndexOf( "/" ) );
@@ -487,35 +500,26 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
                 ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
             }
         }
-    } */
+    }*/
 
     @Override
     public void paint( Graphics g ) {
 
         if( isImageLoaded( ) ) {
-            if( previewPanel ) {
-                // Paint the background
-                g.drawImage( image, 0, 0, getWidth( ), getHeight( ), null );
-                // Paint editorPane
-                if( editorPane != null )
-                    editorPane.paint( g, currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), getWidth( ), getHeight( ) );
-                if( imagePage != null ) {
-                    g.drawImage( imagePage, currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), imagePage.getWidth( null ), imagePage.getHeight( null ), null );
-                }
+            // Paint the background
+            g.drawImage( image, getAbsoluteX( 0 ), getAbsoluteY( 0 ), width, height, null );
+            // Paint editorPane
+            if( editorPane != null ){
+                int xPane = getAbsoluteX( currentBookPage.getMargin( ) );
+                int yPane = getAbsoluteY( currentBookPage.getMarginTop( ) );
+                int widthPane = width - getAbsoluteWidth( currentBookPage.getMarginEnd( ) );
+                int heightPane = height - getAbsoluteHeight( currentBookPage.getMarginBottom( ) );
+                editorPane.paint( g, xPane, yPane, widthPane, heightPane );
             }
-            else {
-                // Paint the background
-                g.drawImage( image, getAbsoluteX( 0 ), getAbsoluteY( 0 ), width, height, null );
+            if( imagePage != null ) {
+                g.drawImage( imagePage, currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), imagePage.getWidth( null ), imagePage.getHeight( null ), null );
+            }
 
-                if( editorPane != null ) {
-                    //int widthPane = width - getAbsoluteWidth( currentBookPage.getMargin( ) + currentBookPage.getMarginEnd( ) );
-                    //int heightPane = height - getAbsoluteHeight( currentBookPage.getMarginTop( ) + currentBookPage.getMarginBottom( ) );
-                    editorPane.paint( g, getAbsoluteX( currentBookPage.getMargin( ) ), getAbsoluteY( currentBookPage.getMarginTop( ) ), width, height );
-                }
-                if( imagePage != null ) {
-                    g.drawImage( imagePage, getAbsoluteX( currentBookPage.getMargin( ) ), getAbsoluteY( currentBookPage.getMarginTop( ) ), getAbsoluteWidth( imagePage.getWidth( null ) ), getAbsoluteHeight( imagePage.getHeight( null ) ), null );
-                }
-            }
             if( drawArrows ) {
 
                 if( !isInFirstPage( ) )
@@ -525,7 +529,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
                 if( !isInLastPage( ) )
                     if( currentArrowRight != null ) {
-                        g.drawImage( currentArrowRight, getAbsoluteX( nextPagePoint.x ), getAbsoluteY( nextPagePoint.y ), getAbsoluteWidth( currentArrowRight.getWidth( null ) ), getAbsoluteHeight( currentArrowRight.getHeight( null ) ), null );
+                        g.drawImage( currentArrowRight, getAbsoluteX( nextPagePoint.x ), getAbsoluteY( nextPagePoint.y ), getAbsoluteWidth( arrowRightNormal.getWidth( null ) ), getAbsoluteHeight( arrowRightNormal.getHeight( null ) ), null );
                     }
             }
         }
@@ -614,13 +618,6 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
             repaint( );
         }
-
-    }
-
-    public void updateBounds( ) {
-
-        if( editorPane != null )
-            editorPane.updateBounds( );
 
     }
 

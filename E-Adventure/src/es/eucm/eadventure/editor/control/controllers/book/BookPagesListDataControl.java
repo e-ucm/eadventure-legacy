@@ -326,7 +326,7 @@ public class BookPagesListDataControl extends Searchable {
         boolean isValid = false;
         try {
             if( page.getType( ) == BookPage.TYPE_RESOURCE ) {
-                BookPagePreviewPanel panel = new BookPagePreviewPanel(dControl, false );
+                BookPagePreviewPanel panel = new BookPagePreviewPanel(dControl, true );
                 panel.setCurrentBookPage( page );
                 isValid = !page.getUri( ).equals( "" ) && panel.isValid( );
             }
@@ -379,6 +379,10 @@ public class BookPagesListDataControl extends Searchable {
             return bookPagesList.get( selectedPage );
         else
             return null;
+    }
+    
+    public int getIndexSelectedPage( ){
+        return selectedPage;
     }
 
     public BookPage getLastPage( ) {
