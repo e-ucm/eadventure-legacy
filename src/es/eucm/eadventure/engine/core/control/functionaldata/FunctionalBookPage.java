@@ -29,7 +29,6 @@
  * You should have received a copy of the GNU General Public License along with
  * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  */
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
@@ -43,12 +42,11 @@ import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
@@ -60,7 +58,6 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.BookEditorPane;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -72,12 +69,13 @@ public class FunctionalBookPage extends JPanel {
 
     private boolean isValid;
 
-    private Image background, currentArrowLeft, currentArrowRight;
-    
+    private Image background, currentArrowLeft,
+            currentArrowRight;
+
     private Point previousPage, nextPage;
 
     private Image image;
-    
+
     private FunctionalStyledBook fBook;
 
     private BookEditorPane editorPane;
@@ -87,7 +85,7 @@ public class FunctionalBookPage extends JPanel {
         this.background = background;
     }
 
-    public FunctionalBookPage( BookPage bookPage, FunctionalStyledBook fBook, Image background, Image currentArrowLeft, Image currentArrowRight, Point previousPage, Point nextPage,  boolean listenHyperLinks ) {
+    public FunctionalBookPage( BookPage bookPage, FunctionalStyledBook fBook, Image background, Image currentArrowLeft, Image currentArrowRight, Point previousPage, Point nextPage, boolean listenHyperLinks ) {
 
         super( );
         editorPane = new BookEditorPane( bookPage );
@@ -99,43 +97,53 @@ public class FunctionalBookPage extends JPanel {
         this.currentArrowRight = currentArrowRight;
         this.previousPage = previousPage;
         this.nextPage = nextPage;
-        
+
         FunctionalBookMouseListener bookListener = new FunctionalBookMouseListener( );
         this.addMouseListener( bookListener );
         this.addMouseMotionListener( bookListener );
         
-        if( bookPage.getType( ) == BookPage.TYPE_URL ) {
-            URL url = null;
-            try {
-                url = new URL( bookPage.getUri( ) );
-                url.openStream( ).close( );
-            }
-            catch( Exception e ) {
+        switch( bookPage.getType( ) ){
+            case BookPage.TYPE_URL:
+                isValid = createURLPage( listenHyperLinks );
+                break;
+            case BookPage.TYPE_RESOURCE:
+                isValid = createResourcePage( );
+                break;
+            case BookPage.TYPE_IMAGE:
+                isValid = createImagePage( );
+            default:
                 isValid = false;
-                //System.out.println( "[LOG] FunctionalBookPage - Constructor - Error creating URL "+bookPage.getUri( ) );
-            }
-
-            try {
-                if( isValid ) {
-                    editorPane.setPage( url );
-                    editorPane.setEditable( false );
-                    if( listenHyperLinks )
-                        editorPane.addHyperlinkListener( new BookHyperlinkListener( ) );
-                    if( !( editorPane.getEditorKit( ) instanceof HTMLEditorKit ) && !( editorPane.getEditorKit( ) instanceof RTFEditorKit ) ) {
-                        isValid = false;
-                        //System.out.println( "[LOG] FunctionalBookPage - Constructor - Type of page not valid "+bookPage.getUri( ) );
-                    }
-                    else {
-                        //System.out.println( "[LOG] FunctionalBookPage - Constructor - Page OK "+bookPage.getUri( ) );
-                    }
-
-                }
-            }
-            catch( IOException e ) {
-            }
-
         }
-        else if( bookPage.getType( ) == BookPage.TYPE_RESOURCE ) {
+
+        if( editorPane != null ) {
+            FunctionalBookMouseListener bookListener2 = new FunctionalBookMouseListener( );
+            editorPane.addMouseListener( bookListener2 );
+            editorPane.addMouseMotionListener( bookListener2 );
+            editorPane.setOpaque( false );
+            editorPane.setEditable( false );
+
+            this.setOpaque( false );
+
+            this.setLayout( null );
+
+            /*editorPane.setBounds( bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMargin( ) - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginTop( ) - bookPage.getMarginBottom( ) );
+            if( bookPage.getScrollable( ) )
+                this.add( new JScrollPane( editorPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED ) );
+            else
+                this.add( editorPane );*/
+        }
+    }
+
+    private boolean createImagePage( ) {
+         image = MultimediaManager.getInstance( ).loadImageFromZip( bookPage.getUri( ), MultimediaManager.IMAGE_SCENE );
+         return image != null;
+    }
+
+    private boolean createResourcePage( ) {
+        // Check if there is an image created for the representatio of this page
+        image = MultimediaManager.getInstance( ).loadImageFromZip( bookPage.getImageName( true ), MultimediaManager.IMAGE_SCENE );
+
+        if( image == null ) {
             String uri = bookPage.getUri( );
             String ext = uri.substring( uri.lastIndexOf( '.' ) + 1, uri.length( ) ).toLowerCase( );
             if( ext.equals( "html" ) || ext.equals( "htm" ) || ext.equals( "rtf" ) ) {
@@ -166,9 +174,16 @@ public class FunctionalBookPage extends JPanel {
                 //Set the proper content type
                 if( ext.equals( "html" ) || ext.equals( "htm" ) ) {
                     editorPane.setContentType( "text/html" );
-                    ProcessHTML processor = new ProcessHTML( textBuffer.toString( ) );
-                    String htmlProcessed = processor.start( );
-                    editorPane.setText( htmlProcessed );
+                    /*ProcessHTML processor = new ProcessHTML( textBuffer.toString( ) );
+                    String htmlProcessed = processor.start( );*/
+                    editorPane.setText( textBuffer.toString( ) );
+                    URL url = ResourceHandler.getInstance( ).getResourceAsURL( uri );
+                    try {
+                        editorPane.setDocumentBase( new URL( url.getProtocol( ), url.getHost( ), url.getPort( ), url.getFile( ) ) );
+                    }
+                    catch( MalformedURLException e ) {
+                        e.printStackTrace( );
+                    }
                 }
                 else {
                     editorPane.setContentType( "text/rtf" );
@@ -177,47 +192,57 @@ public class FunctionalBookPage extends JPanel {
                 isValid = true;
 
             }
-
-        }
-        else if( bookPage.getType( ) == BookPage.TYPE_IMAGE ) {
-            image = MultimediaManager.getInstance( ).loadImageFromZip( bookPage.getUri( ), MultimediaManager.IMAGE_SCENE );
         }
 
-        if( editorPane != null ) {
-            FunctionalBookMouseListener bookListener2 = new FunctionalBookMouseListener( );
-            editorPane.addMouseListener( bookListener2 );
-            editorPane.addMouseMotionListener( bookListener2 );
-            editorPane.setOpaque( false );
-            editorPane.setEditable( false );
+        return isValid;
+    }
 
-            this.setOpaque( false );
+    private boolean createURLPage( boolean listenHyperLinks ) {
 
-            this.setLayout( null );
-
-           editorPane.setBounds( bookPage.getMargin( ), bookPage.getMarginTop( ), GUI.WINDOW_WIDTH - bookPage.getMargin( ) - bookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - bookPage.getMarginTop( ) - bookPage.getMarginBottom( ) );
-            if( bookPage.getScrollable( ) )
-                this.add( new JScrollPane( editorPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED ) );
-            else
-                this.add( editorPane );
+        URL url = null;
+        try {
+            url = new URL( bookPage.getUri( ) );
+            url.openStream( ).close( );
         }
+        catch( Exception e ) {
+            isValid = false;
+        }
+
+        try {
+            if( isValid ) {
+                editorPane.setPage( url );
+                editorPane.setEditable( false );
+                if( listenHyperLinks )
+                    editorPane.addHyperlinkListener( new BookHyperlinkListener( ) );
+                if( !( editorPane.getEditorKit( ) instanceof HTMLEditorKit ) && !( editorPane.getEditorKit( ) instanceof RTFEditorKit ) ) {
+                    isValid = false;
+                }
+
+            }
+        }
+        catch( IOException e ) {
+        }
+        return isValid;
     }
 
     private class FunctionalBookMouseListener extends MouseAdapter implements MouseMotionListener {
 
         @Override
         public void mouseClicked( MouseEvent evt ) {
+
             MouseEvent nEvt = createMouseEvent( evt );
             Game.getInstance( ).mouseClicked( nEvt );
         }
-        
-        
+
         @Override
-        public void mouseMoved( MouseEvent evt ){
+        public void mouseMoved( MouseEvent evt ) {
+
             MouseEvent nEvt = createMouseEvent( evt );
             Game.getInstance( ).mouseMoved( nEvt );
         }
-        
-        private MouseEvent createMouseEvent( MouseEvent evt ){
+
+        private MouseEvent createMouseEvent( MouseEvent evt ) {
+
             int x = evt.getX( );
             int y = evt.getY( );
             if( evt.getSource( ) == editorPane ) {
@@ -226,7 +251,7 @@ public class FunctionalBookPage extends JPanel {
                 y += bookPage.getMarginTop( );
             }
 
-            MouseEvent nEvt = new MouseEvent( (Component) evt.getSource( ), evt.getID( ), evt.getWhen( ), evt.getModifiers( ), x, y, evt.getClickCount( ), evt.isPopupTrigger( ), evt.getButton( ) );    
+            MouseEvent nEvt = new MouseEvent( (Component) evt.getSource( ), evt.getID( ), evt.getWhen( ), evt.getModifiers( ), x, y, evt.getClickCount( ), evt.isPopupTrigger( ), evt.getButton( ) );
             return nEvt;
         }
 
@@ -263,15 +288,16 @@ public class FunctionalBookPage extends JPanel {
 
     @Override
     public void paint( Graphics g ) {
-
         g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
         if( image != null )
             g.drawImage( image, bookPage.getMargin( ), bookPage.getMarginTop( ), this.getWidth( ) - bookPage.getMarginEnd( ), this.getHeight( ) - bookPage.getMarginBottom( ), 0, 0, image.getWidth( null ), image.getHeight( null ), null );
-        if ( currentArrowLeft != null && currentArrowRight != null ){
-            if ( !fBook.isInFirstPage( ) )
+        else if( editorPane != null )
+            editorPane.paint( g, bookPage.getMargin( ), bookPage.getMarginTop( ), getWidth( ), getHeight( ) );
+        if( currentArrowLeft != null && currentArrowRight != null ) {
+            if( !fBook.isInFirstPage( ) )
                 g.drawImage( currentArrowLeft, previousPage.x, previousPage.y, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
-            
-            if ( !fBook.isInLastPage( ) )
+
+            if( !fBook.isInLastPage( ) )
                 g.drawImage( currentArrowRight, nextPage.x, nextPage.y, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
         }
         super.paint( g );
@@ -428,11 +454,13 @@ public class FunctionalBookPage extends JPanel {
     }
 
     public void setCurrentArrowLeft( Image currentArrowLeft ) {
+
         this.currentArrowLeft = currentArrowLeft;
         this.repaint( );
     }
 
     public void setCurrentArrowRight( Image currentArrowRight ) {
+
         this.currentArrowRight = currentArrowRight;
         this.repaint( );
     }

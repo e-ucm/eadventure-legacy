@@ -29,7 +29,6 @@
  * You should have received a copy of the GNU General Public License along with
  * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  */
 package es.eucm.eadventure.editor.control;
 
@@ -269,7 +268,7 @@ public class Controller {
      * Id for the "Drag-to" action element.
      */
     public static final int ACTION_DRAG_TO = 251;
-    
+
     /**
      * Id for the "Custom interact" action element.
      */
@@ -869,10 +868,11 @@ public class Controller {
         return chaptersController.getVarFlagSummary( );
     }
 
-    public ChapterListDataControl getCharapterList() {
+    public ChapterListDataControl getCharapterList( ) {
+
         return chaptersController;
     }
-    
+
     /**
      * Returns whether the data has been modified since the last save.
      * 
@@ -1700,6 +1700,7 @@ public class Controller {
 
         }
         //loadingScreen.close( );
+
         loadingScreen.setVisible( false );
 
         return fileSaved;
@@ -2563,8 +2564,8 @@ public class Controller {
             if( !assets.contains( temp ) )
                 assets.add( temp );
 
-      /*  assets.remove( "gui/cursors/arrow_left.png" );
-        assets.remove( "gui/cursors/arrow_right.png" ); */
+        /*  assets.remove( "gui/cursors/arrow_left.png" );
+          assets.remove( "gui/cursors/arrow_right.png" ); */
 
         for( String temp : assets ) {
             int references = 0;
@@ -2592,7 +2593,7 @@ public class Controller {
             if( countAssetReferences( AssetsController.removeSuffix( temp ) ) != 0 ) {
                 assets.remove( temp );
                 if( temp.endsWith( "eaa" ) ) {
-                    Animation a = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), temp, new EditorImageLoader() );
+                    Animation a = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), temp, new EditorImageLoader( ) );
                     for( Frame f : a.getFrames( ) ) {
                         if( f.getUri( ) != null && assets.contains( f.getUri( ) ) ) {
                             for( int j = 0; j < assets.size( ); j++ ) {
@@ -3284,6 +3285,7 @@ public class Controller {
      * @param language
      */
     public void setLanguage( String language ) {
+
         setLanguage( language, true );
     }
 
@@ -3298,6 +3300,7 @@ public class Controller {
      * @param language
      */
     public void setLanguage( String language, boolean reloadData ) {
+
         ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ), ReleaseFolders.getLoadingImagePath( language ) );
         languageFile = language;
         TC.loadStrings( ReleaseFolders.getLanguageFilePath4Editor( true, languageFile ) );

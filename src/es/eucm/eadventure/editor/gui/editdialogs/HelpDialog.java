@@ -40,8 +40,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -99,20 +97,6 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
             pane = new BookEditorPane( );
             try {
                 pane.setPage( file.toURI( ).toURL( ) );
-                // Load StyleSheet
-                BufferedReader f = new BufferedReader( new FileReader( new java.io.File( "help/help.css" ) ) );
-                String line = null;
-                String cssText = "";
-                while( ( line = f.readLine( ) ) != null ) {
-                    cssText += line;
-                }
-                
-               /* while( cssText.length( ) > 1 ) {                 
-                    int end = cssText.indexOf( '}' ) + 1;
-                    String rule = cssText.substring( 0, end );
-                    ( (HTMLDocument) pane.getDocument( ) ).getStyleSheet( ).addRule( rule );
-                    cssText = cssText.substring( end );
-                }*/
                 
                 backList.add( file.toURI( ).toURL( ) );
                 pane.setEditable( false );

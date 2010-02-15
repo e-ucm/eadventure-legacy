@@ -29,7 +29,6 @@
  * You should have received a copy of the GNU General Public License along with
  * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  */
 package es.eucm.eadventure.editor.gui.elementpanels.book;
 
@@ -98,7 +97,7 @@ public class BookAppPanel extends JPanel {
         /**
          * 
          */
-        private static final long serialVersionUID = 1L; 
+        private static final long serialVersionUID = 1L;
 
         /**
          * Preview image panel.
@@ -109,30 +108,30 @@ public class BookAppPanel extends JPanel {
 
             super( control );
 
-        }       
+        }
 
         @Override
         protected void createPreview( ) {
-    
+
             JPanel previewPanel = new JPanel( );
             previewPanel.setLayout( new BorderLayout( ) );
             GridBagConstraints c = new GridBagConstraints( );
             c.fill = GridBagConstraints.BOTH;
-            
+
             imagePanel = new BookArrowPositionPreviewPanel( bookDataControl );
             ArrowsPositionPanel aPanel = new ArrowsPositionPanel( imagePanel );
             imagePanel.setArrowsPositionPanel( aPanel );
-            
+
             previewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Book.Preview" ) ) );
             c.gridx = 0;
             c.gridy = 0;
             c.weightx = 1;
             previewPanel.add( imagePanel, BorderLayout.CENTER );
-            
+
             c.gridx = 1;
-            previewPanel.add( aPanel, BorderLayout.LINE_END );
+            previewPanel.add( aPanel, BorderLayout.EAST );
             lookPanel.add( previewPanel, cLook );
-            
+
             // TODO Parche, arreglar
             //lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
         }
@@ -151,19 +150,19 @@ public class BookAppPanel extends JPanel {
 
             super.updateResources( );
             reorganizeResourcesPanel( resourcesPanel );
-            
+
             if( getParent( ) != null && getParent( ).getParent( ) != null )
                 getParent( ).getParent( ).repaint( );
         }
-        
+
         /**
          * By default, ResourcesPanel has its components ordered in one column.
-         * With this method, we remove all the components form ResourcePanel
-         * and we put them again just like we want.
+         * With this method, we remove all the components form ResourcePanel and
+         * we put them again just like we want.
          * 
          */
-        private void reorganizeResourcesPanel(ResourcesPanel r){
-            
+        private void reorganizeResourcesPanel( ResourcesPanel r ) {
+
             Component components[] = r.getComponents( );
             r.removeAll( );
             GridBagConstraints c = new GridBagConstraints( );
@@ -175,21 +174,21 @@ public class BookAppPanel extends JPanel {
             c.gridy = 0;
             c.gridwidth = 2;
             c.gridheight = 1;
-            
+
             r.add( components[0], c );
-            
+
             int k = 1;
             c.gridwidth = 1;
             c.weightx = 0.5;
-            for(int i = 1; i < 3; i++)
-                for(int j = 0; j < 2; j++){
+            for( int i = 1; i < 3; i++ )
+                for( int j = 0; j < 2; j++ ) {
                     c.gridx = j;
                     c.gridy = i;
                     r.add( components[k], c );
                     components[k].repaint( );
                     k++;
                 }
-            
-         }
+
+        }
     }
 }

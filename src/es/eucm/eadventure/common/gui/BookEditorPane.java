@@ -31,51 +31,53 @@
 package es.eucm.eadventure.common.gui;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.JEditorPane;
 import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.EditorKit;
-import javax.swing.text.Element;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.View;
-import javax.swing.text.ViewFactory;
-import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.html.ImageView;
 
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.AssetsController.TempFileGenerator;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
+/**
+ * Editor pane adapted for the correct render of html images.
+ * 
+ * @author Ángel S.
+ * 
+ */
 public class BookEditorPane extends JEditorPane {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
-    private final int REAL_WIDTH = 800;
-
-    private final int REAL_HEIGHT = 600;
-
+    /**
+     * Current book page represented.
+     */
     private BookPage currentBookPage;
 
-    private URL documentBase;
-
+    /**
+     * Constructor
+     * 
+     * @param autoSaved
+     *            Determines if the htmlImage must be exported when it changes
+     */
     public BookEditorPane( ) {
 
         this.setEditorKit( new BookHTMLEditorKit( ) );
-        updateBounds( );
+        setBounds( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         setOpaque( false );
         setEditable( false );
     }
@@ -84,23 +86,17 @@ public class BookEditorPane extends JEditorPane {
 
         this( );
         this.currentBookPage = currentBookP;
-
     }
 
+    /**
+     * Set document base. It will be used while html render
+     * 
+     * @param documentBase
+     *            URL of the document base
+     */
     public void setDocumentBase( URL documentBase ) {
 
-        this.documentBase = documentBase;
-    }
-
-    public void updateBounds( ) {
-
-        try {
-            setBounds( currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), GUI.WINDOW_WIDTH - currentBookPage.getMargin( ) - currentBookPage.getMarginEnd( ), GUI.WINDOW_HEIGHT - currentBookPage.getMarginTop( ) - currentBookPage.getMarginBottom( ) );
-        }
-        catch( NullPointerException e ) {
-            setBounds( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
-
-        }
+        ( (HTMLDocument) getDocument( ) ).setBase( documentBase );
     }
 
     /**
@@ -119,15 +115,56 @@ public class BookEditorPane extends JEditorPane {
     public void paint( Graphics g, int x, int y, int width, int height ) {
 
         if( width != 0 && height != 0 ) {
+            BufferedImage temp = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB );
+            super.paint( temp.createGraphics( ) );
 
-            BufferedImage b = new BufferedImage( getWidth( ), getHeight( ), BufferedImage.TYPE_INT_ARGB );
-            Graphics2D g2 = (Graphics2D) b.getGraphics( );
-            super.paint( g2 );
-            int widthScale = Math.round( ( width * getWidth( ) ) / REAL_WIDTH );
-            int heightScale = ( height * getHeight( ) ) / REAL_HEIGHT;
+            Image i = temp.getScaledInstance( width, height, Image.SCALE_SMOOTH );
 
-            g.drawImage( b.getScaledInstance( widthScale, heightScale, Image.SCALE_SMOOTH ), x, y, null );
+            g.drawImage( i, x, y, this );
         }
+
+    }
+    
+    @Override
+    public void paint( Graphics g ){
+        
+    }
+
+    public void export( ) {
+
+        BufferedImage temp = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB );
+        super.paint( temp.getGraphics( ) );
+        Image im2 = temp.getScaledInstance( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, Image.SCALE_SMOOTH );
+        temp.getGraphics( ).drawImage( im2, 0, 0, this );
+
+    }
+
+    private void exportImage( Image im ) {
+
+        String filePath = TempFileGenerator.generateTempFileOverwriteExisting( currentBookPage.getImageName( false ), "png" );
+
+        File f = new File( filePath );
+        try {
+            BufferedImage ex = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB );
+            ex.getGraphics( ).drawImage( im, 0, 0, null );
+            ImageIO.write( ex, "png", f );
+        }
+        catch( IOException e ) {
+            e.printStackTrace( );
+        }
+
+        AssetsController.addSingleAsset( AssetsController.CATEGORY_IMAGE, filePath, false );
+    }
+
+    @Override
+    public boolean imageUpdate( Image img, int infoflags, int x, int y, int width, int height ) {
+
+        //System.out.println( infoflags );
+        /*if( infoflags == ImageObserver.FRAMEBITS && currentBookPage.getType( ) == BookPage.TYPE_RESOURCE ) {
+            exportImage( img );
+        }*/
+        return super.imageUpdate( img, infoflags, x, y, width, height );
+
     }
 
     @Override
@@ -151,17 +188,14 @@ public class BookEditorPane extends JEditorPane {
         }
     }
 
+    /**
+     * HTMLEditor to solve problem with meta charset tag in html documents.
+     * 
+     * @author Ángel S.
+     */
     private class BookHTMLEditorKit extends HTMLEditorKit {
 
         private static final long serialVersionUID = 1L;
-
-        private BookHTMLFactory factory = new BookHTMLFactory( );
-
-        @Override
-        public ViewFactory getViewFactory( ) {
-
-            return factory;
-        }
 
         @Override
         public void read( Reader in, Document doc, int pos ) throws IOException, BadLocationException {
@@ -177,7 +211,6 @@ public class BookEditorPane extends JEditorPane {
                 }
 
                 ParserCallback receiver = hdoc.getReader( pos );
-                //Boolean ignoreCharset = (Boolean)doc.getProperty("IgnoreCharsetDirective");
                 Boolean ignoreCharset = true;
                 p.parse( in, receiver, ( ignoreCharset == null ) ? false : ignoreCharset.booleanValue( ) );
                 receiver.flush( );
@@ -186,66 +219,5 @@ public class BookEditorPane extends JEditorPane {
                 super.read( in, doc, pos );
             }
         }
-
-        private class BookHTMLFactory extends HTMLFactory {
-
-            @Override
-            public View create( Element elem ) {
-
-                Object o = elem.getAttributes( ).getAttribute( StyleConstants.NameAttribute );
-                if( o instanceof HTML.Tag ) {
-                    HTML.Tag kind = (HTML.Tag) o;
-                    if( kind == HTML.Tag.IMG )
-                        return new MyImageView( elem );
-                    else if( kind == HTML.Tag.LINK ) {
-                        System.out.println( );
-                    }
-                    else if( kind == HTML.Tag.META ) {
-                        return null;
-                    }
-                }
-                return super.create( elem );
-            }
-
-            /**
-             * View for HTML element. In this class, we redefine the method
-             * getImageURL. Thus, we tell to HTMLFactory that right document
-             * base to load the image correctly.
-             * 
-             * @author Ángel S.
-             * 
-             */
-            private class MyImageView extends ImageView {
-
-                public MyImageView( Element elem ) {
-
-                    super( elem );
-                }
-
-                @Override
-                public URL getImageURL( ) {
-
-                    String src = (String) getElement( ).getAttributes( ).getAttribute( HTML.Attribute.SRC );
-                    if( src == null ) {
-                        return null;
-                    }
-
-                    URL reference = ( (HTMLDocument) getDocument( ) ).getBase( );
-
-                    if( reference == null )
-                        reference = documentBase;
-
-                    try {
-                        URL u = new URL( reference, src );
-                        return u;
-                    }
-                    catch( MalformedURLException e ) {
-                        return null;
-                    }
-                }
-
-            }
-        }
-
     }
 }

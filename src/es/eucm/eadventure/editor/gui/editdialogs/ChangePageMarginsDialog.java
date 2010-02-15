@@ -260,7 +260,6 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
 
         //if( setChanges ) {
         this.bookPagesList.setMargins( marginSlider.getValue( ), -marginTopSlider.getValue( ), marginBottomSlider.getValue( ), -marginEndSlider.getValue( ) );
-        bookPagePreview.updateBounds( );
         bookPagePreview.updateUI( );
         bookPagePreview.repaint( );
         //}

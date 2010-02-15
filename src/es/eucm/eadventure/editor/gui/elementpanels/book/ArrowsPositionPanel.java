@@ -1,34 +1,33 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
  * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, availabe at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package es.eucm.eadventure.editor.gui.elementpanels.book;
 
 import java.awt.Dimension;
@@ -51,8 +50,9 @@ import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookArrowPositionPre
 
 /**
  * This panel contains the spinners and buttons for set the arrows position
+ * 
  * @author Ángel S.
- *
+ * 
  */
 public class ArrowsPositionPanel extends JPanel {
 
@@ -60,177 +60,203 @@ public class ArrowsPositionPanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = 1L;
-    
+
     private BookArrowPositionPreviewPanel bookPreview;
-    
-    private JSpinner xPreviousPageSpinner = new JSpinner( ), 
-                     yPreviousPageSpinner = new JSpinner( ), 
-                     xNextPageSpinner = new JSpinner( ), 
-                     yNextPageSpinner = new JSpinner( );
-    
-    private final static int SPINNER_LEFT = 0, SPINNER_RIGHT = 1, SPINNER_X = 2, SPINNER_Y = 3;
+
+    private JSpinner xPreviousPageSpinner = new JSpinner( ),
+            yPreviousPageSpinner = new JSpinner( ),
+            xNextPageSpinner = new JSpinner( ),
+            yNextPageSpinner = new JSpinner( );
+
+    private final static int SPINNER_LEFT = 0,
+            SPINNER_RIGHT = 1, SPINNER_X = 2,
+            SPINNER_Y = 3;
 
     public ArrowsPositionPanel( BookArrowPositionPreviewPanel bPreview ) {
 
         bookPreview = bPreview;
         //this.setPreferredSize( new Dimension ( 300, 200 ) );
-        xPreviousPageSpinner.setMinimumSize( new Dimension(100, 20) );
-        yPreviousPageSpinner.setMinimumSize( new Dimension(100, 20) );
-        xNextPageSpinner.setMinimumSize( new Dimension(100, 20) );
-        yNextPageSpinner.setMinimumSize( new Dimension(100, 20) );
-        
+        xPreviousPageSpinner.setMinimumSize( new Dimension( 200, 20 ) );
+        yPreviousPageSpinner.setMinimumSize( new Dimension( 200, 20 ) );
+        xNextPageSpinner.setMinimumSize( new Dimension( 200, 20 ) );
+        yNextPageSpinner.setMinimumSize( new Dimension( 200, 20 ) );
+
         this.setLayout( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
-        
+
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
         c.weightx = 1;
-        
-        
+
         c.gridy = 0;
         c.weighty = 0.01;
-        this.add( getButtonPanel( ), c);
-        
+        this.add( getButtonPanel( ), c );
+
         c.gridy = 1;
         c.weighty = 1;
 
     }
-    
-    private JPanel getButtonPanel( ){
+
+    private JPanel getButtonPanel( ) {
+
         JPanel buttonPanel = new JPanel( new GridBagLayout( ) );
-        
-        JButton bDefaultPosition = new JButton ( TC.get( "Arrows.DefaultPosition" ) );
-        bDefaultPosition.addActionListener( new ActionListener( ){
+
+        JButton bDefaultPosition = new JButton( TC.get( "Arrows.DefaultPosition" ) );
+        bDefaultPosition.addActionListener( new ActionListener( ) {
+
             public void actionPerformed( ActionEvent e ) {
+
                 bookPreview.setDefaultArrowsPosition( );
-                updateSpinners( );
+                updateSpinners( false );
+                setAddTool( true );
                 bookPreview.repaint( );
             }
-        });
-        
+        } );
+
         GridBagConstraints c = new GridBagConstraints( );
         c.fill = GridBagConstraints.BOTH;
         c.gridheight = 1;
         c.gridwidth = 2;
         c.gridx = 0;
         c.gridy = 0;
-        
-        buttonPanel.add(  bDefaultPosition, c );
-        // TODO Labels strings
+
+        buttonPanel.add( bDefaultPosition, c );
+
         // Previous page panel
         JPanel previousPagePanel = new JPanel( new GridBagLayout( ) );
         previousPagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Previous page" ) );
         GridBagConstraints c2 = new GridBagConstraints( );
-        
+
         c2.gridx = 0;
         c2.gridy = 0;
         previousPagePanel.add( new JLabel( TC.get( "SPEP.XCoordinate" ) ), c2 );
-        
-        xPreviousPageSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_LEFT ) );
+
         c2.gridx = 1;
         c2.gridy = 0;
         previousPagePanel.add( xPreviousPageSpinner, c2 );
-        
+
         c2.gridx = 0;
         c2.gridy = 1;
-        previousPagePanel.add( new JLabel(TC.get( "SPEP.YCoordinate" )  ), c2 );
-        
-        yPreviousPageSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_LEFT ) );
-        
+        previousPagePanel.add( new JLabel( TC.get( "SPEP.YCoordinate" ) ), c2 );
+
         c2.gridx = 1;
         c2.gridy = 1;
         previousPagePanel.add( yPreviousPageSpinner, c2 );
-        
+
         // Next page panel
         JPanel nextPagePanel = new JPanel( new GridBagLayout( ) );
         nextPagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Next page" ) );
         GridBagConstraints c3 = new GridBagConstraints( );
-        
+
         c3.gridx = 0;
         c3.gridy = 0;
-        nextPagePanel.add(  new JLabel( TC.get( "SPEP.XCoordinate" )), c3 );
-        
-        xNextPageSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_RIGHT ) );
-        
+        nextPagePanel.add( new JLabel( TC.get( "SPEP.XCoordinate" ) ), c3 );
+
         c3.gridx = 1;
         c3.gridy = 0;
         nextPagePanel.add( xNextPageSpinner, c3 );
-        
+
         c3.gridx = 0;
         c3.gridy = 1;
-        nextPagePanel.add(  new JLabel( TC.get( "SPEP.YCoordinate" )  ), c3 );
-        
-        yNextPageSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_RIGHT ) );
-        
+        nextPagePanel.add( new JLabel( TC.get( "SPEP.YCoordinate" ) ), c3 );
+
         c3.gridx = 1;
         c3.gridy = 1;
         nextPagePanel.add( yNextPageSpinner, c3 );
-        
+
         // Add panels to main panel
         c.gridx = 0;
         c.gridy = 1;
         buttonPanel.add( previousPagePanel, c );
-        
+
         c.gridx = 0;
         c.gridy = 2;
-        buttonPanel.add(  nextPagePanel, c );
-        
-        updateSpinners( );
-        
+        buttonPanel.add( nextPagePanel, c );
+
+        updateSpinners( false );
+        setAddTool( true );
+
+        yPreviousPageSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_LEFT ) );
+        xNextPageSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_RIGHT ) );
+        yNextPageSpinner.addChangeListener( new CoordinateChange( SPINNER_Y, SPINNER_RIGHT ) );
+        xPreviousPageSpinner.addChangeListener( new CoordinateChange( SPINNER_X, SPINNER_LEFT ) );
+
         return buttonPanel;
     }
-    
-    public void updateSpinners( ){
+
+    public void updateSpinners( boolean addTool ) {
+
+        setAddTool( addTool );
         xPreviousPageSpinner.setValue( bookPreview.getPreviousPagePosition( ).x );
         yPreviousPageSpinner.setValue( bookPreview.getPreviousPagePosition( ).y );
         xNextPageSpinner.setValue( bookPreview.getNextPagePosition( ).x );
         yNextPageSpinner.setValue( bookPreview.getNextPagePosition( ).y );
     }
-    
-    private class CoordinateChange implements ChangeListener {
-        
+
+    public void setAddTool( boolean addTool ) {
+
+        ArrowsPositionPanel.addTool = addTool;
+    }
+
+    private static boolean addTool = false;
+
+    public class CoordinateChange implements ChangeListener {
+
         private int coordinate;
+
         private int side;
-        
-        public CoordinateChange( int coordinate, int side ){
+
+        public CoordinateChange( int coordinate, int side ) {
+
             this.coordinate = coordinate;
             this.side = side;
         }
 
         public void stateChanged( ChangeEvent e ) {
-            int value = (Integer) ((JSpinner) e.getSource( )).getValue( );
+
+            int value = (Integer) ( (JSpinner) e.getSource( ) ).getValue( );
             update( value );
-            
+
         }
-        
-        private void update( int value ){
-            if ( side == SPINNER_LEFT ){
+
+        private void update( int value ) {
+
+            if( side == SPINNER_LEFT ) {
                 Point p = bookPreview.getPreviousPagePosition( );
-                if ( coordinate == SPINNER_X ){
-                    bookPreview.setPreviousPagePosition( value, p.y );
-                    updateSpinners( );
+                Point oldP = (Point) p.clone( );
+                if( coordinate == SPINNER_X ) {
+                    p.x = value;
                 }
-                else if ( coordinate == SPINNER_Y ){
-                    bookPreview.setPreviousPagePosition( p.x, value );
-                    updateSpinners( );
+                else if( coordinate == SPINNER_Y ) {
+                    p.y = value;
                 }
+                if( addTool ) {
+                    bookPreview.setPreviousPagePosition( (Point) p.clone( ), oldP );
+                }
+                else
+                    bookPreview.setPreviousPagePosition( p.x, p.y );
             }
-            else if ( side == SPINNER_RIGHT ){
+            else if( side == SPINNER_RIGHT ) {
                 Point p = bookPreview.getNextPagePosition( );
-                if ( coordinate == SPINNER_X ){
-                    bookPreview.setNextPagePosition( value, p.y );
-                    updateSpinners( );
+                Point oldP = (Point) p.clone( );
+                if( coordinate == SPINNER_X ) {
+                    p.x = value;
                 }
-                else if ( coordinate == SPINNER_Y ){
-                    bookPreview.setNextPagePosition( p.x, value );
-                    updateSpinners( );
+                else if( coordinate == SPINNER_Y ) {
+                    p.y = value;
                 }
+                if( addTool ) {
+                    bookPreview.setNextPagePosition( (Point) p.clone( ), oldP );
+                }
+                else
+                    bookPreview.setNextPagePosition( p.x, p.y );
             }
+
+            updateSpinners( false );
+            setAddTool( true );
             bookPreview.repaint( );
         }
-        
+
     }
-    
-    
 
 }
