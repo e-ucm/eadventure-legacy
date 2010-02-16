@@ -292,7 +292,7 @@ public class FunctionalBookPage extends JPanel {
         if( image != null )
             g.drawImage( image, bookPage.getMargin( ), bookPage.getMarginTop( ), this.getWidth( ) - bookPage.getMarginEnd( ), this.getHeight( ) - bookPage.getMarginBottom( ), 0, 0, image.getWidth( null ), image.getHeight( null ), null );
         else if( editorPane != null )
-            editorPane.paint( g, bookPage.getMargin( ), bookPage.getMarginTop( ), getWidth( ), getHeight( ) );
+            editorPane.paint( g, bookPage.getMargin( ), bookPage.getMarginTop( ), getWidth( ) - bookPage.getMarginEnd( ), getHeight( ) - bookPage.getMarginBottom( ) );
         if( currentArrowLeft != null && currentArrowRight != null ) {
             if( !fBook.isInFirstPage( ) )
                 g.drawImage( currentArrowLeft, previousPage.x, previousPage.y, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
