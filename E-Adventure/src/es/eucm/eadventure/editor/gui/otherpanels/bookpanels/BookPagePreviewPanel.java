@@ -145,6 +145,10 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
         setCurrentBookPage( initPage );
     }
+    
+    public BookEditorPane getBookEditorPane( ){
+        return editorPane;
+    }
 
     /**
      * Set the current page of the using its index
@@ -172,6 +176,10 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
             return false;
     }
 
+    public boolean setCurrentBookPage( BookPage bookPage ){
+        return setCurrentBookPage( bookPage, false );
+    }
+    
     /**
      * Set the current page of the using the page itself
      * 
@@ -179,8 +187,8 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
      *            The book page.
      * @return true if it was possible to set the page, false otherwise
      */
-    public boolean setCurrentBookPage( BookPage bookPage ) {
-
+    public boolean setCurrentBookPage( BookPage bookPage, boolean export ) {
+        
         currentBookPage = bookPage;
         if( currentBookPage != null ) {
 
@@ -189,7 +197,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
                 imagePage = null;
             }
             else if( currentBookPage.getType( ) == BookPage.TYPE_RESOURCE ) {
-                isValid = createResourcePage( currentBookPage );
+                isValid = createResourcePage( currentBookPage, export );
                 imagePage = null;
             }
 
@@ -225,9 +233,10 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
         return isValid;
     }
 
-    private boolean createResourcePage( BookPage bookPage ) {
+    private boolean createResourcePage( BookPage bookPage, boolean export ) {
 
         editorPane = new BookEditorPane( currentBookPage );
+        editorPane.setExport( export );
 
         URL url = AssetsController.getResourceAsURLFromZip( bookPage.getUri( ) );
         String ext = url.getFile( ).substring( url.getFile( ).lastIndexOf( '.' ) + 1, url.getFile( ).length( ) ).toLowerCase( );

@@ -80,6 +80,8 @@ public class FunctionalBookPage extends JPanel {
 
     private BookEditorPane editorPane;
 
+    private boolean htmlToImage = false;
+
     public FunctionalBookPage( Image background ) {
 
         this.background = background;
@@ -101,8 +103,8 @@ public class FunctionalBookPage extends JPanel {
         FunctionalBookMouseListener bookListener = new FunctionalBookMouseListener( );
         this.addMouseListener( bookListener );
         this.addMouseMotionListener( bookListener );
-        
-        switch( bookPage.getType( ) ){
+
+        switch( bookPage.getType( ) ) {
             case BookPage.TYPE_URL:
                 isValid = createURLPage( listenHyperLinks );
                 break;
@@ -135,11 +137,13 @@ public class FunctionalBookPage extends JPanel {
     }
 
     private boolean createImagePage( ) {
-         image = MultimediaManager.getInstance( ).loadImageFromZip( bookPage.getUri( ), MultimediaManager.IMAGE_SCENE );
-         return image != null;
+
+        image = MultimediaManager.getInstance( ).loadImageFromZip( bookPage.getUri( ), MultimediaManager.IMAGE_SCENE );
+        return image != null;
     }
 
     private boolean createResourcePage( ) {
+
         // Check if there is an image created for the representatio of this page
         image = MultimediaManager.getInstance( ).loadImageFromZip( bookPage.getImageName( true ), MultimediaManager.IMAGE_SCENE );
 
@@ -192,6 +196,9 @@ public class FunctionalBookPage extends JPanel {
                 isValid = true;
 
             }
+        }
+        else {
+            htmlToImage = true;
         }
 
         return isValid;
@@ -288,9 +295,14 @@ public class FunctionalBookPage extends JPanel {
 
     @Override
     public void paint( Graphics g ) {
+
         g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
-        if( image != null )
-            g.drawImage( image, bookPage.getMargin( ), bookPage.getMarginTop( ), this.getWidth( ) - bookPage.getMarginEnd( ), this.getHeight( ) - bookPage.getMarginBottom( ), 0, 0, image.getWidth( null ), image.getHeight( null ), null );
+        if( image != null ) {
+            if( htmlToImage )
+                g.drawImage( image, 0, 0, null );
+            else
+                g.drawImage( image, bookPage.getMargin( ), bookPage.getMarginTop( ), this.getWidth( ) - bookPage.getMarginEnd( ), this.getHeight( ) - bookPage.getMarginBottom( ), 0, 0, image.getWidth( null ), image.getHeight( null ), null );
+        }
         else if( editorPane != null )
             editorPane.paint( g, bookPage.getMargin( ), bookPage.getMarginTop( ), getWidth( ) - bookPage.getMarginEnd( ), getHeight( ) - bookPage.getMarginBottom( ) );
         if( currentArrowLeft != null && currentArrowRight != null ) {
@@ -298,7 +310,7 @@ public class FunctionalBookPage extends JPanel {
                 g.drawImage( currentArrowLeft, previousPage.x, previousPage.y, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
 
             if( !fBook.isInLastPage( ) )
-                g.drawImage( currentArrowRight, nextPage.x, nextPage.y, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
+                g.drawImage( currentArrowRight, nextPage.x, nextPage.y, currentArrowRight.getWidth( null ), currentArrowRight.getHeight( null ), null );
         }
         super.paint( g );
     }

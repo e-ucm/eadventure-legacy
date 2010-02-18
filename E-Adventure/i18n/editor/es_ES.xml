@@ -1579,6 +1579,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="Operation.FileLoadedWithErrorMessage">El proyecto se cargó parcialmente debido a la existencia de incidencias.</entry>
 <entry key="Adventure.ModePlayerTransparent.Description">No se muestra al jugador en pantalla</entry>
 <entry key="Conversation.OptionPreviewPartialConversation">Previsualizar nodo seleccionado</entry>
+<entry key="Export.Book">Exportar libro HTML</entry>
 <entry key="LOM.Duration.InvalidValue.Message">El valor introducido no es válido para {#0}. Por favor, escriba un número entero positivo o déjelo en blanco.</entry>
 <entry key="Resources.DescriptionCharacterAnimationUseRight">Objeto a su derecha</entry>
 <entry key="TreeNode.AddElement251">Añadir acción "Arrastrar a"</entry>
