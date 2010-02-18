@@ -65,6 +65,7 @@ import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.ExportBookDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPagePreviewPanel;
 
@@ -124,6 +125,8 @@ public class BookPagesPanel extends JPanel {
         previewPanelContainer.setLayout( new BorderLayout( ) );
         bookPanel = new BookPagePreviewPanel( dataControl, false,  pagesTable );
 
+        JPanel bottomPanel = new JPanel( );
+        
         JButton previewButton = new JButton( TC.get( "Book.Preview" ) );
         previewButton.addActionListener( new ActionListener( ) {
 
@@ -133,8 +136,21 @@ public class BookPagesPanel extends JPanel {
                 dialog.setVisible( true );
             }
         } );
+        
+        JButton exportButton = new JButton( TC.get( "Export.Book" ) );
+        exportButton.addActionListener( new ActionListener( ) {
 
-        previewPanelContainer.add( previewButton, BorderLayout.SOUTH );
+            public void actionPerformed( ActionEvent e ) {
+
+                ExportBookDialog dialog = new ExportBookDialog( dataControl );
+                dialog.setVisible( true );
+            }
+        } );
+
+        bottomPanel.add( previewButton );
+        bottomPanel.add( exportButton );
+        
+        previewPanelContainer.add( bottomPanel, BorderLayout.SOUTH );
         updateSelectedPage( );
 
         previewPanelContainer.setMinimumSize( new Dimension( 100, 150 ) );

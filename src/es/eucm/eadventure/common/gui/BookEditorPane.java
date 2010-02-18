@@ -33,6 +33,7 @@ package es.eucm.eadventure.common.gui;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
@@ -67,6 +68,8 @@ public class BookEditorPane extends JEditorPane {
      * Current book page represented.
      */
     private BookPage currentBookPage;
+    
+    private boolean export = false;
 
     /**
      * Constructor
@@ -80,6 +83,10 @@ public class BookEditorPane extends JEditorPane {
         setBounds( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         setOpaque( false );
         setEditable( false );
+    }
+    
+    public void setExport( boolean export ){
+        this.export = export;
     }
 
     public BookEditorPane( BookPage currentBookP ) {
@@ -117,7 +124,6 @@ public class BookEditorPane extends JEditorPane {
         if( width != 0 && height != 0 ) {
             BufferedImage temp = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB );
             super.paint( temp.createGraphics( ) );
-
             Image i = temp.getScaledInstance( width, height, Image.SCALE_SMOOTH );
 
             g.drawImage( i, x, y, this );
@@ -130,15 +136,6 @@ public class BookEditorPane extends JEditorPane {
         
     }
 
-    public void export( ) {
-
-        BufferedImage temp = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB );
-        super.paint( temp.getGraphics( ) );
-        Image im2 = temp.getScaledInstance( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, Image.SCALE_SMOOTH );
-        temp.getGraphics( ).drawImage( im2, 0, 0, this );
-
-    }
-
     private void exportImage( Image im ) {
 
         String filePath = TempFileGenerator.generateTempFileOverwriteExisting( currentBookPage.getImageName( false ), "png" );
@@ -146,7 +143,7 @@ public class BookEditorPane extends JEditorPane {
         File f = new File( filePath );
         try {
             BufferedImage ex = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB );
-            ex.getGraphics( ).drawImage( im, 0, 0, null );
+            ex.getGraphics( ).drawImage( im, currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), null );
             ImageIO.write( ex, "png", f );
         }
         catch( IOException e ) {
@@ -158,11 +155,10 @@ public class BookEditorPane extends JEditorPane {
 
     @Override
     public boolean imageUpdate( Image img, int infoflags, int x, int y, int width, int height ) {
-
-        //System.out.println( infoflags );
-        /*if( infoflags == ImageObserver.FRAMEBITS && currentBookPage.getType( ) == BookPage.TYPE_RESOURCE ) {
+        System.out.println( infoflags );
+        if( export && infoflags == ImageObserver.FRAMEBITS && currentBookPage.getType( ) == BookPage.TYPE_RESOURCE ) {       
             exportImage( img );
-        }*/
+        }
         return super.imageUpdate( img, infoflags, x, y, width, height );
 
     }
