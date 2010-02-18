@@ -155,7 +155,7 @@ public class BookEditorPane extends JEditorPane {
 
     @Override
     public boolean imageUpdate( Image img, int infoflags, int x, int y, int width, int height ) {
-        System.out.println( infoflags );
+        //System.out.println( infoflags );
         if( export && infoflags == ImageObserver.FRAMEBITS && currentBookPage.getType( ) == BookPage.TYPE_RESOURCE ) {       
             exportImage( img );
         }
