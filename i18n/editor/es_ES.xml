@@ -9,6 +9,8 @@
 <entry key="Operation.RenameAtrezzoTitle">Renombrar objeto de atrezo</entry>
 <entry key="Operation.AddChapterTitle">Añadir nuevo capítulo</entry>
 <entry key="MenuAdventure.ModePlayerVisible">Modo jugador visible</entry>
+<entry key="Export.Book.Error">No se ha creado ninguna página. La exportación no es posible.</entry>
+<entry key="Export.Book.Info">Se exportará el libro. Cuándo la imagen de cada página esté totalmente cargada, pulse el botón de exportación</entry>
 <entry key="Scene.Title">Escena</entry>
 <entry key="Operation.RenameCutsceneTitle">Renombrar escena intermedia</entry>
 <entry key="CustomAction.SelectTypeTitle">Elija el tipo de la acción personalizada</entry>

@@ -37,6 +37,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TC;
@@ -88,20 +89,44 @@ public class ExportBookDialog extends ToolManagableDialog {
         exportButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
-                while( numPag < pages.size( ) && pages.get( numPag ).getType( ) != BookPage.TYPE_RESOURCE ) {
-                    numPag++;
-                }
-                if( numPag >= pages.size( ) )
-                    ExportBookDialog.this.setVisible( false );
-                else {
-                    bookPreview.setCurrentBookPage( pages.get( numPag++ ), true );
-                }
+
+                changePage( );
             }
 
         } );
         add( exportButton, BorderLayout.SOUTH );
 
         pack( );
+    }
+
+    private void changePage( ) {
+
+        while( numPag < pages.size( ) && pages.get( numPag ).getType( ) != BookPage.TYPE_RESOURCE ) {
+            numPag++;
+        }
+        if( numPag >= pages.size( ) )
+            ExportBookDialog.this.setVisible( false );
+        else {
+            bookPreview.setCurrentBookPage( pages.get( numPag++ ), true );
+        }
+    }
+
+    @Override
+    public void setVisible( boolean visible ) {
+
+        if( pages.size( ) > 0 ) {
+
+            if( visible ) {
+                changePage( );
+                GenericOptionPaneDialog.showMessageDialog( Controller.getInstance( ).peekWindow( ), TC.get( "Export.Book" ), TC.get( "Export.Book.Info" ), JOptionPane.INFORMATION_MESSAGE );
+            }
+
+            super.setVisible( visible );
+        }
+        else {
+            GenericOptionPaneDialog.showMessageDialog( Controller.getInstance( ).peekWindow( ), TC.get( "Export.Book" ), TC.get( "Export.Book.Error" ), JOptionPane.INFORMATION_MESSAGE );
+            super.setVisible( false );
+        }
     }
 
 }
