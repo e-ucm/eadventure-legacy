@@ -1576,6 +1576,8 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Adventure.ModePlayerTransparent.Description">When this mode is selected, the player is not painted in the game, as if the user were directly embedded in the game. This mode is suitable for the production of Myst-like adventure games.</entry>
 <entry key="Conversation.OptionPreviewPartialConversation">Preview from selected node</entry>
 <entry key="Export.Book">Export HTML book</entry>
+<entry key="Export.Book.Info">Book will be exported. When the image of each page is totally completed, click on export button.</entry>
+<entry key="Export.Book.Error">Book doesn't contain any pages. Export is not enabled.</entry>
 <entry key="LOM.Duration.InvalidValue.Message">The value introduced is not valid for {#0}. Please type a numeric positive value or leave it blank.</entry>
 <entry key="Resources.DescriptionCharacterAnimationUseRight">Object to the right</entry>
 <entry key="TreeNode.AddElement251">Add "Drag to" action</entry>
