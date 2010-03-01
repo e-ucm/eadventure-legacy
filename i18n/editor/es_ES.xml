@@ -9,8 +9,6 @@
 <entry key="Operation.RenameAtrezzoTitle">Renombrar objeto de atrezo</entry>
 <entry key="Operation.AddChapterTitle">Añadir nuevo capítulo</entry>
 <entry key="MenuAdventure.ModePlayerVisible">Modo jugador visible</entry>
-<entry key="Export.Book.Error">No se ha creado ninguna página. La exportación no es posible.</entry>
-<entry key="Export.Book.Info">Se exportará el libro. Cuándo la imagen de cada página esté totalmente cargada, pulse el botón de exportación</entry>
 <entry key="Scene.Title">Escena</entry>
 <entry key="Operation.RenameCutsceneTitle">Renombrar escena intermedia</entry>
 <entry key="CustomAction.SelectTypeTitle">Elija el tipo de la acción personalizada</entry>
@@ -703,6 +701,7 @@ función de estos estados</entry>
 <entry key="Operation.CreateAssessmentFile.Message">¿Está seguro de que quiere crear un nuevo perfil de adadptación?</entry>
 <entry key="CustomAction.GetNameMessage">Escriba el nombre de la acción personalizada</entry>
 <entry key="Search.PostEffect">Post-Efecto</entry>
+<entry key="Export.Book.Info">Se exportará el libro. Cuándo la imagen de cada página esté totalmente cargada, pulse el botón de exportación</entry>
 <entry key="SPEP.ShowCharacterReferences">Personajes</entry>
 <entry key="Operation.AddNextSceneTitle">Añadir enlace a siguiente escena</entry>
 <entry key="EffectsGroup.GameState">Cambios estado del juego</entry>
@@ -1012,6 +1011,7 @@ Dicha operación no se completó.</entry>
 <entry key="Effects.EffectNumberColumnTitle">#</entry>
 <entry key="BookPagesList.Content">Recurso</entry>
 <entry key="Inventory.Title">Inventario</entry>
+<entry key="Assessment.SMTPConfig.save">Guardar Configuración</entry>
 <entry key="LOMES.Educational.LearningResourceType29">Self assessment</entry>
 <entry key="Timer.EndConditions">Condiciones de desactivación del temporizador</entry>
 <entry key="LOMES.Educational.LearningResourceType28">Exam</entry>
@@ -1028,6 +1028,7 @@ Dicha operación no se completó.</entry>
 <entry key="LOM.Educational.Difficulty3">Difficult</entry>
 <entry key="StartDialog.CreateNew">Crear nuevo</entry>
 <entry key="LOMES.Educational.LearningResourceType21">Real or virtual learning environment</entry>
+<entry key="Export.Book.Error">No se ha creado ninguna página. La exportación no es posible.</entry>
 <entry key="LOM.Educational.Difficulty2">Medium</entry>
 <entry key="LOMES.Educational.LearningResourceType20">Open problem</entry>
 <entry key="LOM.Educational.Difficulty1">Easy</entry>
@@ -1756,8 +1757,8 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="IMS.Educational.LearningResourceType13">Self Assessment</entry>
 <entry key="LOM.General.Keyword">Keyword</entry>
 <entry key="IMS.Educational.LearningResourceType12">Problem Statement</entry>
-<entry key="IMS.Educational.LearningResourceType11">Experiment</entry>
 <entry key="MenuFile.LOMSCORMProperties">Propiedades de Objeto de Aprendizaje para paquetes SCORM 1.2 (IMS-LOM)</entry>
+<entry key="IMS.Educational.LearningResourceType11">Experiment</entry>
 <entry key="IMS.Educational.LearningResourceType10">Exam</entry>
 <entry key="ConversationLine.DefaultText">Nueva línea</entry>
 <entry key="ExitLook.TextPanelTitle">Etiqueta de la salida</entry>
