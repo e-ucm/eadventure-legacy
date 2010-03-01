@@ -563,7 +563,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 
         tempPanel.add( panel, BorderLayout.CENTER );
 
-        saveSmtpConfig = new JButton( "Save configuration" );
+        saveSmtpConfig = new JButton(TC.get( "Assessment.SMTPConfig.save" ));
         saveSmtpConfig.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
