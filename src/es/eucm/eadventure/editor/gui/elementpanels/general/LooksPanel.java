@@ -234,6 +234,7 @@ public abstract class LooksPanel extends JPanel implements Updateable {
                     updateResources( );
                     resourcesTable.updateUI( );
                     ( (AbstractTableModel) resourcesTable.getModel( ) ).fireTableDataChanged( );
+                   resourcesTable.changeSelection( dataControl.getResourcesCount( ) -1, 0, false, false );
                 }
             }
         }
@@ -269,6 +270,9 @@ public abstract class LooksPanel extends JPanel implements Updateable {
                 updateResources( );
                 ( (AbstractTableModel) resourcesTable.getModel( ) ).fireTableDataChanged( );
                 resourcesTable.changeSelection( dataControl.getResourcesCount( ) - 1, 0, false, false );
+                
+                
+               
             }
         }
     }
