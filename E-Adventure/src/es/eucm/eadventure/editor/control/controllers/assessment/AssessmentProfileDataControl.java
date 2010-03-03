@@ -43,7 +43,6 @@ import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeAssessmentProfileTypeTool;
@@ -96,11 +95,12 @@ public class AssessmentProfileDataControl extends DataControl {
             // Show a dialog asking for the ass rule id
             if( assRuleId == null )
                 assRuleId = controller.showInputDialog( TC.get( "Operation.AddAssessmentRuleTitle" ), TC.get( "Operation.AddAssessmentRuleMessage" ), TC.get( "Operation.AddAssessmentRuleDefaultValue" ) );
-
+            
             // If some value was typed and the identifier is valid
-            if( assRuleId != null && controller.isElementIdValid( assRuleId ) ) {
+            if( assRuleId != null && controller.isElementIdValid(assRuleId ) ) {
                 // Add thew new ass rule
                 AssessmentRule assRule = null;
+                
                 if( type == Controller.TIMED_ASSESSMENT_RULE ) {
                     assRule = new TimedAssessmentRule( assRuleId, AssessmentRule.IMPORTANCE_NORMAL );
                 }
@@ -115,6 +115,30 @@ public class AssessmentProfileDataControl extends DataControl {
             }
 
         }
+        return added;
+    }
+    
+    public DataControl getLastDatacontrol(){
+        return dataControls.get( dataControls.size()-1 );
+    }
+    
+    public boolean addElement( int type, String assRuleId, AssessmentRule assRule ) {
+
+        boolean added = false;
+
+        if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE ) {
+             // If some value was typed and the identifier is valid
+            if( assRuleId != null && controller.isElementIdValid( assRuleId ) ) {
+                // Add thew new ass rule 
+                this.profile.getRules( ).add( assRule );
+                dataControls.add( new AssessmentRuleDataControl( assRule, profile ) );
+                controller.getIdentifierSummary( ).addAssessmentRuleId( assRuleId, profile.getName() );
+                //controller.dataModified( );
+                added = true;
+            }
+        }
+
+       
         return added;
     }
 

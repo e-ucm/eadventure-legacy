@@ -33,7 +33,6 @@
  */
 package es.eucm.eadventure.editor.control.controllers.assessment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -536,14 +535,12 @@ public class AssessmentRuleDataControl extends DataControl {
         for (AssessmentProperty prop:assessmentRule.getAssessmentProperties( )){
             if (isSCORM12)
                 if ( !SCORMConfigData.isPartOfTheModel12( prop.getId( ) )){
-                    //TC 
-                    incidences.add( "Regla: "+currentRule+" la propiedad "+ prop.getId( )+ " no es parte del modelo de datos SCORM v1.2" );
+                    incidences.add( TC.get( "AssessmentRule.CheckRule.Rule" )+": "+currentRule+" "+TC.get( "AssessmentRule.CheckRule.Property")+" "+prop.getId( )+" "+TC.get( "AssessmentRule.CheckRule.Datav12" ) );
                     valid &= false;
                 }
-            if (isSCORM2004)
+            if (isSCORM2004)  
                 if ( !SCORMConfigData.isPartOfTheModel2004( prop.getId( ) )){
-                    //TC 
-                    incidences.add( "Regla: "+currentRule+" la propiedad "+ prop.getId( )+ " no es parte del modelo de datos SCORM 2004" );
+                    incidences.add( TC.get( "AssessmentRule.CheckRule.Rule" )+": "+currentRule+" "+TC.get( "AssessmentRule.CheckRule.Property")+" "+prop.getId( )+" "+TC.get( "AssessmentRule.CheckRule.Data2004" ) );
                     valid &= false;
                 }
         }
