@@ -1,12 +1,8 @@
 package es.eucm.eadventure.editor.control.tools.assessment;
 
-import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
-import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 public class RenameRuleTool extends Tool {
 

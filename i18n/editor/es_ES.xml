@@ -269,8 +269,9 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="ActionsList.ActionName">Acción</entry>
 <entry key="Operation.AddSceneTitle">Añadir nueva escena</entry>
 <entry key="Timer.Effects">Efectos a ejecutar si expira el temporizador</entry>
-<entry key="DefaultValue.AdventureTitle">Título de la aventura</entry>
+<entry key="AssessmentRule.CheckRule.Datav12">no es parte del modelo de datos SCORM v1.2</entry>
 <entry key="MenuFile.ExportStandalone">Exportar como fichero jar ejecutable</entry>
+<entry key="DefaultValue.AdventureTitle">Título de la aventura</entry>
 <entry key="ActionsList.CustomAction">Personalizada: {#0}</entry>
 <entry key="Effect.CancelAction">Cancelar acción</entry>
 <entry key="LOMES.Rights.AccesType1">Non-universal</entry>
@@ -1054,9 +1055,9 @@ Por favor escribe otro nombre.</entry>
 <entry key="LOMES.Educational.LearningResourceType15">Master class</entry>
 <entry key="Search.Path">Ubicación</entry>
 <entry key="RandomEffect.Title">Efecto con probabilidad</entry>
+<entry key="MenuFile.LOMESProperties">Propiedades de Objeto de Aprendizaje para paquetes AGREGA (LOM-ES)</entry>
 <entry key="LOMES.Educational.LearningResourceType14">Guided reading</entry>
 <entry key="ErrorReport.Comments">Por favor, utilice este espacio para escribir sus comentarios y sugerencias</entry>
-<entry key="MenuFile.LOMESProperties">Propiedades de Objeto de Aprendizaje para paquetes AGREGA (LOM-ES)</entry>
 <entry key="LOMES.Educational.LearningResourceType13">Tutorial</entry>
 <entry key="GeneralText.Replace">Reemplazar</entry>
 <entry key="LOMES.Educational.LearningResourceType12">Multimedia presentation</entry>
@@ -1331,6 +1332,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	es-ex Extremadura                                       es-eu País Vasco / Euskadi
 	es-ga Galicia                                           es-cb Cantabria
 	es-cv Comunidad Valenciana / Comunitat Valenciana</entry>
+<entry key="AssessmentRule.CheckRule.Rule">Regla</entry>
 <entry key="GeneralText.Information">Información</entry>
 <entry key="ScenesList.ItemsNumber">{#0} objetos</entry>
 <entry key="Resources.DescriptionCharacterAnimationUseLeft">Objeto a su izquierda</entry>
@@ -1776,6 +1778,8 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="Element.Name230">Personalizada</entry>
 <entry key="Adventure.AdventureTitle">Título de la aventura</entry>
 <entry key="Operation.ExportToLOM.DefaultValue">learningObject</entry>
+<entry key="AssessmentRule.CheckRule.Data2004">no es parte del modelo de datos SCORM 2004</entry>
+<entry key="AssessmentRule.CheckRule.Property">la propiedad</entry>
 <entry key="AssessmentProfile.Feedback.Title">Configuración de "feedback" al alumno</entry>
 <entry key="Cutscene.CutsceneEnd">Configuración del final</entry>
 <entry key="Effect.IncrementVar">Incrementar variable</entry>

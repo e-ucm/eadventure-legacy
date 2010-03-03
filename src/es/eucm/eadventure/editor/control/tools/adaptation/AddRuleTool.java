@@ -36,6 +36,7 @@ package es.eucm.eadventure.editor.control.tools.adaptation;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
@@ -53,6 +54,8 @@ public class AddRuleTool extends Tool {
     protected List<AssessmentRuleDataControl> oldAssessRules;
 
     protected String ruleId;
+    
+    protected DataControl newDataControl;
 
     protected int type;
 
@@ -86,19 +89,39 @@ public class AddRuleTool extends Tool {
         //Check there is at least one flag
         if( dataControl.canAddElement( type ) ) {
             String defaultId = dataControl.getDefaultId( type );
-            ruleId = defaultId;
             int count = 0;
-            if( type == Controller.ADAPTATION_RULE )
+            if( type == Controller.ADAPTATION_RULE ){
                 oldAdapRules = new ArrayList<AdaptationRuleDataControl>( ( (AdaptationProfileDataControl) dataControl ).getDataControls( ) );
-            if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE )
-                oldAssessRules = new ArrayList<AssessmentRuleDataControl>( ( (AssessmentProfileDataControl) dataControl ).getDataControls( ) );
-
-            while( !Controller.getInstance( ).isElementIdValid( ruleId, false ) ) {
-                count++;
-                ruleId = defaultId + count;
-
+                ruleId = ( (AdaptationProfileDataControl) dataControl ).getName( ) + "." + defaultId;
+                while( !Controller.getInstance( ).isElementIdValid( ruleId, false ) ) {
+                    count++;
+                    ruleId = ( (AdaptationProfileDataControl) dataControl ).getName( ) + "." + defaultId + count;
+                }
+           //     ruleId = ruleId.substring( ((AdaptationProfileDataControl) dataControl ).getName( ).length( ) + 1);
             }
-            return dataControl.addElement( type, ruleId );
+            if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE ){
+                oldAssessRules = new ArrayList<AssessmentRuleDataControl>( ( (AssessmentProfileDataControl) dataControl ).getDataControls( ) );
+                ruleId = ( (AssessmentProfileDataControl) dataControl ).getName( ) + "." + defaultId;
+                while( !Controller.getInstance( ).isElementIdValid( ruleId, false ) ) {
+                    count++;
+                    ruleId = ( (AssessmentProfileDataControl) dataControl ).getName( ) + "." + defaultId + count;
+                }
+                ruleId = ruleId.substring( ((AssessmentProfileDataControl) dataControl ).getName( ).length( ) + 1);
+            }
+            
+            
+            
+            boolean ret=dataControl.addElement( type, ruleId );
+            
+            
+          //  if( type == Controller.ADAPTATION_RULE )
+                
+            if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE )
+                newDataControl= ((AssessmentProfileDataControl)dataControl).getLastDatacontrol();
+
+            
+            
+            return ret;
 
         }
         return false;
@@ -116,7 +139,14 @@ public class AddRuleTool extends Tool {
                 count++;
                 id = defaultId + count;
             }
-            if( dataControl.addElement( type, id ) ) {
+            boolean ret=false;
+            //if( type == Controller.ADAPTATION_RULE )
+                
+            if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE )
+                ret =((AssessmentProfileDataControl)dataControl).addElement( type, id ,(AssessmentRule)newDataControl.getContent( )) ;    
+
+            
+            if( ret ) {
                 Controller.getInstance( ).updatePanel( );
                 return true;
             }
