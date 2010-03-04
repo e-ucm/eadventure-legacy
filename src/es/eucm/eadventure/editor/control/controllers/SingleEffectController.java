@@ -123,12 +123,14 @@ public class SingleEffectController extends EffectsController {
                 Controller.getInstance( ).showErrorDialog( TC.get( "Error.EffectMovePlayerNotAllowed.Title" ), TC.get( "Error.EffectMovePlayerNotAllowed.Message" ) );
             }
             else {
+               
                 effectProperties = EffectDialog.showAddEffectDialog( this, selectedType );
+                
             }
-
+       
             if( effectProperties != null ) {
                 AbstractEffect newEffect = null;
-
+                effectProperties.put( EffectsController.EFFECT_PROPERTY_TYPE, Integer.toString( selectedType ) );
                 newEffect = createNewEffect(effectProperties);
                 
 
