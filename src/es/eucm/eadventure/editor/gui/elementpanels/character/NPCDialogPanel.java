@@ -101,6 +101,8 @@ public class NPCDialogPanel extends JPanel {
 
     private JCheckBox showsSpeechBubbles;
 
+    private JButton playText;
+
     public NPCDialogPanel( NPCDataControl dataControl ) {
 
         this.dataControl = dataControl;
@@ -147,10 +149,16 @@ public class NPCDialogPanel extends JPanel {
         trySynthesizer = new JTextField( );
         voiceSelection.add( trySynthesizer );
         // Create a Button to take the text and try it in the synthesizer
-        JButton playText = new JButton( TC.get( "Synthesizer.ButtonPlay" ) );
+        playText = new JButton( TC.get( "Synthesizer.ButtonPlay" ) );
         playText.addActionListener( new VoiceButtonListener( ) );
         voiceSelection.add( playText );
-
+        
+        int selection = voicesComboBox.getSelectedIndex( );
+        boolean selectedVoice =selection !=0;
+        alwaysSynthesizer.setEnabled( selectedVoice ); 
+        trySynthesizer.setEnabled( selectedVoice );
+        playText.setEnabled( selectedVoice);
+        
         TitledBorder border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TC.get( "Synthesizer.BorderVoices" ), TitledBorder.LEFT, TitledBorder.TOP );
         voiceSelection.setBorder( border );
         add( voiceSelection, cDoc );
@@ -166,13 +174,22 @@ public class NPCDialogPanel extends JPanel {
         public void itemStateChanged( ItemEvent arg0 ) {
 
             int selection = voicesComboBox.getSelectedIndex( );
+            boolean enableCheckBox = selection !=0; 
+            boolean availableVoice = !(dataControl.getVoice().equals( new String("" )));
+                
+                if (availableVoice != enableCheckBox){
+                    alwaysSynthesizer.setEnabled( enableCheckBox);
+                    trySynthesizer.setText( "" );
+                    trySynthesizer.setEnabled( enableCheckBox);
+                    playText.setEnabled( enableCheckBox ); 
+                    }
             if( selection != 0 ) {
                 dataControl.setVoice( (String) voicesComboBox.getSelectedItem( ) );
             }
-            else
+            else{
                 dataControl.setVoice( new String( "" ) );
+            }
         }
-
     }
 
     /**
