@@ -29,7 +29,6 @@
  * You should have received a copy of the GNU General Public License along with
  * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  */
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
@@ -53,10 +52,7 @@ public class FunctionalBarrier {
             if( new FunctionalConditions( barrier.getConditions( ) ).allConditionsOk( ) ) {
                 float intersectionX = playerIntersectsBarrier( player, barrier, finalDestX, finalDestY );
                 if( intersectionX != Integer.MIN_VALUE ) {
-                    if( intersectionX < destX )
-                        finalDestX = (int) ( intersectionX - player.getWidth( ) / 2.0 );
-                    else if( intersectionX > destX )
-                        finalDestX = (int) ( intersectionX + player.getWidth( ) / 2.0 );
+                    finalDestX = (int) intersectionX;
                 }
             }
         }
@@ -91,7 +87,7 @@ public class FunctionalBarrier {
         return false;
     }
 
-    private static final float SEC_GAP = 5;
+    private static final float SEC_GAP = 1;
 
     private float playerIntersectsBarrier( FunctionalPlayer player, Barrier barrier, int targetX, int targetY ) {
 
@@ -114,13 +110,12 @@ public class FunctionalBarrier {
 
         // Direction vector
         float dx = targetX - px;
-
         // Determine closer side of the barrier
         float bx = Integer.MIN_VALUE;
-        if( dx > 0 ) {
+        if( px < Math.min( bx1, bx2 ) ) {
             bx = Math.min( bx1, bx2 );
         }
-        else if( dx < 0 ) {
+        else {
             bx = Math.max( bx1, bx2 );
         }
         //Up corner:
@@ -161,7 +156,7 @@ public class FunctionalBarrier {
             }
         }
 
-        if( !intersectsUp && !intersectsDown ) {
+        if( !intersectsUp && !intersectsDown && dx > 0 && px < bx ) {
             tx = ( bx - ucx2 ) / dx;
             if( tx >= 0 && tx <= 1 ) {
                 // Check y
@@ -183,6 +178,52 @@ public class FunctionalBarrier {
                 }
             }
         }
+        if( !intersectsUp && !intersectsDown && dx < 0 && px > bx ) {
+            tx = ( bx - ucx2 ) / dx;
+            if( tx >= 0 && tx <= 1 ) {
+                // Check y
+                if( ucy >= byh && ucy <= byl ) {
+                    intersectsUp = true;
+                    if( dx >= 0 )
+                        returnValue = ( bx - secGap );
+                    else
+                        returnValue = ( bx + secGap );
+                }
+                else {
+                    if( dcy >= byh && dcy <= byl )
+                        intersectsDown = true;
+                    if( dx >= 0 )
+                        returnValue = ( bx - secGap );
+                    else
+                        returnValue = ( bx + secGap );
+
+                }
+            }
+        }
+        if( returnValue == Integer.MIN_VALUE ) {
+            if( dx >= 0 ) {
+                if( targetX > px && targetX < ucx1 && ( ucx1 + ( targetX - px ) ) > bx ) {
+                    returnValue = ( bx - secGap );
+                }
+            }
+            else {
+                if( targetX < px && targetX > ucx1 && ( ucx1 - ( px - targetX ) ) < bx ) {
+                    returnValue = ( bx + secGap );
+                }
+            }
+        }
+        if( Math.abs( dx ) < SEC_GAP ) {
+            returnValue = Math.round( px );
+        }
+        if( returnValue > bx1 && returnValue < bx2 && ( ( ucy >= byh && ucy <= byl ) || ( ucy >= byh && ucy <= byl ) ) ) {
+            if( bx - returnValue > 0 ) {
+                returnValue += SEC_GAP + 1;
+            }
+            else {
+                returnValue -= SEC_GAP + 1;
+            }
+        }
+
         return returnValue;
     }
 
