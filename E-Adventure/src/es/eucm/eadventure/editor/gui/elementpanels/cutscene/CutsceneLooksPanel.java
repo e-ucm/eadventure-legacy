@@ -33,18 +33,18 @@
  */
 package es.eucm.eadventure.editor.gui.elementpanels.cutscene;
 
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
-
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
+import es.eucm.eadventure.gui.EAdPanel;
 
 public class CutsceneLooksPanel extends LooksPanel implements Updateable {
 
@@ -72,7 +72,7 @@ public class CutsceneLooksPanel extends LooksPanel implements Updateable {
         String imagePath = ( (CutsceneDataControl) dataControl ).getPreviewImage( );
         if( imagePath == null )
             imagePath = "";
-        JPanel previewPanel = new JPanel( );
+        EAdPanel previewPanel = new EAdPanel( );
         previewPanel.setLayout( new BorderLayout( ) );
         imagePanel = new ImagePanel( imagePath );
         previewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Book.Preview" ) ) );

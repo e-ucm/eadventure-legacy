@@ -42,12 +42,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
@@ -60,8 +55,13 @@ import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
+import es.eucm.eadventure.gui.EAdButton;
+import es.eucm.eadventure.gui.EAdPanel;
+import es.eucm.eadventure.gui.EAdScrollPane;
+import es.eucm.eadventure.gui.EAdTabbedPane;
+import es.eucm.eadventure.gui.EAdTextField;
 
-public class BarrierPanel extends JPanel {
+public class BarrierPanel extends EAdPanel {
 
     /**
      * Required.
@@ -83,11 +83,11 @@ public class BarrierPanel extends JPanel {
      */
     private ScenePreviewEditionPanel spep;
 
-    private JTabbedPane tabPanel;
+    private EAdTabbedPane tabPanel;
 
-    private JPanel docPanel;
+    private EAdPanel docPanel;
 
-    private JTextField nameTextField;
+    private EAdTextField nameTextField;
 
     /**
      * Constructor.
@@ -101,8 +101,8 @@ public class BarrierPanel extends JPanel {
         this.barrierDataControl = barrierDataControl;
 
         // Create the panels and layouts
-        tabPanel = new JTabbedPane( );
-        docPanel = new JPanel( );
+        tabPanel = new EAdTabbedPane( );
+        docPanel = new EAdPanel( );
         docPanel.setLayout( new GridBagLayout( ) );
         GridBagConstraints cDoc = new GridBagConstraints( );
 
@@ -116,22 +116,22 @@ public class BarrierPanel extends JPanel {
         cDoc.fill = GridBagConstraints.HORIZONTAL;
         cDoc.weightx = 1;
         cDoc.weighty = 0.3;
-        JPanel documentationPanel = new JPanel( );
+        EAdPanel documentationPanel = new EAdPanel( );
         documentationPanel.setLayout( new GridLayout( ) );
         documentationTextArea = new JTextArea( barrierDataControl.getDocumentation( ), 4, 0 );
         documentationTextArea.setLineWrap( true );
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) barrierDataControl.getContent( ) ) );
-        documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
+        documentationPanel.add( new EAdScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
         documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Barrier.Documentation" ) ) );
         docPanel.add( documentationPanel, cDoc );
 
         // Create the field for the name
         cDoc.gridy = 1;
         cDoc.weighty = 0;
-        JPanel namePanel = new JPanel( );
+        EAdPanel namePanel = new EAdPanel( );
         namePanel.setLayout( new GridLayout( ) );
-        nameTextField = new JTextField( this.barrierDataControl.getName( ) );
+        nameTextField = new EAdTextField( this.barrierDataControl.getName( ) );
         nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) barrierDataControl.getContent( ) ) );
         namePanel.add( nameTextField );
         namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Barrier.Name" ) ) );
@@ -153,9 +153,9 @@ public class BarrierPanel extends JPanel {
         add( tabPanel, BorderLayout.CENTER );
     }
 
-    private JPanel createMainPanel( ) {
+    private EAdPanel createMainPanel( ) {
 
-        JPanel mainPanel = new JPanel( );
+        EAdPanel mainPanel = new EAdPanel( );
         // Take the path of the background
         String scenePath = Controller.getInstance( ).getSceneImagePath( barrierDataControl.getParentSceneId( ) );
         spep = new ScenePreviewEditionPanel( false, scenePath );
@@ -173,9 +173,9 @@ public class BarrierPanel extends JPanel {
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1;
-        JPanel conditionsPanel = new JPanel( );
+        EAdPanel conditionsPanel = new EAdPanel( );
         conditionsPanel.setLayout( new GridLayout( ) );
-        JButton conditionsButton = new JButton( TC.get( "GeneralText.EditConditions" ) );
+        EAdButton conditionsButton = new EAdButton( TC.get( "GeneralText.EditConditions" ) );
         conditionsButton.addActionListener( new ConditionsButtonListener( ) );
         conditionsPanel.add( conditionsButton );
         conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Barrier.Conditions" ) ) );

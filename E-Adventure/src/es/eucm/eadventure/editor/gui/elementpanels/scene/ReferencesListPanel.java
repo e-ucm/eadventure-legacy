@@ -47,12 +47,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -77,8 +72,13 @@ import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
+import es.eucm.eadventure.gui.EAdButton;
+import es.eucm.eadventure.gui.EAdCheckBox;
+import es.eucm.eadventure.gui.EAdPanel;
+import es.eucm.eadventure.gui.EAdPopupMenu;
+import es.eucm.eadventure.gui.EAdSplitPane;
 
-public class ReferencesListPanel extends JPanel implements DataControlsPanel, Updateable {
+public class ReferencesListPanel extends EAdPanel implements DataControlsPanel, Updateable {
 
     /**
      * Required.
@@ -87,19 +87,19 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
 
     private static final int HORIZONTAL_SPLIT_POSITION = 140;
 
-    private JPanel tablePanel;
+    private EAdPanel tablePanel;
 
     private ElementReferencesTable table;
 
-    private JButton deleteButton;
+    private EAdButton deleteButton;
 
-    private JButton moveUpButton;
+    private EAdButton moveUpButton;
 
-    private JButton moveDownButton;
+    private EAdButton moveDownButton;
 
     private ScenePreviewEditionPanel spep;
 
-    private JSplitPane tableWithSplit;
+    private EAdSplitPane tableWithSplit;
 
     BasicSplitPaneDivider horizontalDivider;
 
@@ -107,7 +107,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
 
     private ReferencesListDataControl referencesListDataControl;
 
-    private JCheckBox isAllowPlayerLayer;
+    private EAdCheckBox isAllowPlayerLayer;
 
     /**
      * Constructor.
@@ -162,7 +162,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
             spep.setShowInfluenceArea( true );
         }
 
-        tableWithSplit = new JSplitPane( JSplitPane.VERTICAL_SPLIT, tablePanel, spep );
+        tableWithSplit = new EAdSplitPane( EAdSplitPane.VERTICAL_SPLIT, tablePanel, spep );
         tableWithSplit.setOneTouchExpandable( true );
         tableWithSplit.setDividerLocation( HORIZONTAL_SPLIT_POSITION );
         tableWithSplit.setContinuousLayout( true );
@@ -218,15 +218,15 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
     private void createReferencesTablePanel( ) {
 
         // Create the main panel
-        tablePanel = new JPanel( new BorderLayout( ) );
+        tablePanel = new EAdPanel( new BorderLayout( ) );
 
-        isAllowPlayerLayer = new JCheckBox( TC.get( "Scene.AllowPlayer" ), referencesListDataControl.getSceneDataControl( ).isAllowPlayer( ) );
+        isAllowPlayerLayer = new EAdCheckBox( TC.get( "Scene.AllowPlayer" ), referencesListDataControl.getSceneDataControl( ).isAllowPlayer( ) );
         //isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl().isAllowPlayer() );
         isAllowPlayerLayer.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
 
-                referencesListDataControl.getSceneDataControl( ).changeAllowPlayerLayer( ( (JCheckBox) arg0.getSource( ) ).isSelected( ), spep );
+                referencesListDataControl.getSceneDataControl( ).changeAllowPlayerLayer( ( (EAdCheckBox) arg0.getSource( ) ).isSelected( ), spep );
                 //spep.setDisplayCategory(int, true);
                 //spep.repaint();
             }
@@ -260,7 +260,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
             public void mouseClicked( MouseEvent evt ) {
 
                 if( evt.getButton( ) == MouseEvent.BUTTON3 ) {
-                    JPopupMenu menu = getCompletePopupMenu( );
+                    EAdPopupMenu menu = getCompletePopupMenu( );
                     menu.show( evt.getComponent( ), evt.getX( ), evt.getY( ) );
                 }
             }
@@ -277,8 +277,8 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         } );
 
         //Create the buttons panel (SOUTH)
-        JPanel buttonsPanel = new JPanel( );
-        JButton newButton = new JButton( new ImageIcon( "img/icons/addNode.png" ) );
+        EAdPanel buttonsPanel = new EAdPanel( );
+        EAdButton newButton = new EAdButton( new ImageIcon( "img/icons/addNode.png" ) );
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -288,11 +288,11 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
             @Override
             public void mouseClicked( MouseEvent evt ) {
 
-                JPopupMenu menu = getAddChildPopupMenu( );
+                EAdPopupMenu menu = getAddChildPopupMenu( );
                 menu.show( evt.getComponent( ), evt.getX( ), evt.getY( ) );
             }
         } );
-        deleteButton = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
+        deleteButton = new EAdButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -305,7 +305,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
             }
         } );
         deleteButton.setEnabled( false );
-        moveUpButton = new JButton( new ImageIcon( "img/icons/moveNodeUp.png" ) );
+        moveUpButton = new EAdButton( new ImageIcon( "img/icons/moveNodeUp.png" ) );
         moveUpButton.setContentAreaFilled( false );
         moveUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -318,7 +318,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
             }
         } );
         moveUpButton.setEnabled( false );
-        moveDownButton = new JButton( new ImageIcon( "img/icons/moveNodeDown.png" ) );
+        moveDownButton = new EAdButton( new ImageIcon( "img/icons/moveNodeDown.png" ) );
         moveDownButton.setContentAreaFilled( false );
         moveDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         moveDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -377,9 +377,9 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
      * 
      * @return Popup menu with child adding operations
      */
-    public JPopupMenu getAddChildPopupMenu( ) {
+    public EAdPopupMenu getAddChildPopupMenu( ) {
 
-        JPopupMenu addChildPopupMenu = new JPopupMenu( );
+        EAdPopupMenu addChildPopupMenu = new EAdPopupMenu( );
 
         // If the element accepts children
         if( referencesListDataControl.getAddableElements( ).length > 0 ) {
@@ -407,9 +407,9 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
      * 
      * @return Popup menu with all operations
      */
-    public JPopupMenu getCompletePopupMenu( ) {
+    public EAdPopupMenu getCompletePopupMenu( ) {
 
-        JPopupMenu completePopupMenu = getAddChildPopupMenu( );
+        EAdPopupMenu completePopupMenu = getAddChildPopupMenu( );
 
         // Separator
         completePopupMenu.addSeparator( );

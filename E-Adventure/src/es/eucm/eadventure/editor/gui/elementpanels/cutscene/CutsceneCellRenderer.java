@@ -35,12 +35,12 @@ package es.eucm.eadventure.editor.gui.elementpanels.cutscene;
 
 import java.awt.Component;
 
-import javax.swing.JPanel;
 import javax.swing.JTable;
 
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResizeableCellRenderer;
+import es.eucm.eadventure.gui.EAdPanel;
 
 public class CutsceneCellRenderer extends ResizeableCellRenderer {
 
@@ -49,7 +49,7 @@ public class CutsceneCellRenderer extends ResizeableCellRenderer {
     public Component getTableCellRendererComponent( JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column ) {
 
         if( value2 == null )
-            return new JPanel( );
+            return new EAdPanel( );
 
         value = (CutsceneDataControl) value2;
         name = ( (CutsceneDataControl) value2 ).getId( );
@@ -61,7 +61,7 @@ public class CutsceneCellRenderer extends ResizeableCellRenderer {
     public Component getTableCellEditorComponent( JTable table, Object value2, boolean isSelected, int row, int column ) {
 
         if( value2 == null )
-            return new JPanel( );
+            return new EAdPanel( );
 
         value = (CutsceneDataControl) value2;
         name = ( (CutsceneDataControl) value2 ).getId( );
