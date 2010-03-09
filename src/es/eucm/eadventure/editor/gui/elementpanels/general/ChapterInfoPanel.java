@@ -44,12 +44,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Described;
@@ -60,8 +55,13 @@ import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.TitleChangeListener;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.gui.EAdButton;
+import es.eucm.eadventure.gui.EAdComboBox;
+import es.eucm.eadventure.gui.EAdPanel;
+import es.eucm.eadventure.gui.EAdScrollPane;
+import es.eucm.eadventure.gui.EAdTextField;
 
-public class ChapterInfoPanel extends JPanel {
+public class ChapterInfoPanel extends EAdPanel {
 
     /**
      * Required.
@@ -76,7 +76,7 @@ public class ChapterInfoPanel extends JPanel {
     /**
      * Text field for the title.
      */
-    private JTextField titleTextField;
+    private EAdTextField titleTextField;
 
     /**
      * Text area for the description.
@@ -86,37 +86,37 @@ public class ChapterInfoPanel extends JPanel {
     /**
      * Button to select an assessment file.
      */
-    private JButton selectAssessmentButton;
+    private EAdButton selectAssessmentButton;
 
     /**
      * Button to delete the current assessment file.
      */
-    private JButton deleteAssessmentButton;
+    private EAdButton deleteAssessmentButton;
 
     /**
      * Text field containing the assessment path.
      */
-    private JTextField assessmentPathTextField;
+    private EAdTextField assessmentPathTextField;
 
     /**
      * Button to select an adaptation file.
      */
-    private JButton selectAdaptationButton;
+    private EAdButton selectAdaptationButton;
 
     /**
      * Button to delete the current adaptation file.
      */
-    private JButton deleteAdaptationButton;
+    private EAdButton deleteAdaptationButton;
 
     /**
      * Text field containing the adaptation path.
      */
-    private JTextField adaptationPathTextField;
+    private EAdTextField adaptationPathTextField;
 
     /**
      * Combo box for the selected initial scene.
      */
-    private JComboBox initialSceneComboBox;
+    private EAdComboBox initialSceneComboBox;
 
     /**
      * Constructor.
@@ -144,9 +144,9 @@ public class ChapterInfoPanel extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1;
 
-        JPanel titlePanel = new JPanel( );
+        EAdPanel titlePanel = new EAdPanel( );
         titlePanel.setLayout( new GridLayout( ) );
-        titleTextField = new JTextField( chapterDataControl.getTitle( ) );
+        titleTextField = new EAdTextField( chapterDataControl.getTitle( ) );
         titleTextField.getDocument( ).addDocumentListener( new TitleChangeListener( titleTextField, (Titled) chapterDataControl.getContent( ) ) );
         titlePanel.add( titleTextField );
         titlePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Chapter.ChapterTitle" ) ) );
@@ -154,18 +154,18 @@ public class ChapterInfoPanel extends JPanel {
 
         // Create the text area for the description
         c.gridy = 1;
-        JPanel descriptionPanel = new JPanel( );
+        EAdPanel descriptionPanel = new EAdPanel( );
         descriptionPanel.setLayout( new GridLayout( ) );
         descriptionTextArea = new JTextArea( chapterDataControl.getDescription( ), 4, 0 );
         descriptionTextArea.setLineWrap( true );
         descriptionTextArea.setWrapStyleWord( true );
         descriptionTextArea.getDocument( ).addDocumentListener( new DescriptionChangeListener( descriptionTextArea, (Described) chapterDataControl.getContent( ) ) );
-        descriptionPanel.add( new JScrollPane( descriptionTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
+        descriptionPanel.add( new EAdScrollPane( descriptionTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
         descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Chapter.Description" ) ) );
         add( descriptionPanel, c );
 
         // Create the assessment panel and set the border
-        JPanel assessmentPathPanel = new JPanel( );
+        EAdPanel assessmentPathPanel = new EAdPanel( );
         assessmentPathPanel.setLayout( new GridBagLayout( ) );
         assessmentPathPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Chapter.AssessmentPath" ) ) );
         GridBagConstraints c2 = new GridBagConstraints( );
@@ -175,7 +175,7 @@ public class ChapterInfoPanel extends JPanel {
         c2.weighty = 0;
 
         // Create the delete content button
-        deleteAssessmentButton = new JButton( deleteContentIcon );
+        deleteAssessmentButton = new EAdButton( deleteContentIcon );
         deleteAssessmentButton.addActionListener( new GeneralButtonListener( ) );
         deleteAssessmentButton.setPreferredSize( new Dimension( 20, 20 ) );
         deleteAssessmentButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
@@ -188,7 +188,7 @@ public class ChapterInfoPanel extends JPanel {
         String assessName = null;
         if( Controller.getInstance( ).getIdentifierSummary( ).isAssessmentProfileId( chapterDataControl.getAssessmentName( ) ) )
             assessName = chapterDataControl.getAssessmentName( );
-        assessmentPathTextField = new JTextField( assessName );
+        assessmentPathTextField = new EAdTextField( assessName );
         assessmentPathTextField.setEditable( false );
         assessmentPathPanel.add( assessmentPathTextField, c2 );
 
@@ -196,7 +196,7 @@ public class ChapterInfoPanel extends JPanel {
         c2.gridx = 2;
         c2.fill = GridBagConstraints.NONE;
         c2.weightx = 0;
-        selectAssessmentButton = new JButton( TC.get( "Resources.Select" ) );
+        selectAssessmentButton = new EAdButton( TC.get( "Resources.Select" ) );
         selectAssessmentButton.addActionListener( new GeneralButtonListener( ) );
         assessmentPathPanel.add( selectAssessmentButton, c2 );
 
@@ -207,7 +207,7 @@ public class ChapterInfoPanel extends JPanel {
         add( assessmentPathPanel, c );
 
         // Create the adaptation panel and set the border
-        JPanel adaptationPathPanel = new JPanel( );
+        EAdPanel adaptationPathPanel = new EAdPanel( );
         adaptationPathPanel.setLayout( new GridBagLayout( ) );
         adaptationPathPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Chapter.AdaptationPath" ) ) );
         c2 = new GridBagConstraints( );
@@ -217,7 +217,7 @@ public class ChapterInfoPanel extends JPanel {
         c2.weighty = 0;
 
         // Create the delete content button
-        deleteAdaptationButton = new JButton( deleteContentIcon );
+        deleteAdaptationButton = new EAdButton( deleteContentIcon );
         deleteAdaptationButton.addActionListener( new GeneralButtonListener( ) );
         deleteAdaptationButton.setPreferredSize( new Dimension( 20, 20 ) );
         deleteAdaptationButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
@@ -230,7 +230,7 @@ public class ChapterInfoPanel extends JPanel {
         String adaptName = null;
         if( Controller.getInstance( ).getIdentifierSummary( ).isAdaptationProfileId( chapterDataControl.getAdaptationName( ) ) )
             adaptName = chapterDataControl.getAdaptationName( );
-        adaptationPathTextField = new JTextField( adaptName );
+        adaptationPathTextField = new EAdTextField( adaptName );
         adaptationPathTextField.setEditable( false );
         adaptationPathPanel.add( adaptationPathTextField, c2 );
 
@@ -238,7 +238,7 @@ public class ChapterInfoPanel extends JPanel {
         c2.gridx = 2;
         c2.fill = GridBagConstraints.NONE;
         c2.weightx = 0;
-        selectAdaptationButton = new JButton( TC.get( "Resources.Select" ) );
+        selectAdaptationButton = new EAdButton( TC.get( "Resources.Select" ) );
         selectAdaptationButton.addActionListener( new GeneralButtonListener( ) );
         adaptationPathPanel.add( selectAdaptationButton, c2 );
 
@@ -247,10 +247,10 @@ public class ChapterInfoPanel extends JPanel {
         add( adaptationPathPanel, c );
 
         // Create and add the initial scene panel
-        JPanel initialScenePanel = new JPanel( );
+        EAdPanel initialScenePanel = new EAdPanel( );
         c.gridy = 4;
         initialScenePanel.setLayout( new GridLayout( ) );
-        initialSceneComboBox = new JComboBox( initialScenesArray );
+        initialSceneComboBox = new EAdComboBox( initialScenesArray );
         initialSceneComboBox.setSelectedItem( chapterDataControl.getInitialScene( ) );
         initialSceneComboBox.addActionListener( new InitialSceneComboBoxListener( ) );
         initialScenePanel.add( initialSceneComboBox );

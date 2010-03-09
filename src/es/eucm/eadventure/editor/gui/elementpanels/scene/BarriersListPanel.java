@@ -44,10 +44,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -74,8 +71,11 @@ import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
+import es.eucm.eadventure.gui.EAdButton;
+import es.eucm.eadventure.gui.EAdPanel;
+import es.eucm.eadventure.gui.EAdSplitPane;
 
-public class BarriersListPanel extends JPanel implements Updateable, DataControlsPanel, DataControlSelectionListener {
+public class BarriersListPanel extends EAdPanel implements Updateable, DataControlsPanel, DataControlSelectionListener {
 
     /**
      * Required.
@@ -88,9 +88,9 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 
     private JTable table;
 
-    private JButton deleteButton;
+    private EAdButton deleteButton;
 
-    private JButton duplicateButton;
+    private EAdButton duplicateButton;
 
     private static final int HORIZONTAL_SPLIT_POSITION = 140;
 
@@ -110,9 +110,9 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 
         setLayout( new BorderLayout( ) );
 
-        JPanel tablePanel = createTablePanel( );
+        EAdPanel tablePanel = createTablePanel( );
 
-        JSplitPane tableWithSplit = new JSplitPane( JSplitPane.VERTICAL_SPLIT, tablePanel, spep );
+        EAdSplitPane tableWithSplit = new EAdSplitPane( EAdSplitPane.VERTICAL_SPLIT, tablePanel, spep );
         tableWithSplit.setOneTouchExpandable( true );
         tableWithSplit.setDividerLocation( HORIZONTAL_SPLIT_POSITION );
         tableWithSplit.setContinuousLayout( true );
@@ -122,9 +122,9 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
         add( tableWithSplit, BorderLayout.CENTER );
     }
 
-    private JPanel createTablePanel( ) {
+    private EAdPanel createTablePanel( ) {
 
-        JPanel tablePanel = new JPanel( );
+        EAdPanel tablePanel = new EAdPanel( );
 
         table = new BarriersTable( dataControl );
         JScrollPane scroll = new TableScrollPane( table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
@@ -149,8 +149,8 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
             }
         } );
 
-        JPanel buttonsPanel = new JPanel( );
-        JButton newButton = new JButton( new ImageIcon( "img/icons/addNode.png" ) );
+        EAdPanel buttonsPanel = new EAdPanel( );
+        EAdButton newButton = new EAdButton( new ImageIcon( "img/icons/addNode.png" ) );
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -162,7 +162,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
                 addBarrier( );
             }
         } );
-        deleteButton = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
+        deleteButton = new EAdButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -175,7 +175,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
                 deleteBarrier( );
             }
         } );
-        duplicateButton = new JButton( new ImageIcon( "img/icons/duplicateNode.png" ) );
+        duplicateButton = new EAdButton( new ImageIcon( "img/icons/duplicateNode.png" ) );
         duplicateButton.setContentAreaFilled( false );
         duplicateButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicateButton.setBorder( BorderFactory.createEmptyBorder( ) );

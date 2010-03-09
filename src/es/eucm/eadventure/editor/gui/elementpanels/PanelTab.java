@@ -43,15 +43,15 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.HelpDialog;
+import es.eucm.eadventure.gui.EAdButton;
+import es.eucm.eadventure.gui.EAdPanel;
 
 /**
  * This class represents the content of a Tab in an ElementPanel.<br>
@@ -198,7 +198,7 @@ public abstract class PanelTab implements Updateable {
 
     public JComponent getTab( ) {
 
-        JPanel panel = new JPanel( );
+        EAdPanel panel = new EAdPanel( );
         panel.setLayout( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.gridx = 0;
@@ -207,7 +207,7 @@ public abstract class PanelTab implements Updateable {
         label.setFont( label.getFont( ).deriveFont( Font.BOLD ) );
         panel.add( label, c );
         if( helpPath != null ) {
-            JButton infoButton = new JButton( new ImageIcon( "img/icons/information.png" ) );
+            EAdButton infoButton = new EAdButton( new ImageIcon( "img/icons/information.png" ) );
             infoButton.setContentAreaFilled( false );
             infoButton.setMargin( new Insets( 0, 0, 0, 0 ) );
             infoButton.setFocusable( false );

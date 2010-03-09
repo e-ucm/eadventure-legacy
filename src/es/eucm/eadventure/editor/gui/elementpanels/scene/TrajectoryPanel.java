@@ -41,8 +41,6 @@ import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
@@ -59,8 +57,10 @@ import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.TrajectoryEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementPlayer;
+import es.eucm.eadventure.gui.EAdPanel;
+import es.eucm.eadventure.gui.EAdRadioButton;
 
-public class TrajectoryPanel extends JPanel implements Updateable {
+public class TrajectoryPanel extends EAdPanel implements Updateable {
 
     private static final long serialVersionUID = 1L;
 
@@ -72,11 +72,11 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 
     private SceneDataControl sceneDataControl;
 
-    private JRadioButton useTrajectoryRadioButton;
+    private EAdRadioButton useTrajectoryRadioButton;
 
-    private JRadioButton initialPositionRadioButton;
+    private EAdRadioButton initialPositionRadioButton;
 
-    private JPanel initialPositionPanel = null;
+    private EAdPanel initialPositionPanel = null;
 
     private String scenePath;
 
@@ -94,17 +94,17 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 
         setLayout( new BorderLayout( ) );
 
-        JPanel buttonContainer = new JPanel( );
+        EAdPanel buttonContainer = new EAdPanel( );
         buttonContainer.setLayout( new GridLayout( 0, 2 ) );
 
         // create trajectory button
-        useTrajectoryRadioButton = new JRadioButton( TC.get( "Scene.UseTrajectory" ), sceneDataControl.getTrajectory( ).hasTrajectory( ) );
+        useTrajectoryRadioButton = new EAdRadioButton( TC.get( "Scene.UseTrajectory" ), sceneDataControl.getTrajectory( ).hasTrajectory( ) );
         useTrajectoryRadioButton.addItemListener( new TrajectoryCheckBoxListener( ) );
         buttonContainer.add( useTrajectoryRadioButton );
         buttonContainer.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Scene.UseTrajectoryPanel" ) ) );
 
         // Create initial Position button
-        initialPositionRadioButton = new JRadioButton( TC.get( "Scene.UseInitialPosition" ), !sceneDataControl.getTrajectory( ).hasTrajectory( ) );
+        initialPositionRadioButton = new EAdRadioButton( TC.get( "Scene.UseInitialPosition" ), !sceneDataControl.getTrajectory( ).hasTrajectory( ) );
         initialPositionRadioButton.addItemListener( new InitialPositionCheckBoxListener( ) );
         buttonContainer.add( initialPositionRadioButton );
 
@@ -128,7 +128,7 @@ public class TrajectoryPanel extends JPanel implements Updateable {
             add( tep, BorderLayout.CENTER );
         }
         else {
-            initialPositionPanel = new JPanel( );
+            initialPositionPanel = new EAdPanel( );
             initialPositionPanel.setLayout( new BorderLayout( ) );
             spep = new ScenePreviewEditionPanel( false, scenePath );
             fillSpep( );
@@ -203,7 +203,7 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 
         public void itemStateChanged( ItemEvent e ) {
 
-            Controller.getInstance( ).addTool( new ChangeHasTrajectoryTool( ( (JRadioButton) e.getSource( ) ).isSelected( ), sceneDataControl ) );
+            Controller.getInstance( ).addTool( new ChangeHasTrajectoryTool( ( (EAdRadioButton) e.getSource( ) ).isSelected( ), sceneDataControl ) );
             updateContents( );
 
         }

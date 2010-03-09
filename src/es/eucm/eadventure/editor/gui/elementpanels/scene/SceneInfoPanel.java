@@ -39,10 +39,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
@@ -53,8 +50,11 @@ import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeList
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.gui.EAdPanel;
+import es.eucm.eadventure.gui.EAdScrollPane;
+import es.eucm.eadventure.gui.EAdTextField;
 
-public class SceneInfoPanel extends JPanel implements Updateable {
+public class SceneInfoPanel extends EAdPanel implements Updateable {
 
     private static final long serialVersionUID = -6436346206278699690L;
 
@@ -68,7 +68,7 @@ public class SceneInfoPanel extends JPanel implements Updateable {
     /**
      * Text field for the name.
      */
-    private JTextField nameTextField;
+    private EAdTextField nameTextField;
 
     public SceneInfoPanel( SceneDataControl sDataControl ) {
 
@@ -85,13 +85,13 @@ public class SceneInfoPanel extends JPanel implements Updateable {
         cDoc.fill = GridBagConstraints.BOTH;
         cDoc.weighty = 0.5;
         cDoc.weightx = 1;
-        JPanel documentationPanel = new JPanel( );
+        EAdPanel documentationPanel = new EAdPanel( );
         documentationPanel.setLayout( new GridLayout( ) );
         documentationTextArea = new JTextArea( sceneDataControl.getDocumentation( ), 4, 0 );
         documentationTextArea.setLineWrap( true );
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) sceneDataControl.getContent( ) ) );
-        documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
+        documentationPanel.add( new EAdScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
         documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Scene.Documentation" ) ) );
         add( documentationPanel, cDoc );
 
@@ -99,9 +99,9 @@ public class SceneInfoPanel extends JPanel implements Updateable {
         cDoc.gridy = 1;
         cDoc.weighty = 0;
         cDoc.fill = GridBagConstraints.HORIZONTAL;
-        JPanel namePanel = new JPanel( );
+        EAdPanel namePanel = new EAdPanel( );
         namePanel.setLayout( new GridLayout( ) );
-        nameTextField = new JTextField( sceneDataControl.getName( ) );
+        nameTextField = new EAdTextField( sceneDataControl.getName( ) );
         nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) sceneDataControl.getContent( ) ) );
         namePanel.add( nameTextField );
         namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Scene.Name" ) ) );
