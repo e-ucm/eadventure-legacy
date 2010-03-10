@@ -1302,7 +1302,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="MenuConfiguration.Title">Einstellungen</entry>
 <entry key="GeneralText.Project">Projekt</entry>
 <entry key="Search.SMTPUser">SMTP Nutzer</entry>
-<entry key="TimedAssessmentRule.MinTime">Minimum Zeit</entry>
+<entry key="TimedAssessmentRule.MinTime">Minimum Zeit (s)</entry>
 <entry key="CustomizeGUI.Title">Benutzerdefiniert GUI</entry>
 <entry key="Resources.DeleteAsset">Ressource löschen</entry>
 <entry key="Effect.PlayAnimation">Animation spielen</entry>
@@ -1550,7 +1550,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="UOLProperties.DeleteProperty">Löschen ausgewählte Eingenschaft</entry>
 <entry key="Effect.SetValueInfo">Dar a la variable "{#0}" el valor "{#1}"</entry>
 <entry key="ErrorReport.Send">Schicken</entry>
-<entry key="TimedAssessmentRule.MaxTime">Maximale Zeit  </entry>
+<entry key="TimedAssessmentRule.MaxTime">Maximale Zeit  (s)</entry>
 <entry key="TimersList.Display">Im Spiel zeigen</entry>
 <entry key="IMS.Educational.Contex">Entorno donde se pretende que tenga lugar el uso del recurso </entry>
 <entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">Anpassung</entry>

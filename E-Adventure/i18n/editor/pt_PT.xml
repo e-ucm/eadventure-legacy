@@ -1230,7 +1230,7 @@
 <entry key="MenuConfiguration.Title">Configuração</entry>
 <entry key="GeneralText.Project">Projecto</entry>
 <entry key="Search.SMTPUser">SMTP User</entry>
-<entry key="TimedAssessmentRule.MinTime">Tempo mín  </entry>
+<entry key="TimedAssessmentRule.MinTime">Tempo mín  (s)</entry>
 <entry key="CustomizeGUI.Title">Seleccionar o tipo da acção personalizada</entry>
 <entry key="Resources.DeleteAsset">Eliminar recurso</entry>
 <entry key="Effect.PlayAnimation">Reproduzir animação</entry>
@@ -1441,7 +1441,7 @@
 <entry key="UOLProperties.DeleteProperty">Eliminar propriedade seleccionada</entry>
 <entry key="Effect.SetValueInfo">Dar à variavel "{#0}" o valor "{#1}"</entry>
 <entry key="ErrorReport.Send">Enviar</entry>
-<entry key="TimedAssessmentRule.MaxTime">Tempo máx  </entry>
+<entry key="TimedAssessmentRule.MaxTime">Tempo máx  (s)</entry>
 <entry key="TimersList.Display">Mostrar no jogo</entry>
 <entry key="IMS.Educational.Contex">Contexto onde pretende-se que tenha lugar o uso do recurso </entry>
 <entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptação</entry>
