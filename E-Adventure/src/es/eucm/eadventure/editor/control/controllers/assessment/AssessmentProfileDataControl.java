@@ -209,10 +209,27 @@ public class AssessmentProfileDataControl extends DataControl {
         try {
             AssessmentRule newRule = (AssessmentRule) ( ( (AssessmentRule) ( dataControl.getContent( ) ) ).clone( ) );
             String id = newRule.getId( );
-            int i = 1;
+            int i = 0;
             do {
-                id = newRule.getId( ) + i;
-                i++;
+                String lastIndex;
+                if (i<10){
+                    lastIndex = id.substring( id.length( ) - 1, id.length( ) );
+                } else{
+                    lastIndex = id.substring( id.length( ) - 2, id.length( ) );
+                }
+                try {
+                    Integer.parseInt( lastIndex );
+                    i++;
+                    if (i<10){
+                        id = id.substring( 0, id.length( ) - 1 );
+                    }else{
+                        id = id.substring( 0, id.length( ) - 2 );
+                    }
+                    id += i;
+                }
+                catch( NumberFormatException e ) {
+                    id += 1;
+                }
             } while( controller.getIdentifierSummary( ).isAssessmentRuleId(id, profile.getName()) );
             newRule.setId( id );
             dataControls.add( new AssessmentRuleDataControl( newRule, profile ) );
