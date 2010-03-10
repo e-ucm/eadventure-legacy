@@ -1302,7 +1302,7 @@ When not customized, default arrows will be used in the game.</entry>
 <entry key="MenuConfiguration.Title">Configuration</entry>
 <entry key="GeneralText.Project">Project</entry>
 <entry key="Search.SMTPUser">SMTP User</entry>
-<entry key="TimedAssessmentRule.MinTime">Min time:  </entry>
+<entry key="TimedAssessmentRule.MinTime">Min time (s):  </entry>
 <entry key="CustomizeGUI.Title">GUI Customization</entry>
 <entry key="Resources.DeleteAsset">Clear asset</entry>
 <entry key="Effect.PlayAnimation">Play animation</entry>
@@ -1550,7 +1550,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="UOLProperties.DeleteProperty">Delete selected property</entry>
 <entry key="Effect.SetValueInfo">Set var "{#0}" with value "{#1}"</entry>
 <entry key="ErrorReport.Send">Send</entry>
-<entry key="TimedAssessmentRule.MaxTime">Max time:  </entry>
+<entry key="TimedAssessmentRule.MaxTime">Max time (s):  </entry>
 <entry key="TimersList.Display">Display in game</entry>
 <entry key="IMS.Educational.Contex">The principal environment within which the learning  and use of this resource is intended to take place</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptation-profile</entry>
