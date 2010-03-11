@@ -45,7 +45,11 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
@@ -77,12 +81,8 @@ import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
-import es.eucm.eadventure.gui.EAdButton;
-import es.eucm.eadventure.gui.EAdCheckBox;
-import es.eucm.eadventure.gui.EAdPanel;
-import es.eucm.eadventure.gui.EAdSplitPane;
 
-public class ExitsListPanel extends EAdPanel implements DataControlsPanel, DataControlSelectionListener, Updateable {
+public class ExitsListPanel extends JPanel implements DataControlsPanel, DataControlSelectionListener, Updateable {
 
     /**
      * Required.
@@ -99,13 +99,13 @@ public class ExitsListPanel extends EAdPanel implements DataControlsPanel, DataC
 
     private ExitsTable table;
 
-    private EAdPanel auxPanel;
+    private JPanel auxPanel;
 
-    private EAdButton deleteButton;
+    private JButton deleteButton;
 
-    private EAdButton duplicateButton;
+    private JButton duplicateButton;
 
-    private EAdSplitPane previewAuxSplit;
+    private JSplitPane previewAuxSplit;
 
     /**
      * Constructor.
@@ -129,19 +129,19 @@ public class ExitsListPanel extends EAdPanel implements DataControlsPanel, DataC
 
         setLayout( new BorderLayout( ) );
 
-        auxPanel = new EAdPanel( );
+        auxPanel = new JPanel( );
         auxPanel.setMaximumSize( new Dimension( VERTICAL_SPLIT_POSITION, Integer.MAX_VALUE ) );
         auxPanel.setMinimumSize( new Dimension( VERTICAL_SPLIT_POSITION, 0 ) );
 
-        previewAuxSplit = new EAdSplitPane( EAdSplitPane.HORIZONTAL_SPLIT, iaep, auxPanel );
+        previewAuxSplit = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, iaep, auxPanel );
         previewAuxSplit.setDividerSize( 10 );
         previewAuxSplit.setContinuousLayout( true );
         previewAuxSplit.setOneTouchExpandable( true );
         previewAuxSplit.setResizeWeight( 1 );
         previewAuxSplit.setDividerLocation( Integer.MAX_VALUE );
 
-        EAdPanel tablePanel = createTablePanel( iaep, previewAuxSplit );
-        EAdSplitPane tableWithSplit = new EAdSplitPane( EAdSplitPane.VERTICAL_SPLIT, tablePanel, previewAuxSplit );
+        JPanel tablePanel = createTablePanel( iaep, previewAuxSplit );
+        JSplitPane tableWithSplit = new JSplitPane( JSplitPane.VERTICAL_SPLIT, tablePanel, previewAuxSplit );
         tableWithSplit.setOneTouchExpandable( true );
         tableWithSplit.setDividerLocation( HORIZONTAL_SPLIT_POSITION );
         tableWithSplit.setContinuousLayout( true );
@@ -153,9 +153,9 @@ public class ExitsListPanel extends EAdPanel implements DataControlsPanel, DataC
         addElementsToPreview( spep, scenePath );
     }
 
-    private EAdPanel createTablePanel( IrregularAreaEditionPanel iaep2, EAdSplitPane previewAuxSplit2 ) {
+    private JPanel createTablePanel( IrregularAreaEditionPanel iaep2, JSplitPane previewAuxSplit2 ) {
 
-        EAdPanel tablePanel = new EAdPanel( );
+        JPanel tablePanel = new JPanel( );
 
         table = new ExitsTable( dataControl, iaep, previewAuxSplit );
         TableScrollPane scroll = new TableScrollPane( table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
@@ -180,8 +180,8 @@ public class ExitsListPanel extends EAdPanel implements DataControlsPanel, DataC
             }
         } );
 
-        EAdPanel buttonsPanel = new EAdPanel( );
-        EAdButton newButton = new EAdButton( new ImageIcon( "img/icons/addNode.png" ) );
+        JPanel buttonsPanel = new JPanel( );
+        JButton newButton = new JButton( new ImageIcon( "img/icons/addNode.png" ) );
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -194,7 +194,7 @@ public class ExitsListPanel extends EAdPanel implements DataControlsPanel, DataC
                 addExit( );
             }
         } );
-        duplicateButton = new EAdButton( new ImageIcon( "img/icons/duplicateNode.png" ) );
+        duplicateButton = new JButton( new ImageIcon( "img/icons/duplicateNode.png" ) );
         duplicateButton.setContentAreaFilled( false );
         duplicateButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicateButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -208,7 +208,7 @@ public class ExitsListPanel extends EAdPanel implements DataControlsPanel, DataC
                 duplicateExit( );
             }
         } );
-        deleteButton = new EAdButton( new ImageIcon( "img/icons/deleteNode.png" ) );
+        deleteButton = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -316,7 +316,7 @@ public class ExitsListPanel extends EAdPanel implements DataControlsPanel, DataC
         c.weightx = 1.0;
         c.fill = GridBagConstraints.HORIZONTAL;
 
-        EAdButton editConditions = new EAdButton( TC.get( "Exit.EditConditions" ) );
+        JButton editConditions = new JButton( TC.get( "Exit.EditConditions" ) );
         editConditions.addActionListener( new EditConditionsListener( exit ) );
         auxPanel.add( editConditions, c );
 
@@ -325,12 +325,12 @@ public class ExitsListPanel extends EAdPanel implements DataControlsPanel, DataC
         auxPanel.add( new JLabel( TC.get( "Exit.ConditionsActive" ) ), c );
 
         c.gridy++;
-        EAdButton editEffects = new EAdButton( TC.get( "Exit.EditEffects" ) );
+        JButton editEffects = new JButton( TC.get( "Exit.EditEffects" ) );
         editEffects.addActionListener( new EditEffectsListener( exit.getEffects( ) ) );
         auxPanel.add( editEffects, c );
 
         c.gridy++;
-        EAdButton editPostEffects = new EAdButton( TC.get( "Exit.EditPostEffects" ) );
+        JButton editPostEffects = new JButton( TC.get( "Exit.EditPostEffects" ) );
         editPostEffects.addActionListener( new EditEffectsListener( exit.getPostEffects( ) ) );
         auxPanel.add( editPostEffects, c );
 
@@ -338,13 +338,13 @@ public class ExitsListPanel extends EAdPanel implements DataControlsPanel, DataC
         auxPanel.add( new JLabel( TC.get( "Exit.ConditionsInactive" ) ), c );
 
         c.gridy++;
-        final EAdCheckBox activeWhenFalseConditions = new EAdCheckBox( TC.get( "Exit.ActiveWhenConditionsArent" ) );
+        final JCheckBox activeWhenFalseConditions = new JCheckBox( TC.get( "Exit.ActiveWhenConditionsArent" ) );
         activeWhenFalseConditions.setToolTipText( TC.get( "Exit.ActiveWhenConditionsArent.ToolTip" ) );
         activeWhenFalseConditions.setSelected( exit.isHasNotEffects( ) );
         auxPanel.add( activeWhenFalseConditions, c );
 
         c.gridy++;
-        final EAdButton editNotEffects = new EAdButton( TC.get( "Exit.EditNotEffects" ) );
+        final JButton editNotEffects = new JButton( TC.get( "Exit.EditNotEffects" ) );
         editNotEffects.setEnabled( exit.isHasNotEffects( ) );
         editNotEffects.addActionListener( new EditEffectsListener( exit.getNotEffects( ) ) );
         auxPanel.add( editNotEffects, c );

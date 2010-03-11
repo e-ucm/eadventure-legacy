@@ -39,7 +39,10 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
@@ -49,11 +52,8 @@ import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataContro
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 import es.eucm.eadventure.editor.gui.Updateable;
-import es.eucm.eadventure.gui.EAdPanel;
-import es.eucm.eadventure.gui.EAdScrollPane;
-import es.eucm.eadventure.gui.EAdTextField;
 
-public class CutsceneDocPanel extends EAdPanel implements Updateable {
+public class CutsceneDocPanel extends JPanel implements Updateable {
 
     /**
      * Required.
@@ -68,7 +68,7 @@ public class CutsceneDocPanel extends EAdPanel implements Updateable {
     /**
      * Text field for the name
      */
-    private EAdTextField nameTextField;
+    private JTextField nameTextField;
 
     /**
      * The dataCOntrol
@@ -96,22 +96,22 @@ public class CutsceneDocPanel extends EAdPanel implements Updateable {
         c.gridwidth = 1;
         c.gridx = 0;
         c.weighty = 0.3;
-        EAdPanel documentationPanel = new EAdPanel( );
+        JPanel documentationPanel = new JPanel( );
         documentationPanel.setLayout( new GridLayout( ) );
         documentationTextArea = new JTextArea( cutsceneDataControl.getDocumentation( ), 4, 0 );
         documentationTextArea.setLineWrap( true );
         documentationTextArea.setWrapStyleWord( true );
         documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) cutsceneDataControl.getContent( ) ) );
-        documentationPanel.add( new EAdScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
+        documentationPanel.add( new JScrollPane( documentationTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
         documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Cutscene.Documentation" ) ) );
         add( documentationPanel, c );
 
         // Create the label for the name
         c.gridy = 1;
         c.weighty = 0;
-        EAdPanel namePanel = new EAdPanel( );
+        JPanel namePanel = new JPanel( );
         namePanel.setLayout( new GridLayout( ) );
-        nameTextField = new EAdTextField( cutsceneDataControl.getName( ) );
+        nameTextField = new JTextField( cutsceneDataControl.getName( ) );
         nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) cutsceneDataControl.getContent( ) ) );
         namePanel.add( nameTextField );
         namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Cutscene.Name" ) ) );
