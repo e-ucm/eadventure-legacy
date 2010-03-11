@@ -45,7 +45,10 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
@@ -75,11 +78,8 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.SmallActionsListPanel
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
-import es.eucm.eadventure.gui.EAdButton;
-import es.eucm.eadventure.gui.EAdPanel;
-import es.eucm.eadventure.gui.EAdSplitPane;
 
-public class ActiveAreasListPanel extends EAdPanel implements DataControlsPanel, DataControlSelectionListener, Updateable {
+public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, DataControlSelectionListener, Updateable {
 
     /**
      * Required.
@@ -90,9 +90,9 @@ public class ActiveAreasListPanel extends EAdPanel implements DataControlsPanel,
 
     public static final int VERTICAL_SPLIT_POSITION = 150;
 
-    private EAdButton deleteButton;
+    private JButton deleteButton;
 
-    private EAdButton duplicateButton;
+    private JButton duplicateButton;
 
     private ActiveAreasTable table;
 
@@ -100,9 +100,9 @@ public class ActiveAreasListPanel extends EAdPanel implements DataControlsPanel,
 
     private IrregularAreaEditionPanel iaep;
 
-    private EAdSplitPane previewAuxSplit;
+    private JSplitPane previewAuxSplit;
 
-    private EAdPanel auxPanel;
+    private JPanel auxPanel;
 
     private SmallActionsListPanel smallActions = null;
 
@@ -127,19 +127,19 @@ public class ActiveAreasListPanel extends EAdPanel implements DataControlsPanel,
 
         setLayout( new BorderLayout( ) );
 
-        auxPanel = new EAdPanel( );
+        auxPanel = new JPanel( );
         auxPanel.setMaximumSize( new Dimension( VERTICAL_SPLIT_POSITION, Integer.MAX_VALUE ) );
         auxPanel.setMinimumSize( new Dimension( VERTICAL_SPLIT_POSITION, 0 ) );
 
-        previewAuxSplit = new EAdSplitPane( EAdSplitPane.HORIZONTAL_SPLIT, iaep, auxPanel );
+        previewAuxSplit = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, iaep, auxPanel );
         previewAuxSplit.setDividerSize( 10 );
         previewAuxSplit.setContinuousLayout( true );
         previewAuxSplit.setOneTouchExpandable( true );
         previewAuxSplit.setResizeWeight( 1 );
         previewAuxSplit.setDividerLocation( Integer.MAX_VALUE );
-        EAdPanel tablePanel = createTablePanel( iaep );
+        JPanel tablePanel = createTablePanel( iaep );
 
-        EAdSplitPane tableWithSplit = new EAdSplitPane( EAdSplitPane.VERTICAL_SPLIT, tablePanel, previewAuxSplit );
+        JSplitPane tableWithSplit = new JSplitPane( JSplitPane.VERTICAL_SPLIT, tablePanel, previewAuxSplit );
         tableWithSplit.setOneTouchExpandable( true );
         tableWithSplit.setDividerLocation( HORIZONTAL_SPLIT_POSITION );
         tableWithSplit.setContinuousLayout( true );
@@ -151,9 +151,9 @@ public class ActiveAreasListPanel extends EAdPanel implements DataControlsPanel,
         addElementsToPreview( spep, scenePath, activeAreasListDataControl );
     }
 
-    private EAdPanel createTablePanel( IrregularAreaEditionPanel iaep ) {
+    private JPanel createTablePanel( IrregularAreaEditionPanel iaep ) {
 
-        EAdPanel tablePanel = new EAdPanel( );
+        JPanel tablePanel = new JPanel( );
 
         table = new ActiveAreasTable( dataControl, iaep, previewAuxSplit );
         JScrollPane scroll = new TableScrollPane( table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
@@ -176,8 +176,8 @@ public class ActiveAreasListPanel extends EAdPanel implements DataControlsPanel,
             }
         } );
 
-        EAdPanel buttonsPanel = new EAdPanel( );
-        EAdButton newButton = new EAdButton( new ImageIcon( "img/icons/addNode.png" ) );
+        JPanel buttonsPanel = new JPanel( );
+        JButton newButton = new JButton( new ImageIcon( "img/icons/addNode.png" ) );
         newButton.setContentAreaFilled( false );
         newButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         newButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -190,7 +190,7 @@ public class ActiveAreasListPanel extends EAdPanel implements DataControlsPanel,
                 addActiveArea( );
             }
         } );
-        deleteButton = new EAdButton( new ImageIcon( "img/icons/deleteNode.png" ) );
+        deleteButton = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deleteButton.setContentAreaFilled( false );
         deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         deleteButton.setBorder( BorderFactory.createEmptyBorder( ) );
@@ -204,7 +204,7 @@ public class ActiveAreasListPanel extends EAdPanel implements DataControlsPanel,
                 deleteActiveArea( );
             }
         } );
-        duplicateButton = new EAdButton( new ImageIcon( "img/icons/duplicateNode.png" ) );
+        duplicateButton = new JButton( new ImageIcon( "img/icons/duplicateNode.png" ) );
         duplicateButton.setContentAreaFilled( false );
         duplicateButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         duplicateButton.setBorder( BorderFactory.createEmptyBorder( ) );

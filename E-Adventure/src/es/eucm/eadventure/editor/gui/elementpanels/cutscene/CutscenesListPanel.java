@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -47,8 +48,6 @@ import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ResizeableListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResizeableCellRenderer;
-import es.eucm.eadventure.gui.EAdPanel;
-import es.eucm.eadventure.gui.extra.EAdBorderLayout;
 
 public class CutscenesListPanel extends ElementPanel {
 
@@ -81,14 +80,14 @@ public class CutscenesListPanel extends ElementPanel {
         @Override
         protected JComponent getTabComponent( ) {
 
-            EAdPanel cutscenesListPanel = new EAdPanel( );
+            JPanel cutscenesListPanel = new JPanel( );
             cutscenesListPanel.setLayout( new BorderLayout( ) );
             List<DataControl> dataControlList = new ArrayList<DataControl>( );
             for( CutsceneDataControl item : sDataControl.getCutscenes( ) ) {
                 dataControlList.add( item );
             }
             ResizeableCellRenderer renderer = new CutsceneCellRenderer( );
-            cutscenesListPanel.add( new ResizeableListPanel( dataControlList, renderer, "CutscenesListPanel" ), EAdBorderLayout.CENTER );
+            cutscenesListPanel.add( new ResizeableListPanel( dataControlList, renderer, "CutscenesListPanel" ), BorderLayout.CENTER );
             return cutscenesListPanel;
         }
     }

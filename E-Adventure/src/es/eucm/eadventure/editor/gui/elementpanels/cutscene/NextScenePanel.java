@@ -42,7 +42,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
@@ -56,14 +62,8 @@ import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
-import es.eucm.eadventure.gui.EAdButton;
-import es.eucm.eadventure.gui.EAdCheckBox;
-import es.eucm.eadventure.gui.EAdComboBox;
-import es.eucm.eadventure.gui.EAdPanel;
-import es.eucm.eadventure.gui.EAdRadioButton;
-import es.eucm.eadventure.gui.EAdSpinner;
 
-public class NextScenePanel extends EAdPanel implements Updateable {
+public class NextScenePanel extends JPanel implements Updateable {
 
     /**
      * 
@@ -72,23 +72,23 @@ public class NextScenePanel extends EAdPanel implements Updateable {
 
     private CutsceneDataControl dataControl;
 
-    private EAdRadioButton returnToPrevious;
+    private JRadioButton returnToPrevious;
 
-    private EAdRadioButton goToNewScene;
+    private JRadioButton goToNewScene;
 
-    private EAdRadioButton endChapter;
+    private JRadioButton endChapter;
 
-    private EAdComboBox nextSceneCombo;
+    private JComboBox nextSceneCombo;
 
-    private EAdCheckBox usePosition;
+    private JCheckBox usePosition;
 
-    private EAdButton setPosition;
+    private JButton setPosition;
 
-    private EAdButton editEffects;
+    private JButton editEffects;
 
-    private EAdComboBox transition;
+    private JComboBox transition;
 
-    private EAdSpinner timeSpinner;
+    private JSpinner timeSpinner;
 
     public NextScenePanel( CutsceneDataControl cutsceneDataControl ) {
 
@@ -96,9 +96,9 @@ public class NextScenePanel extends EAdPanel implements Updateable {
 
         setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Cutscene.CutsceneEndReached" ) ) );
 
-        returnToPrevious = new EAdRadioButton( TC.get( "Cutscene.ReturnToLastScene" ) );
-        goToNewScene = new EAdRadioButton( TC.get( "Cutscene.GoToNextScene" ) );
-        endChapter = new EAdRadioButton( TC.get( "Cutscene.ChapterEnd" ) );
+        returnToPrevious = new JRadioButton( TC.get( "Cutscene.ReturnToLastScene" ) );
+        goToNewScene = new JRadioButton( TC.get( "Cutscene.GoToNextScene" ) );
+        endChapter = new JRadioButton( TC.get( "Cutscene.ChapterEnd" ) );
         returnToPrevious.addActionListener( new ReturnToPreviousActionListener( ) );
         goToNewScene.addActionListener( new GoToNewSceneActionListener( ) );
         endChapter.addActionListener( new EndChapterActionListener( ) );
@@ -108,7 +108,7 @@ public class NextScenePanel extends EAdPanel implements Updateable {
         group.add( goToNewScene );
         group.add( endChapter );
 
-        EAdPanel buttonPanel = new EAdPanel( );
+        JPanel buttonPanel = new JPanel( );
         buttonPanel.setLayout( new GridLayout( 1, 3 ) );
         buttonPanel.add( returnToPrevious );
         buttonPanel.add( goToNewScene );
@@ -117,35 +117,35 @@ public class NextScenePanel extends EAdPanel implements Updateable {
         setLayout( new BorderLayout( ) );
         add( buttonPanel, BorderLayout.NORTH );
 
-        EAdPanel detailsPanel = new EAdPanel( );
+        JPanel detailsPanel = new JPanel( );
 
-        nextSceneCombo = new EAdComboBox( Controller.getInstance( ).getIdentifierSummary( ).getGeneralSceneIds( ) );
+        nextSceneCombo = new JComboBox( Controller.getInstance( ).getIdentifierSummary( ).getGeneralSceneIds( ) );
         nextSceneCombo.addActionListener( new NextSceneComboBoxListener( ) );
 
-        EAdPanel positionPanel = new EAdPanel( );
+        JPanel positionPanel = new JPanel( );
         positionPanel.setLayout( new GridBagLayout( ) );
         GridBagConstraints posC = new GridBagConstraints( );
         posC.gridx = 0;
         posC.gridy = 0;
-        usePosition = new EAdCheckBox( TC.get( "NextScene.UseDestinyPosition" ) );
+        usePosition = new JCheckBox( TC.get( "NextScene.UseDestinyPosition" ) );
         usePosition.addActionListener( new DestinyPositionCheckBoxListener( ) );
 
-        setPosition = new EAdButton( TC.get( "NextScene.EditDestinyPositionShort" ) );
+        setPosition = new JButton( TC.get( "NextScene.EditDestinyPositionShort" ) );
         setPosition.addActionListener( new DestinyPositionButtonListener( ) );
         positionPanel.add( usePosition, posC );
         posC.gridx++;
         positionPanel.add( setPosition, posC );
 
-        editEffects = new EAdButton( TC.get( "GeneralText.EditEffects" ) );
+        editEffects = new JButton( TC.get( "GeneralText.EditEffects" ) );
         editEffects.addActionListener( new EffectsButtonListener( ) );
 
-        EAdPanel transitionPanel = new EAdPanel( );
+        JPanel transitionPanel = new JPanel( );
         String[] options = new String[] { TC.get( "NextScene.NoTransition" ), TC.get( "NextScene.TopToBottom" ), TC.get( "NextScene.BottomToTop" ), TC.get( "NextScene.LeftToRight" ), TC.get( "NextScene.RightToLeft" ), TC.get( "NextScene.FadeIn" ) };
-        transition = new EAdComboBox( options );
+        transition = new JComboBox( options );
         transition.addActionListener( new TransitionComboChangeListener( ) );
 
         SpinnerModel sm = new SpinnerNumberModel( 0, 0, 5000, 100 );
-        timeSpinner = new EAdSpinner( sm );
+        timeSpinner = new JSpinner( sm );
         timeSpinner.addChangeListener( new TransitionSpinnerChangeListener( ) );
         transitionPanel.add( new JLabel( TC.get( "NextScene.Transition" ) ) );
         transitionPanel.add( transition );
@@ -154,7 +154,7 @@ public class NextScenePanel extends EAdPanel implements Updateable {
         transitionPanel.add( new JLabel( "seg" ) );
 
         detailsPanel.setLayout( new GridLayout( 0, 1 ) );
-        EAdPanel temp = new EAdPanel( );
+        JPanel temp = new JPanel( );
         temp.add( new JLabel( TC.get( "NextScene.NextSceneId" ) ) );
         temp.add( nextSceneCombo );
         temp.add( editEffects );

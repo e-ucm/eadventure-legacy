@@ -34,6 +34,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -50,7 +51,6 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.tables.NextSceneCellR
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.TransitionCellRendererEditor;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
-import es.eucm.eadventure.gui.EAdSplitPane;
 
 public class ExitsTable extends JTable {
 
@@ -62,7 +62,7 @@ public class ExitsTable extends JTable {
 
     protected ScenePreviewEditionPanel spep;
 
-    public ExitsTable( ExitsListDataControl dControl, IrregularAreaEditionPanel iaep2, EAdSplitPane previewAuxSplit ) {
+    public ExitsTable( ExitsListDataControl dControl, IrregularAreaEditionPanel iaep2, JSplitPane previewAuxSplit ) {
 
         super( );
         this.spep = iaep2.getScenePreviewEditionPanel( );

@@ -36,11 +36,12 @@ package es.eucm.eadventure.editor.gui.elementpanels.cutscene;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.JPanel;
+
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
-import es.eucm.eadventure.gui.EAdPanel;
 
-public class CutsceneEndPanel extends EAdPanel implements Updateable {
+public class CutsceneEndPanel extends JPanel implements Updateable {
 
     /**
      * Required.
