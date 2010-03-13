@@ -48,7 +48,6 @@ import java.awt.event.FocusEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -87,8 +86,6 @@ public class AdventureDataDialog extends ToolManagableDialog {
      * Text field for the name.
      */
     private JTextField titleTextField;
-
-    private JLabel commentariesLabel;
 
     private JCheckBox commentariesCheckBox;
 
@@ -189,8 +186,7 @@ public class AdventureDataDialog extends ToolManagableDialog {
         // Automatic-commentaries
         JPanel commentariesPanel = new JPanel( );
         commentariesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "MenuAdventure.Commentaries" ) ) );
-        commentariesLabel = new JLabel( TC.get( "MenuAdventure.CommentariesLabel" ) );
-        commentariesCheckBox = new JCheckBox( );
+        commentariesCheckBox = new JCheckBox( TC.get( "MenuAdventure.CommentariesLabel" ) );
         if( controller.isCommentaries( ) ) {
             commentariesCheckBox.setSelected( true );
         }
@@ -198,7 +194,6 @@ public class AdventureDataDialog extends ToolManagableDialog {
             commentariesCheckBox.setSelected( false );
         }
         commentariesPanel.setLayout( new GridLayout( 1, 2 ) );
-        commentariesPanel.add( commentariesLabel );
         commentariesPanel.add( commentariesCheckBox );
         commentariesCheckBox.addActionListener( new CheckBoxListener( ) );
         c.gridy = 3;
