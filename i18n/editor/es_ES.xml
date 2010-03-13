@@ -1870,4 +1870,58 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="TalkToAction.MessageSelectConversation">Seleccione una conversación</entry>
 <entry key="BookPage.NotValidURL">No se puede acceder a la URL indicada. Por favor, compruebe la dirección y el funcionamiento de su conexión a Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Lengua</entry>
+
+<entry key="Button.use-grab.normal.Tip">Este es el boton de usar-coger normal, el que se eseña cuando el ratón no está sobre él</entry>
+<entry key="Button.examine.pressed.Description">Boton de examinar presionado</entry>
+<entry key="Button.use-grab.highlighted.Tip">Este es el botono de usar-coger resaltado, el que se eseña cuando el ratón esta sobre él pero no está presionado</entry>
+<entry key="Button.examine.Description">Boton examinar</entry>
+<entry key="Button.examine.pressed.Tip">Este es el botón de examinar presionado, el que se eseña cuando el ratón está pulsado sobre él</entry>
+<entry key="Button.talk.pressed.Description">Boton de hablar presionado</entry>
+<entry key="Button.use-grab.Description">Boton de usar-coger</entry>
+<entry key="Button.examine.normal.Tip">Este es el botón de examinar normal, el que se eseña cuando el ratón no está sobre él</entry>
+<entry key="Button.examine.highlighted.Description">Boton de examinar resaltado</entry>
+<entry key="Button.use-grab.pressed.Description">Boton de user-coger presionado</entry>
+<entry key="Button.talk.normal.Description">Boton de hablar normal</entry>
+<entry key="Button.talk.highlighted.Tip">Este es el boton de hablar resaltado, el que se eseña cuando el retón está sobre él pero no está presionado</entry>
+<entry key="Button.talk.highlighted.Description">Boton de hablar resaltado</entry>
+<entry key="Button.talk.Description">Boton hablar</entry>
+<entry key="Button.talk.normal.Tip">Este es el boton de hablar normal, el que se enseña cuando el ratón no esta sobre él</entry>
+<entry key="Button.use-grab.highlighted.Description">Boton de usar-coger resaltado</entry>
+<entry key="Button.examine.highlighted.Tip">Este es el botón de examinar resaltado, el que se eseña cuando el ratón estña sobre él pero no está presionado</entry>
+<entry key="Button.use-grab.normal.Description">Boton de usar-coger normal</entry>
+<entry key="Button.talk.pressed.Tip">Este es el boton de hablar presionado, el que se eseña cuando el ratón esta pulsado sobre él</entry>
+<entry key="Button.use-grab.pressed.Tip">Este es el botón de usar-coger presionado, el que se eseña cuando el ratón está pulsado sobre él</entry>
+<entry key="Button.examine.normal.Description">Boton de examinar normal</entry>
+
+<entry key="Cursor.give.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "dar" (sólo interfaz tradicional)</entry>
+<entry key="Cursor.talk.Description">Cursor de "hablar"</entry>
+<entry key="Cursor.exit.Tip">Este cursor se emplea cuando el ratón se coloca encima de una salida</entry>
+<entry key="Cursor.grab.Description">Cursor de "coger"</entry>
+<entry key="Cursor.look.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "mirar" (sólo interfaz tradicional)</entry>
+<entry key="Cursor.examine.Description">Cursor de "examinar"</entry>
+<entry key="Cursor.look.Description">Cursor de "mirar"</entry>
+<entry key="Cursor.use.Description">Cursor de "usar"</entry>
+<entry key="Cursor.action.Tip">Este cursor se emplea cuando se va a realizar una acción (sólo interfaz contextual)</entry>
+<entry key="Cursor.use.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "usar" (sólo interfaz tradicional)</entry>
+<entry key="Cursor.action.Description">Cursor de acción</entry>
+<entry key="Cursor.over.Description">Cursor de interacción</entry>
+<entry key="Cursor.talk.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "hablar" (sólo interfaz tradicional)</entry>
+<entry key="Cursor.examine.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "examinar" (sólo interfaz tradicional)</entry>
+<entry key="Cursor.over.Tip">Este cursor se emplea cuando el ratón se coloca encima de un objeto o zona activa (sólo interfaz contextual)</entry>
+<entry key="Cursor.exit.Description">Cursor de salida</entry>
+<entry key="Cursor.give.Description">Cursor de "dar"</entry>
+<entry key="Cursor.grab.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "coger" (sólo interfaz tradicional)</entry>
+<entry key="Cursor.default.Description">Cursor por defecto</entry>
+<entry key="Cursor.default.Tip">Este es el cursor principal que se emplea para todas las situaciones si no se define uno alternativo</entry>
+
+<entry key="Inventory.highlightedright.Description">Flecha derecha resaltada</entry>
+<entry key="Inventory.normalleft.Description">Flecha izquierda normal</entry>
+<entry key="Inventory.highlightedleft.Description">Flecha izquierda resaltada</entry>
+<entry key="Inventory.highlightedright.Tip">Esta es la fecha derecha en su estado resaltado.</entry>
+<entry key="Inventory.normalright.Tip">Esta es la fecha derecha en su estado normal.</entry>
+<entry key="Inventory.highlightedleft.Tip">Esta es la fecha izqueirda en su estado resaltado.</entry>
+<entry key="Inventory.normalright.Description">Flecha derecha normal</entry>
+<entry key="Inventory.normalleft.Tip">Esta es la fecha izquierda en su estado normal</entry>
+
+
 </properties>

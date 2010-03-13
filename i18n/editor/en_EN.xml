@@ -1867,4 +1867,57 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TalkToAction.MessageSelectConversation">Select a conversation</entry>
 <entry key="BookPage.NotValidURL">The URL provided is not accessible, so it is not guaranteed it will be shown in the game. Please, check you typed correctly the URL and your Internet connection is working properly.</entry>
 <entry key="LOMES.MetaMetaData.Language">Language</entry>
+
+<entry key="Button.examine.Description">Examine button</entry>
+<entry key="Button.use-grab.normal.Tip">This is the normal use-grab button, the one shown when the mouse is not on or clicking the action</entry>
+<entry key="Button.use-grab.highlighted.Tip">This is the highlighted use-grab button, the one shown when the mouse is over it but not clicking</entry>
+<entry key="Button.examine.pressed.Tip">This is the pressed examine button, the one show when the mouse is pressed inside the button</entry>
+<entry key="Button.talk.pressed.Description">Pressed talk button</entry>
+<entry key="Button.use-grab.Description">Use-grab button</entry>
+<entry key="Button.examine.highlighted.Description">Highlighted examine button</entry>
+<entry key="Button.talk.normal.Description">Normal talk button</entry>
+<entry key="Button.talk.highlighted.Tip">This is the highlighted talk button, the one shown when the mouse is over it but not clicking</entry>
+<entry key="Button.talk.highlighted.Description">Highlighted talk button</entry>
+<entry key="Button.talk.Description">Talk button</entry>
+<entry key="Button.talk.normal.Tip">This is the normal talk button, the one shown when the mouse is not on it or clicking the action</entry>
+<entry key="Button.use-grab.highlighted.Description">Highlighted use-grab button</entry>
+<entry key="Button.examine.highlighted.Tip">This is the highlighted examine button, the one show when the mouse is over it but not clicking</entry>
+<entry key="Button.use-grab.normal.Description">Normal use-grab button</entry>
+<entry key="Button.talk.pressed.Tip">This is the pressed talk button, the one shown when the mouse is pressed inside the button</entry>
+<entry key="Button.use-grab.pressed.Tip">This is the pressed use-grab button, the one show when the mouse is pressed inside the button</entry>
+<entry key="Button.examine.normal.Description">Normal examine button</entry>
+<entry key="Button.use-grab.pressed.Description">Pressed use-grab button</entry>
+<entry key="Button.examine.normal.Tip">This is the normal examine button, the one shown when the mouse is not on or clicking the action</entry>
+<entry key="Button.examine.pressed.Description">Pressed examine button</entry>
+
+<entry key="Cursor.give.Tip">For traditional gui only: This cursor will be used for "give" actions</entry>
+<entry key="Cursor.talk.Description">Talk cursor</entry>
+<entry key="Cursor.exit.Tip">Cursor shown when the mouse is over an exit</entry>
+<entry key="Cursor.grab.Description">Grab cursor</entry>
+<entry key="Cursor.look.Tip">For traditional gui only: This cursor will be used for "look" actions</entry>
+<entry key="Cursor.examine.Description">Examine cursor</entry>
+<entry key="Cursor.look.Description">Look cursor</entry>
+<entry key="Cursor.use.Description">Use cursor</entry>
+<entry key="Cursor.action.Tip">For contextual gui only: This cursor will be used when an action is going to be performed</entry>
+<entry key="Cursor.use.Tip">For traditional gui only: This cursor will be used for "use" actions</entry>
+<entry key="Cursor.action.Description">Action cursor</entry>
+<entry key="Cursor.over.Description">Over cursor</entry>
+<entry key="Cursor.talk.Tip">For traditional gui only: This cursor will be used for "talk" actions</entry>
+<entry key="Cursor.examine.Tip">For traditional gui only: This cursor will be used for "examine" actions</entry>
+<entry key="Cursor.over.Tip">For contextual gui only: This cursor will be used when the mouse is over an element</entry>
+<entry key="Cursor.exit.Description">Exit cursor</entry>
+<entry key="Cursor.give.Description">Give cursor</entry>
+<entry key="Cursor.grab.Tip">For traditional gui only: This cursor will be used for "grab" actions</entry>
+<entry key="Cursor.default.Description">Default cursor</entry>
+<entry key="Cursor.default.Tip">This is the main cursor. When no other cursors are specified, this will be used</entry>
+
+<entry key="Inventory.highlightedright.Description">Highlighted right arrow</entry>
+<entry key="Inventory.normalleft.Description">Normal left arrow</entry>
+<entry key="Inventory.highlightedleft.Description">Highlighted left arrow</entry>
+<entry key="Inventory.highlightedright.Tip">This is the arrow in the right in its highlighted stated.</entry>
+<entry key="Inventory.normalright.Tip">This is the arrow in the right in its normal state.</entry>
+<entry key="Inventory.highlightedleft.Tip">This is the arrow in the left in its highlighted stated.</entry>
+<entry key="Inventory.normalright.Description">Normal right arrow</entry>
+<entry key="Inventory.normalleft.Tip">This is the arrow in the left in its normal state.</entry>
+
 </properties>
