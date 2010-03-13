@@ -87,7 +87,6 @@ public class TrajectoryPanel extends JPanel implements Updateable {
      *            ActiveAreas list controller
      */
     public TrajectoryPanel( TrajectoryDataControl trajectoryDataControl, SceneDataControl sceneDataControl ) {
-
         this.dataControl = trajectoryDataControl;
         this.sceneDataControl = sceneDataControl;
         scenePath = Controller.getInstance( ).getSceneImagePath( sceneDataControl.getId( ) );
@@ -118,7 +117,6 @@ public class TrajectoryPanel extends JPanel implements Updateable {
     }
 
     private void changePanel( ) {
-
         if( useTrajectoryRadioButton.isSelected( ) ) {
             if (tep != null)
                 remove( tep );
@@ -144,7 +142,6 @@ public class TrajectoryPanel extends JPanel implements Updateable {
             spep.repaint( );
             add( initialPositionPanel, BorderLayout.CENTER );
         }
-
     }
 
     private void fillSpep( ) {
@@ -181,36 +178,28 @@ public class TrajectoryPanel extends JPanel implements Updateable {
      * Listener for the "Use initial position in this scene" check box.
      */
     private class InitialPositionCheckBoxListener implements ItemListener {
-
         public void itemStateChanged( ItemEvent e ) {
-
             sceneDataControl.toggleDefaultInitialPosition( );
             spep.setFixedSelectedElement( false );
             spep.setSelectedElement( (ImageElement) null );
             spep.removeElements( ScenePreviewEditionPanel.CATEGORY_PLAYER );
-            //if (sceneDataControl.hasDefaultInitialPosition( )) {
+
             Image image = AssetsController.getImage( Controller.getInstance( ).getPlayerImagePath( ) );
             spep.addPlayer( sceneDataControl, image );
             spep.setSelectedElement( new ImageElementPlayer( image, sceneDataControl ) );
             spep.setFixedSelectedElement( true );
-            //}
             spep.repaint( );
-
         }
     }
 
     private class TrajectoryCheckBoxListener implements ItemListener {
-
         public void itemStateChanged( ItemEvent e ) {
-
             Controller.getInstance( ).addTool( new ChangeHasTrajectoryTool( ( (JRadioButton) e.getSource( ) ).isSelected( ), sceneDataControl ) );
             updateContents( );
-
         }
     }
 
     private void updateContents( ) {
-
         dataControl = sceneDataControl.getTrajectory( );
 
         if( initialPositionPanel != null ) {
@@ -224,18 +213,15 @@ public class TrajectoryPanel extends JPanel implements Updateable {
         }
 
         changePanel( );
-
         updateUI( );
     }
 
     public boolean updateFields( ) {
-
         changePanel( );
         if( spep != null ) {
             spep.updateUI( );
             spep.repaint( );
         }
-
         return true;
     }
 }

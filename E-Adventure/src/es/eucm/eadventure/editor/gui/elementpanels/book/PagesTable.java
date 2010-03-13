@@ -60,8 +60,8 @@ public class PagesTable extends JTable {
 
         this.getColumnModel( ).getColumn( 0 ).setCellEditor( new ContentTypeCellRendererEditor( dControl ) );
         this.getColumnModel( ).getColumn( 0 ).setCellRenderer( new ContentTypeCellRendererEditor( dControl ) );
-        this.getColumnModel( ).getColumn( 0 ).setMaxWidth( 100 );
-        this.getColumnModel( ).getColumn( 0 ).setMinWidth( 100 );
+        this.getColumnModel( ).getColumn( 0 ).setMaxWidth( 160 );
+        this.getColumnModel( ).getColumn( 0 ).setMinWidth( 140 );
 
         this.getColumnModel( ).getColumn( 1 ).setCellEditor( new ResourceCellRendererEditor( dControl, parentPanel ) );
         this.getColumnModel( ).getColumn( 1 ).setCellRenderer( new ResourceCellRendererEditor( dControl, parentPanel ) );

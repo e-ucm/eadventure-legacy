@@ -150,7 +150,7 @@ public class FrameConfigPanel extends JPanel {
         c2.weighty = 0;
 
         // Create the text field and insert it
-        imageUriTextField = new JTextField( 40 );
+        imageUriTextField = new JTextField( 30 );
         imageUriTextField.setText( frameDataControl.getImageURI( ) );
         imageUriTextField.setEditable( false );
         c2.gridx = 0;
@@ -201,7 +201,7 @@ public class FrameConfigPanel extends JPanel {
         soundAssetPanel.add( deleteContentButton, c2 );
 
         // Create the text field and insert it
-        soundUriTextField = new JTextField( 40 );
+        soundUriTextField = new JTextField( 30 );
         soundUriTextField.setText( frameDataControl.getSoundUri( ) );
         soundUriTextField.setEditable( false );
         c2.gridx = 1;

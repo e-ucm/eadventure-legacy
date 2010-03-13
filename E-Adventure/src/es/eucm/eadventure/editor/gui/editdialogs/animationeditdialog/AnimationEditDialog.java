@@ -234,7 +234,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
 
         configurationPanel = new JPanel( );
         configurationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Animation.Details" ) ) );
-        configurationPanel.setMinimumSize( new Dimension( 600, 180 ) );
+        configurationPanel.setMinimumSize( new Dimension( 600, 200 ) );
         gbc.gridy = 2;
         gbc.weighty = 0.7;
         this.add( configurationPanel, gbc );//, BorderLayout.SOUTH);
