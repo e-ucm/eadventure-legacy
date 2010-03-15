@@ -53,7 +53,6 @@ import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.MoveRuleTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 
 public class AdaptationProfileDataControl extends DataControl {
 
@@ -104,27 +103,45 @@ public class AdaptationProfileDataControl extends DataControl {
         boolean added = false;
 
         if( type == Controller.ADAPTATION_RULE ) {
-            // Auto generate the rule id
-            String adpRuleId = generateId( );
-
-            // Add thew new adp rule
-            AdaptationRule adpRule = new AdaptationRule( );
-            adpRule.setId( adpRuleId );
-            profile.addRule( adpRule );
-            dataControls.add( new AdaptationRuleDataControl( adpRule, profile ) );
-            controller.getIdentifierSummary( ).addAdaptationRuleId( adpRuleId, profile.getName() );
-            //controller.dataModified( );
-            added = true;
-
+            if( id == null )
+                id = controller.showInputDialog( TC.get( "Operation.AddAdaptationRuleTitle" ), TC.get( "Operation.AddAdaptationRuleMessage" ), TC.get( "Operation.AddAdaptationRuleDefaultValue" ) );
+            
+            // If some value was typed and the identifier is valid
+            if( id != null && controller.isElementIdValid(id ) ) {
+                // Add thew new adp rule
+                AdaptationRule adpRule  = new AdaptationRule( );
+                adpRule.setId( id );
+                profile.addRule( adpRule );
+                dataControls.add( new AdaptationRuleDataControl( adpRule, profile ) );
+                controller.getIdentifierSummary( ).addAdaptationRuleId( id, profile.getName() );  
+                 //controller.dataModified( );
+                added = true;
+            }
         }
         return added;
     }
 
-    public AdaptationRuleDataControl getLastAdaptationRule( ) {
-
-        return dataControls.get( dataControls.size( ) - 1 );
+    public DataControl getLastDatacontrol(){
+        return dataControls.get( dataControls.size()-1 );
     }
+    
+    public boolean addElement( int type, String adpRuleId, AdaptationRule adpRule ) {
 
+        boolean added = false;
+
+        if( type == Controller.ADAPTATION_RULE ) {
+             // If some value was typed and the identifier is valid
+            if( adpRuleId != null && controller.isElementIdValid( adpRuleId ) ) {
+                // Add thew new adp rule 
+                profile.addRule( adpRule );
+                dataControls.add( new AdaptationRuleDataControl( adpRule, profile ) );
+                controller.getIdentifierSummary( ).addAdaptationRuleId( adpRuleId, profile.getName() );  
+                //controller.dataModified( );
+                added = true;
+            }
+        }
+        return added;
+    }
     @Override
     public boolean canAddElement( int type ) {
 
@@ -186,9 +203,6 @@ public class AdaptationProfileDataControl extends DataControl {
         String adpRuleId = ( (AdaptationRuleDataControl) dataControl ).getId( );
         String references = String.valueOf( controller.countIdentifierReferences( adpRuleId ) );
 
-        if( Integer.parseInt( references ) == 0 ) {
-            askConfirmation = false;
-        }
         // Ask for confirmation
         if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { adpRuleId, references } ) ) ) {
             if( profile.getRules( ).remove( dataControl.getContent( ) ) ) {
@@ -208,6 +222,7 @@ public class AdaptationProfileDataControl extends DataControl {
 
         // profiles identifiers are deleted in adaptationProfilesDataControl
         Iterator<AdaptationRuleDataControl> itera = this.dataControls.iterator( );
+        
         while( itera.hasNext( ) ) {
             itera.next( ).deleteIdentifierReferences( id );
          // the rule ID are unique, do not look in rule's IDs
@@ -553,4 +568,6 @@ public class AdaptationProfileDataControl extends DataControl {
         this.profile.setRules( rules );
 
     }
+
+  
 }

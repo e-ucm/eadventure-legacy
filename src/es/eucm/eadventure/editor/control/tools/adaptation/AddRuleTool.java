@@ -36,6 +36,7 @@ package es.eucm.eadventure.editor.control.tools.adaptation;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -97,8 +98,8 @@ public class AddRuleTool extends Tool {
                     count++;
                     ruleId = ( (AdaptationProfileDataControl) dataControl ).getName( ) + "." + defaultId + count;
                 }
-           //     ruleId = ruleId.substring( ((AdaptationProfileDataControl) dataControl ).getName( ).length( ) + 1);
-            }
+                ruleId = ruleId.substring( ((AdaptationProfileDataControl) dataControl ).getName( ).length( ) + 1);
+            }else
             if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE ){
                 oldAssessRules = new ArrayList<AssessmentRuleDataControl>( ( (AssessmentProfileDataControl) dataControl ).getDataControls( ) );
                 ruleId = ( (AssessmentProfileDataControl) dataControl ).getName( ) + "." + defaultId;
@@ -109,17 +110,13 @@ public class AddRuleTool extends Tool {
                 ruleId = ruleId.substring( ((AssessmentProfileDataControl) dataControl ).getName( ).length( ) + 1);
             }
             
-            
-            
             boolean ret=dataControl.addElement( type, ruleId );
             
-            
-          //  if( type == Controller.ADAPTATION_RULE )
-                
-            if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE )
+            if( type == Controller.ADAPTATION_RULE ){
+                newDataControl= ((AdaptationProfileDataControl)dataControl).getLastDatacontrol();
+            }else if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE ){
                 newDataControl= ((AssessmentProfileDataControl)dataControl).getLastDatacontrol();
-
-            
+            }
             
             return ret;
 
@@ -140,12 +137,11 @@ public class AddRuleTool extends Tool {
                 id = defaultId + count;
             }
             boolean ret=false;
-            //if( type == Controller.ADAPTATION_RULE )
-                
+            if( type == Controller.ADAPTATION_RULE )
+                ret =((AdaptationProfileDataControl)dataControl).addElement( type, id ,(AdaptationRule)newDataControl.getContent( )) ;
             if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE )
                 ret =((AssessmentProfileDataControl)dataControl).addElement( type, id ,(AssessmentRule)newDataControl.getContent( )) ;    
 
-            
             if( ret ) {
                 Controller.getInstance( ).updatePanel( );
                 return true;

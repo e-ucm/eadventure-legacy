@@ -137,8 +137,6 @@ public class AssessmentProfileDataControl extends DataControl {
                 added = true;
             }
         }
-
-       
         return added;
     }
 
@@ -259,7 +257,6 @@ public class AssessmentProfileDataControl extends DataControl {
                 controller.getIdentifierSummary( ).deleteAssessmentRuleId( assRuleId, profile.getName() );
                 //controller.dataModified( );
                 deleted = true;
-
             }
         }
 

@@ -91,7 +91,7 @@ public class DeleteRuleTool extends Tool {
             if( type == Controller.ADAPTATION_RULE ) {
                 oldAdapRules = new ArrayList( ( (AdaptationProfileDataControl) dataControl ).getDataControls( ) );
                 return dataControl.deleteElement( ( (AdaptationProfileDataControl) dataControl ).getAdaptationRules( ).get( index ), true );
-            }
+            }else
             if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE ) {
                 oldAssessRules = new ArrayList( ( (AssessmentProfileDataControl) dataControl ).getDataControls( ) );
                 return dataControl.deleteElement( ( (AssessmentProfileDataControl) dataControl ).getAssessmentRules( ).get( index ), true );
@@ -104,7 +104,6 @@ public class DeleteRuleTool extends Tool {
     @Override
     public boolean redoTool( ) {
 
-        boolean added = false;
         //Check there is at least one flag
         if( dataControl.canBeDeleted( ) ) {
             if( type == Controller.ADAPTATION_RULE ) {
@@ -115,8 +114,7 @@ public class DeleteRuleTool extends Tool {
                 else {
                     return false;
                 }
-            }
-
+            } else
             if( type == Controller.ASSESSMENT_RULE ) {
                 if( dataControl.deleteElement( ( (AssessmentProfileDataControl) dataControl ).getAssessmentRules( ).get( index ), true ) ) {
                     Controller.getInstance( ).updatePanel( );
