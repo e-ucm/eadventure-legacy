@@ -33,6 +33,7 @@
 <entry key="LOMES.LifeCycle.Role0">Author</entry>
 <entry key="BookParagraphsList.WordCount">{#0} words</entry>
 <entry key="Operation.LoadFileTitle">Load file</entry>
+<entry key="Button.use-grab.normal.Tip">This is the normal use-grab button, the one shown when the mouse is not on or clicking the action</entry>
 <entry key="LOM.General.Language.English">English</entry>
 <entry key="MoveNPCEffect.ErrorNoCharacters">To add this type of effect, there must be at least one character in the chapter</entry>
 <entry key="AssessmentRule.Importance.VeryLow">Very Low</entry>
@@ -54,12 +55,13 @@
 <entry key="LOM.Educational.Tip">Educational data</entry>
 <entry key="SceneLocation.Scale">Scale</entry>
 <entry key="IMS.Educational.Contex7">Technical School Second Cycle</entry>
-<entry key="IMS.Educational.Contex6">Technical School First Cycle</entry>
 <entry key="MenuFile.AllLOMProperties">LOM Metadata Editor</entry>
+<entry key="IMS.Educational.Contex6">Technical School First Cycle</entry>
 <entry key="IMS.Educational.Contex5">University Postgrade</entry>
 <entry key="IMS.Educational.Contex4">University Second Cycle</entry>
 <entry key="IMS.Educational.Contex3">University First Cycle</entry>
 <entry key="CustomAction.ConfigurationTip">Panel for the configuration of conditions and effects of the button</entry>
+<entry key="Button.examine.pressed.Description">Pressed examine button</entry>
 <entry key="IMS.Educational.Contex2">Higher Education</entry>
 <entry key="IMS.Educational.Contex1">Secondary Education</entry>
 <entry key="IMS.Educational.Contex0">Primary Education</entry>
@@ -75,6 +77,7 @@ Please, select what to do: 1) Delete the chapter, 2) Replace it with other file,
 <entry key="MenuAdventure.Commentaries">Automatic commentaries</entry>
 <entry key="ActionsList.UseAction">Use</entry>
 <entry key="Animation.AskFilenameTitle">New animation</entry>
+<entry key="Button.use-grab.highlighted.Tip">This is the highlighted use-grab button, the one shown when the mouse is over it but not clicking</entry>
 <entry key="StartDialog.Recent">Recent</entry>
 <entry key="LOMES.LifeCycle.Role13">Subject matter expert</entry>
 <entry key="LOMES.LifeCycle.Role12">Instructional designer</entry>
@@ -105,6 +108,7 @@ All the references to the resource were deleted.</entry>
 <entry key="Conditions.Var.Description">This is the list of variables of the chapter.
 Variables can be given an integer value at any moment in the game. 
 In the game you can define conditions based on the value of the variables.</entry>
+<entry key="Button.examine.Description">Examine button</entry>
 <entry key="ActionsList.CustomInteractAction">Custom interaction with {#0}</entry>
 <entry key="ActionsList.Conditions">Conditions</entry>
 <entry key="Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title">Error: the credentials provided are not valid</entry>
@@ -130,6 +134,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Inventory.OnlyBottom">Only bottom</entry>
 <entry key="IMS.Classification.Purpose8">Competency</entry>
 <entry key="IMS.Classification.Purpose7">Security Level</entry>
+<entry key="Inventory.highlightedright.Description">Highlighted right arrow</entry>
 <entry key="IMS.Classification.Purpose6">Skill level</entry>
 <entry key="IMS.Classification.Purpose5">Educational  Level</entry>
 <entry key="IMS.Classification.Purpose4">Accessibility Restrictions</entry>
@@ -185,9 +190,11 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TreeNode.AddElement26">Add player</entry>
 <entry key="Effect.TriggerLastScene">Trigger last scene</entry>
 <entry key="Effect.TriggerCutscene">Trigger cutscene</entry>
+<entry key="Cursor.give.Tip">For traditional gui only: This cursor will be used for "give" actions</entry>
 <entry key="TreeNode.AddElement25">Add "Give to" action</entry>
 <entry key="TreeNode.AddElement24">Add "Use with" action</entry>
 <entry key="TreeNode.AddElement23">Add "Use" action</entry>
+<entry key="Inventory.normalleft.Description">Normal left arrow</entry>
 <entry key="DefaultValue.SceneId">SceneId</entry>
 <entry key="TreeNode.AddElement22">Add "Grab" action</entry>
 <entry key="TreeNode.AddElement21">Add "Examine" action</entry>
@@ -235,8 +242,8 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Conversation.OptionDeleteNode">Delete node</entry>
 <entry key="CutsceneTypes.Video">Videoscene</entry>
 <entry key="Operation.AddNPCTitle">Add character</entry>
-<entry key="AssessmentProperties.InsertProperty">Add new property</entry>
 <entry key="MenuAdventure.Visualization">Visualization...</entry>
+<entry key="AssessmentProperties.InsertProperty">Add new property</entry>
 <entry key="Adventure.AdventureDescription">Description of the adventure</entry>
 <entry key="Error.SpecialAssetNotFound">The special asset "{#0}" can't be found and won't be added in the adventure.
 		Please make sure that this file is included in the editor, as the lack of this file could lead to malfunction of the adventures</entry>
@@ -348,10 +355,10 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Error.Title">Error</entry>
 <entry key="IMS.Educational.LearningResourceType">Specific kind of resource</entry>
 <entry key="ErrorReport.FoundException">Found exception:</entry>
-<entry key="Arrows.DefaultPosition">Default position</entry>
 <entry key="Menu.SendComments">Send comments or suggestions</entry>
-<entry key="LOM.Duration.Years">Years</entry>
+<entry key="Arrows.DefaultPosition">Default position</entry>
 <entry key="MenuChapters.Title">Chapters</entry>
+<entry key="LOM.Duration.Years">Years</entry>
 <entry key="BookPages.MovePageDown">Move the selected page one position down</entry>
 <entry key="ImagePanel.ImageNotAvalaible">Image not avalaible</entry>
 <entry key="Resources.DescriptionItemImage">Image of the item</entry>
@@ -420,6 +427,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 <entry key="GeneralText.EditDocumentation">Edit documentation</entry>
 <entry key="AssessmentRule.Concept">Concept</entry>
 <entry key="GeneralText.Close">Close</entry>
+<entry key="TimedAssessmentRule.Effect.Remove">Remove this effect</entry>
 <entry key="MenuChapters.AddChapter">Add chapter</entry>
 <entry key="Effect.GreenHighlightItemInfo">Highlight {#0} in green</entry>
 <entry key="LOM.Educational.TypicalLearningTime">Typical learning time</entry>
@@ -450,6 +458,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 All the references to the profile were deleted.</entry>
 <entry key="Operation.AdventureConsistencyTitle">Adventure consistency</entry>
 <entry key="NPC.Documentation">Full description of the character</entry>
+<entry key="Button.examine.pressed.Tip">This is the pressed examine button, the one show when the mouse is pressed inside the button</entry>
 <entry key="Operation.AdaptationPanel.DeleteButton">Delete statement</entry>
 <entry key="VarDialog.Err.Title">Bad String Format</entry>
 <entry key="Operation.NewProject.FolderNotEmptyMessage">The selected directory is not empty.
@@ -472,6 +481,7 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 <entry key="Animation.Timeline">Timeline</entry>
 <entry key="GlobalStatesList.AddGlobalState">Add new global state</entry>
 <entry key="SPEP.ConvertToIrregularArea">Convert to irregular area</entry>
+<entry key="Button.talk.pressed.Description">Pressed talk button</entry>
 <entry key="Operation.ExportToLOM.OK">OK</entry>
 <entry key="HTMLEditor.QuitMessageTitle">Leaving editor</entry>
 <entry key="PlayAnimationEffect.Description">Select an animation and a destination to play it</entry>
@@ -488,6 +498,7 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 <entry key="Conversation.OptionAddNewOption">Add new option</entry>
 <entry key="Atrezzo.Documentation">Full description of the set item</entry>
 <entry key="ExitsList.NextScene">Next scene</entry>
+<entry key="Cursor.talk.Description">Talk cursor</entry>
 <entry key="SceneLocation.SceneListDescription">Select a scene to pick a destination point</entry>
 <entry key="Resources.DescriptionCharacterAnimationSpeakDown">Speaking down</entry>
 <entry key="MenuChapters.MoveChapterUp">Move chapter up</entry>
@@ -530,8 +541,8 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 <entry key="VarDialog.Title">Introduce new value</entry>
 <entry key="LOMES.Educational.CognitiveProcess22">Extrapolate</entry>
 <entry key="Buttons.Preview">View button</entry>
-<entry key="LOMES.Educational.CognitiveProcess21">Explain</entry>
 <entry key="MenuFile.ExportGame">Export as EAD file</entry>
+<entry key="LOMES.Educational.CognitiveProcess21">Explain</entry>
 <entry key="TimedAssessmentRule.Time">Time gap</entry>
 <entry key="LOMES.Educational.CognitiveProcess20">Collaborate</entry>
 <entry key="AssetsChooser.Button">Choose an image for the button</entry>
@@ -573,8 +584,10 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 <entry key="Search.HTMLBookPage">HTML book content</entry>
 <entry key="DeleteUnusedAssets.Warning">All unreferenced assets will be deleted, this operation cannot be undone.
 It's strongly recommended that you backup your project before continuing.</entry>
+<entry key="Cursor.exit.Tip">Cursor shown when the mouse is over an exit</entry>
 <entry key="PlayerPosition.PositionPanel">Select the position in which the player will appear</entry>
 <entry key="SPEP.ShowUncategorized">Other elements</entry>
+<entry key="Cursor.grab.Description">Grab cursor</entry>
 <entry key="Operation.CreateAssessmentFile.FileName">Name of the new assessment profile</entry>
 <entry key="LOMES.Rights.CopyAndOthers9">creative commons: attribution - non derived work</entry>
 <entry key="LOMES.Rights.CopyAndOthers8">creative commons: attribution</entry>
@@ -651,6 +664,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 <entry key="Element.Name62">Node</entry>
 <entry key="Conditions.Var.Id">Variable name</entry>
 <entry key="Element.Name61">Set references list</entry>
+<entry key="Cursor.look.Tip">For traditional gui only: This cursor will be used for "look" actions</entry>
 <entry key="GeneralText.FinishingBackup">Finishing backup</entry>
 <entry key="Element.Name60">Set references</entry>
 <entry key="TriggerSceneEffect.Title">Trigger scene effect</entry>
@@ -669,11 +683,12 @@ green or red to allow or forbid crossing. In the game you can define conditions
 based on the state of the flags.</entry>
 <entry key="ErrorSolving.Asset.Deleted.Title">Error: Reference to a not existing asset</entry>
 <entry key="NextScene.DestinyPosition">Destiny position for the player</entry>
+<entry key="Button.use-grab.Description">Use-grab button</entry>
 <entry key="Operation.SaveProject">Operation: Saving project</entry>
 <entry key="Effect.TriggerScene">Trigger scene</entry>
 <entry key="Element.Name59">Set items</entry>
-<entry key="Element.Name58">Set items</entry>
 <entry key="Macro.Effects">List of effects of the macro</entry>
+<entry key="Element.Name58">Set items</entry>
 <entry key="Search.Number">Number</entry>
 <entry key="LOMES.Date.Info">Date Time must follow that pattern:  AAAA[-MM[-DD[Thh[:mm[:ss[.s[IZH]]]]]]] where:
 		AAAA=Year, expressed with 4 digits(&gt;=0001)
@@ -698,6 +713,7 @@ based on the state of the flags.</entry>
 	Do not confuse it with the name of the file: the name of the learning object will be used only by the LMS</entry>
 <entry key="Operation.CreateAssessmentFile.Message">Are you sure you want to create a new assessment profile?</entry>
 <entry key="CustomAction.GetNameMessage">Type the name of the custom action</entry>
+<entry key="TimedAssessmentRule.Effect.Add">Add effect</entry>
 <entry key="Search.PostEffect">Post Effect</entry>
 <entry key="Export.Book.Info">Book will be exported. When the image of each page is totally completed, click on export button.</entry>
 <entry key="SPEP.ShowCharacterReferences">NPCs</entry>
@@ -725,6 +741,7 @@ based on the state of the flags.</entry>
 <entry key="Element.Name40">Assessment profile</entry>
 <entry key="LOM.General.Language">Language</entry>
 <entry key="AssessmentRule.Effect.PropertiesTitle">List of properties</entry>
+<entry key="Cursor.examine.Description">Examine cursor</entry>
 <entry key="Operation.AddNPCReferenceTitle">Add character reference</entry>
 <entry key="AssessmentProfile.Empty">No rule selected</entry>
 <entry key="Resources.ViewAsset">View</entry>
@@ -748,6 +765,7 @@ based on the state of the flags.</entry>
 <entry key="GeneralText.EditEndConditions">Edit end conditions</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Title">The new name exists.</entry>
 <entry key="BookPage.NotValidImage">There are problems with the image format</entry>
+<entry key="Button.examine.normal.Tip">This is the normal examine button, the one shown when the mouse is not on or clicking the action</entry>
 <entry key="ActivateEffect.Description">Select the flag to be activated</entry>
 <entry key="DeleteUnusedAssets.NoUnsuedAssetsFound">No unused assets found</entry>
 <entry key="MacrosList.Title">Macros</entry>
@@ -805,6 +823,7 @@ based on the state of the flags.</entry>
 <entry key="LOMES.Educational.IntendedEndUserRole1">special needs learner</entry>
 <entry key="LOMES.Educational.IntendedEndUserRole0">learner</entry>
 <entry key="Operation.AdventureConsistencyErrorEmptyOptionsNode">The conversation has an options node with no options</entry>
+<entry key="Cursor.look.Description">Look cursor</entry>
 <entry key="ExitsList.Title">Exits</entry>
 <entry key="SlidesDialog.Title">Slides preview - {#0}</entry>
 <entry key="LOMES.MetaMetaData.ContributeInfo">To make correct LOMES Contribute's entry follow next indications: 
@@ -815,6 +834,8 @@ based on the state of the flags.</entry>
 	When "Contribute Type" is “Validator”, the next value must appear in "Contribute Entity":
 		BEGIN:VCARD VERSION 3.0 FN:Contenido digital educativo creado, catalogado y financiado con fondos FEDER dentro del expediente 714/07-LoteX EMAIL;TYPE=INTERNET:sugerencias@red.es ORG:RED.ES END:VCARD</entry>
 <entry key="GeneralText.ReportError">Report Error</entry>
+<entry key="Button.examine.highlighted.Description">Highlighted examine button</entry>
+<entry key="Cursor.use.Description">Use cursor</entry>
 <entry key="Resources.ResourcesGroup">Resources Group</entry>
 <entry key="GeneralText.Select">Select</entry>
 <entry key="Operation.AddCutsceneMessage">Type an identifier for the new cutscene</entry>
@@ -837,6 +858,7 @@ based on the state of the flags.</entry>
 <entry key="Conditions.Context.2.66"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executed&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="Timer.Time">Time</entry>
 <entry key="ResourcesList.AddResourcesBlock">Add new resources block</entry>
+<entry key="Button.use-grab.pressed.Description">Pressed use-grab button</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.Message">Type the name of the new adaptation profile</entry>
 <entry key="SceneLinksPanel.SceneID">Scene ID</entry>
 <entry key="GeneralText.EmptyTable">There are no elements in this table</entry>
@@ -856,6 +878,7 @@ based on the state of the flags.</entry>
 <entry key="Effect.BorderHighlightItemInfo">Highlight borders of {#0}</entry>
 <entry key="Conditions.Context.1A.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will start&lt;/b&gt; when the next condition is satisfied:</entry>
 <entry key="Conditions.Group.Id">Global State Id</entry>
+<entry key="Button.talk.normal.Description">Normal talk button</entry>
 <entry key="IconAssets.Title">Icon assets</entry>
 <entry key="Search.CaseSensitive">Case sensitive</entry>
 <entry key="Error.DTD.NotFound.Message">The file "{#0}" was not found.
@@ -889,6 +912,7 @@ This could provoke errors when executing or loading the adventures.</entry>
 <entry key="GeneralText.Yes">Yes</entry>
 <entry key="Operation.AdventureConsistencyErrorResources">The indispensable asset "{#0}" is not linked to an asset</entry>
 <entry key="AdvancedFeatures.Title">Advanced features</entry>
+<entry key="Inventory.highlightedleft.Description">Highlighted left arrow</entry>
 <entry key="MoveNPCEffect.Description">Select a character to move, and the destination point</entry>
 <entry key="GlobalStatesList.Title">Global states</entry>
 <entry key="Exit.LeftToRight">Left to right</entry>
@@ -945,6 +969,7 @@ The operation was aborted.</entry>
 <entry key="LOMES.Date.Minutes">Minute</entry>
 <entry key="ActionsList.NotRelevant">Not relevant</entry>
 <entry key="Conditions.EditCondition">Edit condition</entry>
+<entry key="Cursor.action.Tip">For contextual gui only: This cursor will be used when an action is going to be performed</entry>
 <entry key="StartDialog.Title">Welcome to the &lt;e-Adventure&gt; editor</entry>
 <entry key="Flags.DefaultFlagName">newFlag</entry>
 <entry key="RandomEffect.Negative.Title">Second effect</entry>
@@ -969,6 +994,7 @@ The operation was aborted.</entry>
 <entry key="LOM.Educational.Difficulty">Difficulty</entry>
 <entry key="MenuAdventure.ModePlayerTransparent">1st person mode</entry>
 <entry key="Operation.AddMacroDefaultValue">MacroId</entry>
+<entry key="Cursor.use.Tip">For traditional gui only: This cursor will be used for "use" actions</entry>
 <entry key="AnimationPanel.AnimationNotAvalaible">Animation not avalaible</entry>
 <entry key="Operation.AdventureConsistentReport">The adventure is completely consistent and can be played in the &lt;e-Adventure&gt; engine</entry>
 <entry key="Book.Contents">Contents</entry>
@@ -1000,9 +1026,9 @@ The operation was aborted.</entry>
 <entry key="Animation.WaitForClick">Wait for click</entry>
 <entry key="Operation.AddNPCReferenceMessage">Select the character you want to add to the scene</entry>
 <entry key="Adventure.CurrentPlayerMode">Current mode</entry>
+<entry key="MacroReferenceEffect.Description">Select the macro to launch at this point</entry>
 <entry key="GUIStyles.TraditionalDescription">This type of GUI is much like the earlier adventures of LucasArts. The user has a set of buttons to perform actions, and an inventory in the lower part of the screen</entry>
 <entry key="ItemReferencesList.Title">Element references</entry>
-<entry key="MacroReferenceEffect.Description">Select the macro to launch at this point</entry>
 <entry key="Search.EMail">e-mail</entry>
 <entry key="LOMES.Classification.TaxonId">Identifier</entry>
 <entry key="Search.NPCVoice">NPC Voice</entry>
@@ -1017,6 +1043,7 @@ The operation was aborted.</entry>
 <entry key="Search.Description">Description</entry>
 <entry key="LOMES.Educational.LearningResourceType26">Simulation</entry>
 <entry key="GraphicConfig.FullscreenDescription">The adventure uses all the screen realstate available on the system</entry>
+<entry key="Button.talk.highlighted.Tip">This is the highlighted talk button, the one shown when the mouse is over it but not clicking</entry>
 <entry key="LOMES.Educational.LearningResourceType25">Real project</entry>
 <entry key="LOMES.Educational.LearningResourceType24">Experiment</entry>
 <entry key="LOMES.Educational.LearningResourceType23">Webquest</entry>
@@ -1042,11 +1069,13 @@ The operation was aborted.</entry>
 <entry key="LOM.Educational.Context0">School</entry>
 <entry key="BookPageType.Image">Image</entry>
 <entry key="Timer.LoopControl">Loop control</entry>
+<entry key="Cursor.action.Description">Action cursor</entry>
 <entry key="Ids.ErrorIdAlreadyExists">A flag or variable with such name already exists. 
 Please type another name.</entry>
 <entry key="LOMES.Educational.LearningResourceType19">Contextualized case problem</entry>
 <entry key="LOMES.Educational.LearningResourceType18">Closed exercise or problem</entry>
 <entry key="LOMES.Educational.LearningResourceType17">Discussion activity</entry>
+<entry key="Cursor.over.Description">Over cursor</entry>
 <entry key="Operation.AddAtrezzoMessage">Type an identifier for the new set item</entry>
 <entry key="LOMES.Educational.LearningResourceType16">Textual-image analysis</entry>
 <entry key="LOMES.Educational.LearningResourceType15">Master class</entry>
@@ -1094,6 +1123,7 @@ Please type another name.</entry>
 <entry key="Operation.DeleteElementTitle">Delete element</entry>
 <entry key="AdaptationRulesList.Scorm2004">SCORM 2004 profile</entry>
 <entry key="SPEP.ConvertToRectangularArea">Convert to rectangular area</entry>
+<entry key="Inventory.highlightedright.Tip">This is the arrow in the right in its highlighted stated.</entry>
 <entry key="SetValueEffect.Title">Set value effect</entry>
 <entry key="Resources.ArrowRightOver">Image for right over arrow</entry>
 <entry key="Resources.StandingAnimations">Standing Animations</entry>
@@ -1154,6 +1184,7 @@ The load process was aborted</entry>
 <entry key="Error.BadAudioFormat.Title">Unsupported audio format. </entry>
 <entry key="SceneLocation.YCoordinate">Y coordinate</entry>
 <entry key="LOM.General.Description">Description</entry>
+<entry key="Button.talk.highlighted.Description">Highlighted talk button</entry>
 <entry key="LOMES.Technical.Type1">Browser</entry>
 <entry key="LOMES.Technical.Type0">Operating system</entry>
 <entry key="LOM.Technical.Tab">Technical</entry>
@@ -1168,6 +1199,8 @@ The load process was aborted</entry>
 <entry key="CutscenesList.Videoscene">Videoscene</entry>
 <entry key="Conditions.ConditionGroup">Ref. to Global state</entry>
 <entry key="Element.Action">Action</entry>
+<entry key="Button.talk.Description">Talk button</entry>
+<entry key="Cursor.talk.Tip">For traditional gui only: This cursor will be used for "talk" actions</entry>
 <entry key="Conditions.Or">Or</entry>
 <entry key="AtrezzoList.Title">Set items</entry>
 <entry key="Inventory.Information">Here you can customize how the arrows of the inventory look. 
@@ -1233,6 +1266,7 @@ When not customized, default arrows will be used in the game.</entry>
 <entry key="Conversations.Select">Select</entry>
 <entry key="Operation.RenameNPCTitle">Rename character</entry>
 <entry key="GeneralText.PreviewText">This is a preview text line</entry>
+<entry key="Inventory.normalright.Tip">This is the arrow in the right in its normal state.</entry>
 <entry key="EffectsGroup.Multimedia">Multimedia</entry>
 <entry key="AssessmentProperties.DeleteProperty">Delete selected property</entry>
 <entry key="ActionsList.DragToAction">Drag to: {#0}</entry>
@@ -1264,6 +1298,7 @@ When not customized, default arrows will be used in the game.</entry>
 <entry key="Search.AssetPath">Asset Path</entry>
 <entry key="AdaptationRulesList.Normal">Normal Profile</entry>
 <entry key="PlaySoundEffect.Title">Play sound effect</entry>
+<entry key="Button.talk.normal.Tip">This is the normal talk button, the one shown when the mouse is not on it or clicking the action</entry>
 <entry key="Operation.AdventureInconsistentReport">The adventure is inconsistent and will be unplayable until the following errors are solved:</entry>
 <entry key="ExitsList.DeleteExit">Delete selected exit</entry>
 <entry key="Operation.FileLoadedTitle">Project loaded successfully</entry>
@@ -1292,6 +1327,7 @@ When not customized, default arrows will be used in the game.</entry>
 <entry key="Operation.NewProject.ForbiddenParent.Message">Sorry, but a project folder cannot be contained in the restriccted directory "web"</entry>
 <entry key="SpeakPlayerEffect.Title">Speak player effect</entry>
 <entry key="Operation.ImportProject">Operation: Importing project</entry>
+<entry key="Button.use-grab.highlighted.Description">Highlighted use-grab button</entry>
 <entry key="LOMES.Classification.TaxonEntry">Entry</entry>
 <entry key="Search.PropertyID">Property ID</entry>
 <entry key="Operation.ExportToLOM.Title">Select the name of the learning object</entry>
@@ -1335,6 +1371,7 @@ When not customized, default arrows will be used in the game.</entry>
 <entry key="Resources.DescriptionCharacterAnimationUseLeft">Object to the left</entry>
 <entry key="Operation.AddItemReferenceErrorNoItems">There must be at least one item in the chapter to place a reference</entry>
 <entry key="GeneralText.Abort">Abort</entry>
+<entry key="Button.examine.highlighted.Tip">This is the highlighted examine button, the one show when the mouse is over it but not clicking</entry>
 <entry key="SmallActionList.Action">Action</entry>
 <entry key="VideoDialog.Title">Preview of the video</entry>
 <entry key="Player.Title">Player</entry>
@@ -1435,6 +1472,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Element.Name2">Scene</entry>
 <entry key="Element.Name1">Scenes</entry>
 <entry key="Element.Name0">Chapter</entry>
+<entry key="Button.use-grab.normal.Description">Normal use-grab button</entry>
 <entry key="CustomAction.GetNameTitle">Name of the action</entry>
 <entry key="Effect.DecrementVarInfo">Decrement var "{#0}" in "{#1}" units</entry>
 <entry key="Inventory.Tip">Customize the default elements of the inventory</entry>
@@ -1448,6 +1486,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="NextSceneCell.EditDestinyPosition">Edit destiny position</entry>
 <entry key="AssessmentRule.Conditions">Conditions</entry>
 <entry key="Effect.WaitTimeInfo">Wait {#0} seconds</entry>
+<entry key="Cursor.examine.Tip">For traditional gui only: This cursor will be used for "examine" actions</entry>
 <entry key="Error.NoVarsAvailable.Message">There aren't variables in this chapter.  To create one, fill the combobox with the name of the new one. </entry>
 <entry key="LOMES.Educational.Context13">distance</entry>
 <entry key="LOMES.Educational.Context12">face to face</entry>
@@ -1457,6 +1496,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="AdaptationRule.InitialState.Title">Initial State</entry>
 <entry key="Vars.ErrorVarWithReferences">To delete a variable, it must have no references</entry>
 <entry key="Operation.AddAtrezzoTitle">Add set item</entry>
+<entry key="Cursor.over.Tip">For contextual gui only: This cursor will be used when the mouse is over an element</entry>
 <entry key="Resources.ErrorNoAssets">There are no assets for this category.
 		Please add some assets with the managers in the "Adventure" menu of the main window</entry>
 <entry key="Resources.DescriptionCharacterAnimationWalkUp">Walking up</entry>
@@ -1510,6 +1550,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="LOMES.Educational.CognitiveProcess2">Collaborate</entry>
 <entry key="LOMES.Educational.CognitiveProcess1">Implement</entry>
 <entry key="LOMES.Educational.CognitiveProcess0">Analyse</entry>
+<entry key="Inventory.highlightedleft.Tip">This is the arrow in the left in its highlighted stated.</entry>
 <entry key="Conditions.Context.2.231"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="Conditions.Context.2.230"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="LOMES.Technical.Name">Name</entry>
@@ -1560,6 +1601,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">AtrezzoId</entry>
 <entry key="MenuAdventure.CustomizeGUI">Customize GUI elements...</entry>
 <entry key="LOMES.Requirement.Title">Create New Requirement</entry>
+<entry key="Button.talk.pressed.Tip">This is the pressed talk button, the one shown when the mouse is pressed inside the button</entry>
 <entry key="LOMES.LifeCyle.Date">Date</entry>
 <entry key="ErrorReport.Title">Error report</entry>
 <entry key="IMS.Meta.Tip">Meta meta data</entry>
@@ -1592,6 +1634,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Conversation.ConfirmationDeleteOption">Are you sure that you want to delete this option?
 		All nodes without a father node will be lost.
 		Deleted data will be irrecoverable</entry>
+<entry key="Cursor.exit.Description">Exit cursor</entry>
 <entry key="LOMES.Technical.Requirement">Requirement</entry>
 <entry key="StartDialog.HelpMessage">Welcome to the &lt;e-Adventure&gt; editor! 
 	To get started using the editor you must choose between the options prompted here. You can create a new file by clicking on the button you can find below. You are allowed to create two different type of adventure games (this choice can be modified later):
@@ -1603,6 +1646,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="TimersList.AddTimer">Add new timer</entry>
 <entry key="RandomEffect.EditEffect">Edit this effect</entry>
 <entry key="ErrorReport.ShortDescription">Please write a short description of what you where doing</entry>
+<entry key="Cursor.give.Description">Give cursor</entry>
 <entry key="Error.LoadAdaptationData">There has been an error loading the adaptation file. There could be an error with the format of the
 		file, or the file \"adaptation.dtd\" could be missing</entry>
 <entry key="PlaySoundEffect.Description">Select a sound file to be played</entry>
@@ -1633,8 +1677,8 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Conversation.ErrorLinkNode">Cannot link the selected node with the given node</entry>
 <entry key="LOM.Educational.SemanticDensity2">Medium</entry>
 <entry key="Animation.Duration">Duration</entry>
-<entry key="LOM.Educational.SemanticDensity1">Low</entry>
 <entry key="MenuAdventure.GUIStyles">Select GUI style...</entry>
+<entry key="LOM.Educational.SemanticDensity1">Low</entry>
 <entry key="LOM.Educational.SemanticDensity0">Very low</entry>
 <entry key="LOMES.AddElement">Add new element</entry>
 <entry key="StartDialog.NewAssessmentFile.Description"> You have selected to create a new Assessment file. For the present release this option is unavailable. You must create the assessment file by opening/creating a new adventure game; then use the facility therein included  </entry>
@@ -1646,12 +1690,15 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="MenuFile.Import">Import...</entry>
 <entry key="IMS.Educational.InteractivityLevel1">Low</entry>
 <entry key="IMS.Educational.InteractivityLevel0">Very Low</entry>
+<entry key="Cursor.grab.Tip">For traditional gui only: This cursor will be used for "grab" actions</entry>
 <entry key="Resources.DescriptionSceneBackground">Background image of the scene</entry>
 <entry key="IconAssets.Preview">Preview of the icon</entry>
 <entry key="NPC.DetailedDescription">Detailed description of the character</entry>
 <entry key="Operation.RenameElementWarning">The element "{#0}" have {#1} references in the chapter.
 		Are you sure that you want to rename it?</entry>
 <entry key="Error.DTD.NotCopied.Title">Important file not copied</entry>
+<entry key="Cursor.default.Description">Default cursor</entry>
+<entry key="Button.use-grab.pressed.Tip">This is the pressed use-grab button, the one show when the mouse is pressed inside the button</entry>
 <entry key="ActiveAreasList.Actions">Actions</entry>
 <entry key="Operation.AddConversationDefaultValue">ConversationId</entry>
 <entry key="GeneralText.NotSelected">&lt; Not Selected &gt;</entry>
@@ -1661,6 +1708,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Operation.RenameBookTitle">Rename book</entry>
 <entry key="Conditions.Flag">Flag/Var</entry>
 <entry key="Effect.PlayAnimationInfo">Play animation effect "{#0}"</entry>
+<entry key="Inventory.normalright.Description">Normal right arrow</entry>
 <entry key="Barrier.DocPanelTip">Panel for the edition of the documentation of the barrier</entry>
 <entry key="Effect.BlueHighlightItemInfo">Highlight {#0} in blue</entry>
 <entry key="Operation.NewProjectName">New project name: </entry>
@@ -1687,6 +1735,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Item.ReturnsWhenDragged">Object returns to its original position after being dragged</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicate rule</entry>
 <entry key="SmallAction.ActiveWhenConditionsArent">Active when conditions are not</entry>
+<entry key="Inventory.normalleft.Tip">This is the arrow in the left in its normal state.</entry>
 <entry key="NPCsList.Title">Characters</entry>
 <entry key="Exit.EditEffects">Edit effects</entry>
 <entry key="Conversations.Synthesize">Synthesize</entry>
@@ -1700,8 +1749,9 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Resources.DescriptionActionAnimation">Animation looking right used when the action is executed (optional)</entry>
 <entry key="Operation.CreateAssessmentFile">Create a new assessment profile</entry>
 <entry key="AssessmentRule.InvalidPropertyID">Invalid value</entry>
-<entry key="AdaptationProfile.DeleteRule">Delete rule</entry>
 <entry key="MainWindow.Title">Adventure editor - {#0}</entry>
+<entry key="AdaptationProfile.DeleteRule">Delete rule</entry>
+<entry key="Button.examine.normal.Description">Normal examine button</entry>
 <entry key="Operation.LoadFileMessage">The file has unsaved changes. Do you want to save those changes before loading the new data?</entry>
 <entry key="LOMES.General.AggregationLevel">Aggregation Level</entry>
 <entry key="Search.DetailedDescription">Detailed Description</entry>
@@ -1716,8 +1766,8 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Operation.RenameConversationTitle">Rename conversation</entry>
 <entry key="IMS.Meta.Tab">MetaMetaData</entry>
 <entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">The assessment and adaptation profile must be SCORM 2004 if they exists to export in AGREGA format.</entry>
-<entry key="LOM.General.Tab">General</entry>
 <entry key="MacrosList.ID">Macro ID</entry>
+<entry key="LOM.General.Tab">General</entry>
 <entry key="MoveObjectEffect.NoItemSelected">No item selected</entry>
 <entry key="Menu.AboutEAD">About &lt;e-Adventure&gt;</entry>
 <entry key="RandomEffect.DeleteEffect">Delete this effect</entry>
@@ -1821,8 +1871,8 @@ Please, try it again with other destiny directory.</entry>
 <entry key="AssessmentRule.Importance.High">High</entry>
 <entry key="Assets.DeleteAssetWarning">The asset "{#0}" have {#1} references in the adventure, all these references will be deleted along with the asset.
 		Are you sure that you want to delete it?</entry>
-<entry key="DeleteUnusedAssets.AssetsDeleted">Deleted {#0} unused assets</entry>
 <entry key="MenuAdventure.GraphicConfig">Select Grahpic Configuration...</entry>
+<entry key="DeleteUnusedAssets.AssetsDeleted">Deleted {#0} unused assets</entry>
 <entry key="Search.Var">Variable</entry>
 <entry key="BarriersList.Title">Barriers</entry>
 <entry key="ExitsList.Appearance">Appearance</entry>
@@ -1835,6 +1885,7 @@ Do you want to set them with this animation asset as well?</entry>
 <entry key="Vars.VarTip">This is the list of variables of the chapter.
 Variables can be given an integer value at any moment in the game. 
 In the game you can define conditions based on the value of the variables.</entry>
+<entry key="Cursor.default.Tip">This is the main cursor. When no other cursors are specified, this will be used</entry>
 <entry key="LOM.Educational.InteractivityLevel4">Very high</entry>
 <entry key="LOM.Educational.InteractivityLevel3">High</entry>
 <entry key="LOM.Educational.InteractivityLevel2">Medium</entry>
@@ -1867,57 +1918,4 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TalkToAction.MessageSelectConversation">Select a conversation</entry>
 <entry key="BookPage.NotValidURL">The URL provided is not accessible, so it is not guaranteed it will be shown in the game. Please, check you typed correctly the URL and your Internet connection is working properly.</entry>
 <entry key="LOMES.MetaMetaData.Language">Language</entry>
-
-<entry key="Button.examine.Description">Examine button</entry>
-<entry key="Button.use-grab.normal.Tip">This is the normal use-grab button, the one shown when the mouse is not on or clicking the action</entry>
-<entry key="Button.use-grab.highlighted.Tip">This is the highlighted use-grab button, the one shown when the mouse is over it but not clicking</entry>
-<entry key="Button.examine.pressed.Tip">This is the pressed examine button, the one show when the mouse is pressed inside the button</entry>
-<entry key="Button.talk.pressed.Description">Pressed talk button</entry>
-<entry key="Button.use-grab.Description">Use-grab button</entry>
-<entry key="Button.examine.highlighted.Description">Highlighted examine button</entry>
-<entry key="Button.talk.normal.Description">Normal talk button</entry>
-<entry key="Button.talk.highlighted.Tip">This is the highlighted talk button, the one shown when the mouse is over it but not clicking</entry>
-<entry key="Button.talk.highlighted.Description">Highlighted talk button</entry>
-<entry key="Button.talk.Description">Talk button</entry>
-<entry key="Button.talk.normal.Tip">This is the normal talk button, the one shown when the mouse is not on it or clicking the action</entry>
-<entry key="Button.use-grab.highlighted.Description">Highlighted use-grab button</entry>
-<entry key="Button.examine.highlighted.Tip">This is the highlighted examine button, the one show when the mouse is over it but not clicking</entry>
-<entry key="Button.use-grab.normal.Description">Normal use-grab button</entry>
-<entry key="Button.talk.pressed.Tip">This is the pressed talk button, the one shown when the mouse is pressed inside the button</entry>
-<entry key="Button.use-grab.pressed.Tip">This is the pressed use-grab button, the one show when the mouse is pressed inside the button</entry>
-<entry key="Button.examine.normal.Description">Normal examine button</entry>
-<entry key="Button.use-grab.pressed.Description">Pressed use-grab button</entry>
-<entry key="Button.examine.normal.Tip">This is the normal examine button, the one shown when the mouse is not on or clicking the action</entry>
-<entry key="Button.examine.pressed.Description">Pressed examine button</entry>
-
-<entry key="Cursor.give.Tip">For traditional gui only: This cursor will be used for "give" actions</entry>
-<entry key="Cursor.talk.Description">Talk cursor</entry>
-<entry key="Cursor.exit.Tip">Cursor shown when the mouse is over an exit</entry>
-<entry key="Cursor.grab.Description">Grab cursor</entry>
-<entry key="Cursor.look.Tip">For traditional gui only: This cursor will be used for "look" actions</entry>
-<entry key="Cursor.examine.Description">Examine cursor</entry>
-<entry key="Cursor.look.Description">Look cursor</entry>
-<entry key="Cursor.use.Description">Use cursor</entry>
-<entry key="Cursor.action.Tip">For contextual gui only: This cursor will be used when an action is going to be performed</entry>
-<entry key="Cursor.use.Tip">For traditional gui only: This cursor will be used for "use" actions</entry>
-<entry key="Cursor.action.Description">Action cursor</entry>
-<entry key="Cursor.over.Description">Over cursor</entry>
-<entry key="Cursor.talk.Tip">For traditional gui only: This cursor will be used for "talk" actions</entry>
-<entry key="Cursor.examine.Tip">For traditional gui only: This cursor will be used for "examine" actions</entry>
-<entry key="Cursor.over.Tip">For contextual gui only: This cursor will be used when the mouse is over an element</entry>
-<entry key="Cursor.exit.Description">Exit cursor</entry>
-<entry key="Cursor.give.Description">Give cursor</entry>
-<entry key="Cursor.grab.Tip">For traditional gui only: This cursor will be used for "grab" actions</entry>
-<entry key="Cursor.default.Description">Default cursor</entry>
-<entry key="Cursor.default.Tip">This is the main cursor. When no other cursors are specified, this will be used</entry>
-
-<entry key="Inventory.highlightedright.Description">Highlighted right arrow</entry>
-<entry key="Inventory.normalleft.Description">Normal left arrow</entry>
-<entry key="Inventory.highlightedleft.Description">Highlighted left arrow</entry>
-<entry key="Inventory.highlightedright.Tip">This is the arrow in the right in its highlighted stated.</entry>
-<entry key="Inventory.normalright.Tip">This is the arrow in the right in its normal state.</entry>
-<entry key="Inventory.highlightedleft.Tip">This is the arrow in the left in its highlighted stated.</entry>
-<entry key="Inventory.normalright.Description">Normal right arrow</entry>
-<entry key="Inventory.normalleft.Tip">This is the arrow in the left in its normal state.</entry>
-
 </properties>
