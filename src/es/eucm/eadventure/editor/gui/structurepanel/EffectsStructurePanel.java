@@ -246,7 +246,7 @@ public class EffectsStructurePanel extends StructurePanel {
         else if( name.equals( TC.get( "EffectsGroup.ChangeInScene" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "changes-in-scene.png" );
         }
-        else if( name.equals( TC.get( "EffectsGroup.Main.png" ) ) ) {
+        else if( name.equals( TC.get( "EffectsGroup.Main" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "effects" );
         }
         // when this method is called for structure list effects
