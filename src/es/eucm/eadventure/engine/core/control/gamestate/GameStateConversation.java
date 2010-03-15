@@ -354,6 +354,7 @@ public class GameStateConversation extends GameState {
         }
         else if( !currentNode.isTerminal( ) ) {
             if( optionSelected >= 0 && optionSelected < currentNode.getChildCount( ) ) {
+                currentNode.resetEffect( );
                 currentNode = currentNode.getChild( correspondingIndex.get( optionSelected ) );
                 isOptionSelected = false;
             }
@@ -532,6 +533,7 @@ public class GameStateConversation extends GameState {
             endConversation( );
         }
         else if( !currentNode.isTerminal( ) ) {
+            currentNode.resetEffect( );
             currentNode = currentNode.getChild( 0 );
             firstLineDisplayed = 0;
             currentLine = 0;
