@@ -33,14 +33,11 @@ package es.eucm.eadventure.common.gui;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.JEditorPane;
 import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
@@ -49,9 +46,6 @@ import javax.swing.text.EditorKit;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-import es.eucm.eadventure.common.data.chapter.book.BookPage;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.AssetsController.TempFileGenerator;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -65,13 +59,6 @@ public class BookEditorPane extends JEditorPane {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Current book page represented.
-     */
-    private BookPage currentBookPage;
-    
-    private boolean export = false;
-
-    /**
      * Constructor
      * 
      * @param autoSaved
@@ -82,17 +69,7 @@ public class BookEditorPane extends JEditorPane {
         this.setEditorKit( new BookHTMLEditorKit( ) );
         setBounds( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         setOpaque( false );
-        setEditable( false );
-    }
-    
-    public void setExport( boolean export ){
-        this.export = export;
-    }
-
-    public BookEditorPane( BookPage currentBookP ) {
-
-        this( );
-        this.currentBookPage = currentBookP;
+        setEditable( true );
     }
 
     /**
@@ -136,32 +113,7 @@ public class BookEditorPane extends JEditorPane {
         
     }
 
-    private void exportImage( Image im ) {
-
-        String filePath = TempFileGenerator.generateTempFileOverwriteExisting( currentBookPage.getImageName( false ), "png" );
-
-        File f = new File( filePath );
-        try {
-            BufferedImage ex = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB );
-            ex.getGraphics( ).drawImage( im, currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), null );
-            ImageIO.write( ex, "png", f );
-        }
-        catch( IOException e ) {
-            e.printStackTrace( );
-        }
-
-        AssetsController.addSingleAsset( AssetsController.CATEGORY_IMAGE, filePath, false );
-    }
-
-    @Override
-    public boolean imageUpdate( Image img, int infoflags, int x, int y, int width, int height ) {
-        //System.out.println( infoflags );
-        if( export && infoflags == ImageObserver.FRAMEBITS && currentBookPage.getType( ) == BookPage.TYPE_RESOURCE ) {       
-            exportImage( img );
-        }
-        return super.imageUpdate( img, infoflags, x, y, width, height );
-
-    }
+    
 
     @Override
     public void setText( String t ) {

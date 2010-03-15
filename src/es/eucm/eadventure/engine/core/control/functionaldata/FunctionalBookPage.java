@@ -90,7 +90,7 @@ public class FunctionalBookPage extends JPanel {
     public FunctionalBookPage( BookPage bookPage, FunctionalStyledBook fBook, Image background, Image currentArrowLeft, Image currentArrowRight, Point previousPage, Point nextPage, boolean listenHyperLinks ) {
 
         super( );
-        editorPane = new BookEditorPane( bookPage );
+        editorPane = new BookEditorPane( );
         isValid = true;
         this.bookPage = bookPage;
         this.fBook = fBook;
