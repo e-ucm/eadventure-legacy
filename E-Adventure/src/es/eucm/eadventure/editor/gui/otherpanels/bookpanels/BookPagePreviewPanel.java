@@ -235,8 +235,8 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
     private boolean createResourcePage( BookPage bookPage, boolean export ) {
 
-        editorPane = new BookEditorPane( currentBookPage );
-        editorPane.setExport( export );
+        editorPane = new BookEditorPaneEditor( currentBookPage );
+        ( (BookEditorPaneEditor) editorPane ).setExport( export );
 
         URL url = AssetsController.getResourceAsURLFromZip( bookPage.getUri( ) );
         String ext = url.getFile( ).substring( url.getFile( ).lastIndexOf( '.' ) + 1, url.getFile( ).length( ) ).toLowerCase( );
@@ -296,7 +296,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
     private boolean createURLPage( BookPage bookPage ) {
 
         URL url = null;
-        editorPane = new BookEditorPane( currentBookPage );
+        editorPane = new BookEditorPane(  );
 
         try {
             url = new URL( bookPage.getUri( ) );
