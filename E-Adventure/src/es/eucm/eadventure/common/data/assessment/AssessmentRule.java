@@ -36,7 +36,7 @@ package es.eucm.eadventure.common.data.assessment;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.HasId;
-import es.eucm.eadventure.common.data.chapter.conditions.*;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
 /**
  * Rule for the assesment engine
@@ -205,7 +205,6 @@ public class AssessmentRule implements Cloneable, HasId {
     }
 
     public List<AssessmentProperty> getAssessmentProperties( ) {
-
         return effect.getAssessmentProperties( );
     }
 

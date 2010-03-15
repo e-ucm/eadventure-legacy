@@ -33,6 +33,8 @@
  */
 package es.eucm.eadventure.common.data.assessment;
 
+import java.util.List;
+
 public class TimedAssessmentEffect extends AssessmentEffect {
 
     protected Integer minTime;
@@ -44,6 +46,12 @@ public class TimedAssessmentEffect extends AssessmentEffect {
         super( );
         minTime = 0;
         maxTime = 120;
+    }
+    
+    @Override
+    public List<AssessmentProperty> getAssessmentProperties( ) {
+
+        return properties;
     }
 
     /**
