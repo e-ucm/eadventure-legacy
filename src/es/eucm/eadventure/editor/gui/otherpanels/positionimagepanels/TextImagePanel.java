@@ -34,6 +34,7 @@
 package es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels;
 
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -127,25 +128,29 @@ public class TextImagePanel extends PositionImagePanel {
 
         // Calculate the position to paint
         g.setFont( g.getFont( ).deriveFont( 18.0f ) );
-       // FontMetrics fontMetrics = g.getFontMetrics( );
+        FontMetrics fontMetrics = g.getFontMetrics( );
 
         if( text.length( ) > 0 ) {
+            int desY = fontMetrics.getAscent( );
+            int desX = fontMetrics.getHeight( );
             // Calculate the position of the image
             int posX=0;
             int posY=0;
             if (image!=null){
                 posX = getAbsoluteX( (int) ( selectedX - ( image.getWidth( null ) * scale / 2 ) ) );
                 posY = getAbsoluteY( (int) ( selectedY - image.getHeight( null ) * scale ) );
+                posY += desY/2;
+                posX -= (text.length( ) * desX / 2) / 2;
+                // Draw the border text
+                g.setColor( textBorderColor );
+                g.drawString( text, posX - 1, posY - 1 );
+                g.drawString( text, posX - 1, posY + 1 );
+                g.drawString( text, posX + 1, posY - 1 );
+                g.drawString( text, posX + 1, posY + 1 );
+                // Draw the text
+                g.setColor( textFrontColor );
+                g.drawString( text, posX, posY);
             }
-            // Draw the border text
-            g.setColor( textBorderColor );
-            g.drawString( text, posX - 1, posY - 1 );
-            g.drawString( text, posX - 1, posY + 1 );
-            g.drawString( text, posX + 1, posY - 1 );
-            g.drawString( text, posX + 1, posY + 1 );
-            // Draw the text
-            g.setColor( textFrontColor );
-            g.drawString( text, posX, posY );
             
             paintRelativeImage( g, image, selectedX, selectedY, scale, false );
             
