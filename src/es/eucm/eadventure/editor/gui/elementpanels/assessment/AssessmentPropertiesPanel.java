@@ -40,7 +40,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
@@ -488,7 +487,7 @@ public class AssessmentPropertiesPanel extends JPanel {
                 if( !value.toString( ).trim( ).equals( "" ) ) {
                     // If the name is being edited, and it has really changed
                     if( columnIndex == 0 ){
-                	AssessmentPropertiesPanel.this.propertiesTable.updateUI();
+                        AssessmentPropertiesPanel.this.propertiesTable.updateUI();
                         assessmentRuleDataControl.setPropertyId( rowIndex, currentIndex, value.toString( ) );
                         
                     }

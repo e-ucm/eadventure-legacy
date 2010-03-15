@@ -458,11 +458,12 @@ public class AssessmentRuleDataControl extends DataControl {
             AssessmentProperty property = tRule.getProperty( rowIndex, effect );
             if( property != null ) {
                 try {
-                    controller.addTool( new ChangeAssessmentPropertyTool( tRule, string, rowIndex+1, ChangeAssessmentPropertyTool.SET_VALUE ) );
+                    controller.addTool( new ChangeAssessmentPropertyTool( tRule, string, effect, rowIndex+1, ChangeAssessmentPropertyTool.SET_VALUE ) );
 
                 }
                 catch( Exception e ) {
                     //Display error message
+                    e.printStackTrace( );
                     controller.showErrorDialog( TC.get( "AssessmentRule.InvalidPropertyID" ), TC.get( "AssessmentRule.InvalidPropertyID.Message" ) );
                 }
             }

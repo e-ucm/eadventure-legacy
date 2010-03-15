@@ -36,7 +36,7 @@ package es.eucm.eadventure.common.data.assessment;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapter.conditions.*;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
 /**
  * Timed Rule for the assesment engine
@@ -137,6 +137,11 @@ public class TimedAssessmentRule extends AssessmentRule {
         if( effectBlock >= 0 && effectBlock < effects.size( ) )
             return effects.get( effectBlock ).getAssessmentProperties( ).get( property );
         return null;
+    }
+    
+    public List<AssessmentProperty> getAssessmentProperties( int effect ) {
+
+        return effects.get( effect ).getAssessmentProperties();
     }
 
     public void setMinTime( int time, int effectBlock ) {
