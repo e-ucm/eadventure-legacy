@@ -49,7 +49,6 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
@@ -58,7 +57,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TC;
-
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
@@ -420,7 +418,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
     public boolean updateFields( ) {
 
         int selected = informationTable.getSelectedRow( );
-        int selectedTab = rulesInfoPanel.getSelectedIndex( );
+       // int selectedTab = rulesInfoPanel.getSelectedIndex( );
         
         // the call is not spread 
         //if( rulesInfoPanel != null && rulesInfoPanel instanceof Updateable )
@@ -441,13 +439,13 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
            
         informationTable.getSelectionModel( ).setSelectionInterval( selected, selected );
 
-        if( selectedTab > -1 && selectedTab<rulesInfoPanel.getTabCount()){
+       /* if( selectedTab > -1 && selectedTab<rulesInfoPanel.getTabCount()){
     		rulesInfoPanel.setSelectedIndex( selectedTab );
         }
         
         if( initialStatePanel instanceof Updateable )
             ( (Updateable) initialStatePanel ).updateFields( );
-
+*/
         return true;
     }
 
