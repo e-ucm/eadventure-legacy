@@ -68,7 +68,7 @@ public class BookEditorPaneEditor extends BookEditorPane {
     
     private void exportImage( Image im ) {
 
-        String filePath = TempFileGenerator.generateTempFileOverwriteExisting( currentBookPage.getImageName( false ), "png" );
+        String filePath = TempFileGenerator.generateTempFileOverwriteExisting( currentBookPage.getImageName( ), "png" );
 
         File f = new File( filePath );
         try {

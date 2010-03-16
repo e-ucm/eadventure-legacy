@@ -145,7 +145,7 @@ public class FunctionalBookPage extends JPanel {
     private boolean createResourcePage( ) {
 
         // Check if there is an image created for the representatio of this page
-        image = MultimediaManager.getInstance( ).loadImageFromZip( bookPage.getImageName( true ), MultimediaManager.IMAGE_SCENE );
+        image = MultimediaManager.getInstance( ).loadImageFromZip( "assets/image/" + bookPage.getImageName( ) + ".png", MultimediaManager.IMAGE_SCENE );
 
         if( image == null ) {
             String uri = bookPage.getUri( );

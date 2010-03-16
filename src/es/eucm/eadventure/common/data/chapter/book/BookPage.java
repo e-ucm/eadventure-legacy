@@ -32,7 +32,6 @@
  */
 package es.eucm.eadventure.common.data.chapter.book;
 
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
  * Main class for the Page (HTML or RTF document) of a book
@@ -119,19 +118,19 @@ public class BookPage implements Cloneable {
      * @param withPath Determines if name must have relative path 
      * @return the name for the image representing this bookPage
      */
-    public String getImageName( boolean withPath ) {
+    public String getImageName( ) {
 
         try {
             if( uri != null ) {
                 String fileName = "";
-                if ( withPath ){
+                /*if ( withPath ){
                     fileName += AssetsController.getCategoryFolder( AssetsController.CATEGORY_IMAGE ) + "/";
-                }
+                }*/
                 fileName += IMAGE_FILE_STARTER + uri.substring( uri.lastIndexOf( '/' ) + 1, uri.lastIndexOf( '.' ) );
                 
-                if ( withPath ){
+                /*if ( withPath ){
                     fileName += ".png";
-                }
+                }*/
                 return fileName;
             }
         }
