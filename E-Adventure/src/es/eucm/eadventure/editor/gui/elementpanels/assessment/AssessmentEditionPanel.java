@@ -149,6 +149,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
     private JButton delete;
 
     private JTable informationTable;
+    
 
     /**
      * Text area for the documentation.
@@ -820,7 +821,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         sendByEmailCheck( );
         
         informationTable.getSelectionModel( ).setSelectionInterval( selected, selected );
-
+       
        
         return true;
     }

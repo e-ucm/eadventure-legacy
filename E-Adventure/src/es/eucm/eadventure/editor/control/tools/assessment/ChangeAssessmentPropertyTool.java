@@ -33,9 +33,9 @@
  */
 package es.eucm.eadventure.editor.control.tools.assessment;
 
+import java.util.List;
+
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
-import es.eucm.eadventure.common.data.assessment.AssessmentRule;
-import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
@@ -51,54 +51,32 @@ public class ChangeAssessmentPropertyTool extends Tool {
 
     public static final int SET_VALUE = 3;
 
-    protected AssessmentProperty oldProperty;
+    protected String oldValue;
 
-    protected AssessmentProperty newProperty;
+    protected String newValue;
 
-    protected AssessmentRule parent;
+    protected List<AssessmentProperty> list;
 
     protected int mode;
 
     protected int index;
 
-    public ChangeAssessmentPropertyTool( AssessmentRule parent, String newData, int index, int mode ) {
-
-        // We need separate by Rules Timed Assessment and General Assessment 
-        if (parent instanceof AssessmentRule ){
+    public ChangeAssessmentPropertyTool( List<AssessmentProperty> parent, String newData, int index, int mode ) {
+            
             this.mode = mode;
-            
-            this.oldProperty = parent.getAssessmentProperties( ).get( index ); //DA ERROR AL CAMBIAR EL NOMBRE DE UNA PROPIEDAD
-            
-            this.parent = parent;
+            this.list = parent;
             this.index = index;
-    
-            if( mode == SET_ID ) {
-                newProperty = new AssessmentProperty( newData, oldProperty.getValue( ) );
+            newValue = newData;
+            
+            if (mode == SET_ID){
+                oldValue = list.get( index ).getId( );
+            }else if (mode == SET_VALUE){
+                oldValue = list.get( index ).getValue( );
             }
-            else if( mode == SET_VALUE ) {
-                newProperty = new AssessmentProperty( oldProperty.getId( ), newData );
-            }
-        }
+   
     }
 
-    public ChangeAssessmentPropertyTool(AssessmentRule parent, String newData, int effect, int index, int mode ) {
-     // We need separate by Rules Timed Assessment and General Assessment 
-        if (parent instanceof TimedAssessmentRule ){
-                this.mode = mode;
-                
-                this.oldProperty = ((TimedAssessmentRule) parent).getAssessmentProperties( effect ).get( index -1 );
-                
-                this.parent = parent;
-                this.index = index;
-        
-                if( mode == SET_ID ) {
-                    newProperty = new AssessmentProperty( newData, oldProperty.getValue( ) );
-                }
-                else if( mode == SET_VALUE ) {
-                    newProperty = new AssessmentProperty( oldProperty.getId( ), newData );
-                }
-            }
-    }
+   
 
     @Override
     public boolean canRedo( ) {
@@ -121,11 +99,11 @@ public class ChangeAssessmentPropertyTool extends Tool {
     @Override
     public boolean doTool( ) {
 
-        if( mode == SET_ID || mode == SET_VALUE ) {
-            if( index >= 0 && index < parent.getAssessmentProperties( ).size( ) ) {
-                parent.getAssessmentProperties( ).remove( index );
-                parent.getAssessmentProperties( ).add( index, newProperty );
-            }
+        if (mode == SET_ID){
+            list.get( index ).setId( newValue );
+            return true;
+        }else if (mode == SET_VALUE){
+            list.get( index ).setValue( newValue );
             return true;
         }
         return false;
@@ -133,22 +111,20 @@ public class ChangeAssessmentPropertyTool extends Tool {
 
     @Override
     public boolean redoTool( ) {
-
-        if( mode == SET_ID || mode == SET_VALUE ) {
-            parent.getAssessmentProperties( ).remove( index );
-            parent.getAssessmentProperties( ).add( index, newProperty );
-            Controller.getInstance( ).updatePanel( );
-            return true;
-        }
-        return false;
+       boolean ret = doTool();
+        Controller.getInstance( ).updatePanel( );
+        return ret;
     }
 
     @Override
     public boolean undoTool( ) {
 
-        if( mode == SET_ID || mode == SET_VALUE ) {
-            parent.getAssessmentProperties( ).remove( index );
-            parent.getAssessmentProperties( ).add( index, oldProperty );
+        if (mode == SET_ID){
+            list.get( index ).setId( oldValue );
+            Controller.getInstance( ).updatePanel( );
+            return true;
+        }else if (mode == SET_VALUE){
+            list.get( index ).setValue( oldValue );
             Controller.getInstance( ).updatePanel( );
             return true;
         }
