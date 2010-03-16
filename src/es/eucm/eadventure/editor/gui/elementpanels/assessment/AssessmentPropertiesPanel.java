@@ -60,6 +60,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
 /**
@@ -67,7 +68,7 @@ import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
  * operations, like adding and removing lines, editing end effects, remove links
  * and reposition lines and children
  */
-public class AssessmentPropertiesPanel extends JPanel {
+public class AssessmentPropertiesPanel extends JPanel implements Updateable{
 
     /**
      * Required
@@ -544,5 +545,22 @@ public class AssessmentPropertiesPanel extends JPanel {
         propertiesTable.setEditingColumn( -1 );
         propertiesTable.updateUI( );
         propertiesTable.clearSelection( );
+    }
+
+
+
+    public boolean updateFields( ) {
+
+        int selected = propertiesTable.getSelectedRow( );
+        if( propertiesTable.getCellEditor( ) != null ) {
+             propertiesTable.getCellEditor( ).cancelCellEditing( );
+         }
+         ( (AbstractTableModel) propertiesTable.getModel( ) ).fireTableDataChanged( );
+      
+            
+         propertiesTable.getSelectionModel( ).setSelectionInterval( selected, selected );
+
+ 
+         return true;
     }
 }
