@@ -679,9 +679,9 @@ public class ContextualHUD extends HUD {
                 elementInCursor = elementAction;
                 this.startDragging( elementInCursor );
                 this.draggingElement.setX( pressedX );
-                this.draggingElement.setY( pressedY + this.draggingElement.getHeight( ) / 2);
-                pressedX = (int) this.originalDragX;
-                pressedY = (int) this.originalDragY - this.draggingElement.getHeight( ) / 2;
+                this.draggingElement.setY( pressedY + this.draggingElement.getHeight( ) * this.draggingElement.getScale( ) / 2);
+                pressedX = (int) (this.originalDragX + this.draggingElement.getWidth( ) * this.draggingElement.getScale( ) / 4 );
+                pressedY = (int) (this.originalDragY - this.draggingElement.getHeight( ) * this.draggingElement.getScale( ) / 2);
                 break;
             case ActionButton.CUSTOM_BUTTON:
                 if( actionButtons.getButtonPressed( ).getCustomAction( ).getType( ) == Action.CUSTOM ) {
