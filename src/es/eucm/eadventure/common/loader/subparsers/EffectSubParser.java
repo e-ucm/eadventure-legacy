@@ -517,7 +517,9 @@ public class EffectSubParser extends SubParser {
                 randomEffect.setNegativeEffect( newEffect );
                 positiveBlockRead = false;
                 readingRandomEffect = false;
+                newEffect = randomEffect;
                 randomEffect = null;
+                
             }
             // Store current effect
             currentEffect = newEffect;
@@ -584,6 +586,7 @@ public class EffectSubParser extends SubParser {
                     randomEffect.setNegativeEffect( newEffect );
                     positiveBlockRead = false;
                     readingRandomEffect = false;
+                    newEffect = randomEffect;
                     randomEffect = null;
                 }
                 // Store current effect
