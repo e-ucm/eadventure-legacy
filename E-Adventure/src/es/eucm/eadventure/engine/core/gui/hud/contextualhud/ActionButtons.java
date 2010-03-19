@@ -190,8 +190,11 @@ public class ActionButtons {
             if( buttons.size( ) >= 8 )
                 return;
             if( action.getType( ) == Action.DRAG_TO && !drag_to) {
+                boolean add = functionalElement.getFirstValidAction( Action.DRAG_TO ) != null;
+                if( add ) {
                 buttons.add( new ActionButton(ActionButton.DRAG_BUTTON) );
                 drag_to = true;
+                }
             }
             if( action.getType( ) == Action.CUSTOM ) {
                 boolean add = functionalElement.getFirstValidCustomAction( ( (CustomAction) action ).getName( ) ) != null;

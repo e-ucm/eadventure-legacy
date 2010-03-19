@@ -113,28 +113,61 @@ public class FunctionalDragTo extends FunctionalAction {
         if( anotherElement != null ) {
             totalTime += elapsedTime;
             if( totalTime > 1000 ) {
-                FunctionalItem item1 = (FunctionalItem) element;
-                if( anotherElement instanceof FunctionalItem ) {
-                    FunctionalItem item2 = (FunctionalItem) anotherElement;
-                    if( !item1.dragTo(item2 ) ) {
-                        if( functionalPlayer.isAlwaysSynthesizer( ) )
-                            functionalPlayer.speakWithFreeTTS( GameText.getTextCustomCannot( ), functionalPlayer.getPlayerVoice( ) );
-                        else
-                            functionalPlayer.speak( GameText.getTextCustomCannot( ) );
-                    }
-                }
-                if( anotherElement instanceof FunctionalNPC ) {
-                    FunctionalNPC npc = (FunctionalNPC) anotherElement;
-                    if( !item1.dragTo( npc ) ) {
-                        if( functionalPlayer.isAlwaysSynthesizer( ) )
-                            functionalPlayer.speakWithFreeTTS( GameText.getTextCustomCannot( ), functionalPlayer.getPlayerVoice( ) );
-                        else
-                            functionalPlayer.speak( GameText.getTextCustomCannot( ) );
-                    }
-                }
+                
+                if (element instanceof FunctionalItem)
+                    spreadDrag((FunctionalItem) element);
+                else if (element instanceof FunctionalNPC)
+                    spreadDrag((FunctionalNPC) element);
+                
+                
                 finished = true;
             }
         } 
+    }
+    
+    //TODO include dragTo in FunctionalElement to avoid duplicate code
+    private void spreadDrag(FunctionalItem item1){
+        
+        if( anotherElement instanceof FunctionalItem ) {
+            FunctionalItem item2 = (FunctionalItem) anotherElement;
+            if( !item1.dragTo(item2 ) ) {
+                if( functionalPlayer.isAlwaysSynthesizer( ) )
+                    functionalPlayer.speakWithFreeTTS( GameText.getTextCustomCannot( ), functionalPlayer.getPlayerVoice( ) );
+                else
+                    functionalPlayer.speak( GameText.getTextCustomCannot( ) );
+            }
+        }
+        if( anotherElement instanceof FunctionalNPC ) {
+            FunctionalNPC npc = (FunctionalNPC) anotherElement;
+            if( !item1.dragTo( npc ) ) {
+                if( functionalPlayer.isAlwaysSynthesizer( ) )
+                    functionalPlayer.speakWithFreeTTS( GameText.getTextCustomCannot( ), functionalPlayer.getPlayerVoice( ) );
+                else
+                    functionalPlayer.speak( GameText.getTextCustomCannot( ) );
+            }
+        }
+    }
+    
+   private void spreadDrag(FunctionalNPC item1){
+        
+        if( anotherElement instanceof FunctionalItem ) {
+            FunctionalItem item2 = (FunctionalItem) anotherElement;
+            if( !item1.dragTo(item2 ) ) {
+                if( functionalPlayer.isAlwaysSynthesizer( ) )
+                    functionalPlayer.speakWithFreeTTS( GameText.getTextCustomCannot( ), functionalPlayer.getPlayerVoice( ) );
+                else
+                    functionalPlayer.speak( GameText.getTextCustomCannot( ) );
+            }
+        }
+        if( anotherElement instanceof FunctionalNPC ) {
+            FunctionalNPC npc = (FunctionalNPC) anotherElement;
+            if( !item1.dragTo( npc ) ) {
+                if( functionalPlayer.isAlwaysSynthesizer( ) )
+                    functionalPlayer.speakWithFreeTTS( GameText.getTextCustomCannot( ), functionalPlayer.getPlayerVoice( ) );
+                else
+                    functionalPlayer.speak( GameText.getTextCustomCannot( ) );
+            }
+        }
     }
 
 }
