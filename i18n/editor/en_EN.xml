@@ -1069,6 +1069,7 @@ The operation was aborted.</entry>
 <entry key="LOM.Educational.Context0">School</entry>
 <entry key="BookPageType.Image">Image</entry>
 <entry key="Timer.LoopControl">Loop control</entry>
+<entry key="Assessment.SMTPConfig.InvalidData">Invalid data</entry>
 <entry key="Cursor.action.Description">Action cursor</entry>
 <entry key="Ids.ErrorIdAlreadyExists">A flag or variable with such name already exists. 
 Please type another name.</entry>

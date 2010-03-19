@@ -1072,6 +1072,7 @@ Dicha operación no se completó.</entry>
 <entry key="LOM.Educational.Context0">School</entry>
 <entry key="BookPageType.Image">Imagen</entry>
 <entry key="Timer.LoopControl">Control de ciclos</entry>
+<entry key="Assessment.SMTPConfig.InvalidData">Datos no válidos</entry>
 <entry key="Cursor.action.Description">Cursor de acción</entry>
 <entry key="Ids.ErrorIdAlreadyExists">Un flag o variable con ese nombre ya existe. 
 Por favor escribe otro nombre.</entry>
