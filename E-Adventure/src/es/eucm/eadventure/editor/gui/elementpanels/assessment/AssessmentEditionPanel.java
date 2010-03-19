@@ -577,7 +577,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
                     dataControl.setSmtpUser( smtpUser.getText( ) );
                 }
                 else {
-                    GenericOptionPaneDialog.showMessageDialog( null, "Invalid data", "Invalid data", JOptionPane.ERROR_MESSAGE );
+                    GenericOptionPaneDialog.showMessageDialog( null, TC.get( "Assessment.SMTPConfig.InvalidData" ), TC.get( "Assessment.SMTPConfig.InvalidData" ), JOptionPane.ERROR_MESSAGE );
 
                 }
             }
