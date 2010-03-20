@@ -58,6 +58,7 @@ import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
@@ -89,7 +90,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
     private JButton deleteButton;
 
     private JButton duplicateButton;
-
+    
     private static final int HORIZONTAL_SPLIT_POSITION = 140;
 
     /**
@@ -103,11 +104,10 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
         this.dataControl = barriersListDataControl;
         String scenePath = Controller.getInstance( ).getSceneImagePath( barriersListDataControl.getParentSceneId( ) );
         spep = new ScenePreviewEditionPanel( false, scenePath );
-        spep.setDataControlSelectionListener( this );
-        addElementsToPreview( scenePath );
-
+        this.setRectangular( );
+    
         setLayout( new BorderLayout( ) );
-
+        
         JPanel tablePanel = createTablePanel( );
 
         JSplitPane tableWithSplit = new JSplitPane( JSplitPane.VERTICAL_SPLIT, tablePanel, spep );
@@ -118,13 +118,23 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
         tableWithSplit.setDividerSize( 10 );
 
         add( tableWithSplit, BorderLayout.CENTER );
+        spep.setDataControlSelectionListener( this );
+        addElementsToPreview( scenePath );
     }
-
+    
+    public void setRectangular(  ) {
+            spep.changeController( new NormalScenePreviewEditionController( spep ) );
+            spep.setShowTextEdition( true );
+            spep.setMovableCategory( ScenePreviewEditionPanel.CATEGORY_POINT, false );
+            spep.removeElements( ScenePreviewEditionPanel.CATEGORY_POINT );
+        this.updateUI( );
+    }
+  
     private JPanel createTablePanel( ) {
 
         JPanel tablePanel = new JPanel( );
-
-        table = new BarriersTable( dataControl );
+        
+ 		table = new BarriersTable( dataControl );
         JScrollPane scroll = new TableScrollPane( table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 
         scroll.setMinimumSize( new Dimension( 0, HORIZONTAL_SPLIT_POSITION ) );
