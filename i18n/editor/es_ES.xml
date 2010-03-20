@@ -1443,6 +1443,7 @@ Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán v�
 <entry key="Flags.Flag">Flag</entry>
 <entry key="Error.ImageTypeNotSupported">La image no se pudo cargar correctamente, posiblemente debido a que el formato no es completamente soportado.</entry>
 <entry key="Conditions.Context.1B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará&lt;/b&gt; (dejará de contar) cuando se cumpla la siguiente condición:</entry>
+<entry key="Exit.ActiveWhenConditionsArent.ToolTip">Salida activa cuando condiciones inactivas</entry>
 <entry key="AssessmentRulesList.ColumnHeader2">Tiene condiciones</entry>
 <entry key="Error.DTD.NotCopied.Message">El archivo "{#0}" no pudo copiarse al proyecto (quizá el fichero esté corrupto o no exista).
 Esto puede provocar errores al ejectuar los juegos con el motor.</entry>

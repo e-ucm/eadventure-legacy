@@ -1439,6 +1439,7 @@ Folders with names containing other characters will not be valid.</entry>
 <entry key="Flags.Flag">Flag</entry>
 <entry key="Error.ImageTypeNotSupported">The image could not be loaded, possible because the image type is not completly supported.</entry>
 <entry key="Conditions.Context.1B.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will stop&lt;/b&gt; when the next condition is satisfied:</entry>
+<entry key="Exit.ActiveWhenConditionsArent.ToolTip">Active when conditions are not</entry>
 <entry key="AssessmentRulesList.ColumnHeader2">Has conditions</entry>
 <entry key="Error.DTD.NotCopied.Message">The file "{#0}" was not copied to the project (maybe the file is corrupt or not present).
 This could provoke errors when executing the adventure with the game engine.</entry>
