@@ -90,8 +90,11 @@ public class FunctionalDragTo extends FunctionalAction {
     public void setAnotherElement( FunctionalElement element ) {
         this.anotherElement = element;
         this.requiersAnotherElement = false;
-        this.needsGoTo = originalAction.isNeedsGoTo( );
-        this.keepDistance = originalAction.getKeepDistance( );
+        //TODO in some part, we don`t check that originalAction is correctly taken (drag with left mouse button)
+        if (originalAction!=null){
+            this.needsGoTo = originalAction.isNeedsGoTo( );
+            this.keepDistance = originalAction.getKeepDistance( );
+        }
     }
 
     @Override
