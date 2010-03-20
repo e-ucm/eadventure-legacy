@@ -1305,6 +1305,7 @@
 <entry key="Flags.Flag">Flag</entry>
 <entry key="Error.ImageTypeNotSupported">A imagem não se pode carregar correctamente, possivelmente devido ao formato não ser completamente suportado.</entry>
 <entry key="Conditions.Context.1B.44">O {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se activará&lt;/b&gt; (deixará de contar) quando se cumpra a seguinte condição:</entry>
+<entry key="Exit.ActiveWhenConditionsArent.ToolTip">Saida activa quando condições inactivas</entry>
 <entry key="AssessmentRulesList.ColumnHeader2">Tem condições</entry>
 <entry key="Error.DTD.NotCopied.Message">O arquivo "{#0}" não pode ser copiado para o projecto (possivelmente o ficheiro está corrompido ou não existe). Isto pode provocar erros ao executar os jogos com o motor.</entry>
 <entry key="AssessmentRulesList.ColumnHeader1">Importância</entry>

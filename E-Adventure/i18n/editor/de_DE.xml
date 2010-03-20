@@ -1401,6 +1401,7 @@ Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán v�
 <entry key="Flags.Flag">Flag</entry>
 <entry key="Error.ImageTypeNotSupported">Das Bild konnte nicht richtig geladen werden, vielleicht weil das Format nicht vollständig unterstützt ist.</entry>
 <entry key="Conditions.Context.1B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará&lt;/b&gt; (dejará de contar) cuando se cumpla la siguiente condición:</entry>
+<entry key="Exit.ActiveWhenConditionsArent.ToolTip">Ausgang aktiv, wenn die Bedingungen inaktive sind</entry>
 <entry key="AssessmentRulesList.ColumnHeader2">Tiene condiciones</entry>
 <entry key="Error.DTD.NotCopied.Message">Datei "{#0}" konnte nicht kopiert werden (Vielleicht ist die Datei beschädigt oder existiert nicht).
 Dies kann zu Fehlern führen, um die Spiele mit dem Motor verfällt.</entry>
