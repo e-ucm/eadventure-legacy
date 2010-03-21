@@ -458,7 +458,7 @@ public class AssessmentRuleDataControl extends DataControl {
             AssessmentProperty property = tRule.getProperty( rowIndex, effect );
             if( property != null ) {
                 try {
-                    controller.addTool( new ChangeAssessmentPropertyTool( tRule.getEffects( ).get( effect ).getAssessmentProperties( ), string, rowIndex+1, ChangeAssessmentPropertyTool.SET_VALUE ) );
+                    controller.addTool( new ChangeAssessmentPropertyTool( tRule.getEffects( ).get( effect ).getAssessmentProperties( ), string, rowIndex, ChangeAssessmentPropertyTool.SET_VALUE ) );
 
                 }
                 catch( Exception e ) {
