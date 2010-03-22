@@ -50,6 +50,8 @@ public class ChangeAssessmentPropertyTool extends Tool {
     public static final int SET_ID = 2;
 
     public static final int SET_VALUE = 3;
+    
+    public static final int SET_VARNAME = 4;
 
     protected String oldValue;
 
@@ -72,6 +74,8 @@ public class ChangeAssessmentPropertyTool extends Tool {
                 oldValue = list.get( index ).getId( );
             }else if (mode == SET_VALUE){
                 oldValue = list.get( index ).getValue( );
+            } else if (mode == SET_VARNAME){
+                oldValue = list.get( index ).getVarName( );
             }
    
     }
@@ -87,7 +91,7 @@ public class ChangeAssessmentPropertyTool extends Tool {
     @Override
     public boolean canUndo( ) {
 
-        return mode == SET_ID || mode == SET_VALUE ;
+        return mode == SET_ID || mode == SET_VALUE || mode == SET_VARNAME ;
     }
 
     @Override
@@ -104,6 +108,9 @@ public class ChangeAssessmentPropertyTool extends Tool {
             return true;
         }else if (mode == SET_VALUE){
             list.get( index ).setValue( newValue );
+            return true;
+        }else if (mode == SET_VARNAME){
+            list.get( index ).setVarName( newValue );
             return true;
         }
         return false;
@@ -127,13 +134,12 @@ public class ChangeAssessmentPropertyTool extends Tool {
             list.get( index ).setValue( oldValue );
             Controller.getInstance( ).updatePanel( );
             return true;
+        }else if (mode == SET_VARNAME){
+            list.get( index ).setVarName( oldValue );
+            Controller.getInstance( ).updatePanel( );
+            return true;
         }
         return false;
     }
 
-    /**
-     * Constructors. Will change the
-     * 
-     * @param oldRule
-     */
 }

@@ -34,6 +34,7 @@
 package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
+
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
@@ -372,16 +373,21 @@ public class AssessmentSubParser extends SubParser {
         else if( qName.equals( "set-property" ) ) {
             String id = null;
             String value = null;
+            String varName = null;
 
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "id" ) )
                     id = attrs.getValue( i );
                 if( attrs.getQName( i ).equals( "value" ) )
                     value = attrs.getValue( i );
+                if( attrs.getQName( i ).equals( "varName" ) )
+                    varName = attrs.getValue( i );
 
             }
-
-            currentAssessmentRule.addProperty( new AssessmentProperty( id, value ) );
+            if (varName==null)
+                currentAssessmentRule.addProperty( new AssessmentProperty( id, value ) );
+            else 
+                currentAssessmentRule.addProperty( new AssessmentProperty( id, value, varName ) );
         }
 
         else if( qName.equals( "assessEffect" ) ) {

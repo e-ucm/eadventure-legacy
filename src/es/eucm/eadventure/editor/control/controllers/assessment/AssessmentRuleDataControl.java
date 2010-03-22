@@ -382,21 +382,24 @@ public class AssessmentRuleDataControl extends DataControl {
         return false;
     }
 
-    public boolean addBlankProperty( int selectedRow, int effect ) {
+    public boolean addBlankProperty( int selectedRow, int effect){
+        return addBlankProperty(selectedRow, effect, null);
+    }
+    
+    public boolean addBlankProperty( int selectedRow, int effect, String varName ) {
 
         boolean added = false;
         if( assessmentRule instanceof TimedAssessmentRule ) {
             TimedAssessmentRule tRule = (TimedAssessmentRule) assessmentRule;
             if( effect >= 0 && effect < tRule.getEffectsCount( ) ) {
                 TimedAssessmentEffect currentEffect = tRule.getEffects( ).get( effect );
-                added = controller.addTool( new AddAssessmentPropertyTool( currentEffect.getAssessmentProperties( ), selectedRow ) );
+                added = controller.addTool( new AddAssessmentPropertyTool( currentEffect.getAssessmentProperties( ), selectedRow, varName ) );
 
             }
         }
         else {
 
-            added = controller.addTool( new AddAssessmentPropertyTool( assessmentRule.getAssessmentProperties( ), selectedRow ) );
-            ;
+            added = controller.addTool( new AddAssessmentPropertyTool( assessmentRule.getAssessmentProperties( ), selectedRow, varName ) );
         }
 
         return added;
@@ -440,7 +443,10 @@ public class AssessmentRuleDataControl extends DataControl {
             //Check only integers are set
 
             try {
-                controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule.getAssessmentProperties( ), string, rowIndex, ChangeAssessmentPropertyTool.SET_VALUE ) );
+                if (assessmentRule.getAssessmentProperties( ).get( rowIndex ).getVarName( )==null)
+                    controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule.getAssessmentProperties( ), string, rowIndex, ChangeAssessmentPropertyTool.SET_VALUE ) );
+                else 
+                    controller.addTool( new ChangeAssessmentPropertyTool( assessmentRule.getAssessmentProperties( ), string, rowIndex, ChangeAssessmentPropertyTool.SET_VARNAME ) );
             }
             catch( Exception e ) {
                 //Display error message
@@ -450,7 +456,35 @@ public class AssessmentRuleDataControl extends DataControl {
         }
 
     }
-
+    
+  
+    
+    
+    /**
+     * One property is regular if it value is set harcoded in the assessment profile. 
+     * The other option is used when we want to add a in-game var/flag value to a property.
+     * 
+     * @param rowIndex
+     * @param effect
+     * @return
+     *      true if it is regular property, false otherwise.
+     */
+    public boolean isRegular(int rowIndex, int effect){
+        
+        boolean isRegular=false;
+        if( assessmentRule instanceof TimedAssessmentRule ) {
+            TimedAssessmentRule tRule = (TimedAssessmentRule) assessmentRule;
+            AssessmentProperty property = tRule.getProperty( rowIndex, effect );
+            if( property != null ) {
+                isRegular = property.getVarName( )==null;
+            }
+        }else {
+            isRegular = assessmentRule.getAssessmentProperties( ).get( rowIndex ).getVarName( )==null;
+        }
+        return isRegular;
+        
+    }
+ 
     public void setPropertyValue( int rowIndex, int effect, String string ) {
 
         if( assessmentRule instanceof TimedAssessmentRule ) {
@@ -458,8 +492,10 @@ public class AssessmentRuleDataControl extends DataControl {
             AssessmentProperty property = tRule.getProperty( rowIndex, effect );
             if( property != null ) {
                 try {
-                    controller.addTool( new ChangeAssessmentPropertyTool( tRule.getEffects( ).get( effect ).getAssessmentProperties( ), string, rowIndex, ChangeAssessmentPropertyTool.SET_VALUE ) );
-
+                    if (property.getVarName( )==null)
+                        controller.addTool( new ChangeAssessmentPropertyTool( tRule.getEffects( ).get( effect ).getAssessmentProperties( ), string, rowIndex, ChangeAssessmentPropertyTool.SET_VALUE ) );
+                    else 
+                        controller.addTool( new ChangeAssessmentPropertyTool( tRule.getEffects( ).get( effect ).getAssessmentProperties( ), string, rowIndex, ChangeAssessmentPropertyTool.SET_VARNAME ) );
                 }
                 catch( Exception e ) {
                     //Display error message
@@ -566,19 +602,27 @@ public class AssessmentRuleDataControl extends DataControl {
 
     }
 
+  
+       
     public String getPropertyValue( int rowIndex, int effect ) {
 
         if( assessmentRule instanceof TimedAssessmentRule ) {
             TimedAssessmentRule tRule = (TimedAssessmentRule) assessmentRule;
             AssessmentProperty property = tRule.getProperty( rowIndex, effect );
             if( property != null ) {
-                return property.getValue( );
+                if (property.getVarName( )==null)
+                    return property.getValue( );
+                else 
+                    return property.getVarName( );
             }
             else
                 return "";
         }
         else {
-            return this.assessmentRule.getAssessmentProperties( ).get( rowIndex ).getValue( );
+            if (this.assessmentRule.getAssessmentProperties( ).get( rowIndex ).getVarName( )==null)
+                return this.assessmentRule.getAssessmentProperties( ).get( rowIndex ).getValue( );
+            else 
+              return  this.assessmentRule.getAssessmentProperties( ).get( rowIndex ).getVarName( );
         }
     }
 

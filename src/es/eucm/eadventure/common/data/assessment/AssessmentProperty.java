@@ -56,7 +56,12 @@ public class AssessmentProperty implements Serializable, Cloneable, HasId {
      * Value of the property
      */
     private String value;
-
+  
+    /**
+     * If this property dependent on var/flag value, this attribute store its name 
+     */
+    private String varName;
+    
     /**
      * Default constructor
      * 
@@ -69,6 +74,22 @@ public class AssessmentProperty implements Serializable, Cloneable, HasId {
 
         this.id = id;
         this.value = value;
+        this.varName = null;
+
+    }
+
+    /**
+     * Constructor for properties dependent on in-game values
+     * 
+     * @param id
+     * @param value
+     * @param varName
+     */
+    public AssessmentProperty( String id, String value, String varName ) {
+
+        this.id = id;
+        this.value = value;
+        this.varName = varName;
 
     }
 
@@ -109,6 +130,19 @@ public class AssessmentProperty implements Serializable, Cloneable, HasId {
         AssessmentProperty ap = (AssessmentProperty) super.clone( );
         ap.id = ( id != null ? new String( id ) : null );
         ap.value = ( value != null ? new String( value ) : null );
+        ap.varName = (varName != null ? new String (varName) : null);
         return ap;
+    }
+
+    
+    public String getVarName( ) {
+    
+        return varName;
+    }
+
+    
+    public void setVarName( String varName ) {
+    
+        this.varName = varName;
     }
 }

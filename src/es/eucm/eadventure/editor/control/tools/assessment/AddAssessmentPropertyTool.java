@@ -46,11 +46,14 @@ public class AddAssessmentPropertyTool extends Tool {
     protected List<AssessmentProperty> parent;
 
     protected int index;
+    
+    protected String varName;
 
-    public AddAssessmentPropertyTool( List<AssessmentProperty> parent, int index ) {
+    public AddAssessmentPropertyTool( List<AssessmentProperty> parent, int index, String varName ) {
 
         this.parent = parent;
         this.index = index;
+        this.varName = varName;
     }
 
     @Override
@@ -73,8 +76,10 @@ public class AddAssessmentPropertyTool extends Tool {
 
     @Override
     public boolean doTool( ) {
-
-        propertyAdded = new AssessmentProperty( "PropertyId", "0" );
+        if (varName==null)
+            propertyAdded = new AssessmentProperty( "PropertyId", "0" );
+        else 
+            propertyAdded = new AssessmentProperty( "PropertyId", "0", varName );
         parent.add( index, propertyAdded );
         return true;
     }
