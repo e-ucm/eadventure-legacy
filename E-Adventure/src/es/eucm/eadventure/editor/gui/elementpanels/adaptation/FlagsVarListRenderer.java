@@ -338,6 +338,7 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
             VarDialog dialog = new VarDialog( varVal, actions, action );
             // set new values
             if( dialog.getValue( ).equals( VarDialog.ERROR ) ) {
+                //TODO i18n
                 GenericOptionPaneDialog.showMessageDialog( null, "asiiii no", "asiiii no", JOptionPane.ERROR_MESSAGE );
             }
             else {

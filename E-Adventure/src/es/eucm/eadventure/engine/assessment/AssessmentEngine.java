@@ -78,6 +78,7 @@ import org.w3c.dom.NodeList;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.SendMail;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
+import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.gui.TC;
@@ -213,8 +214,9 @@ public class AssessmentEngine implements TimerEventListener {
 				 //System.out.println("Se cumple la regla "+ oldRule.getId());
 				// Signal the LMS about the change
 				if (Game.getInstance().isConnected()) {
-					Game.getInstance().getComm().notifyRelevantState(
-							oldRule.getAssessmentProperties());
+				    // check if it is necessary to send in-game value to the property
+				    List<AssessmentProperty> properties = checkProperties(oldRule.getAssessmentProperties());
+					Game.getInstance().getComm().notifyRelevantState(properties);
 				//	System.out.println("Mandamos regla de adaptacion");
 				}
 				processedRules.add(rule);
@@ -231,6 +233,30 @@ public class AssessmentEngine implements TimerEventListener {
 		return new FunctionalConditions(rule.getConditions()).allConditionsOk();
 	}
 
+	/**
+	 * Assign a in-game var/flag to an assessment property
+	 */
+	private List<AssessmentProperty> checkProperties(List<AssessmentProperty> properties){
+	    if (properties!= null){
+	        for (AssessmentProperty property:properties){
+	            if (property.getVarName( )!=null){
+	                if (Game.getInstance().getFlags( ).existFlag( property.getVarName( ))){
+	                    if (Game.getInstance().getFlags( ).getFlagValue(property.getVarName( )))
+	                        property.setValue( "true" );
+	                    else 
+	                        property.setValue( "false" );
+	                } else if (Game.getInstance().getVars( ).existVar(property.getVarName( ))){
+	                        property.setValue( Integer.toString( Game.getInstance().getVars( ).getValue( property.getVarName( ) )) );
+	                
+	                }
+	                
+	    
+	            }
+	        }
+	    }
+	    return properties;
+	}
+	
 	/**
 	 * Returns the timed rule indexed by key "i".
 	 * 

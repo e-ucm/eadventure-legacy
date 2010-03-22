@@ -203,7 +203,9 @@ public class AssessmentDOMWriter {
                 for( AssessmentProperty property : rule.getAssessmentProperties( ) ) {
                     Element propertyElement = doc.createElement( "set-property" );
                     propertyElement.setAttribute( "id", property.getId( ) );
-                    propertyElement.setAttribute( "value", String.valueOf( property.getValue( ) ) );
+                    propertyElement.setAttribute( "value", property.getValue( )  );
+                    if ( property.getVarName( )!= null )
+                        propertyElement.setAttribute( "varName",  property.getValue( )  );
                     effectNode.appendChild( propertyElement );
                 }
                 //Append the effect

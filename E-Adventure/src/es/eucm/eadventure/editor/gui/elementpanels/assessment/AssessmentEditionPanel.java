@@ -102,7 +102,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
     private JPanel profileTypePanel;
 
     /**
-     * Panel which contains the initial state
+     * Panel which contains the data to show/send feedback
      */
     private JPanel feedbackPanel;
 

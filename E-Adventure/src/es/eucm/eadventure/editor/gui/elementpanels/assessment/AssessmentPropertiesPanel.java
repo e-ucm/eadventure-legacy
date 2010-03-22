@@ -34,21 +34,28 @@
 package es.eucm.eadventure.editor.gui.elementpanels.assessment;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
@@ -56,8 +63,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
@@ -168,7 +178,11 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
             propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
 
         }
-
+        
+        //CELL RENDERER!!
+        JComboBox flagsAndVars = new JComboBox(  Controller.getInstance( ).getVarFlagSummary( ).getVarsAndFlags( ));
+        propertiesTable.getColumnModel( ).getColumn( 1 ).setCellEditor( new AssessmentPropertyCellRenderer() );
+        propertiesTable.getColumnModel( ).getColumn( 1 ).setCellRenderer( new AssessmentPropertyCellRenderer() );
         // Misc properties
         //propertiesTable.setTableHeader( null );
         propertiesTable.setIntercellSpacing( new Dimension( 1, 1 ) );
@@ -204,7 +218,17 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
         insertPropertyButton.setMargin( new Insets( 0, 0, 0, 0 ) );
         insertPropertyButton.setBorder( BorderFactory.createEmptyBorder( ) );
         insertPropertyButton.setToolTipText( TC.get( "AssessmentProperties.InsertProperty" ) );
-        insertPropertyButton.addActionListener( new ListenerButtonInsertLine( ) );
+      //  insertPropertyButton.addActionListener( new ListenerButtonInsertLine( ) );
+        
+        insertPropertyButton.addMouseListener( new MouseAdapter( ) {
+
+            @Override
+            public void mouseClicked( MouseEvent evt ) {
+
+                JPopupMenu menu = getAddChildPopupMenu( );
+                menu.show( evt.getComponent( ), evt.getX( ), evt.getY( ) );
+            }
+        } );
 
         deletePropertyButton = new JButton( new ImageIcon( "img/icons/deleteNode.png" ) );
         deletePropertyButton.setContentAreaFilled( false );
@@ -215,6 +239,84 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
 
         addComponents( );
     }
+    
+    
+    /**
+     * Returns a popup menu with the add operations.
+     * 
+     * @return Popup menu with child adding operations
+     */
+    public JPopupMenu getAddChildPopupMenu( ) {
+
+        JPopupMenu addChildPopupMenu = new JPopupMenu( );
+
+        // add specific value
+        //TODO i18n
+        JMenuItem addChildMenuItem = new JMenuItem( "Add value property");
+        addChildMenuItem.setEnabled( true );
+        addChildMenuItem.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                int selectedRow = propertiesTable.getSelectedRow( );
+
+                // If no row is selected, set the insertion position at the end
+                if( selectedRow == -1 )
+                    selectedRow = propertiesTable.getRowCount( ) - 1;
+
+                // Insert the dialogue line in the selected position
+                if( assessmentRuleDataControl.addBlankProperty( selectedRow + 1, currentIndex ) ) {
+
+                    // Select the inserted line
+                    propertiesTable.setRowSelectionInterval( selectedRow + 1, selectedRow + 1 );
+                    propertiesTable.scrollRectToVisible( propertiesTable.getCellRect( selectedRow + 1, 0, true ) );
+
+                    // Update the table
+                    propertiesTable.revalidate( );
+                }
+            }
+        } );
+        addChildPopupMenu.add( addChildMenuItem );
+
+        // add a value from in-game var/flag
+        //TODO i18n
+        addChildMenuItem = new JMenuItem( "Add var/flag property" );
+        addChildMenuItem.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+
+                int selectedRow = propertiesTable.getSelectedRow( );
+
+                // If no row is selected, set the insertion position at the end
+                if( selectedRow == -1 )
+                    selectedRow = propertiesTable.getRowCount( ) - 1;
+
+                // Insert the dialogue line in the selected position
+                //TODO i18n
+                String varName = "No flags/vars";
+                if (Controller.getInstance( ).getVarFlagSummary( ).getFlagCount( )!=0)
+                    varName = Controller.getInstance( ).getVarFlagSummary( ).getFlag( 1 );
+                else if(Controller.getInstance( ).getVarFlagSummary( ).getVarCount( )!=0)
+                    varName = Controller.getInstance( ).getVarFlagSummary( ).getVar( 1 );
+                    
+                if( assessmentRuleDataControl.addBlankProperty( selectedRow + 1, currentIndex, varName ) ) {
+
+                    // Select the inserted line
+                    propertiesTable.setRowSelectionInterval( selectedRow + 1, selectedRow + 1 );
+                    propertiesTable.scrollRectToVisible( propertiesTable.getCellRect( selectedRow + 1, 0, true ) );
+
+                    // Update the table
+                    propertiesTable.revalidate( );
+                }
+            }
+
+        } );
+        addChildPopupMenu.add( addChildMenuItem );
+
+        return addChildPopupMenu;
+    }
+
 
     
 
@@ -418,11 +520,12 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
         @Override
         public String getColumnName( int columnIndex ) {
 
+            //TODO i18n!!
             String name = "";
             if( columnIndex == 0 )
                 name = "Id";
             else if( columnIndex == 1 )
-                name = "Value";
+                name = "Value/Var/Flag";
             return name;
         }
 
@@ -493,9 +596,11 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
                         
                     }
                     // If the text is being edited, and it has really changed
-                    if( columnIndex == 1 )
-                        assessmentRuleDataControl.setPropertyValue( rowIndex, currentIndex, value.toString( ) );
-
+                   // if( columnIndex == 1 )
+                        //if (assessmentRuleDataControl.isRegular( rowIndex, currentIndex ))
+                     //       assessmentRuleDataControl.setPropertyValue( rowIndex, currentIndex, value.toString( ) );
+                        //else 
+                          //  assessmentRuleDataControl.setPropertyVarName( rowIndex, currentIndex, value.toString( ) );
                     fireTableCellUpdated( rowIndex, columnIndex );
                 }
             }
@@ -518,13 +623,140 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
                     break;
                 case 1:
                     // Property value
-                    value = assessmentRuleDataControl.getPropertyValue( rowIndex, currentIndex );
+                   // value = assessmentRuleDataControl.getPropertyValue( rowIndex, currentIndex );
+                    value = assessmentRuleDataControl;
                     break;
             }
 
             return value;
         }
     }
+    
+    
+    
+
+    private class AssessmentPropertyCellRenderer extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Data Control
+         */
+        private AssessmentRuleDataControl value;
+        
+        public Component getTableCellEditorComponent( JTable table, Object value, boolean isSelected, int row, int column ) {
+
+
+            this.value = (AssessmentRuleDataControl) value;
+            
+            if( this.value.isRegular( row, currentIndex ))
+                return prepareRegular(row,isSelected , table);
+            else 
+                return prepareValue( row, isSelected, table );
+            
+        }
+
+        public Object getCellEditorValue( ) {
+
+            return value;
+        }
+
+        public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
+
+            
+            this.value = (AssessmentRuleDataControl) value;
+            
+            if( this.value.isRegular( row, currentIndex ))
+                return prepareRegular( row, isSelected, table );
+            else 
+                return prepareValue( row, isSelected, table );
+          
+        }
+
+        private JComboBox prepareValue(  int rowIndex, boolean isSelected, JTable table ) {
+            JComboBox values = null;
+         // get the flag/var from the data control
+            String selectedFlagVar = value.getPropertyValue( rowIndex, currentIndex );
+            // get the values for the combo box
+            String[] flagsvars = Controller.getInstance( ).getVarFlagSummary( ).getVarsAndFlags( );
+            values = new JComboBox( flagsvars );
+            values.setEditable( false );
+            values.setSelectedItem( selectedFlagVar );
+            values.addActionListener( new ComboListener( rowIndex, currentIndex, values ) );
+            if( isSelected )
+                values.setBorder( BorderFactory.createMatteBorder( 2, 0, 2, 0, table.getSelectionBackground( ) ) );
+
+            return values;
+            
+        }
+        
+        private JPanel prepareRegular(int rowIndex, boolean isSelected, JTable table ){
+            
+            JPanel component = new JPanel();
+            component.setLayout( new BorderLayout() );
+            JTextField value = new JTextField(this.value.getPropertyValue( rowIndex, currentIndex ));
+            value.addActionListener( new ModifyRegular(rowIndex,currentIndex,value) );
+            component.add( value , BorderLayout.CENTER);
+         // create border if it is selected
+            if( isSelected )
+                component.setBorder( BorderFactory.createMatteBorder( 2, 0, 2, 0, table.getSelectionBackground( ) ) );
+
+            return component;
+        }
+        
+        private class ComboListener implements ActionListener {
+
+            
+            private int rowIndex;
+            
+            private int currentIndex;
+           
+            private JComboBox combo;
+            
+            public ComboListener(int rowIndex, int currentIndex, JComboBox combo){
+                this.rowIndex = rowIndex;
+                this.currentIndex = currentIndex;
+                this.combo = combo;
+            }
+            
+            public void actionPerformed( ActionEvent e ) {
+
+                value.setPropertyValue( rowIndex, currentIndex, combo.getSelectedItem( ).toString( ));
+                
+            }
+            
+        }
+        
+        private class ModifyRegular implements ActionListener{
+
+            private int rowIndex;
+            
+            private int currentIndex;
+           
+            private JTextField textField;
+            
+            public ModifyRegular(int rowIndex, int currentIndex, JTextField textField){
+                this.rowIndex = rowIndex;
+                this.currentIndex = currentIndex;
+                this.textField = textField;
+            }
+            
+            public void actionPerformed( ActionEvent e ) {
+
+                value.setPropertyValue( rowIndex, currentIndex, textField.getText( ) );
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    
+    
 
     /**
      * @return the currentIndex

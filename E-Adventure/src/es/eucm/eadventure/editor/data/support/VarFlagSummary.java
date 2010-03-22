@@ -444,6 +444,13 @@ public class VarFlagSummary {
 
         return vars.toArray( new String[] {} );
     }
+    
+    public String[] getVarsAndFlags(){
+        ArrayList<String> mix = new ArrayList();
+        mix.addAll( vars );
+        mix.addAll( flags );
+        return mix.toArray( new String[]{});
+    }
 
     /**
      * Sorts the lists of flags and resources, by the name of the flags.
