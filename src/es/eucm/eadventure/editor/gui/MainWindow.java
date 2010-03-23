@@ -125,6 +125,8 @@ public class MainWindow extends JFrame {
 
     private JMenuItem redo;
     
+    private  JMenu fileMenu;
+    
     private JCheckBoxMenuItem itAutoBackup;
 
     /**
@@ -312,7 +314,7 @@ public class MainWindow extends JFrame {
         windowMenu.setLayout( new FlowLayout( FlowLayout.LEFT ) );
 
         // Create the menus
-        JMenu fileMenu = new JMenu( TC.get( "MenuFile.Title" ) );
+        fileMenu = new JMenu( TC.get( "MenuFile.Title" ) );
         fileMenu.setMnemonic( KeyEvent.VK_F );
         windowMenu.add( fileMenu );
         JMenu editMenu = new JMenu( TC.get( "MenuEdit.Title" ) );
@@ -734,6 +736,7 @@ public class MainWindow extends JFrame {
 
         this.normalRun.setEnabled( available );
         this.debugRun.setEnabled( available );
+        this.fileMenu.setEnabled( available );
     }
 
     /**
