@@ -597,4 +597,5 @@
 <!ATTLIST set-property
 	id NMTOKEN #REQUIRED
 	value NMTOKEN #REQUIRED
+	varName NMTOKEN #IMPLIED
 >
