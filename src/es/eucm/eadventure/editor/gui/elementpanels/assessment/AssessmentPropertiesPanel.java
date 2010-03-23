@@ -159,6 +159,17 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
 
         // Column size properties
         propertiesTable.setAutoCreateColumnsFromModel( false );
+        propertiesTable.getSelectionModel( ).addListSelectionListener( new ListSelectionListener( ) {
+
+            public void valueChanged( ListSelectionEvent arg0 ) {
+
+                propertiesTable.setRowHeight( 15 );
+                if( propertiesTable.getSelectedRow( ) != -1 )
+                    propertiesTable.setRowHeight( propertiesTable.getSelectedRow( ), 25 );
+            }
+        } );
+        
+      
         //propertiesTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
         //propertiesTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
 

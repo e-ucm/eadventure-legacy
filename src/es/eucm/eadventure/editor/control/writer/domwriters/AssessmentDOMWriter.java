@@ -205,7 +205,7 @@ public class AssessmentDOMWriter {
                     propertyElement.setAttribute( "id", property.getId( ) );
                     propertyElement.setAttribute( "value", property.getValue( )  );
                     if ( property.getVarName( )!= null )
-                        propertyElement.setAttribute( "varName",  property.getValue( )  );
+                        propertyElement.setAttribute( "varName",  property.getVarName( )  );
                     effectNode.appendChild( propertyElement );
                 }
                 //Append the effect
