@@ -175,14 +175,10 @@ public class NPCDialogPanel extends JPanel {
 
             int selection = voicesComboBox.getSelectedIndex( );
             boolean enableCheckBox = selection !=0; 
-            boolean availableVoice ;
-            if (dataControl.getVoice( )==null){
-                availableVoice = false;
-            }else{
-                availableVoice = (dataControl.getVoice().equals( new String("")));
-            }
-                
-                if (availableVoice != enableCheckBox){
+            boolean availableVoice ; 
+            //Show if there was a selected voice before. 
+            availableVoice = !(dataControl.getVoice()==null ||dataControl.getVoice().equals( new String("")));
+            if (availableVoice != enableCheckBox){
                     alwaysSynthesizer.setEnabled( enableCheckBox);
                     trySynthesizer.setText( "" );
                     trySynthesizer.setEnabled( enableCheckBox);
