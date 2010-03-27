@@ -679,6 +679,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 		partes de la conversación. Los datos eliminados no podrán recuperarse.</entry>
 <entry key="GUIStyles.Title">Estilo de GUI de la aventura</entry>
 <entry key="Error.LoadData.SAX">Ocurrió un problema con la consistencia XML de los datos</entry>
+<entry key="AssessmentRule.CheckRule.Title">Al cambiar el tipo de perfil, hay partes del modelo de datos que no concuerdan. El juego se podrá exportar correctamente, pero la comunicación puede que no funcione como se desea.</entry>
 <entry key="Conditions.Flag.Description">Esta es la lista de flags del capítulo.
 Los flags pueden estar activos o inactivos en un momento determinado,como una barrera que puede estar
 levantada o bajada bloqueando o desbloqueando el paso. En el juego se pueden establecer condiciones en

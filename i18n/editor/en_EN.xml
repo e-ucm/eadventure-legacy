@@ -677,6 +677,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 		Deleted data will be permanently lost</entry>
 <entry key="GUIStyles.Title">GUI style for the adventure</entry>
 <entry key="Error.LoadData.SAX">An error occurred with the XML consistency of the adventure data</entry>
+<entry key="AssessmentRule.CheckRule.Title">By changing the type of profile, there are parts of the data model that do not match. The game can be exported correctly, but communication may not work as intended.</entry>
 <entry key="Conditions.Flag.Description">This is the list of flags of the chapter.
 Flags can be active or inactive at any moment in the game, as traffic lights can be
 green or red to allow or forbid crossing. In the game you can define conditions
