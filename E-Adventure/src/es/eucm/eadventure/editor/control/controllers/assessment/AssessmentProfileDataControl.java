@@ -546,7 +546,7 @@ public class AssessmentProfileDataControl extends DataControl {
         }
         if (!valid)
             //TC
-            new InvalidReportDialog( incidences , "Al cambiar el tipo de perfil, hay partes del modelo de datos que no concuerdan. El juego se podrá exportar correctamente, pero la comunicación puede que no funcione como se desea. ");
+            new InvalidReportDialog( incidences , TC.get( "AssessmentRule.CheckRule.Title" ));
     }
 
     @Override
