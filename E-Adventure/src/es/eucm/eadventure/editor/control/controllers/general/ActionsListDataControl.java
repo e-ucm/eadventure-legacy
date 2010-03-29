@@ -391,10 +391,11 @@ public class ActionsListDataControl extends DataControl {
         if( elementIndex > 0 ) {
             actionsList.add( elementIndex - 1, actionsList.remove( elementIndex ) );
             actionsDataControlList.add( elementIndex - 1, actionsDataControlList.remove( elementIndex ) );
-            //controller.dataModified( );
+            controller.dataModified( );
             elementMoved = true;
+              
         }
-
+        
         return elementMoved;
     }
 
@@ -407,7 +408,7 @@ public class ActionsListDataControl extends DataControl {
         if( elementIndex < actionsList.size( ) - 1 ) {
             actionsList.add( elementIndex + 1, actionsList.remove( elementIndex ) );
             actionsDataControlList.add( elementIndex + 1, actionsDataControlList.remove( elementIndex ) );
-            //controller.dataModified( );
+            controller.dataModified( );
             elementMoved = true;
         }
 
