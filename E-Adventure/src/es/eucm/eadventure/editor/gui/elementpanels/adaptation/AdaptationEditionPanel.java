@@ -112,10 +112,8 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
      */
     private AdaptationProfileDataControl dataControl;
 
-    /**
-     * Last used rule
-     */
-    private AdaptationRuleDataControl lastRule;
+    /*
+    private AdaptationRuleDataControl lastRule;*/
 
     /**
      * Table with all profile's rules
@@ -240,7 +238,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
                     duplicate.setEnabled( true );
                     movePropertyUpButton.setEnabled( true );
                     movePropertyDownButton.setEnabled( true );
-                    lastRule = dataControl.getAdaptationRules( ).get( informationTable.getSelectedRow( ) );
+             //       lastRule = dataControl.getAdaptationRules( ).get( informationTable.getSelectedRow( ) );
                 }
                 else {
                     delete.setEnabled( false );
@@ -356,14 +354,15 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
             empty.add( label );
             rulesInfoPanel.add( empty );
             rulesInfoPanel.setMinimumSize( new Dimension( 0, 100 ) );
+            rulesInfoPanel.updateUI( );
         }
         else {
             rulesInfoPanel.removeAll( );
             
-            JPanel Uol = new UOLPropertiesPanel( lastRule, dataControl.isScorm12( ), dataControl.isScorm2004( ) );
+            JPanel Uol = new UOLPropertiesPanel( dataControl.getAdaptationRules( ).get( informationTable.getSelectedRow( ) ), dataControl.isScorm12( ), dataControl.isScorm2004( ) );
             rulesInfoPanel.addTab( TC.get( "AdaptationProfile.TabbedLMSState" ), Uol );
 
-            JPanel gameStatePanel = new GameStatePanel( lastRule );
+            JPanel gameStatePanel = new GameStatePanel( dataControl.getAdaptationRules( ).get( informationTable.getSelectedRow( ) ) );
             rulesInfoPanel.addTab( TC.get( "AdaptationProfile.TabbedInitialState" ), gameStatePanel );
 
             // Create the game-state panel
