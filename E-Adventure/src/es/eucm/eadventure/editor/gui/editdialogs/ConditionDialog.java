@@ -436,6 +436,12 @@ public class ConditionDialog extends ToolManagableDialog {
                 idsComboBox.setSelectedItem( defaultId );
             featuresPanel.add( idsComboBox, c );
 
+            // here stateComboBox has a default value, but is necessary because the conditions are generic
+            stateComboBox = new JComboBox( ConditionsController.STATE_VALUES_FLAGS );
+            if( defaultState != null ) {
+                stateComboBox.setSelectedItem( defaultState );
+            }
+
             featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Conditions.Group.Title" ) ) );
         }
         featuresPanel.doLayout( );

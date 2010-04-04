@@ -46,8 +46,8 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.conditions.AddConditionTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.DeleteConditionTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.DuplicateConditionTool;
-import es.eucm.eadventure.editor.control.tools.general.conditions.SetEvalFunctionTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.SetConditionTool;
+import es.eucm.eadventure.editor.control.tools.general.conditions.SetEvalFunctionTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
@@ -377,7 +377,7 @@ public class ConditionsController {
 
         if( index2 < 0 || index2 >= conditions.get( index1 ).size( ) )
             return false;
-
+        // here CONDITION_STATE has a default value in "Global State Condition", not is necessary
         if( properties.get( CONDITION_TYPE ) == null || properties.get( CONDITION_ID ) == null || properties.get( CONDITION_STATE ) == null )
             return false;
 
