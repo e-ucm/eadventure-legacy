@@ -39,6 +39,7 @@
 <entry key="AssessmentRule.Importance.VeryLow">Muy baja</entry>
 <entry key="AssessmentRulesList.ListTitle">Lista de reglas de evaluación</entry>
 <entry key="EffectsGroup.Trigger">Lanzar evento</entry>
+<entry key="Action.ActiveWhenConditionsArent.ToolTip">Seleccionar para que la acción esté activa a pesar de que no haya condiciones</entry>
 <entry key="Error.DTD.NotFound.Title">Archivo importante no encontrado</entry>
 <entry key="Conditions.Context.2B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará nada más comenzar a contar&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="LOM.Educational.LearningResourceType">Learning resource type</entry>
@@ -273,6 +274,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="FormattedTextAssets.Preview">Previsualización</entry>
 <entry key="SpeakPlayerEffect.Description">Introduzca la línea que el protagonista pronunciará:</entry>
 <entry key="Scene.Documentation">Documentación de la escena</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent.ToolTip">Seleccionar para que la acción esté activa a pesar de que no haya condiciones</entry>
 <entry key="ActionsList.ActionName">Acción</entry>
 <entry key="Operation.AddSceneTitle">Añadir nueva escena</entry>
 <entry key="Timer.Effects">Efectos a ejecutar si expira el temporizador</entry>

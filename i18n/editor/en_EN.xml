@@ -39,6 +39,7 @@
 <entry key="AssessmentRule.Importance.VeryLow">Very Low</entry>
 <entry key="AssessmentRulesList.ListTitle">List of assessment rules</entry>
 <entry key="EffectsGroup.Trigger">Trigger an event</entry>
+<entry key="Action.ActiveWhenConditionsArent.ToolTip"/>
 <entry key="Error.DTD.NotFound.Title">Important file not found</entry>
 <entry key="Conditions.Context.2B.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will stop immediately&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="LOM.Educational.LearningResourceType">Learning resource type</entry>
