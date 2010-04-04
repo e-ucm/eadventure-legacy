@@ -1326,10 +1326,12 @@ public class ScenePreviewEditionPanel extends JPanel {
         posXSpinner.addChangeListener( new ChangeListener( ) {
 
             public void stateChanged( ChangeEvent arg0 ) {
-
-                int y = selectedElement.getY( );
-                selectedElement.changePosition( ( (Integer) posXSpinner.getValue( ) ).intValue( ), y );
-                ScenePreviewEditionPanel.this.repaint( );
+                
+                if ( selectedElement != null ){
+                    int y = selectedElement.getY( );
+                    selectedElement.changePosition( ( (Integer) posXSpinner.getValue( ) ).intValue( ), y );
+                    ScenePreviewEditionPanel.this.repaint( );
+                }
             }
         } );
         c.gridx++;
@@ -1344,10 +1346,12 @@ public class ScenePreviewEditionPanel extends JPanel {
         posYSpinner.addChangeListener( new ChangeListener( ) {
 
             public void stateChanged( ChangeEvent arg0 ) {
-
-                int x = selectedElement.getX( );
-                selectedElement.changePosition( x, (Integer) posYSpinner.getValue( ) );
-                ScenePreviewEditionPanel.this.repaint( );
+                
+                if (selectedElement != null){
+                    int x = selectedElement.getX( );
+                    selectedElement.changePosition( x, (Integer) posYSpinner.getValue( ) );
+                    ScenePreviewEditionPanel.this.repaint( );
+                }
             }
         } );
         c.gridx++;
@@ -1364,9 +1368,11 @@ public class ScenePreviewEditionPanel extends JPanel {
             scaleSpinner.addChangeListener( new ChangeListener( ) {
 
                 public void stateChanged( ChangeEvent arg0 ) {
-
-                    selectedElement.setScale( ( (Float) scaleSpinner.getValue( ) ).floatValue( ) );
-                    ScenePreviewEditionPanel.this.repaint( );
+                    
+                    if ( selectedElement != null ){
+                        selectedElement.setScale( ( (Float) scaleSpinner.getValue( ) ).floatValue( ) );
+                        ScenePreviewEditionPanel.this.repaint( );
+                    }
                 }
             } );
             c.insets = new Insets( 0, 0, 0, 0 );
