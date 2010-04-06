@@ -44,6 +44,7 @@ import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.data.HasTargetId;
 import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
+import es.eucm.eadventure.common.data.chapter.effects.CancelActionEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
@@ -658,6 +659,9 @@ public class EffectsController {
                 break;
             case Effect.MOVE_OBJECT:
                 newEffect = new MoveObjectEffect(target, x, y, scale, animated, translationSpeed, scaleSpeed);
+                break;
+            case Effect.CANCEL_ACTION:
+                newEffect = new CancelActionEffect();
                 break;
         }
 
