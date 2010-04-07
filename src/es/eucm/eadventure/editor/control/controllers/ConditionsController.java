@@ -419,11 +419,14 @@ public class ConditionsController {
      * @param newId
      */
     public void replaceIdentifierReferences( String oldId, String newId ) {
-
-        for( String conditionId : conditions.getGloblaStateIds( ) ) {
-            if( conditionId.equals( oldId ) )
-                conditionId = newId;
+        
+       for( int i = 0; i < conditions.size( );i++) {
+            for( int j = 0; j < conditions.get( i ).size( ); j++ ) {
+                if (conditions.get( i ).get( j ).getId( ).equals( oldId ))
+                        conditions.get( i ).get( j ).setId( newId );
+            }
         }
+         
     }
 
     /**
