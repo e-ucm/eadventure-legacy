@@ -48,6 +48,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -56,7 +57,6 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 import es.eucm.eadventure.common.auxiliar.File;
-import es.eucm.eadventure.common.gui.BookEditorPane;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
@@ -71,7 +71,7 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
 
     private static final int HELP_HEIGHT = 600;
 
-    private BookEditorPane pane;
+    private JEditorPane pane;
 
     private List<URL> backList;
 
@@ -94,7 +94,7 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
         String folder = "help/" + Controller.getInstance( ).getLanguage( ) + "/";
         File file = new File( folder + helpPath );
         if( file.exists( ) ) {
-            pane = new BookEditorPane( );
+            pane = new JEditorPane( );
             try {
                 pane.setPage( file.toURI( ).toURL( ) );
                 
