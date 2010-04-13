@@ -39,6 +39,7 @@ import java.awt.event.MouseEvent;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalMoveObjectEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalPlayAnimationEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalRandomEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalShowTextEffect;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
@@ -100,6 +101,12 @@ public class GameStateRunEffects extends GameState {
         // If is show text effect, call to its draw method
         if( currentExecutingEffect instanceof FunctionalShowTextEffect )
             ( (FunctionalShowTextEffect) currentExecutingEffect ).draw( );
+        //If the selected effect of the random effects is show text, call to its draw method.
+        if (currentExecutingEffect instanceof FunctionalRandomEffect){
+           if (currentExecutingEffect.getTriggerEffect( ) instanceof FunctionalShowTextEffect)
+               ( (FunctionalShowTextEffect) currentExecutingEffect.getTriggerEffect( ) ).draw( );
+           }
+               
         GUI.getInstance( ).drawScene( g, elapsedTime );
 
         GUI.getInstance( ).drawHUD( g );
@@ -161,7 +168,7 @@ public class GameStateRunEffects extends GameState {
                 currentExecutingEffect.skip();
                 
             }
-
+            
             if( currentExecutingEffect instanceof FunctionalPlayAnimationEffect ) {
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).draw( g );
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).update( elapsedTime );
