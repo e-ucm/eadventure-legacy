@@ -203,5 +203,8 @@ public abstract class FunctionalEffect {
 
     public void skip( ) {
     }
+    public FunctionalEffect getTriggerEffect(){
+        return null;
+        }
 
 }

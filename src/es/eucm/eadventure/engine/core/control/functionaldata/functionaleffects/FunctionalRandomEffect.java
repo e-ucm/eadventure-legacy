@@ -111,5 +111,12 @@ public class FunctionalRandomEffect extends FunctionalEffect {
                 effectTriggered.triggerEffect( );
         }
     }
+    @Override
+    public FunctionalEffect getTriggerEffect(){
+        
+      return  effectTriggered;
+    }
+
+    
 
 }
