@@ -190,6 +190,7 @@ public class JARSigner {
                 }
 
                 created = true;
+                System.out.println( "Successfully signed Jar" );
             }
             catch( Exception e ) {
                 ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );

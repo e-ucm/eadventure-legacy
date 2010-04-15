@@ -51,9 +51,9 @@ public class Main {
             JSHelper.printHelp();
             return;
         }
-        // do the actual work
+        // do the actual work, now we have only implemented signjar
         if (param.isVerify()) {
-            JSVerifier.verifyJar(param);
+            JSVerifier.verifyJar(param); // it is not used
         } else {
             JSSigner.signJar(param);
         }
