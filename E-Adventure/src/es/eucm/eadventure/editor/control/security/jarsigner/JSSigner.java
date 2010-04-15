@@ -156,7 +156,6 @@ public class JSSigner {
         // Open the jar (zip) file
         try {
             String nombre = param.getJarName( ) ;
-            System.out.println(nombre);
             zipFile = new ZipFile(nombre );
         }
         catch( IOException ioe ) {
