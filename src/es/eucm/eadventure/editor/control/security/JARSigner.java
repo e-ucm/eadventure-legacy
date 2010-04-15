@@ -41,11 +41,9 @@ import java.util.Set;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.auxiliar.File;
-
-import sun.security.tools.JarSigner;
 import sun.security.tools.KeyTool;
+import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 
 public class JARSigner {
 
@@ -181,7 +179,7 @@ public class JARSigner {
                 KeyTool.main( new String[] { "-genkeypair", "-alias", alias, "-dname", dName, "-keypass", password, "-validity", "1000", "-keystore", KEY_STORE_NAME, "-storepass", KEY_STORE_PASSWORD } );
 
                 //Sign the jar
-                JarSigner.main( new String[] { "-keystore", KEY_STORE_NAME, "-storepass", KEY_STORE_PASSWORD, "-keypass", password, "-signedjar", new File( signedJarPath ).getAbsolutePath( ), new File( originJarPath ).getAbsolutePath( ), alias } );
+                es.eucm.eadventure.editor.control.security.jarsigner.Main.main( new String[] { "-keystore", KEY_STORE_NAME, "-storepass", KEY_STORE_PASSWORD, "-keypass", password, "-signedjar", new File( signedJarPath ).getAbsolutePath( ), "-sigfile", new File( originJarPath ).getAbsolutePath( ), alias } );
 
                 //Verify it has been successfully signed
                 JarFile signedJar = new JarFile( signedJarPath, true );
