@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.math.BigInteger;
 import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -61,7 +60,6 @@ import sun.security.util.DerInputStream;
 import sun.security.util.DerValue;
 import sun.security.util.ManifestDigester;
 import sun.security.util.SignatureFileVerifier;
-import sun.security.x509.AlgorithmId;
 import sun.security.x509.CertificateIssuerName;
 import sun.security.x509.NetscapeCertTypeExtension;
 import sun.security.x509.X500Name;
@@ -72,12 +70,11 @@ import sun.security.x509.X509CertInfo;
  */
 public class JSSigner {
 
-    //folder META_INF
+    //store directory folder META_INF
     private static final String META_INF = "META-INF/";
 
     // read zip entry raw bytes
     private static ByteArrayOutputStream baos = new ByteArrayOutputStream( 2048 );
-
     private static byte[] buffer = new byte[ 8192 ];
 
     // prefix for new signature-related files in META-INF directory
@@ -86,39 +83,35 @@ public class JSSigner {
     // name of digest algorithm
     static String digestalg = "SHA1"; 
     
-
-    private static boolean hasExpiredCert = false;
-    private static boolean hasExpiringCert = false;
-    private static boolean notYetValidCert = false;
-
-    private static boolean badKeyUsage = false;
-    private static boolean badExtendedKeyUsage = false;
-    private static boolean badNetscapeCertType = false;
+    // "sign" the whole manifest
+    static boolean signManifest = true;
     
+    // signer's certificate chain (when composing)
+    static X509Certificate[] certChain;
 
-
-    static boolean signManifest = true; // "sign" the whole manifest
-    
-    static // signer's certificate chain (when composing)
-    X509Certificate[] certChain;
-
-    // TODO controlar la excepcion runtimeexception
+    /**
+     * Main method to perform the signature program
+     * @param param
+     * @throws JarSignerException
+     */
     public static void signJar( JSParameters param ) throws JarSignerException {
 
+        //variable that controls the character's name invalid
         boolean aliasUsed = false;
+        
         X509Certificate tsaCert = null;
         ZipFile zipFile = null;
         
-        // nombre de los archivos DSA y SF
+        //DSA and SF file names  
         String sigfile = null;
 
-        // el nombre será correspondido con el alias
+        //file name corresponded with alias
         if( sigfile == null ) {
             sigfile = param.getAlias( );
             aliasUsed = true;
         }
 
-        // si el nombre es demasiado largo lo acortamos
+        // if the name is too long, we short it
         if( sigfile.length( ) > 8 ) {
             sigfile = sigfile.substring( 0, 8 ).toUpperCase( );
         }
@@ -126,7 +119,7 @@ public class JSSigner {
             sigfile = sigfile.toUpperCase( );
         }
 
-        //quitamos los caracteres no válidos
+        //remove invalid characters
         StringBuilder tmpSigFile = new StringBuilder( sigfile.length( ) );
         for( int j = 0; j < sigfile.length( ); j++ ) {
             char c = sigfile.charAt( j );
@@ -134,14 +127,14 @@ public class JSSigner {
                 if( aliasUsed ) {
                     // convert illegal characters from the alias to be _'s
                     c = '_';
-                }
-                else {
+                } else {
                     throw new JarSignerException( "signature filename must consist of the following characters: A-Z, 0-9, _ or -" );
                 }
             }
             tmpSigFile.append( c );
         }
 
+        // new file with all valid characters
         sigfile = tmpSigFile.toString( );
 
         String tmpJarName;
@@ -150,7 +143,9 @@ public class JSSigner {
         else
             tmpJarName = param.getSignedJARName( );
 
+        //unsigned jar
         File jarFile = new File( param.getJarName( ) );
+        //signed jar
         File signedJarFile = new File( tmpJarName );
 
         // Open the jar (zip) file
@@ -173,19 +168,19 @@ public class JSSigner {
         PrintStream ps = new PrintStream( fos );
         ZipOutputStream zos = new ZipOutputStream( ps );
 
-        // creacción de los archivos sf y dsa
-        /* First guess at what they might be - we don't xclude RSA ones. */
+        // sf and dsa building files in the folder of META_INF
         String sfFilename = ( META_INF + sigfile + ".SF" ).toUpperCase( );
         String bkFilename = ( META_INF + sigfile + ".DSA" ).toUpperCase( );
 
+        //created manifest
         Manifest manifest = new Manifest( );
         Map<String, Attributes> mfEntries = manifest.getEntries( );
 
         // The Attributes of manifest before updating
         Attributes oldAttr = null;
-
-        boolean mfModified = false;
+        
         boolean mfCreated = false;
+        boolean mfModified = false;
         byte[] mfRawBytes = null;
 
         try {
@@ -200,12 +195,13 @@ public class JSSigner {
                 oldAttr = (Attributes) ( manifest.getMainAttributes( ).clone( ) );
             }
             else {
-                // Create new manifest
+                // Create new manifest with number version, creator and java version
                 Attributes mattr = manifest.getMainAttributes( );
+                //version from method
                 mattr.putValue( Attributes.Name.MANIFEST_VERSION.toString( ), "1.0" );
                 String javaVendor = System.getProperty( "java.vendor" );
                 String jdkVersion = System.getProperty( "java.version" );
-                mattr.putValue( "Created-By", jdkVersion + " (" + javaVendor + ")" );
+                mattr.putValue( "Created by", jdkVersion + " (" + javaVendor + ")" );
                 mfFile = new ZipEntry( JarFile.MANIFEST_NAME );
                 mfCreated = true;
             }
@@ -293,15 +289,15 @@ public class JSSigner {
                 // manifest file has new length
                 mfFile = new ZipEntry( JarFile.MANIFEST_NAME );
             }
-            /*  if (param.getverbose) {
+              if (param.isVerbose( )) {
                   if (mfCreated) {
-                      System.out.println(rb.getString("   adding: ") +
+                      System.out.println(("   adding: ") +
                                           mfFile.getName());
                   } else if (mfModified) {
-                      System.out.println(rb.getString(" updating: ") +
+                      System.out.println((" updating: ") +
                                           mfFile.getName());
                   }
-              }*/
+              }
             zos.putNextEntry( mfFile );
             zos.write( mfRawBytes );
 
@@ -313,42 +309,37 @@ public class JSSigner {
                             tsaCert = getTsaCert(tsaAlias);
                         }
             */
+            
+            
             SignatureFile.Block block = null;
 
-            try {//                      sigAlg            externalSF tsaURL
-                block = sf.generateBlock(null, certChain , true,      null, tsaCert, null, param, zipFile ); // null es signingMechanism
+            try {//                      sigAlg            externalSF tsaURL         signingMechanism
+                block = sf.generateBlock(null, certChain , true,      null, tsaCert, null, param, zipFile ); 
             }
             catch( SocketTimeoutException e ) {
                 // Provide a helpful message when TSA is beyond a firewall
                 throw new JarSignerException( "unable to sign jar: "  +  "no response from the Timestamping Authority. "  +  "When connecting from behind a firewall then an HTTP proxy may need to be specified. "  +  "Supply the following options to jarsigner: "  + "\n  -J-Dhttp.proxyHost=<hostname> " + "\n  -J-Dhttp.proxyPort=<portnumber> ", e );
             }
             catch( InvalidKeyException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new JarSignerException( "unable to sign jar: "  +  e.getMessage( ) );
             }
             catch( UnrecoverableKeyException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new JarSignerException( "unable to sign jar: "  +  e.getMessage( ) );
             }
             catch( NoSuchAlgorithmException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new JarSignerException( "unable to sign jar: "  +  e.getMessage( ) );
             }
             catch( SignatureException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new JarSignerException( "unable to sign jar: "  +  e.getMessage( ) );
             }
             catch( CertificateException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new JarSignerException( "unable to sign jar: "  +  e.getMessage( ) );
             }
             catch( KeyStoreException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new JarSignerException( "unable to sign jar: "  +  e.getMessage( ) );
             }
             catch( JarSignerException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new JarSignerException( "unable to sign jar: "  +  e.getMessage( ) );
             }
 
             sfFilename = sf.getMetaName( );
@@ -364,6 +355,8 @@ public class JSSigner {
             // signature file
             zos.putNextEntry( sfFile );
             sf.write( zos );
+            
+            // debería borrarse
             /*    if (verbose) {
                     if (zipFile.getEntry(sfFilename) != null) {
                         System.out.println(rb.getString(" updating: ") +
@@ -402,6 +395,8 @@ public class JSSigner {
             // signature block file
             zos.putNextEntry( bkFile );
             block.write( zos );
+            
+            //debería borrarse
             /*    if (verbose) {
                     if (zipFile.getEntry(bkFilename) != null) {
                         System.out.println(rb.getString(" updating: ") +
@@ -412,6 +407,7 @@ public class JSSigner {
                     }
                 }*/
 
+            
             // Write out all other META-INF files that we stored in the
             // vector
             for( int i = 0; i < mfFiles.size( ); i++ ) {
@@ -440,8 +436,7 @@ public class JSSigner {
             throw new JarSignerException( "unable to sign jar: "  + ioe, ioe );
         }
         catch( NoSuchAlgorithmException e ) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new JarSignerException( "unable to sign jar: "  + e, e );
         }
         finally {
             // close the resouces
@@ -450,26 +445,20 @@ public class JSSigner {
                     zipFile.close( );
                 }
                 catch( IOException e ) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    throw new JarSignerException("Exception with zipFile");
                 }
                 zipFile = null;
             }
-
             if( zos != null ) {
                 try {
                     zos.close( );
                 }
                 catch( IOException e ) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    throw new JarSignerException("Exception with zipFile");
                 }
             }
         }
 
-        // no IOException thrown in the follow try clause, so disable
-        // the try clause.
-        // try {
         if( param.getSignedJARName( ) == null ) {
             // attempt an atomic rename. If that fails,
             // rename the original jar file, then the signed
@@ -495,40 +484,15 @@ public class JSSigner {
             }
         }
 
-        if( hasExpiredCert || hasExpiringCert || notYetValidCert || badKeyUsage || badExtendedKeyUsage || badNetscapeCertType ) {
-            System.out.println( );
+      
 
-            System.out.println( "Warning: " ) ;
-            if( badKeyUsage ) {
-                System.out.println( "The signer certificate's KeyUsage extension doesn't allow code signing."  );
-            }
-
-            if( badExtendedKeyUsage ) {
-                System.out.println( "The signer certificate's ExtendedKeyUsage extension doesn't allow code signing."  );
-            }
-
-            if( badNetscapeCertType ) {
-                System.out.println( "The signer certificate's NetscapeCertType extension doesn't allow code signing."  );
-            }
-
-            if( hasExpiredCert ) {
-                System.out.println( "The signer certificate has expired."  );
-            }
-            else if( hasExpiringCert ) {
-                System.out.println(  "The signer certificate will expire within six months."  );
-            }
-            else if( notYetValidCert ) {
-                System.out.println(  "The signer certificate is not yet valid." );
-            }
-        }
-
-        // no IOException thrown in the above try clause, so disable
-        // the catch clause.
-        // } catch(IOException ioe) {
-        //     error(rb.getString("unable to sign jar: ")+ioe, ioe);
-        // }
     }
 
+    /**
+     * Obtained the Manifest file
+     * @param zf ZipFile
+     * @return ZipEntry
+     */
     private static ZipEntry getManifestFile( ZipFile zf ) {
 
         ZipEntry ze = zf.getEntry( JarFile.MANIFEST_NAME );
@@ -545,6 +509,13 @@ public class JSSigner {
         return ze;
     }
 
+    /**
+     * Get Bytes from a file
+     * @param zf ZipFile
+     * @param ze ZipEntry
+     * @return  Array with bytes
+     * @throws IOException
+     */
     private synchronized static byte[] getBytes( ZipFile zf, ZipEntry ze ) throws IOException {
 
         int n;
@@ -569,6 +540,14 @@ public class JSSigner {
         return baos.toByteArray( );
     }
 
+    /**
+     * signature-related files include:
+     * . META-INF/MANIFEST.MF
+     * . META-INF/SIG-*
+     * . META-INF/*.SF
+     * . META-INF/*.DSA
+     * . META-INF/*.RSA
+     */
     private static boolean signatureRelated( String name ) {
 
         String ucName = name.toUpperCase( );
@@ -649,7 +628,6 @@ public class JSSigner {
                 is.close( );
             }
         }
-
         // complete the digests
         String[] base64Digests = new String[ digests.length ];
         for( i = 0; i < digests.length; i++ ) {
@@ -712,8 +690,7 @@ public class JSSigner {
     /**
      * Writes all the bytes for a given entry to the specified output stream.
      */
-    private synchronized static void writeBytes
-        (ZipFile zf, ZipEntry ze, ZipOutputStream os) throws IOException {
+    private synchronized static void writeBytes(ZipFile zf, ZipEntry ze, ZipOutputStream os) throws IOException {
         int n;
 
         InputStream is = null;
@@ -733,6 +710,12 @@ public class JSSigner {
     }
 }
 
+/**
+ * This is a BASE64Encoder that does not insert a default newline at the end of
+ * every output line. This is necessary because java.util.jar does its own
+ * line management (see Manifest.make72Safe()). Inserting additional new lines
+ * can cause line-wrapping problems (see CR 6219522).
+ */
 class JarBASE64Encoder extends BASE64Encoder {
 
     /**
@@ -752,12 +735,11 @@ class SignatureFile {
     /** .SF base name */
     String baseName;
 
-    public SignatureFile( MessageDigest digests[], Manifest mf, ManifestDigester md, String baseName, boolean signManifest )
-
-    {
+    public SignatureFile( MessageDigest digests[], Manifest mf, ManifestDigester md, String baseName, boolean signManifest ) {
 
         this.baseName = baseName;
 
+        //Java version
         String version = System.getProperty( "java.version" );
         String javaVendor = System.getProperty( "java.vendor" );
 
@@ -765,7 +747,9 @@ class SignatureFile {
         Attributes mattr = sf.getMainAttributes( );
         BASE64Encoder encoder = new JarBASE64Encoder( );
 
+        //our version
         mattr.putValue( Attributes.Name.SIGNATURE_VERSION.toString( ), "1.0" );
+        
         mattr.putValue( "Created-By", version + " (" + javaVendor + ")" );
 
         if( signManifest ) {
@@ -861,8 +845,7 @@ class SignatureFile {
                 if (bad != null) {
                     bad[0] = true;
                 } else {
-                   // badKeyUsage = true;
-                    System.out.println( "badkeyusage es true ERROR");
+                    System.out.println( "badkeyusage ERROR - The signer certificate's KeyUsage extension doesn't allow code signing.");
                 }
             }
         }
@@ -875,13 +858,13 @@ class SignatureFile {
                     if (bad != null) {
                         bad[1] = true;
                     } else {
-                       // badExtendedKeyUsage = true;
-                        System.out.println( "badExtendedKeyUsage true ERROR This jar contains entries whose signer certificate's ExtendedKeyUsage extension doesn't allow code signing.");
+                        System.out.println( "badExtendedKeyUsage ERROR - The signer certificate's ExtendedKeyUsage extension doesn't allow code signing. ");
                     }
                 }
             }
         } catch (java.security.cert.CertificateParsingException e) {
             // shouldn't happen
+            e.printStackTrace( );
         }
 
         try {
@@ -903,8 +886,7 @@ class SignatureFile {
                     if (bad != null) {
                         bad[2] = true;
                     } else {
-                        //badNetscapeCertType = true;
-                        System.out.println( "badNetscapeCertType true ERROR This jar contains entries whose signer certificate's ExtendedKeyUsage extension doesn't allow code signing.");
+                        System.out.println( "badNetscapeCertType ERROR - The signer certificate's NetscapeCertType extension doesn't allow code signing.");
                     }
                 }
             }
@@ -964,16 +946,13 @@ class SignatureFile {
 
             if (userCert.getNotAfter().getTime() <
                 System.currentTimeMillis() + SIX_MONTHS) {
-                System.out.println( "hasExpiringCert true ERROR This jar contains entries whose signer certificate will expire within six months. ");
-                //hasExpiringCert = true;
+                System.out.println( "hasExpiringCert ERROR - This jar contains entries whose signer certificate will expire within six months. ");
             }
         } catch (CertificateExpiredException cee) {
-            System.out.println( "hasExpiringCert true ERROR This jar contains entries whose signer certificate will expire within six months. ");
-            //hasExpiringCert = true;
+            System.out.println( "hasExpiredCert ERROR - The signer certificate has expired. ");
 
         } catch (CertificateNotYetValidException cnyve) {
-            System.out.println( "notYetValidCert true ERROR This jar contains entries whose signer certificate will expire within six months. ");
-            //notYetValidCert = true;
+            System.out.println( "notYetValidCert ERROR - The signer certificate is not yet valid. ");
         }
 
         checkCertUsage(userCert, null);
@@ -1045,7 +1024,7 @@ class SignatureFile {
                 X509CertInfo tbsCert = new X509CertInfo( certChain[0].getTBSCertificate( ) );
                 issuerName = (Principal) tbsCert.get( CertificateIssuerName.NAME + "." + CertificateIssuerName.DN_NAME );
             }
-            BigInteger serial = certChain[0].getSerialNumber( );
+            //BigInteger serial = certChain[0].getSerialNumber( );
 
             String digestAlgorithm;
             String signatureAlgorithm;
@@ -1077,8 +1056,8 @@ class SignatureFile {
 
             blockFileName = "META-INF/" + sfg.getBaseName( ) + "." + keyAlgorithm;
 
-            AlgorithmId sigAlg = AlgorithmId.get( signatureAlgorithm );
-            AlgorithmId digEncrAlg = AlgorithmId.get( keyAlgorithm );
+           // AlgorithmId sigAlg = AlgorithmId.get( signatureAlgorithm );
+           //AlgorithmId digEncrAlg = AlgorithmId.get( keyAlgorithm );
 
             Signature sig = Signature.getInstance( signatureAlgorithm );
             sig.initSign( privateKey );
