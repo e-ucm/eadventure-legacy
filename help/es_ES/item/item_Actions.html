@@ -4,35 +4,79 @@
 <link href="../../help.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<img src="../logo-editor.png" alt="e-Adventure logo"/>
+<img src="../logo-editor.png" alt="e-Adventure logo" />
 <h1>Objetos: Acciones</h1>
 <h2>Tabla de acciones</h2>
-<p>Podemos definir las <span class="concepto">acciones </span>y consecuencias de las mismas para cada uno de los <span class="concepto">objetos</span>. Para añadir nuevas acciones pulsamos <img src="../../common_img/add_icon.png" width="16" height="16">. Las acciones disponibles son de tres tipos:</p>
+<p>Podemos definir las <span class="concepto">acciones </span>y
+consecuencias de las mismas para cada uno de los <span class="concepto">objetos</span>.
+Para añadir nuevas acciones pulsamos <img
+	src="../../common_img/add_icon.png" width="16" height="16">. Las
+acciones disponibles son de tres tipos:</p>
 <ul>
-  <li><strong>Acciones normales</strong>: dónde encontramos <span class="referencia_literal">Examinar</span>, <span class="referencia_literal">Coger</span>, <span class="referencia_literal">Usar</span></li>
-  <li><strong>Acciones que necesitan de otro elemento</strong>:
-    <ul>
-      <li><span class="referencia_literal">Usar con</span>: para que surtan los efectos, el <span class="concepto">Objeto</span> debe ser utilizado con otro. Este objeto se decide a través de un desplegable que nos muestra todos los objetos.</li>
-      <li><span class="referencia_literal">Entregar a</span>: para que surtan los efectos, el <span class="concepto">Objeto</span> debe ser entregado a un presonaje. Este personaje se decide a través de un desplegable que nos muestra todos los personajes.</li>
-    </ul>
-  </li>
-  <li> <strong>Acciones personalizables</strong>: La acción <span class="referencia_literal">Personalizable</span> nos permite definir una acción que se adapte a nuestras necesidades. Cuándo la seleccionemos, nos pedirá un nombre para la acción (P. ej: comprar, abrir, tirar, etc. ) y después se nos preguntará si la acción necesita de otro elemento con el que interactuar:
-    <ul>
-      <li>Si seleccionamos <span class="referencia_literal">Acción</span>, no será necesaria la interacción con otro objeto.</li>
-      <li>Si seleccionamos <span class="referencia_literal">Interacción</span>, un diálogo nos pedirá que especifiquemos que con objeto se ha de interactuar para que surtan los efectos.</li>
-      <li>Una vez decidido, podremos decidir la apariencia del botón a través de la pestaña de <span class="referencia_literal">Personalización</span>.</li>
-    </ul>
-  </li>
+	<li><strong>Acciones normales</strong>: d&oacute;nde encontramos <span
+		class="referencia_literal">Examinar</span>, <span
+		class="referencia_literal">Coger</span>, <span
+		class="referencia_literal">Usar</span></li>
+	<li><strong>Acciones que necesitan de otro elemento</strong>:
+	<ul>
+		<li><span class="referencia_literal">Usar con</span>: para que
+		surtan los efectos, el <span class="concepto">Objeto</span> debe ser
+		utilizado con otro. Este objeto se decide a trav&eacute;s de un desplegable
+		que nos muestra todos los objetos.</li>
+		<li><span class="referencia_literal">Entregar a</span>: para que
+		surtan los efectos, el <span class="concepto">Objeto</span> debe ser
+		entregado a un presonaje. Este personaje se decide a trav&eacute;s de un
+		desplegable que nos muestra todos los personajes.</li>
+	</ul>
+	</li>
+	<li><strong>Acciones personalizables</strong>: La acci&oacute;n <span
+		class="referencia_literal">Personalizable</span> nos permite definir
+	una acci&oacute;n que se adapte a nuestras necesidades. Cu&aacute;ndo la
+	seleccionemos, nos pedir&aacute; un nombre para la acci&oacute;n (P. ej: comprar,
+	abrir, tirar, etc. ) y despu&eacute;s se nos preguntar&aacute; si la acci&oacute;n necesita
+	de otro elemento con el que interactuar:
+	<ul>
+		<li>Si seleccionamos <span class="referencia_literal">Acci&oacute;n</span>,
+		no ser&aacute; necesaria la interacci&oacute;n con otro objeto.</li>
+		<li>Si seleccionamos <span class="referencia_literal">Interacci&oacute;n</span>,
+		un di&aacute;logo nos pedir&aacute; que especifiquemos que con objeto se ha de
+		interactuar para que surtan los efectos.</li>
+		<li>Una vez decidido, podremos decidir la apariencia del bot&oacute;n a
+		trav&eacute;s de la pestaña de <span class="referencia_literal">Personalizaci&oacute;n</span>.</li>
+	</ul>
+	</li>
 </ul>
-<p>Cada uno de las <span class="concepto">acciones</span> tiene asociada, además de unos <strong>efectos</strong> que explicaremos después, unas condiciones que aparecen en la tabla de la parte superior:</p>
+<p>Cada uno de las <span class="concepto">acciones</span> tiene
+asociada, adem&aacute;s de unos <strong>efectos</strong> que explicaremos
+despu&eacute;s, unas condiciones que aparecen en la tabla de la parte superior:</p>
 <ul>
-  <li><span class="referencia_literal"><a href="../actions/NeedsGetTo.html">Necesita alcanzar objeto</a></span>: que especifica si es necesario llegar hasta el objeto para poder realizar la acción. Se puede especificar la distancia mínima a la que debe estar el personaje del objeto para poder realizar la acción. Está condición sólo tiene sentido en aventuras en <strong>tercera persona</strong>.</li>
-  <li><a href="../general/Conditions.html"><span class="referencia_literal">Condiciones</span></a>: en este apartado definimos las condiciones que deben cumplirse para que la acción esté disponible en el objeto. <a href="../general/Conditions.html">Más información sobre condicones</a>.</li>
+	<li><span class="referencia_literal"><a
+		href="../actions/NeedsGetTo.html">Necesita alcanzar objeto</a></span>: que
+	especifica si es necesario llegar hasta el objeto para poder realizar
+	la acci&oacute;n. Se puede especificar la distancia m&iacute;nima a la que debe estar
+	el personaje del objeto para poder realizar la acci&oacute;n. Est&aacute; condici&oacute;n
+	s&oacute;lo tiene sentido en aventuras en <strong>tercera persona</strong>.</li>
+	<li><a href="../general/Conditions.html"><span
+		class="referencia_literal">Condiciones</span></a>: en este apartado
+	definimos las condiciones que deben cumplirse para que la acci&oacute;n est&eacute;
+	disponible en el objeto. <a href="../general/Conditions.html">M&aacute;s
+	informaci&oacute;n sobre condicones</a>.</li>
 </ul>
-<h2>Tabla de documentación y efectos</h2>
-<p>Para todos los tipos de acciones, tenemos dos apartados: <span class="referencia_literal">Documentación de la acción</span> y <span class="referencia_literal">Efectos</span>.</p>
-<p>En el primero, podremos añadir la información que consideremos necesaria sobre la acción.</p>
-<p>En el segundo, pulsando <img src="../../common_img/add_icon.png" alt="añadir" width="16" height="16"> podremos añadir los <a href="../effects/Effects_General.html">Efectos</a> que deseemos. <a href="../effects/Effects_General.html">Más información sobre efectos</a>.</p>
-<p>También, seleccionando <span class="referencia_literal">Salida activa cuándo condiciones inactivas</span> y después pulsando en <span class="referencia_literal">Editar no-efectos</span> podemos definir los efectos que se llevarán acabo cuándo realicemos la acción pero no se cumplan las condiciones que definimos en la tabla superior.</p>
+<h2>Tabla de documentaci&oacute;n y efectos</h2>
+<p>Para todos los tipos de acciones, tenemos dos apartados: <span
+	class="referencia_literal">Documentaci&oacute;n de la acci&oacute;n</span> y <span
+	class="referencia_literal">Efectos</span>.</p>
+<p>En el primero, podremos añadir la informaci&oacute;n que consideremos
+necesaria sobre la acci&oacute;n.</p>
+<p>En el segundo, pulsando <img src="../../common_img/add_icon.png"
+	alt="añadir" width="16" height="16"> podremos añadir los <a
+	href="../effects/Effects_General.html">Efectos</a> que deseemos. <a
+	href="../effects/Effects_General.html">M&aacute;s informaci&oacute;n sobre
+efectos</a>.</p>
+<p>Tambi&eacute;n, seleccionando <span class="referencia_literal">Salida
+activa cu&aacute;ndo condiciones inactivas</span> y despu&eacute;s pulsando en <span
+	class="referencia_literal">Editar no-efectos</span> podemos definir los
+efectos que se llevar&aacute;n acabo cu&aacute;ndo realicemos la acci&oacute;n pero no se
+cumplan las condiciones que definimos en la tabla superior.</p>
 </body>
 </html>
