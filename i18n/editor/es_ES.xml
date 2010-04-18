@@ -1781,6 +1781,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="Menu.AboutEAD">Acerca de &lt;e-Adventure&gt;</entry>
 <entry key="RandomEffect.DeleteEffect">Borrar este efecto</entry>
 <entry key="NextScene.AdvancedOptions">Opciones avanzadas</entry>
+<entry key="Element.Name251">Arrastrar a....</entry>
 <entry key="Element.Name250">Interacción personalizada</entry>
 <entry key="LOMES.Technical.Name12">Amaya</entry>
 <entry key="TreeNode.AddElement">Añadir elemento</entry>

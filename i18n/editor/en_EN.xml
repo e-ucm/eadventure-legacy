@@ -1776,6 +1776,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Menu.AboutEAD">About &lt;e-Adventure&gt;</entry>
 <entry key="RandomEffect.DeleteEffect">Delete this effect</entry>
 <entry key="NextScene.AdvancedOptions">Advanced options</entry>
+<entry key="Element.Name251">Drag to</entry>
 <entry key="Element.Name250">CustomInteract</entry>
 <entry key="LOMES.Technical.Name12">Amaya</entry>
 <entry key="TreeNode.AddElement">Add element</entry>
