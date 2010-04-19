@@ -39,7 +39,6 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -179,8 +178,6 @@ public class FunctionalBookPage extends JPanel {
                 //Set the proper content type
                 if( ext.equals( "html" ) || ext.equals( "htm" ) ) {
                     editorPane.setContentType( "text/html" );
-                    /*ProcessHTML processor = new ProcessHTML( textBuffer.toString( ) );
-                    String htmlProcessed = processor.start( );*/
                     editorPane.setText( textBuffer.toString( ) );
                     URL url = ResourceHandler.getInstance( ).getResourceAsURL( uri );
                     try {
@@ -349,121 +346,6 @@ public class FunctionalBookPage extends JPanel {
     public void setValid( boolean isValid ) {
 
         this.isValid = isValid;
-    }
-
-    public class ProcessHTML {
-
-        private String html;
-
-        private int currentPos;
-
-        private int state;
-
-        private final int STATE_NONE = 0;
-
-        private final int STATE_LT = 1;
-
-        private final int STATE_SRC = 2;
-
-        private final int STATE_EQ = 3;
-
-        private final int STATE_RT = 4;
-
-        private final int STATE_RTQ = 5;
-
-        private String reference;
-
-        public ProcessHTML( String html ) {
-
-            this.html = html;
-            currentPos = 0;
-            state = STATE_NONE;
-        }
-
-        public String start( ) {
-
-            state = STATE_NONE;
-            String lastThree = "";
-            reference = "";
-            for( currentPos = 0; currentPos < html.length( ); currentPos++ ) {
-                char current = html.charAt( currentPos );
-                if( lastThree.length( ) < 3 )
-                    lastThree += current;
-                else
-                    lastThree = lastThree.substring( 1, 3 ) + current;
-
-                if( state == STATE_NONE ) {
-                    if( current == '<' ) {
-                        state = STATE_LT;
-                    }
-                }
-                else if( state == STATE_LT ) {
-                    if( lastThree.toLowerCase( ).equals( "src" ) ) {
-                        state = STATE_SRC;
-                    }
-                    else if( current == '>' ) {
-                        state = STATE_NONE;
-                    }
-                }
-
-                else if( state == STATE_SRC ) {
-                    if( current == '=' ) {
-                        state = STATE_EQ;
-                    }
-                    else if( current != ' ' ) {
-                        state = STATE_NONE;
-                    }
-                }
-                else if( state == STATE_EQ ) {
-                    if( current == '"' ) {
-                        state = STATE_RTQ;
-                    }
-                    else if( current != ' ' ) {
-                        reference += current;
-                        state = STATE_RT;
-                    }
-                }
-                else if( state == STATE_RTQ ) {
-                    if( current != '>' && current != '"' ) {
-                        reference += current;
-                    }
-                    else {
-                        state = STATE_NONE;
-                        replaceReference( currentPos - reference.length( ), reference.length( ) );
-                    }
-                }
-                else if( state == STATE_RT ) {
-                    if( current != '>' && current != ' ' ) {
-                        reference += current;
-                    }
-                    else {
-                        state = STATE_NONE;
-                        replaceReference( currentPos - reference.length( ), reference.length( ) );
-                    }
-                }
-            }
-
-            return html;
-        }
-
-        private void replaceReference( int index, int length ) {
-
-            try {
-                int lastSlash = Math.max( bookPage.getUri( ).lastIndexOf( "/" ), bookPage.getUri( ).lastIndexOf( "\\" ) );
-                String assetPath = bookPage.getUri( ).substring( 0, lastSlash ) + "/" + reference;
-                String destinyPath = ResourceHandler.getInstance( ).getResourceAsURL( assetPath ).toURI( ).getPath( );
-                if( destinyPath != null ) {
-                    String leftSide = html.substring( 0, index );
-                    String rightSide = html.substring( index + length, html.length( ) );
-                    File file = new File( destinyPath );
-                    html = leftSide + file.toURI( ).toURL( ).toString( ) + rightSide;
-                }
-                reference = "";
-            }
-            catch( Exception e ) {
-                ReportDialog.GenerateErrorReport( e, Game.getInstance( ).isFromEditor( ), "UNKNOWERROR" );
-            }
-        }
     }
 
     public void setCurrentArrowLeft( Image currentArrowLeft ) {
