@@ -44,13 +44,13 @@ import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.common.data.chapter.scenes.Scene;
-import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -136,7 +136,6 @@ public class GameStateSlidescene extends GameState {
      */
     @Override
     public void mainLoop( long elapsedTime, int fps ) {
-
         // Paint the current slide
         Graphics2D g = (Graphics2D) bkg.getGraphics( );
         g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
@@ -147,10 +146,8 @@ public class GameStateSlidescene extends GameState {
         g.dispose( );
 
         GUI.getInstance( ).addBackgroundToDraw( bkg, 0 );
-        //        GUI.getInstance().addElementToDraw(slides.getImage(), 0, 0, 0, 0);
         GUI.getInstance( ).endDraw( );
         GUI.getInstance( ).drawScene( GUI.getInstance( ).getGraphics( ), elapsedTime );
-
     }
 
     @Override
