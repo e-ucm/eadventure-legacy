@@ -424,6 +424,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void setAdventureName( String adventureName ) {
 
         this.adventureName = adventureName;
+       
     }
 
     /**
@@ -799,6 +800,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             assessmentEngine = new AssessmentEngine( );
             
             
+            
             // Init interaction queues
             //this.highLevelInteraction = new ArrayDeque<HighLevelInteraction>();
             //this.lowLevelInteraction = new ArrayDeque<LowLevelInteraction>();
@@ -872,6 +874,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                     Thread.sleep( 100 );
                 }
 
+               
                 if( currentChapter == gameDescriptor.getChapterSummaries( ).size( ) )
                     gameOver = true;
             }
@@ -901,8 +904,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             adaptationEngine.stopAdaptationClock( );
 
         // Stop the communication 
-        if( comm.getCommType( ) == CommManagerApi.SCORMV12_TYPE ) {
+        if( comm.getCommType( ) == CommManagerApi.LAMS_TYPE || comm.getCommType( ) == CommManagerApi.SCORMV12_TYPE || comm.getCommType( ) == CommManagerApi.SCORMV2004_TYPE) {
+            comm.sendHTMLReport( assessmentEngine.generateReportToSend( ) ); 
             comm.disconnect( null );
+            
         }
         staticStop( );
     }

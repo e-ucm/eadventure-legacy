@@ -96,7 +96,7 @@ public class ExportToLOMDialog extends JDialog {
         c.weightx = 1;
 
         JPanel typePanel = new JPanel( );
-        String[] options = { "IMS CP", "WebCT 4 CP", "SCORM", "SCORM2004", "AGREGA" };
+        String[] options = { "IMS CP", "WebCT 4 CP", "SCORM", "SCORM2004", "AGREGA", "LAMS" };
         typeComboBox = new JComboBox( options );
         typePanel.add( typeComboBox );
         typePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Operation.ExportToLOM.LOMType" ) ) );

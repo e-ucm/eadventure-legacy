@@ -68,10 +68,9 @@ package es.eucm.eadventure.comm;
 
 import javax.swing.JApplet;
 
+import netscape.javascript.JSObject;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
 import es.eucm.eadventure.comm.manager.commManager.LMStoComInterface;
-
-import netscape.javascript.JSObject;
 
 public abstract class AdventureApplet extends JApplet implements LMStoComInterface, CommManagerApi {
 
@@ -132,5 +131,25 @@ public abstract class AdventureApplet extends JApplet implements LMStoComInterfa
         catch( Exception e ) {
             System.out.println( "Error sending command " + command );
         }
+    }
+
+    
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId( String userId ) {
+    
+        this.userId = userId;
+        System.out.println( userId );
+    }
+
+    
+    /**
+     * @param runId the runId to set
+     */
+    public void setRunId( String runId ) {
+    
+        this.runId = runId;
+        System.out.println( runId );
     }
 }

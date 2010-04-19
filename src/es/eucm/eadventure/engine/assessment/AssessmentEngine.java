@@ -75,6 +75,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import es.eucm.eadventure.comm.manager.commManager.CommManagerLAMS;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.SendMail;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
@@ -323,6 +324,61 @@ public class AssessmentEngine implements TimerEventListener {
 		}
 	}
 
+	//TODO nowadays it is only used by LAMS!!
+	public String generateReportToSend(){
+	String file = new String();
+	    
+	    // HTML tag
+        file+="<html>";
+
+        // Header
+        file+="<title>";
+        file+= Game.getInstance( ).processText( Game.getInstance().getGameDescriptor().getTitle());
+        file+="</title>";
+
+        // Body and content table
+        file+="<body>";
+        file+="<br/><br/>";
+        file+="<table width=\"80%\" align=\"center\" style=\"background : #"+HTML_REPORT_COLOR_1+"; border : 1px solid #000000;\">";
+        file+="<tr><td>";
+
+        // Title
+        file+="<center><h1>";
+        file+=Game.getInstance( ).processText(Game.getInstance().getGameDescriptor().getTitle());
+        CommManagerLAMS comm = ((CommManagerLAMS)Game.getInstance( ).getComm( ));
+        file+=" report: " + comm.getUserFName( ) + " " + comm.getUserLName( ) ;
+        file+="</h1></center>";
+
+        // Clear table
+        file+="<br/><br/>";
+        file+="<table width=\"95%\" align=\"center\" style=\"background : #"+HTML_REPORT_COLOR_2+"; border : 1px solid #000000\">";
+        file+="<tr><td>";
+
+        // For each processed rule
+        for (ProcessedRule rule : processedRules) {
+            // First check the importance
+            if (rule.getImportance() >= 0) {
+                file+=Game.getInstance( ).processText(rule.getHTMLCode());
+                file+="<br/><br/>";
+            }
+        }
+
+        // Close clear table
+        file+="</td></tr>";
+        file+="</table>";
+
+        // Close table and body
+        file+="<br/><br/>";
+        file+="</td></tr>";
+        file+="</table>";
+        file+="</body>";
+
+        // Close HTML
+        file+="</html>";
+        
+        return file;
+	}
+	
 	/**
 	 * Generates a report file, in HTML format
 	 * 

@@ -39,7 +39,6 @@ import java.util.Map;
 import java.util.Set;
 
 import netscape.javascript.JSObject;
-
 import es.eucm.eadventure.comm.AdventureApplet;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
@@ -196,5 +195,11 @@ public class CommManagerLD extends AdventureApplet {
     public void setAdaptationEngine( AdaptationEngine engine ) {
 
         this.adaptationEngine = engine;
+    }
+
+    public void sendHTMLReport( String report ) {
+
+        // TODO Auto-generated method stub
+        
     }
 }
