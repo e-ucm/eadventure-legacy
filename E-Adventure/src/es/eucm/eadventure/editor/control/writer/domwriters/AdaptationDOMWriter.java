@@ -52,6 +52,9 @@ public class AdaptationDOMWriter {
 
     }
 
+
+    
+    
     /**
      * Returns the DOM element for the chapter
      * 

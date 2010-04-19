@@ -39,7 +39,6 @@ import java.util.List;
 import java.util.Set;
 
 import es.eucm.eadventure.comm.AdventureApplet;
-
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 
@@ -206,6 +205,12 @@ public class CommManagerScorm extends AdventureApplet {
     public void setAdaptationEngine( AdaptationEngine adaptationEngine ) {
 
         this.adaptationEngine = adaptationEngine;
+    }
+
+    public void sendHTMLReport( String report ) {
+
+        // TODO Auto-generated method stub
+        
     }
 
 }

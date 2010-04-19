@@ -47,6 +47,8 @@ public interface CommManagerApi {
     public static final int SCORMV2004_TYPE = 1;
 
     public static final int LD_ENVIROMENT_TYPE = 2;
+    
+    public static final int LAMS_TYPE = 3;
 
     public boolean connect( HashMap<String, String> info ); //throws CommException;
 
@@ -63,5 +65,7 @@ public interface CommManagerApi {
     public void getAdaptedState( Set<String> properties );
 
     public HashMap<String, String> getInitialStates( );
+    
+    public void sendHTMLReport(String report);
 
 }
