@@ -1927,4 +1927,8 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="TalkToAction.MessageSelectConversation">Seleccione una conversación</entry>
 <entry key="BookPage.NotValidURL">No se puede acceder a la URL indicada. Por favor, compruebe la dirección y el funcionamiento de su conexión a Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Lengua</entry>
+<entry key="Operation.ImportLO.InfoMessage">Atención: para que la importación sea satisfactoria el .ZIP elegido debe ser una exportación de un juego &lt;e-Adventure&gt; como Objeto de Aprendizaje. El resto de .ZIP no serán importados.</entry>
+<entry key="Operation.ImportJAR.FileNotLoaded">El .JAR elegido no es una exportación de &lt;e-Adventure&gt;.</entry>
+<entry key="Operation.ImportJAR.InfoMessage">Atención: para que la importación sea satisfactoria el .JAR elegido debe ser una exportación de un juego &lt;e-Adventure&gt; como jar ejecutable. El resto de .JAR no serán importados.</entry>
+<entry key="Operation.ImportLO.FileNotLoadedMessage">El .ZIP elegido no es un Objeto de Aprendizaje exportado con &lt;e-Adventure&gt;.</entry>
 </properties>
