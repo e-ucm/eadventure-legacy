@@ -60,6 +60,6 @@ public class JARFileFilter extends FileFilter {
     public String getDescription( ) {
 
         // Description of the filter
-        return "Java ARchive files (*.jar)";
+        return "Java Archive files (*.jar)";
     }
 }
