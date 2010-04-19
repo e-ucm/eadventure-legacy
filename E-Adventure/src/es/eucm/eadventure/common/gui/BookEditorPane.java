@@ -66,7 +66,7 @@ public class BookEditorPane extends JEditorPane {
      */
     public BookEditorPane( ) {
 
-        this.setEditorKit( new BookHTMLEditorKit( ) );
+        setEditorKit( new BookHTMLEditorKit( ) );
         setBounds( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         setOpaque( false );
         setEditable( true );
@@ -107,13 +107,11 @@ public class BookEditorPane extends JEditorPane {
         }
 
     }
-    
-    @Override
-    public void paint( Graphics g ){
-        
-    }
 
-    
+    @Override
+    public void paint( Graphics g ) {
+
+    }
 
     @Override
     public void setText( String t ) {
@@ -141,7 +139,7 @@ public class BookEditorPane extends JEditorPane {
      * 
      * @author Ángel S.
      */
-    private class BookHTMLEditorKit extends HTMLEditorKit {
+    protected class BookHTMLEditorKit extends HTMLEditorKit {
 
         private static final long serialVersionUID = 1L;
 
@@ -167,5 +165,6 @@ public class BookEditorPane extends JEditorPane {
                 super.read( in, doc, pos );
             }
         }
+
     }
 }
