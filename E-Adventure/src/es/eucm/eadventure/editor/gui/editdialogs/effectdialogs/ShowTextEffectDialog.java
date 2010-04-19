@@ -163,7 +163,7 @@ public class ShowTextEffectDialog extends EffectDialog {
         c.gridwidth = 1;
         c.gridx = 0;
 
-        c.gridx++;
+        c.gridy++;
         scenesComboBox = new JComboBox( scenesArray );
         scenesComboBox.addActionListener( new ScenesComboBoxListener( ) );
         mainPanel.add( scenesComboBox, c );
@@ -195,7 +195,7 @@ public class ShowTextEffectDialog extends EffectDialog {
         } );
         text.setEditable( true );
         textContainer.add( text );
-        c.gridx++;
+        c.gridy++;
         mainPanel.add( textContainer, c );
 
         // Create and add the panel to edit the position
