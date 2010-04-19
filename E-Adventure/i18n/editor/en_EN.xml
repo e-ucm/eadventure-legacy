@@ -1923,4 +1923,8 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TalkToAction.MessageSelectConversation">Select a conversation</entry>
 <entry key="BookPage.NotValidURL">The URL provided is not accessible, so it is not guaranteed it will be shown in the game. Please, check you typed correctly the URL and your Internet connection is working properly.</entry>
 <entry key="LOMES.MetaMetaData.Language">Language</entry>
+<entry key="Operation.ImportLO.InfoMessage">Please note that the import will be satisfactorily only for .ZIP files that are result of an &lt;e-Adventure&gt; game exportation as Learning Object. The remaining. ZIP will not be imported.</entry>
+<entry key="Operation.ImportJAR.FileNotLoaded">The chosen .JAR is not a game exported from &lt;e-Adventure&gt;.</entry>
+<entry key="Operation.ImportJAR.InfoMessage">Please note that the import will be satisfactorily only for .JAR files that are result of an standalone-jar based exportation in &lt;e-Adventure&gt; editor. The remaining. JAR will not be imported.</entry>
+<entry key="Operation.ImportLO.FileNotLoadedMessage">The chosen .ZIP is not a Learning Object exported with &lt;e-Adventure&gt;.</entry>
 </properties>
