@@ -210,13 +210,13 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
             JComboBox combo = ( (JComboBox) e.getSource( ) );
             if( pastSelection != combo.getSelectedIndex( ) ) {
                 informationTable.clearSelection( );
-                if( combo.getSelectedIndex( ) == 0 ) {
+                if( ( combo.getSelectedIndex( ) == 0 )  && !dataControl.isScorm2004( )){
                     dataControl.changeToScorm2004Profile( );
                 }
-                else if( combo.getSelectedIndex( ) == 1 ) {
+                else if( ( combo.getSelectedIndex( ) == 1)  && !dataControl.isScorm12( )) {
                     dataControl.changeToScorm12Profile( );
                 }
-                else if( combo.getSelectedIndex( ) == 2 ) {
+                else if( ( combo.getSelectedIndex( ) == 2 ) && (dataControl.isScorm12( ) || dataControl.isScorm2004( )))  {
                     dataControl.changeToNormalProfile( );
                 }
                 pastSelection = combo.getSelectedIndex( );
