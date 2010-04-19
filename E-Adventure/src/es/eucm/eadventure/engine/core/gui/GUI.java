@@ -713,18 +713,8 @@ public abstract class GUI implements FocusListener {
      *            Graphics2D to be used by the scene buffer
      */
     public void drawScene( Graphics2D g, long elapsedTime ) {
-
         if( transition != null && !transition.hasStarted( ) ) {
-
-            //gameFrame.paintAll((Graphics2D) transition.getGraphics());
-
             drawToGraphics( (Graphics2D) transition.getGraphics( ) );
-
-            /*Graphics2D graph = (Graphics2D) transition.getGraphics();
-            gameFrame.paintAll(graph);
-            graph.dispose();*/
-
-            //transition.setImage(gameFrame.createVolatileImage(800, 600));
             transition.start( this.getGraphics( ) );
         }
         else if( transition == null || transition.hasFinished( elapsedTime ) ) {

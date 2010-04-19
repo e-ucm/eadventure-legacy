@@ -1092,24 +1092,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         return actionManager;
     }
 
-    /**
-     * Pop the state stack, changing to the state to just pop state
-     */
-    /*public void setAndPopState (boolean fromConversation){
-        
-    	if (fromConversation){
-    	GameState oldState = this.popCurrentState();
-        if (oldState!=null)
-          this.currentState=oldState;
-        else
-            setState (STATE_PLAYING);
-    	} else
-    	if (!isEmptyFIFOinStack())
-    		setState(STATE_RUN_EFFECTS);
-        else 
-        	setState (STATE_PLAYING);
-    	
-    }*/
 
     /**
      * Push in the state stack the GameState gs

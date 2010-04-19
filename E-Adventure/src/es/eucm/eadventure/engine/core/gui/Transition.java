@@ -80,7 +80,6 @@ public class Transition {
     private static BufferedImage tempImage = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR );
 
     public Transition( int transitionTime, int transitionType ) {
-
         this.totalTime = transitionTime;
         this.type = transitionType;
         this.elapsedTime = 0;
@@ -114,13 +113,13 @@ public class Transition {
         this.elapsedTime = 0;
     }
 
-    public void setImage( Image image ) {
-
-        transitionImage = image;
-    }
-
     public void update( Graphics2D g ) {
-
+        
+        if (tempImage == null || transitionImage == null || g == null) {
+            elapsedTime = totalTime + 1;
+            return;
+        }
+        
         if( started ) {
             Graphics2D g2 = tempImage.createGraphics( );
             GUI.getInstance( ).drawToGraphics( g2 );

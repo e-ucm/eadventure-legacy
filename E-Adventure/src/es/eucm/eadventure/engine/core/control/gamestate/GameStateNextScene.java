@@ -33,15 +33,15 @@
  */
 package es.eucm.eadventure.engine.core.control.gamestate;
 
+import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
+import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.common.data.chapter.Exit;
-import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
-import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
-import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
@@ -71,7 +71,7 @@ public class GameStateNextScene extends GameState {
 
                 GUI.getInstance( ).setTransition( nextScene.getTransitionTime( ), nextScene.getTransitionType( ), elapsedTime );
 
-                if( game.getFunctionalScene( ) != null && GUI.getInstance( ).hasTransition( ) ) {
+                if( game.getFunctionalScene( ) != null && !GUI.getInstance( ).hasTransition( ) ) {
                     game.getFunctionalScene( ).draw( );
                 }
                 if( GUI.getInstance( ).hasTransition( ) )
@@ -161,7 +161,7 @@ public class GameStateNextScene extends GameState {
             case GeneralScene.SLIDESCENE:
 
                 GUI.getInstance( ).setTransition( nextScene.getTransitionTime( ), nextScene.getTransitionType( ), elapsedTime );
-                if( game.getFunctionalScene( ) != null && GUI.getInstance( ).hasTransition( ) ) {
+                if( game.getFunctionalScene( ) != null && !GUI.getInstance( ).hasTransition( ) ) {
                     game.getFunctionalScene( ).draw( );
                 }
                 if( GUI.getInstance( ).hasTransition( ) )
