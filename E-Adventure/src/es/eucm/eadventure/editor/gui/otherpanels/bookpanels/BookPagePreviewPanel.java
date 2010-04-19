@@ -526,7 +526,7 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
                 editorPane.paint( g, xPane, yPane, widthPane, heightPane );
             }
             if( imagePage != null ) {
-                g.drawImage( imagePage, currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), imagePage.getWidth( null ), imagePage.getHeight( null ), null );
+                g.drawImage( imagePage, getAbsoluteX( currentBookPage.getMargin( ) ), getAbsoluteY( currentBookPage.getMarginTop( ) ), getAbsoluteWidth( imagePage.getWidth( null ) ), getAbsoluteHeight( imagePage.getHeight( null ) ), null );
             }
 
             if( drawArrows ) {
