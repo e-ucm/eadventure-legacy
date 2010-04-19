@@ -113,6 +113,7 @@ public class FunctionalBookPage extends JPanel {
                 break;
             case BookPage.TYPE_IMAGE:
                 isValid = createImagePage( );
+                break;
             default:
                 isValid = false;
         }
@@ -299,7 +300,7 @@ public class FunctionalBookPage extends JPanel {
             if( htmlToImage )
                 g.drawImage( image, 0, 0, null );
             else
-                g.drawImage( image, bookPage.getMargin( ), bookPage.getMarginTop( ), this.getWidth( ) - bookPage.getMarginEnd( ), this.getHeight( ) - bookPage.getMarginBottom( ), 0, 0, image.getWidth( null ), image.getHeight( null ), null );
+                g.drawImage( image, bookPage.getMargin( ), bookPage.getMarginTop( ), null );
         }
         else if( editorPane != null )
             editorPane.paint( g, bookPage.getMargin( ), bookPage.getMarginTop( ), getWidth( ) - bookPage.getMarginEnd( ), getHeight( ) - bookPage.getMarginBottom( ) );
