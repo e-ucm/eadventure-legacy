@@ -65,6 +65,7 @@ import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.auxiliar.filefilters.EADFileFilter;
 import es.eucm.eadventure.editor.auxiliar.filefilters.FolderFileFilter;
+import es.eucm.eadventure.editor.auxiliar.filefilters.JARFileFilter;
 import es.eucm.eadventure.editor.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
@@ -654,9 +655,6 @@ public class Controller {
         //while( currentZipFile == null ) {
         // Load the options and show the dialog
         StartDialog start = new StartDialog( );
-
-        //mainWindow.setEnabled( false );
-        mainWindow.setVisible( false );
 
         if( arg != null ) {
             File projectFile = new File( arg );
@@ -1416,15 +1414,18 @@ public class Controller {
                 }
                 else if( op == StartDialog.OPEN_FILE_OPTION ) {
                     java.io.File selectedFile = start.getSelectedFile( );
-                    if( selectedFile.getAbsolutePath( ).toLowerCase( ).endsWith( ".eap" ) ) {
+                    String absPath = selectedFile.getAbsolutePath( ).toLowerCase( );
+                    if( absPath.endsWith( ".eap" ) ) {
                         String absolutePath = selectedFile.getPath( );
                         loadFile( absolutePath.substring( 0, absolutePath.length( ) - 4 ), true );
                     }
                     else if( selectedFile.isDirectory( ) && selectedFile.exists( ) )
                         loadFile( start.getSelectedFile( ).getAbsolutePath( ), true );
-                    else {
+                    else 
+                        // importGame is the same method for .ead, .jar and .zip (LO) import
                         this.importGame( selectedFile.getAbsolutePath( ) );
-                    }
+                  
+                    
                 }
                 else if( op == StartDialog.RECENT_FILE_OPTION ) {
                     loadFile( start.getRecentFile( ).getAbsolutePath( ), true );
@@ -1541,7 +1542,17 @@ public class Controller {
         }
         return fileLoaded;
     }
-
+    
+    public boolean importJAR(){
+     
+        return false;
+    }
+    
+    public boolean importLO(){
+        return false;
+    }
+    
+    
     /**
      * Called when the user wants to save data to a file.
      * 
@@ -1792,8 +1803,10 @@ public class Controller {
                     else
                         originFile = new File( eadPath );
 
-                    if( !originFile.getAbsolutePath( ).endsWith( ".ead" ) )
-                        originFile = new java.io.File( originFile.getAbsolutePath( ) + ".ead" );
+                    //TODO no se porque está puesto esto aquí....
+                   // if( !originFile.getAbsolutePath( ).endsWith( ".ead" ) )
+                     //   originFile = new java.io.File( originFile.getAbsolutePath( ) + ".ead" );
+                    
                     // If the file not exists display error
                     if( !originFile.exists( ) )
                         mainWindow.showErrorDialog( TC.get( "Error.Import.FileNotFound.Title" ), TC.get( "Error.Import.FileNotFound.Title", originFile.getName( ) ) );
@@ -1875,15 +1888,41 @@ public class Controller {
                             if( selectedFile != null && !selectedFile.exists( ) )
                                 selectedFile.createNewFile( );
 
+                            boolean correctFile = true;
                             // Unzip directory
-                            File.unzipDir( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( ) );
+                            if (eadPath.endsWith( ".ead" ))
+                                File.unzipDir( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( ) );
+                            else if (eadPath.endsWith( ".zip" )){
+                                mainWindow.showInformationDialog( TC.get( "Operation.ImportProject" ), TC.get( "Operation.ImportLO.InfoMessage" ) );
+                                // import EadJAR returns false when selected jar is not a eadventure jar
+                                if  (!File.importEadventureLO( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( )  )){
+                                    loadingScreen.setVisible( false );
+                                    mainWindow.showErrorDialog( TC.get("Operation.FileNotLoadedTitle"), TC.get( "Operation.ImportLO.FileNotLoadedMessage") );
+                                    correctFile = false;
+                                }
+                            }else if (eadPath.endsWith( ".jar" )){
+                                // import EadLO returns false when selected zip is not a eadventure LO
+                                mainWindow.showInformationDialog( TC.get( "Operation.ImportProject" ), TC.get( "Operation.ImportJAR.InfoMessage" ));
+                                if (!File.importEadventureJar( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( )  )){
+                                    loadingScreen.setVisible( false );
+                                    mainWindow.showErrorDialog( TC.get("Operation.FileNotLoadedTitle"), TC.get("Operation.ImportJAR.FileNotLoaded") );
+                                    correctFile = false;
+                                }
 
+                            }
                             //ProjectConfigData.loadFromXML( );
 
                             // Load new project
+                            if (correctFile) {
                             loadFile( selectedDir.getAbsolutePath( ), false );
                             //loadingScreen.close( );
                             loadingScreen.setVisible( false );
+                            } else {
+                                //remove .eapFile
+                                selectedFile.delete( );
+                                selectedDir.delete( );
+                                
+                            }
                         }
 
                     }
@@ -1892,7 +1931,7 @@ public class Controller {
         }
         catch( Exception e ) {
             loadingScreen.setVisible( false );
-            mainWindow.showErrorDialog( "Operation.FileNotLoadedTitle", "Operation.FileNotLoadedMessage" );
+            mainWindow.showErrorDialog( TC.get("Operation.FileNotLoadedTitle"), TC.get("Operation.FileNotLoadedMessage" ));
 
         }
     }
@@ -2056,20 +2095,7 @@ public class Controller {
                 //chooser.setFileFilter( new JARFileFilter() );
                 //chooser.setMultiSelectionEnabled( false );
                 String completeFilePath = null;
-                completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder( ), new FileFilter( ) {
-
-                    @Override
-                    public boolean accept( java.io.File arg0 ) {
-
-                        return arg0.getAbsolutePath( ).toLowerCase( ).endsWith( ".jar" ) || arg0.isDirectory( );
-                    }
-
-                    @Override
-                    public String getDescription( ) {
-
-                        return "Java ARchive files (*.jar)";
-                    }
-                } );
+                completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder( ), new JARFileFilter());
 
                 //int option = chooser.showSaveDialog( mainWindow );
                 //if (option == JFileChooser.APPROVE_OPTION){
@@ -2110,7 +2136,7 @@ public class Controller {
         }
         catch( Exception e ) {
             loadingScreen.setVisible( false );
-            mainWindow.showErrorDialog( "Operation.FileNotSavedTitle", "Operation.FileNotSavedMessage" );
+            mainWindow.showErrorDialog( TC.get("Operation.FileNotSavedTitle"), TC.get("Operation.FileNotSavedMessage") );
         }
 
     }

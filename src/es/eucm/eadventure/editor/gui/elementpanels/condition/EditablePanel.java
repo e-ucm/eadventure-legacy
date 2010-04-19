@@ -37,6 +37,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.IllegalComponentStateException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -117,19 +118,26 @@ public abstract class EditablePanel extends JPanel {
             }
 
             private boolean isMouseInPanel( MouseEvent e ) {
-
+                try{
                 int mouseX = e.getLocationOnScreen( ).x;
                 int mouseY = e.getLocationOnScreen( ).y;
 
+                
                 int w = EditablePanel.this.getWidth( );
                 int h = EditablePanel.this.getHeight( );
-
+                
                 int panelX = EditablePanel.this.getLocationOnScreen( ).x;
                 int panelY = EditablePanel.this.getLocationOnScreen( ).y;
-
+                
+                
                 boolean coordXInPanel = mouseX >= panelX && mouseX <= panelX + w;
                 boolean coordYInPanel = mouseY >= panelY && mouseY <= panelY + h;
                 return coordXInPanel && coordYInPanel;
+                 }catch (IllegalComponentStateException exc){
+                    //This exception is thrown when EditablePanel is not in the screen at the method call (.getWidth, etc)
+                     // This not blocks the app. Return false because it reflects that the mouse is not in the panel.
+                     return false;
+                }
             }
 
             @Override

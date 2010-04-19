@@ -33,15 +33,20 @@
  */
 package es.eucm.eadventure.common.auxiliar;
 
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
+import java.util.jar.Manifest;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedInputStream;
 import java.util.zip.ZipEntry;
@@ -51,6 +56,58 @@ import java.util.zip.ZipOutputStream;
 
 public class File extends java.io.File {
 
+    // next constants are use to unzip the seleccted files and folders in ead jar and LO import
+    
+    /**
+     * Store the prefix for chapter file 
+     */
+    private static final String CHAPTER = "chapter";
+    
+    /**
+     * Store the name of descriptor file
+     */
+    private static final String DESCRIPTOR = "descriptor.xml";
+    
+    /**
+     * Store the prefix for assets folder file 
+     */
+    private static final String ASSETS = "assets";
+    
+
+    /**
+     * Store the prefix for assets folder file 
+     */
+    private static final String GUI = "gui";
+    
+    /**
+     * Store the prefix for assessment folder file 
+     */
+    private static final String ASSESS = "assessment";
+    
+    /**
+     * Store the prefix for adaptation folder file 
+     */
+    private static final String ADAPT = "adaptation";
+    
+    /**
+     * Store the suffix to identify a chapter
+     */
+    private static final String CHAPTER_SUFFIX = ".xml";
+    
+    /**
+     * Store the suffix to identify a dtd files
+     */
+    private static final String DTD_SUFFIX = ".dtd";
+    
+    // constants to identify eadventure jars and LO
+
+    private static final String JAR_CHECKER= "es.eucm.eadventure";
+    
+    private static final String LO_CHECKER = "manifest.xml";
+    
+    private static final String EAD_LO_CHECKER = ".jar";
+
+    
     /**
      * Required
      */
@@ -146,7 +203,7 @@ public class File extends java.io.File {
                         copied &= copiedAux;
                         if( !copiedAux ) {
                             //System.out.println( "ARCHIVO NO COPIADO: "+childOrigin.getAbsolutePath( ) + "--->"
-                            //		+childDestiny.getAbsolutePath( ) );
+                            //      +childDestiny.getAbsolutePath( ) );
                         }
                     }
                 }
@@ -199,6 +256,7 @@ public class File extends java.io.File {
         return filesConverted;
     }
 
+    @Override
     public File[] listFiles( FileFilter filter ) {
 
         create( );
@@ -250,11 +308,11 @@ public class File extends java.io.File {
      File destinyFile = new File(destinyPath);
      File[] additionalOriginFiles = new File[addOriginPaths.length];
      for (int i=0; i<addOriginPaths.length; i++){
-    	 additionalOriginFiles[i] = new File(addOriginPaths[i]);
+         additionalOriginFiles[i] = new File(addOriginPaths[i]);
      }
      
          try {
-       	  	// 1) Copy the entries in the zip file to the destiny file 
+            // 1) Copy the entries in the zip file to the destiny file 
              final int BUFFER = 2048;
              BufferedOutputStream dest = null;
              JarOutputStream jos = null;
@@ -267,45 +325,45 @@ public class File extends java.io.File {
                 int count;
                 byte data[] = new byte[BUFFER];
                 if (!entry.isDirectory( )){
-    	            // write the files to the disk
-    	            FileOutputStream fos = new FileOutputStream(new File(destinyFile,entry.getName()));
-    	            dest = new BufferedOutputStream(fos,BUFFER);
-    	            jos = new JarOutputStream(dest);
-    	            jos.putNextEntry( entry );
-    	            while ((count = jis.read(data, 0, BUFFER)) != -1) {
-    	               jos.write(data, 0, count);
-    	            }
-    	            jos.flush();
-    	            jos.close();
+                    // write the files to the disk
+                    FileOutputStream fos = new FileOutputStream(new File(destinyFile,entry.getName()));
+                    dest = new BufferedOutputStream(fos,BUFFER);
+                    jos = new JarOutputStream(dest);
+                    jos.putNextEntry( entry );
+                    while ((count = jis.read(data, 0, BUFFER)) != -1) {
+                       jos.write(data, 0, count);
+                    }
+                    jos.flush();
+                    jos.close();
                 }
              }
              jis.close();
              
              // 2) Copy the additional files to the new compressed file
              for (int i=0; i<additionalOriginFiles.length; i++){
-            	 File additionalFile = additionalOriginFiles[i];
-            	 String additionalFileDest = addDestinyPaths[i];
-            	 JarEntry newEntry = new JarEntry(additionalFileDest);
-            	 // Input Stream
-            	 FileInputStream ais = new FileInputStream(additionalFile);
-            	 int count2;
-            	 byte data2[] = new byte[BUFFER];
-            	 
-            	 // Output stream
-            	 FileOutputStream fos = new FileOutputStream(new File(destinyFile,newEntry.getName()));
-    	         dest = new BufferedOutputStream(fos,BUFFER);
-    	         jos = new JarOutputStream(dest);
-    	         
-    	         //Write the file
-    	         jos.putNextEntry( newEntry );
-    	         while ((count2 = ais.read(data2, 0, BUFFER)) != -1) {
-    	        	 jos.write(data2, 0, count2);
-    	         }
-    	         ais.close( );
+                 File additionalFile = additionalOriginFiles[i];
+                 String additionalFileDest = addDestinyPaths[i];
+                 JarEntry newEntry = new JarEntry(additionalFileDest);
+                 // Input Stream
+                 FileInputStream ais = new FileInputStream(additionalFile);
+                 int count2;
+                 byte data2[] = new byte[BUFFER];
+                 
+                 // Output stream
+                 FileOutputStream fos = new FileOutputStream(new File(destinyFile,newEntry.getName()));
+                 dest = new BufferedOutputStream(fos,BUFFER);
+                 jos = new JarOutputStream(dest);
+                 
+                 //Write the file
+                 jos.putNextEntry( newEntry );
+                 while ((count2 = ais.read(data2, 0, BUFFER)) != -1) {
+                     jos.write(data2, 0, count2);
+                 }
+                 ais.close( );
              }
              //System.out.println("Checksum: "+checksum.getChecksum().getValue());
           } catch(Exception e) {
-        	  done = false;
+              done = false;
              e.printStackTrace();
           }
           return done;
@@ -357,18 +415,156 @@ public class File extends java.io.File {
             //handle exception 
         }
     }
+    
+    public static boolean importEadventureJar(String zipFile, String destiny){
+        
+        try{
+          FileInputStream fis;
+          fis = new FileInputStream( zipFile);
+         return importEadventureJar(fis, destiny);
+        }catch (FileNotFoundException e){
+            
+        }
+        return false;
+      }
+      
+     
+    private static boolean isEadJar(Manifest man, JarInputStream jis){
+        if (man==null){
+            JarEntry entry = null;
+            try {
+                while( ( entry = jis.getNextJarEntry( ) ) != null ) {
+                    if (isFileToUnzip(entry.getName( )))
+                       return true;      
+                }
 
+            }
+            catch( FileNotFoundException e ) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            catch( IOException e ) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }  
+            
+            return false;
+        } else {
+            Attributes atr = man.getMainAttributes();
+            return (atr!=null&&atr.getValue("Main-Class")!=null&&atr.getValue("Main-Class").contains( JAR_CHECKER ));
+        
+        }
+        
+    }
+    
+    private static boolean importEadventureJar(FileInputStream fis, String destiny){
+        try{
+        CheckedInputStream checksum = new CheckedInputStream( fis, new Adler32( ) );
+           JarInputStream jis = new JarInputStream( new BufferedInputStream( checksum ) );
+           Manifest man = jis.getManifest();
+           
+         if (isEadJar(man, jis)){
+             unzipDir( jis, destiny, true);
+             return true;
+        }else  {
+            jis.close( );
+            return false;
+        }
+             
+        }catch( IOException e ) {
+              
+              e.printStackTrace();
+          }
+        return false; 
+      }
+      
+      public static boolean importEadventureLO(String zipFile, String destiny){
+        boolean eadLO=false;
+        boolean lo = false;
+        FileInputStream fis=null;
+        java.io.File newFile=null;
+        try{
+          final int BUFFER = 2048;
+          fis = new FileInputStream( zipFile);
+          CheckedInputStream checksum = new CheckedInputStream( fis, new Adler32( ) );
+          ZipInputStream zis = new ZipInputStream(new BufferedInputStream(checksum)); 
+          ZipEntry entry = null;
+          while( ( entry = zis.getNextEntry( ) ) != null ) {
+              if (entry.getName( ).contains( LO_CHECKER ))
+                  lo = true;
+              else if (entry.getName( ).endsWith( EAD_LO_CHECKER )){
+                  eadLO = true;
+                  String name = entry.getName().substring(0,entry.getName().indexOf("."));
+                  newFile = java.io.File.createTempFile(name , ".jar");
+                  FileOutputStream fos = new FileOutputStream( newFile );
+                  BufferedOutputStream dest = new BufferedOutputStream( fos, BUFFER );
+                  int count;
+                  byte data[] = new byte[ BUFFER ];
+                  while( ( count = zis.read( data, 0, BUFFER) ) != -1 ) {
+                      dest.write( data, 0, count );
+                  }
+                  dest.flush( );
+                  dest.close( );
+                 newFile.deleteOnExit();
+              }
+                  
+          }
+          
+          return eadLO&&lo&&importEadventureJar(new FileInputStream(newFile),destiny);
+        }catch (FileNotFoundException e){
+            
+        }
+        catch( IOException e ) {
+          
+          e.printStackTrace();
+      }
+        return false;
+          
+      }
+      
+    
+    
+    public static boolean isFileToUnzip(String name){
+        
+        if (name.startsWith(CHAPTER)&&name.contains(CHAPTER_SUFFIX))
+            return true;
+        else if (name.startsWith(ASSETS)||name.startsWith(GUI)||name.startsWith(ADAPT)||name.startsWith(ASSESS))
+            return true;
+        else if (name.contains(DTD_SUFFIX))
+            return true;
+        else if (name.equals(DESCRIPTOR))
+            return true;
+        else
+            return false;
+    }
+    
     public static void unzipDir( String zipFile, String destinyDir ) {
+        
+        try {
+            FileInputStream fis = new FileInputStream(zipFile);
+            CheckedInputStream checksum = new CheckedInputStream( fis, new Adler32( ) );
+            JarInputStream jis = new JarInputStream( new BufferedInputStream( checksum ) );
+            unzipDir(jis, destinyDir, false);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void unzipDir( JarInputStream jis, String destinyDir, boolean importFiles) {
 
         try {
             final int BUFFER = 2048;
             BufferedOutputStream dest = null;
-            FileInputStream fis = new FileInputStream( zipFile );
-            CheckedInputStream checksum = new CheckedInputStream( fis, new Adler32( ) );
-            JarInputStream jis = new JarInputStream( new BufferedInputStream( checksum ) );
             JarEntry entry = null;
             while( ( entry = jis.getNextJarEntry( ) ) != null ) {
-                //System.out.println("Extracting: " +entry);
+                boolean unzip;
+                if (importFiles&&isFileToUnzip(entry.getName())||!importFiles)
+                    unzip = true;
+                else 
+                    unzip = false;
+                if (unzip){
                 int count;
                 byte data[] = new byte[ BUFFER ];
                 // write the files to the disk
@@ -382,13 +578,16 @@ public class File extends java.io.File {
                     }
                     dest.flush( );
                     dest.close( );
+                    
+                } 
                 }
             }
+            
             jis.close( );
             //System.out.println("Checksum: "+checksum.getChecksum().getValue());
         }
         catch( Exception e ) {
-            ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+         //   ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
         }
     }
 
@@ -432,7 +631,7 @@ public class File extends java.io.File {
 
         }
         catch( Exception e ) {
-            ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+          //  ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
         }
     }
 
@@ -453,15 +652,15 @@ public class File extends java.io.File {
                         }
                         zos.closeEntry( );
                     } catch( ZipException e) {
-                        if (!e.getMessage( ).contains( "duplicate entry" ))
-                            ReportDialog.GenerateErrorReport( e, true, "Problem adding library: " + library );
+                        //if (!e.getMessage( ).contains( "duplicate entry" ))
+                          //  ReportDialog.GenerateErrorReport( e, true, "Problem adding library: " + library );
                     }
                 }
             }
             zis.close( );
         }
         catch( Exception e ) {
-            ReportDialog.GenerateErrorReport( e, true, "Problem adding library: " + library );
+          //  ReportDialog.GenerateErrorReport( e, true, "Problem adding library: " + library );
         }
     }
     
@@ -479,10 +678,7 @@ public class File extends java.io.File {
             zos.closeEntry();
         }
         catch( Exception e ) {
-            ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+            //ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
         }
     }
-
-    
-    
 }

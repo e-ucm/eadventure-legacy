@@ -82,6 +82,8 @@ import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.auxiliar.filefilters.EADAndFolderFileFilter;
+import es.eucm.eadventure.editor.auxiliar.filefilters.JARFileFilter;
+import es.eucm.eadventure.editor.auxiliar.filefilters.ZIPFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -157,6 +159,8 @@ public class StartDialog extends JFileChooser {
     public StartDialog( ) {
 
         super( );
+        this.setFileFilter( new ZIPFileFilter() );
+        this.setFileFilter( new JARFileFilter() );
         this.setFileFilter( new EADAndFolderFileFilter( this ) );
         this.setCurrentDirectory( ReleaseFolders.projectsFolder( ) );
         this.setMultiSelectionEnabled( false );
