@@ -58,6 +58,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.BookEditorPane;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.gui.editorpane.BookEditorPaneEngine;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -90,7 +91,7 @@ public class FunctionalBookPage extends JPanel {
     public FunctionalBookPage( BookPage bookPage, FunctionalStyledBook fBook, Image background, Image currentArrowLeft, Image currentArrowRight, Point previousPage, Point nextPage, boolean listenHyperLinks ) {
 
         super( );
-        editorPane = new BookEditorPane( );
+        editorPane = new BookEditorPaneEngine( bookPage.getUri( ) );
         isValid = true;
         this.bookPage = bookPage;
         this.fBook = fBook;

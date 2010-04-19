@@ -67,6 +67,16 @@ public interface SpecialAssetPaths {
     public static final String ASSET_DEFAULT_ARROW_OVER = "assets/special/DefaultLeftOverArrow.png";
     
     /**
+     * Asset path for the default book normal arrow image in engine. For use only in assets.
+     */
+    public static final String ENGINE_DEFAULT_ARROW_NORMAL = "img/assets/DefaultLeftNormalArrow.png";
+    
+    /**
+     * Asset path for the default book over arrow image in engine. For use only in assets.
+     */
+    public static final String ENGINE_DEFAULT_ARROW_OVER = "img/assets/DefaultLeftOverArrow.png";
+    
+    /**
      * Default file for the empty image.
      */
     public static final String FILE_EMPTY_IMAGE = "img/assets/EmptyImage.png";

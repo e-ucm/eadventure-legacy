@@ -44,7 +44,9 @@ import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.PixelGrabber;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import es.eucm.eadventure.common.auxiliar.ImageTransformer;
@@ -113,39 +115,6 @@ public abstract class FunctionalBook {
      */
     protected int numPages;
 
-    /**
-     * Returns whether the mouse pointer is in the "next page" button
-     * 
-     * @param x
-     *            the horizontal position of the mouse pointer
-     * @param y
-     *            the vertical position of the mouse pointer
-     * @return true if the mouse is in the "next page" button, false otherwise
-     */
-    public boolean isInNextPage( int x, int y ) {
-
-        if( ( nextPage.getX( ) < x ) && ( x < nextPage.getX( ) + nextPageDimension.getWidth( ) ) && ( nextPage.getY( ) < y ) && ( y < nextPage.getY( ) + nextPageDimension.getHeight( ) )){
-            boolean isInside = false;
-
-            int mousex = x - nextPage.x;
-            int mousey = y - nextPage.y;
-            
-            try{ 
-
-            int alpha = currentArrowRight.getRGB( mousex, mousey ) >>> 24;
-            isInside = alpha > 128;
-            }
-            catch ( Exception e ){
-                isInside = false;
-            }
-            
-
-            return isInside;
-        }
-        else
-            return false;
-    }
-
     protected FunctionalBook( Book b ) {
 
         this.book = b;
@@ -165,6 +134,38 @@ public abstract class FunctionalBook {
     }
 
     /**
+     * Returns whether the mouse pointer is in the "next page" button
+     * 
+     * @param x
+     *            the horizontal position of the mouse pointer
+     * @param y
+     *            the vertical position of the mouse pointer
+     * @return true if the mouse is in the "next page" button, false otherwise
+     */
+    public boolean isInNextPage( int x, int y ) {
+
+        if( ( nextPage.getX( ) < x ) && ( x < nextPage.getX( ) + nextPageDimension.getWidth( ) ) && ( nextPage.getY( ) < y ) && ( y < nextPage.getY( ) + nextPageDimension.getHeight( ) ) ) {
+            boolean isInside = false;
+
+            int mousex = x - nextPage.x;
+            int mousey = y - nextPage.y;
+
+            try {
+
+                int alpha = currentArrowRight.getRGB( mousex, mousey ) >>> 24;
+                isInside = alpha > 128;
+            }
+            catch( Exception e ) {
+                isInside = false;
+            }
+
+            return isInside;
+        }
+        else
+            return false;
+    }
+
+    /**
      * Returns wheter the mouse pointer is in the "previous page" button
      * 
      * @param x
@@ -176,21 +177,20 @@ public abstract class FunctionalBook {
      */
     public boolean isInPreviousPage( int x, int y ) {
 
-        if ( ( previousPage.x < x ) && ( x < previousPage.x + previousPageDimension.getWidth( ) ) && ( previousPage.y < y ) && ( y < previousPage.y + previousPageDimension.height ) ){
+        if( ( previousPage.x < x ) && ( x < previousPage.x + previousPageDimension.getWidth( ) ) && ( previousPage.y < y ) && ( y < previousPage.y + previousPageDimension.height ) ) {
             boolean isInside = false;
 
             int mousex = x - previousPage.x;
             int mousey = y - previousPage.y;
-            
+
             try {
 
-            int alpha = currentArrowRight.getRGB( mousex, mousey ) >>> 24;
-            isInside = alpha > 128;
+                int alpha = currentArrowLeft.getRGB( mousex, mousey ) >>> 24;
+                isInside = alpha > 128;
             }
-            catch ( Exception e ){
+            catch( Exception e ) {
                 isInside = false;
             }
-            
 
             return isInside;
         }
@@ -241,7 +241,7 @@ public abstract class FunctionalBook {
         background = MultimediaManager.getInstance( ).loadImageFromZip( r.getAssetPath( Book.RESOURCE_TYPE_BACKGROUND ), MultimediaManager.IMAGE_SCENE );
 
         try {
-            arrowLeftNormal =  this.toBufferedImage( MultimediaManager.getInstance( ).loadImageFromZip( r.getAssetPath( Book.RESOURCE_TYPE_ARROW_LEFT_NORMAL ), MultimediaManager.IMAGE_SCENE ) );
+            arrowLeftNormal = this.toBufferedImage( MultimediaManager.getInstance( ).loadImageFromZip( r.getAssetPath( Book.RESOURCE_TYPE_ARROW_LEFT_NORMAL ), MultimediaManager.IMAGE_SCENE ) );
         }
         catch( Exception e ) {
             arrowLeftNormal = null;
@@ -285,9 +285,7 @@ public abstract class FunctionalBook {
             }
             //  Else, we load defaults left arrows
             else {
-
-                arrowLeftNormal = this.toBufferedImage( MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL, MultimediaManager.IMAGE_SCENE ) );
-                arrowLeftOver = this.toBufferedImage( MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER, MultimediaManager.IMAGE_SCENE ) );
+                loadDefaultArrows( );
             }
         }
 
@@ -324,15 +322,29 @@ public abstract class FunctionalBook {
         currentArrowRight = arrowRightNormal;
     }
 
-    void loadDefaultArrows( ) {
+    private void loadDefaultArrows( ) {
 
-        arrowLeftNormal = (BufferedImage) MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL, MultimediaManager.IMAGE_SCENE );
-        arrowRightNormal = (BufferedImage) ImageTransformer.getInstance( ).getScaledImage( arrowLeftNormal, 1.0f, 1.0f );
-        arrowLeftOver = (BufferedImage) MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER, MultimediaManager.IMAGE_SCENE );
-        arrowRightOver = (BufferedImage) ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, 1.0f, 1.0f );
+        try {
+            arrowLeftNormal = (BufferedImage) MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL, MultimediaManager.IMAGE_SCENE );
+            if( arrowLeftNormal == null ) {
+                arrowLeftNormal = ImageIO.read( getClass( ).getResourceAsStream( "/es/eucm/eadventure/engine/core/gui/images/defaultleftnormalarrow.png" ) );
+            }
+
+            arrowRightNormal = (BufferedImage) ImageTransformer.getInstance( ).getScaledImage( arrowLeftNormal, -1.0f, 1.0f );
+            
+            arrowLeftOver = (BufferedImage) MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER, MultimediaManager.IMAGE_SCENE );
+            if ( arrowLeftOver == null ){
+                arrowLeftOver = ImageIO.read( getClass( ).getResourceAsStream( "/es/eucm/eadventure/engine/core/gui/images/defaultleftoverarrow.png" ) );
+            }
+            
+            arrowRightOver = (BufferedImage) ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, -1.0f, 1.0f );
+        }
+        catch( IOException e ) {
+            e.printStackTrace( );
+        }
     }
 
-    void setDefaultArrowsPosition( ) {
+    private void setDefaultArrowsPosition( ) {
 
         int margin = 20;
         int xLeft = margin;
@@ -391,76 +403,80 @@ public abstract class FunctionalBook {
             currentArrowRight = arrowRightOver;
 
     }
-    
+
     // MÉTODOS PARA DETERMINAR LAS TRANSPARENCIAS DE LAS FLECHAS
-    public BufferedImage toBufferedImage(Image image) {
-        if (image instanceof BufferedImage) {
-            return (BufferedImage)image;
+    public BufferedImage toBufferedImage( Image image ) {
+
+        if( image instanceof BufferedImage ) {
+            return (BufferedImage) image;
         }
-    
+
         // This code ensures that all the pixels in the image are loaded
-        image = new ImageIcon(image).getImage();
-    
+        image = new ImageIcon( image ).getImage( );
+
         // Determine if the image has transparent pixels; for this method's
         // implementation, see e661 Determining If an Image Has Transparent Pixels
-        boolean hasAlpha = hasAlpha(image);
-    
+        boolean hasAlpha = hasAlpha( image );
+
         // Create a buffered image with a format that's compatible with the screen
         BufferedImage bimage = null;
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment( );
         try {
             // Determine the type of transparency of the new buffered image
             int transparency = Transparency.OPAQUE;
-            if (hasAlpha) {
+            if( hasAlpha ) {
                 transparency = Transparency.BITMASK;
             }
-    
+
             // Create the buffered image
-            GraphicsDevice gs = ge.getDefaultScreenDevice();
-            GraphicsConfiguration gc = gs.getDefaultConfiguration();
-            bimage = gc.createCompatibleImage(
-                image.getWidth(null), image.getHeight(null), transparency);
-        } catch (HeadlessException e) {
+            GraphicsDevice gs = ge.getDefaultScreenDevice( );
+            GraphicsConfiguration gc = gs.getDefaultConfiguration( );
+            bimage = gc.createCompatibleImage( image.getWidth( null ), image.getHeight( null ), transparency );
+        }
+        catch( HeadlessException e ) {
             // The system does not have a screen
         }
-    
-        if (bimage == null) {
+
+        if( bimage == null ) {
             // Create a buffered image using the default color model
             int type = BufferedImage.TYPE_INT_RGB;
-            if (hasAlpha) {
+            if( hasAlpha ) {
                 type = BufferedImage.TYPE_INT_ARGB;
             }
-            bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
+            bimage = new BufferedImage( image.getWidth( null ), image.getHeight( null ), type );
         }
-    
+
         // Copy image to buffered image
-        Graphics g = bimage.createGraphics();
-    
+        Graphics g = bimage.createGraphics( );
+
         // Paint the image onto the buffered image
-        g.drawImage(image, 0, 0, null);
-        g.dispose();
-    
+        g.drawImage( image, 0, 0, null );
+        g.dispose( );
+
         return bimage;
     }
+
     // This method returns true if the specified image has transparent pixels
-    public static boolean hasAlpha(Image image) {
+    public static boolean hasAlpha( Image image ) {
+
         // If buffered image, the color model is readily available
-        if (image instanceof BufferedImage) {
-            BufferedImage bimage = (BufferedImage)image;
-            return bimage.getColorModel().hasAlpha();
+        if( image instanceof BufferedImage ) {
+            BufferedImage bimage = (BufferedImage) image;
+            return bimage.getColorModel( ).hasAlpha( );
         }
-    
+
         // Use a pixel grabber to retrieve the image's color model;
         // grabbing a single pixel is usually sufficient
-         PixelGrabber pg = new PixelGrabber(image, 0, 0, 1, 1, false);
+        PixelGrabber pg = new PixelGrabber( image, 0, 0, 1, 1, false );
         try {
-            pg.grabPixels();
-        } catch (InterruptedException e) {
+            pg.grabPixels( );
         }
-    
+        catch( InterruptedException e ) {
+        }
+
         // Get the image's color model
-        ColorModel cm = pg.getColorModel();
-        return cm.hasAlpha();
+        ColorModel cm = pg.getColorModel( );
+        return cm.hasAlpha( );
     }
 
 }
