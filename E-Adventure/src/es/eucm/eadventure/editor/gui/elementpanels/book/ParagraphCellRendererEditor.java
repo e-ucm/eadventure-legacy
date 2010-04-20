@@ -29,7 +29,6 @@
  * You should have received a copy of the GNU General Public License along with
  * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
- * 
  */
 package es.eucm.eadventure.editor.gui.elementpanels.book;
 
@@ -107,15 +106,16 @@ public class ParagraphCellRendererEditor extends AbstractCellEditor implements T
         textPane.setEditable( false );
 
         String text = "";
-        if( value.getType( ) == Controller.BOOK_TITLE_PARAGRAPH || value.getType( ) == Controller.BOOK_TEXT_PARAGRAPH || value.getType( ) == Controller.BOOK_BULLET_PARAGRAPH )
-            text = value.getParagraphContent( );
-        if( value.getType( ) == Controller.BOOK_IMAGE_PARAGRAPH )
-            return new JLabel( value.getParagraphContent( ) );
+
+        if( value != null ) {
+            if( value.getType( ) == Controller.BOOK_TITLE_PARAGRAPH || value.getType( ) == Controller.BOOK_TEXT_PARAGRAPH || value.getType( ) == Controller.BOOK_BULLET_PARAGRAPH )
+                text = value.getParagraphContent( );
+            if( value.getType( ) == Controller.BOOK_IMAGE_PARAGRAPH )
+                return new JLabel( value.getParagraphContent( ) );
+        }
 
         text.replace( '\n', '\\' );
         return new JLabel( text );
-        //		textField.setText(text);
-        //		return textField;
     }
 
     private Component createComponent( boolean isSelected, Color color ) {
@@ -124,10 +124,12 @@ public class ParagraphCellRendererEditor extends AbstractCellEditor implements T
         if( isSelected )
             temp.setBorder( BorderFactory.createMatteBorder( 2, 2, 2, 0, color ) );
 
-        if( value.getType( ) == Controller.BOOK_TITLE_PARAGRAPH || value.getType( ) == Controller.BOOK_TEXT_PARAGRAPH || value.getType( ) == Controller.BOOK_BULLET_PARAGRAPH )
-            createTextPanel( temp );
-        if( value.getType( ) == Controller.BOOK_IMAGE_PARAGRAPH )
-            createImagePanel( temp );
+        if( value != null ) {
+            if( value.getType( ) == Controller.BOOK_TITLE_PARAGRAPH || value.getType( ) == Controller.BOOK_TEXT_PARAGRAPH || value.getType( ) == Controller.BOOK_BULLET_PARAGRAPH )
+                createTextPanel( temp );
+            if( value.getType( ) == Controller.BOOK_IMAGE_PARAGRAPH )
+                createImagePanel( temp );
+        }
 
         return temp;
     }

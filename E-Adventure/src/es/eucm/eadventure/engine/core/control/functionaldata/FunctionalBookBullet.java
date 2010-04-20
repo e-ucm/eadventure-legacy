@@ -136,7 +136,21 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
             }
             //else we add it to the current word
             else {
-                word = word + c;
+                Rectangle2D r = GUI.getInstance( ).getFrame( ).getFont( ).getStringBounds( line + word + c, new FontRenderContext( null, false, true ) );
+                if( r.getWidth( ) < FunctionalTextBook.TEXT_WIDTH_BULLET )
+                    word = word + c;
+                else {
+                    if( line != "" )
+                        textLines.add( line );
+                    line = "";
+                    Rectangle2D r2 = GUI.getInstance( ).getFrame( ).getFont( ).getStringBounds( word + c, new FontRenderContext( null, false, true ) );
+                    if( r2.getWidth( ) < FunctionalTextBook.TEXT_WIDTH_BULLET )
+                        word = word + c;
+                    else {
+                        textLines.add( word );
+                        word = "" + c;
+                    }
+                }
             }
         }
 
