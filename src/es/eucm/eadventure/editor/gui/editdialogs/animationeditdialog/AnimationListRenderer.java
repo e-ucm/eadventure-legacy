@@ -37,6 +37,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -57,19 +58,29 @@ import es.eucm.eadventure.editor.control.controllers.animation.TransitionDataCon
  */
 public class AnimationListRenderer implements ListCellRenderer {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
+    private HashMap<String, Image> chache;
+    
+    private ImageIcon soundIcon;
+    
+    private ImageIcon noImage;
+    
+    private ImageIcon[] transitions;
+    
     public AnimationListRenderer( ) {
-
         super( );
+        chache = new HashMap<String, Image>();
+        soundIcon = new ImageIcon( "img/icons/hasSound.png" );
+        noImage = new ImageIcon( "img/icons/noImageFrame.png" );
+        transitions = new ImageIcon[5];
+        transitions[Transition.TYPE_NONE] = new ImageIcon( "img/icons/transitionNone.png" );
+        transitions[Transition.TYPE_FADEIN] = new ImageIcon( "img/icons/transitionFadein.png" );
+        transitions[Transition.TYPE_HORIZONTAL] = new ImageIcon( "img/icons/transitionHorizontal.png" );
+        transitions[Transition.TYPE_VERTICAL] = new ImageIcon( "img/icons/transitionVertical.png" );
     }
 
     public Component getListCellRendererComponent( JList list, Object value, int index, boolean isSelected, boolean cellHasFocus ) {
-
-        //int selectedIndex = ((Integer)value).intValue();
         JPanel panel = new JPanel( );
         panel.setLayout( new BorderLayout( ) );
 
@@ -88,26 +99,7 @@ public class AnimationListRenderer implements ListCellRenderer {
 
             JLabel temp = new JLabel( );
 
-            Image image = null;
-            if( f.getImageURI( ) != null && f.getImageURI( ).length( ) > 0 ) {
-                image = AssetsController.getImage( f.getImageURI( ) );
-                if( f.getSoundUri( ) != null && f.getSoundUri( ) != "" ) {
-                    ImageIcon soundIcon = new ImageIcon( "img/icons/hasSound.png" );
-                    image.getGraphics( ).drawImage( soundIcon.getImage( ), 0, 0, null );
-                }
-            }
-            ImageIcon icon;
-            if( image == null ) {
-                icon = new ImageIcon( "img/icons/noImageFrame.png" );
-            }
-            else {
-                icon = new ImageIcon( image.getScaledInstance( 100, -1, Image.SCALE_SMOOTH ) );
-                if( icon.getIconHeight( ) > 100 ) {
-                    icon = new ImageIcon( image.getScaledInstance( -1, 100, Image.SCALE_SMOOTH ) );
-                }
-            }
-
-            temp.setIcon( icon );
+            temp.setIcon( getImage(f.getImageURI( ), f.getSoundUri( )) );
 
             panel.add( temp, BorderLayout.CENTER );
 
@@ -121,22 +113,7 @@ public class AnimationListRenderer implements ListCellRenderer {
             temp.setVerticalAlignment( SwingConstants.CENTER );
             ImageIcon icon;
             TransitionDataControl t = (TransitionDataControl) value;
-            switch( t.getType( ) ) {
-                case Transition.TYPE_NONE:
-                    icon = new ImageIcon( "img/icons/transitionNone.png" );
-                    break;
-                case Transition.TYPE_FADEIN:
-                    icon = new ImageIcon( "img/icons/transitionFadein.png" );
-                    break;
-                case Transition.TYPE_HORIZONTAL:
-                    icon = new ImageIcon( "img/icons/transitionHorizontal.png" );
-                    break;
-                case Transition.TYPE_VERTICAL:
-                    icon = new ImageIcon( "img/icons/transitionVertical.png" );
-                    break;
-                default:
-                    icon = new ImageIcon( "img/icons/transitionNone.png" );
-            }
+            icon = transitions[t.getType( )];
             temp.setIcon( icon );
 
             panel.add( temp, BorderLayout.CENTER );
@@ -146,6 +123,32 @@ public class AnimationListRenderer implements ListCellRenderer {
             panel.add( temp, BorderLayout.SOUTH );
         }
         return panel;
+    }
+    
+    private ImageIcon getImage(String imageURI, String soundURI) {
+        Image image = null;
+        ImageIcon icon;
+        if( imageURI != null && imageURI.length( ) > 0 ) {
+            image = chache.get( imageURI );
+            if (image == null) {
+                image = AssetsController.getImage( imageURI );
+                if (image != null) {
+                    image = image.getScaledInstance( 100, -1, Image.SCALE_SMOOTH );
+                    if (image.getHeight( null ) > 100)
+                        image = image.getScaledInstance( -1, 100, Image.SCALE_SMOOTH );
+                }
+            }
+            chache.put( imageURI, image );
+            if( soundURI != null && soundURI != "" && image != null ) {
+                image.getGraphics( ).drawImage( soundIcon.getImage( ), 0, 0, null );
+            }
+        }
+
+        if( image == null )
+            icon = noImage;
+        else
+            icon = new ImageIcon(image);
+        return icon;
     }
 
 }
