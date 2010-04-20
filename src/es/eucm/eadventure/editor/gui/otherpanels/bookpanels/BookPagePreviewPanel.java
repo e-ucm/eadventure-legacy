@@ -393,140 +393,22 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
         this.isValid = isValid;
     }
 
-    // TODO Sustituía las referencias por archivos temporales
-    // Borrar si no se necesita más
-    /*public class ProcessHTML {
-
-        private String html;
-
-        private int currentPos;
-
-        private int state;
-
-        private final int STATE_NONE = 0;
-
-        private final int STATE_LT = 1;
-
-        private final int STATE_SRC = 2;
-
-        private final int STATE_EQ = 3;
-
-        private final int STATE_RT = 4;
-
-        private final int STATE_RTQ = 5;
-
-        private String reference;
-
-        public ProcessHTML( String html ) {
-
-            this.html = html;
-            currentPos = 0;
-            state = STATE_NONE;
-        }
-
-        public String start( ) {
-
-            state = STATE_NONE;
-            String lastThree = "";
-            reference = "";
-            for( currentPos = 0; currentPos < html.length( ); currentPos++ ) {
-                char current = html.charAt( currentPos );
-                if( lastThree.length( ) < 3 )
-                    lastThree += current;
-                else
-                    lastThree = lastThree.substring( 1, 3 ) + current;
-
-                if( state == STATE_NONE ) {
-                    if( current == '<' ) {
-                        state = STATE_LT;
-                    }
-                }
-                else if( state == STATE_LT ) {
-                    if( lastThree.toLowerCase( ).equals( "src" ) ) {
-                        state = STATE_SRC;
-                    }
-                    else if( current == '>' ) {
-                        state = STATE_NONE;
-                    }
-                }
-
-                else if( state == STATE_SRC ) {
-                    if( current == '=' ) {
-                        state = STATE_EQ;
-                    }
-                    else if( current != ' ' ) {
-                        state = STATE_NONE;
-                    }
-                }
-                else if( state == STATE_EQ ) {
-                    if( current == '"' ) {
-                        state = STATE_RTQ;
-                    }
-                    else if( current != ' ' ) {
-                        reference += current;
-                        state = STATE_RT;
-                    }
-                }
-                else if( state == STATE_RTQ ) {
-                    if( current != '>' && current != '"' ) {
-                        reference += current;
-                    }
-                    else {
-                        state = STATE_NONE;
-                        replaceReference( currentPos - reference.length( ), reference.length( ) );
-                    }
-                }
-                else if( state == STATE_RT ) {
-                    if( current != '>' && current != ' ' ) {
-                        reference += current;
-                    }
-                    else {
-                        state = STATE_NONE;
-                        replaceReference( currentPos - reference.length( ), reference.length( ) );
-                    }
-                }
-
-            }
-
-            return html;
-        }
-
-        private void replaceReference( int index, int length ) {
-
-            try {
-                int lastSlash = Math.max( currentBookPage.getUri( ).lastIndexOf( "/" ), currentBookPage.getUri( ).lastIndexOf( "\\" ) );
-                String assetPath = currentBookPage.getUri( ).substring( 0, lastSlash ) + "/" + reference;
-                String destinyPath = AssetsController.extractResource( assetPath );
-                if( destinyPath != null ) {
-                    String leftSide = html.substring( 0, index );
-                    String rightSide = html.substring( index + length, html.length( ) );
-                    File file = new File( destinyPath );
-                    html = leftSide + file.toURI( ).toURL( ).toString( ) + rightSide;
-                }
-                reference = "";
-            }
-            catch( Exception e ) {
-                ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
-            }
-        }
-    }*/
-
     @Override
     public void paint( Graphics g ) {
 
-        if( isImageLoaded( ) ) {
+        if( bookPageList.size( ) > 0 && isImageLoaded( ) ) {
             // Paint the background
             g.drawImage( image, getAbsoluteX( 0 ), getAbsoluteY( 0 ), width, height, null );
+            if( imagePage != null ) {
+                g.drawImage( imagePage, getAbsoluteX( currentBookPage.getMargin( ) ), getAbsoluteY( currentBookPage.getMarginTop( ) ), getAbsoluteWidth( imagePage.getWidth( null ) ), getAbsoluteHeight( imagePage.getHeight( null ) ), null );
+            }
             // Paint editorPane
-            if( editorPane != null ){
+            else if( editorPane != null ){
                 int xPane = getAbsoluteX( currentBookPage.getMargin( ) );
                 int yPane = getAbsoluteY( currentBookPage.getMarginTop( ) );
                 int widthPane = width - getAbsoluteWidth( currentBookPage.getMarginEnd( ) );
                 int heightPane = height - getAbsoluteHeight( currentBookPage.getMarginBottom( ) );
                 editorPane.paint( g, xPane, yPane, widthPane, heightPane );
-            }
-            if( imagePage != null ) {
-                g.drawImage( imagePage, getAbsoluteX( currentBookPage.getMargin( ) ), getAbsoluteY( currentBookPage.getMarginTop( ) ), getAbsoluteWidth( imagePage.getWidth( null ) ), getAbsoluteHeight( imagePage.getHeight( null ) ), null );
             }
 
             if( drawArrows ) {

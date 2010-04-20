@@ -228,8 +228,8 @@ public class ResourceCellRendererEditor extends AbstractCellEditor implements Ta
                 public void run( ) {
 
                     while( !isStop( ) ) {
-                        if( getLastUpdate( ) != -1 && System.currentTimeMillis( ) - getLastUpdate( ) > 1000 && hasChanged( ) ) {
-                            if( control.getSelectedPage( ).getType( ) == BookPage.TYPE_URL )
+                        if( getLastUpdate( ) != -1 && System.currentTimeMillis( ) - getLastUpdate( ) > 1000 && hasChanged( ) ) {                          
+                            if( control.getSelectedPage( ) != null && control.getSelectedPage( ).getType( ) == BookPage.TYPE_URL )
                                 if( control.editURL( textField.getText( ) ) ) {
                                     validateContentSource( );
                                     setChanged( false );
@@ -282,6 +282,7 @@ public class ResourceCellRendererEditor extends AbstractCellEditor implements Ta
                     validateContentSource( );
                 }
             }
+            parentPanel.updatePreview( );
         }
     }
 

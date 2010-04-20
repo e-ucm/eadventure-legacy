@@ -84,36 +84,15 @@ public class BookPagesPanel extends JPanel {
 
     private JPanel previewPanelContainer;
 
-    // private JScrollPane previewPanelScroll;
-
-    // private BookPagePreviewPanel previewPanel;
-
-    // private JPanel pageNotLoadedPanel;
-
     private JButton deleteButton;
 
     private JButton moveUpButton;
 
     private JButton moveDownButton;
 
-    //private JLabel previewLabel;
-
     private JSplitPane infoAndPreview;
 
     private BookPagePreviewPanel bookPanel;
-
-    /* private JPanel createPageNotLoadedPanel( ) {
-
-        JPanel panel = new JPanel( );
-
-        panel.setLayout( new GridBagLayout( ) );
-        GridBagConstraints c = new GridBagConstraints( );
-        c.fill = GridBagConstraints.BOTH;
-        c.anchor = GridBagConstraints.CENTER;
-
-        panel.add( new JLabel( "Page not available" ), c );
-        return panel;
-    } */
 
     public BookPagesPanel( BookDataControl dControl ) {
 
@@ -123,10 +102,10 @@ public class BookPagesPanel extends JPanel {
 
         previewPanelContainer = new JPanel( );
         previewPanelContainer.setLayout( new BorderLayout( ) );
-        bookPanel = new BookPagePreviewPanel( dataControl, false,  pagesTable );
+        bookPanel = new BookPagePreviewPanel( dataControl, false, pagesTable );
 
         JPanel bottomPanel = new JPanel( );
-        
+
         JButton previewButton = new JButton( TC.get( "Book.Preview" ) );
         previewButton.addActionListener( new ActionListener( ) {
 
@@ -136,7 +115,7 @@ public class BookPagesPanel extends JPanel {
                 dialog.setVisible( true );
             }
         } );
-        
+
         JButton exportButton = new JButton( TC.get( "Export.Book" ) );
         exportButton.addActionListener( new ActionListener( ) {
 
@@ -149,7 +128,7 @@ public class BookPagesPanel extends JPanel {
 
         bottomPanel.add( previewButton );
         bottomPanel.add( exportButton );
-        
+
         previewPanelContainer.add( bottomPanel, BorderLayout.SOUTH );
         updateSelectedPage( );
 
@@ -175,25 +154,8 @@ public class BookPagesPanel extends JPanel {
     public void updatePreview( ) {
 
         BookPage currentPage = dataControl.getBookPagesList( ).getSelectedPage( );
-        
-        /* if( pageNotLoadedPanel != null )
-             previewPanelContainer.remove( previewPanelScroll );
-         else if( previewLabel != null )
-             previewPanelContainer.remove( previewLabel );*/
 
         if( currentPage != null ) {
-
-            /* previewPanel = new BookPagePreviewPanel( dataControl );
-            previewPanel.setCurrentBookPage( currentPage );
-            previewPanel.setPreferredSize( new Dimension( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT ) );
-            previewPanel.repaint( );
-            Image image = previewPanel.paintToImage( );*/
-
-            /*previewLabel = new JLabel( );
-            previewLabel.setIcon( new ImageIcon( getResizedImage( image ) ) );
-
-            previewPanelContainer.add( previewLabel, BorderLayout.CENTER );*/
-
             previewPanelContainer.updateUI( );
         }
 
@@ -211,15 +173,6 @@ public class BookPagesPanel extends JPanel {
             //Disable moveUp and moveDown buttons
             moveUpButton.setEnabled( false );
             moveDownButton.setEnabled( false );
-            /*if( pageNotLoadedPanel != null )
-                previewPanelContainer.remove( previewPanelScroll );
-            else if( previewLabel != null )
-                previewPanelContainer.remove( previewLabel );
-
-            pageNotLoadedPanel = this.createPageNotLoadedPanel( );
-            previewLabel = null;
-            previewPanelScroll = new JScrollPane( pageNotLoadedPanel );
-            previewPanelContainer.add( previewPanelScroll, BorderLayout.CENTER );*/
         }
 
         //When a page has been selected
@@ -230,11 +183,6 @@ public class BookPagesPanel extends JPanel {
             moveUpButton.setEnabled( dataControl.getBookPagesList( ).getBookPages( ).size( ) > 1 && selectedPage > 0 );
             moveDownButton.setEnabled( dataControl.getBookPagesList( ).getBookPages( ).size( ) > 1 && selectedPage < pagesTable.getRowCount( ) - 1 );
 
-            /* if( pageNotLoadedPanel != null )
-                 previewPanelContainer.remove( previewPanelScroll );
-             else if( previewPanel != null )
-                 previewPanelContainer.remove( previewLabel ); */
-            
             GridBagConstraints c = new GridBagConstraints( );
             c.fill = GridBagConstraints.BOTH;
             c.ipadx = 800;
@@ -243,46 +191,11 @@ public class BookPagesPanel extends JPanel {
             c.weighty = 0.9;
             bookPanel.setCurrentBookPage( selectedPage );
             previewPanelContainer.add( bookPanel, BorderLayout.CENTER );
-
-            /*previewPanel = new BookPagePreviewPanel( dataControl );
-            previewPanel.setCurrentBookPage( selectedPage );
-            previewPanel.setPreferredSize( new Dimension( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT ) );
-            previewPanel.repaint( );
-            Image image = previewPanel.paintToImage( );*/
-            /*previewLabel = new JLabel( );
-            previewLabel.setIcon( new ImageIcon( getResizedImage( image ) ) );
-            previewPanelContainer.add( previewLabel, BorderLayout.CENTER );*/
         }
 
         previewPanelContainer.updateUI( );
-        //previewPanelScroll.updateUI( );
         previewPanelContainer.repaint( );
-        // previewPanel.repaint( );
     }
-
-    /*private Image getResizedImage( Image image ) {
-
-        // set up the transform
-        AffineTransform transform = new AffineTransform( );
-        int width = previewPanelContainer.getWidth( ) - 20;
-        if( width < 350 )
-            width = 350;
-        int height = previewPanelContainer.getHeight( ) - 20;
-        if( height < 250 )
-            height = 250;
-
-        transform.scale( width / (double) image.getWidth( null ), height / (double) image.getHeight( null ) );
-
-        // create a transparent (not translucent) image
-        Image newImage = new BufferedImage( width, height, BufferedImage.TYPE_3BYTE_BGR );
-
-        // draw the transformed image
-        Graphics2D g = (Graphics2D) newImage.getGraphics( );
-        g.drawImage( image, transform, null );
-        g.dispose( );
-
-        return newImage;
-    }*/
 
     private void createPagesPanel( ) {
 
@@ -495,9 +408,12 @@ public class BookPagesPanel extends JPanel {
 
         BookPagesListDataControl pagesDataControl = dataControl.getBookPagesList( );
         BookPage bookPage = pagesDataControl.getSelectedPage( );
+        int i = pagesDataControl.getIndexSelectedPage( );
         if( bookPage != null && pagesDataControl.deletePage( bookPage ) ) {
             pagesTable.clearSelection( );
             ( (AbstractTableModel) pagesTable.getModel( ) ).fireTableDataChanged( );
+            int selectedRow = i - 1 >= 0 ? i - 1 : 0;
+            pagesTable.changeSelection( selectedRow, 0, false, false );
         }
     }
 
