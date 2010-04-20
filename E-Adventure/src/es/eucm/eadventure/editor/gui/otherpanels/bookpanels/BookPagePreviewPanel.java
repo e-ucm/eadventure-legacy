@@ -395,8 +395,10 @@ public class BookPagePreviewPanel extends BookPreviewPanel {
 
     @Override
     public void paint( Graphics g ) {
-
-        if( bookPageList.size( ) > 0 && isImageLoaded( ) ) {
+        if ( bookPageList.size( ) == 0 )
+            currentBookPage = null;
+        
+        if( currentBookPage != null && isImageLoaded( ) ) {
             // Paint the background
             g.drawImage( image, getAbsoluteX( 0 ), getAbsoluteY( 0 ), width, height, null );
             if( imagePage != null ) {
