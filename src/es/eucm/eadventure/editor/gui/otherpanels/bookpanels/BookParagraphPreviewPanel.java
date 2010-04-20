@@ -235,22 +235,23 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
         // If the image is loaded, draw the elements
         if( isImageLoaded( ) ) {
             paintBackground( g );
+            
+            if( currentPage > 1 )
+                if( currentArrowLeft != null ) {
+                    g.drawImage( currentArrowLeft, getAbsoluteX( previousPagePoint.x ), getAbsoluteY( previousPagePoint.y ), getAbsoluteWidth( arrowLeftNormal.getWidth( null ) ), getAbsoluteHeight( arrowLeftNormal.getHeight( null ) ), null );
+                }
+
+            if( currentPage + 1 < pageCount - 1 )
+                if( currentArrowRight != null ) {
+                    g.drawImage( currentArrowRight, getAbsoluteX( nextPagePoint.x ), getAbsoluteY( nextPagePoint.y ), getAbsoluteWidth( currentArrowRight.getWidth( null ) ), getAbsoluteHeight( currentArrowRight.getHeight( null ) ), null );
+                }
+            
             // Draw the first page
             g.drawImage( bookContinousImage, getAbsoluteX( TEXT_FIRST_COLUMN ), getAbsoluteY( TEXT_TOP_POSITION + 5 ), getAbsoluteX( TEXT_FIRST_COLUMN + TEXT_WIDTH ), getAbsoluteY( TEXT_TOP_POSITION + PAGE_TEXT_HEIGHT + 5 ), 0, currentPage * PAGE_TEXT_HEIGHT, TEXT_WIDTH, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT, null );
             // If there is second page, draw it
             if( currentPage < pageCount - 1 ) {
                 g.drawImage( bookContinousImage, getAbsoluteX( TEXT_SECOND_COLUMN ), getAbsoluteY( TEXT_TOP_POSITION + 5 ), getAbsoluteX( TEXT_SECOND_COLUMN + TEXT_WIDTH ), getAbsoluteY( TEXT_TOP_POSITION + PAGE_TEXT_HEIGHT + 5 ), 0, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT, TEXT_WIDTH, ( currentPage + 2 ) * PAGE_TEXT_HEIGHT, null );
             }
-
-            if( currentPage > 1 )
-                if( currentArrowLeft != null ) {
-                    g.drawImage( currentArrowLeft, getAbsoluteX( previousPagePoint.x ), getAbsoluteY( previousPagePoint.y ), getAbsoluteWidth( arrowLeftNormal.getWidth( null ) ), getAbsoluteHeight( arrowLeftNormal.getHeight( null ) ), null );
-                }
-
-            if( currentPage +2 < pageCount - 1 )
-                if( currentArrowRight != null ) {
-                    g.drawImage( currentArrowRight, getAbsoluteX( nextPagePoint.x ), getAbsoluteY( nextPagePoint.y ), getAbsoluteWidth( currentArrowRight.getWidth( null ) ), getAbsoluteHeight( currentArrowRight.getHeight( null ) ), null );
-                }
         }
     }
 
@@ -315,9 +316,24 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
                     word = "";
                 }
             }
-            // Else we add it to the current word
-            else
-                word = word + c;
+            // Else we do some more checking 
+            else {
+                Rectangle2D r = font.getStringBounds( line + word + c, new FontRenderContext( null, false, true ) );
+                if( r.getWidth( ) < TEXT_WIDTH )
+                    word = word + c;
+                else {
+                    if( line != "" )
+                        textLines.add( line );
+                    line = "";
+                    Rectangle2D r2 = font.getStringBounds( word + c, new FontRenderContext( null, false, true ) );
+                    if( r2.getWidth( ) < TEXT_WIDTH )
+                        word = word + c;
+                    else {
+                        textLines.add( word );
+                        word = "" + c;
+                    }
+                }
+            }
         }
         // All the text has been process except the last line and last word
         Rectangle2D r = font.getStringBounds( line + " " + word, new FontRenderContext( null, false, true ) );
@@ -415,8 +431,23 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
             }
 
             // Else we add it to the current word
-            else
-                word = word + c;
+            else {
+                Rectangle2D r = font.getStringBounds( line + word + c, new FontRenderContext( null, false, true ) );
+                if( r.getWidth( ) < TEXT_WIDTH )
+                    word = word + c;
+                else {
+                    if( line != "" )
+                        textLines.add( line );
+                    line = "";
+                    Rectangle2D r2 = font.getStringBounds( word + c, new FontRenderContext( null, false, true ) );
+                    if( r2.getWidth( ) < TEXT_WIDTH )
+                        word = word + c;
+                    else {
+                        textLines.add( word );
+                        word = "" + c;
+                    }
+                }
+            }
         }
 
         // All the text has been process except the last line and last word
@@ -520,8 +551,23 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
             }
 
             // Else we add it to the current word
-            else
-                word = word + c;
+            else{
+                Rectangle2D r = font.getStringBounds( line + word + c, new FontRenderContext( null, false, true ) );
+                if( r.getWidth( ) < TEXT_WIDTH_BULLET )
+                    word = word + c;
+                else {
+                    if( line != "" )
+                        textLines.add( line );
+                    line = "";
+                    Rectangle2D r2 = font.getStringBounds( word + c, new FontRenderContext( null, false, true ) );
+                    if( r2.getWidth( ) < TEXT_WIDTH_BULLET )
+                        word = word + c;
+                    else {
+                        textLines.add( word );
+                        word = "" + c;
+                    }
+                }
+            }
         }
 
         // All the text has been process except the last line and last word
@@ -568,9 +614,12 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
      * @return Image paragraph, containing the image and aditional information
      */
     private ParagraphImage createImageParagraphImage( String path ) {
-
+        
         // Load the real image
-        Image image = AssetsController.getImage( path );
+        Image image = null;
+        
+        if ( path != null && path != ""  )
+            image = AssetsController.getImage( path );
 
         // Create the image to draw
         Image paragraphImage = null;
@@ -597,15 +646,15 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
 
             if( isInPreviousPage( x, y ) ) {
                 // If the "Previous page" button was pressed
-                if (currentPage-2>=0)
+                if( currentPage - 2 >= 0 )
                     currentPage -= 2;
                 repaint( );
             }
 
             // If the "Next page" button was pressed
             else if( isInNextPage( x, y ) ) {
-                if (currentPage+2<pageCount)
-                currentPage += 2;
+                if( currentPage + 2 < pageCount )
+                    currentPage += 2;
                 repaint( );
             }
         }
