@@ -130,18 +130,20 @@ public class GUIFrame extends GUI implements FocusListener {
         };
 
         // Create the list of icons of the window
-        List<Image> icons = new ArrayList<Image>( );
-
-        icons.add( new ImageIcon( "gui/Icono-Motor-16x16.png" ).getImage( ) );
-        icons.add( new ImageIcon( "gui/Icono-Motor-32x32.png" ).getImage( ) );
-        icons.add( new ImageIcon( "gui/Icono-Motor-64x64.png" ).getImage( ) );
-        icons.add( new ImageIcon( "gui/Icono-Motor-128x128.png" ).getImage( ) );
-        bkgFrame.setIconImages( icons );
-
+        try {
+            List<Image> icons = new ArrayList<Image>( );
+            icons.add( new ImageIcon( "gui/Icono-Motor-16x16.png" ).getImage( ) );
+            icons.add( new ImageIcon( "gui/Icono-Motor-32x32.png" ).getImage( ) );
+            icons.add( new ImageIcon( "gui/Icono-Motor-64x64.png" ).getImage( ) );
+            icons.add( new ImageIcon( "gui/Icono-Motor-128x128.png" ).getImage( ) );
+            bkgFrame.setIconImages( icons );
+        } catch (NoSuchMethodError e) {
+            bkgFrame.setIconImage( new ImageIcon( "gui/Icono-Motor-32x32.png" ).getImage( ) );
+        }
         bkgFrame.setUndecorated( true );
 
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        if( graphicConfig == DescriptorData.GRAPHICS_BLACKBKG && !Game.getInstance( ).isDebug( ) ) {
+        if( graphicConfig == DescriptorData.GRAPHICS_BLACKBKG && !Game.getInstance( ).isDebug( ) && !Game.getInstance( ).isAppletMode( ) ) {
             bkgFrame.setSize( screenSize.width, screenSize.height );
             bkgFrame.setLocation( 0, 0 );
         }
@@ -188,7 +190,7 @@ public class GUIFrame extends GUI implements FocusListener {
         if (os.contains( "Mac" ))
             System.setProperty( "apple.awt.rendering", "speed" );
         
-        if( os.contains( "Windows" ) && graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN && !Game.getInstance( ).isDebug( ) ) {
+        if( os.contains( "Windows" ) && graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN && !Game.getInstance( ).isDebug( ) && !Game.getInstance( ).isAppletMode( ) ) {
             GraphicsEnvironment environment;
             GraphicsDevice gm = null;
             boolean changed = false;
