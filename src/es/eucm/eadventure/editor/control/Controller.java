@@ -1803,7 +1803,7 @@ public class Controller {
                     else
                         originFile = new File( eadPath );
 
-                    //TODO no se porque está puesto esto aquí....
+                    
                    // if( !originFile.getAbsolutePath( ).endsWith( ".ead" ) )
                      //   originFile = new java.io.File( originFile.getAbsolutePath( ) + ".ead" );
                     

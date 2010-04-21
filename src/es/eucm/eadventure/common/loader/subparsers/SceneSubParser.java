@@ -376,7 +376,7 @@ public class SceneSubParser extends SubParser {
                 String idTarget = "";
                 int x = 0, y = 0;
                 float scale = 0;
-                int layer = -1;
+                int layer = 0;
                 int influenceX = 0, influenceY = 0, influenceWidth = 0, influenceHeight = 0;
                 boolean hasInfluence = false;
 
@@ -402,6 +402,12 @@ public class SceneSubParser extends SubParser {
                     if( attrs.getQName( i ).equals( "influenceHeight" ) )
                         influenceHeight = Integer.parseInt( attrs.getValue( i ) );
                 }
+                
+                // This is for maintain the back-compatibility: in previous dtd versions layer has -1 as default value and this is
+                // an erroneous value. This reason, if this value is -1, it will be changed to 0. Now in dtd there are not default value
+                // for layer
+                if (layer==-1)
+                    layer=0;
 
                 currentElementReference = new ElementReference( idTarget, x, y, layer );
                 if( hasInfluence ) {
