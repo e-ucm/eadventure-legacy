@@ -113,7 +113,7 @@ public class AddEffectTool extends Tool {
 
         effects.add( effectToAdd );
         if( conditions != null ) {
-            conditions.add( new ConditionsController( effectToAdd.getConditions( ), Controller.EFFECT, getEffectInfo( effectToAdd ) ));
+            condition = new ConditionsController( effectToAdd.getConditions( ), Controller.EFFECT, getEffectInfo( effectToAdd ) );
             conditions.add( condition );
         }
 
