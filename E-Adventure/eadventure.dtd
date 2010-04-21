@@ -110,7 +110,7 @@
 	idTarget IDREF #REQUIRED
 	%position;
 	scale CDATA #IMPLIED
-	layer CDATA "-1"
+	layer CDATA #IMPLIED
 	hasInfluenceArea (yes | no) "no" 
 	%influence_area;
 >
