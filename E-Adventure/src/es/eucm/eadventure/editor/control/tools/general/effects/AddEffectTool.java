@@ -36,34 +36,10 @@ package es.eucm.eadventure.editor.control.tools.general.effects;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
-import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
-import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
-import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
-import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
-import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
-import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
-import es.eucm.eadventure.common.data.chapter.effects.HighlightItemEffect;
-import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
-import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
-import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
-import es.eucm.eadventure.common.data.chapter.effects.MoveObjectEffect;
-import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
-import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
-import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
-import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
-import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
-import es.eucm.eadventure.common.data.chapter.effects.ShowTextEffect;
-import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
-import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
-import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
-import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
-import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
-import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
-import es.eucm.eadventure.common.data.chapter.effects.WaitTimeEffect;
-import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
+import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 
@@ -113,7 +89,7 @@ public class AddEffectTool extends Tool {
 
         effects.add( effectToAdd );
         if( conditions != null ) {
-            condition = new ConditionsController( effectToAdd.getConditions( ), Controller.EFFECT, getEffectInfo( effectToAdd ) );
+            condition = new ConditionsController( effectToAdd.getConditions( ), Controller.EFFECT, EffectsController.getEffectInfo( effectToAdd ) );
             conditions.add( condition );
         }
 
@@ -143,127 +119,6 @@ public class AddEffectTool extends Tool {
         return true;
     }
 
-   protected static String getEffectInfo( AbstractEffect effect ) {
-
-        String effectInfo = null;
-
-        switch( effect.getType( ) ) {
-            case Effect.ACTIVATE:
-                ActivateEffect activateEffect = (ActivateEffect) effect;
-                effectInfo = TC.get( "Effect.ActivateInfo", activateEffect.getTargetId( ) );
-                break;
-            case Effect.DEACTIVATE:
-                DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
-                effectInfo = TC.get( "Effect.DeactivateInfo", deactivateEffect.getTargetId( ) );
-                break;
-            case Effect.SET_VALUE:
-                SetValueEffect setValueEffect = (SetValueEffect) effect;
-                effectInfo = TC.get( "Effect.SetValueInfo", new String[] { setValueEffect.getTargetId( ), Integer.toString( setValueEffect.getValue( ) ) } );
-                break;
-            case Effect.INCREMENT_VAR:
-                IncrementVarEffect incrementEffect = (IncrementVarEffect) effect;
-                effectInfo = TC.get( "Effect.IncrementVarInfo", new String[] { incrementEffect.getTargetId( ), Integer.toString( incrementEffect.getIncrement( ) ) } );
-                break;
-            case Effect.DECREMENT_VAR:
-                DecrementVarEffect decrementEffect = (DecrementVarEffect) effect;
-                effectInfo = TC.get( "Effect.DecrementVarInfo", new String[] { decrementEffect.getTargetId( ), Integer.toString( decrementEffect.getDecrement( ) ) } );
-                break;
-            case Effect.MACRO_REF:
-                MacroReferenceEffect macroReferenceEffect = (MacroReferenceEffect) effect;
-                effectInfo = TC.get( "Effect.MacroRefInfo", macroReferenceEffect.getTargetId( ) );
-                break;
-            case Effect.CONSUME_OBJECT:
-                ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-                effectInfo = TC.get( "Effect.ConsumeObjectInfo", consumeObjectEffect.getTargetId( ) );
-                break;
-            case Effect.GENERATE_OBJECT:
-                GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-                effectInfo = TC.get( "Effect.GenerateObjectInfo", generateObjectEffect.getTargetId( ) );
-                break;
-            case Effect.CANCEL_ACTION:
-                effectInfo = TC.get( "Effect.CancelActionInfo" );
-                break;
-            case Effect.SPEAK_PLAYER:
-                SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
-                effectInfo = TC.get( "Effect.SpeakPlayerInfo", speakPlayerEffect.getLine( ) );
-                break;
-            case Effect.SPEAK_CHAR:
-                SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-                effectInfo = TC.get( "Effect.SpeakCharacterInfo", new String[] { speakCharEffect.getTargetId( ), speakCharEffect.getLine( ) } );
-                break;
-            case Effect.TRIGGER_BOOK:
-                TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-                effectInfo = TC.get( "Effect.TriggerBookInfo", triggerBookEffect.getTargetId( ) );
-                break;
-            case Effect.PLAY_SOUND:
-                PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
-                effectInfo = TC.get( "Effect.PlaySoundInfo", playSoundEffect.getPath( ) );
-                break;
-            case Effect.PLAY_ANIMATION:
-                PlayAnimationEffect playAnimationEffect = (PlayAnimationEffect) effect;
-                effectInfo = TC.get( "Effect.PlayAnimationInfo", playAnimationEffect.getPath( ) );
-                break;
-            case Effect.MOVE_PLAYER:
-                MovePlayerEffect movePlayerEffect = (MovePlayerEffect) effect;
-                effectInfo = TC.get( "Effect.MovePlayerInfo", new String[] { String.valueOf( movePlayerEffect.getX( ) ), String.valueOf( movePlayerEffect.getY( ) ) } );
-                break;
-            case Effect.MOVE_NPC:
-                MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-                effectInfo = TC.get( "Effect.MoveCharacterInfo", new String[] { moveNPCEffect.getTargetId( ), String.valueOf( moveNPCEffect.getX( ) ), String.valueOf( moveNPCEffect.getY( ) ) } );
-                break;
-            case Effect.TRIGGER_CONVERSATION:
-                TriggerConversationEffect triggerConversationEffect = (TriggerConversationEffect) effect;
-                effectInfo = TC.get( "Effect.TriggerConversationInfo", triggerConversationEffect.getTargetId( ) );
-                break;
-            case Effect.TRIGGER_CUTSCENE:
-                TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-                effectInfo = TC.get( "Effect.TriggerCutsceneInfo", triggerCutsceneEffect.getTargetId( ) );
-                break;
-            case Effect.TRIGGER_SCENE:
-                TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-                effectInfo = TC.get( "Effect.TriggerSceneInfo", triggerSceneEffect.getTargetId( ) );
-                break;
-            case Effect.TRIGGER_LAST_SCENE:
-                effectInfo = TC.get( "Effect.TriggerLastSceneInfo" );
-                break;
-            case Effect.RANDOM_EFFECT:
-                RandomEffect randomEffect = (RandomEffect) effect;
-                String posInfo = "";
-                String negInfo = "";
-                if( randomEffect.getPositiveEffect( ) != null )
-                    posInfo = getEffectInfo( randomEffect.getPositiveEffect( ) );
-                negInfo = getEffectInfo( randomEffect.getNegativeEffect( ) );
-                effectInfo = TC.get( "Effect.RandomInfo", new String[] { Integer.toString( randomEffect.getProbability( ) ), Integer.toString( 100 - randomEffect.getProbability( ) ), posInfo, negInfo } );
-                break;
-            case Effect.WAIT_TIME:
-                WaitTimeEffect waitTimeEffect = (WaitTimeEffect) effect;
-                effectInfo = TC.get( "Effect.WaitTimeInfo", Integer.toString( waitTimeEffect.getTime( ) ) );
-                break;
-            case Effect.SHOW_TEXT:
-                ShowTextEffect showTextInfo = (ShowTextEffect) effect;
-                effectInfo = TC.get( "Effect.ShowTextInfo", new String[] { showTextInfo.getText( ), Integer.toString( showTextInfo.getX( ) ), Integer.toString( showTextInfo.getY( ) ) } );
-                break;
-            case Effect.HIGHLIGHT_ITEM:
-                HighlightItemEffect highlightItemEffect = (HighlightItemEffect) effect;
-                if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.NO_HIGHLIGHT)
-                    effectInfo = TC.get( "Effect.NoHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
-                if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_BLUE)
-                    effectInfo = TC.get( "Effect.BlueHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
-                if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_GREEN)
-                    effectInfo = TC.get( "Effect.GreenHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
-                if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_RED)
-                    effectInfo = TC.get( "Effect.RedHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
-                if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_BORDER)
-                    effectInfo = TC.get( "Effect.BorderHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
-                break;
-            case Effect.MOVE_OBJECT:
-                MoveObjectEffect moveObjectEffect = (MoveObjectEffect) effect;
-                effectInfo = TC.get( "Effect.MoveObjectInfo", moveObjectEffect.getTargetId( ) );
-                break;
-        }
-        
-
-        return effectInfo;
-    }
+  
     
 }
