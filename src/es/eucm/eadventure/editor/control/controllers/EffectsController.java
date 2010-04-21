@@ -349,7 +349,7 @@ public class EffectsController {
         return icon;
     }
 
-    protected static String getEffectInfo( AbstractEffect effect ) {
+    public static String getEffectInfo( AbstractEffect effect ) {
 
         String effectInfo = null;
 
