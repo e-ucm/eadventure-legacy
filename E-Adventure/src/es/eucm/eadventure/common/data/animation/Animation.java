@@ -118,6 +118,12 @@ public class Animation implements Cloneable, Documented, HasId {
     
     private ImageLoaderFactory factory;
 
+    private BufferedImage temp;
+    
+    private int temp_w;
+    
+    private int temp_h;
+    
     /**
      * Creates a new Animation. It can be created without any frames (empty =
      * true) or with the minimum number of frames and transitions (empty =
@@ -477,19 +483,21 @@ public class Animation implements Cloneable, Documented, HasId {
      * @return An image with the combination of the two frames
      */
     private Image combinedFrames( int i, long elapsedTime, int where ) {
-
         Image start = frames.get( i ).getImage( mirror, fullscreen, where );
         Image end = frames.get( i + 1 ).getImage( mirror, fullscreen, where );
         long time = transitions.get( i + 1 ).getTime( );
-        Image temp;
         Graphics2D g;
 
         switch( transitions.get( i + 1 ).getType( ) ) {
             case Transition.TYPE_NONE:
                 return start;
             case Transition.TYPE_FADEIN:
-                temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TYPE_4BYTE_ABGR );
-
+                if (temp_w != end.getWidth( null ) || temp_h != end.getHeight( null )) {
+                    temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TYPE_4BYTE_ABGR );
+                    temp_w = end.getWidth( null ) ;
+                    temp_h = end.getHeight( null );
+                    Runtime.getRuntime( ).gc( );
+                }
                 g = (Graphics2D) temp.getGraphics( );
                 AlphaComposite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 1 - (float) elapsedTime / (float) time );
                 g.setComposite( alphaComposite );
@@ -501,7 +509,12 @@ public class Animation implements Cloneable, Documented, HasId {
 
                 return temp;
             case Transition.TYPE_VERTICAL:
-                temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TYPE_4BYTE_ABGR );
+                if (temp_w != end.getWidth( null ) || temp_h != end.getHeight( null )) {
+                    temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TYPE_4BYTE_ABGR );
+                    temp_w = end.getWidth( null ) ;
+                    temp_h = end.getHeight( null );
+                    Runtime.getRuntime( ).gc( );
+                }
 
                 g = (Graphics2D) temp.getGraphics( );
                 g.drawImage( start, (int) ( end.getWidth( null ) * (float) elapsedTime / time ), 0, null );
@@ -510,7 +523,12 @@ public class Animation implements Cloneable, Documented, HasId {
 
                 return temp;
             case Transition.TYPE_HORIZONTAL:
-                temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TYPE_4BYTE_ABGR );
+                if (temp_w != end.getWidth( null ) || temp_h != end.getHeight( null )) {
+                    temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TYPE_4BYTE_ABGR );
+                    temp_w = end.getWidth( null ) ;
+                    temp_h = end.getHeight( null );
+                    Runtime.getRuntime( ).gc( );
+                }
 
                 g = (Graphics2D) temp.getGraphics( );
                 g.drawImage( start, 0, (int) ( end.getHeight( null ) * (float) elapsedTime / time ), null );

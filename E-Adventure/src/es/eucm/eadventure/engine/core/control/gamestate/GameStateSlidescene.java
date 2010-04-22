@@ -33,9 +33,7 @@
  */
 package es.eucm.eadventure.engine.core.control.gamestate;
 
-import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JOptionPane;
 
@@ -75,7 +73,7 @@ public class GameStateSlidescene extends GameState {
      */
     private boolean yetSkipped = false;
 
-    private BufferedImage bkg = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR );
+   // private BufferedImage bkg = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR );
 
     /**
      * Creates a new GameStateSlidescene
@@ -137,15 +135,15 @@ public class GameStateSlidescene extends GameState {
     @Override
     public void mainLoop( long elapsedTime, int fps ) {
         // Paint the current slide
-        Graphics2D g = (Graphics2D) bkg.getGraphics( );
-        g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
+        //Graphics2D g = (Graphics2D) bkg.getGraphics( );
+        //g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         slides.update( elapsedTime );
         if( !slides.isPlayingForFirstTime( ) )
             finishedSlides( );
-        g.drawImage( slides.getImage( ), 0, 0, null );
-        g.dispose( );
+        //g.drawImage( slides.getImage( ), 0, 0, null );
+        //g.dispose( );
 
-        GUI.getInstance( ).addBackgroundToDraw( bkg, 0 );
+        GUI.getInstance( ).addBackgroundToDraw( slides.getImage( ), 0 );
         GUI.getInstance( ).endDraw( );
         GUI.getInstance( ).drawScene( GUI.getInstance( ).getGraphics( ), elapsedTime );
     }

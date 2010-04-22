@@ -149,7 +149,7 @@ public class GUIApplet extends GUI {
         this.component = component;
         component.setBackground( Color.BLACK );
         component.setForeground( Color.BLACK );
-        applet.add( component );
+        applet.add( component, BorderLayout.CENTER );
         applet.validate( );
         component.repaint( );
         //System.out.println("IS DISPLAYABLE: " + component.isDisplayable() + "\n");
@@ -183,10 +183,10 @@ public class GUIApplet extends GUI {
         h = GUI.WINDOW_HEIGHT;
         if (fixedWidth / fixedHeight >= w / h) {
             w = GUI.WINDOW_WIDTH;
-            h = (int) ((float) fixedHeight / (float) fixedWidth * GUI.WINDOW_WIDTH);
+            h = (int) (((float) fixedHeight / (float) fixedWidth) * GUI.WINDOW_WIDTH);
         } else {
             h = GUI.WINDOW_HEIGHT;
-            w = (int) ((float) fixedWidth / (float) fixedHeight * GUI.WINDOW_HEIGHT);
+            w = (int) (((float) fixedWidth / (float) fixedHeight) * GUI.WINDOW_HEIGHT);
         }
         
         int posX = ( GUI.WINDOW_WIDTH - w ) / 2;
