@@ -33,10 +33,10 @@
  */
 package es.eucm.eadventure.engine;
 
+import java.awt.BorderLayout;
+
 import javax.media.Codec;
-import javax.media.Format;
 import javax.media.PlugInManager;
-import javax.media.format.VideoFormat;
 
 import es.eucm.eadventure.comm.manager.commManager.CommManagerLD;
 import es.eucm.eadventure.common.gui.TC;
@@ -83,7 +83,8 @@ public class EAdventureApplet extends CommManagerLD {
 
         try {
             Codec video = (Codec) Class.forName( "net.sourceforge.jffmpeg.VideoDecoder" ).newInstance( );
-            PlugInManager.addPlugIn( "net.sourceforge.jffmpeg.VideoDecoder", video.getSupportedInputFormats( ), new Format[] { new VideoFormat( VideoFormat.MPEG ) }, PlugInManager.CODEC );
+            PlugInManager.addPlugIn( "net.sourceforge.jffmpeg.VideoDecoder", video.getSupportedInputFormats( ), video.getSupportedOutputFormats( null ), PlugInManager.CODEC );
+            PlugInManager.commit( );
         }
         catch( Exception e ) {
         }
@@ -95,7 +96,9 @@ public class EAdventureApplet extends CommManagerLD {
         ResourceHandler.setRestrictedMode( true );
         ResourceHandler.getInstance( ).setZipFile( adventureName + ".zip" );
 
+        
         if( !windowed ) {
+            setLayout(new BorderLayout());
             GUI.setGUIType( GUI.GUI_APPLET );
             GUIApplet.setApplet( this );
         }

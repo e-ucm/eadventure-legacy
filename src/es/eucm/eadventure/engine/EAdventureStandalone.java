@@ -33,10 +33,11 @@
  */
 package es.eucm.eadventure.engine;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.media.Codec;
-import javax.media.Format;
 import javax.media.PlugInManager;
-import javax.media.format.VideoFormat;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -71,15 +72,23 @@ public class EAdventureStandalone {
      *            Arguments
      */
     public static void main( String[] args ) {
-
         TC.loadStrings( EAdventureApplet.class.getResourceAsStream( "/i18n/engine/en_EN.xml" ) );
         startTime = System.currentTimeMillis( );
         printElapsedTime( "Starting" );
 
+        /*Timer t = new Timer();
+        t.schedule( new TimerTask() {
+            @Override
+            public void run( ) {
+                System.out.println( Runtime.getRuntime( ).freeMemory( ) + " " + Runtime.getRuntime( ).totalMemory( ));
+            }
+            
+        }, 0, 50 );*/
 
         try {
             Codec video = (Codec) Class.forName( "net.sourceforge.jffmpeg.VideoDecoder" ).newInstance( );
-            PlugInManager.addPlugIn( "net.sourceforge.jffmpeg.VideoDecoder", video.getSupportedInputFormats( ), new Format[] { new VideoFormat( VideoFormat.MPEG ) }, PlugInManager.CODEC );
+            PlugInManager.addPlugIn( "net.sourceforge.jffmpeg.VideoDecoder", video.getSupportedInputFormats( ), video.getSupportedOutputFormats( null ), PlugInManager.CODEC );
+            PlugInManager.commit( );
         }
         catch( Exception e ) {
         }

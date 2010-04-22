@@ -905,7 +905,6 @@ public abstract class GUI implements FocusListener {
      *            Offset of the background
      */
     public void addBackgroundToDraw( Image background, int offsetX ) {
-
         this.background = new SceneImage( background, offsetX );
     }
 

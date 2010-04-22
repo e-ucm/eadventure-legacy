@@ -94,7 +94,6 @@ public class FunctionalItem extends FunctionalElement {
     private ElementReference reference;
 
     public FunctionalItem( Item item, ElementReference reference ) {
-
         this( item, reference.getInfluenceArea( ), reference.getX( ), reference.getY( ) );
         this.scale = reference.getScale( );
         this.layer = reference.getLayer( );
@@ -112,7 +111,6 @@ public class FunctionalItem extends FunctionalElement {
      *            the item's vertical position
      */
     protected FunctionalItem( Item item, InfluenceArea influenceArea, int x, int y ) {
-
         super( x, y );
         this.item = item;
         this.influenceArea = influenceArea;
@@ -128,6 +126,8 @@ public class FunctionalItem extends FunctionalElement {
         if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) ) {
             tempimage = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
             removeTransparentParts(tempimage);
+            tempimage = null;
+            Runtime.getRuntime( ).gc( );
         }
         if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
             icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
@@ -198,6 +198,8 @@ public class FunctionalItem extends FunctionalElement {
             if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) ) {
                 tempimage = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
                 removeTransparentParts(tempimage);
+                tempimage = null;
+                Runtime.getRuntime( ).gc( );
             }
             if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
                 icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );

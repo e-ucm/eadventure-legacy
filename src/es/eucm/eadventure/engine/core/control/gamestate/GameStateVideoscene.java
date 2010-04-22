@@ -86,6 +86,8 @@ public class GameStateVideoscene extends GameState implements ControllerListener
 
     private boolean prefetched;
 
+    private InputStreamDataSource ds;
+    
     /**
      * Creates a new GameStateVideoscene
      */
@@ -108,11 +110,16 @@ public class GameStateVideoscene extends GameState implements ControllerListener
 
             final Resources resources = createResourcesBlock( );
 
+            Runtime.getRuntime( ).gc( );
+
+            System.out.println("Free memory: " + Runtime.getRuntime( ).freeMemory( ));
+            
             // TODO se ha cambiado el c—digo para utilizar el nuevo sistema que carga directamente los videos como InputStreams
             // mediaPlayer = Manager.createRealizedPlayer( ResourceHandler.getInstance( ).getResourceAsMediaLocator( resources.getAssetPath( Videoscene.RESOURCE_TYPE_VIDEO ) ) );
-            InputStreamDataSource ds = new InputStreamDataSource(resources.getAssetPath( Videoscene.RESOURCE_TYPE_VIDEO ) );
+            ds = new InputStreamDataSource(resources.getAssetPath( Videoscene.RESOURCE_TYPE_VIDEO ) );
             ds.connect( );
             mediaPlayer = Manager.createRealizedPlayer( ds );
+
             
             mediaPlayer.addControllerListener( this );
             this.blockingPrefetch( );
@@ -157,9 +164,11 @@ public class GameStateVideoscene extends GameState implements ControllerListener
             GUI.getInstance( ).getFrame( ).validate( );
             GUI.getInstance( ).restoreFrame( );
 
-            mediaPlayer.deallocate( );
             mediaPlayer.close( );
+            mediaPlayer.deallocate( );
             mediaPlayer = null;
+            ds.disconnect( );
+            ds = null;
             System.gc( );
         }
 
