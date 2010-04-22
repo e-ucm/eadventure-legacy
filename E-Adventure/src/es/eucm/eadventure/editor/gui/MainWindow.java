@@ -111,6 +111,7 @@ public class MainWindow extends JFrame {
     private JMenuItem itPlayerMode;
 
     private StructurePanel structurePanel;
+    
 
     /**
      * Stack of windows opened.
@@ -650,6 +651,7 @@ public class MainWindow extends JFrame {
         } );
         chaptersMenu.add( itDeleteChapter );
         chaptersMenu.addSeparator( );
+        
         JMenuItem itMoveChapterUp = new JMenuItem( TC.get( "MenuChapters.MoveChapterUp" ) );
         itMoveChapterUp.addActionListener( new ActionListener( ) {
 
@@ -793,12 +795,15 @@ public class MainWindow extends JFrame {
     public void updateChapterMenu( ) {
 
         // First, delete all chapter elements (there are eight elements above the chapters in the menu)
+        
+            
+        int chapterIndex = 0;
         while( chaptersMenu.getItemCount( ) > 8 )
             chaptersMenu.remove( 8 );
-
+        //countChapter++;
         if( Controller.getInstance( ).isFolderLoaded( ) ) {
             // Then, add the new chapters to the menu
-            int chapterIndex = 0;
+           chapterIndex = 0;
             ButtonGroup chapterButtonGroup = new ButtonGroup( );
             for( String chapterTitle : controller.getChapterTitles( ) ) {
                 // Create the button, add the action listener and set an accelerator for the first nine chapters
@@ -814,6 +819,12 @@ public class MainWindow extends JFrame {
                 chaptersMenu.add( itChapter );
             }
         }
+        if( chapterIndex < 2)
+        {
+            chaptersMenu.getItem( 3 ).setEnabled( false );   
+            chaptersMenu.getItem( 4 ).setEnabled( false );   
+        }
+    
     }
 
     public void updateStructure( ) {
