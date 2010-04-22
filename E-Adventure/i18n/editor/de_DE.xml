@@ -223,6 +223,7 @@ Auf diese Weise dann Bedingungen auf den Wert einer Variablen basiert definieren
 <entry key="TimersList.Time">Zeit</entry>
 <entry key="LOM.Educational.Tab">Educational</entry>
 <entry key="Operation.FileNotSavedMessage">Ein Fehler ist aufgetreten und das Projekt wurde nicht korrekt gespeichert</entry>
+<entry key="conditions.context.2.251">La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="Resources.ArrowRightNormal">Normal Bild für den Pfeil nach rechts</entry>
 <entry key="FormattedTextAssets.NotAvailable">Nicht verfügbar</entry>
 <entry key="Item.Name">Objekt Name</entry>
@@ -1593,6 +1594,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 		Todo nodo sin padre se perderá. 
 		Los datos eliminados no podrán recuperarse.</entry>
 <entry key="LOMES.Technical.Requirement">Requerimientos</entry>
+<entry key="conditions.context.1.251">La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="StartDialog.HelpMessage">Bienvenido al editor &lt;e-Adventure&gt; 
 Para comenzar a usar el editor puede elegir entre las opciones mostradas aquí. Puede crear un nuevo archivo seleccionando uno de los botones inferiores. Se permite crear dos tipos de aventura distintos (esta decisión se puede cambiar más adelante):	
   - Aventuras que muestran el personaje correspondiente al jugador, como en los juegos de la saga Monkey Island (Modo jugador visible).

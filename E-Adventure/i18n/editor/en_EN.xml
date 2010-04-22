@@ -229,6 +229,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TimersList.Time">Time</entry>
 <entry key="LOM.Educational.Tab">Educational</entry>
 <entry key="Operation.FileNotSavedMessage">An error occurred and the project was not successfully saved</entry>
+<entry key="conditions.context.2.251"/>
 <entry key="Resources.ArrowRightNormal">Image for right normal arrow</entry>
 <entry key="FormattedTextAssets.NotAvailable">Not available</entry>
 <entry key="Item.Name">Name of the item</entry>
@@ -980,6 +981,7 @@ The operation was aborted.</entry>
 <entry key="ActiveArea.Title">Active area</entry>
 <entry key="Cursors.TypeNotAllowed">This type of cursor is not allowed for current gui</entry>
 <entry key="Effect.ConsumeObjectInfo">Consume object {#0}</entry>
+<entry key="Conditions.Context.1.251">The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
 <entry key="AssessmentProfile.Feedback.ShowReportAtEnd">Show assessment report when chapter is over</entry>
 <entry key="Conditions.Context.1.250"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
 <entry key="Operation.AddConversationTitle">Add conversation</entry>
@@ -1504,6 +1506,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Resources.ErrorNoAssets">There are no assets for this category.
 		Please add some assets with the managers in the "Adventure" menu of the main window</entry>
 <entry key="Resources.DescriptionCharacterAnimationWalkUp">Walking up</entry>
+<entry key="Conditions.Context.2.251">The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="Operation.AddSceneDefaultValue">SceneId</entry>
 <entry key="Conditions.Context.2.250"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="Adaptation.ErrorNoFlags">You must create a flag before you can use it</entry>
@@ -1640,6 +1643,7 @@ When not customized, default buttons will be used in the game.</entry>
 		Deleted data will be irrecoverable</entry>
 <entry key="Cursor.exit.Description">Exit cursor</entry>
 <entry key="LOMES.Technical.Requirement">Requirement</entry>
+<entry key="conditions.context.1.251"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
 <entry key="StartDialog.HelpMessage">Welcome to the &lt;e-Adventure&gt; editor! 
 	To get started using the editor you must choose between the options prompted here. You can create a new file by clicking on the button you can find below. You are allowed to create two different type of adventure games (this choice can be modified later):
 	 - Adventures where the player is shown normally, as for instance, the MonkeyIslandTM saga (3rd person mode).

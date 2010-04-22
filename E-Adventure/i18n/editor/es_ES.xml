@@ -230,6 +230,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="TimersList.Time">Tiempo</entry>
 <entry key="LOM.Educational.Tab">Educational</entry>
 <entry key="Operation.FileNotSavedMessage">Ocurrió un error y el proyecto no pudo guardarse correctamente</entry>
+<entry key="conditions.context.2.251">La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="Resources.ArrowRightNormal">Imagen normal para la flecha derecha</entry>
 <entry key="FormattedTextAssets.NotAvailable">No disponible</entry>
 <entry key="Item.Name">Nombre del objeto</entry>
@@ -984,6 +985,7 @@ Dicha operación no se completó.</entry>
 <entry key="ActiveArea.Title">Zona activa</entry>
 <entry key="Cursors.TypeNotAllowed">Este tipo de cursor no está permitido en la interfaz actual</entry>
 <entry key="Effect.ConsumeObjectInfo">Consumir objeto {#0}</entry>
+<entry key="Conditions.Context.1.251">La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
 <entry key="AssessmentProfile.Feedback.ShowReportAtEnd">Mostrar informe de evaluación al final del capítulo</entry>
 <entry key="Conditions.Context.1.250"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
 <entry key="Operation.AddConversationTitle">Añadir nueva conversación</entry>
@@ -1509,6 +1511,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="Resources.ErrorNoAssets">No hay recursos asociados a esta categoría.
 		Por favor añada algunos recursos con las opciones del menú "Aventura" en la ventana principal.</entry>
 <entry key="Resources.DescriptionCharacterAnimationWalkUp">Hacia arriba</entry>
+<entry key="Conditions.Context.2.251">La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="Operation.AddSceneDefaultValue">IdEscena</entry>
 <entry key="Conditions.Context.2.250"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="Adaptation.ErrorNoFlags">Debe crear los flags en las opciones del capítulo antes de emplearlos</entry>
@@ -1645,6 +1648,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 		Los datos eliminados no podrán recuperarse.</entry>
 <entry key="Cursor.exit.Description">Cursor de salida</entry>
 <entry key="LOMES.Technical.Requirement">Requerimientos</entry>
+<entry key="conditions.context.1.251">La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
 <entry key="StartDialog.HelpMessage">Bienvenido al editor &lt;e-Adventure&gt; 
 Para comenzar a usar el editor puede elegir entre las opciones mostradas aquí. Puede crear un nuevo archivo seleccionando uno de los botones inferiores. Se permite crear dos tipos de aventura distintos (esta decisión se puede cambiar más adelante):	
   - Aventuras que muestran el personaje correspondiente al jugador, como en los juegos de la saga Monkey Island (Modo jugador visible).
