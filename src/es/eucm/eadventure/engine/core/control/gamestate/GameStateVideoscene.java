@@ -101,12 +101,6 @@ public class GameStateVideoscene extends GameState implements ControllerListener
 
         try {
 
-            Graphics2D g = GUI.getInstance( ).getGraphics( );
-            g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
-            GUI.drawString( g, "Please wait", 400, 280 );
-            GUI.drawString( g, "Loading ...", 400, 300 );
-            GUI.getInstance( ).endDraw( );
-            g.dispose( );
 
             final Resources resources = createResourcesBlock( );
 
@@ -114,17 +108,40 @@ public class GameStateVideoscene extends GameState implements ControllerListener
 
             System.out.println("Free memory: " + Runtime.getRuntime( ).freeMemory( ));
             
+            if (Runtime.getRuntime( ).freeMemory( ) < 20000000) {
+                Graphics2D g = GUI.getInstance( ).getGraphics( );
+                g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
+                GUI.drawString( g, "Appology from <e-Adventure>", 400, 280 );
+                GUI.drawString( g, "Sorry, there is not enough memory to show the video", 400, 300 );
+                GUI.getInstance( ).endDraw( );
+                g.dispose( );
+                try {
+                    wait( 5000 );
+                }
+                catch( InterruptedException e ) {
+                    System.out.println( "Interrupted while waiting on realize...exiting." );
+                    System.exit( 1 );
+                }
+                throw new Exception("Not enough memory");
+            }
+            
+            Graphics2D g = GUI.getInstance( ).getGraphics( );
+            g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
+            GUI.drawString( g, "Please wait", 400, 280 );
+            GUI.drawString( g, "Loading ...", 400, 300 );
+            GUI.getInstance( ).endDraw( );
+            g.dispose( );
+
             // TODO se ha cambiado el c—digo para utilizar el nuevo sistema que carga directamente los videos como InputStreams
             // mediaPlayer = Manager.createRealizedPlayer( ResourceHandler.getInstance( ).getResourceAsMediaLocator( resources.getAssetPath( Videoscene.RESOURCE_TYPE_VIDEO ) ) );
             ds = new InputStreamDataSource(resources.getAssetPath( Videoscene.RESOURCE_TYPE_VIDEO ) );
             ds.connect( );
+            Manager.setHint( Manager.LIGHTWEIGHT_RENDERER, true );
             mediaPlayer = Manager.createRealizedPlayer( ds );
 
-            
             mediaPlayer.addControllerListener( this );
             this.blockingPrefetch( );
-            //mediaPlayer.start( );
-            Manager.setHint( Manager.LIGHTWEIGHT_RENDERER, true );
+
             video = mediaPlayer.getVisualComponent( );
 
             /*
@@ -150,6 +167,9 @@ public class GameStateVideoscene extends GameState implements ControllerListener
         catch( Exception e ) {
             loadNextScene( );
         }
+        catch( OutOfMemoryError e ) {
+            loadNextScene( );
+        }
 
     }
 
@@ -157,20 +177,25 @@ public class GameStateVideoscene extends GameState implements ControllerListener
 
         if( video != null ) {
             mediaPlayer.stop( );
+        }
 
-            //GUI.getInstance( ).getFrame( ).remove( video );
 
-            GUI.getInstance( ).getFrame( ).createBufferStrategy( 2 );
-            GUI.getInstance( ).getFrame( ).validate( );
-            GUI.getInstance( ).restoreFrame( );
-
+        if (mediaPlayer != null) {
             mediaPlayer.close( );
             mediaPlayer.deallocate( );
             mediaPlayer = null;
+        }
+
+        if (ds != null) {
             ds.disconnect( );
             ds = null;
-            System.gc( );
         }
+
+        System.gc( );
+
+        GUI.getInstance( ).getFrame( ).createBufferStrategy( 2 );
+        GUI.getInstance( ).getFrame( ).validate( );
+        GUI.getInstance( ).restoreFrame( );
 
         if( videoscene.getNext( ) == Cutscene.ENDCHAPTER )
             game.goToNextChapter( );
@@ -199,7 +224,6 @@ public class GameStateVideoscene extends GameState implements ControllerListener
      */
     @Override
     public void mainLoop( long elapsedTime, int fps ) {
-
         if( stop ) {//|| !( mediaPlayer.getDuration( ).getNanoseconds( ) > mediaPlayer.getMediaTime( ).getNanoseconds( ) ) ) {
             loadNextScene( );
         }
@@ -207,12 +231,10 @@ public class GameStateVideoscene extends GameState implements ControllerListener
 
     @Override
     public void mouseClicked( MouseEvent e ) {
-
         stop = true;
     }
 
     public synchronized void blockingPrefetch( ) {
-
         if( mediaPlayer != null ) {
             mediaPlayer.prefetch( );
             while( !prefetched ) {
@@ -230,18 +252,22 @@ public class GameStateVideoscene extends GameState implements ControllerListener
     public synchronized void controllerUpdate( ControllerEvent event ) {
 
         if( event instanceof RealizeCompleteEvent ) {
+            System.out.println("RealizeCompleteEvent");
             //realized = true;
             notify( );
         }
         else if( event instanceof EndOfMediaEvent ) {
+            System.out.println("EndOfMediaEvent");
             //eomReached = true;
             loadNextScene( );
         }
         else if( event instanceof StopEvent ) {
+            System.out.println("StopEvent");
             //stoped = true;
             notify( );
         }
         else if( event instanceof PrefetchCompleteEvent ) {
+            System.out.println("PrefetchCompleteEvent");
             prefetched = true;
             notify( );
         }

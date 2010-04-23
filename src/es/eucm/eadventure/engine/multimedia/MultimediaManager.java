@@ -527,7 +527,6 @@ public class MultimediaManager {
      * @return an Animation with frames animationPath_xy.jpg
      */
     public Animation loadAnimation( String animationPath, boolean mirror, int category ) {
-
         Animation temp = animationCache.get( animationPath + ( mirror ? "t" : "f" ) );
         if( temp != null )
             return temp;

@@ -392,17 +392,10 @@ public class Frame implements Cloneable, Timed {
      * @return a scaled image that fits in the game screen.
      */
     private Image getFullscreenImage( Image image ) {
-
-        // set up the transform
-        AffineTransform transform = new AffineTransform( );
-        transform.scale( GUI.WINDOW_WIDTH / (double) image.getWidth( null ), GUI.WINDOW_HEIGHT / (double) image.getHeight( null ) );
-
-        // create a transparent (not translucent) image
         Image newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, Transparency.BITMASK );
 
-        // draw the transformed image
         Graphics2D g = (Graphics2D) newImage.getGraphics( );
-        g.drawImage( image, transform, null );
+        g.drawImage( image, 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, null );
         g.dispose( );
 
         return newImage;

@@ -362,17 +362,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     private DebugLogPanel debugLogPanel;
 
     /**
-     * FIFO which store high level interaction
-     */
-    //private ArrayDeque<HighLevelInteraction> highLevelInteraction;
-
-    /**
-     * FIFO which store low level interaction
-     */
-
-    //private ArrayDeque<LowLevelInteraction> lowLevelInteraction;
-
-    /**
      * Returns the instance of Game
      * 
      * @return Instance of Game
@@ -523,11 +512,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         // Initialize the stack of states (used to keep the conversations and can throw its effects)
         stackOfState = new Stack<GameState>( );
 
-        // Initialize the FIFO of interactions
-//        g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
-//        GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
-//        GUI.drawString( g, GameText.TEXT_LOADING_DATA, 400, 300 );
-//        GUI.getInstance( ).endDraw( );
         GUI.getInstance( ).loading(70);
 
         // Load images to cache
@@ -744,7 +728,17 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             debugLogPanel = new DebugLogPanel( );
         }
         DebugLog.general( "Log started..." );
-
+        
+        /*// Timer to show how the memory varies
+        java.util.Timer t = new  java.util.Timer();
+        t.schedule( new TimerTask() {
+            @Override
+            public void run( ) {
+                System.out.println("Memory: " + Runtime.getRuntime( ).freeMemory( ) + " " + Runtime.getRuntime( ).totalMemory( ));
+            }
+        }, 0, 100 );
+         */
+        
         try {
             this.timerManager = TimerManager.getInstance( );
             totalTime = 0;
@@ -787,9 +781,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             Graphics2D g = GUI.getInstance( ).getGraphics( );
 
             GUI.getInstance( ).loading(0);
-//            GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
-//            GUI.drawString( g, GameText.TEXT_LOADING_XML, 400, 300 );
-//            GUI.getInstance( ).endDraw( );
 
             // Load the options
             options = new Options( );
@@ -799,12 +790,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             adaptationEngine = new AdaptationEngine( );
             assessmentEngine = new AssessmentEngine( );
             
-            
-            
-            // Init interaction queues
-            //this.highLevelInteraction = new ArrayDeque<HighLevelInteraction>();
-            //this.lowLevelInteraction = new ArrayDeque<LowLevelInteraction>();
-
             currentChapter = 0;
 
             boolean needsName = false;
@@ -1215,7 +1200,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      *            New functional scene
      */
     public void setFunctionalScene( FunctionalScene scene ) {
-
+        if (this.functionalScene != null) {
+            functionalScene.freeMemory();
+            functionalScene = null;
+            Runtime.getRuntime( ).gc( );
+        }
         this.functionalScene = scene;
     }
 
