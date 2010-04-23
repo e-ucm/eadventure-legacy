@@ -128,7 +128,7 @@
 <entry key="HUD.Traditional.btnTalkPressed">gui/hud/traditional/btnTalkPressedEN.png</entry>
 <entry key="ErrorReport.Comments">Please use this space for comments or suggestions</entry>
 <entry key="Report.XMLReport">XML Report</entry>
-<entry key="Language.Name">English</entry>
+<entry key="Language.Name">Deutsch</entry>
 <entry key="ErrorReport.Email">E-mail (optional):</entry>
 <entry key="ErrorReport.Title">Error report</entry>
 <entry key="Report.GenerateHTML">Generate report</entry>
