@@ -889,4 +889,16 @@ public class FunctionalScene implements Renderable {
         }
         return newResources;
     }
+
+    public void freeMemory( ) {
+        this.resources = null;
+        this.background = null;
+        this.foreground = null;
+        this.trajectory = null;
+        this.areas = null;
+        this.atrezzo = null;
+        this.barriers = null;
+        this.items = null;
+        this.npcs = null;
+    }
 }

@@ -36,9 +36,7 @@ package es.eucm.eadventure.engine;
 import java.io.File;
 
 import javax.media.Codec;
-import javax.media.Format;
 import javax.media.PlugInManager;
-import javax.media.format.VideoFormat;
 import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
@@ -100,7 +98,8 @@ public class EAdventure {
 
         try {
             Codec video = (Codec) Class.forName( "net.sourceforge.jffmpeg.VideoDecoder" ).newInstance( );
-            PlugInManager.addPlugIn( "net.sourceforge.jffmpeg.VideoDecoder", video.getSupportedInputFormats( ), new Format[] { new VideoFormat( VideoFormat.MPEG ) }, PlugInManager.CODEC );
+            PlugInManager.addPlugIn( "net.sourceforge.jffmpeg.VideoDecoder", video.getSupportedInputFormats( ),  video.getSupportedOutputFormats( null ), PlugInManager.CODEC );
+            PlugInManager.commit( );
         }
         catch( Exception e ) {
         }
@@ -125,30 +124,6 @@ public class EAdventure {
         }
 
         gameLauncher.init( file );
-        /*if (args.length == 0) 
-            gameLauncher.init( new File( "" ), "" );
-        else {
-        	if ( !args[0].equals("")) {
-        		
-        		File file = new File(args[0]);
-        	 
-        		if (file.exists( )){
-        			gameLauncher.init( new File(args[0]),args[1] );
-          
-        		} else {
-                
-        			JOptionPane.showMessageDialog(null,
-                        TextConstants.getText("ErrorMessage.Title"),
-                        TextConstants.getText("ErrorMessage.Content"),
-                        JOptionPane.ERROR_MESSAGE);
-                
-                gameLauncher.init(new File(""), "");
-            }
-        	}
-        	else 
-        		gameLauncher.init( new File( "" ), args[1] );
-        	}*/
         new Thread( gameLauncher ).start( );
-
     }
 }
