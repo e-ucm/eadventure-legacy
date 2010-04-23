@@ -118,10 +118,6 @@ public class MainWindow extends JFrame {
      */
     private Stack<Window> windowsStack;
 
-    private JMenuItem normalRun;
-
-    private JMenuItem debugRun;
-
     private JMenuItem undo;
 
     private JMenuItem redo;
@@ -129,6 +125,10 @@ public class MainWindow extends JFrame {
     private  JMenu fileMenu;
     
     private JCheckBoxMenuItem itAutoBackup;
+
+    private JMenu configurationMenu;
+
+    private JMenu runMenu;
 
     /**
      * Constructor. Creates the general layout.
@@ -328,10 +328,10 @@ public class MainWindow extends JFrame {
         chaptersMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
         chaptersMenu.setMnemonic( KeyEvent.VK_H );
         windowMenu.add( chaptersMenu );
-        JMenu runMenu = new JMenu( TC.get( "MenuRun.Title" ) );
+        runMenu = new JMenu( TC.get( "MenuRun.Title" ) );
         runMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
         windowMenu.add( runMenu );
-        JMenu configurationMenu = new JMenu( TC.get( "MenuConfiguration.Title" ) );
+        configurationMenu = new JMenu( TC.get( "MenuConfiguration.Title" ) );
         configurationMenu.setMnemonic( KeyEvent.VK_T );
         windowMenu.add( configurationMenu );
         JMenu about = new JMenu( TC.get( "Menu.About" ) );
@@ -685,7 +685,7 @@ public class MainWindow extends JFrame {
         updateChapterMenu( );
 
         // Create "run" elements
-        normalRun = new JMenuItem( TC.get( "MenuRun.Normal" ) );
+        JMenuItem normalRun = new JMenuItem( TC.get( "MenuRun.Normal" ) );
         normalRun.setAccelerator( KeyStroke.getKeyStroke( 'R', InputEvent.CTRL_MASK ) );
         normalRun.addActionListener( new ActionListener( ) {
 
@@ -697,7 +697,7 @@ public class MainWindow extends JFrame {
         } );
         runMenu.add( normalRun );
 
-        debugRun = new JMenuItem( TC.get( "MenuRun.Debug" ) );
+        JMenuItem debugRun = new JMenuItem( TC.get( "MenuRun.Debug" ) );
         debugRun.setAccelerator( KeyStroke.getKeyStroke( 'D', InputEvent.CTRL_MASK ) );
         debugRun.addActionListener( new ActionListener( ) {
 
@@ -736,9 +736,13 @@ public class MainWindow extends JFrame {
 
     public void setNormalRunAvailable( boolean available ) {
 
-        this.normalRun.setEnabled( available );
-        this.debugRun.setEnabled( available );
+        this.runMenu.setEnabled( available );
         this.fileMenu.setEnabled( available );
+        this.chaptersMenu.setEnabled( available );
+        this.itPlayerMode.setEnabled( available );
+        this.configurationMenu.setEnabled( available );
+       
+       
     }
 
     /**
