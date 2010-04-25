@@ -358,7 +358,9 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="AssessmentProfiles.Title">Perfiles de evaluación</entry>
 <entry key="Error.Title">Error</entry>
 <entry key="IMS.Educational.LearningResourceType">Tipo específico de recurso</entry>
+<entry key="Operation.ImportLO.InfoMessage">Atención: para que la importación sea satisfactoria el .ZIP elegido debe ser una exportación de un juego &lt;e-Adventure&gt; como Objeto de Aprendizaje. El resto de .ZIP no serán importados.</entry>
 <entry key="ErrorReport.FoundException">Excepción encontrada:</entry>
+<entry key="Operation.ImportJAR.FileNotLoaded">El .JAR elegido no es una exportación de &lt;e-Adventure&gt;.</entry>
 <entry key="Menu.SendComments">Enviar comentarios o sugerencias</entry>
 <entry key="Arrows.DefaultPosition">Posición por defecto</entry>
 <entry key="MenuChapters.Title">Capítulos</entry>
@@ -1156,6 +1158,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 <entry key="Exit.BottomToTop">Abajo hacia arriba</entry>
 <entry key="GlobalState.Conditions">Lista de conciciones del estado global</entry>
 <entry key="PlayAnimationEffect.Title">Efecto reproducir animación</entry>
+<entry key="Operation.IdErrorCharacter">El identificador no debe contener caracteres inválidos</entry>
 <entry key="Operation.RenameAssessmentFile.FileName.Message">Introduzca el nombre del archivo de evaluación</entry>
 <entry key="GeneralText.Rename">Renombrar</entry>
 <entry key="Assets.AddAsset">Añadir recurso</entry>
@@ -1215,6 +1218,7 @@ Se abortó el proceso.</entry>
 <entry key="Inventory.Information">Desde este menú puede personalizar la apariencia de las fechas del inventario. 
 Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="SelectEffectDialog.AllEffects.ToolTipText">Muestra todos los tipos de efectos</entry>
+<entry key="Operation.ImportJAR.InfoMessage">Atención: para que la importación sea satisfactoria el .JAR elegido debe ser una exportación de un juego &lt;e-Adventure&gt; como jar ejecutable. El resto de .JAR no serán importados.</entry>
 <entry key="Adventure.ModePlayerTransparent.Name">Primera persona</entry>
 <entry key="Conditions.Group.Title">Campos del Estado Global</entry>
 <entry key="Chapter.ChapterTitle">Título del capítulo</entry>
@@ -1483,6 +1487,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="Element.Name2">Escena</entry>
 <entry key="Element.Name1">Escenas</entry>
 <entry key="Element.Name0">Capítulo</entry>
+<entry key="Operation.ImportLO.FileNotLoadedMessage">El .ZIP elegido no es un Objeto de Aprendizaje exportado con &lt;e-Adventure&gt;.</entry>
 <entry key="Button.use-grab.normal.Description">Boton de usar-coger normal</entry>
 <entry key="CustomAction.GetNameTitle">Nombre de la acción</entry>
 <entry key="Effect.DecrementVarInfo">Decrementar la variable "{#0}" en "{#1}" unidades</entry>
@@ -1931,8 +1936,4 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="TalkToAction.MessageSelectConversation">Seleccione una conversación</entry>
 <entry key="BookPage.NotValidURL">No se puede acceder a la URL indicada. Por favor, compruebe la dirección y el funcionamiento de su conexión a Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Lengua</entry>
-<entry key="Operation.ImportLO.InfoMessage">Atención: para que la importación sea satisfactoria el .ZIP elegido debe ser una exportación de un juego &lt;e-Adventure&gt; como Objeto de Aprendizaje. El resto de .ZIP no serán importados.</entry>
-<entry key="Operation.ImportJAR.FileNotLoaded">El .JAR elegido no es una exportación de &lt;e-Adventure&gt;.</entry>
-<entry key="Operation.ImportJAR.InfoMessage">Atención: para que la importación sea satisfactoria el .JAR elegido debe ser una exportación de un juego &lt;e-Adventure&gt; como jar ejecutable. El resto de .JAR no serán importados.</entry>
-<entry key="Operation.ImportLO.FileNotLoadedMessage">El .ZIP elegido no es un Objeto de Aprendizaje exportado con &lt;e-Adventure&gt;.</entry>
 </properties>
