@@ -2844,11 +2844,13 @@ public class Controller {
 
                 // If the identifier is not a reserved identifier
                 if( !elementId.equals( Player.IDENTIFIER ) && !elementId.equals( TC.get( "ConversationLine.PlayerName" ) ) ) {
-
+                   
                     // If the first character is a letter
-                    if( Character.isLetter( elementId.charAt( 0 ) ) )
-                        elementIdValid = true;
-
+                    if( Character.isLetter( elementId.charAt( 0 ) ) ){
+                      elementIdValid = isCharacterValid(elementId);
+                      if (!elementIdValid)
+                          mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorCharacter" ) );
+                    }
                     // Show non-letter first character error
                     else if( showError )
                         mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorFirstCharacter" ) );
@@ -2870,7 +2872,24 @@ public class Controller {
 
         return elementIdValid;
     }
-
+    
+public boolean isCharacterValid(String elementId){
+    Character chId;
+    boolean isValid = true;
+    int i=1;
+    while (i < elementId.length( ) && isValid) {  
+      chId = elementId.charAt( i );
+      if (chId =='&'   || chId == '%'  || chId == '?'  || chId == '¿'   ||
+          chId =='¡'  || chId == '!'   || chId== '='   || chId == '$'  || 
+          chId == '*' || chId == '/' || chId == '(' || chId == ')' )
+            isValid = false;
+        i++;
+    }
+   
+    return isValid;
+    
+    
+}
     /**
      * Returns whether the given identifier is valid or not. If the element
      * identifier is not valid, this method shows an error message to the user.

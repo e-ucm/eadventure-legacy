@@ -39,7 +39,7 @@
 <entry key="AssessmentRule.Importance.VeryLow">Very Low</entry>
 <entry key="AssessmentRulesList.ListTitle">List of assessment rules</entry>
 <entry key="EffectsGroup.Trigger">Trigger an event</entry>
-<entry key="Action.ActiveWhenConditionsArent.ToolTip"/>
+<entry key="Action.ActiveWhenConditionsArent.ToolTip">Active action when conditions are not</entry>
 <entry key="Error.DTD.NotFound.Title">Important file not found</entry>
 <entry key="Conditions.Context.2B.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will stop immediately&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="LOM.Educational.LearningResourceType">Learning resource type</entry>
@@ -356,7 +356,9 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="AssessmentProfiles.Title">Assessment profiles</entry>
 <entry key="Error.Title">Error</entry>
 <entry key="IMS.Educational.LearningResourceType">Specific kind of resource</entry>
+<entry key="Operation.ImportLO.InfoMessage">Please note that the import will be satisfactorily only for .ZIP files that are result of an &lt;e-Adventure&gt; game exportation as Learning Object. The remaining. ZIP will not be imported.</entry>
 <entry key="ErrorReport.FoundException">Found exception:</entry>
+<entry key="Operation.ImportJAR.FileNotLoaded">The chosen .JAR is not a game exported from &lt;e-Adventure&gt;.</entry>
 <entry key="Menu.SendComments">Send comments or suggestions</entry>
 <entry key="Arrows.DefaultPosition">Default position</entry>
 <entry key="MenuChapters.Title">Chapters</entry>
@@ -1152,6 +1154,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 <entry key="Exit.BottomToTop">Bottom to top</entry>
 <entry key="GlobalState.Conditions">List of conditions of the global state</entry>
 <entry key="PlayAnimationEffect.Title">Play animation effect</entry>
+<entry key="Operation.IdErrorCharacter">The identifier must not contain invalid characters</entry>
 <entry key="Operation.RenameAssessmentFile.FileName.Message">Type the new name of the assessment file</entry>
 <entry key="GeneralText.Rename">Rename</entry>
 <entry key="Assets.AddAsset">Add asset</entry>
@@ -1211,6 +1214,7 @@ The load process was aborted</entry>
 <entry key="Inventory.Information">Here you can customize how the arrows of the inventory look. 
 When not customized, default arrows will be used in the game.</entry>
 <entry key="SelectEffectDialog.AllEffects.ToolTipText">Displays all the effects</entry>
+<entry key="Operation.ImportJAR.InfoMessage">Please note that the import will be satisfactorily only for .JAR files that are result of an standalone-jar based exportation in &lt;e-Adventure&gt; editor. The remaining. JAR will not be imported.</entry>
 <entry key="Adventure.ModePlayerTransparent.Name">1st person</entry>
 <entry key="Conditions.Group.Title">Fields of the global state</entry>
 <entry key="Chapter.ChapterTitle">Title of the chapter</entry>
@@ -1478,6 +1482,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Element.Name2">Scene</entry>
 <entry key="Element.Name1">Scenes</entry>
 <entry key="Element.Name0">Chapter</entry>
+<entry key="Operation.ImportLO.FileNotLoadedMessage">The chosen .ZIP is not a Learning Object exported with &lt;e-Adventure&gt;.</entry>
 <entry key="Button.use-grab.normal.Description">Normal use-grab button</entry>
 <entry key="CustomAction.GetNameTitle">Name of the action</entry>
 <entry key="Effect.DecrementVarInfo">Decrement var "{#0}" in "{#1}" units</entry>
@@ -1927,8 +1932,4 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TalkToAction.MessageSelectConversation">Select a conversation</entry>
 <entry key="BookPage.NotValidURL">The URL provided is not accessible, so it is not guaranteed it will be shown in the game. Please, check you typed correctly the URL and your Internet connection is working properly.</entry>
 <entry key="LOMES.MetaMetaData.Language">Language</entry>
-<entry key="Operation.ImportLO.InfoMessage">Please note that the import will be satisfactorily only for .ZIP files that are result of an &lt;e-Adventure&gt; game exportation as Learning Object. The remaining. ZIP will not be imported.</entry>
-<entry key="Operation.ImportJAR.FileNotLoaded">The chosen .JAR is not a game exported from &lt;e-Adventure&gt;.</entry>
-<entry key="Operation.ImportJAR.InfoMessage">Please note that the import will be satisfactorily only for .JAR files that are result of an standalone-jar based exportation in &lt;e-Adventure&gt; editor. The remaining. JAR will not be imported.</entry>
-<entry key="Operation.ImportLO.FileNotLoadedMessage">The chosen .ZIP is not a Learning Object exported with &lt;e-Adventure&gt;.</entry>
 </properties>
