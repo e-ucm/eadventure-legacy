@@ -63,7 +63,7 @@ public class GraphicRepresentation {
     /**
      * Margins to paint the conversation
      */
-    private static final int CONVERSATION_MARGIN = 50;
+    private static final int CONVERSATION_MARGIN = 150;
 
     /**
      * Normal state of the representation
