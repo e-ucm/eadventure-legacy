@@ -490,11 +490,14 @@ public class File extends java.io.File {
           ZipInputStream zis = new ZipInputStream(new BufferedInputStream(checksum)); 
           ZipEntry entry = null;
           while( ( entry = zis.getNextEntry( ) ) != null ) {
+              String name = entry.getName().substring(0,entry.getName().indexOf("."));
               if (entry.getName( ).contains( LO_CHECKER ))
                   lo = true;
               else if (entry.getName( ).endsWith( EAD_LO_CHECKER )){
                   eadLO = true;
-                  String name = entry.getName().substring(0,entry.getName().indexOf("."));
+                  name = entry.getName().substring(0,entry.getName().indexOf("."));
+                  if (name.contains( "/" ))
+                      name = name.substring( name.lastIndexOf( "/" )+1);
                   newFile = java.io.File.createTempFile(name , ".jar");
                   FileOutputStream fos = new FileOutputStream( newFile );
                   BufferedOutputStream dest = new BufferedOutputStream( fos, BUFFER );
@@ -506,6 +509,16 @@ public class File extends java.io.File {
                   dest.flush( );
                   dest.close( );
                  newFile.deleteOnExit();
+              } // to look for .jar file in webCT packages
+              else{
+                /*  name = entry.getName().substring(0,entry.getName().indexOf("."));
+                  newFile = java.io.File.createTempFile(name, null );
+                  if (newFile.isDirectory( )){
+                      if (newFile.getName( ).equals( "CMD_6988980_M" )){
+                          
+                      }
+                      
+                  }*/
               }
                   
           }

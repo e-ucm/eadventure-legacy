@@ -1788,6 +1788,11 @@ public class Controller {
             }
 
             if( importGame ) {
+                if (eadPath.endsWith( ".zip" ))
+                    mainWindow.showInformationDialog( TC.get( "Operation.ImportProject" ), TC.get( "Operation.ImportLO.InfoMessage" ) );
+                else if (eadPath.endsWith( ".jar" ))
+                    mainWindow.showInformationDialog( TC.get( "Operation.ImportProject" ), TC.get( "Operation.ImportJAR.InfoMessage" ));
+                
                 // Ask origin file
                 JFileChooser chooser = new JFileChooser( );
                 chooser.setFileFilter( new EADFileFilter( ) );
@@ -1893,7 +1898,7 @@ public class Controller {
                             if (eadPath.endsWith( ".ead" ))
                                 File.unzipDir( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( ) );
                             else if (eadPath.endsWith( ".zip" )){
-                                mainWindow.showInformationDialog( TC.get( "Operation.ImportProject" ), TC.get( "Operation.ImportLO.InfoMessage" ) );
+                                
                                 // import EadJAR returns false when selected jar is not a eadventure jar
                                 if  (!File.importEadventureLO( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( )  )){
                                     loadingScreen.setVisible( false );
@@ -1902,7 +1907,7 @@ public class Controller {
                                 }
                             }else if (eadPath.endsWith( ".jar" )){
                                 // import EadLO returns false when selected zip is not a eadventure LO
-                                mainWindow.showInformationDialog( TC.get( "Operation.ImportProject" ), TC.get( "Operation.ImportJAR.InfoMessage" ));
+                                
                                 if (!File.importEadventureJar( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( )  )){
                                     loadingScreen.setVisible( false );
                                     mainWindow.showErrorDialog( TC.get("Operation.FileNotLoadedTitle"), TC.get("Operation.ImportJAR.FileNotLoaded") );
