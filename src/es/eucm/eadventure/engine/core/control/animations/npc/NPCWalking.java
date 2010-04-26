@@ -33,12 +33,11 @@
  */
 package es.eucm.eadventure.engine.core.control.animations.npc;
 
-import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.control.animations.AnimationState;
-import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.engine.core.control.animations.AnimationState;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 public class NPCWalking extends NPCState {
@@ -86,7 +85,13 @@ public class NPCWalking extends NPCState {
         Resources resources = npc.getResources( );
 
         MultimediaManager multimedia = MultimediaManager.getInstance( );
-        animations[EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+       
+     // added make the mirror when only is defined left animation
+        if( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT  ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ) )
+            animations[EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT  ), false, MultimediaManager.IMAGE_SCENE );
+        else
+            animations[EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ), true, MultimediaManager.IMAGE_SCENE );
+        
         if( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ) )
             animations[WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ), false, MultimediaManager.IMAGE_SCENE );
         else

@@ -56,6 +56,12 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class NPCDataControl extends DataControlWithResources {
 
+    
+    /**
+     * Constant for the empty animation
+     */
+    private static final String EMPTY_ANIMATION = "assets/special/EmptyAnimation";
+    
     /**
      * Contained NPC data.
      */
@@ -128,7 +134,10 @@ public class NPCDataControl extends DataControlWithResources {
 
         String path = null;
         for( ResourcesDataControl resource : resourcesDataControlList ) {
-            path = resource.getAssetPath( "standright" );
+            if (!resource.getAssetPath( "standright" ).equals( EMPTY_ANIMATION))
+                path = resource.getAssetPath( "standright" );
+            else 
+                path = resource.getAssetPath( "standleft" );
             if( path != null ) {
                 return path;
             }
@@ -141,7 +150,7 @@ public class NPCDataControl extends DataControlWithResources {
             }
         }
 
-        return "assets/special/EmptyAnimation";
+        return EMPTY_ANIMATION;
     }
 
     /**
