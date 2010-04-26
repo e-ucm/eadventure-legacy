@@ -410,7 +410,9 @@ public abstract class AssetChooser extends JFileChooser {
 
             if (AssetChooser.this.isMultiSelectionEnabled( )) {
                 AssetChooser.this.selectedAssets.clear( );
-                for (Object asset : AssetChooser.this.assetsList.getSelectedValues( ))
+                for (Object asset : ( (JList) e.getSource( ) ).getSelectedValues( ))
+                //for (Object asset : AssetChooser.this.assetsList.getSelectedValues( ))
+                    
                     AssetChooser.this.selectedAssets.add( asset.toString( ) );
             }
             if( ( (JList) e.getSource( ) ).getSelectedIndex( ) >= 0 )
@@ -562,6 +564,15 @@ public abstract class AssetChooser extends JFileChooser {
         return dialog;
 
     }
+    
+    /*public Object[] prepareAndGetSelectedAssets(){
+        selectedAssets.clear( );
+        for (Object asset : assetsList.getSelectedValues( ))
+            selectedAssets.add( asset.toString( ) );
+        
+        return selectedAssets.toArray( );
+   
+    }*/
 
     public int showAssetChooser( Component parent ) {
 
@@ -581,8 +592,10 @@ public abstract class AssetChooser extends JFileChooser {
                     return ASSET_FROM_OUTSIDE;
             }
             else {
-                if( selectedAsset != null && getSelectedFile( ) == null )
+                if( selectedAsset != null && getSelectedFile( ) == null ){
+                    //prepareAndGetSelectedAssets();
                     return ASSET_FROM_ZIP;
+                }
                 else
                     return JFileChooser.CANCEL_OPTION;
             }
