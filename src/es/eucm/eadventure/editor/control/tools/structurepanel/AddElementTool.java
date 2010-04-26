@@ -34,13 +34,11 @@
 package es.eucm.eadventure.editor.control.tools.structurepanel;
 
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElement;
-import es.eucm.eadventure.editor.gui.structurepanel.StructureElementCell;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureListElement;
 
 public class AddElementTool extends Tool {
@@ -78,16 +76,16 @@ public class AddElementTool extends Tool {
                 id = defaultId + count;
             }
             if( element.getDataControl( ).addElement( type, id ) ) {
-                ( (StructureElement) table.getModel( ).getValueAt( element.getChildCount( ) - 1, 0 ) ).setJustCreated( true );
+                //( (StructureElement) table.getModel( ).getValueAt( element.getChildCount( ) - 1, 0 ) ).setJustCreated( true );
                 ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
-                SwingUtilities.invokeLater( new Runnable( ) {
+                /*SwingUtilities.invokeLater( new Runnable( ) {
 
                     public void run( ) {
 
                         if( table.editCellAt( element.getChildCount( ) - 1, 0 ) )
                             ( (StructureElementCell) table.getEditorComponent( ) ).requestFocusInWindow( );
                     }
-                } );
+                } );*/
                 table.changeSelection( element.getChildCount( ) - 1, 0, false, false );
                 newElement = element.getChild( element.getChildCount( ) - 1 );
                 return true;
@@ -106,8 +104,7 @@ public class AddElementTool extends Tool {
     public boolean undoTool( ) {
 
         newElement.delete( false );
-        ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
-        table.clearSelection( );
+        Controller.getInstance( ).updateStructure( );
         return true;
     }
 
