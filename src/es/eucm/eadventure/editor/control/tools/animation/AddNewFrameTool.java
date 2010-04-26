@@ -116,29 +116,31 @@ public class AddNewFrameTool extends Tool {
         java.io.File[] selectedFiles = null;
         AssetChooser chooser = AssetsController.getAssetChooser( AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE );
         chooser.setMultiSelectionEnabled( true );
+        Object[] selectedAssetsFromChooser = null;
         String[] selectedAssets = null;
         int option = chooser.showAssetChooser( Controller.getInstance( ).peekWindow( ) );
+        //FIXME: ya no tiene ningún sentido lo de ASSETS_FROM_ZIP, ya que son assets del proyecto, no del ZIP.
+        // hay que redefinir en AssetChooser antes de cambiar, por no generar errores en otras clases que también lo utilizan
         if( option == AssetChooser.ASSET_FROM_ZIP ) {
+           selectedAssetsFromChooser = chooser.getSelectedAssets( );
+            selectedAssets = new String[selectedAssetsFromChooser.length];
             
-//            selectedAsset = chooser.getSelectedAsset( );
-//            selectedAsset = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_IMAGE ) + "/" + selectedAsset;
-            Object[] assets = chooser.getSelectedAssets( );
-            selectedAssets = new String[assets.length];
-            for (int i = 0; i < assets.length; i++) {
-                selectedAssets[i] = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_IMAGE ) + "/" + assets[i].toString();
+            for (int i = 0; i < selectedAssetsFromChooser.length; i++) {
+                selectedAssets[i] = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_IMAGE ) + "/" + selectedAssetsFromChooser[i].toString();
             }
         }
         else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
-            boolean added = AssetsController.addSingleAsset( AssetsConstants.CATEGORY_ANIMATION_IMAGE, chooser.getSelectedFile( ).getAbsolutePath( ) );
-            if( added ) {
+          //  boolean added = AssetsController.addSingleAsset( AssetsConstants.CATEGORY_ANIMATION_IMAGE, chooser.getSelectedFile( ).getAbsolutePath( ) );
+            //if( added ) {
 //                selectedAsset = chooser.getSelectedFile( ).getName( );
  //               selectedAsset = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_ANIMATION_IMAGE ) + "/" + selectedAsset;
                 selectedFiles = chooser.getSelectedFiles( );
                 selectedAssets = new String[selectedFiles.length];
                 for (int i = 0; i < selectedFiles.length; i++) {
                     selectedAssets[i] = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_ANIMATION_IMAGE ) + "/" + selectedFiles[i].getName( );
+                    AssetsController.addSingleAsset( AssetsConstants.CATEGORY_ANIMATION_IMAGE, selectedFiles[i].getAbsolutePath( ) );
                 }
-            }
+               //}
         }
 
         for (int i = 0; i < selectedAssets.length; i++) {
