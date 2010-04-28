@@ -1399,7 +1399,7 @@ public class Controller {
             if( loadFile && completeFilePath == null ) {
                 this.stopAutoSave( );
                 ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath( ) );
-                ProjectConfigData.init( );
+                ProjectConfigData.loadFromXML( );
 
                 // Show dialog
                 StartDialog start = new StartDialog( StartDialog.OPEN_TAB );
