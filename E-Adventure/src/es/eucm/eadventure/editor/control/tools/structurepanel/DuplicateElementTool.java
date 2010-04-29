@@ -34,12 +34,10 @@
 package es.eucm.eadventure.editor.control.tools.structurepanel;
 
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElement;
-import es.eucm.eadventure.editor.gui.structurepanel.StructureElementCell;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureListElement;
 
 public class DuplicateElementTool extends Tool {
@@ -69,16 +67,17 @@ public class DuplicateElementTool extends Tool {
     public boolean doTool( ) {
 
         if( parent.getDataControl( ).duplicateElement( element.getDataControl( ) ) ) {
-            ( (StructureElement) table.getModel( ).getValueAt( parent.getChildCount( ) - 1, 0 ) ).setJustCreated( true );
+           // ( (StructureElement) table.getModel( ).getValueAt( parent.getChildCount( ) - 1, 0 ) ).setJustCreated( true );
             ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
-            SwingUtilities.invokeLater( new Runnable( ) {
+            // 
+            /*SwingUtilities.invokeLater( new Runnable( ) {
 
                 public void run( ) {
 
                     if( table.editCellAt( parent.getChildCount( ) - 1, 0 ) )
                         ( (StructureElementCell) table.getEditorComponent( ) ).requestFocusInWindow( );
                 }
-            } );
+            } );*/
             table.changeSelection( parent.getChildCount( ) - 1, 0, false, false );
             newElement = parent.getChild( parent.getChildCount( ) - 1 );
             return true;
