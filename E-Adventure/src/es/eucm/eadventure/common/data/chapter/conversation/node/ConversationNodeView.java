@@ -102,6 +102,15 @@ public interface ConversationNodeView extends Cloneable {
      * @return Name of the line
      */
     public abstract String getLineName( int index );
+    
+    /**
+     * Returns the line in the specified position.
+     * 
+     * @param index
+     *            Index for extraction
+     * @return The conversation line selected
+     */
+    public abstract ConversationLine getLine( int index );
 
     /**
      * Returns the text of the line in the given index.

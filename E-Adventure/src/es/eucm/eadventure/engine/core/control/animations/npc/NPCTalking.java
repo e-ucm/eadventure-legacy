@@ -34,12 +34,9 @@
 package es.eucm.eadventure.engine.core.control.animations.npc;
 
 import java.util.Timer;
-import java.util.TimerTask;
-
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
 
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
+import es.eucm.eadventure.common.auxiliar.TTask;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -73,20 +70,10 @@ public class NPCTalking extends NPCState {
     private int timeTalking;
 
     /**
-     * This is an Voice object of FreeTTS, that is used to synthesize the sound
-     * of a conversation line.
-     */
-    private Voice voice;
-
-    /**
      * The speech must be launched in another thread
      */
     private TTask task;
 
-    /**
-     * Check if tts synthesizer is been used
-     */
-    private boolean ttsInUse;
 
     /**
      * Creates a new NPCTalking
@@ -97,7 +84,7 @@ public class NPCTalking extends NPCState {
     public NPCTalking( FunctionalNPC npc ) {
 
         super( npc );
-        ttsInUse = false;
+        task = new TTask();
     }
 
     /**
@@ -166,23 +153,20 @@ public class NPCTalking extends NPCState {
 
         task = new TTask( voice, text );
         Timer timer = new Timer( );
-        ttsInUse = true;
         timer.schedule( task, 0 );
     }
 
     public void stopTTSTalking( ) {
 
-        if( task != null ) {
+        if( task != null ) 
             task.cancel( );
-            ttsInUse = false;
-        }
     }
 
     @Override
     public void update( long elapsedTime ) {
 
         totalTime += elapsedTime;
-        if( totalTime > timeTalking && ( audioId == -1 || !MultimediaManager.getInstance( ).isPlaying( audioId ) ) && ( !ttsInUse ) ) {
+        if( totalTime > timeTalking && ( audioId == -1 || !MultimediaManager.getInstance( ).isPlaying( audioId ) ) && ( task.isEnd( ) ) ) {
             npc.setState( FunctionalNPC.IDLE );
             stopTTSTalking( );
         }
@@ -233,45 +217,5 @@ public class NPCTalking extends NPCState {
         animations[SOUTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_SCENE );
     }
 
-    public class TTask extends TimerTask {
-
-        private String text;
-
-        private boolean deallocate;
-
-        public TTask( String voiceText, String text ) {
-
-            this.text = text;
-            this.deallocate = false;
-            VoiceManager voiceManager = VoiceManager.getInstance( );
-            voice = voiceManager.getVoice( voiceText );
-            voice.allocate( );
-        }
-
-        @Override
-        public void run( ) {
-
-            try {
-
-                voice.speak( text );
-                ttsInUse = false;
-
-            }
-            catch( IllegalStateException e ) {
-                System.out.println( "TTS found one word which can not be processated." );
-            }
-
-        }
-
-        @Override
-        public boolean cancel( ) {
-
-            if( !deallocate ) {
-                voice.deallocate( );
-                deallocate = true;
-            }
-            return true;
-
-        }
-    }
+    
 }
