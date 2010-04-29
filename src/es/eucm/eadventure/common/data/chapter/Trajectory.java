@@ -34,7 +34,9 @@
 package es.eucm.eadventure.common.data.chapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Trajectory implements Cloneable {
 
@@ -203,7 +205,8 @@ public class Trajectory implements Cloneable {
         public Object clone( ) throws CloneNotSupportedException {
 
             Node n = (Node) super.clone( );
-            n.id = ( id != null ? new String( id ) : null );
+            // the id mut be unique for each node in the chapter
+            n.id = "node" + ( new Random( ) ).nextInt( 10000 );
             n.scale = scale;
             n.x = x;
             n.y = y;
@@ -345,22 +348,35 @@ public class Trajectory implements Cloneable {
 
     @Override
     public Object clone( ) throws CloneNotSupportedException {
-
         Trajectory t = (Trajectory) super.clone( );
+        HashMap<String,String> keyRelationship = new HashMap<String,String>();
+        String initialId= initial.getID( );
         t.initial = ( initial != null ? (Node) initial.clone( ) : null );
+        keyRelationship.put( initialId , t.initial.getID( ) );
         if( nodes != null ) {
             t.nodes = new ArrayList<Node>( );
             for( Node n : nodes ) {
-                if( n.equals( initial ) )
+                if( n.getID( ).equals( initialId ) )
                     t.nodes.add( t.initial );
-                else
-                    t.nodes.add( (Node) n.clone( ) );
+                else{
+                    String oldId = n.getID( );
+                    //node clone generates a new Id
+                    Node newNode = (Node) n.clone( );
+                    t.nodes.add( newNode);
+                    keyRelationship.put(oldId, newNode.getID( ));
+                }
             }
         }
         if( sides != null ) {
             t.sides = new ArrayList<Side>( );
-            for( Side s : sides )
-                t.sides.add( (Side) s.clone( ) );
+            for( Side s : sides ){
+                //Side clone does not generate a new Id
+                Side newSide = new Side(keyRelationship.get( s.getIDStart( ) ),keyRelationship.get( s.getIDEnd( ) ));
+                newSide.setLenght( s.getLength( ) );
+                newSide.setRealLength( s.getRealLength( ) );
+                t.sides.add(  newSide );
+                
+            }
         }
         return t;
     }
