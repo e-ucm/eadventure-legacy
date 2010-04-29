@@ -59,6 +59,7 @@ import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
+import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
@@ -1366,6 +1367,10 @@ public class Controller {
         //mainWindow.updateTree();
         mainWindow.reloadData( );
         return true;
+    }
+    
+    public NPC getNPC(String npcId){
+        return this.getSelectedChapterDataControl().getNPCsList( ).getNPC( npcId );
     }
 
     private boolean loadFile( String completeFilePath, boolean loadingImage ) {
@@ -2978,6 +2983,13 @@ public boolean isCharacterValid(String elementId){
             return null;
     }
 
+    /**
+     * Returns the player
+     */
+    public Player getPlayer(){
+        return (Player)getSelectedChapterDataControl( ).getPlayer( ).getContent( );
+    }
+    
     /**
      * This method returns the absolute path of the default image of the given
      * element (item or character).

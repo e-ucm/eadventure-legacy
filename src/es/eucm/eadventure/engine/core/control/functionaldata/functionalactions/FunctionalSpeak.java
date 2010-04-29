@@ -34,12 +34,9 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import java.util.Timer;
-import java.util.TimerTask;
-
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
 
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
+import es.eucm.eadventure.common.auxiliar.TTask;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -71,21 +68,11 @@ public class FunctionalSpeak extends FunctionalAction {
      */
     private long audioId = -1;
 
-    /**
-     * This is an Voice object of FreeTTS, that is used to synthesize the sound
-     * of a conversation line.
-     */
-    private Voice voice;
 
     /**
      * The speech must be launched in another thread
      */
     private TTask task;
-
-    /**
-     * Check if tts synthesizer is been used
-     */
-    private boolean ttsInUse;
 
     /**
      * Time spent in this state
@@ -110,7 +97,6 @@ public class FunctionalSpeak extends FunctionalAction {
         super( action );
         type = ActionManager.ACTION_TALK;
         setText( text );
-        ttsInUse = false;
     }
 
     /**
@@ -130,7 +116,7 @@ public class FunctionalSpeak extends FunctionalAction {
         type = ActionManager.ACTION_TALK;
         setText( text );
         setAudio( audioPath );
-        ttsInUse = false;
+        task = new TTask();
     }
 
     @Override
@@ -163,7 +149,7 @@ public class FunctionalSpeak extends FunctionalAction {
 
         totalTime += elapsedTime;
 
-        if( totalTime > timeTalking && ( audioId == -1 || !MultimediaManager.getInstance( ).isPlaying( audioId ) ) && ( !ttsInUse ) ) {
+        if( totalTime > timeTalking && ( audioId == -1 || !MultimediaManager.getInstance( ).isPlaying( audioId ) ) && (  task.isEnd( ) ) ) {
             finished = true;
             functionalPlayer.popAnimation( );
             stopTTSTalking( );
@@ -259,8 +245,7 @@ public class FunctionalSpeak extends FunctionalAction {
 
         task = new TTask( voice, text );
         Timer timer = new Timer( );
-        ttsInUse = true;
-        timer.schedule( task, 0 );
+        timer.schedule( task, 0 );    
     }
 
     /**
@@ -268,59 +253,11 @@ public class FunctionalSpeak extends FunctionalAction {
      */
     public void stopTTSTalking( ) {
 
-        if( task != null ) {
+        if( task != null ) 
             task.cancel( );
-            ttsInUse = false;
-        }
     }
 
-    /**
-     * The timertask that plays the freetts speech in the background
-     */
-    public class TTask extends TimerTask {
-
-        private String text;
-
-        private boolean deallocate;
-
-        public TTask( String voiceText, String text ) {
-            System.setProperty( "freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory" );
-            this.text = text;
-            this.deallocate = false;
-            VoiceManager voiceManager = VoiceManager.getInstance( );
-            voice = voiceManager.getVoice( voiceText );
-            // this call could throw a java.io.IOException if voiceText is not a valid voice (for example "")
-            // now, in the editor we only can choose a valid void or no voice. Both behaviors are controled.
-            voice.allocate( );
-
-        }
-
-        @Override
-        public void run( ) {
-
-            try {
-
-                voice.speak( text );
-                ttsInUse = false;
-
-            }
-            catch( IllegalStateException e ) {
-                System.out.println( "TTS found one word which can not be processated." );
-            }
-
-        }
-
-        @Override
-        public boolean cancel( ) {
-
-            if( !deallocate ) {
-                voice.deallocate( );
-                deallocate = true;
-            }
-            return true;
-
-        }
-    }
+  
 
     @Override
     public void drawAditionalElements( ) {

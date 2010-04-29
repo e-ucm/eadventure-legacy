@@ -369,4 +369,13 @@ public class NPCsListDataControl extends DataControl {
 
         return getPathFromChild( dataControl, npcsDataControlList );
     }
+    
+    public NPC getNPC(String id){
+        for (NPC npc : npcsList){
+            if (npc.getId( ).equals( id ))
+                return npc;
+        }
+        return null;
+        
+    }
 }

@@ -49,17 +49,24 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.auxiliar.TTask;
+import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
+import es.eucm.eadventure.common.data.chapter.elements.NPC;
+import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import es.eucm.eadventure.editor.gui.audio.SoundMp3;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.Clock;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.ClockListener;
 
@@ -159,7 +166,29 @@ public class ConversationDialog extends JDialog implements ClockListener {
      * Clock for the animations.
      */
     private Clock animationClock;
-
+    
+    /**
+     * The data for the current talker
+     */
+    private NPC talking;
+    
+    private boolean firstTime;
+    
+    /**
+     * State of the audio
+     */
+    private long audioId = -1;
+    
+    /**
+     * The speech must be launched in another thread
+     */
+    private TTask task;
+    
+    /**
+     * the sound to be launched in another thread
+     */
+    private TSound soundTask;
+    
     /**
      * Time elapsed since the current text line started.
      */
@@ -248,6 +277,8 @@ public class ConversationDialog extends JDialog implements ClockListener {
         currentLine = 0;
         firstOptionDisplayed = 0;
         optionHighlighted = -1;
+        task= new TTask();
+        soundTask = new TSound();
 
         // Set the dialog and show it
         setSize( new Dimension( 650, 450 ) );
@@ -277,18 +308,47 @@ public class ConversationDialog extends JDialog implements ClockListener {
      */
     private void playNextLine( ) {
 
+        talking = null;
+        firstTime=true;
+        
         // If some character is talking, stop it
         if( characterTalking != -1 ) {
             characterCurrentFrame[characterTalking] = 0;
             characterTalking = -1;
+            stopSound( );
+            stopTTSTalking( );
+            
+            
         }
 
+        
+        
         // If there are more lines in the node
         if( currentLine < currentNode.getLineCount( ) ) {
+            ConversationLine line = currentNode.getLine( currentLine );
             // Take the character to speak
-            int characterIndex = currentNode.isPlayerLine( currentLine ) ? 0 : 1;
+            int characterIndex ;
+            if (currentNode.isPlayerLine( currentLine ) ){
+                characterIndex = 0;
+                talking = Controller.getInstance( ).getPlayer( );
+            }else{
+                characterIndex = 1;
+                talking = Controller.getInstance( ).getNPC( line.getName( ) );
+            }
+
             characterCurrentFrame[characterIndex] = 0;
-            currentText = splitText( currentNode.getLineText( currentLine ) );
+            
+            
+            if (currentNode.getLine( currentLine ).isValidAudio( )){
+                setAudio( line.getAudioPath( ) );  
+            }else if( line.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) ){
+                this.setSpeakFreeTTS( line.getText( ), characterIndex==0? ((Player)talking).getVoice( ) : talking.getVoice( )  );
+            }
+            
+            currentText = splitText( line.getText( ));
+                
+            
+            
             characterTalking = characterIndex;
 
             // Increase the current line and reset the time elapsed
@@ -310,6 +370,39 @@ public class ConversationDialog extends JDialog implements ClockListener {
                 firstOptionDisplayed = 0;
                 currentLine = 0;
             }
+        }
+    }
+    
+    
+    
+    public void setAudio( String audioPath ) {
+
+        
+        soundTask = new TSound(audioPath);
+        Timer timer = new Timer( );
+        timer.schedule( soundTask, 0 );
+
+    }
+
+    public void setSpeakFreeTTS( String text, String voice ) {
+
+        task = new TTask( voice, text );
+        Timer timer = new Timer( );
+        timer.schedule( task, 0 );
+       
+    }
+
+    public void stopTTSTalking( ) {
+
+        if( task != null ) {
+            task.cancel( );
+        }
+    }
+    
+    public void stopSound( ) {
+
+        if( soundTask != null ) {
+            soundTask.cancel( );
         }
     }
 
@@ -337,7 +430,7 @@ public class ConversationDialog extends JDialog implements ClockListener {
         if( currentNode.getType( ) == ConversationNodeView.DIALOGUE ) {
             // If no button was pressed, check if the the next line must be played
             if( mouseClickedButton == BUTTON_CLICKED_NONE ) {
-                if( characterTalking == -1 || ( characterTalking != -1 && lineTimeElapsed > TIME_TALKING ) ) {
+                if( characterTalking == -1 || ( characterTalking != -1 && lineTimeElapsed > TIME_TALKING ) && ( soundTask.isEnd( )) && ( task.isEnd( ) ) ) {
                     playNextLine( );
                 }
             }
@@ -445,13 +538,16 @@ public class ConversationDialog extends JDialog implements ClockListener {
         // Calculate the base of the text block
         int realY = y - TEXT_HEIGHT * ( strings.length - 1 );
 
+        Color frontColor = new Color(Integer.valueOf( talking.getTextFrontColor( ).substring( 1 ), 16 ).intValue( ));
+        Color borderColor = new Color(Integer.valueOf( talking.getTextBorderColor( ).substring( 1 ), 16 ).intValue( ));
+        
         // Draw each string
         for( int i = 0; i < strings.length; i++ ) {
-            drawStringOnto( g, strings[i], x, realY, true, Color.WHITE, Color.BLACK );
+            drawStringOnto( g, strings[i], x, realY, true,frontColor, borderColor );
             realY += TEXT_HEIGHT;
         }
     }
-
+    
     /**
      * Draws a string, placed in the given position with the given front and
      * border colors.
@@ -521,6 +617,11 @@ public class ConversationDialog extends JDialog implements ClockListener {
             // Draw the options, if it is an option node
             if( currentNode.getType( ) == ConversationNodeView.OPTION ) {
 
+                if( firstTime ) {
+                    ( (OptionConversationNode) currentNode ).doRandom( );
+                    firstTime = false;
+                }
+                
                 // If we can paint all the lines in screen, do it
                 if( currentNode.getLineCount( ) <= MAX_OPTION_NUMBER_LINES ) {
                     for( int i = 0; i < currentNode.getLineCount( ); i++ ) {
@@ -596,6 +697,13 @@ public class ConversationDialog extends JDialog implements ClockListener {
                 if( currentNode.getLineCount( ) <= MAX_OPTION_NUMBER_LINES ) {
                     if( optionSelected < currentNode.getLineCount( ) ) {
                         characterCurrentFrame[0] = 0;
+                        ConversationLine line = currentNode.getLine( currentLine );
+                        talking = Controller.getInstance( ).getPlayer( );
+                        if (currentNode.getLine( currentLine ).isValidAudio( )){
+                            setAudio( line.getAudioPath( ) );  
+                        }else if( line.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) ){
+                            setSpeakFreeTTS( line.getText( ), ((Player)talking).getVoice( ) );
+                        }
                         currentText = splitText( currentNode.getLineText( optionSelected ) );
                         characterTalking = 0;
                         lineTimeElapsed = 0;
@@ -664,4 +772,59 @@ public class ConversationDialog extends JDialog implements ClockListener {
 
         }
     }
+    
+    public class TSound extends TimerTask {
+        
+        private boolean end;
+        
+        private SoundMp3 sound;
+
+        public TSound( ) {
+            end=true;
+        }
+        
+        public TSound( String audioPath) {
+
+            end=true;
+            sound = new SoundMp3( audioPath );
+        }
+
+        @Override
+        public void run( ) {
+
+            try {
+
+                end=false;
+                sound.startPlaying( );
+                while (sound.isAlive( )) {
+                    try {
+                        Thread.sleep( 1 );
+                    }
+                    catch( InterruptedException e ) {
+                    }
+                }
+               end = true;
+
+            }
+            catch( IllegalStateException e ) {
+                System.out.println( "Error at playing sound." );
+            }
+
+        }
+
+        @Override
+        public boolean cancel( ) {
+            if (sound!=null)
+                sound.stopPlaying( );
+            return true;
+
+        }
+
+        
+        public boolean isEnd( ) {
+        
+            return end;
+        }
+    }
+    
 }
