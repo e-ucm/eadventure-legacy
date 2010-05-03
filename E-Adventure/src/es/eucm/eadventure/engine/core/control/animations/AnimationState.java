@@ -80,6 +80,8 @@ public abstract class AnimationState {
     private Image oldImage = null;
 
     private Image oldOriginalImage = null;
+    
+    protected boolean resetAnimation=false;
 
     /**
      * Creates a new AnimationState
@@ -134,9 +136,10 @@ public abstract class AnimationState {
             }
         }
 
-        if( Math.abs( getVelocityX( ) ) != 0 && Math.abs( getVelocityY( ) ) != 0 && tempDirection != -1 && tempDirection != getCurrentDirection( ) ) {
+        if( Math.abs( getVelocityX( ) ) != 0 && Math.abs( getVelocityY( ) ) != 0 && tempDirection != -1 && (tempDirection != getCurrentDirection( ) ||isResetAnimation())) {
             setCurrentDirection( tempDirection );
             animations[getCurrentDirection( )].start( );
+            resetAnimation = false;
         }
     }
 
@@ -214,4 +217,22 @@ public abstract class AnimationState {
     protected abstract float getVelocityX( );
 
     protected abstract float getVelocityY( );
+
+    
+    /**
+     * @return the resetAnimation
+     */
+    public boolean isResetAnimation( ) {
+    
+        return resetAnimation;
+    }
+
+    
+    /**
+     * @param resetAnimation the resetAnimation to set
+     */
+    public void setResetAnimation( boolean resetAnimation ) {
+    
+        this.resetAnimation = resetAnimation;
+    }
 }
