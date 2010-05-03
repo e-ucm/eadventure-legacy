@@ -111,17 +111,17 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
                 updateSelectedParagraph( );
             }
         } );
-        paragraphsPanel.setMinimumSize( new Dimension( 0, VERTICAL_SPLIT_POSITION ) );
+        
+        previewPanel.setMinimumSize( new Dimension( 100, 150 ) );
+        paragraphsPanel.setMinimumSize( new Dimension( 0, 100 ) );
 
         //Create a split pane with the two panels: info panel and preview panel
         infoAndPreview = new JSplitPane( JSplitPane.VERTICAL_SPLIT, paragraphsPanel, previewPanel );
         infoAndPreview.setOneTouchExpandable( true );
-        infoAndPreview.setResizeWeight( 1 );
-        infoAndPreview.setContinuousLayout( true );
-        infoAndPreview.setDividerLocation( VERTICAL_SPLIT_POSITION );
+        infoAndPreview.setDividerLocation( 150 );
+        infoAndPreview.setResizeWeight( 0 );
         infoAndPreview.setDividerSize( 10 );
-
-        paragraphsPanel.setMinimumSize( new Dimension( 150, 0 ) );
+        infoAndPreview.setContinuousLayout( true );
 
         setLayout( new BorderLayout( ) );
         add( infoAndPreview, BorderLayout.CENTER );
