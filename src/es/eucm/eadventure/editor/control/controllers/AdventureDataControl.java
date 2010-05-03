@@ -36,11 +36,16 @@ package es.eucm.eadventure.editor.control.controllers;
 import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.CustomArrow;
+import es.eucm.eadventure.common.data.adventure.CustomButton;
+import es.eucm.eadventure.common.data.adventure.CustomCursor;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMDataControl;
+import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteArrowTool;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteButtonTool;
@@ -53,11 +58,6 @@ import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTitleToo
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.gui.editdialogs.GUIStylesDialog;
-import es.eucm.eadventure.common.data.adventure.AdventureData;
-import es.eucm.eadventure.common.data.adventure.CustomArrow;
-import es.eucm.eadventure.common.data.adventure.CustomButton;
-import es.eucm.eadventure.common.data.adventure.CustomCursor;
-import es.eucm.eadventure.common.data.adventure.DescriptorData;
 
 /**
  * This class holds all the information of the adventure, including the chapters
@@ -259,14 +259,14 @@ public class AdventureDataControl {
     public void showGUIStylesDialog( ) {
 
         // Show the dialog
-        GUIStylesDialog guiStylesDialog = new GUIStylesDialog( adventureData.getGUIType( ) );
-
+      //  GUIStylesDialog guiStylesDialog = new GUIStylesDialog( adventureData.getGUIType( ) );
+        new GUIStylesDialog( adventureData.getGUIType( ) );
         // If the new GUI style is different from the current, and valid, change the value
-        int optionSelected = guiStylesDialog.getOptionSelected( );
+      /*  int optionSelected = guiStylesDialog.getOptionSelected( );
         if( optionSelected != -1 ) {
             Tool tool = new ChangeIntegerValueTool( adventureData, optionSelected, "getGUIType", "setGUIType" );
             Controller.getInstance( ).addTool( tool );
-        }
+        }*/
     }
 
     /**
@@ -517,6 +517,13 @@ public class AdventureDataControl {
     public void deleteAssetReferences( String assetPath ) {
 
         adventureData.deleteAssetReferences( assetPath );
+    }
+
+    public void setGUIStyleDialog( int optionSelected ) {
+
+        Tool tool = new ChangeIntegerValueTool( adventureData, optionSelected, "getGUIType", "setGUIType" );
+        Controller.getInstance( ).addTool( tool );
+        
     }
 
 }

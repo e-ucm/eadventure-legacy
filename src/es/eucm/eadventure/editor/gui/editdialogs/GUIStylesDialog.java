@@ -248,6 +248,7 @@ public class GUIStylesDialog extends JDialog {
                 optionSelected = DescriptorData.GUI_TRADITIONAL;
             else if( e.getSource( ).equals( contextualRadioButton ) )
                 optionSelected = DescriptorData.GUI_CONTEXTUAL;
+            Controller.getInstance( ).changeToolGUIStyleDialog( optionSelected );
         }
     }
 }
