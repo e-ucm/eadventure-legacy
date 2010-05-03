@@ -134,7 +134,7 @@ public class NPCDataControl extends DataControlWithResources {
 
         String path = null;
         for( ResourcesDataControl resource : resourcesDataControlList ) {
-            if (!resource.getAssetPath( "standright" ).equals( EMPTY_ANIMATION))
+            if (resource !=null && resource.getAssetPath( "standright" )!=null&&!resource.getAssetPath( "standright" ).equals( EMPTY_ANIMATION))
                 path = resource.getAssetPath( "standright" );
             else 
                 path = resource.getAssetPath( "standleft" );
