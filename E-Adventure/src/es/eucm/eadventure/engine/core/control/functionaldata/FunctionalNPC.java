@@ -304,11 +304,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
      */
     public void draw( ) {
-
-        if( layer == -1 )
-            currentState.draw( Math.round( x ), Math.round( y ), scale, -1, this );
-        else
-            currentState.draw( Math.round( x ), Math.round( y ), scale, layer, this );
+        currentState.draw( Math.round( x ), Math.round( y ), scale, layer, this );
     }
 
     /*
@@ -453,7 +449,9 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
                 currentState = walkingAnimation;
                 break;
         }
+        currentState.setResetAnimation( true );
         currentState.initialize( );
+        
         //if( currentDirection != -1 )
         //    currentState.setCurrentDirection( currentDirection );
         //currentDirection = -1;
