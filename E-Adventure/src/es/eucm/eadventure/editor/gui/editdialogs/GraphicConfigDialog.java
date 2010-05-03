@@ -151,7 +151,7 @@ public class GraphicConfigDialog extends JDialog {
         blackBkgRadioButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
-
+            
             }
         } );
         graphicConfigPanel.add( blackBkgRadioButton, c );
@@ -183,7 +183,7 @@ public class GraphicConfigDialog extends JDialog {
         fullscreenRadioButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
-
+            
             }
         } );
         graphicConfigPanel.add( fullscreenRadioButton, c );
@@ -214,7 +214,7 @@ public class GraphicConfigDialog extends JDialog {
         btnLoad.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
-
+                
                 setVisible( false );
                 dispose( );
             }
@@ -224,7 +224,7 @@ public class GraphicConfigDialog extends JDialog {
         btnCancel.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
-
+                
                 invalidateOptionSelected( );
                 setVisible( false );
                 dispose( );
@@ -286,7 +286,7 @@ public class GraphicConfigDialog extends JDialog {
 
         return optionSelected;
     }
-
+   
     /**
      * Invalidates the option selected (when the "Cancel" button is pressed or
      * the dialog is closed).
@@ -307,13 +307,17 @@ public class GraphicConfigDialog extends JDialog {
          * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
          */
         public void actionPerformed( ActionEvent e ) {
-
+ 
             if( e.getSource( ).equals( windowedRadioButton ) )
                 optionSelected = DescriptorData.GRAPHICS_WINDOWED;
             else if( e.getSource( ).equals( blackBkgRadioButton ) )
                 optionSelected = DescriptorData.GRAPHICS_BLACKBKG;
             else if( e.getSource( ).equals( fullscreenRadioButton ) )
                 optionSelected = DescriptorData.GRAPHICS_FULLSCREEN;
+            Controller.getInstance( ).changeToolGraphicConfig( optionSelected );
+  
         }
+        
     }
+
 }

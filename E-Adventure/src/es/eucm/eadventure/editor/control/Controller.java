@@ -548,6 +548,7 @@ public class Controller {
 
     private boolean isLomEs = false;
 
+
     /**
      * Store all effects selection. Connects the type of effect with the number
      * of times that has been used
@@ -2567,6 +2568,17 @@ public class Controller {
 
         adventureDataControl.showGUIStylesDialog( );
     }
+    
+    
+    
+    public void changeToolGUIStyleDialog( int optionSelected ){
+        
+       if (optionSelected != 1){
+           
+           adventureDataControl.setGUIStyleDialog( optionSelected );
+       } 
+        
+    }
 
     /**
      * Asks for confirmation and then deletes all unreferenced assets. Checks
@@ -3387,15 +3399,25 @@ public boolean isCharacterValid(String elementId){
     public void showGraphicConfigDialog( ) {
 
         // Show the dialog
-        GraphicConfigDialog guiStylesDialog = new GraphicConfigDialog( adventureDataControl.getGraphicConfig( ) );
-
+     //   GraphicConfigDialog guiStylesDialog = new GraphicConfigDialog( adventureDataControl.getGraphicConfig( ) );
+        new GraphicConfigDialog( adventureDataControl.getGraphicConfig( ) );
+      
         // If the new GUI style is different from the current, and valid, change the value
-        int optionSelected = guiStylesDialog.getOptionSelected( );
+    /*    int optionSelected = guiStylesDialog.getOptionSelected( );
         if( optionSelected != -1 && this.adventureDataControl.getGraphicConfig( ) != optionSelected ) {
             adventureDataControl.setGraphicConfig( optionSelected );
-        }
+        }*/
     }
-
+  public void changeToolGraphicConfig( int optionSelected ) {
+        
+        
+      if( optionSelected != -1 && this.adventureDataControl.getGraphicConfig( ) != optionSelected ) {
+        //  this.grafhicDialog.cambiarCheckBox( );
+          adventureDataControl.setGraphicConfig( optionSelected );
+      }
+        
+        
+    }
     // METHODS TO MANAGE UNDO/REDO
 
     public boolean addTool( Tool tool ) {
@@ -3491,4 +3513,5 @@ public boolean isCharacterValid(String elementId){
         return new Color( r, g, b );
     }
 
+  
 }
