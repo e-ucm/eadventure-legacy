@@ -175,7 +175,7 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
             }
 
         }
-
+        
         // Calculate the number of pages
         pageCount = (int) Math.ceil( (double) totalHeight / (double) PAGE_TEXT_HEIGHT );
 
