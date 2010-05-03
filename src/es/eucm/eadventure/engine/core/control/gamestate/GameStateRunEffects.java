@@ -168,7 +168,13 @@ public class GameStateRunEffects extends GameState {
                 currentExecutingEffect.skip();
                 
             }
-            
+            if (currentExecutingEffect instanceof FunctionalRandomEffect){
+                if (currentExecutingEffect.getTriggerEffect( ) instanceof FunctionalPlayAnimationEffect){
+                    
+                    ( (FunctionalPlayAnimationEffect) currentExecutingEffect.getTriggerEffect( ) ).draw( g);
+                    ( (FunctionalPlayAnimationEffect) currentExecutingEffect.getTriggerEffect( ) ).update( elapsedTime );
+                    }
+                }
             if( currentExecutingEffect instanceof FunctionalPlayAnimationEffect ) {
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).draw( g );
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).update( elapsedTime );
