@@ -97,6 +97,7 @@ public class FunctionalSpeak extends FunctionalAction {
         super( action );
         type = ActionManager.ACTION_TALK;
         setText( text );
+        task = new TTask();
     }
 
     /**
