@@ -46,7 +46,7 @@ import es.eucm.eadventure.common.data.chapter.effects.Effects;
  * possible options that the player can choose in a certain point of the
  * conversation. For it's correct use, there must be the same number of lines
  * and children, for each line represents an option, linked with the path the
- * conversation will follow if the option is choosed. Only DialogueNode can be
+ * conversation will follow if the option is chosen. Only DialogueNode can be
  * linked with this kind of node
  */
 public class OptionConversationNode extends ConversationNode {
