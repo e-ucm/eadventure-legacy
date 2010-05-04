@@ -51,11 +51,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
 
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
@@ -77,19 +74,15 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.SAXException;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.engine.EAdventure;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.gamelauncher.gameentry.GameEntry;
-import es.eucm.eadventure.engine.gamelauncher.gameentry.GameEntryHandler;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
@@ -380,6 +373,7 @@ public class GameLauncher extends JFrame implements Runnable {
 
             public void valueChanged( ListSelectionEvent e ) {
 
+                              
                 GameEntry ge = (GameEntry) lstGames.getSelectedValue( );
                 if( ge != null ) {
                     // Show the description
@@ -714,62 +708,43 @@ public class GameLauncher extends JFrame implements Runnable {
      */
     private void loadDir( File file ) {
 
-        File[] files = null;
-
-        try {
-            // Load the file with the script handler
-            GameEntryHandler gameEntryHandler = new GameEntryHandler( );
-
-            // Create a new factory
-            SAXParserFactory factory = SAXParserFactory.newInstance( );
-            factory.setValidating( true );
-
-            // Read the information of the selected file
-            SAXParser saxParser = factory.newSAXParser( );
-
-            files = file.listFiles( );
-
+        try{
             // Update list of games in the current dir
             mdlGames.removeAllElements( );
             txtDescription.setText( TC.get( "MainWindow.SelectGameText" ) );
             txtCurrentDir.setText( file.getCanonicalPath( ) );
-            ArrayList<GameEntry> gameEntries = new ArrayList<GameEntry>( );
-            for( int i = 0; i < files.length; i++ ) {
-                if( files[i].isFile( ) && files[i].getName( ).toLowerCase( ).endsWith( ".ead" ) ) {
-                    ZipFile zipFile = new ZipFile( files[i] );
-                    String xmlFilename = "descriptor.xml";
-
-                    if( zipFile.getEntry( xmlFilename ) != null ) {
-                        InputStream xmlStream = zipFile.getInputStream( zipFile.getEntry( xmlFilename ) );
-                        saxParser.parse( xmlStream, gameEntryHandler );
-                        GameEntry gameEntry = gameEntryHandler.getGameEntry( );
-                        gameEntry.setFilename( files[i].getAbsolutePath( ) );
-                        gameEntry.appendFilenameToTitle( files[i].getName( ) );
-                        gameEntries.add( gameEntry );
-                        xmlStream.close( );
-                    }
-
-                    // Close the file
-                    zipFile.close( );
-                }
-            }
+            List<GameEntry> gameEntries = scanDirectory( file );
             for( int i = 0; i < gameEntries.size( ); i++ )
                 mdlGames.addElement( gameEntries.get( i ) );
-        }
-        catch( ParserConfigurationException e ) {
-            e.printStackTrace( );
-        }
-        catch( SAXException e ) {
-            e.printStackTrace( );
-        }
-        catch( ZipException e ) {
-            e.printStackTrace( );
-        }
-        catch( IOException e ) {
+        } catch( IOException e ) {
             e.printStackTrace( );
         }
     }
 
+    private List<GameEntry> scanDirectory(File directory){
+        List<GameEntry> gameEntries = new ArrayList<GameEntry>();
+        for (File file :directory.listFiles( )){
+            if (file.getAbsolutePath( ).toLowerCase( ).endsWith( ".ead" )){
+                ResourceHandler.setRestrictedMode( false );
+                ResourceHandler.getInstance( ).setZipFile( file.getAbsolutePath( ) );
+                try {
+                    DescriptorData descriptor = Loader.loadDescriptorData( ResourceHandler.getInstance( ) );
+                    if (descriptor!=null){
+                        GameEntry gameEntry = new GameEntry();
+                        gameEntry.setDescription( descriptor.getDescription( ) );
+                        gameEntry.setTitle( descriptor.getTitle( ) );
+                        gameEntry.setValid( true );
+                        gameEntry.setFilename( file.getAbsolutePath( ) );
+                        gameEntries.add( gameEntry );
+                    }
+                } catch (Exception e){};
+                ResourceHandler.getInstance( ).closeZipFile( );
+                ResourceHandler.delete( ); 
+            }
+        }
+        return gameEntries;
+    }
+    
     /**
      * A filter for the Open Dialog that shows only folders
      */

@@ -101,18 +101,18 @@ public class SelectedEffectsController {
      * Store all effects selection. Connects the type of effect with the number
      * of times that has been used
      */
-    private HashMap<String, ListElements> selectedEffects;
+    private HashMap<String, ListElement> selectedEffects;
 
     public SelectedEffectsController( ) {
 
         init( );
     }
 
-    public ListElements[] getMostVisiteEffects( int size ) {
+    public ListElement[] getMostVisiteEffects( int size ) {
 
-        ArrayList<ListElements> list = new ArrayList<ListElements>( selectedEffects.values( ) );
+        ArrayList<ListElement> list = new ArrayList<ListElement>( selectedEffects.values( ) );
         Collections.sort( list );
-        ListElements[] values = ( size >= 1 && size <= NUMBER_OF_EFFECTS ) ? new ListElements[ size ] : new ListElements[ NUMBER_OF_EFFECTS ];
+        ListElement[] values = ( size >= 1 && size <= NUMBER_OF_EFFECTS ) ? new ListElement[ size ] : new ListElement[ NUMBER_OF_EFFECTS ];
         for( int i = 0; i < values.length; i++ ) {
             values[i] = list.get( NUMBER_OF_EFFECTS - i - 1 );
         }
@@ -130,13 +130,13 @@ public class SelectedEffectsController {
     private void init( ) {
 
         final String[] effectNames = { ACTIVATE, DEACTIVATE, INCREMENT, DECREMENT, SETVALUE, MACRO, CONSUME, GENERATE, CANCEL, SPPLAYER, SPNPC, BOOK, SOUND, ANIMATION, MVPLAYER, MVNPC, CONVERSATION, CUTSCENE, SCENE, LASTSCENE, RANDOM, SHOWTEXT, WAITTIME };
-        selectedEffects = new HashMap<String, ListElements>( );
+        selectedEffects = new HashMap<String, ListElement>( );
         for( int i = 0; i < effectNames.length; i++ ) {
             String result = ProjectConfigData.getProperty( effectNames[i] );
             if( result != null )
-                selectedEffects.put( effectNames[i], new ListElements( effectNames[i], Integer.parseInt( result ) ) );
+                selectedEffects.put( effectNames[i], new ListElement( effectNames[i], Integer.parseInt( result ) ) );
             else
-                selectedEffects.put( effectNames[i], new ListElements( effectNames[i], new Integer( 0 ) ) );
+                selectedEffects.put( effectNames[i], new ListElement( effectNames[i], new Integer( 0 ) ) );
         }
 
     }
@@ -144,7 +144,7 @@ public class SelectedEffectsController {
     public void addSelectedEffect( String name ) {
 
         int value = selectedEffects.get( name ).getValue( );
-        selectedEffects.put( name, new ListElements( name, value + 1 ) );
+        selectedEffects.put( name, new ListElement( name, value + 1 ) );
     }
 
     public static String convertNames( String effectName ) {
@@ -299,13 +299,13 @@ public class SelectedEffectsController {
             return null;
     }
 
-    public class ListElements implements Comparable {
+    public class ListElement implements Comparable<ListElement> {
 
         private String name;
 
         private Integer value;
 
-        public ListElements( String name, Integer value ) {
+        public ListElement( String name, Integer value ) {
 
             this.name = name;
             this.value = value;
@@ -321,10 +321,11 @@ public class SelectedEffectsController {
             return value;
         }
 
-        public int compareTo( Object o ) {
+        public int compareTo( ListElement o ) {
 
-            ListElements listElement = (ListElements) o;
+            ListElement listElement = o;
             return this.value.compareTo( listElement.value );
+
         }
 
     }

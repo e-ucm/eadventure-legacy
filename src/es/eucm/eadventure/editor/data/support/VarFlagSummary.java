@@ -446,7 +446,7 @@ public class VarFlagSummary {
     }
     
     public String[] getVarsAndFlags(){
-        ArrayList<String> mix = new ArrayList();
+        ArrayList<String> mix = new ArrayList<String>();
         mix.addAll( vars );
         mix.addAll( flags );
         return mix.toArray( new String[]{});
