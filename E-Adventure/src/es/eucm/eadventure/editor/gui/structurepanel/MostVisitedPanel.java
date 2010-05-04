@@ -42,7 +42,7 @@ import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.SelectedEffectsController;
-import es.eucm.eadventure.editor.control.controllers.SelectedEffectsController.ListElements;
+import es.eucm.eadventure.editor.control.controllers.SelectedEffectsController.ListElement;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.SelectEffectsDialog;
 
@@ -76,7 +76,7 @@ public class MostVisitedPanel extends JPanel {
         //c.fill =GridBagConstraints.BOTH;
         this.isPressed = false;
         selectEffectControl = new SelectedEffectsController( );
-        ListElements[] values = selectEffectControl.getMostVisiteEffects( N_EFFECTS_TO_DISPLAY );
+        ListElement[] values = selectEffectControl.getMostVisiteEffects( N_EFFECTS_TO_DISPLAY );
         int addedButtons = 0;
         for( int i = 0; i < N_EFFECTS_TO_DISPLAY; i++ ) {
             if( values[i].getValue( ) > 0 ) {

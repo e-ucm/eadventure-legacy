@@ -84,16 +84,15 @@ public class DeleteRuleTool extends Tool {
     @Override
     public boolean doTool( ) {
 
-        boolean added = false;
         //Check there is at least one flag
         if( dataControl.canBeDeleted( ) ) {
 
             if( type == Controller.ADAPTATION_RULE ) {
-                oldAdapRules = new ArrayList( ( (AdaptationProfileDataControl) dataControl ).getDataControls( ) );
+                oldAdapRules = new ArrayList<AdaptationRuleDataControl>( ( (AdaptationProfileDataControl) dataControl ).getDataControls( ) );
                 return dataControl.deleteElement( ( (AdaptationProfileDataControl) dataControl ).getAdaptationRules( ).get( index ), true );
             }else
             if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE ) {
-                oldAssessRules = new ArrayList( ( (AssessmentProfileDataControl) dataControl ).getDataControls( ) );
+                oldAssessRules = new ArrayList<AssessmentRuleDataControl>( ( (AssessmentProfileDataControl) dataControl ).getDataControls( ) );
                 return dataControl.deleteElement( ( (AssessmentProfileDataControl) dataControl ).getAssessmentRules( ).get( index ), true );
             }
 

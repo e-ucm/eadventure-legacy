@@ -301,74 +301,6 @@ public class File extends java.io.File {
         }
     }
 
-    /*public static boolean putFilesInJar(String originPath, String[] addOriginPaths, String destinyPath, String[] addDestinyPaths){
-     boolean done = true;
-     
-     File originFile = new File(originPath);
-     File destinyFile = new File(destinyPath);
-     File[] additionalOriginFiles = new File[addOriginPaths.length];
-     for (int i=0; i<addOriginPaths.length; i++){
-         additionalOriginFiles[i] = new File(addOriginPaths[i]);
-     }
-     
-         try {
-            // 1) Copy the entries in the zip file to the destiny file 
-             final int BUFFER = 2048;
-             BufferedOutputStream dest = null;
-             JarOutputStream jos = null;
-             FileInputStream fis = new FileInputStream(originFile);
-             CheckedInputStream checksum = new CheckedInputStream(fis, new Adler32());
-             JarInputStream jis = new JarInputStream(new BufferedInputStream(checksum));
-             JarEntry entry = null;
-             while((entry = jis.getNextJarEntry()) != null) {
-                //System.out.println("Extracting: " +entry);
-                int count;
-                byte data[] = new byte[BUFFER];
-                if (!entry.isDirectory( )){
-                    // write the files to the disk
-                    FileOutputStream fos = new FileOutputStream(new File(destinyFile,entry.getName()));
-                    dest = new BufferedOutputStream(fos,BUFFER);
-                    jos = new JarOutputStream(dest);
-                    jos.putNextEntry( entry );
-                    while ((count = jis.read(data, 0, BUFFER)) != -1) {
-                       jos.write(data, 0, count);
-                    }
-                    jos.flush();
-                    jos.close();
-                }
-             }
-             jis.close();
-             
-             // 2) Copy the additional files to the new compressed file
-             for (int i=0; i<additionalOriginFiles.length; i++){
-                 File additionalFile = additionalOriginFiles[i];
-                 String additionalFileDest = addDestinyPaths[i];
-                 JarEntry newEntry = new JarEntry(additionalFileDest);
-                 // Input Stream
-                 FileInputStream ais = new FileInputStream(additionalFile);
-                 int count2;
-                 byte data2[] = new byte[BUFFER];
-                 
-                 // Output stream
-                 FileOutputStream fos = new FileOutputStream(new File(destinyFile,newEntry.getName()));
-                 dest = new BufferedOutputStream(fos,BUFFER);
-                 jos = new JarOutputStream(dest);
-                 
-                 //Write the file
-                 jos.putNextEntry( newEntry );
-                 while ((count2 = ais.read(data2, 0, BUFFER)) != -1) {
-                     jos.write(data2, 0, count2);
-                 }
-                 ais.close( );
-             }
-             //System.out.println("Checksum: "+checksum.getChecksum().getValue());
-          } catch(Exception e) {
-              done = false;
-             e.printStackTrace();
-          }
-          return done;
-    }*/
-
     public static void zipDir( String dirOrigen, String relPath, ZipOutputStream zos ) {
 
         try {
@@ -378,6 +310,7 @@ public class File extends java.io.File {
 
             for( int i = 0; i < dirList.length; i++ ) {
                 java.io.File f = new java.io.File( zipDir, dirList[i] );
+                
                 if( f.isDirectory( ) ) {
                     String filePath = f.getAbsolutePath( );
 
@@ -400,12 +333,21 @@ public class File extends java.io.File {
                 ZipEntry anEntry = new ZipEntry( entryName );
                 //anEntry.setSize( f.length( ) );
                 //anEntry.setTime( f.lastModified( ) );
-                zos.putNextEntry( anEntry );
-                byte[] readBuffer = new byte[ 1024 ];
-                int bytesIn = 0;
-                while( ( bytesIn = fis.read( readBuffer ) ) != -1 ) {
-                    zos.write( readBuffer, 0, bytesIn );
+                
+                // Write the file into the ZIP. It is surrounded by a try-catch block to allow the loop to continue if the file
+                // cannot be written (Otherwise the external try-catch will capture the exception and no more files in the directory
+                // would be put into the ZIP
+                try {
+                    zos.putNextEntry( anEntry );
+                    byte[] readBuffer = new byte[ 1024 ];
+                    int bytesIn = 0;
+                    while( ( bytesIn = fis.read( readBuffer ) ) != -1 ) {
+                        zos.write( readBuffer, 0, bytesIn );
+                    }                    
+                } catch (ZipException zipException){
+                    
                 }
+ 
                 //close the Stream 
                 fis.close( );
                 zos.closeEntry( );
