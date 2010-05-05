@@ -10,6 +10,7 @@
 <entry key="HUD.Traditional.btnTalk">gui/hud/traditional/btnTalkES.png</entry>
 <entry key="GameText.Music">Música</entry>
 <entry key="ActionButton.Talk">Hablar con...</entry>
+<entry key="DefaultText.Item">Objeto</entry>
 <entry key="ActionButton.Examine">Examinar</entry>
 <entry key="HUD.Traditional.btnGivePressed">gui/hud/traditional/btnGivePressedES.png</entry>
 <entry key="DebugFrame.GlobalStates">Estados globales</entry>
@@ -48,6 +49,7 @@
 <entry key="Report.HTMLReport">Informe HTML</entry>
 <entry key="ErrorReport.Cancel">Cancelar</entry>
 <entry key="GameText.Normal">Normal</entry>
+<entry key="DefaultText.NPC">Personaje</entry>
 <entry key="GameText.Save">Salvar</entry>
 <entry key="GameText.Configuration">Configuración</entry>
 <entry key="GameText.Talk">Hablar</entry>
@@ -127,6 +129,7 @@
 <entry key="GameText.TextUseNPC1">¿Usarlo? ¿Cómo podría hacerlo?</entry>
 <entry key="HUD.Traditional.btnTalkPressed">gui/hud/traditional/btnTalkPressedES.png</entry>
 <entry key="ErrorReport.Comments">Por favor, utilice este espacio para escribir sus comentarios y sugerencias</entry>
+<entry key="DefaultText.ActiveArea">Zona Activa</entry>
 <entry key="Report.XMLReport">Informe XML</entry>
 <entry key="Language.Name">Español</entry>
 <entry key="ErrorReport.Email">E-mail (opcional):</entry>

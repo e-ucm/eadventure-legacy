@@ -39,6 +39,7 @@ import java.awt.Composite;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -47,11 +48,14 @@ import java.awt.event.MouseEvent;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalActiveArea;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -168,6 +172,11 @@ public class ContextualHUD extends HUD {
     private boolean mouseReleased = false;
 
     private boolean pressed = false;
+    
+    /**
+     * This attribute is used to store the last action made to add the action text in interactions (give to, drag to, etc..)
+     */
+    private int lastSelectedAction=-1;
     
     /**
      * Function that initializa the HUD class
@@ -648,6 +657,7 @@ public class ContextualHUD extends HUD {
      * @return Value of inHud
      */
     private boolean processButtonPressed( ActionManager actionManager, MouseEvent e ) {
+        lastSelectedAction=-1;
         switch( actionButtons.getButtonPressed( ).getType( ) ) {
             case ActionButton.HAND_BUTTON:
                 elementInCursor = null;
@@ -662,8 +672,18 @@ public class ContextualHUD extends HUD {
                         game.getFunctionalPlayer( ).performActionInElement( elementAction );
                     }
                     else {
+                        if (actionButtons.getButtonPressed( ).getName( ).equals( TC.get( "ActionButton.GiveTo" ) ))
+                            lastSelectedAction = ActionManager.ACTION_GIVE_TO;
+                        else
+                            lastSelectedAction = ActionManager.ACTION_USE_WITH;
                         elementInCursor = elementAction;
-                        gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ( (FunctionalItem) elementInCursor ).getIconImage( ), new Point( 5, 5 ), "elementInCursor" ) );
+                        Image image = null;
+                        if (( (FunctionalItem) elementInCursor ).getIconImage( ) == null)
+                            image = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnError.png", MultimediaManager.IMAGE_MENU );
+                        else 
+                            image = ( (FunctionalItem) elementInCursor ).getIconImage( );
+                        
+                        gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( image , new Point( 5, 5 ), "elementInCursor" )) ;
                     }
                 }
                 break;
@@ -674,8 +694,10 @@ public class ContextualHUD extends HUD {
             case ActionButton.MOUTH_BUTTON:
                 actionManager.setActionSelected( ActionManager.ACTION_TALK );
                 game.getFunctionalPlayer( ).performActionInElement( elementAction );
+                lastSelectedAction = ActionManager.ACTION_TALK;
                 break;
             case ActionButton.DRAG_BUTTON:
+                lastSelectedAction = ActionManager.ACTION_DRAG_TO;
                 elementInCursor = elementAction;
                 this.startDragging( elementInCursor );
                 this.draggingElement.setX( pressedX );
@@ -691,8 +713,15 @@ public class ContextualHUD extends HUD {
                     break;
                 }
                 else {
+                    lastSelectedAction = ActionManager.ACTION_CUSTOM_INTERACT;
                     elementInCursor = elementAction;
-                    gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ( (FunctionalItem) elementInCursor ).getIconImage( ), new Point( 5, 5 ), "elementInCursor" ) );
+                    Image image = null;
+                    if (( (FunctionalItem) elementInCursor ).getIconImage( ) == null)
+                        image = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnError.png", MultimediaManager.IMAGE_MENU );
+                    else 
+                        image = ( (FunctionalItem) elementInCursor ).getIconImage( );
+                    
+                    gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( image, new Point( 5, 5 ), "elementInCursor" ) );
                     actionManager.setActionSelected( ActionManager.ACTION_CUSTOM_INTERACT );
                     actionManager.setCustomActionName( actionButtons.getButtonPressed( ).getName( ) );
                     game.getFunctionalPlayer( ).performActionInElement( elementAction );
@@ -813,13 +842,56 @@ public class ContextualHUD extends HUD {
         //else if there is element selected and the mouse is over an element
         else if( actionManager.getElementOver( ) != null ) {
             //If there is a known mouse position to be used for the position of the text
-            if( lastMouseMoved != null )
+            if( lastMouseMoved != null ){
+                String name = "";
+                boolean specialAction = false;
+                if (lastSelectedAction ==ActionManager.ACTION_CUSTOM_INTERACT){
+                    name = actionManager.getCustomActionName( );
+                    specialAction = true;
+                }
+                if (lastSelectedAction==ActionManager.ACTION_GIVE_TO){
+                    name = TC.get( "ActionButton.GiveTo" );
+                    specialAction = true;
+                }
+                if (lastSelectedAction==ActionManager.ACTION_USE_WITH){
+                    name = TC.get( "ActionButton.UseWith" );
+                    specialAction = true;
+                }
+                 
+                if (lastSelectedAction==ActionManager.ACTION_DRAG_TO){
+                    name = TC.get( "ActionButton.Drag" );
+                    specialAction = true;
+                }
+                if (specialAction){
+                    if (actionManager.getElementOver( ).getElement( ).getName( ).equals( "" ))
+                        name += " " + processElement();
+                    else    
+                        name += " " + actionManager.getElementOver( ).getElement( ).getName( );
+                }else
+                    name = actionManager.getElementOver( ).getElement( ).getName( );
+                
                 //draw the name of the element into the mouse in the last mouse position
-                GUI.drawStringOnto( g, new String[] { actionManager.getElementOver( ).getElement( ).getName( ) }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
-        }
+                GUI.drawStringOnto( g, new String[] { name }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
+            
+            }
+            
+            }
 
     }
 
+    
+    private String processElement(){
+        FunctionalElement element = game.getActionManager( ).getElementOver( );
+        if (element instanceof FunctionalNPC)
+            return TC.get( "DefaultText.NPC" );
+        else if (element instanceof FunctionalActiveArea)
+            return TC.get( "DefaultText.ActiveArea" );
+        else if (element instanceof FunctionalItem)
+            return TC.get( "DefaultText.Item" );
+        else 
+        return "";
+    }
+    
     /*
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.gui.hud.HUD#update(long)
