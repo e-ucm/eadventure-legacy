@@ -192,7 +192,7 @@ public class ConditionsController {
             }
     }
 
-    private static HashMap<String, ConditionContextProperty> createContextFromOwner( int ownerType, String ownerName ) {
+    public static HashMap<String, ConditionContextProperty> createContextFromOwner( int ownerType, String ownerName ) {
 
         HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>( );
         ConditionOwner owner = new ConditionOwner( ownerType, ownerName );
@@ -206,7 +206,7 @@ public class ConditionsController {
         return context1;
     }
 
-    private static HashMap<String, ConditionContextProperty> createContextFromOwnerMessage( int ownerType, String ownerName, String message1, String message2 ) {
+   /* private static HashMap<String, ConditionContextProperty> createContextFromOwnerMessage( int ownerType, String ownerName, String message1, String message2 ) {
 
         HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>( );
         ConditionOwner owner = new ConditionOwner( ownerType, ownerName );
@@ -215,7 +215,7 @@ public class ConditionsController {
         context1.put( CONDITION_CUSTOM_MESSAGE, cMessage );
         context1.put( ConditionsController.CONDITION_OWNER, owner );
         return context1;
-    }
+    }*/
 
     // Attributes
     private HashMap<String, ConditionContextProperty> context;
@@ -268,10 +268,10 @@ public class ConditionsController {
      * @param message1
      * @param message2
      */
-    public ConditionsController( Conditions conditions, int ownerType, String ownerName, String message1, String message2 ) {
+  /*  public ConditionsController( Conditions conditions, int ownerType, String ownerName, String message1, String message2 ) {
 
         this( conditions, createContextFromOwnerMessage( ownerType, ownerName, message1, message2 ) );
-    }
+    }*/
 
     /**
      * Constructor.

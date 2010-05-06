@@ -174,6 +174,8 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
                 }
             }
             else {
+                
+                context = ConditionsController.createContextFromOwner(owner.getOwnerType( ),owner.getOwnerName( ));
                 ConditionCustomMessage cMessage = (ConditionCustomMessage) context.get( ConditionsController.CONDITION_CUSTOM_MESSAGE );
                 if( !conditionsController.isEmpty( ) ) {
                     html += cMessage.getFormattedSentence( owner );
