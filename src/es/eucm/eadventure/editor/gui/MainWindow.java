@@ -573,7 +573,8 @@ public class MainWindow extends JFrame {
         adventureMenu.add( itAdventureData );
 
         JMenu visualization = new JMenu( TC.get( "MenuAdventure.Visualization" ) );
-        JMenuItem itGUIStyles = new JMenuItem( TC.get( "MenuAdventure.GUIStyles" ) );
+        //Now the traditional hud can be used
+        /*JMenuItem itGUIStyles = new JMenuItem( TC.get( "MenuAdventure.GUIStyles" ) );
         itGUIStyles.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -581,7 +582,7 @@ public class MainWindow extends JFrame {
                 controller.showGUIStylesDialog( );
             }
         } );
-        visualization.add( itGUIStyles );
+        visualization.add( itGUIStyles );*/
         JMenuItem itCustomizeGUI = new JMenuItem( TC.get( "MenuAdventure.CustomizeGUI" ) );
         itCustomizeGUI.addActionListener( new ActionListener( ) {
 
