@@ -37,15 +37,20 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
+
 import es.eucm.eadventure.common.auxiliar.CreateImage;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
-public class LoadingScreen extends JDialog {
+public class LoadingScreen extends JFrame {
 
     private String message;
 
@@ -92,6 +97,15 @@ public class LoadingScreen extends JDialog {
         this.setResizable( false );
         //this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
         //this.setAlwaysOnTop( true );
+        
+        List<Image> icons = new ArrayList<Image>( );
+
+        icons.add( AssetsController.getImage( "img/Icono-Editor-16x16.png" ) );
+        icons.add( AssetsController.getImage( "img/Icono-Editor-32x32.png" ) );
+        icons.add( AssetsController.getImage( "img/Icono-Editor-64x64.png" ) );
+        icons.add( AssetsController.getImage( "img/Icono-Editor-128x128.png" ) );
+        setIconImages( icons );
+        
         status = 0;
         thread = new Timer( );
         thread.start( );

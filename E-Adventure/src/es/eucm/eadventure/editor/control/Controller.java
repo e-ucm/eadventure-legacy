@@ -107,6 +107,7 @@ import es.eucm.eadventure.editor.gui.metadatadialog.ims.IMSDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomdialog.LOMDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESDialog;
 import es.eucm.eadventure.editor.gui.startdialog.StartDialog;
+import es.eucm.eadventure.editor.gui.startdialog.FrameForInitialDialogs;
 import es.eucm.eadventure.engine.EAdventureDebug;
 
 /**
@@ -651,13 +652,15 @@ public class Controller {
 
         //Create main window and hide it
         mainWindow = new MainWindow( );
+        
+       // mainWindow.setExtendedState(JFrame.ICONIFIED | mainWindow.getExtendedState());
         mainWindow.setVisible( false );
 
         // Prompt the user to create a new adventure or to load one
         //while( currentZipFile == null ) {
         // Load the options and show the dialog
-        StartDialog start = new StartDialog( );
-
+        //StartDialog start = new StartDialog( );
+        FrameForInitialDialogs start = new FrameForInitialDialogs(true);
         if( arg != null ) {
             File projectFile = new File( arg );
             if( projectFile.exists( ) ) {
@@ -666,12 +669,13 @@ public class Controller {
                     loadFile( absolutePath.substring( 0, absolutePath.length( ) - 4 ), true );
                 }
                 else if( projectFile.isDirectory( ) && projectFile.exists( ) )
-                    loadFile( start.getSelectedFile( ).getAbsolutePath( ), true );
+                    loadFile( projectFile.getAbsolutePath( ), true );
             }
         }
 
         else if( ConfigData.showStartDialog( ) ) {
-            int op = start.showOpenDialog( null );
+            //int op = start.showOpenDialog( mainWindow );
+            int op = start.showStartDialog( );
             //start.end();
             if( op == StartDialog.NEW_FILE_OPTION ) {
                 newFile( start.getFileType( ) );
@@ -694,6 +698,8 @@ public class Controller {
             else if( op == StartDialog.CANCEL_OPTION ) {
                 exit( );
             }
+            
+            start.remove();
             //selectedChapter = 0;
         }
 
@@ -726,8 +732,11 @@ public class Controller {
         // initialize the selected effects container
         //selectedEffects = new SelectedEffectsController();
 
+        
+        
         mainWindow.setResizable( true );
-        mainWindow.setEnabled( true );
+        //mainWindow.setEnabled( true );
+       // mainWindow.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         mainWindow.setVisible( true );
         //DEBUGGING
         //tsd = new ToolSystemDebugger( chaptersController );
@@ -970,12 +979,15 @@ public class Controller {
             ProjectConfigData.init( );
 
             // Show dialog
-            StartDialog start = new StartDialog( StartDialog.NEW_TAB );
-
+            //StartDialog start = new StartDialog( StartDialog.NEW_TAB );
+            FrameForInitialDialogs start = new FrameForInitialDialogs( StartDialog.NEW_TAB );
+            
             //mainWindow.setEnabled( false );
+            //mainWindow.setExtendedState(JFrame.ICONIFIED | mainWindow.getExtendedState());
             mainWindow.setVisible( false );
 
-            int op = start.showOpenDialog( null );
+            //int op = start.showOpenDialog( mainWindow );
+            int op = start.showStartDialog( );
             //start.end();
             if( op == StartDialog.NEW_FILE_OPTION ) {
                 newFile( start.getFileType( ) );
@@ -998,6 +1010,8 @@ public class Controller {
             else if( op == StartDialog.CANCEL_OPTION ) {
                 exit( );
             }
+            
+            start.remove();
 
             if( currentZipFile == null ) {
                 mainWindow.reloadData( );
@@ -1038,10 +1052,13 @@ public class Controller {
         java.io.File selectedDir = null;
         java.io.File selectedFile = null;
         // Prompt main folder of the project
-        ProjectFolderChooser folderSelector = new ProjectFolderChooser( false, false );
+        //ProjectFolderChooser folderSelector = new ProjectFolderChooser( false, false );
+        FrameForInitialDialogs start = new FrameForInitialDialogs(false);
+        int op = start.showStartDialog( );
         // If some folder is selected, check all characters are correct  
-        if( folderSelector.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ) {
-            java.io.File selectedFolder = folderSelector.getSelectedFile( );
+       // if( folderSelector.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ) {
+        if( op == StartDialog.APROVE_SELECTION ) {
+            java.io.File selectedFolder = start.getSelectedFile( );
             selectedFile = selectedFolder;
             if( selectedFile.getAbsolutePath( ).endsWith( ".eap" ) ) {
                 String absolutePath = selectedFolder.getAbsolutePath( );
@@ -1099,7 +1116,7 @@ public class Controller {
                 create = false;
             }
         }
-
+        start.remove( );
         // Create the new project?
         //LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.CreateProject" ), getLoadingImage( ), mainWindow);
 
@@ -1159,7 +1176,7 @@ public class Controller {
             else
                 fileCreated = false;
         }
-        loadingScreen.setVisible( false );
+        
         if( fileCreated ) {
             ConfigData.fileLoaded( currentZipFile );
             // Feedback
@@ -1169,6 +1186,7 @@ public class Controller {
             // Feedback
             mainWindow.showInformationDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.FileNotLoadedMessage" ) );
         }
+        loadingScreen.setVisible( false );
 
         return fileCreated;
 
@@ -1298,7 +1316,10 @@ public class Controller {
                 // If an asset is missing or damaged. Delete references
                 if( current.getType( ) == Incidence.ASSET_INCIDENCE ) {
                     this.deleteAssetReferences( current.getAffectedResource( ) );
-                    mainWindow.showInformationDialog( TC.get( "ErrorSolving.Asset.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), TC.get( "ErrorSolving.Asset.Deleted.Message", current.getAffectedResource( ) ) );
+                  //  if (current.getAffectedArea( ) == AssetsController.CATEGORY_ICON||current.getAffectedArea( ) == AssetsController.CATEGORY_BACKGROUND){
+                    //    mainWindow.showInformationDialog( TC.get( "ErrorSolving.Asset.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), current.getMessage( ) );
+                    //}else
+                        mainWindow.showInformationDialog( TC.get( "ErrorSolving.Asset.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), TC.get( "ErrorSolving.Asset.Deleted.Message", current.getAffectedResource( ) ) );
                     if( current.getException( ) != null )
                         ReportDialog.GenerateErrorReport( current.getException( ), true, TC.get( "GeneralText.LoadError" ) );
 
@@ -1408,12 +1429,15 @@ public class Controller {
                 ProjectConfigData.loadFromXML( );
 
                 // Show dialog
-                StartDialog start = new StartDialog( StartDialog.OPEN_TAB );
-
+               // StartDialog start = new StartDialog( StartDialog.OPEN_TAB );
+                FrameForInitialDialogs start = new FrameForInitialDialogs(StartDialog.OPEN_TAB );
+                //start.askForProject();
                 //mainWindow.setEnabled( false );
+                //mainWindow.setExtendedState(JFrame.ICONIFIED | mainWindow.getExtendedState());
                 mainWindow.setVisible( false );
 
-                int op = start.showOpenDialog( null );
+                //int op = start.showOpenDialog( null );
+                int op = start.showStartDialog( );
                 //start.end();
                 if( op == StartDialog.NEW_FILE_OPTION ) {
                     newFile( start.getFileType( ) );
@@ -1439,16 +1463,17 @@ public class Controller {
                 else if( op == StartDialog.CANCEL_OPTION ) {
                     exit( );
                 }
+                
+                start.remove();
 
-                if( currentZipFile == null ) {
-                    mainWindow.reloadData( );
-                }
+               // if( currentZipFile == null ) {
+                 //   mainWindow.reloadData( );
+                //}
 
                 mainWindow.setResizable( true );
                 mainWindow.setEnabled( true );
                 mainWindow.setVisible( true );
-                //DEBUGGING
-                //tsd = new ToolSystemDebugger( chaptersController );
+                
 
                 return true;
             }

@@ -35,6 +35,7 @@ package es.eucm.eadventure.editor.gui.startdialog;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -96,6 +97,8 @@ public class StartDialog extends JFileChooser {
     private static final long serialVersionUID = -544319646379939561L;
 
     private int option;
+    
+    private JDialog dialog;
 
     public static final int NO_CUSTOM_OPTION = -2;
 
@@ -104,6 +107,8 @@ public class StartDialog extends JFileChooser {
     public static final int OPEN_FILE_OPTION = JFileChooser.APPROVE_OPTION;
 
     public static final int RECENT_FILE_OPTION = 5;
+    
+    public static final int APROVE_SELECTION = 6;
 
     public static final int NEW_TAB = 0;
 
@@ -166,6 +171,7 @@ public class StartDialog extends JFileChooser {
         this.setMultiSelectionEnabled( false );
         this.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
 
+        
         option = NO_CUSTOM_OPTION;
         recentFile = null;
         fileType = -2;
@@ -206,8 +212,39 @@ public class StartDialog extends JFileChooser {
         setSize( new Dimension( 690, 600 ) );
         setMinimumSize( new Dimension( 690, 600 ) );
         setPreferredSize( new Dimension( 690, 600 ) );
+
+       
+
+        
+        
+       //addTrayIcon();
+        
+        
     }
 
+      /*  private void addTrayIcon(){
+            if (SystemTray.isSupported()) {
+                PopupMenu menu = new PopupMenu();
+                MenuItem quitItem = new MenuItem("Quit");
+                quitItem.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        System.exit(0);
+                    }});
+                menu.add(quitItem);
+                Image icon = new ImageIcon( "img/Icono-Editor-32x32.png" ).getImage( );
+                TrayIcon trayIcon = new TrayIcon(icon, TC.get( "StartDialog.Title" ),menu );
+                try {
+                     SystemTray tray = SystemTray.getSystemTray( );
+                    tray.add( trayIcon );
+                } catch (AWTException e) {
+                    // it isn't possible to add a system tray
+                }
+
+               
+        }
+        }*/
+        
+        
     private JPanel createNewFilePanel( ) {
 
         // Create the container
@@ -740,8 +777,8 @@ public class StartDialog extends JFileChooser {
     @Override
     protected JDialog createDialog( Component parent ) throws HeadlessException {
 
-        JDialog dialog = super.createDialog( parent );
-
+        dialog = super.createDialog( parent );
+        dialog.setModalityType(  Dialog.ModalityType.TOOLKIT_MODAL );
         List<Image> icons = new ArrayList<Image>( );
 
         icons.add( AssetsController.getImage( "img/Icono-Editor-16x16.png" ) );
@@ -750,6 +787,7 @@ public class StartDialog extends JFileChooser {
         icons.add( AssetsController.getImage( "img/Icono-Editor-128x128.png" ) );
         dialog.setIconImages( icons );
 
+        
         dialog.setTitle( TC.get( "StartDialog.Title" ) );
 
         return dialog;
@@ -770,6 +808,16 @@ public class StartDialog extends JFileChooser {
     public void setRecentFile( File recentFile ) {
 
         this.recentFile = recentFile;
+    }
+
+    
+    public boolean isOpenOption(){
+        return tab.getSelectedIndex( )==1;
+    }
+    
+    public int getOption( ) {
+    
+        return option;
     }
 
 }
