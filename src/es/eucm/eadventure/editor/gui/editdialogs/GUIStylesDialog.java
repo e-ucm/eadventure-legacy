@@ -92,6 +92,8 @@ public class GUIStylesDialog extends JDialog {
      * @param optionSelected
      *            GUI style active
      */
+    
+    //TODO this class is never used, it must be deleted
     public GUIStylesDialog( int optionSelected ) {
 
         // Set the values
