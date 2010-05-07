@@ -35,27 +35,20 @@ package es.eucm.eadventure.editor.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dialog;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.HeadlessException;
-import java.awt.Window;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.accessibility.AccessibleContext;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.gui.TC;
@@ -119,9 +112,101 @@ public class ProjectFolderChooser extends JFileChooser {
         //super.setSelectedFile( new File ( Controller.projectsFolder(),  TextConstants.getText("GeneralText.NewProjectFolder") ) );
         super.setSelectedFile( getDefaultSelectedFile( ) );
         super.setAcceptAllFileFilterUsed( false );
+        preparePanel();
     }
 
-    @Override
+    
+    private void preparePanel(){
+        String title = TC.get( "Operation.NewProjectTitle" );
+        putClientProperty( AccessibleContext.ACCESSIBLE_DESCRIPTION_PROPERTY, title );
+
+       JPanel mainPanel = new JPanel();
+        
+        JPanel infoPanel = new JPanel( );
+        infoPanel.setLayout( new BorderLayout( ) );
+        JTextArea info = new JTextArea( );
+        info.setColumns( 10 );
+        info.setWrapStyleWord( true );
+        info.setFont( new Font( Font.SERIF, Font.PLAIN, 12 ) );
+        info.setEditable( false );
+        info.setBackground( infoPanel.getBackground( ) );
+        info.setText( TC.get( "Operation.NewProjectMessage", FolderFileFilter.getAllowedChars( ) ) );
+        infoPanel.add( info, BorderLayout.NORTH );
+
+        String os = System.getProperty( "os.name" );
+        if( os.contains( "MAC" ) || os.contains( "mac" ) || os.contains( "Mac" ) ) {
+            projectName = new JTextField( 50 );
+            projectName.setText( ProjectFolderChooser.getDefaultSelectedFile( ).getName( ) );
+            JPanel tempName = new JPanel( );
+            tempName.add( new JLabel( TC.get( "Operation.NewProjectName" ) ) );
+            tempName.add( projectName );
+            JButton create = new JButton( TC.get( "Operation.CreateNewProject" ) );
+            create.addActionListener( new ActionListener( ) {
+
+                public void actionPerformed( ActionEvent arg0 ) {
+
+                    if( projectName.getText( ) != null ) {
+                        String name = projectName.getText( );
+                        if( !name.endsWith( ".eap" ) )
+                            name = name + ".eap";
+                        File file = new File( ProjectFolderChooser.this.getCurrentDirectory( ).getAbsolutePath( ) + File.separatorChar + name );
+                        if( !file.exists( ) ) {
+                            try {
+                                file.createNewFile( );
+                                ProjectFolderChooser.this.updateUI( );
+                                ProjectFolderChooser.this.setSelectedFile( file );
+                                ProjectFolderChooser.this.approveSelection( );
+                            }
+                            catch( Exception e ) {
+                            }
+                        }
+                    }
+                }
+            } );
+            tempName.add( create );
+            infoPanel.add( tempName, BorderLayout.SOUTH );
+        }
+
+       
+        mainPanel.setLayout( new BorderLayout( ) );
+        mainPanel.add( createOpenFilePanel(), BorderLayout.CENTER );
+        mainPanel.add( infoPanel, BorderLayout.NORTH );
+
+        add( mainPanel );
+
+    }
+    
+    private JPanel createOpenFilePanel( ) {
+
+        JPanel panelOpen = new JPanel( );
+
+        // Transfer the elements in the JFileChooser to the open file panel 
+
+        LayoutManager layout = getLayout( );
+        if( layout instanceof BorderLayout ) {
+            panelOpen.setLayout( new BorderLayout( ) );
+            BorderLayout currentLayout = (BorderLayout) getLayout( );
+
+            for( Component comp : getComponents( ) ) {
+                panelOpen.add( comp, currentLayout.getConstraints( comp ) );
+            }
+        }
+        else if( layout instanceof BoxLayout ) {
+            BoxLayout currentLayout = (BoxLayout) getLayout( );
+            panelOpen.setLayout( new BoxLayout( panelOpen, currentLayout.getAxis( ) ) );
+
+            for( Component comp : getComponents( ) ) {
+                panelOpen.add( comp );
+            }
+        }
+
+        return panelOpen;
+    }
+    
+    
+    // TODO delete next code: 
+    
+    /*@Override
     protected JDialog createDialog( Component parent ) throws HeadlessException {
 
         String title = TC.get( "Operation.NewProjectTitle" );
@@ -198,6 +283,6 @@ public class ProjectFolderChooser extends JFileChooser {
         dialog.setLocationRelativeTo( parent );
 
         return dialog;
-    }
+    }*/
 
 }

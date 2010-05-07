@@ -362,7 +362,15 @@ public class MainWindow extends JFrame {
 
             public void actionPerformed( ActionEvent e ) {
 
-                controller.newFile( );
+                Runnable r = new Runnable() {
+                    public void run() {
+                        controller.newFile( );
+                }};
+                
+                Thread t = new Thread(r);
+                t.setDaemon(false);
+                t.start();
+                
             }
         } );
         fileMenu.add( itFileNew );
@@ -372,7 +380,17 @@ public class MainWindow extends JFrame {
 
             public void actionPerformed( ActionEvent e ) {
 
-                controller.loadFile( );
+                
+                Runnable r = new Runnable() {
+                    public void run() {
+                        controller.loadFile( );
+                }};
+                
+                Thread t = new Thread(r);
+                t.setDaemon(false);
+                t.start();
+                
+                
             }
         } );
 
@@ -385,8 +403,10 @@ public class MainWindow extends JFrame {
 
             public void actionPerformed( ActionEvent e ) {
 
-                //controller.saveFile( controller.isTempFile( ) );
-                controller.saveFile( false );
+                      //controller.saveFile( controller.isTempFile( ) );
+                        controller.saveFile( false );
+            
+                
             }
         } );
         itFileSave.setAccelerator( KeyStroke.getKeyStroke( 'S', InputEvent.CTRL_MASK ) );
@@ -768,7 +788,9 @@ public class MainWindow extends JFrame {
 
         StructureControl.getInstance( ).changeDataControl( controller.getSelectedChapterDataControl( ) );
         StructureControl.getInstance( ).visitDataControl( controller.getSelectedChapterDataControl( ) );
-
+        
+        //controller.getSelectedChapterDataControl( ).get
+        
         // Update the menu bar
         this.setJMenuBar( createMenuBar( ) );
         this.getJMenuBar( ).updateUI( );
