@@ -172,7 +172,7 @@ public class DescriptorData implements Cloneable, Described, Titled {
         return actionTypes;
     }
 
-    private static final String[] buttonTypes = { NORMAL_BUTTON, HIGHLIGHTED_BUTTON, PRESSED_BUTTON };
+    private static final String[] buttonTypes = { NORMAL_BUTTON, HIGHLIGHTED_BUTTON/*, PRESSED_BUTTON */};
 
     public static String[] getButtonTypes( ) {
 

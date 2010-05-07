@@ -109,8 +109,8 @@ public class ResourcesDataControl extends DataControl {
                 break;
             case Controller.ACTION_CUSTOM:
             case Controller.ACTION_CUSTOM_INTERACT:
-                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionButtonNormal" , "buttonNormal", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation(  "Resources.DescriptionButtonOver" , "buttonOver", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation( "Resources.DescriptionButtonPressed" , "buttonPressed", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation(  "Resources.DescriptionActionAnimation" , "actionAnimation", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionActionAnimationLeft" , "actionAnimationLeft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ) };
-                assetsGroups = new int[][] { { 0, 1, 2 }, { 3, 4 } };
+                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionButtonNormal" , "buttonNormal", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation(  "Resources.DescriptionButtonOver" , "buttonOver", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG )/*, new AssetInformation( "Resources.DescriptionButtonPressed" , "buttonPressed", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG )*/, new AssetInformation(  "Resources.DescriptionActionAnimation" , "actionAnimation", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionActionAnimationLeft" , "actionAnimationLeft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ) };
+                assetsGroups = new int[][] { { 0, 1}, { 2, 3 } };
                 groupsInfo = new String[] { "Resources.Button" , "Resources.Animations"  };
                 break;
             case Controller.CUTSCENE_VIDEO:
