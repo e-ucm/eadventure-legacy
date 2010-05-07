@@ -45,6 +45,11 @@ public interface SpecialAssetPaths {
      * Asset path for the empty icon. For use only in assets.
      */
     public static final String ASSET_EMPTY_ICON = "assets/special/EmptyIcon.png";
+    
+    /**
+     * Asset path for the empty icon. For use only in assets.
+     */
+    public static final String ASSET_EMPTY_BACKGROUND = "assets/special/EmptyBackground.png";
 
     /**
      * Asset path for the empty animation. For use only in assets.
@@ -80,6 +85,11 @@ public interface SpecialAssetPaths {
      * Default file for the empty image.
      */
     public static final String FILE_EMPTY_IMAGE = "img/assets/EmptyImage.png";
+    
+    /**
+     * Default file for the empty image.
+     */
+    public static final String FILE_EMPTY_BACKGROUND = "img/assets/EmptyBackground.png";
 
     /**
      * Default file for the empty icon.

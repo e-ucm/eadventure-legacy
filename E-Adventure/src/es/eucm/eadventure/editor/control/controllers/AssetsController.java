@@ -915,6 +915,11 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
         sourceFile = new File( FILE_EMPTY_IMAGE );
         if( sourceFile.exists( ) )
             sourceFile.copyTo( new File( zipFile, ASSET_EMPTY_IMAGE ) );
+        
+        // Add the empty backlground image
+        sourceFile = new File( FILE_EMPTY_BACKGROUND );
+        if( sourceFile.exists( ) )
+            sourceFile.copyTo( new File( zipFile, ASSET_EMPTY_BACKGROUND ) );
 
         // If the source file doesn't exist, show an error message
         else
@@ -1120,15 +1125,15 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
                 // Prepare the string array for the error message
                 String[] fileInformation = new String[] { assetPath, String.valueOf( width ), String.valueOf( height ) };
 
-                // The background files must have a size of at least 800x400
-                if( assetCategory == CATEGORY_BACKGROUND && ( width < 800 || height < 400 ) ) {
+                // The background files must have a size of at least 800x600
+                if( assetCategory == CATEGORY_BACKGROUND && ( width < AssetsImageDimensions.BACKGROUND_MAX_WIDTH || height < AssetsImageDimensions.BACKGROUND_MAX_HEIGHT ) ) {
                     message = TC.get( "BackgroundAssets.ErrorBackgroundSize", fileInformation );
                     assetValid = false;
                     notPresent = false;
                 }
 
                 // The icon files must have a size of 80x48
-                else if( assetCategory == CATEGORY_ICON && ( width != 80 || height != 48 ) ) {
+                else if( assetCategory == CATEGORY_ICON && ( width != AssetsImageDimensions.ICON_MAX_WIDTH || height != AssetsImageDimensions.ICON_MAX_HEIGHT ) ) {
                     message = TC.get( "IconAssets.ErrorIconSize", fileInformation );
                     assetValid = false;
                     notPresent = false;

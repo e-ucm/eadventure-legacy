@@ -36,6 +36,7 @@ package es.eucm.eadventure.editor.control.controllers.cutscene;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.AssetsImageDimensions;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
@@ -498,7 +499,7 @@ public class CutsceneDataControl extends DataControlWithResources {
         if( cutscene.hasPlayerPosition( ) )
             controller.addTool( new ChangeNSDestinyPositionTool( cutscene, Integer.MIN_VALUE, Integer.MIN_VALUE ) );
         else
-            controller.addTool( new ChangeNSDestinyPositionTool( cutscene, 400, 300 ) );
+            controller.addTool( new ChangeNSDestinyPositionTool( cutscene, AssetsImageDimensions.BACKGROUND_MAX_WIDTH/2 , AssetsImageDimensions.BACKGROUND_MAX_HEIGHT/2 ) );
     }
 
     /**

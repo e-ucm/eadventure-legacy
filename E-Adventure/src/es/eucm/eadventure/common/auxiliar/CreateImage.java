@@ -33,7 +33,6 @@
  */
 package es.eucm.eadventure.common.auxiliar;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -41,10 +40,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 /**
  * Utility for creating virtual images. That is, images that are not stored
@@ -140,17 +135,6 @@ public class CreateImage {
         return im;
     }
 
-    public static void main( String[] args ) {
-
-        JFrame frame = new JFrame( );
-        Image image = CreateImage.createImage( 400, 300, "Marihuanhell" );
-        ImageIcon ic = new ImageIcon( image );
-        JLabel label = new JLabel( ic );
-        frame.setLayout( new BorderLayout( ) );
-        frame.add( label, BorderLayout.CENTER );
-        frame.pack( );
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.setVisible( true );
-    }
+   
 
 }

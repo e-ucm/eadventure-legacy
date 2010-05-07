@@ -36,6 +36,7 @@ package es.eucm.eadventure.common.data.chapter.scenes;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.AssetsImageDimensions;
 import es.eucm.eadventure.common.data.Positioned;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
@@ -145,8 +146,8 @@ public class Scene extends GeneralScene implements Positioned {
 
         //defaultX = Integer.MIN_VALUE;
         //defaultY = Integer.MIN_VALUE;
-        defaultX = 400;
-        defaultY = 300;
+        defaultX = AssetsImageDimensions.BACKGROUND_MAX_WIDTH/2;
+        defaultY = AssetsImageDimensions.BACKGROUND_MAX_HEIGHT/2;
         exits = new ArrayList<Exit>( );
         itemReferences = new ArrayList<ElementReference>( );
         atrezzoReferences = new ArrayList<ElementReference>( );
