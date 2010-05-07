@@ -36,6 +36,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.AssetsImageDimensions;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
@@ -261,7 +262,7 @@ public class SceneDataControl extends DataControlWithResources {
         if( scene.hasDefaultPosition( ) )
             controller.addTool( new ChangeNSDestinyPositionTool( scene, Integer.MIN_VALUE, Integer.MIN_VALUE ) );
         else
-            controller.addTool( new ChangeNSDestinyPositionTool( scene, 400, 300 ) );
+            controller.addTool( new ChangeNSDestinyPositionTool( scene, AssetsImageDimensions.BACKGROUND_MAX_WIDTH/2 , AssetsImageDimensions.BACKGROUND_MAX_HEIGHT/2 ) );
     }
 
     /**

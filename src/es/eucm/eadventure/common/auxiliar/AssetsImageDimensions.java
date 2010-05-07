@@ -44,7 +44,7 @@ public interface AssetsImageDimensions {
      * Dimensions for background
      */
     public static final int BACKGROUND_MAX_WIDTH = 800;
-    public static final int BACKGROUND_MAX_HEIGHT = 400;
+    public static final int BACKGROUND_MAX_HEIGHT = 600;
     
     /**
      * Dimensions for icons

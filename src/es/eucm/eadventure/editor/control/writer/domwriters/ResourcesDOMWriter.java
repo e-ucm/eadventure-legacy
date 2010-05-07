@@ -129,7 +129,7 @@ public class ResourcesDOMWriter {
                 if( resources.getAssetPath( "background" ) == null ) {
                     Element assetElement = doc.createElement( "asset" );
                     assetElement.setAttribute( "type", "background" );
-                    assetElement.setAttribute( "uri", SpecialAssetPaths.ASSET_EMPTY_IMAGE );
+                    assetElement.setAttribute( "uri", SpecialAssetPaths.ASSET_EMPTY_BACKGROUND);
                     resourcesNode.appendChild( assetElement );
                 }
             }
