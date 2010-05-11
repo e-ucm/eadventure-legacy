@@ -105,9 +105,13 @@ public class FrameForInitialDialogs {
                 //caution: if this class is used for startdialog, after this method, the frame is hide, but
                 // is it is used for projectFolder, the frame is directly destroy in remove method
                 getOptionFromChooser();
-                finish();
                 
-            } 
+                
+            } else if (command.equals(StartDialog.CANCEL_SELECTION)){
+                getOptionFromChooser(StartDialog.CANCEL_OPTION);
+                
+            }
+            finish();
         }
         };
         
@@ -135,6 +139,10 @@ public class FrameForInitialDialogs {
       
     }
     
+    private void getOptionFromChooser(int option){
+        this.option = option;
+    }
+    
     private void getOptionFromChooser(){
         
         if (isStartDialog){
@@ -144,6 +152,7 @@ public class FrameForInitialDialogs {
                 option = StartDialog.OPEN_FILE_OPTION;
             
         }else {
+            
             option = StartDialog.APROVE_SELECTION;
         }
             
