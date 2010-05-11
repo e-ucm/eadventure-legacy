@@ -106,8 +106,8 @@ import es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog.CustomizeGUI
 import es.eucm.eadventure.editor.gui.metadatadialog.ims.IMSDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomdialog.LOMDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESDialog;
-import es.eucm.eadventure.editor.gui.startdialog.StartDialog;
 import es.eucm.eadventure.editor.gui.startdialog.FrameForInitialDialogs;
+import es.eucm.eadventure.editor.gui.startdialog.StartDialog;
 import es.eucm.eadventure.engine.EAdventureDebug;
 
 /**
@@ -1634,7 +1634,6 @@ public class Controller {
                                 if( saveAs ) {
                                     loadingScreen.setMessage( TC.get( "Operation.SaveProjectAs" ) );
                                     loadingScreen.setVisible( true );
-
                                     AssetsController.copyAssets( currentZipFile, newFolder.getAbsolutePath( ) );
                                 }
 
@@ -1642,6 +1641,8 @@ public class Controller {
                                 currentZipFile = newFolder.getAbsolutePath( );
                                 currentZipPath = newFolder.getParent( );
                                 currentZipName = newFolder.getName( );
+                                
+                                AssetsController.createFolderStructure();
                             }
 
                             // If the file was not overwritten, don't save the data
@@ -3509,6 +3510,10 @@ public boolean isCharacterValid(String elementId){
         return isLomEs;
     }
 
+    public int getGUIConfigConfiguration(){
+        return this.adventureDataControl.getGraphicConfig( );
+    }
+    
     public String getDefaultExitCursorPath( ) {
 
         String temp = this.adventureDataControl.getCursorPath( "exit" );
