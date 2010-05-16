@@ -162,10 +162,10 @@ public class BookSubParser extends SubParser {
                 }
 
             }
-
+            
             // If it is a documentation tag, hold the documentation in the book
             else if( qName.equals( "documentation" ) ) {
-                book.setDocumentation( currentString.toString( ).trim( ) );
+                currentString= new StringBuffer();
             }
 
             // If it is a condition tag, create a new subparser
@@ -314,6 +314,11 @@ public class BookSubParser extends SubParser {
             // If it is a resources tag, add the resources to the book
             else if( qName.equals( "resources" ) ) {
                 book.addResources( currentResources );
+            }
+            
+            // If it is a documentation tag, hold the documentation in the book
+            else if( qName.equals( "documentation" ) ) {
+                book.setDocumentation( currentString.toString( ).trim( ) );
             }
 
             // If it is a text tag, add the text to the book
