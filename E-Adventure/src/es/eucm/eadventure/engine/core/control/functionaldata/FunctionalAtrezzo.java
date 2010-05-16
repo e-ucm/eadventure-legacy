@@ -253,16 +253,22 @@ public class FunctionalAtrezzo extends FunctionalElement {
                 oldOriginalImage = image;
                 oldScale = scale;
             }
-            if( layer == -1 )
+            if( layer == -1 ){
+                System.out.println( "[AT] "+this.getAtrezzo( ).getId( )+ ": ("+x_image+" , "+y_image+") "+temp.getWidth( null )+"x"+temp.getHeight( null ) );
                 GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ), null, null );
-            else
+            }else{
+                System.out.println( "[AT] "+this.getAtrezzo( ).getId( )+ ": ("+x_image+" , "+y_image+") "+temp.getWidth( null )+"x"+temp.getHeight( null ) );
                 GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ), null, null  );
+            }
 
         }
-        else if( layer == -1 )
+        else if( layer == -1 ){
+            System.out.println( "[AT] "+this.getAtrezzo( ).getId( )+ ": ("+x_image+" , "+y_image+") "+image.getWidth( null )+"x"+image.getHeight( null ) );
             GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round( y ), null, null  );
-        else
+        }else{
+            System.out.println( "[AT] "+this.getAtrezzo( ).getId( )+ ": ("+x_image+" , "+y_image+") "+image.getWidth( null )+"x"+image.getHeight( null ) );
             GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round( y ), null, null  );
+        }
     }
 
     @Override
