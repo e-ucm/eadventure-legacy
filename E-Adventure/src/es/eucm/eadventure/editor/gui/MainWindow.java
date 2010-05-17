@@ -914,7 +914,8 @@ public class MainWindow extends JFrame {
      */
     public void popWindow( ) {
 
-        windowsStack.pop( );
+        if (!windowsStack.isEmpty( ))
+            windowsStack.pop( );
         structurePanel.updateElementPanel( );
     }
 
