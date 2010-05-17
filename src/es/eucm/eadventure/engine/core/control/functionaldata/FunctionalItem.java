@@ -261,8 +261,8 @@ public class FunctionalItem extends FunctionalElement {
 
         int x_image = Math.round( x - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
         int y_image = Math.round( y - getHeight( ) * scale );
-        x_image+=x1;
-        y_image+=y1;
+        //x_image+=x1;
+        //y_image+=y1;
         if( scale != 1 ) {
             Image temp;
             if( image == oldOriginalImage && scale == oldScale ) {
