@@ -113,7 +113,7 @@ public class ObjectEffectDialog extends EffectDialog {
             c.weightx = 1;
             itemsComboBox = new JComboBox( controller.getIdentifierSummary( ).getItemIds( ) );
             mainPanel.add( itemsComboBox, c );
-
+            
             // Add the panel to the center
             add( mainPanel, BorderLayout.CENTER );
 
@@ -124,6 +124,12 @@ public class ObjectEffectDialog extends EffectDialog {
             }
 
             // Set the dialog
+            final int width = 250;
+            final int height = 120;
+            setSize( new Dimension( width, height ) );
+            setMinimumSize( new Dimension( width, height ) );
+            setPreferredSize( new Dimension( width, height ) );
+
             setResizable( false );
             pack( );
             Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );

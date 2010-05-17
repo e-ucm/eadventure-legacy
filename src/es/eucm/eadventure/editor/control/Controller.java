@@ -1885,7 +1885,10 @@ public class Controller {
                                                 else {
                                                     this.showStrictConfirmDialog( TC.get( "Error.Title" ), TC.get( "Error.DeletingFolderContents" ) );
                                                 }
-                                            }
+                                                
+                                            } // FIXME: else branch to return to previous dialog when the user tries to assign an existing name to his project
+                                            // and select "no" in re-writing confirmation panel
+                                                
                                         }
                                         else {
                                             create = true;
@@ -1914,6 +1917,7 @@ public class Controller {
                             }
                         }
 
+                          start.remove();
                         // Create the new project?
                         if( create ) {
                             //LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ImportProject" ), getLoadingImage( ), mainWindow);
