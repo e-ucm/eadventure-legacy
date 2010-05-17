@@ -37,8 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.JOptionPane;
-
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
@@ -231,13 +229,16 @@ public class ActionsListDataControl extends DataControl {
 
         }
         else if( type == Controller.ACTION_CUSTOM_INTERACT ) {
-            String name = JOptionPane.showInputDialog( null, TC.get( "CustomAction.GetNameMessage" ), TC.get( "CustomAction.GetNameTitle" ), JOptionPane.QUESTION_MESSAGE );
+            //FIX: 
+            //String name = JOptionPane.showInputDialog( null, TC.get( "CustomAction.GetNameMessage" ), TC.get( "CustomAction.GetNameTitle" ), JOptionPane.QUESTION_MESSAGE );
+            String name = controller.showInputDialog(  TC.get( "CustomAction.GetNameTitle" ), TC.get( "CustomAction.GetNameMessage"));
             if( name == null || name.equals( "" ) ) {
                 name = "NONAME_" + ( new Random( ) ).nextInt( 1000 );
             }
 
-            Object[] options = { "Action", "Interaction" };
-            int option = JOptionPane.showOptionDialog( null, TC.get( "CustomAction.SelectTypeMessage" ), TC.get( "CustomAction.SelectTypeTitle" ), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0 );
+            String[] options = { "Action", "Interaction" };
+            //int option = JOptionPane.showOptionDialog( null, TC.get( "CustomAction.SelectTypeMessage" ), TC.get( "CustomAction.SelectTypeTitle" ), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0 );
+            int option = controller.showOptionDialog( TC.get( "CustomAction.SelectTypeTitle" ), TC.get( "CustomAction.SelectTypeMessage" ), options ) ;
             if( option == 0 ) {
                 newAction = new CustomAction( Action.CUSTOM );
                 ( (CustomAction) newAction ).setName( name );
@@ -273,7 +274,7 @@ public class ActionsListDataControl extends DataControl {
             }
         }
         else if( type == Controller.ACTION_CUSTOM ) {
-            String name = JOptionPane.showInputDialog( null, TC.get( "CustomAction.GetNameMessage" ), TC.get( "CustomAction.GetNameTitle" ), JOptionPane.QUESTION_MESSAGE );
+            String name = controller.showInputDialog(  TC.get( "CustomAction.GetNameMessage" ), TC.get( "CustomAction.GetNameTitle" ) );
             if( name.equals( "" ) ) {
                 name = "NONAME_" + ( new Random( ) ).nextInt( 1000 );
             }

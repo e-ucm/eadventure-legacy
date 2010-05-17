@@ -1819,6 +1819,7 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 <entry key="Search.AssessmentPath">Ubicación del fichero de aprendiaje</entry>
 <entry key="StartDialog.Message">Para comenzar a usar el editor de &lt;e-Adventure&gt;, debe escoger entre crear un nuevo archivo para almacenar la nueva aventura, o seleccionar una aventura ya creada para editarla.</entry>
 <entry key="HighlightItemEffect.Animated">Animierte</entry>
+<entry key="TriggerSceneEffect.Description.FirstPerson">Wählen Sie die Szene:</entry>
 <entry key="AssessmentRule.Importance.High">Hoch</entry>
 <entry key="Assets.DeleteAssetWarning">El recurso "{#0}" tiene {#1} referencias en la aventura, dichas referencias se eliminarán junto con el recurso.
 		¿Está seguro de que desea elminarlo?</entry>

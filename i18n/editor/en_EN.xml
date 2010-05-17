@@ -1882,6 +1882,7 @@ Please, try it again with other destiny directory.</entry>
 <entry key="Search.AssessmentPath">Assessment Path</entry>
 <entry key="StartDialog.Message">To start using the &lt;e-Adventure&gt; editor, you must choose between creating a new adventure, or opening an existing one to edit it.</entry>
 <entry key="HighlightItemEffect.Animated">Animated</entry>
+<entry key="TriggerSceneEffect.Description.FirstPerson">Select the scene you want to trigger:</entry>
 <entry key="AssessmentRule.Importance.High">High</entry>
 <entry key="Assets.DeleteAssetWarning">The asset "{#0}" have {#1} references in the adventure, all these references will be deleted along with the asset.
 		Are you sure that you want to delete it?</entry>

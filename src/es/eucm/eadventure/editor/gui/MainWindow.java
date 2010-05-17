@@ -1045,7 +1045,10 @@ public class MainWindow extends JFrame {
 
         // Show the dialog
         //return JOptionPane.showOptionDialog( peekWindow( ), messagePanel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null );
-        return (Integer) new GenericOptionPaneDialog( peekWindow( ), title, messagePanel, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, options ).getIntegerOption( );
+        //return (Integer) new GenericOptionPaneDialog( peekWindow( ), title, messagePanel, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, options ).getIntegerOption( );
+  
+        return (Integer)GenericOptionPaneDialog.showOptionDialog(  peekWindow( ), title, message, JOptionPane.PLAIN_MESSAGE, options );
+    
     }
 
     /**
@@ -1096,6 +1099,12 @@ public class MainWindow extends JFrame {
 
         //return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, null, defaultValue );
         return (String) GenericOptionPaneDialog.showInputDialog( peekWindow( ), title, message, JOptionPane.PLAIN_MESSAGE, null, defaultValue );
+    }
+    
+    public String showInputDialog( String title, String message ) {
+
+        //return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, null, defaultValue );
+        return (String) GenericOptionPaneDialog.showInputDialog( peekWindow( ), title, message, JOptionPane.PLAIN_MESSAGE, null, null );
     }
 
     /**

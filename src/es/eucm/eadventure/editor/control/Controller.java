@@ -3267,6 +3267,12 @@ public boolean isCharacterValid(String elementId){
 
         return mainWindow.showInputDialog( title, message, defaultValue );
     }
+    
+    
+    public String showInputDialog( String title, String message) {
+
+        return mainWindow.showInputDialog( title, message);
+    }
 
     /**
      * Uses the GUI to show an input dialog.
