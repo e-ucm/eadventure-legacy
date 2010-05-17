@@ -34,7 +34,6 @@
 package es.eucm.eadventure.editor.gui.editdialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -51,7 +50,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -67,7 +65,7 @@ import es.eucm.eadventure.editor.control.Controller;
  * 
  * @author Eugenio Jorge Marchiori
  */
-public class GraphicConfigDialog extends JDialog {
+public class GraphicConfigDialog extends ToolManagableDialog {
 
     /**
      * Required.
@@ -103,7 +101,7 @@ public class GraphicConfigDialog extends JDialog {
     public GraphicConfigDialog( int optionSelected ) {
 
         // Set the values
-        super( Controller.getInstance( ).peekWindow( ), TC.get( "GraphicConfig.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+        super( Controller.getInstance( ).peekWindow( ), TC.get( "GraphicConfig.Title" ), false);
         if( optionSelected != -1 )
             this.optionSelected = optionSelected;
         else
@@ -148,12 +146,6 @@ public class GraphicConfigDialog extends JDialog {
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.LINE_START;
         blackBkgRadioButton = new JRadioButton( TC.get( "GraphicConfig.BlackBkg" ) );
-        blackBkgRadioButton.addActionListener( new ActionListener( ) {
-
-            public void actionPerformed( ActionEvent arg0 ) {
-            
-            }
-        } );
         graphicConfigPanel.add( blackBkgRadioButton, c );
 
         c.gridx = 0;
@@ -180,12 +172,6 @@ public class GraphicConfigDialog extends JDialog {
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.LINE_START;
         fullscreenRadioButton = new JRadioButton( TC.get( "GraphicConfig.Fullscreen" ) );
-        fullscreenRadioButton.addActionListener( new ActionListener( ) {
-
-            public void actionPerformed( ActionEvent arg0 ) {
-            
-            }
-        } );
         graphicConfigPanel.add( fullscreenRadioButton, c );
 
         c.gridx = 0;
@@ -319,5 +305,23 @@ public class GraphicConfigDialog extends JDialog {
         }
         
     }
+    
+    @Override
+    public boolean updateFields( ) {
+
+        switch( Controller.getInstance( ).getGUIConfigConfiguration( )) {
+            case DescriptorData.GRAPHICS_WINDOWED:
+                windowedRadioButton.setSelected( true );
+                break;
+            case DescriptorData.GRAPHICS_BLACKBKG:
+                blackBkgRadioButton.setSelected( true );
+                break;
+            case DescriptorData.GRAPHICS_FULLSCREEN:
+                fullscreenRadioButton.setSelected( true );
+                break;
+            default:
+        }
+        return true;
+        }
 
 }

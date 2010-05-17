@@ -84,7 +84,26 @@ public class ActionDataControl extends DataControlWithResources {
      * 
      * @param action
      *            Next scenes of the data control structure
+     *            
+     *            
      */
+    public ActionDataControl (Action action, String name){
+        
+        this.action = action;
+
+        this.resourcesList = new ArrayList<Resources>( );
+        this.resourcesDataControlList = new ArrayList<ResourcesDataControl>( );
+
+        actionType = Controller.ACTION_TALK_TO;
+        
+        // Create subcontrollers
+        conditionsController = new ConditionsController( action.getConditions( ), actionType, name );
+        effectsController = new EffectsController( action.getEffects( ) );
+        notEffectsController = new EffectsController( action.getNotEffects( ) );
+        
+    }
+    
+    
     public ActionDataControl( Action action ) {
 
         this.action = action;

@@ -72,7 +72,7 @@ public class SelectButtonTool extends SelectResourceTool {
         }
 
         if( !introduced ) {
-            resources.addAsset( action + "#" + type, "NULL" );
+            resources.addAsset( action + "#" + type, /*"NULL"*/ null );
         }
 
         return resources;
@@ -106,6 +106,7 @@ public class SelectButtonTool extends SelectResourceTool {
                 }
             }
             controller.updatePanel( );
+            controller.dataModified( );
             return true;
         }
 
@@ -133,7 +134,8 @@ public class SelectButtonTool extends SelectResourceTool {
     @Override
     public boolean doTool( ) {
 
-        if( resources.getAssetPath( action + "#" + type ).equals( "NULL" ) ) {
+     //   if( resources.getAssetPath( action + "#" + type ).equals( "NULL" ) ) {
+        if( resources.getAssetPath( action + "#" + type ) == null ) {
             removed = false;
         }
         else {

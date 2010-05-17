@@ -83,7 +83,9 @@ public class ActionsListDataControl extends DataControl {
             if( action.getType( ) == Action.CUSTOM || action.getType( ) == Action.CUSTOM_INTERACT ) {
                 actionsDataControlList.add( new CustomActionDataControl( (CustomAction) action ) );
             }
-            else
+            else if (action.getType( ) == Action.TALK_TO)
+                actionsDataControlList.add( new ActionDataControl( action , ((NPCDataControl)parent).getId( )) );
+            else 
                 actionsDataControlList.add( new ActionDataControl( action ) );
         }
     }

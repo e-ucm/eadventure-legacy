@@ -158,7 +158,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
         }
     }
 
-    private static final String[] cursorTypes = { DEFAULT_CURSOR, CURSOR_OVER, CURSOR_ACTION, EXIT_CURSOR, USE_CURSOR, LOOK_CURSOR, EXAMINE_CURSOR, TALK_CURSOR, GRAB_CURSOR, GIVE_CURSOR };
+    // the deleted cursors are related with the traditional hud, which has been removed 
+    private static final String[] cursorTypes = { DEFAULT_CURSOR, CURSOR_OVER, CURSOR_ACTION, EXIT_CURSOR/*, USE_CURSOR, LOOK_CURSOR, EXAMINE_CURSOR, TALK_CURSOR, GRAB_CURSOR, GIVE_CURSOR */};
 
     public static String[] getCursorTypes( ) {
 

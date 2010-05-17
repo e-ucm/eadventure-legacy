@@ -70,7 +70,7 @@ public class SelectArrowTool extends SelectResourceTool {
         }
 
         if( !introduced ) {
-            resources.addAsset( type, "NULL" );
+            resources.addAsset( type, null );
         }
 
         return resources;
@@ -101,6 +101,7 @@ public class SelectArrowTool extends SelectResourceTool {
                 }
             }
             controller.updatePanel( );
+            controller.dataModified( );
             return true;
         }
 
@@ -128,7 +129,8 @@ public class SelectArrowTool extends SelectResourceTool {
     @Override
     public boolean doTool( ) {
 
-        if( resources.getAssetPath( type ).equals( "NULL" ) ) {
+      //  if( resources.getAssetPath( type ).equals( "NULL" ) ) {
+        if( resources.getAssetPath( type ) == null ) {  
             removed = false;
         }
         else {

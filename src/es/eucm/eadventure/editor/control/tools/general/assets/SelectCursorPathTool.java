@@ -73,7 +73,7 @@ public class SelectCursorPathTool extends SelectResourceTool {
         }
 
         if( !introduced ) {
-            resources.addAsset( type, "NULL" );
+            resources.addAsset( type, null );
         }
 
         return resources;
@@ -96,8 +96,10 @@ public class SelectCursorPathTool extends SelectResourceTool {
         else {
             for( int i = 0; i < adventureData.getCursors( ).size( ); i++ ) {
                 if( adventureData.getCursors( ).get( i ).getType( ).equals( type ) ) {
-                    if( added )
+                    if( added ){
                         adventureData.getCursors( ).remove( i );
+                        //adventureData.addCursor( type, "" );
+                    }
                     else
                         adventureData.getCursors( ).get( i ).setPath( resources.getAssetPath( type ) );
                     break;
@@ -105,6 +107,7 @@ public class SelectCursorPathTool extends SelectResourceTool {
                 }
             }
             controller.updatePanel( );
+            controller.dataModified( );
             return true;
         }
 
@@ -113,9 +116,10 @@ public class SelectCursorPathTool extends SelectResourceTool {
     @Override
     public boolean redoTool( ) {
 
-        if( added )
-            adventureData.addCursor( type, "" );
+        
         boolean done = super.redoTool( );
+        if( added )
+          adventureData.addCursor( type, "" );
         if( !done )
             return false;
         else {
@@ -132,7 +136,8 @@ public class SelectCursorPathTool extends SelectResourceTool {
     @Override
     public boolean doTool( ) {
 
-        if( resources.getAssetPath( type ).equals( "NULL" ) ) {
+       // if( resources.getAssetPath( type ).equals( "NULL" ) ) {
+        if( resources.getAssetPath( type )== null ) {
             adventureData.addCursor( type, "" );
             added = true;
         }
