@@ -36,7 +36,9 @@ package es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
@@ -131,16 +133,28 @@ public class AnimationListRenderer implements ListCellRenderer {
         if( imageURI != null && imageURI.length( ) > 0 ) {
             image = chache.get( imageURI );
             if (image == null) {
-                image = AssetsController.getImage( imageURI );
-                if (image != null) {
-                    image = image.getScaledInstance( 100, -1, Image.SCALE_SMOOTH );
-                    if (image.getHeight( null ) > 100)
-                        image = image.getScaledInstance( -1, 100, Image.SCALE_SMOOTH );
+                Image tempImage = AssetsController.getImage( imageURI );
+                if (tempImage != null) {
+                    tempImage = tempImage.getScaledInstance( 100, -1, Image.SCALE_SMOOTH );
+                    if (tempImage.getHeight( null ) > 100)
+                        tempImage = tempImage.getScaledInstance( -1, 100, Image.SCALE_SMOOTH );
                 }
+                image = new BufferedImage(tempImage.getWidth( null ), tempImage.getHeight( null ), BufferedImage.TYPE_INT_RGB);
+                Graphics g = image.getGraphics( );
+                g.setColor( Color.WHITE );
+                g.fillRect( 0, 0, image.getWidth( null ), image.getHeight( null ) );
+                g.drawImage( tempImage, 0, 0, null );
+                chache.put( imageURI, image );
+                tempImage = null;
             }
-            chache.put( imageURI, image );
-            if( soundURI != null && soundURI != "" && image != null ) {
-                image.getGraphics( ).drawImage( soundIcon.getImage( ), 0, 0, null );
+            if( soundURI != null && !soundURI.equals("") && image != null ) {
+                Image tempImage = new BufferedImage( image.getWidth( null ), image.getHeight( null ), BufferedImage.TYPE_INT_RGB);
+                Graphics g = tempImage.getGraphics( );
+                g.setColor( Color.WHITE );
+                g.fillRect( 0, 0, image.getWidth( null ), image.getHeight( null ) );
+                g.drawImage( image, 0, 0, null );
+                g.drawImage( soundIcon.getImage( ), 0, 0, null );
+                image = tempImage;
             }
         }
 
