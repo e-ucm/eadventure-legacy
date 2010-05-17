@@ -55,6 +55,11 @@ public class FrameAnimation implements Animation {
      * The time accumulated in the playing of the animation
      */
     private long accumulatedTime;
+    
+    /**
+     * The id of previous sound ID to stop the previous frame sound
+     */
+    private long previousFrameSoundID;
 
     /**
      * Create a new instance using an animation.
@@ -66,6 +71,7 @@ public class FrameAnimation implements Animation {
 
         this.animation = animation;
         accumulatedTime = 0;
+        previousFrameSoundID = -1;
     }
 
     public Image getImage( ) {
@@ -73,9 +79,12 @@ public class FrameAnimation implements Animation {
         Image temp = animation.getImage( accumulatedTime, es.eucm.eadventure.common.data.animation.Animation.ENGINE );
         String sound = animation.getNewSound( );
         if( sound != null && sound != "" ) {
-            long soundID = MultimediaManager.getInstance( ).loadSound( sound, false );
-            MultimediaManager.getInstance( ).startPlaying( soundID );
-        }
+            if (previousFrameSoundID!=-1)
+                MultimediaManager.getInstance( ).stopPlaying( previousFrameSoundID );
+            previousFrameSoundID = MultimediaManager.getInstance( ).loadSound( sound, false );
+            MultimediaManager.getInstance( ).startPlaying( previousFrameSoundID );
+        } else if (!MultimediaManager.getInstance( ).isPlaying( previousFrameSoundID ))
+            previousFrameSoundID = -1;
         return temp;
     }
 
