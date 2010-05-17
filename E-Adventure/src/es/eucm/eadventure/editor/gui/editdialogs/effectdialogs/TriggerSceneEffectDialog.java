@@ -90,6 +90,8 @@ public class TriggerSceneEffectDialog extends EffectDialog {
         // Take the list of characters
         String[] scenesArray = controller.getIdentifierSummary( ).getSceneIds( );
 
+        boolean isFirstPersonGame = Controller.getInstance( ).isPlayTransparent( );
+        
         // If there is one scene
         if( scenesArray.length > 0 ) {
 
@@ -102,8 +104,10 @@ public class TriggerSceneEffectDialog extends EffectDialog {
             GridBagConstraints c = new GridBagConstraints( );
 
             // Set the border of the panel with the description
-            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "TriggerSceneEffect.Description" ) ) ) );
-
+            if( !isFirstPersonGame  )
+                mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "TriggerSceneEffect.Description" ) ) ) );
+            else 
+                mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "TriggerSceneEffect.Description.FirstPerson" ) ) ) );
             // Create and add the list of scenes
             c.insets = new Insets( 2, 4, 4, 4 );
             c.fill = GridBagConstraints.HORIZONTAL;
@@ -148,7 +152,7 @@ public class TriggerSceneEffectDialog extends EffectDialog {
             }
             playerPositionPanel.loadImage( controller.getSceneImagePath( scenesComboBox.getSelectedItem( ).toString( ) ) );
 
-            if( !Controller.getInstance( ).isPlayTransparent( ) )
+            if( !isFirstPersonGame )
                 mainPanel.add( playerPositionPanel, c );
 
             // Add the panel to the center
@@ -158,7 +162,10 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 
             // Set the dialog
             setResizable( false );
-            setSize( 640, 480 );
+            if( !isFirstPersonGame  )
+                setSize( 640, 480 );
+            else 
+                setSize(250,120);
             Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
             setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
             setVisible( true );
