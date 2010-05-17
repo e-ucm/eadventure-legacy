@@ -95,7 +95,6 @@ import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.MainWindow;
-import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
@@ -1852,10 +1851,12 @@ public class Controller {
                         boolean create = false;
                         java.io.File selectedDir = null;
                         // Prompt main folder of the project
-                        ProjectFolderChooser folderSelector = new ProjectFolderChooser( false, false );
+                       // ProjectFolderChooser folderSelector = new ProjectFolderChooser( false, false );
+                        FrameForInitialDialogs start = new FrameForInitialDialogs(false);
                         // If some folder is selected, check all characters are correct  
-                        if( folderSelector.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ) {
-                            java.io.File selectedFolder = folderSelector.getSelectedFile( );
+                        int op = start.showStartDialog( );
+                       if( op == StartDialog.APROVE_SELECTION ) {
+                            java.io.File selectedFolder = start.getSelectedFile( );
                             selectedFile = selectedFolder;
                             if( selectedFolder.getAbsolutePath( ).endsWith( ".eap" ) ) {
                                 String absolutePath = selectedFolder.getAbsolutePath( );
