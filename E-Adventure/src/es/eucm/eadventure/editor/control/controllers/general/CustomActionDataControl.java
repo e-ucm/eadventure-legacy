@@ -40,7 +40,10 @@ import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
+import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.DeleteResourcesBlockTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 
 public class CustomActionDataControl extends ActionDataControl {
@@ -113,5 +116,26 @@ public class CustomActionDataControl extends ActionDataControl {
 
         return getPathFromChild( dataControl, resourcesDataControlList );
     }
+    
+    
+    @Override
+    public boolean addElement( int type, String id ) {
+        boolean elementAdded = false;
+
+        if( type == Controller.RESOURCES ) {
+            elementAdded = Controller.getInstance( ).addTool( new AddResourcesBlockTool( resourcesList, resourcesDataControlList, Controller.ACTION_CUSTOM, this ) );
+        }
+
+        return elementAdded;
+
+    }
+    
+    @Override
+    public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
+
+        return controller.addTool( new DeleteResourcesBlockTool( resourcesList, resourcesDataControlList, dataControl, this ) );
+    }
+    
+    
 
 }

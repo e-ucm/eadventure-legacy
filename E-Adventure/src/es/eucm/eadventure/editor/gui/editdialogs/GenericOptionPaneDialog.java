@@ -73,10 +73,8 @@ public class GenericOptionPaneDialog extends ToolManagableDialog {
         setResizable( false );
 
         this.pack( );
-        // this.setVisible(true);
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-        // this.setVisible(true);
     }
 
     public GenericOptionPaneDialog( Window window, String title, Object message, int messageType, int optionType ) {
@@ -87,6 +85,7 @@ public class GenericOptionPaneDialog extends ToolManagableDialog {
     public GenericOptionPaneDialog( Window window, String title, Object message, int messageType, int optionType, String[] options ) {
 
         this( window, title, message, messageType, optionType, options, null, null );
+        
     }
 
     public GenericOptionPaneDialog( Window window, String title, Object message, int messageType, Object[] selectionValues, Object initialValue ) {
@@ -144,6 +143,28 @@ public class GenericOptionPaneDialog extends ToolManagableDialog {
         optionPane.setVisible( true );
 
         Object value = optionPane.getInputValue( );
+        if( value == JOptionPane.UNINITIALIZED_VALUE )
+            return null;
+        else
+            return value;
+    }
+    
+    public static Object showOptionDialog( Window window, String title, Object message, int messageType, Object[] selectionValues ) {
+
+        GenericOptionPaneDialog optionPane = new GenericOptionPaneDialog( window, title, message, messageType, null, null );
+
+        optionPane.setWantsInput( false );
+        optionPane.setSelectionValues( selectionValues );
+        //optionPane.setInitialSelectionValue( initialValue );
+        //optionPane.selectInitialValue( );
+        optionPane.setComponentOrientation( window.getComponentOrientation( ) );
+        if( selectionValues != null )
+            optionPane.setMinimumSize( new Dimension( 200, 150 ) );
+        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+        optionPane.setLocation( ( screenSize.width - optionPane.getWidth( ) ) / 2, ( screenSize.height - optionPane.getHeight( ) ) / 2 );
+        optionPane.setVisible( true );
+
+        Object value = optionPane.getIntegerOption( );
         if( value == JOptionPane.UNINITIALIZED_VALUE )
             return null;
         else

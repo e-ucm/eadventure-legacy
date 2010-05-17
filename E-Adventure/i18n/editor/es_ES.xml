@@ -1578,7 +1578,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="Resources.EditAssetMessage">Seleccione un recurso de la lista:</entry>
 <entry key="Search.SMTPServer">SMTP Server</entry>
 <entry key="LOMES.LifeCycle.RoleName">Rol</entry>
-<entry key="TriggerSceneEffect.Description">Seleccione la escena que se ejecutará:</entry>
+<entry key="TriggerSceneEffect.Description">Seleccione la escena que se ejecutará y la posición inicial del protagonista:</entry>
 <entry key="Resources.EditAsset">Editar recurso</entry>
 <entry key="Conditions.Context.TimedAssessmentRuleA2"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se activará nada más comenzar el capítulo&lt;/b&gt; (el contador comenzará a contar), ya que no se ha establecido ninguna condición:</entry>
 <entry key="Conditions.Context.TimedAssessmentRuleA1"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se activará&lt;/b&gt; (el contador comenzará a contar) cuando se cumpla la siguiente condición:</entry>
@@ -1887,6 +1887,7 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 <entry key="Search.AssessmentPath">Ubicación del fichero de aprendiaje</entry>
 <entry key="StartDialog.Message">Para comenzar a usar el editor de &lt;e-Adventure&gt;, debe escoger entre crear un nuevo archivo para almacenar la nueva aventura, o seleccionar una aventura ya creada para editarla.</entry>
 <entry key="HighlightItemEffect.Animated">Animado</entry>
+<entry key="TriggerSceneEffect.Description.FirstPerson">Seleccione la escena que se ejecutará:</entry>
 <entry key="AssessmentRule.Importance.High">Alta</entry>
 <entry key="Assets.DeleteAssetWarning">El recurso "{#0}" tiene {#1} referencias en la aventura, dichas referencias se eliminarán junto con el recurso.
 		¿Está seguro de que desea elminarlo?</entry>

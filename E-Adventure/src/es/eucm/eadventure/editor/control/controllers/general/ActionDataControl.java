@@ -348,25 +348,50 @@ public class ActionDataControl extends DataControlWithResources {
         if( action.getNotEffects( ) != null )
             EffectsController.updateVarFlagSummary( varFlagSummary, action.getNotEffects( ) );
         ConditionsController.updateVarFlagSummary( varFlagSummary, action.getConditions( ) );
+        if (action.getType( ) == Action.CUSTOM_INTERACT || action.getType( ) == Action.CUSTOM){
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.updateVarFlagSummary( varFlagSummary );
+        }
     }
 
     @Override
     public boolean isValid( String currentPath, List<String> incidences ) {
 
+        boolean valid = true;
+        if (action.getType( ) == Action.CUSTOM_INTERACT || action.getType( ) == Action.CUSTOM){
+        // Iterate through the resources
+        for( int i = 0; i < resourcesDataControlList.size( ); i++ ) {
+            String resourcesPath = currentPath + " >> " + TC.getElement( Controller.RESOURCES ) + " #" + ( i + 1 );
+            valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
+        }
+        }
+        
         // Check the effects of the action
-        return EffectsController.isValid( currentPath + " >> " + TC.get( "Element.Effects" ), incidences, action.getEffects( ) );
+        valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.Effects" ), incidences, action.getEffects( ) );
+        return valid;
     }
 
     @Override
     public int countAssetReferences( String assetPath ) {
 
-        // Return the asset references from the effects
-        return EffectsController.countAssetReferences( assetPath, action.getEffects( ) );
+        int count = 0;
+        if (action.getType( ) == Action.CUSTOM_INTERACT || action.getType( ) == Action.CUSTOM){
+     // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            count += resourcesDataControl.countAssetReferences( assetPath );
+        }
+     // Return the asset references from the effects
+        count += EffectsController.countAssetReferences( assetPath, action.getEffects( ) );;
+        return count;
     }
 
     @Override
     public void deleteAssetReferences( String assetPath ) {
-
+        if (action.getType( ) == Action.CUSTOM_INTERACT || action.getType( ) == Action.CUSTOM){
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.deleteAssetReferences( assetPath );
+        }
         EffectsController.deleteAssetReferences( assetPath, action.getEffects( ) );
     }
 
@@ -378,6 +403,12 @@ public class ActionDataControl extends DataControlWithResources {
         // If the action references to the given identifier, increase the counter
         if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType( ) == Action.DRAG_TO || action.getType( ) == Action.CUSTOM_INTERACT ) && action.getTargetId( ).equals( id ) )
             count++;
+        
+        if (action.getType( ) == Action.CUSTOM_INTERACT || action.getType( ) == Action.CUSTOM){
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.countIdentifierReferences( id );
+        }
 
         // Add to the counter the references in the effects block
         count += EffectsController.countIdentifierReferences( id, action.getEffects( ) );
@@ -389,6 +420,11 @@ public class ActionDataControl extends DataControlWithResources {
     @Override
     public void replaceIdentifierReferences( String oldId, String newId ) {
 
+        if (action.getType( ) == Action.CUSTOM_INTERACT || action.getType( ) == Action.CUSTOM){
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.replaceIdentifierReferences( oldId, newId );
+        }
         // Only the "Give to" and "Use with" have item references
         if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType( ) == Action.DRAG_TO || action.getType( ) == Action.CUSTOM_INTERACT ) && action.getTargetId( ).equals( oldId ) )
             action.setTargetId( newId );
@@ -399,6 +435,11 @@ public class ActionDataControl extends DataControlWithResources {
 
     @Override
     public void deleteIdentifierReferences( String id ) {
+        if (action.getType( ) == Action.CUSTOM_INTERACT || action.getType( ) == Action.CUSTOM){
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.deleteIdentifierReferences( id );
+        }
 
         EffectsController.deleteIdentifierReferences( id, action.getEffects( ) );
         conditionsController.deleteIdentifierReferences( id );
@@ -406,7 +447,11 @@ public class ActionDataControl extends DataControlWithResources {
 
     @Override
     public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-
+        
+        
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.getAssetReferences( assetPaths, assetTypes );
         EffectsController.getAssetReferences( assetPaths, assetTypes, action.getEffects( ) );
     }
 

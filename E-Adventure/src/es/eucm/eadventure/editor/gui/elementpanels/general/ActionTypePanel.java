@@ -37,7 +37,7 @@ public interface ActionTypePanel {
 
     public static final int ACTION_TYPE = 0;
 
-    public static final int CUSTOM_TYPE = 0;
+    public static final int CUSTOM_TYPE = 1;
 
     public int getType( );
 }

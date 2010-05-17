@@ -34,7 +34,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -140,7 +139,7 @@ public class CustomActionPropertiesPanel extends JPanel implements ActionTypePan
 
             super( control );
             // TODO Parche, arreglar
-            lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
+            //lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
 
         }
 
