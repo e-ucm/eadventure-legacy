@@ -258,18 +258,14 @@ public class FunctionalItem extends FunctionalElement {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
      */
     public void draw( ) {
-
-        int x_image = Math.round( x - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
-        int y_image = Math.round( y - getHeight( ) * scale );
-        //x_image+=x1;
-        //y_image+=y1;
+        int x_image = Math.round( (x + x1) - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+        int y_image = Math.round( (y + y1) - getHeight( ) * scale );
         if( scale != 1 ) {
             Image temp;
             if( image == oldOriginalImage && scale == oldScale ) {
                 temp = oldImage;
             }
             else {
-//                temp = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
                 temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.BITMASK );
                 ((Graphics2D) temp.getGraphics( )).drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
 
@@ -290,12 +286,10 @@ public class FunctionalItem extends FunctionalElement {
 
     @Override
     public boolean isPointInside( float x, float y ) {
-
         boolean isInside = false;
 
         int mousex = (int) ( x - ( this.x - getWidth( ) * scale / 2 ) );
         int mousey = (int) ( y - ( this.y - getHeight( ) * scale ) );
-
         
         if (mousex < x1 * scale || mousey < y1 * scale || mousex >= x2 * scale || mousey >= y2 * scale)
             return false;
@@ -313,7 +307,6 @@ public class FunctionalItem extends FunctionalElement {
 
     @Override
     public boolean canPerform( int action ) {
-
         boolean canPerform = false;
 
         // The item can't be given to, nor talked to
