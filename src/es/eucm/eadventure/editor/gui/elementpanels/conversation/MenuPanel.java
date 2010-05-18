@@ -39,12 +39,12 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
@@ -75,6 +75,8 @@ public class MenuPanel extends JPanel {
 
     private ConversationEditionPanel conversationPanel;
 
+    private BufferedImage tempImage;
+    
     public MenuPanel( ConversationDataControl conversationDataControl, ConversationEditionPanel conversationPanel2 ) {
 
         super( );
@@ -257,18 +259,19 @@ public class MenuPanel extends JPanel {
     }
 
     @Override
-    public void paint( Graphics g ) {
-
-        if( this.getMousePosition( ) == null ) {
-            this.setOpaque( false );
+    public void paint( Graphics g2 ) {
+        if( this.getMousePosition( ) == null && tempImage == null) {
+            tempImage = new BufferedImage(this.getWidth( ), this.getHeight( ), BufferedImage.TYPE_4BYTE_ABGR);
+            Graphics g = tempImage.getGraphics( );
             AlphaComposite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 0.3f );
             ( (Graphics2D) g ).setComposite( alphaComposite );
-            super.paint( g );
+            this.paintComponents( g );
         }
-        else {
-            this.setOpaque( true );
-            super.paint( g );
-        }
+        
+        if (this.getMousePosition( ) == null && tempImage!= null)
+            g2.drawImage( tempImage, 0, 0, null );
+        else
+            super.paint( g2 );
     }
 
 }
