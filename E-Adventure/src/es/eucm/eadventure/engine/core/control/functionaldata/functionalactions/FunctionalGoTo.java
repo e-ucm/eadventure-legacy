@@ -121,13 +121,18 @@ public class FunctionalGoTo extends FunctionalAction {
         super( action );
         this.originalPosX = posX;
         this.originalPosY = posY;
-        int[] finalDest = Game.getInstance( ).getFunctionalScene( ).checkPlayerAgainstBarriers( posX, posY );
         this.trajectory = Game.getInstance( ).getFunctionalScene( ).getTrajectory( );
-        this.trajectory.setDestinationElement( null );
+        int[] finalDest = Game.getInstance( ).getFunctionalScene( ).checkPlayerAgainstBarriers( posX, posY );
+        if (trajectory.hasTrajectory( )) {
+            this.trajectory.setDestinationElement( null );
+            this.trajectory.updatePathToNearestPoint( Game.getInstance( ).getFunctionalPlayer( ).getX( ), Game.getInstance( ).getFunctionalPlayer( ).getY( ), posX, posY );
+            trajectoryUpdated = true;
+        } 
         this.posX = finalDest[0];
         this.posY = finalDest[1];
-        type = ActionManager.ACTION_GOTO;
+        
         trajectoryUpdated = false;
+        type = ActionManager.ACTION_GOTO;
         keepDistance = 0;
     }
 
@@ -166,7 +171,6 @@ public class FunctionalGoTo extends FunctionalAction {
      *            The element to get to
      */
     public FunctionalGoTo( Action action, int x, int y, FunctionalPlayer functionalPlayer, FunctionalElement element ) {
-
         this( action, x, y );
         if( trajectory.hasTrajectory( ) ) {
             trajectory.setDestinationElement( element );
