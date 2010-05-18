@@ -422,6 +422,8 @@ public class AdaptationEditionPanel extends JPanel implements Updateable, DataCo
         // the call is not spread 
         //if( rulesInfoPanel != null && rulesInfoPanel instanceof Updateable )
           //  ( (Updateable) rulesInfoPanel ).updateFields( );
+        
+        initialStatePanel.updateFields( );
         if( informationTable.getCellEditor( ) != null ) {
             informationTable.getCellEditor( ).cancelCellEditing( );
         }
