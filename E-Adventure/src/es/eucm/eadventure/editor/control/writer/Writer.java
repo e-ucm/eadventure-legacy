@@ -128,8 +128,8 @@ public class Writer {
     /**
      * Writes the daventure data into the given file.
      * 
-     * @param zipFilename
-     *            Zip file to write the data
+     * @param folderName
+     *            Folder where to write the data
      * @param adventureData
      *            Adventure data to write in the file
      * @param valid
@@ -137,7 +137,7 @@ public class Writer {
      *            engine), false otherwise
      * @return True if the operation was succesfully completed, false otherwise
      */
-    public static boolean writeDescriptor( String zipFilename, AdventureDataControl adventureData, boolean valid ) {
+    public static boolean writeData( String folderName, AdventureDataControl adventureData, boolean valid ) {
 
         boolean dataSaved = false;
 
@@ -151,92 +151,12 @@ public class Writer {
             OutputStream fout = null;
             OutputStreamWriter writeFile = null;
 
-            // Delete the previous XML files in the root of the ZIP
-            File zipFile = new File( zipFilename );
+            // Delete the previous XML files in the root of the project dir
+            File projectFolder = new File( folderName );
 
-            if( zipFile.exists( ) ) {
+            if( projectFolder.exists( ) ) {
                 //File[] xmlFiles = zipFile.listFiles( new XMLFileFilter( ), zipFile.getArchiveDetector( ) );
-                File[] xmlFiles = zipFile.listFiles( new XMLFileFilter( ) );
-                for( File xmlFile : xmlFiles )
-                    if( xmlFile.isFile( ) && xmlFile.getName( ).equals( "descriptor.xml" ) )
-                        xmlFile.delete( );
-            }
-
-            /** ******* START WRITING THE DESCRIPTOR ********* */
-            // Pick the main node for the descriptor
-            Node mainNode = DescriptorDOMWriter.buildDOM( adventureData, valid );
-            indentDOM( mainNode, 0 );
-            doc = db.newDocument( );
-            doc.adoptNode( mainNode );
-            doc.appendChild( mainNode );
-
-            // Create the necessary elements for export the DOM into a XML file
-            transformer = tFactory.newTransformer( );
-            transformer.setOutputProperty( OutputKeys.DOCTYPE_SYSTEM, "descriptor.dtd" );
-
-            // Create the output buffer, write the DOM and close it
-            fout = new FileOutputStream( zipFilename + "/descriptor.xml" );
-            writeFile = new OutputStreamWriter( fout, "UTF-8" );
-            transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
-            writeFile.close( );
-            fout.close( );
-            /** ******** END WRITING THE DESCRIPTOR ********** */
-
-            dataSaved = true;
-
-        }
-        catch( IOException exception ) {
-            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
-        }
-        catch( ParserConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
-        }
-        catch( TransformerConfigurationException exception ) {
-            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
-        }
-        catch( TransformerException exception ) {
-            Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
-            ReportDialog.GenerateErrorReport( exception, true, TC.get( "Error.WriteData" ) );
-        }
-
-        return dataSaved;
-    }
-
-    /**
-     * Writes the daventure data into the given file.
-     * 
-     * @param zipFilename
-     *            Zip file to write the data
-     * @param adventureData
-     *            Adventure data to write in the file
-     * @param valid
-     *            True if the adventure is valid (can be executed in the
-     *            engine), false otherwise
-     * @return True if the operation was succesfully completed, false otherwise
-     */
-    public static boolean writeData( String zipFilename, AdventureDataControl adventureData, boolean valid ) {
-
-        boolean dataSaved = false;
-
-        try {
-            // Create the necessary elements for building the DOM
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
-            TransformerFactory tFactory = TransformerFactory.newInstance( );
-            DocumentBuilder db = dbf.newDocumentBuilder( );
-            Document doc = null;
-            Transformer transformer = null;
-            OutputStream fout = null;
-            OutputStreamWriter writeFile = null;
-
-            // Delete the previous XML files in the root of the ZIP
-            File zipFile = new File( zipFilename );
-
-            if( zipFile.exists( ) ) {
-                //File[] xmlFiles = zipFile.listFiles( new XMLFileFilter( ), zipFile.getArchiveDetector( ) );
-                File[] xmlFiles = zipFile.listFiles( new XMLFileFilter( ) );
+                File[] xmlFiles = projectFolder.listFiles( new XMLFileFilter( ) );
                 for( File xmlFile : xmlFiles )
                     if( xmlFile.isFile( ) )
                         xmlFile.delete( );
@@ -258,7 +178,7 @@ public class Writer {
             transformer.setOutputProperty( OutputKeys.DOCTYPE_SYSTEM, "descriptor.dtd" );
 
             // Create the output buffer, write the DOM and close it
-            fout = new FileOutputStream( zipFilename + "/descriptor.xml" );
+            fout = new FileOutputStream( folderName + "/descriptor.xml" );
             writeFile = new OutputStreamWriter( fout, "UTF-8" );
             transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
             writeFile.close( );
@@ -273,7 +193,7 @@ public class Writer {
 
                 doc = db.newDocument( );
                 // Pick the main node of the chapter
-                mainNode = ChapterDOMWriter.buildDOM( chapter, zipFilename, doc );
+                mainNode = ChapterDOMWriter.buildDOM( chapter, folderName, doc );
                 /** ******* START WRITING THE ADAPTATION DATA ***** */
                 for( AdaptationProfile profile : chapter.getAdaptationProfiles( ) ) {
                     mainNode.appendChild( Writer.writeAdaptationData( profile, true, doc ) );
@@ -296,7 +216,7 @@ public class Writer {
                 transformer.setOutputProperty( OutputKeys.DOCTYPE_SYSTEM, "eadventure.dtd" );
 
                 // Create the output buffer, write the DOM and close it
-                fout = new FileOutputStream( zipFilename + "/chapter" + chapterIndex++ + ".xml" );
+                fout = new FileOutputStream( folderName + "/chapter" + chapterIndex++ + ".xml" );
                 writeFile = new OutputStreamWriter( fout, "UTF-8" );
                 transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
                 writeFile.close( );
