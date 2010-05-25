@@ -37,11 +37,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -620,6 +618,7 @@ public class AssessmentEngine implements TimerEventListener {
 							String message = "Report from: " + playerName;
 							
 							//TODO: eliminar esto, se a–adi— para las pruebas en medicina
+							/*
 							File report = new File(reportAbsoluteFile);
 							try {
 							    FileReader fir = new FileReader(report);
@@ -638,6 +637,7 @@ public class AssessmentEngine implements TimerEventListener {
                             catch( IOException e1 ) {
                                 e1.printStackTrace();
                             }
+							*/
 							
 							SendMail sm = new SendMail(assessmentProfile.getSmtpServer(), assessmentProfile.getSmtpUser(), assessmentProfile.getSmtpPwd());
 							sm.setPort(Integer.parseInt(assessmentProfile.getSmtpPort()));
