@@ -1,0 +1,56 @@
+Compilation instructions:
+=========================
+
+e-Adventure is an open source product.
+
+Follow this steps to download and execute the source code in your computer.
+
+Requirements:
+Java 1.6+
+Eclipse 3.2+
+
+
+Step 1 - Checkout
+-----------------
+Use your favorite SVN manager to download the latest version from sourceforge.
+
+The contents of the project are actually a complete Eclipse Java 
+Project. There will be compilation errors. Do not despair :)
+
+
+
+Step 2 - Add the supplementary JAR files
+----------------------------------------
+To preserve bandwith the static jar files used by e-adventure are not part of 
+the SVN project and must be downloaded separately.
+
+To add these libraris, download the file compilationJars.zip from sourceforge.
+Extract its contents into a 'jars' folder at the project's root folder.
+
+This should solve most but not all of the compilation errors.
+
+
+
+Step 3 - Link the plugin.jar library
+------------------------------------
+There is one final jar file that must be linked separately. This is a file that
+is part of the JDK, and we cannot offer jar files from the Java SDK for direct
+download.
+
+In order to link this file to the project, follow the next steps:
+1.- Go to Project Properties --> Java Build Path
+2.- Select the option "Add External JARs..."
+3.- Look for plugin.jar in the JDK folder in your hard drive (it should be 
+    inside the /jre/lib folder)
+    
+This library is only used when the games are executed as applets, and in those
+cases the browser plugin will be providing the binaries (i.e. don't worry about
+this when distributing the platform).
+
+    
+    
+Step 4 - Launch the tools
+-------------------------
+The main files are in es.eucm.eadventure.editor and es.eucm.eadventure.engine
+
+Enjoy!
