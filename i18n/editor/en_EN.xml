@@ -189,7 +189,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TreeNode.AddElement28">Add NPC</entry>
 <entry key="TreeNode.AddElement27">Add NPCs list</entry>
 <entry key="TreeNode.AddElement26">Add player</entry>
-<entry key="Effect.TriggerLastScene">Trigger last scene</entry>
+<entry key="Effect.TriggerLastScene">Trigger previous scene</entry>
 <entry key="Effect.TriggerCutscene">Trigger cutscene</entry>
 <entry key="Cursor.give.Tip">For traditional gui only: This cursor will be used for "give" actions</entry>
 <entry key="TreeNode.AddElement25">Add "Give to" action</entry>
@@ -345,7 +345,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="MovePlayerEffect.Title">Move player effect</entry>
 <entry key="MenuAdventure.DeleteUnusedAssets">Delete unused assets</entry>
 <entry key="ExitLook.HelpText"> Here you are allowed to customize the look of cursor shown when the mouse is over the exit, as well as the text displayed. Initially the default cursor is shown, and the text displayed will be the name of the scene you will get through this exit, so it is not compulsory to specify those values. However, you can customize both cursor and text for the exit (general case) and for each next scene. The text or cursor edited for the exit will only be used in case it was not customized for the next scene</entry>
-<entry key="Effect.MoveObject">Move object</entry>
+<entry key="Effect.MoveObject">Move Object</entry>
 <entry key="Conversations.DeleteAudio">Delete audio</entry>
 <entry key="MenuFile.ImportChapter">Import chapter</entry>
 <entry key="Conditions.Flag.State">Value (active/inactive)</entry>
@@ -1011,7 +1011,7 @@ The operation was aborted.</entry>
 <entry key="DrawPanel.ZoomSlider">Present zoom in the panel</entry>
 <entry key="BookParagraphs.MoveParagraphDown">Move the selected paragraph a position down</entry>
 <entry key="LOMES.Value">Value</entry>
-<entry key="Effect.HighlightItem">Highlight item</entry>
+<entry key="Effect.HighlightItem">Highlight object</entry>
 <entry key="Conditions.Context.1.231"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
 <entry key="LOM.Educational.IntendedEndUserRole3">Manager</entry>
 <entry key="Conditions.Context.1.230"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
@@ -1742,7 +1742,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="CustomAction.SelectTypeMessage">Select whether the action is on the object or if it interacts with another</entry>
 <entry key="CustomAction.ConfigurationTitle">Configuration</entry>
 <entry key="EffectsGroup.Main">All effects</entry>
-<entry key="Effect.TriggerLastSceneInfo">Trigger last scene</entry>
+<entry key="Effect.TriggerLastSceneInfo">Trigger previous scene</entry>
 <entry key="IMS.Classification.Tip">Classification Data</entry>
 <entry key="GlobalStatesList.ID">Global state ID</entry>
 <entry key="Item.ReturnsWhenDragged">Object returns to its original position after being dragged</entry>

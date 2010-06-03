@@ -190,7 +190,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="TreeNode.AddElement28">Añadir personaje</entry>
 <entry key="TreeNode.AddElement27">Añadir lista de personajes</entry>
 <entry key="TreeNode.AddElement26">Añadir protagonista</entry>
-<entry key="Effect.TriggerLastScene">Lanzar última escena</entry>
+<entry key="Effect.TriggerLastScene">Lanzar escena anterior</entry>
 <entry key="Effect.TriggerCutscene">Lanzar escena intermedia</entry>
 <entry key="Cursor.give.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "dar" (sólo interfaz tradicional)</entry>
 <entry key="TreeNode.AddElement25">Añadir acción "Entregar a"</entry>
@@ -347,7 +347,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="MovePlayerEffect.Title">Efecto mover protagonista</entry>
 <entry key="MenuAdventure.DeleteUnusedAssets">Eliminar recursos no utilizados</entry>
 <entry key="ExitLook.HelpText">Aquí puede modificar la apariencia del cursor al colocarse sobre la salida y la etiqueta que aparece junto al mismo. Por defecto, se muestra un cursor estándar y la etiqueta contiene el nombre de la escena de destino.   Esa información se puede cambiar en la definición de la salida y en la definición del enlace con la escena siguiente. En caso de definirse en la propia salida, afectará a todos los posibles enlaces de salida que no tengan su propia información personalizada. Para que el cambio afecte a un único enlace, podrá indicarlo en las opciones avanzadas del propio enlace.</entry>
-<entry key="Effect.MoveObject">Mover elemento</entry>
+<entry key="Effect.MoveObject">Mover objeto</entry>
 <entry key="Conversations.DeleteAudio">Eliminar audio</entry>
 <entry key="MenuFile.ImportChapter">Importar capítulo</entry>
 <entry key="Conditions.Flag.State">Valor (active/inactive)</entry>
@@ -1015,7 +1015,7 @@ Dicha operación no se completó.</entry>
 <entry key="DrawPanel.ZoomSlider">Zoom actual del panel</entry>
 <entry key="BookParagraphs.MoveParagraphDown">Bajar el párrafo seleccionado</entry>
 <entry key="LOMES.Value">Valor</entry>
-<entry key="Effect.HighlightItem">Resaltar elemento</entry>
+<entry key="Effect.HighlightItem">Resaltar objeto</entry>
 <entry key="Conditions.Context.1.231"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
 <entry key="LOM.Educational.IntendedEndUserRole3">Manager</entry>
 <entry key="Conditions.Context.1.230"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
@@ -1067,7 +1067,7 @@ Dicha operación no se completó.</entry>
 <entry key="LOM.Educational.Difficulty2">Medium</entry>
 <entry key="LOMES.Educational.LearningResourceType20">Open problem</entry>
 <entry key="LOM.Educational.Difficulty1">Easy</entry>
-<entry key="MoveObjectEffect.Title">Efecto para mover un object en la escena</entry>
+<entry key="MoveObjectEffect.Title">Efecto para mover un objeto en la escena</entry>
 <entry key="ArrowAssets.Title">Recurso para flecha</entry>
 <entry key="LOM.Educational.Difficulty0">Very easy</entry>
 <entry key="ElementList.Layer">Capa</entry>
@@ -1747,7 +1747,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="CustomAction.SelectTypeMessage">Elija si la acción se realiza sobre el objeto o necesita la interacción con otro</entry>
 <entry key="CustomAction.ConfigurationTitle">Configuración</entry>
 <entry key="EffectsGroup.Main">Todos los efectos</entry>
-<entry key="Effect.TriggerLastSceneInfo">Lanzar última escena</entry>
+<entry key="Effect.TriggerLastSceneInfo">Lanzar escena anterior</entry>
 <entry key="IMS.Classification.Tip">Classification Data</entry>
 <entry key="GlobalStatesList.ID">Identificador de estado global</entry>
 <entry key="Item.ReturnsWhenDragged">El objeto vuelve a su posición inicial después de ser arrastrado</entry>
