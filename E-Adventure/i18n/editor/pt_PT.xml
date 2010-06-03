@@ -178,7 +178,7 @@
 <entry key="TreeNode.AddElement28">Agregar personagem</entry>
 <entry key="TreeNode.AddElement27">Agregar lista de personagens</entry>
 <entry key="TreeNode.AddElement26">Agregar protagonista</entry>
-<entry key="Effect.TriggerLastScene">Lançar última cena</entry>
+<entry key="Effect.TriggerLastScene">Lançar cena anterior</entry>
 <entry key="Effect.TriggerCutscene">Lançar cena intermédia</entry>
 <entry key="TreeNode.AddElement25">Agregar acção "Entregar à"</entry>
 <entry key="TreeNode.AddElement24">Agregar acção "Utilizar com"</entry>
@@ -917,7 +917,7 @@
 <entry key="DrawPanel.ZoomSlider">Zoom actual do painel</entry>
 <entry key="BookParagraphs.MoveParagraphDown">Criar novo parágrafo (Título, Texto, Elemento da Lista ou Imagem)</entry>
 <entry key="LOMES.Value">Valor</entry>
-<entry key="Effect.HighlightItem">Ressaltar elemento</entry>
+<entry key="Effect.HighlightItem">Ressaltar objeto</entry>
 <entry key="Conditions.Context.1.231">A acção {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se poderá levar a cabo&lt;/b&gt; quando se cumpra a seguinte condição:</entry>
 <entry key="LOM.Educational.IntendedEndUserRole3">Gestor</entry>
 <entry key="Conditions.Context.1.230">A acção {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se poderá levar a cabo&lt;/b&gt; quando se cumpra a seguinte condição:</entry>
@@ -1562,7 +1562,7 @@
 <entry key="CustomAction.SelectTypeMessage">Escolher se a acção se realiza sobre o objecto ou necessita de interacção com outro</entry>
 <entry key="CustomAction.ConfigurationTitle">Configuração</entry>
 <entry key="EffectsGroup.Main">Todos os efeitos</entry>
-<entry key="Effect.TriggerLastSceneInfo">Lançar última cena</entry>
+<entry key="Effect.TriggerLastSceneInfo">Lançar cena anterior</entry>
 <entry key="IMS.Classification.Tip">Dados de classificação</entry>
 <entry key="GlobalStatesList.ID">Identificador do estado global</entry>
 <entry key="Item.ReturnsWhenDragged">O objecto volta a sua posição inicial depois de ser arrastado</entry>

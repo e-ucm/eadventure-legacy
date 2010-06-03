@@ -185,7 +185,7 @@ Auf diese Weise dann Bedingungen auf den Wert einer Variablen basiert definieren
 <entry key="TreeNode.AddElement28">Charakter hinzufügen</entry>
 <entry key="TreeNode.AddElement27">Charakterliste hinzufügen</entry>
 <entry key="TreeNode.AddElement26">Protagonist hinzufügen</entry>
-<entry key="Effect.TriggerLastScene">Letzten Szene starten</entry>
+<entry key="Effect.TriggerLastScene">Throw vorhergehenden Szene</entry>
 <entry key="Effect.TriggerCutscene">Zwischenszene starten</entry>
 <entry key="TreeNode.AddElement25">"Geben nach" Aktion hinzufügen</entry>
 <entry key="TreeNode.AddElement24">"Nutzen mit" Aktion hinzufügen </entry>
@@ -338,7 +338,7 @@ Auf diese Weise dann Bedingungen auf den Wert einer Variablen basiert definieren
 <entry key="MovePlayerEffect.Title">Effect Protagonist bewegen</entry>
 <entry key="MenuAdventure.DeleteUnusedAssets">Entfernen von nicht benutzt Ressourcen</entry>
 <entry key="ExitLook.HelpText">Aquí puede modificar la apariencia del cursor al colocarse sobre la salida y la etiqueta que aparece junto al mismo. Por defecto, se muestra un cursor estándar y la etiqueta contiene el nombre de la escena de destino.   Esa información se puede cambiar en la definición de la salida y en la definición del enlace con la escena siguiente. En caso de definirse en la propia salida, afectará a todos los posibles enlaces de salida que no tengan su propia información personalizada. Para que el cambio afecte a un único enlace, podrá indicarlo en las opciones avanzadas del propio enlace.</entry>
-<entry key="Effect.MoveObject">Element bewegen</entry>
+<entry key="Effect.MoveObject">Objekt bewegen</entry>
 <entry key="Conversations.DeleteAudio">Audio löschen</entry>
 <entry key="MenuFile.ImportChapter">Kapitel importieren</entry>
 <entry key="Conditions.Flag.State">Wert (aktiv/inaktiv)</entry>
@@ -982,7 +982,7 @@ Dieser Operation wurde nicht abgeschlossen.</entry>
 <entry key="DrawPanel.ZoomSlider">Aktuelle Zoom des Paneel</entry>
 <entry key="BookParagraphs.MoveParagraphDown">Ausgewählte Absatz nach Unter verschieben</entry>
 <entry key="LOMES.Value">Wert</entry>
-<entry key="Effect.HighlightItem">Resaltar elemento</entry>
+<entry key="Effect.HighlightItem">Highlight-Objekt</entry>
 <entry key="Conditions.Context.1.231"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
 <entry key="LOM.Educational.IntendedEndUserRole3">Manager</entry>
 <entry key="Conditions.Context.1.230"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
@@ -1683,7 +1683,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="CustomAction.SelectTypeMessage">Elija si la acción se realiza sobre el objeto o necesita la interacción con otro</entry>
 <entry key="CustomAction.ConfigurationTitle">Configuración</entry>
 <entry key="EffectsGroup.Main">Todos los efectos</entry>
-<entry key="Effect.TriggerLastSceneInfo">Lanzar última escena</entry>
+<entry key="Effect.TriggerLastSceneInfo">Throw vorhergehenden Szene</entry>
 <entry key="IMS.Classification.Tip">Classification Data</entry>
 <entry key="GlobalStatesList.ID">Identificador de estado global</entry>
 <entry key="Item.ReturnsWhenDragged">El objeto vuelve a su posición inicial después de ser arrastrado</entry>

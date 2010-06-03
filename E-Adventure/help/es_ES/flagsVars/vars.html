@@ -22,19 +22,29 @@ que en todo momento tienen asociado un valor entero, que por defecto es
 Para a&ntilde;adir una condici&oacute;n en funci&oacute;n del valor de
 una variable s&oacute;lo tenemos que realizar un proceso an&aacute;logo
 al de los flags. Ve&aacute;moslo con un ejemplo.</p>
-<p>Libro que creamos anteriormente. Para hacer eso creamos una
+<p>Vamos a limitar el n&uacute;mero de veces que se puede
+observar un libro que creamos anteriormente. Para hacer eso creamos una
 variable <strong>VecesLibroExaminado</strong> que cuente cuantas veces
 se ha examinado el libro. Luego a la acci&oacute;n examinar del libro le
 a&ntilde;adimos la condici&oacute;n de que <strong>VecesLibroExaminado</strong>
-debe ser menor que tres.</p>
+debe ser menor que tres. Adem&aacute;s debemos a&ntilde;adir un efecto &quot;incrementar 
+variable&quot; a esta misma acci&oacute;n para que se modifique dicha variable. </p>
 <p>El proceso es el siguiente:</p>
 <ol>
 	<li>Primero creamos la nueva acci&oacute;n examinar en el objeto
-	libro. Para ello pulsamos en el nodo <strong>Acciones</strong> que
-	cuelga del objeto <strong>Libro</strong> (no confundir con los libros
-	en s&iacute;) con el bot&oacute;n derecho y luego pinchamos en
-	&quot;A&ntilde;adir Acci&oacute;n Examinar&quot;.</li>
-	<li>Pulsamos en &quot;Editar condiciones&quot; y en &quot;
+	libro. Para ello pulsamos en la pestaña <strong>Acciones</strong> que
+	aparece al seleccionar el <strong>Libro</strong> elegido en la parte 
+	derecha del editor
+	(no confundir con los libros
+	en s&iacute;, esta opci&oacute;n nos muestra todos los libros existentes en este
+	cap&iacute;tulo) y luego pinchamos en el bot&oacute;n 
+	<img src="../../common_img/add_icon.png" alt="ADD_ICON.JPG fail!"> selecionando a 
+	continuaci&oacute;n la opci&oacute;n
+	&quot;A&ntilde;adir Acci&oacute;n Examinar&quot;. (m&aacute;s info sobre los libros
+	<a href="../books/books_general.html">aqu&iacute;</a>)</li>
+	<li>Pulsamos en &quot;Editar condiciones&quot; (<img src="../../common_img/conditions-16x16.png" alt="conditions-16x16.JPG fail!">
+	si tiene condiciones previamente definidas o <img src="../../common_img/no-conditions-16x16.png" alt="no-conditions-16x16.JPG fail!">
+	si no las tiene ) y en &quot;
 	A&ntilde;adir condici&oacute;n&quot;. La diferencia est&aacute; en que
 	ahora pulsamos en el bot&oacute;n de en medio, con el nombre
 	&quot;Variables&quot;.</li>
@@ -42,7 +52,7 @@ debe ser menor que tres.</p>
 	para el nombre de la variable, &quot;&lt;&quot; como funci&oacute;n de
 	comparaci&oacute;n y 3 como valor.</li>
 </ol>
-<img src="Vars_Files/Vars.jpg" alt="VAR SELECTION.JPG fail!"
-	style="display: block; margin: 10px" />
+<center><img src="Vars_Files/Vars.jpg" alt="VAR SELECTION.JPG fail!"
+	style="display: block; margin: 10px" /></center>
 </body>
 </html>
