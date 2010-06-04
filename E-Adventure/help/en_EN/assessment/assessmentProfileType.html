@@ -1,18 +1,59 @@
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link href="../../help.css" type="text/css" rel="stylesheet">
-</head>
-<body>
-<img src="../logo-editor.png" alt="TEST IMAGE fail!" style="display:block; margin:10px" />
-<h1>Profile Type</h1>
-<p>Due to the fact that it is allowed export in different standards of e-learning, it exists different profiles of evaluation and adjustment. The choice of profile is related to the data model which is going to exchange information with the LMS, doing the pertinent restrictions on the same one. Nowadays we can find 3 types:</p>
-<ol>
-    <li><b>Normal Profile</b> </p>
-    <p>There are not restrictions in LMS data model in this kind of profile and it is used for 
-    those standards that have no specific data model (like Learning Desing)</p></li><li><b>Scrom v1.2 Profile</b></p>
-    <p>Limits the SCORM 1.2 data model. When it decides to modify or to consult properties of the LMS due to there has been fulfilled a assessment or adaptation rule, only it will allow us to choose between the parts of the SCORM 1.2 data model that are of writing or reading, according to the profile. Hereby one prevents from storing or consulting values in parts of the data model that are only of reading or only of writing, simultaneously that abstracts the exact knowledge of the above mentioned data model. If we want to export as Scorm 1.2, and we have profiles of assessment and / or adaptation assigned to any of the chapters, it will be needed that the above mentioned profiles are of this type.</p></li><li><b>Scorm 2004 Profile</b></p>
-    <p>It operates in an identical way that for the standard SCORM 1.2, but for the data model of the standard SCORM 2004. If we want to export as Scorm 2004 or as AGREGA (the games exported to AGREGA uses SCORM 2004), and we have profiles of assessment and / or adaptation assigned to any of the chapters, it will be needed that the above mentioned profiles are of this type.</p></li>
-</ol>
-</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="../../help.css">
+    
+  </head>
+  <body>
+    <img src="../logo-editor.png" alt="TEST IMAGE fail!" style="margin-top: 10px; margin-bottom: 10px; display: block; margin-right: 10px; margin-left: 10px">
+    
+
+    <h1>
+      Profile Type
+    </h1>
+    <p>
+      Due to the fact that different e-learning standards are supported, 
+      different evaluation and assessment profiles can be defined. The choice 
+      of profile is related to the data model which is going to be exchanged 
+      with the LMS and different restrictions apply depending on the standard 
+      or specification. There are three profile types available:
+    </p>
+    <ol>
+      <li>
+        <b>Normal Profile</b>
+
+        <p>
+          There are not restrictions in LMS data model in this kind of profile 
+          and it is used for those standards that have no specific data model 
+          (such as Learning Desing)
+        </p>
+      </li>
+      <li>
+        <b>Scrom v1.2 Profile</b>
+
+        <p>
+          Limits the data model to the SCORM 1.2 specification. The properties 
+          that can be consulted or modified in assessment or evaluation 
+          profiles are only those available in the specification. This 
+          prevents the modification or access to values that are not part of 
+          the data model or that do not support that particular behavior. At 
+          the same time, this helps users unfamiliar with the details of the 
+          data model by forcing the correct use of its values. When a game is 
+          to be exported as SCORM 1.2, both the selected assessment and the 
+          selected evaluation profiles must be of the SCORM 1.2 type.
+        </p>
+      </li>
+      <li>
+        <b>Scorm 2004 Profile</b>
+
+        <p>
+          It operates in the same way that for the SCORM 1.2 specification, 
+          but using the data model of the SCORM 2004 specification. When a 
+          game is to be export as SCORM 2004 or as AGREGA (the games exported 
+          to AGREGA are SCORM 2004 compatible), both the assessment and 
+          evaluation profiles selected for the chapter must be of this type.
+        </p>
+      </li>
+    </ol>
+  </body>
 </html>
