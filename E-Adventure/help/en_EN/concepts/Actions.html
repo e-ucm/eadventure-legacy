@@ -1,31 +1,68 @@
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link href="../../help.css" type="text/css" rel="stylesheet">
-</head>
-<body>
-<img src="../logo-editor.png" alt="e-Adventure LOGO"/>
-<h1>Actions</h1>
-<p>Actions define what can be performed over an object, character or active area.</p>
-<h2>Type of actions</h2>
-<p>
-"Examine"
-"Take" (only objects and active areas)
-"Use"
-"Customizable"
-"Use with" (only objects)
-"Give to" (only objects)
-"Talk to..." (only characters)</p>
-<h2>Conditions</h2>
-<p>
-The conditions of the actions indicate when it can be performed.</br>
-If the conditions of the actions are not active, the action button will not be drawn (unless it is an action with a default behaviour, see below). This does not meet if the action has alternative effects. In this case the button will always be drawn.</p>
-<h2>Alternative effects</h2>
-<h2>Default actions</h2>
-<p>In all the elements appears by default the &quot;Examine&quot; action, which leads the player to say the &quot;Detailed description&quot; of the element.
-  In the objects appear by default the &quot;take/use&quot; action, even if no action is performed, unless the player indicates that the object cannot be taken, In the characters appears by default the &quot;Talk to...&quot; action, but the player will say that is not posible to maintain a conversation with the character&quot;
-  The behaviour of the default actions can be changed by adding an action of the corresponding type.</p>
-<h3>See also</h3>
-<p>General explanation of the conditions edition</p>
-</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="../../help.css" type="text/css">
+    
+  </head>
+  <body>
+    <img src="../logo-editor.png" alt="e-Adventure LOGO">
+    
+
+    <h1>
+      Actions
+    </h1>
+    <p>
+      Actions define what can be performed over an object, character or active 
+      area.
+    </p>
+    <h2>
+      Type of actions
+    </h2>
+    <p>
+      &quot;Examine&quot; &quot;Take&quot; (only objects and active areas) &quot;Use&quot; &quot;Custom&quot; (both 
+      with one element and with two) &quot;Use with&quot; (only objects) &quot;Give to&quot; (only 
+      objects) &quot;Talk to...&quot; (only characters)
+    </p>
+    <h2>
+      Conditions
+    </h2>
+    <p>
+      The conditions of the actions indicate when it can be performed. If the 
+      conditions of the actions are not active, the action button will not be 
+      drawn (unless it is an action with a default behaviour, see below).
+    </p>
+    <h2>
+      Effects
+    </h2>
+    <p>
+      The effect of the actions are the consequence of it being chosen by the 
+      player.
+    </p>
+    <h2>
+      Not effects
+    </h2>
+    <p>
+      When an action has &quot;Not effects&quot; defined, it will always be available to 
+      the player (even when its conditions are not met). This are the effects 
+      of the action when the conditions aren't met.
+    </p>
+    <h2>
+      Default actions
+    </h2>
+    <p>
+      All elements have the &quot;Examine&quot; action by default, which leads the main 
+      character to &quot;speak&quot; the &quot;Detailed description&quot; of the element. In 
+      objects, the &quot;Grab/Use&quot; action also appears by default, and results on 
+      the main character indicating that such an action cannot be performed if 
+      the player choses it. The same is true for the &quot;Talk to...&quot; action with 
+      NPCs. The behavior of the default actions is overwriten if any of these 
+      actions is defined by the creator.
+    </p>
+    <h3>
+      See also
+    </h3>
+    <p>
+      <a href="../general/Conditions.html">More information about conditions</a>
+    </p>
+  </body>
 </html>
