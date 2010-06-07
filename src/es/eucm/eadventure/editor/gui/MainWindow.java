@@ -35,6 +35,7 @@
 package es.eucm.eadventure.editor.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -164,7 +165,13 @@ public class MainWindow extends JFrame {
         setJMenuBar( createMenuBar( ) );
 
         // Create the two panels
-        JPanel editorContainer = new JPanel( );
+        JPanel editorContainer = new JPanel( ) {
+            @Override
+            public Component add(Component c) {
+                this.removeAll( );
+                return super.add(c);
+            }
+        };
         editorContainer.setMinimumSize( new Dimension( 400, 0 ) );
         editorContainer.setLayout( new BorderLayout( ) );
 
