@@ -552,6 +552,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
                 }
             }
         }
+        
         if( editorContainer != null ) {
             editorContainer.removeAll( );
 

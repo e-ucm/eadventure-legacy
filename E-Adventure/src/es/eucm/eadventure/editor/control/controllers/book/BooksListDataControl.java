@@ -138,15 +138,12 @@ public class BooksListDataControl extends DataControl {
         boolean elementAdded = false;
 
         if( type == Controller.BOOK ) {
-            // Show a dialog asking for the type (PAGES/PARAGRAPHS)
+
             int bookType = -1;
             BookTypesDialog bookTypesDialog = new BookTypesDialog( Book.TYPE_PARAGRAPHS );
+            bookType = bookTypesDialog.getOptionSelected( );
 
-            // If the new GUI style is different from the current, and valid, change the value
-            int optionSelected = bookTypesDialog.getOptionSelected( );
-            if( optionSelected != -1 ) {
-                bookType = optionSelected;
-
+            if( bookType != -1 ) {
                 // Show a dialog asking for the book id
                 if( bookId == null )
                     bookId = controller.showInputDialog( TC.get( "Operation.AddBookTitle" ), TC.get( "Operation.AddBookMessage" ), TC.get( "Operation.AddBookDefaultValue" ) );
@@ -163,9 +160,9 @@ public class BooksListDataControl extends DataControl {
                     resources.addAsset( "arrowLeftNormal", SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL );
                     resources.addAsset( "arrowLeftOver", SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER );
                     newBook.addResources( resources );
-                    booksList.add( newBook );
 
                     BookDataControl newDataControl = new BookDataControl( newBook );
+                    booksList.add( newBook );
                     booksDataControlList.add( newDataControl );
                     controller.getIdentifierSummary( ).addBookId( bookId );
                     //controller.dataModified( );
