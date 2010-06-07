@@ -1,58 +1,69 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="../../help.css" type="text/css" rel="stylesheet">
-</head>
-<body>
-<img src="../logo-editor.png" alt="TEST IMAGE fail!"
-	style="display: block; margin: 10px" />
-<h1>Edici&oacute;n de la variables</h1>
-<p>El sistema de <a href="../flagsVars/flags.html" label="flags"
-	title="flags">flags</a> nos permite a&ntilde;adir comportamiento
-narrativo a nuestros juegos. No obstante, su uso se vuelve demasiado
-arduo en diversas situaciones. Por ejemplo, supongamos que queremos
-limitar el n&uacute;mero de veces que un jugador puede realizar una
-determinada acci&oacute;n (sea coger el pescado) a 3. Para poder
-recordar n&uacute;meros con los flags deber&iacute;amos tener un flag
-por cada valor posible (0, 1, 2 y 3 en este caso). Por ello
-&lt;e-Adventure&gt; tambi&eacute;n incluye variables.</p>
-<p>De forma intuitiva podemos definir las variables como elementos
-que en todo momento tienen asociado un valor entero, que por defecto es
-0, y cuyo valor podemos cambiar durante el transcurso de los juegos.
-Para a&ntilde;adir una condici&oacute;n en funci&oacute;n del valor de
-una variable s&oacute;lo tenemos que realizar un proceso an&aacute;logo
-al de los flags. Ve&aacute;moslo con un ejemplo.</p>
-<p>Vamos a limitar el n&uacute;mero de veces que se puede
-observar un libro que creamos anteriormente. Para hacer eso creamos una
-variable <strong>VecesLibroExaminado</strong> que cuente cuantas veces
-se ha examinado el libro. Luego a la acci&oacute;n examinar del libro le
-a&ntilde;adimos la condici&oacute;n de que <strong>VecesLibroExaminado</strong>
-debe ser menor que tres. Adem&aacute;s debemos a&ntilde;adir un efecto &quot;incrementar 
-variable&quot; a esta misma acci&oacute;n para que se modifique dicha variable. </p>
-<p>El proceso es el siguiente:</p>
-<ol>
-	<li>Primero creamos la nueva acci&oacute;n examinar en el objeto
-	libro. Para ello pulsamos en la pestaña <strong>Acciones</strong> que
-	aparece al seleccionar el <strong>Libro</strong> elegido en la parte 
-	derecha del editor
-	(no confundir con los libros
-	en s&iacute;, esta opci&oacute;n nos muestra todos los libros existentes en este
-	cap&iacute;tulo) y luego pinchamos en el bot&oacute;n 
-	<img src="../../common_img/add_icon.png" alt="ADD_ICON.JPG fail!"> selecionando a 
-	continuaci&oacute;n la opci&oacute;n
-	&quot;A&ntilde;adir Acci&oacute;n Examinar&quot;. (m&aacute;s info sobre los libros
-	<a href="../books/books_general.html">aqu&iacute;</a>)</li>
-	<li>Pulsamos en &quot;Editar condiciones&quot; (<img src="../../common_img/conditions-16x16.png" alt="conditions-16x16.JPG fail!">
-	si tiene condiciones previamente definidas o <img src="../../common_img/no-conditions-16x16.png" alt="no-conditions-16x16.JPG fail!">
-	si no las tiene ) y en &quot;
-	A&ntilde;adir condici&oacute;n&quot;. La diferencia est&aacute; en que
-	ahora pulsamos en el bot&oacute;n de en medio, con el nombre
-	&quot;Variables&quot;.</li>
-	<li>Rellenamos los campos de abajo con los datos <strong>VecesLibroExaminado</strong>
-	para el nombre de la variable, &quot;&lt;&quot; como funci&oacute;n de
-	comparaci&oacute;n y 3 como valor.</li>
-</ol>
-<center><img src="Vars_Files/Vars.jpg" alt="VAR SELECTION.JPG fail!"
-	style="display: block; margin: 10px" /></center>
-</body>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link rel="stylesheet" href="../../help.css" type="text/css">
+    
+  </head>
+  <body>
+    <img src="../logo-editor.png" style="margin-left: 10px; margin-bottom: 10px; display: block; margin-right: 10px; margin-top: 10px" alt="TEST IMAGE fail!">
+    
+
+    <h1>
+      Edici&#243;n de la variables
+    </h1>
+    <p>
+      El sistema de <a label="flags" href="../flagsVars/flags.html" title="flags">flags</a> 
+      nos permite a&#241;adir comportamiento narrativo a nuestros juegos. No 
+      obstante, su uso se vuelve demasiado arduo en diversas situaciones. Por 
+      ejemplo, supongamos que queremos limitar el n&#250;mero de veces que un 
+      jugador puede realizar una determinada acci&#243;n (sea coger el pescado) a 
+      3. Para poder recordar n&#250;meros con los flags deber&#237;amos tener un flag 
+      por cada valor posible (0, 1, 2 y 3 en este caso). Por ello 
+      &lt;e-Adventure&gt; tambi&#233;n incluye variables.
+    </p>
+    <p>
+      De forma intuitiva podemos definir las variables como elementos que en 
+      todo momento tienen asociado un valor entero, que por defecto es 0, y 
+      cuyo valor podemos cambiar durante el transcurso de los juegos. Para 
+      a&#241;adir una condici&#243;n en funci&#243;n del valor de una variable s&#243;lo tenemos 
+      que realizar un proceso an&#225;logo al de los flags. Ve&#225;moslo con un ejemplo.
+    </p>
+    <p>
+      Vamos a limitar el n&#250;mero de veces que se puede observar un libro que 
+      creamos anteriormente. Para hacer eso creamos una variable <strong>VecesLibroExaminado</strong> 
+      que cuente cuantas veces se ha examinado el libro. Luego a la acci&#243;n 
+      examinar del libro le a&#241;adimos la condici&#243;n de que <strong>VecesLibroExaminado</strong> 
+      debe ser menor que tres. Adem&#225;s debemos a&#241;adir un efecto &quot;incrementar 
+      variable&quot; a esta misma acci&#243;n para que se modifique dicha variable.
+    </p>
+    <p>
+      El proceso es el siguiente:
+    </p>
+    <ol>
+      <li>
+        Primero creamos la nueva acci&#243;n examinar en el objeto libro. Para ello 
+        pulsamos en la pesta&#241;a <strong>Acciones</strong> que aparece al 
+        seleccionar el <strong>Libro</strong> elegido en la parte derecha del 
+        editor (no confundir con los libros en s&#237;, esta opci&#243;n nos muestra 
+        todos los libros existentes en este cap&#237;tulo) y luego pinchamos en el 
+        bot&#243;n <img src="../../common_img/add_icon.png" alt="ADD_ICON.JPG fail!"> 
+        selecionando a continuaci&#243;n la opci&#243;n &quot;A&#241;adir Acci&#243;n Examinar&quot;. (m&#225;s 
+        info sobre los libros <a href="../books/books_general.html">aqu&#237;</a>)
+      </li>
+      <li>
+        Pulsamos en &quot;Editar condiciones&quot; (<img src="../../common_img/conditions-16x16.png" alt="conditions-16x16.JPG fail!"> 
+        si tiene condiciones previamente definidas o <img src="../../common_img/no-conditions-16x16.png" alt="no-conditions-16x16.JPG fail!"> 
+        si no las tiene ) y en &quot; A&#241;adir condici&#243;n&quot;. La diferencia est&#225; en que 
+        ahora pulsamos en el bot&#243;n de en medio, con el nombre &quot;Variables&quot;.
+      </li>
+      <li>
+        Rellenamos los campos de abajo con los datos <strong>VecesLibroExaminado</strong> 
+        para el nombre de la variable, &quot;&lt;&quot; como funci&#243;n de comparaci&#243;n y 3 
+        como valor.
+      </li>
+    </ol>
+    <center>
+      <img src="Vars_Files/Vars.jpg" style="margin-left: 10px; margin-bottom: 10px; display: block; margin-right: 10px; margin-top: 10px" alt="VAR SELECTION.JPG fail!">
+    </center>
+  </body>
 </html>
