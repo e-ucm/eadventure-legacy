@@ -73,6 +73,7 @@ import es.eucm.eadventure.editor.control.controllers.animation.FrameDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.HelpDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ToolManagableDialog;
 
 /**
@@ -272,6 +273,19 @@ public class AnimationEditDialog extends ToolManagableDialog {
         } );
         acceptCancelPanel.add( cancel );
 
+        JButton helpButton = new JButton( new ImageIcon( "img/icons/information.png" ) );
+        helpButton.setContentAreaFilled( false );
+        helpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+        helpButton.setFocusable( false );
+        helpButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                new HelpDialog( "general/Animation_Editor.html" );
+            }
+        } );
+        acceptCancelPanel.add(helpButton);
+        
         gbc.gridy = 3;
         gbc.weighty = 0.3;
         this.add( acceptCancelPanel, gbc );

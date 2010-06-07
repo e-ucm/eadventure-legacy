@@ -36,6 +36,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.condition;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController.Condit
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.HelpDialog;
 
 public class ConditionsPanel extends JPanel implements Updateable, ConditionsPanelController {
 
@@ -230,6 +232,20 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
             } );
             buttonsPanel.add( okButton );
         }
+        
+        JButton helpButton = new JButton( new ImageIcon( "img/icons/information.png" ) );
+        helpButton.setContentAreaFilled( false );
+        helpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+        helpButton.setFocusable( false );
+        helpButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                new HelpDialog( "general/Conditions_Panel.html" );
+            }
+        } );
+        buttonsPanel.add(helpButton);
+
         buttonsPanel.setBorder( BorderFactory.createLineBorder( buttonsPanelLineColor ) );
     }
 

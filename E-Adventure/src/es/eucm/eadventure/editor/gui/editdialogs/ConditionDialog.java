@@ -223,7 +223,7 @@ public class ConditionDialog extends ToolManagableDialog {
             }
         } );
         buttonsPanel.add( cancelButton );
-
+        
         add( buttonsPanel, BorderLayout.SOUTH );
 
         setResizable( false );
