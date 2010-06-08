@@ -163,9 +163,9 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
 
             public void valueChanged( ListSelectionEvent arg0 ) {
 
-                propertiesTable.setRowHeight( 15 );
+                propertiesTable.setRowHeight( 22 );
                 if( propertiesTable.getSelectedRow( ) != -1 )
-                    propertiesTable.setRowHeight( propertiesTable.getSelectedRow( ), 25 );
+                    propertiesTable.setRowHeight( propertiesTable.getSelectedRow( ), 32);
             }
         } );
         
