@@ -40,6 +40,7 @@ import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
+import es.eucm.eadventure.engine.core.control.Game;
 
 /**
  * Functional Trajectory
@@ -618,26 +619,6 @@ public class FunctionalTrajectory {
     }
 
     /**
-     * Returns the x-axis value of the initial node
-     * 
-     * @return the x-axis value of the initial node
-     */
-    public float getInitialX( ) {
-
-        return trajectory.getInitial( ).getX( );
-    }
-
-    /**
-     * Returns the y-axis value of the initial node
-     * 
-     * @return the y-axis value of the initial node
-     */
-    public float getInitialY( ) {
-
-        return trajectory.getInitial( ).getY( );
-    }
-
-    /**
      * Returns the value of scale
      * 
      * @return the value of scale
@@ -681,6 +662,10 @@ public class FunctionalTrajectory {
         for (FunctionalSide side : sides) {
             if (side.getStartNode( ) == currentNode) {
                 currentSide = side.getSide( );
+                Game.getInstance( ).getFunctionalPlayer( ).setX( currentNode.getX( ) + 1);
+                Game.getInstance( ).getFunctionalPlayer( ).setY( currentNode.getY( ) + 1);
+                Game.getInstance( ).getFunctionalPlayer( ).setScale( currentNode.getScale( ) );
+                break;
             }
         }
         return currentNode;

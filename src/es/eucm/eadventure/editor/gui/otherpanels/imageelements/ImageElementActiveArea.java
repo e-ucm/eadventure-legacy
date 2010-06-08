@@ -129,6 +129,7 @@ public class ImageElementActiveArea extends ImageElement {
             g.setColor( Color.BLACK );
             g.drawPolygon( x, y, activeAreaDataControl.getPoints( ).size( ) );
         }
+        g.dispose( );
     }
 
     @Override

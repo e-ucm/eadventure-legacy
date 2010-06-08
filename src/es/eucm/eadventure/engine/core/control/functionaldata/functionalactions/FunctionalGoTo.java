@@ -213,7 +213,7 @@ public class FunctionalGoTo extends FunctionalAction {
 
         }
         else if( !trajectoryUpdated ) {
-            trajectory.updatePathToNearestPoint( functionalPlayer.getX( ), functionalPlayer.getY( ), originalPosX, originalPosY );
+            trajectory.updatePathToNearestPoint( functionalPlayer.getX( ), functionalPlayer.getY( ), posX, posY );
         }
 
         DebugLog.player( "Player moves: hasTrajectory=" + trajectory.hasTrajectory( ) + " destination=" + posX + "," + posY );

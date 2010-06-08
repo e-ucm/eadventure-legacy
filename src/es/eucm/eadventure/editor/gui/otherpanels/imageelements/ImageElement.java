@@ -146,7 +146,6 @@ public abstract class ImageElement implements Comparable<Object> {
     public abstract boolean transparentPoint( int x, int y );
 
     public boolean isVisible( ) {
-
         return true;
     }
 
