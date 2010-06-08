@@ -34,7 +34,6 @@
 package es.eucm.eadventure.engine.core.control.gamestate;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
-import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.ActionManager;
@@ -68,7 +67,6 @@ public class GameStateNextScene extends GameState {
         // Depending on the type of the scene
         switch( generalScene.getType( ) ) {
             case GeneralScene.SCENE:
-
                 GUI.getInstance( ).setTransition( nextScene.getTransitionTime( ), nextScene.getTransitionType( ), elapsedTime );
 
                 if( game.getFunctionalScene( ) != null && !GUI.getInstance( ).hasTransition( ) ) {
@@ -120,16 +118,11 @@ public class GameStateNextScene extends GameState {
                         game.getFunctionalPlayer( ).setScale( scene.getPlayerScale( ) );
                     }
                     else {
-                        Node node = game.getFunctionalScene( ).getTrajectory( ).changeInitialNode( nextScene.getDestinyX( ), nextScene.getDestinyY( ) );
-                        game.getFunctionalPlayer( ).setX( node.getX( ) );
-                        game.getFunctionalPlayer( ).setY( node.getY( ) );
-                        game.getFunctionalPlayer( ).setScale( node.getScale( ) );
+                        game.getFunctionalScene( ).getTrajectory( ).changeInitialNode( nextScene.getDestinyX( ), nextScene.getDestinyY( ) );
                     }
                 }
                 else if( scene.getTrajectory( ) != null ) {
-                    game.getFunctionalPlayer( ).setX( scene.getTrajectory( ).getInitial( ).getX( ) );
-                    game.getFunctionalPlayer( ).setY( scene.getTrajectory( ).getInitial( ).getY( ) );
-                    game.getFunctionalPlayer( ).setScale( scene.getTrajectory( ).getInitial( ).getScale( ) );
+                    game.getFunctionalScene( ).getTrajectory( ).changeInitialNode( scene.getTrajectory( ).getInitial( ).getX( ), scene.getTrajectory( ).getInitial( ).getY( ));
                 }
                 else if( scene.hasDefaultPosition( ) ) {
                     // If no next scene position was defined, use the scene default

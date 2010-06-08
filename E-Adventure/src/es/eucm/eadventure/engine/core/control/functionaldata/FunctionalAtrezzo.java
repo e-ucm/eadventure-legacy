@@ -160,6 +160,7 @@ public class FunctionalAtrezzo extends FunctionalElement {
         
     }
 
+
     /**
      * Updates the resources of the icon (if the current resources and the new
      * one are different)
@@ -230,66 +231,36 @@ public class FunctionalAtrezzo extends FunctionalElement {
         // Do nothing
     }
 
-    /*
-     *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
-     */
     public void draw( ) {
-
-        int x_image = Math.round( x - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
-        int y_image = Math.round( y - getHeight( ) * scale );
-        //x_image+=x1;
-        //y_image+=y1;
+        int x_image = Math.round( (x + x1) - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+        int y_image = Math.round( (y + y1) - getHeight( ) * scale );
         if( scale != 1 ) {
             Image temp;
-            if( scale == oldScale && image == oldOriginalImage ) {
+            if( image == oldOriginalImage && scale == oldScale ) {
                 temp = oldImage;
             }
             else {
-                //temp = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
                 temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.BITMASK );
                 ((Graphics2D) temp.getGraphics( )).drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
+
                 oldImage = temp;
                 oldOriginalImage = image;
                 oldScale = scale;
             }
-            if( layer == -1 ){
-                System.out.println( "[AT] "+this.getAtrezzo( ).getId( )+ ": ("+x_image+" , "+y_image+") "+temp.getWidth( null )+"x"+temp.getHeight( null ) );
-                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ), null, null );
-            }else{
-                System.out.println( "[AT] "+this.getAtrezzo( ).getId( )+ ": ("+x_image+" , "+y_image+") "+temp.getWidth( null )+"x"+temp.getHeight( null ) );
-                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ), null, null  );
-            }
-
+            if( layer == -1 )
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ), highlight, this );
+            else
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ), highlight, this );
         }
-        else if( layer == -1 ){
-            System.out.println( "[AT] "+this.getAtrezzo( ).getId( )+ ": ("+x_image+" , "+y_image+") "+image.getWidth( null )+"x"+image.getHeight( null ) );
-            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round( y ), null, null  );
-        }else{
-            System.out.println( "[AT] "+this.getAtrezzo( ).getId( )+ ": ("+x_image+" , "+y_image+") "+image.getWidth( null )+"x"+image.getHeight( null ) );
-            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round( y ), null, null  );
-        }
+        else if( layer == -1 )
+            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round( y ), highlight, this  );
+        else
+            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round( y ), highlight, this  );
     }
 
     @Override
     public boolean isPointInside( float x, float y ) {
-
-        boolean isInside = false;
-
-        int mousex = (int) ( x - ( this.x - getWidth( ) * scale / 2 ) );
-        int mousey = (int) ( y - ( this.y - getHeight( ) * scale ) );
-
-        if (mousex < x1 || mousey < y1 || mousex >= x2 || mousey >= y2)
-            return false;
-        mousex = mousex - x1;
-        mousey = mousey - y1;
-        if( ( mousex >= 0 ) && ( mousex < getWidth( ) * scale ) && ( mousey >= 0 ) && ( mousey < getHeight( ) * scale ) ) {
-            BufferedImage bufferedImage = (BufferedImage) image;
-            int alpha = bufferedImage.getRGB( (int) ( mousex / scale ), (int) ( mousey / scale ) ) >>> 24;
-            isInside = alpha > 128;
-        }
-
-        return isInside;
+        return false;
     }
 
     //TODO creo k hay que quitarlo

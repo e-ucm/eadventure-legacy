@@ -717,11 +717,11 @@ public abstract class GUI implements FocusListener {
             drawToGraphics( (Graphics2D) transition.getGraphics( ) );
             transition.start( this.getGraphics( ) );
         }
-        else if( transition == null || transition.hasFinished( elapsedTime ) ) {
+        else if( g != null && (transition == null || transition.hasFinished( elapsedTime )) ) {
             transition = null;
             drawToGraphics( g );
         }
-        else {
+        else if ( g != null ) {
             transition.update( g );
         }
     }
