@@ -1022,6 +1022,7 @@ public class ScenePreviewEditionPanel extends JPanel {
         boolean exists = false;
         for( Integer key2 : elements.keySet( ) ) {
             for( ImageElement imageElement2 : elements.get( key2 ) ) {
+                imageElement2.recreateImage( );
                 if( imageElement2.getDataControl( ) != null && imageElement != null && imageElement2.getDataControl( ) == imageElement.getDataControl( ) ) {
                     exists = true;
                     this.selectedElement = imageElement2;

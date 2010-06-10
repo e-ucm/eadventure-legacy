@@ -46,6 +46,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.IrregularAreaEditionController;
 import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.TrajectoryScenePreviewEditionController;
@@ -54,7 +55,6 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.PointDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.RectangleArea;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
-import es.eucm.eadventure.common.gui.TC;
 
 /**
  * A Panel for the edition of irregular active areas and exits
@@ -122,9 +122,7 @@ public class IrregularAreaEditionPanel extends JPanel {
         buttonPanel.add( createToolButton( "BarriersList.DeleteTool", IrregularAreaEditionController.DELETE_TOOL, "img/icons/deleteTool.png", group ) );
         JButton turnRectangle = new JButton( TC.get( "SPEP.ConvertToRectangularArea" ) );
         turnRectangle.addActionListener( new ActionListener( ) {
-
             public void actionPerformed( ActionEvent arg0 ) {
-
                 iaec.getEditionRectangle( ).setRectangular( true );
                 setRectangular( iaec.getEditionRectangle( ) );
                 IrregularAreaEditionPanel.this.repaint( );
@@ -207,9 +205,7 @@ public class IrregularAreaEditionPanel extends JPanel {
             if( spep.getSelectedElement( ) != null && spep.getSelectedElement( ).getDataControl( ) != null && spep.getSelectedElement( ).getDataControl( ) instanceof RectangleArea ) {
                 turnIrregular = new JButton( TC.get( "SPEP.ConvertToIrregularArea" ) );
                 turnIrregular.addActionListener( new ActionListener( ) {
-
                     public void actionPerformed( ActionEvent e ) {
-
                         ( (RectangleArea) spep.getSelectedElement( ).getDataControl( ) ).setRectangular( false );
                         setRectangular( (RectangleArea) spep.getSelectedElement( ).getDataControl( ) );
                         IrregularAreaEditionPanel.this.repaint( );
