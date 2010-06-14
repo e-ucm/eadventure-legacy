@@ -437,10 +437,7 @@ public class Writer {
             jscript += "\t\t\tfunction hideText(){\n";
             jscript += "\t\t\t\tmsg = document.getElementById('loadingMessage');\n";
             jscript += "\t\t\t\tmsg.style.display = 'none';\n";
-            
-            jscript += "\t\t\t\ttop.contentFrame.frames[1].frames[0].parent.document.getElementsByTagName('frameset')[0].cols=\"0%,100%\";\n";
             jscript += "\t\t\t}\n";
-
             if (lams){
             // THE NEXT CODE WAS ADDED ON Feb 2010. This will be used to communicate with LAMS
             jscript += "\t\t\tfunction getParams(){\n";
@@ -485,7 +482,7 @@ public class Writer {
             
             
             jscript + "\t</head>\n" + "\t<body>\n" + "\t\t<applet code=\"" + mainClass + "\" archive=\"./" + loName + ".jar\" name=\"eadventure\" id=\"eadventure\" " + ( windowed ? "width=\"200\" height=\"150\"" : "width=\"800\" height=\"600\"" ) +  " MAYSCRIPT>\n" + "\t\t<param name=\"WINDOWED\" value=\"" + ( windowed ? "yes" : "no" ) + "\"/>\n" + "\t\t<param name=\"java_arguments\" value=\"-Xms512m -Xmx512m\"/>\n"+ "\t\t<param name=\"image\" value=\"splashScreen.gif\"/>\n"+
-            (lams?lamsParam:"") + "\t\t</applet>\n" + "<div id=\"loadingMessage\"><p><b> </b></p></div>\n" + "\t</body>\n" + "</html>\n";
+            (lams?lamsParam:"") + "\t\t</applet>\n" + "<div id=\"loadingMessage\"><p><b>"+TC.get( "Applet.LoadingMessage" )+"</b></p></div>\n" + "\t</body>\n" + "</html>\n";
 
             File pageFile = new File( "web/temp/" + loName + ".html" );
             pageFile.createNewFile( );
@@ -506,7 +503,7 @@ public class Writer {
         }
         return dataSaved;
     }
-
+    
     /**
      * Returns the text of a simple manifest file with the main class as
      * specified by argument
