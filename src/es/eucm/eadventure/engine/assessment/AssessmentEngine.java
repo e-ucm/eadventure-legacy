@@ -210,9 +210,11 @@ public class AssessmentEngine implements TimerEventListener {
 			// If it was activated, execute the rule
 			if (isActive(assessmentRules.get(i))) {
 				AssessmentRule oldRule = assessmentRules.remove(i);
+				oldRule.setConcept( Game.getInstance( ).processText( oldRule.getConcept( )));
+				oldRule.setText( Game.getInstance( ).processText( oldRule.getText( )));
 				ProcessedRule rule = new ProcessedRule(oldRule, Game
 						.getInstance().getTime());
-
+				
 				 //System.out.println("Se cumple la regla "+ oldRule.getId());
 				// Signal the LMS about the change
 				if (Game.getInstance().isConnected()) {
@@ -359,7 +361,7 @@ public class AssessmentEngine implements TimerEventListener {
         for (ProcessedRule rule : processedRules) {
             // First check the importance
             if (rule.getImportance() >= 0) {
-                file+=Game.getInstance( ).processText(rule.getHTMLCode());
+                file+=rule.getHTMLCode();
                 file+="<br/><br/>";
             }
         }
