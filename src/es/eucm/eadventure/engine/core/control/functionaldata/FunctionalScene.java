@@ -854,22 +854,15 @@ public class FunctionalScene implements Renderable {
     public void playBackgroundMusic( ) {
 
         if( Game.getInstance( ).getOptions( ).isMusicActive( ) ) {
-            if( backgroundMusicId != -1 ) {
-                if( !MultimediaManager.getInstance( ).isPlaying( backgroundMusicId ) ) {
-                    backgroundMusicId = MultimediaManager.getInstance( ).loadMusic( resources.getAssetPath( Scene.RESOURCE_TYPE_MUSIC ), true );
-                    MultimediaManager.getInstance( ).startPlaying( backgroundMusicId );
-                }
-            }
-            else {
-                if( resources.existAsset( Scene.RESOURCE_TYPE_MUSIC ) ) {
-                    backgroundMusicId = MultimediaManager.getInstance( ).loadMusic( resources.getAssetPath( Scene.RESOURCE_TYPE_MUSIC ), true );
-                    MultimediaManager.getInstance( ).startPlaying( backgroundMusicId );
-                }
-                else {
-                    MultimediaManager.getInstance( ).stopPlayingMusic( );
-                }
-            }
-        }
+            if (resources.existAsset( Scene.RESOURCE_TYPE_MUSIC )){
+                 if( !MultimediaManager.getInstance( ).isPlaying( backgroundMusicId ) ) {
+                       backgroundMusicId = MultimediaManager.getInstance( ).loadMusic( resources.getAssetPath( Scene.RESOURCE_TYPE_MUSIC ), true );
+                       MultimediaManager.getInstance( ).startPlaying( backgroundMusicId );
+                    }
+           } else 
+             MultimediaManager.getInstance( ).stopPlayingMusic( );
+       }
+        
     }
 
     /**

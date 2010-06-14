@@ -439,10 +439,12 @@ public class MultimediaManager {
     public boolean isPlaying( long soundId ) {
 
         boolean playing = false;
+        if (soundId!=-1){
         if( soundCache.containsKey( soundId ) ) {
             Sound sound = soundCache.get( soundId );
             if( sound != null )
                 playing = sound.isPlaying( );
+        }
         }
         return playing;
     }
