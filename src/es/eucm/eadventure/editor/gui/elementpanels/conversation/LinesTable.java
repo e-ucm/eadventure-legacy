@@ -37,6 +37,8 @@
 package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
 import java.awt.Dimension;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,13 +62,24 @@ public class LinesTable extends JTable {
 
     private static final long serialVersionUID = -6962666312669657936L;
 
+    /**
+     * Constant to reference the column where the text of the line is editing
+     */
+    public static final int TEXT_COLUMN=1;
+    
     private ConversationDataControl conversationDataControl;
+    
+    private int lastSelectedConversationLine;
+    
+    private ConversationNodeView lastSelectedNode;
 
     public LinesTable( ConversationDataControl conversationDataControl, LinesPanel linesPanel ) {
 
         super( );
         this.conversationDataControl = conversationDataControl;
-
+        lastSelectedNode= null;
+        putClientProperty( "terminateEditOnFocusLost", Boolean.TRUE );
+        
         setModel( new NodeTableModel( null ) );
         setAutoCreateColumnsFromModel( false );
         getColumnModel( ).getColumn( 0 ).setMaxWidth( 90 );
@@ -113,22 +126,47 @@ public class LinesTable extends JTable {
         this.getSelectionModel( ).addListSelectionListener( new ListSelectionListener( ) {
 
             public void valueChanged( ListSelectionEvent arg0 ) {
-
+                
                 setRowHeight( 20 );
-                if( getSelectedRow( ) != -1 )
+                if( getSelectedRow( ) != -1 ){
                     setRowHeight( getSelectedRow( ), 48 );
+                    lastSelectedConversationLine = getSelectedRow( );
+                }
             }
         } );
+        
+        this.addFocusListener( new FocusListener(){
 
-        putClientProperty( "terminateEditOnFocusLost", Boolean.TRUE );
+            public void focusGained( FocusEvent e ) {
 
+               
+                
+            }
+
+            public void focusLost( FocusEvent e ) {
+
+                System.out.println( "Pierdo el foco en la tabla" );
+                
+                
+            }
+            
+        });
+        
     }
 
     public void newSelectedNode( ConversationNodeView selectedNode ) {
 
         setModel( new NodeTableModel( selectedNode ) );
+        if (selectedNode != null)
+            lastSelectedNode = selectedNode;
         if( isEditing( ) )
             getCellEditor( ).cancelCellEditing( );
+    }
+    
+    public void modifyConversationLineOutTable(String value){
+      conversationDataControl.setNodeLineText( lastSelectedNode, lastSelectedConversationLine, value);
+
+
     }
 
     /**
@@ -202,8 +240,10 @@ public class LinesTable extends JTable {
                         conversationDataControl.setNodeLineName( node, rowIndex, ConversationLine.PLAYER );
                     else
                         conversationDataControl.setNodeLineName( node, rowIndex, value.toString( ) );
-                if( columnIndex == 1 )
+                if( columnIndex == 1 ){
                     conversationDataControl.setNodeLineText( node, rowIndex, value.toString( ) );
+                  ((TextLineCellRendererEditor) (getColumnModel( ).getColumn( 1 ).getCellEditor( ))).restartValue();
+                }
                 fireTableCellUpdated( rowIndex, columnIndex );
             }
         }
