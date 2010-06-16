@@ -56,6 +56,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class TextLineCellRendererEditor extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
@@ -67,6 +68,8 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
     private JTextPane textPane;
 
     private LinesPanel linesPanel;
+    
+    
 
     public TextLineCellRendererEditor( LinesPanel linesPanel ) {
 
@@ -85,19 +88,45 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
         Color color = getColor( node, row );
 
         textPane = new JTextPane( );
+        if (this.value.contains( TC.get( "ConversationLine.DefaultText" )+ "\n" ))
+           value = value.substring( 0, value.indexOf( "\n" ) );
         textPane.setText( this.value );
         textPane.setAutoscrolls( true );
         textPane.setForeground( color );
-        textPane.getDocument( ).addDocumentListener( new DocumentListener( ) {
+      
+        textPane.addFocusListener( new FocusListener(){
+
+            public void focusGained( FocusEvent e ) {
+
+                // TODO Auto-generated method stub
+                
+            }
+
+            public void focusLost( FocusEvent e ) {
+               
+
+                if (value!=null){
+                    linesPanel.getLineTable( ).modifyConversationLineOutTable(value);
+                        
+                }
+                
+            }
+           
+            
+            
+        });
+            textPane.getDocument( ).addDocumentListener( new DocumentListener( ) {
 
             public void changedUpdate( DocumentEvent arg0 ) {
 
                 value = textPane.getText( );
+                
             }
 
             public void insertUpdate( DocumentEvent arg0 ) {
 
                 value = textPane.getText( );
+                
             }
 
             public void removeUpdate( DocumentEvent arg0 ) {
@@ -105,6 +134,7 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
                 value = textPane.getText( );
             }
         } );
+        
         textPane.addKeyListener( new KeyListener( ) {
 
             public void keyPressed( KeyEvent arg0 ) {
@@ -113,6 +143,8 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
                     value = textPane.getText( );
                     stopCellEditing( );
                     linesPanel.editNextLine( );
+                    textPane.setText( TC.get( "ConversationLine.DefaultText" ) );
+                    
                 }
             }
 
@@ -129,11 +161,10 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
         scrollPane.addFocusListener( new FocusListener( ) {
 
             public void focusGained( FocusEvent arg0 ) {
-
+ 
                 SwingUtilities.invokeLater( new Runnable( ) {
 
                     public void run( ) {
-
                         textPane.selectAll( );
                         textPane.requestFocusInWindow( );
                     }
@@ -141,13 +172,17 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
             }
 
             public void focusLost( FocusEvent arg0 ) {
-
+              
             }
         } );
 
         return scrollPane;
 
     }
+    
+   public void restartValue(){
+       value=null;
+   }
 
     public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
 

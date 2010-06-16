@@ -57,19 +57,16 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.AbstractTableModel;
 
+import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
-
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
-import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.gui.TC;
 
 /**
  * This class is the panel used to display and edit nodes. It holds node
@@ -78,6 +75,9 @@ import es.eucm.eadventure.common.gui.TC;
  */
 class LinesPanel extends JPanel implements DataControlsPanel {
 
+    
+
+    
     /**
      * Required
      */
@@ -432,6 +432,8 @@ class LinesPanel extends JPanel implements DataControlsPanel {
             lineTable.revalidate( );
         }
     }
+    
+   
 
     public void editNextLine( ) {
 
@@ -445,7 +447,7 @@ class LinesPanel extends JPanel implements DataControlsPanel {
             else
                 conversationDataControl.addChild( selectedNode, ConversationNodeView.DIALOGUE, ( (GraphConversationDataControl) conversationDataControl ).getAllConditions( ) );
         }
-        ( (AbstractTableModel) lineTable.getModel( ) ).fireTableDataChanged( );
+        //( (AbstractTableModel) lineTable.getModel( ) ).fireTableDataChanged( );
         lineTable.changeSelection( selectedRow + 1, selectedRow + 1, false, false );
         SwingUtilities.invokeLater( new Runnable( ) {
 
@@ -611,6 +613,12 @@ class LinesPanel extends JPanel implements DataControlsPanel {
             es.eucm.eadventure.editor.control.controllers.conversation.ConversationLine line = (es.eucm.eadventure.editor.control.controllers.conversation.ConversationLine) path.get( path.size( ) - 1 );
             lineTable.changeSelection( line.getLine( ), 0, false, false );
         }
+    }
+
+    
+    public LinesTable getLineTable( ) {
+    
+        return lineTable;
     }
 
 }
