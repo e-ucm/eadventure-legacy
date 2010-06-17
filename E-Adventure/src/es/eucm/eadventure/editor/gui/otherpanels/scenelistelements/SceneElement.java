@@ -65,6 +65,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
+import es.eucm.eadventure.editor.gui.otherpanels.SceneLinksPanel;
 
 public class SceneElement {
 
@@ -90,17 +91,28 @@ public class SceneElement {
 
     private boolean visible;
 
+    private static Image tempImage = null;
+
     public SceneElement( SceneDataControl sceneDataControl, int i ) {
 
         this.sceneDataControl = sceneDataControl;
         visible = true;
         String temp = sceneDataControl.getPreviewBackground( );
-        image = AssetsController.getImage( temp );
+        tempImage = AssetsController.getImage( temp );
+        int w = 800;
+        int h = 600;
         if( image == null ) {
             ImageIcon icon = new ImageIcon( "img/icons/noImageFrame.png" );
             image = new BufferedImage( 800, 600, BufferedImage.TYPE_4BYTE_ABGR );
             image.getGraphics( ).drawImage( icon.getImage( ), 0, 0, 800, 600, null );
+        } else {
+            w = tempImage.getWidth( null );
+            h = tempImage.getHeight( null );
         }
+        image = new BufferedImage( w / SceneLinksPanel.DEFAULT_SCALE, h / SceneLinksPanel.DEFAULT_SCALE, BufferedImage.TYPE_4BYTE_ABGR );
+        image.getGraphics( ).drawImage( tempImage, 0, 0, w / SceneLinksPanel.DEFAULT_SCALE, h / SceneLinksPanel.DEFAULT_SCALE, null );
+        tempImage = null;
+
         color = Controller.generateColor( i );
         exitElements = new ArrayList<ExitElement>( );
         activeAreaElements = new ArrayList<ActiveAreaElement>( );
@@ -110,10 +122,10 @@ public class SceneElement {
         g.setComposite( alphaComposite );
         g.setColor( color );
         for( ExitDataControl exit : sceneDataControl.getExitsList( ).getExits( ) ) {
-            int x = exit.getX( );
-            int y = exit.getY( );
-            int width = exit.getWidth( );
-            int height = exit.getHeight( );
+            int x = exit.getX( ) / SceneLinksPanel.DEFAULT_SCALE;
+            int y = exit.getY( ) / SceneLinksPanel.DEFAULT_SCALE;
+            int width = exit.getWidth( ) / SceneLinksPanel.DEFAULT_SCALE;
+            int height = exit.getHeight( ) / SceneLinksPanel.DEFAULT_SCALE;
             g.fillRect( x, y, width, height );
             exitElements.add( new ExitElement( exit ) );
         }
@@ -151,10 +163,10 @@ public class SceneElement {
                 }
             }
             if( hasTriggerScene ) {
-                int x = aadc.getX( );
-                int y = aadc.getY( );
-                int width = aadc.getWidth( );
-                int height = aadc.getHeight( );
+                int x = aadc.getX( ) / SceneLinksPanel.DEFAULT_SCALE;
+                int y = aadc.getY( ) / SceneLinksPanel.DEFAULT_SCALE;
+                int width = aadc.getWidth( ) / SceneLinksPanel.DEFAULT_SCALE;
+                int height = aadc.getHeight( ) / SceneLinksPanel.DEFAULT_SCALE;
                 g.fillRect( x, y, width, height );
                 activeAreaElements.add( new ActiveAreaElement( aadc, sceneIds ) );
             }
@@ -192,10 +204,10 @@ public class SceneElement {
                     image = AssetsController.getImage( imagePath );
                 else
                     image = ( new ImageIcon( "img/assets/EmptyImage.png" ) ).getImage( );
-                int width = (int) ( irdc.getElementScale( ) * image.getWidth( null ) );
-                int height = (int) ( irdc.getElementScale( ) * image.getHeight( null ) );
-                int x = irdc.getElementX( ) - width / 2;
-                int y = irdc.getElementY( ) - height;
+                int width = (int) ( irdc.getElementScale( ) * image.getWidth( null ) ) / SceneLinksPanel.DEFAULT_SCALE;
+                int height = (int) ( irdc.getElementScale( ) * image.getHeight( null ) ) / SceneLinksPanel.DEFAULT_SCALE ;
+                int x = irdc.getElementX( ) / SceneLinksPanel.DEFAULT_SCALE - width / 2;
+                int y = irdc.getElementY( ) / SceneLinksPanel.DEFAULT_SCALE- height;
                 g.drawImage( image, x, y, width, height, null );
                 itemReferenceElements.add( new ItemReferenceElement( irdc, height, sceneIds ) );
             }
@@ -252,10 +264,10 @@ public class SceneElement {
                     image = AssetsController.getImage( imagePath );
                 else
                     image = ( new ImageIcon( "img/assets/EmptyImage.png" ) ).getImage( );
-                int width = (int) ( irdc.getElementScale( ) * image.getWidth( null ) );
-                int height = (int) ( irdc.getElementScale( ) * image.getHeight( null ) );
-                int x = irdc.getElementX( ) - width / 2;
-                int y = irdc.getElementY( ) - height;
+                int width = (int) ( irdc.getElementScale( ) * image.getWidth( null ) ) / SceneLinksPanel.DEFAULT_SCALE;
+                int height = (int) ( irdc.getElementScale( ) * image.getHeight( null ) ) / SceneLinksPanel.DEFAULT_SCALE;
+                int x = irdc.getElementX( ) / SceneLinksPanel.DEFAULT_SCALE- width / 2;
+                int y = irdc.getElementY( ) / SceneLinksPanel.DEFAULT_SCALE- height;
                 g.drawImage( image, x, y, width, height, null );
                 itemReferenceElements.add( new ItemReferenceElement( irdc, height, sceneIds ) );
             }

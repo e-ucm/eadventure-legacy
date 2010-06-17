@@ -148,9 +148,8 @@ class RepresentationPanel extends JPanel {
     }
 
     @Override
-    public void paint( Graphics g ) {
-
-        super.paint( g );
+    public void paintComponent( Graphics g ) {
+        super.paintComponent( g );
 
         // If there is a current conversation
         if( conversationRepresentation != null ) {
@@ -182,6 +181,8 @@ class RepresentationPanel extends JPanel {
                 menuPanel.setVisible( true );
         }
         menuPanel.repaint( );
+
+
     }
 
     /**
