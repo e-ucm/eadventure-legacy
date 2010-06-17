@@ -273,6 +273,11 @@ public class DescriptorData implements Cloneable, Described, Titled {
      * This flag tells if the adventure should show automatic commentaries.
      */
     protected boolean commentaries = false;
+    
+    /**
+     * This flag tell if the conversations in this adventure will stop the conversation lines until user skip them
+     */
+    protected boolean keepShowing = false;
 
     /**
      * The name of the player, only used when reports are send by e-mail.
@@ -668,7 +673,7 @@ public class DescriptorData implements Cloneable, Described, Titled {
 
     @Override
     public Object clone( ) throws CloneNotSupportedException {
-
+        //TODO the keepShowing is now no included due to decide the final situation
         DescriptorData dd = (DescriptorData) super.clone( );
         if( buttons != null ) {
             dd.buttons = new ArrayList<CustomButton>( );
@@ -734,6 +739,18 @@ public class DescriptorData implements Cloneable, Described, Titled {
     public void setProjectName( String projectName ) {
 
         this.projectName = projectName;
+    }
+
+    
+    public Boolean isKeepShowing( ) {
+    
+        return keepShowing;
+    }
+
+    
+    public void setKeepShowing( Boolean keepShowing ) {
+    
+        this.keepShowing = keepShowing;
     }
 
 }

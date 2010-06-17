@@ -1176,6 +1176,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 <entry key="Error.DeletingFolderContents">An unexpected error occurred when deleting the contents of the folder.</entry>
 <entry key="ResourcesList.ResourcesBlockNumber">Appearance #</entry>
 <entry key="AdaptationRulesList.Scorm12">SCORM 1.2 profile</entry>
+<entry key="MenuAdventure.KeepShowing">For each conversation line</entry>
 <entry key="AdaptationProfiles.Title">Adaptation profiles</entry>
 <entry key="SPEP.Width">Width</entry>
 <entry key="Error.LoadAborted.Message">A critical error occurred loading the files.
@@ -1436,6 +1437,7 @@ Folders with names containing other characters will not be valid.</entry>
 <entry key="LOM.Educational.InteractivityLevel">Interactivity level</entry>
 <entry key="Effect.TriggerConversation">Trigger conversation</entry>
 <entry key="Barrier.MainPanelTip">Barrier</entry>
+<entry key="Conversation.ShowUserOption">Show response</entry>
 <entry key="IMS.LifeCycle.Status">The state or condition this resource is in</entry>
 <entry key="MenuChapters.DeleteChapter">Delete chapter</entry>
 <entry key="Effect.RedHighlightItemInfo">Highlight {#0} in red</entry>
@@ -1689,7 +1691,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="LOM.Educational.SemanticDensity3">High</entry>
 <entry key="Conversation.ErrorLinkNode">Cannot link the selected node with the given node</entry>
 <entry key="LOM.Educational.SemanticDensity2">Medium</entry>
-<entry key="Animation.Duration">Duration</entry>
+<entry key="Animation.Duration">Duration (ms)</entry>
 <entry key="MenuAdventure.GUIStyles">Select GUI style...</entry>
 <entry key="LOM.Educational.SemanticDensity1">Low</entry>
 <entry key="LOM.Educational.SemanticDensity0">Very low</entry>
@@ -1825,6 +1827,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="ConversationLine.DefaultText">New line</entry>
 <entry key="ExitLook.TextPanelTitle">Displayed text on the exit</entry>
 <entry key="Animation.Slides">Slides animation</entry>
+<entry key="Conversation.KeepShowing">Show previous question</entry>
 <entry key="BookPageType.URL">URL</entry>
 <entry key="Error.NoVideoFormat">Error loading video</entry>
 <entry key="Operation.AssignAdaptationProfile">There are not adaptation files for this chapter.</entry>

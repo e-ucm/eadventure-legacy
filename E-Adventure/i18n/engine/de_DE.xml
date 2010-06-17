@@ -62,6 +62,7 @@
 <entry key="GameText.On">On</entry>
 <entry key="MainWindow.GameLauncherTitle">eAdventure Game Launcher</entry>
 <entry key="Report.OKSend">OK - Bericht schicken</entry>
+<entry key="Conversation.WaitUserInteraction">Halten Sie Text, um die Interaktion der Nutzer</entry>
 <entry key="HUD.Traditional.btnUseFocus">gui/hud/traditional/btnUseFocusDE.png</entry>
 <entry key="Report.Importance.VeryLow">Sehr niedrig</entry>
 <entry key="GameText.Load">Laden</entry>
@@ -82,8 +83,8 @@
 <entry key="Options.LoadPanel">gui/options/LoadPanelDE.png</entry>
 <entry key="Information.FileAbout">aboutDE.html</entry>
 <entry key="ErrorReport.ShortDescription">Bitte schreiben Sie eine kurze Beschreibung dessen, was Sie tun</entry>
-<entry key="GameText.TextTalkObject2">Ich werde das nicht machen!</entry>
 <entry key="Report.GenerateXML">XML Bericht erstellent</entry>
+<entry key="GameText.TextTalkObject2">Ich werde das nicht machen!</entry>
 <entry key="Options.versionError2">Die gespeicherte Spiel hat eine andere Version des aktuellen Spiels</entry>
 <entry key="GameText.TextTalkObject1">Das ist Dump!</entry>
 <entry key="Options.versionError1">Version Fehler</entry>

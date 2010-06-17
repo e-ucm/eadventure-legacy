@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.data.chapter.conversation.node.DialogueConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.DebugLog;
@@ -137,11 +138,21 @@ public class GameStateConversation extends GameState {
      * Store only the option which has all conditions OK
      */
     private ArrayList<ConversationLine> optionsToShow;
+    
+    /**
+     * Like keepShowing, but at adventure level
+     */
+    private boolean generalKeepShowing;
 
     /**
      * The name of conversation
      */
     private String convID;
+    
+    /**
+     * Last Conversation line previous to an option node
+     */
+    private ConversationLine lastConversationLine;
 
     /**
      * Creates a new GameStateConversation
@@ -159,6 +170,8 @@ public class GameStateConversation extends GameState {
         optionsToShow = new ArrayList<ConversationLine>( );
         isOptionSelected = false;
         convID = new String( );
+        lastConversationLine=null;
+        generalKeepShowing = Game.getInstance().getGameDescriptor( ).isKeepShowing( );
 
     }
 
@@ -238,12 +251,28 @@ public class GameStateConversation extends GameState {
      */
     private void processOptionNode( Graphics2D g ) {
 
-        if( !isOptionSelected )
+        if( !isOptionSelected ){
             optionNodeNoOptionSelected( g );
+            showPlayerQuestion();
+        }
         else
             optionNodeWithOptionSelected( );
     }
 
+    
+    /**
+     * Keep showing in option node the last line in previous dialog node
+     */
+    private void showPlayerQuestion(){
+ 
+        if (((OptionConversationNode)currentNode).isKeepShowing( )){
+            FunctionalPlayer player = game.getFunctionalPlayer( );
+            player.speak( lastConversationLine.getText( ), true );
+            game.setCharacterCurrentlyTalking( player );
+        }
+        
+    }
+    
     /**
      * When in an option node, if no option is selected all the possible options
      * must be displayed on screen.
@@ -257,6 +286,7 @@ public class GameStateConversation extends GameState {
             ( (OptionConversationNode) currentNode ).doRandom( );
             firstTime = false;
         }
+           
         numberDisplayedOptions = 0;
 
         storeOKConditionsConversationLines( );
@@ -388,17 +418,19 @@ public class GameStateConversation extends GameState {
             FunctionalPlayer player = game.getFunctionalPlayer( );
             ConversationLine line = currentNode.getLine( correspondingIndex.get( optionSelected ) );
 
-            if( line.isValidAudio( ) ) {
-                player.speak( line.getText( ), line.getAudioPath( ) );
-            }
-            else if( line.getSynthesizerVoice( ) || player.isAlwaysSynthesizer( ) ) {
-                player.speakWithFreeTTS( line.getText( ), player.getPlayerVoice( ) );
-            }
-            else if (!game.isTransparent( )) {
-                player.speak( line.getText( ) );
-            }
-            else
-                player.speak( "" );
+            if (((OptionConversationNode)currentNode).isShowUserOption( )){
+              
+                if( line.isValidAudio( ) ) {
+                    player.speak( line.getText( ), line.getAudioPath( ), generalKeepShowing );
+                }
+                else if( line.getSynthesizerVoice( ) || player.isAlwaysSynthesizer( ) ) {
+                    player.speakWithFreeTTS( line.getText( ), player.getPlayerVoice( ), generalKeepShowing );
+                }
+                else 
+                    player.speak( line.getText( ), generalKeepShowing );
+                
+        }else 
+           player.speak( "" );
 
             game.setCharacterCurrentlyTalking( player );
             isOptionSelected = true;
@@ -497,7 +529,7 @@ public class GameStateConversation extends GameState {
 
         // Only talk if all conditions in current line are OK
         if( ( new FunctionalConditions( currentNode.getLine( currentLine ).getConditions( ) ).allConditionsOk( ) ) ) {
-
+            
             if( line.isPlayerLine( ) )
                 talking = game.getFunctionalPlayer( );
             else {
@@ -508,12 +540,15 @@ public class GameStateConversation extends GameState {
             }
 
             if( talking != null ) {
+                boolean keepShowing = false;
+                if (generalKeepShowing||line.isKeepShowing( ) ||((DialogueConversationNode)currentNode).isKeepShowing( ))
+                    keepShowing = true;
                 if( line.isValidAudio( ) )
-                    talking.speak( line.getText( ), line.getAudioPath( ) );
-                else if( line.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) )
-                    talking.speakWithFreeTTS( line.getText( ), talking.getPlayerVoice( ) );
+                    talking.speak( line.getText( ), line.getAudioPath( ), keepShowing );
+                else if( line.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ))
+                    talking.speakWithFreeTTS( line.getText( ), talking.getPlayerVoice( ), keepShowing );
                 else
-                    talking.speak( line.getText( ) );
+                    talking.speak( line.getText( ), keepShowing );
             }
             game.setCharacterCurrentlyTalking( talking );
         }
@@ -526,6 +561,7 @@ public class GameStateConversation extends GameState {
      */
     private void skipToNextNode( ) {
 
+        lastConversationLine= currentNode.getConversationLine( currentLine - 1 );
         if( currentNode.hasValidEffect( ) && !currentNode.isEffectConsumed( ) ) {
             currentNode.consumeEffect( );
             game.pushCurrentState( this );

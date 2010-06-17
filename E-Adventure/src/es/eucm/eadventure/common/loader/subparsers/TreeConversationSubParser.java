@@ -127,6 +127,16 @@ public class TreeConversationSubParser extends SubParser {
      * Check if the options in option node may be random
      */
     private boolean random;
+    
+    /**
+     * Check if the previous line will be showed at options node
+     */
+    private boolean keepShowing;
+    
+    /**
+     * Check if the user's response will be showed
+     */
+    private boolean showUserOption;
 
     /**
      * Check if a conversation line must be synthesize
@@ -231,10 +241,23 @@ public class TreeConversationSubParser extends SubParser {
                         else
                             random = false;
                     }
+                  //If there is a "keepShowing" attribute, keep the previous conversation line showing
+                    if( attrs.getQName( i ).equals( "keepShowing" ) ) {
+                        if( attrs.getValue( i ).equals( "yes" ) )
+                            keepShowing = true;
+                        else
+                            keepShowing = false;
+                    }
+                  //If there is a "showUserOption" attribute, identify if show the user response at option node
+                    if( attrs.getQName( i ).equals( "showUserOption" ) ) {
+                        if( attrs.getValue( i ).equals( "yes" ) )
+                            showUserOption = true;
+                        else
+                            showUserOption = false;
+                    }
                 }
-
                 // Create a new OptionNode, and link it to the current node
-                ConversationNode nuevoNodoOpcion = new OptionConversationNode( random );
+                ConversationNode nuevoNodoOpcion = new OptionConversationNode( random,keepShowing, showUserOption );
                 currentNode.addChild( nuevoNodoOpcion );
 
                 // Change the actual node for the option node recently created

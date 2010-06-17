@@ -430,7 +430,7 @@
 <entry key="Operation.ExportProject.AsJAR">Operação: Exportando projecto como  jogo autoconteido (.JAR)</entry>
 <entry key="ErrorSolving.AdaptationReferenced.Deleted.Message">Não se encontrou o perfil de adaptação referenciado: "{#0}". Apagaram-se as referências a esse perfil.</entry>
 <entry key="Operation.AdventureConsistencyTitle">Validade da aventura</entry>
-<entry key="NPC.Documentation">Documentação do  personagem (não se utiliza no editor)</entry>
+<entry key="NPC.Documentation">Documentação do  personagem (não se utiliza no motor)</entry>
 <entry key="Operation.AdaptationPanel.DeleteButton">Apagar</entry>
 <entry key="VarDialog.Err.Title">Formato de entrada errado</entry>
 <entry key="Operation.NewProject.FolderNotEmptyMessage">O directório seleccionado não está vazio. Quer apagar seus conteúdos? (Os dados serão perdidos). Sim a pasta do projecto não está vazia, por favor comprove que não contem nenhum ficheiro com o nome 'descriptor.xml' o 'chapterXX.xml', onde XX é um número qualquer.</entry>
@@ -1069,6 +1069,7 @@
 <entry key="Error.DeletingFolderContents">Um erro inesperado ocurreu ao apagar os conteudos da carpeta.</entry>
 <entry key="ResourcesList.ResourcesBlockNumber">Bloco de recursos #</entry>
 <entry key="AdaptationRulesList.Scorm12">Perfil 1.2</entry>
+<entry key="MenuAdventure.KeepShowing">Para cada linha de conversação</entry>
 <entry key="AdaptationProfiles.Title">Perfiis da adaptação</entry>
 <entry key="SPEP.Width">Comprimento</entry>
 <entry key="Error.LoadAborted.Message">Houve um error crítico ao carregar os ficheiros do projecto. Possivelmente o ficheiro descriptor.xml não se encontrou ou seja ilegível. Processo abortado.</entry>
@@ -1294,6 +1295,7 @@
 <entry key="LOM.Educational.InteractivityLevel">Nivel de interactividade</entry>
 <entry key="Effect.TriggerConversation">Lançar conversação</entry>
 <entry key="Barrier.MainPanelTip">Barreira</entry>
+<entry key="Conversation.ShowUserOption">Mostrar respuesta</entry>
 <entry key="IMS.LifeCycle.Status">Estado ou condição em que está o recurso</entry>
 <entry key="MenuChapters.DeleteChapter">Eliminar capítulo</entry>
 <entry key="Effect.RedHighlightItemInfo">Resaltar {#0} em vermelho</entry>
@@ -1514,7 +1516,7 @@
 <entry key="LOM.Educational.SemanticDensity3">Alto</entry>
 <entry key="Conversation.ErrorLinkNode">Não se pode ligar o nó seleccionado com o nó dado</entry>
 <entry key="LOM.Educational.SemanticDensity2">Medio</entry>
-<entry key="Animation.Duration">Duração</entry>
+<entry key="Animation.Duration">Duração (ms)</entry>
 <entry key="LOM.Educational.SemanticDensity1">Baixo</entry>
 <entry key="MenuAdventure.GUIStyles">Seleccionar estilo de GUI...</entry>
 <entry key="LOM.Educational.SemanticDensity0">Muito baixo</entry>
@@ -1635,12 +1637,13 @@
 <entry key="IMS.Educational.LearningResourceType13">Auto-Avaliação</entry>
 <entry key="LOM.General.Keyword">Palavra chave</entry>
 <entry key="IMS.Educational.LearningResourceType12">Descrição do Problema</entry>
-<entry key="IMS.Educational.LearningResourceType11">Experiência</entry>
 <entry key="MenuFile.LOMSCORMProperties">Propriedades de Objeto de Aprendizagem para pacotes SCORM 1.2 (IMS-LOM)</entry>
+<entry key="IMS.Educational.LearningResourceType11">Experiência</entry>
 <entry key="IMS.Educational.LearningResourceType10">Exame</entry>
 <entry key="ConversationLine.DefaultText">Nova linha</entry>
 <entry key="ExitLook.TextPanelTitle">Etiqueta de saida</entry>
 <entry key="Animation.Slides">Animação de transparências</entry>
+<entry key="Conversation.KeepShowing">Mostrar pergunta anterior</entry>
 <entry key="BookPageType.URL">URL</entry>
 <entry key="Error.NoVideoFormat">Erro carregando o video</entry>
 <entry key="Operation.AssignAdaptationProfile">Não há ficheiros de adaptação criados neste capítulo.</entry>

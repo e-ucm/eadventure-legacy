@@ -435,6 +435,17 @@ public class AdventureDataControl {
         Tool tool = new ChangeBooleanValueTool( adventureData, commentaries, "isCommentaries", "setCommentaries" );
         Controller.getInstance( ).addTool( tool );
     }
+    
+    public boolean isKeepShowing( ) {
+
+        return adventureData.isKeepShowing( );
+    }
+
+    public void setKeepShowing( boolean keepShowing ) {
+
+        Tool tool = new ChangeBooleanValueTool( adventureData, keepShowing, "isKeepShowing", "setKeepShowing" );
+        Controller.getInstance( ).addTool( tool );
+    }
 
     public int getGraphicConfig( ) {
 

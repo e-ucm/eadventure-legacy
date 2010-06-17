@@ -451,7 +451,7 @@ Sie können auch ähnliche Namen aus der Liste auswählen</entry>
 <entry key="ErrorSolving.AdaptationReferenced.Deleted.Message">Das referenzierte Anpassungsprofil wird nicht gefunden "{#0}".
 Referenzen werden gelöscht</entry>
 <entry key="Operation.AdventureConsistencyTitle">Gültigkeit des Abenteuers</entry>
-<entry key="NPC.Documentation">Charakter Dokumentation (in Editor nicht benutzt)</entry>
+<entry key="NPC.Documentation">Charakter Dokumentation (nicht benutzt im Engine)</entry>
 <entry key="Operation.AdaptationPanel.DeleteButton">Löschen</entry>
 <entry key="VarDialog.Err.Title">Falsch Input-Format</entry>
 <entry key="Operation.NewProject.FolderNotEmptyMessage">Der ausgewählte Ordner ist nicht leer.
@@ -1053,9 +1053,9 @@ Bitte geben Sie einen anderen Namen ein.</entry>
 <entry key="LOMES.Educational.LearningResourceType15">Master class</entry>
 <entry key="Search.Path">Standort</entry>
 <entry key="RandomEffect.Title">Effekt mit Wahrscheinlichkeit</entry>
+<entry key="MenuFile.LOMESProperties">Propiedades de Objeto de Aprendizaje para paquetes AGREGA (LOM-ES)</entry>
 <entry key="LOMES.Educational.LearningResourceType14">Guided reading</entry>
 <entry key="ErrorReport.Comments">Bitte benutzen Sie diesen Raum, um Ihre Kommentare und Anregungen zu schreiben</entry>
-<entry key="MenuFile.LOMESProperties">Propiedades de Objeto de Aprendizaje para paquetes AGREGA (LOM-ES)</entry>
 <entry key="LOMES.Educational.LearningResourceType13">Tutorial</entry>
 <entry key="GeneralText.Replace">Ersetzen</entry>
 <entry key="LOMES.Educational.LearningResourceType12">Multimedia presentation</entry>
@@ -1139,6 +1139,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 <entry key="Error.DeletingFolderContents">Unerwarteter Fehler beim Löschen der Inhalte des Ordners.</entry>
 <entry key="ResourcesList.ResourcesBlockNumber">Ressourcen Block #</entry>
 <entry key="AdaptationRulesList.Scorm12">Profil 1.2 </entry>
+<entry key="MenuAdventure.KeepShowing">Für jedes Gespräch line</entry>
 <entry key="AdaptationProfiles.Title">Profile der Anpassung</entry>
 <entry key="SPEP.Width">Weite</entry>
 <entry key="Error.LoadAborted.Message">Es war ein kritischer Fehler beim Laden der Projektsdateien.
@@ -1391,6 +1392,7 @@ Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán v�
 <entry key="LOM.Educational.InteractivityLevel">Interactivity level</entry>
 <entry key="Effect.TriggerConversation">Unterhaltung starten</entry>
 <entry key="Barrier.MainPanelTip">Barrier</entry>
+<entry key="Conversation.ShowUserOption">Reaktion zeigen</entry>
 <entry key="IMS.LifeCycle.Status">Staat oder Zustand, in dem die Aktion ist</entry>
 <entry key="MenuChapters.DeleteChapter">Kapiteln löschen</entry>
 <entry key="Effect.RedHighlightItemInfo">In Rot {#0} markieren</entry>
@@ -1634,7 +1636,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="LOM.Educational.SemanticDensity3">High</entry>
 <entry key="Conversation.ErrorLinkNode">Der ausgewählten Knoten konnte nicht mit dem angegebenen Knoten verbinden</entry>
 <entry key="LOM.Educational.SemanticDensity2">Medium</entry>
-<entry key="Animation.Duration">Dauer</entry>
+<entry key="Animation.Duration">Dauer (ms)</entry>
 <entry key="LOM.Educational.SemanticDensity1">Low</entry>
 <entry key="MenuAdventure.GUIStyles">Wählen Sie der GUI Styl aus...</entry>
 <entry key="LOM.Educational.SemanticDensity0">Very low</entry>
@@ -1758,12 +1760,13 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="IMS.Educational.LearningResourceType13">Self Assessment</entry>
 <entry key="LOM.General.Keyword">Keyword</entry>
 <entry key="IMS.Educational.LearningResourceType12">Problem Statement</entry>
-<entry key="IMS.Educational.LearningResourceType11">Experiment</entry>
 <entry key="MenuFile.LOMSCORMProperties">Propiedades de Objeto de Aprendizaje para paquetes SCORM 1.2 (IMS-LOM)</entry>
+<entry key="IMS.Educational.LearningResourceType11">Experiment</entry>
 <entry key="IMS.Educational.LearningResourceType10">Exam</entry>
 <entry key="ConversationLine.DefaultText">Neue Zeile</entry>
 <entry key="ExitLook.TextPanelTitle">Ausgang Label</entry>
 <entry key="Animation.Slides">Animación de transparencias</entry>
+<entry key="Conversation.KeepShowing">Alle vorherigen Frage</entry>
 <entry key="BookPageType.URL">URL</entry>
 <entry key="Error.NoVideoFormat">Fehler beim Videoladung</entry>
 <entry key="Operation.AssignAdaptationProfile">Keine Anpassung Dateien in diesem Kapitel erstellt.</entry>

@@ -1185,7 +1185,11 @@ public class Writer {
             os.write( manifestText.getBytes( ) );
             os.closeEntry( );
             os.flush( );
-
+            
+            //PRUEBA Extraer el chapter.xml a la raiz del doc scorm para solución CEPAL-MOODLE
+            //File chapterForMoodle = new File( gameFilename+"\\chapter1.xml" );
+            //chapterForMoodle.copyTo( new File( "web/temp/chapter1.xml" ) );
+            
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
             File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
             addNeededLibrariesToJar(os, Controller.getInstance( ));

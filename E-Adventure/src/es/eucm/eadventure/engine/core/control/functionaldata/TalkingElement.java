@@ -48,12 +48,14 @@ public interface TalkingElement {
      * 
      * @param text
      *            the text to be spoken
+     * @param keepShowing
+     *          keep showing the current line until user skip it
      */
-    public void speak( String text );
+    public void speak( String text, boolean keepShowing);
 
-    public void speakWithFreeTTS( String text, String voice );
+    public void speakWithFreeTTS( String text, String voice, boolean keepShowing );
 
-    public void speak( String text, String audioPath );
+    public void speak( String text, String audioPath,boolean keepShowing );
 
     /**
      * Check if all player conversation lines must be read by synthesizer

@@ -93,6 +93,8 @@ public class AdventureDataDialog extends ToolManagableDialog {
     private JCheckBox commentariesCheckBox;
 
     private DocumentListener documentListener;
+    
+    private JCheckBox waitUserInteraction;
 
     /**
      * Constructor.
@@ -201,6 +203,25 @@ public class AdventureDataDialog extends ToolManagableDialog {
         commentariesCheckBox.addActionListener( new CheckBoxListener( ) );
         c.gridy = 3;
         guiStylesPanel.add( commentariesPanel, c );
+        
+      
+        waitUserInteraction = new JCheckBox( TC.get( "Conversation.WaitUserInteraction" ), controller.isKeepShowing( ) );
+        waitUserInteraction.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                controller.setKeepShowing( waitUserInteraction.isSelected( ) );
+            }
+        } );
+        waitUserInteraction.setSelected( controller.isKeepShowing( ) );
+        
+        JPanel waitUserInteractionPanel = new JPanel(new BorderLayout());
+        waitUserInteractionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "MenuAdventure.KeepShowing" ) ) );
+        waitUserInteractionPanel.add( waitUserInteraction, BorderLayout.WEST );
+        
+        c.gridy = 4;
+        guiStylesPanel.add(waitUserInteractionPanel, c);
+        
 
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
@@ -220,8 +241,8 @@ public class AdventureDataDialog extends ToolManagableDialog {
         add( buttonsPanel, BorderLayout.SOUTH );
 
         // Set size and position and show the dialog
-        setSize( new Dimension( 450, 500 ) );
-        setMinimumSize( new Dimension( 450, 500 ) );
+        setSize( new Dimension( 450, 600 ) );
+        setMinimumSize( new Dimension( 450, 600 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
         setVisible( true );

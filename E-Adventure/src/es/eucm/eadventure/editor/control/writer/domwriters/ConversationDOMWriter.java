@@ -276,7 +276,9 @@ public class ConversationDOMWriter {
                     // Create the node element and set the nodeindex
                     nodeElement = doc.createElement( "dialogue-node" );
                     nodeElement.setAttribute( "nodeindex", String.valueOf( i ) );
-
+                    // Adds a random attribute if "keepShowing" is activate in conversation node data
+                    if( ( (DialogueConversationNode) node ).isKeepShowing( ) )
+                        nodeElement.setAttribute( "keepShowing", "yes" );
                     // For each line of the node
                     for( int j = 0; j < node.getLineCount( ); j++ ) {
                         // Create a phrase element, and extract the actual text line
@@ -369,6 +371,13 @@ public class ConversationDOMWriter {
                     // Adds a random attribute if "random" is activate in conversation node data
                     if( ( (OptionConversationNode) node ).isRandom( ) )
                         nodeElement.setAttribute( "random", "yes" );
+                 // Adds a random attribute if "keepShowing" is activate in conversation node data
+                    if( ( (OptionConversationNode) node ).isKeepShowing( ) )
+                        nodeElement.setAttribute( "keepShowing", "yes" );
+                    // Adds a random attribute if "showUserOption" is activate in conversation node data
+                    if( ( (OptionConversationNode) node ).isShowUserOption( ) )
+                        nodeElement.setAttribute( "showUserOption", "yes" );
+                    
 
                     // For each line of the node
                     for( int j = 0; j < node.getLineCount( ); j++ ) {

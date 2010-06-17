@@ -347,11 +347,14 @@
 <!ELEMENT dialogue-node (((speak-player | speak-char),condition?)*, (child | end-conversation), effect?)>
 <!ATTLIST dialogue-node
 	nodeindex CDATA #REQUIRED
+	keepShowing (yes | no) "no"
 >
 <!ELEMENT option-node ((speak-player,condition?, child)*,effect?)>
 <!ATTLIST option-node
 	nodeindex CDATA #REQUIRED
 	random (yes | no) "no"
+	keepShowing (yes | no) "no"
+	showUserOption (yes | no) "no"
 >
 <!ELEMENT child EMPTY>
 <!ATTLIST child
@@ -362,11 +365,13 @@
 	idTarget IDREF #IMPLIED
 	uri CDATA #IMPLIED
 	synthesize (yes | no) "no"
+	keepShowing (yes | no) "no"
 >
 <!ELEMENT speak-player (#PCDATA)>
 <!ATTLIST speak-player
 	uri CDATA #IMPLIED
 	synthesize (yes | no) "no"
+	keepShowing (yes | no) "no"
 >
 <!ELEMENT response ((option)*, effect?)>
 <!ATTLIST response

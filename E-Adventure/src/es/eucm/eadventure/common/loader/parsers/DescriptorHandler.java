@@ -126,6 +126,15 @@ public class DescriptorHandler extends DefaultHandler {
                     gameDescriptor.setVersionNumber( attrs.getValue( i ) );
                 }
         }
+        
+        if( qName.equals( "configuration" ) ) {
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+        
+            if( attrs.getQName( i ).equals( "keepShowing" ) ) {
+                gameDescriptor.setKeepShowing( attrs.getValue( i ).equals( "yes" ) );
+            }
+            }
+        }
 
         // If the element is the GUI configuration, store the values
         if( qName.equals( "gui" ) ) {

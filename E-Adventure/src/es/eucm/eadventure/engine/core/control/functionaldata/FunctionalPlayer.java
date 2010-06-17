@@ -601,36 +601,53 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement#speak(java.lang.String)
      */
-    public void speak( String text ) {
+    public void speak( String text, boolean keepShowing ) {
 
         if( text != null ) {
             DebugLog.player( "Player says " + text );
-            FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text );
+            FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text, keepShowing );
             addAction( functionalSpeak );
         }
     }
+    
+    public void speak( String text){
+        speak( text, false);
+    }
 
-    public void speak( String text, String audioPath ) {
+    public void speak( String text, String audioPath, boolean keepShowing ) {
 
         DebugLog.player( "Player says " + text + " with audio" );
-        FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text, audioPath );
+        FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text, audioPath, keepShowing );
         addAction( functionalSpeak );
+    }
+    
+    public void speak( String text, String audioPath) {
+        speak( text, audioPath, false );
     }
 
     /**
-     * 
+     * Speak using the TTS
      */
-    public void speakWithFreeTTS( String text, String voice ) {
+    public void speakWithFreeTTS( String text, String voice, boolean keepShowing ) {
 
         if( text != null ) {
             DebugLog.player( "Player speaks with text-to-speech" );
-            FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text );
+            FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text, keepShowing );
             if (voice != null && !voice.equals( "" ))
                 functionalSpeak.setSpeakFreeTTS( text, voice );
             
             addAction( functionalSpeak );
             
         }
+    }
+    
+    /**
+     * Speak with TTS without keep showing the line
+     * @param text
+     * @param voice
+     */
+    public void speakWithFreeTTS( String text, String voice ) {
+        speakWithFreeTTS( text, voice, false);
     }
 
     /*

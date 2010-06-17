@@ -68,9 +68,9 @@ public class FunctionalSpeakPlayerEffect extends FunctionalEffect {
         if( cond.allConditionsOk( ) ) {
             FunctionalPlayer player = Game.getInstance( ).getFunctionalPlayer( );
             if( player.isAlwaysSynthesizer( ) )
-                player.speakWithFreeTTS( ( (SpeakPlayerEffect) effect ).getLine( ), player.getPlayerVoice( ) );
+                player.speakWithFreeTTS( ( (SpeakPlayerEffect) effect ).getLine( ), player.getPlayerVoice( ), Game.getInstance( ).getGameDescriptor( ).isKeepShowing( )  );
             else
-                player.speak( ( (SpeakPlayerEffect) effect ).getLine( ) );
+                player.speak( ( (SpeakPlayerEffect) effect ).getLine( ), Game.getInstance( ).getGameDescriptor( ).isKeepShowing( ) );
             Game.getInstance( ).setCharacterCurrentlyTalking( player );
         }
     }

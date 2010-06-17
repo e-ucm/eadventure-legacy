@@ -75,6 +75,11 @@ public class ConversationLine implements Cloneable, Named {
      * Conditions associated to this line
      */
     private Conditions conditions;
+    
+    /**
+     * Keep line showing until user interacts
+     */
+    private boolean keepShowing;
 
     /**
      * Constructor.
@@ -89,6 +94,7 @@ public class ConversationLine implements Cloneable, Named {
         this.name = name;
         this.text = text;
         this.synthesizerVoice = false;
+        this.keepShowing = false;
         conditions = new Conditions( );
     }
 
@@ -217,7 +223,20 @@ public class ConversationLine implements Cloneable, Named {
         cl.synthesizerVoice = synthesizerVoice;
         cl.text = ( text != null ? new String( text ) : null );
         cl.conditions = ( conditions != null ? (Conditions) conditions.clone( ) : null );
+        cl.keepShowing = keepShowing;
         return cl;
+    }
+
+    
+    public boolean isKeepShowing( ) {
+    
+        return keepShowing;
+    }
+
+    
+    public void setKeepShowing( boolean keepShowing ) {
+    
+        this.keepShowing = keepShowing;
     }
 
 }

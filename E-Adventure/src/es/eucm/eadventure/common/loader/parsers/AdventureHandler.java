@@ -264,6 +264,15 @@ public class AdventureHandler extends DefaultHandler {
 			    adventureData.setVersionNumber(attrs.getValue(i));
 			}
 		}
+		
+		 if( qName.equals( "configuration" ) ) {
+	            for( int i = 0; i < attrs.getLength( ); i++ ) {
+	        
+	            if( attrs.getQName( i ).equals( "keepShowing" ) ) {
+	                adventureData.setKeepShowing( attrs.getValue( i ).equals( "yes" ) );
+	            }
+	            }
+	        }
 		    
 	    
 	    	// If reading a title, empty the current string
@@ -550,6 +559,7 @@ public class AdventureHandler extends DefaultHandler {
      *  (non-Javadoc)
      * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
      */
+    @Override
     public InputSource resolveEntity( String publicId, String systemId ) {
         // Take the name of the file SAX is looking for
         int startFilename = systemId.lastIndexOf( "/" ) + 1;
