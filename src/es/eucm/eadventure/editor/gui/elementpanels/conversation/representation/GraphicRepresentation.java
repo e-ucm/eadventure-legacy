@@ -331,6 +331,24 @@ public class GraphicRepresentation {
                             text = text.substring( 0, 12 ) + "...";
                         g.drawString( text, (int) posX, (int) posY );
                     }
+                } else if (currentNode instanceof OptionGraphicNode) {
+                    OptionGraphicNode node = (OptionGraphicNode) currentNode;
+                        if (node.getChildNode( j ) == selectedNode) {
+                            String text = node.getNode( ).getLineText( j );
+                            double nodeX = node.getPosition( scale ).getX( );
+                            double nodeY = node.getPosition( scale ).getY( );
+                            double childX = childPosition.getX( );
+                            double childY = childPosition.getY( );
+                            double h = Math.sqrt( Math.pow( nodeX - childX, 2 ) + Math.pow( nodeY - childY, 2 ) );
+
+                            double posX = nodeX - 80 * ( nodeX - childX ) * scale / h;
+                            double posY = nodeY - 80 * ( nodeY - childY ) * scale / h;
+
+                            if( text.length( ) > 15 )
+                                text = text.substring( 0, 12 ) + "...";
+                            g.drawString( text, (int) posX, (int) posY );
+
+                    }
                 }
                 g.drawLine( (int) currentNode.getPosition( scale ).getX( ), (int) currentNode.getPosition( scale ).getY( ), (int) childPosition.getX( ), (int) childPosition.getY( ) );
                 drawArrow( g, currentNode.getChildNode( j ), currentNode.getPosition( scale ), childPosition );

@@ -114,6 +114,8 @@ public class SceneLinksPanel extends JPanel {
      */
     private DefaultTableModel dtm;
 
+    public static int DEFAULT_SCALE = 5;
+
     public SceneLinksPanel( ScenesListDataControl sceneListDataControl ) {
 
         this.sldc = sceneListDataControl;
@@ -262,7 +264,7 @@ public class SceneLinksPanel extends JPanel {
 
         for( SceneElement scene : sceneElements ) {
             if( scene.isVisible( ) ) {
-                drawPanel.paintRelativeImageTop( scene.getImage( ), scene.getPosX( ), scene.getPosY( ), drawingScale );
+                drawPanel.paintRelativeImageTop( scene.getImage( ), scene.getPosX( ), scene.getPosY( ), drawingScale * DEFAULT_SCALE );
                 if( scene.isShowName( ) )
                     drawPanel.drawRelativeString( scene.getId( ), scene.getPosX( ), scene.getPosY( ) );
                 for( ExitElement exit : scene.getExitElements( ) ) {
@@ -408,7 +410,7 @@ public class SceneLinksPanel extends JPanel {
 
         for( int i = sceneElements.size( ) - 1; i >= 0; i-- ) {
             SceneElement scene = sceneElements.get( i );
-            if( scene.isVisible( ) && scene.getPosX( ) < x && scene.getPosX( ) + scene.getWidth( ) * drawingScale > x && scene.getPosY( ) < y && scene.getPosY( ) + scene.getHeight( ) * drawingScale > y ) {
+            if( scene.isVisible( ) && scene.getPosX( ) < x && scene.getPosX( ) + scene.getWidth( ) * drawingScale * DEFAULT_SCALE > x && scene.getPosY( ) < y && scene.getPosY( ) + scene.getHeight( ) * drawingScale * DEFAULT_SCALE > y ) {
                 checkBoxes.changeSelection( i, 0, false, false );
                 return scene;
             }
