@@ -62,6 +62,7 @@
 <entry key="GameText.On">Activado</entry>
 <entry key="MainWindow.GameLauncherTitle">eAdventure Game Launcher</entry>
 <entry key="Report.OKSend">Aceptar y enviar informe</entry>
+<entry key="Conversation.WaitUserInteraction">Mantener texto hasta interacción de usuario</entry>
 <entry key="HUD.Traditional.btnUseFocus">gui/hud/traditional/btnUseFocusES.png</entry>
 <entry key="Report.Importance.VeryLow">Muy bajo</entry>
 <entry key="GameText.Load">Cargar</entry>
@@ -82,8 +83,8 @@
 <entry key="Options.LoadPanel">gui/options/LoadPanelES.png</entry>
 <entry key="Information.FileAbout">aboutES.html</entry>
 <entry key="ErrorReport.ShortDescription">Por favor escriba una breve descripición de lo que estaba haciendo</entry>
-<entry key="GameText.TextTalkObject2">No voy a hacer eso</entry>
 <entry key="Report.GenerateXML">Generar Informe XML</entry>
+<entry key="GameText.TextTalkObject2">No voy a hacer eso</entry>
 <entry key="Options.versionError2">La partida guardada es de otra versión distinta a la del juego actual</entry>
 <entry key="GameText.TextTalkObject1">Eso es estúpido</entry>
 <entry key="Options.versionError1">Error de versión</entry>

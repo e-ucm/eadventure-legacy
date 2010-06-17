@@ -3385,6 +3385,17 @@ public boolean isCharacterValid(String elementId){
 
     }
 
+    public boolean isKeepShowing( ) {
+
+        return this.adventureDataControl.isKeepShowing( );
+    }
+
+    public void setKeepShowing( boolean b ) {
+
+        this.adventureDataControl.setKeepShowing( b );
+
+    }
+    
     /**
      * Returns an int value representing the current language used to display
      * the editor

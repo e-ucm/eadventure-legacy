@@ -62,6 +62,7 @@
 <entry key="GameText.On">On</entry>
 <entry key="MainWindow.GameLauncherTitle">eAdventure Game Launcher</entry>
 <entry key="Report.OKSend">OK - Send report</entry>
+<entry key="Conversation.WaitUserInteraction">Keep text until user interacts</entry>
 <entry key="HUD.Traditional.btnUseFocus">gui/hud/traditional/btnUseFocusEN.png</entry>
 <entry key="Report.Importance.VeryLow">Very Low</entry>
 <entry key="GameText.Load">Load</entry>
@@ -82,8 +83,8 @@
 <entry key="Options.LoadPanel">gui/options/LoadPanelEN.png</entry>
 <entry key="Information.FileAbout">aboutEN.html</entry>
 <entry key="ErrorReport.ShortDescription">Please write a short description of what you where doing</entry>
-<entry key="GameText.TextTalkObject2">I'm not going to do that!</entry>
 <entry key="Report.GenerateXML">Generate XML Report</entry>
+<entry key="GameText.TextTalkObject2">I'm not going to do that!</entry>
 <entry key="Options.versionError2">The saved game has another version of the current game</entry>
 <entry key="GameText.TextTalkObject1">That's silly</entry>
 <entry key="Options.versionError1">Version error</entry>

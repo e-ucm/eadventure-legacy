@@ -74,10 +74,7 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
  * and reposition lines and children
  */
 class LinesPanel extends JPanel implements DataControlsPanel {
-
-    
-
-    
+  
     /**
      * Required
      */
@@ -251,7 +248,18 @@ class LinesPanel extends JPanel implements DataControlsPanel {
         c.fill = GridBagConstraints.VERTICAL;
         buttonsPanel.add( new JFiller( ), c );
 
+        //TODO descomentar para habilitar edición de parado de conversacion
+        /*JCheckBox waitUserInteraction = new JCheckBox( TC.get( "Conversation.WaitUserInteraction" ), conversationDataControl.isKeepShowingDialogueActivate( conversationPanel.getSelectedNode( ) ) );
+        waitUserInteraction.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                conversationDataControl.setKeepShowingDialogueOptions( conversationPanel.getSelectedNode( ) );
+            }
+        } );*/
+        
         setLayout( new BorderLayout( ) );
+        //add(waitUserInteraction, BorderLayout.NORTH );
         add( buttonsPanel, BorderLayout.EAST );
         add( tableScrollPanel, BorderLayout.CENTER );
     }
@@ -291,11 +299,37 @@ class LinesPanel extends JPanel implements DataControlsPanel {
                 conversationDataControl.setRandomlyOptions( conversationPanel.getSelectedNode( ) );
             }
         } );
+        
+        //TODO habilitar para permitir conservar la pregunta y mostrar respuesta parado 
+        /*
+        JCheckBox keepQuestionShowing = new JCheckBox( TC.get( "Conversation.KeepShowing" ), conversationDataControl.isKeepShowingOptionsNodeActivate( conversationPanel.getSelectedNode( ) ) );
+        keepQuestionShowing.addActionListener( new ActionListener( ) {
 
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                conversationDataControl.setKeepShowingOptionNodeOptions( conversationPanel.getSelectedNode( ) );
+            }
+        } );
+        
+        JCheckBox showUserResponse = new JCheckBox( TC.get( "Conversation.ShowUserOption" ), conversationDataControl.isShowUserOptionActivate( conversationPanel.getSelectedNode( ) ) );
+        showUserResponse.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                conversationDataControl.setShowUserOptionOptions( conversationPanel.getSelectedNode( ) );
+            }
+        } );^*/
+        
+        JPanel checkboxPanel = new JPanel();
+       // checkboxPanel.setLayout( new BorderLayout( ) );
+        checkboxPanel.add( randomOrder);
+       // checkboxPanel.add( keepQuestionShowing);
+        //checkboxPanel.add( showUserResponse);
+        
         setLayout( new BorderLayout( ) );
         add( buttonsPanel, BorderLayout.EAST );
         add( tableScrollPanel, BorderLayout.CENTER );
-        add( randomOrder, BorderLayout.NORTH );
+        add( checkboxPanel, BorderLayout.NORTH );
     }
 
     /**

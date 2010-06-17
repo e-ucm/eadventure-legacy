@@ -76,6 +76,11 @@ public class NPCTalking extends NPCState {
      * The speech must be launched in another thread
      */
     private TTask task;
+    
+    /**
+     * Keep showing the current line until the user skip it
+     */
+    private boolean keepShowing;
 
 
     /**
@@ -96,10 +101,10 @@ public class NPCTalking extends NPCState {
      * @param text
      *            the text to be displayed
      */
-    public void setText( String text ) {
+    public void setText( String text, boolean keepShowing ) {
 
         this.text = GUI.getInstance( ).splitText( text );
-
+        this.keepShowing = keepShowing;
         float multiplier = 1;
         if( Game.getInstance( ).getOptions( ).getTextSpeed( ) == Options.TEXT_SLOW )
             multiplier = 1.5f;
@@ -152,7 +157,7 @@ public class NPCTalking extends NPCState {
         }
     }
 
-    public void setSpeakFreeTTS( String text, String voice ) {
+    public void setSpeakFreeTTS( String text, String voice) {
 
         task = new TTask( voice, text );
         Timer timer = new Timer( );
@@ -169,7 +174,7 @@ public class NPCTalking extends NPCState {
     public void update( long elapsedTime ) {
 
         totalTime += elapsedTime;
-        if( totalTime > timeTalking && ( audioId == -1 || !MultimediaManager.getInstance( ).isPlaying( audioId ) ) && ( task.isEnd( ) ) ) {
+        if( !keepShowing && totalTime > timeTalking && ( audioId == -1 || !MultimediaManager.getInstance( ).isPlaying( audioId ) ) && ( task.isEnd( ) ) ) {
             npc.setState( FunctionalNPC.IDLE );
             stopTTSTalking( );
         }

@@ -463,7 +463,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="ErrorSolving.AdaptationReferenced.Deleted.Message">No se encontró el perfil de adaptación referenciado: "{#0}".
 Se han borrado las referencias a dicho perfil.</entry>
 <entry key="Operation.AdventureConsistencyTitle">Validez de la aventura</entry>
-<entry key="NPC.Documentation">Documentación del personaje (no se usa en el editor)</entry>
+<entry key="NPC.Documentation">Documentación del personaje (no se usa en el motor)</entry>
 <entry key="Button.examine.pressed.Tip">Este es el botón de examinar presionado, el que se eseña cuando el ratón está pulsado sobre él</entry>
 <entry key="Operation.AdaptationPanel.DeleteButton">Borrar</entry>
 <entry key="VarDialog.Err.Title">Formato de entrada erróneo</entry>
@@ -1180,6 +1180,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 <entry key="Error.DeletingFolderContents">Un error inesperado ocurrió al borrar los contenidos de la carpeta.</entry>
 <entry key="ResourcesList.ResourcesBlockNumber">Bloque de recursos #</entry>
 <entry key="AdaptationRulesList.Scorm12">Perfil 1.2 </entry>
+<entry key="MenuAdventure.KeepShowing">Para cada línea de conversación</entry>
 <entry key="AdaptationProfiles.Title">Perfiles de adaptación</entry>
 <entry key="SPEP.Width">Ancho</entry>
 <entry key="Error.LoadAborted.Message">Hubo un error crítico al cargar los ficheros del proyecto.
@@ -1441,6 +1442,7 @@ Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán v�
 <entry key="LOM.Educational.InteractivityLevel">Interactivity level</entry>
 <entry key="Effect.TriggerConversation">Lanzar conversación</entry>
 <entry key="Barrier.MainPanelTip">Barrera</entry>
+<entry key="Conversation.ShowUserOption">Mostrar respuesta</entry>
 <entry key="IMS.LifeCycle.Status">Estado o condición en el que está el recurso</entry>
 <entry key="MenuChapters.DeleteChapter">Eliminar capítulo</entry>
 <entry key="Effect.RedHighlightItemInfo">Reslatar {#0} en rojo</entry>
@@ -1694,7 +1696,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="LOM.Educational.SemanticDensity3">High</entry>
 <entry key="Conversation.ErrorLinkNode">No se puede enlazar el nodo seleccionado con el nodo dado</entry>
 <entry key="LOM.Educational.SemanticDensity2">Medium</entry>
-<entry key="Animation.Duration">Duración</entry>
+<entry key="Animation.Duration">Duración (ms)</entry>
 <entry key="MenuAdventure.GUIStyles">Seleccionar estilo de GUI...</entry>
 <entry key="LOM.Educational.SemanticDensity1">Low</entry>
 <entry key="LOM.Educational.SemanticDensity0">Very low</entry>
@@ -1830,6 +1832,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="ConversationLine.DefaultText">Nueva línea</entry>
 <entry key="ExitLook.TextPanelTitle">Etiqueta de la salida</entry>
 <entry key="Animation.Slides">Animación de transparencias</entry>
+<entry key="Conversation.KeepShowing">Mostrar pregunta previa</entry>
 <entry key="BookPageType.URL">URL</entry>
 <entry key="Error.NoVideoFormat">Error cargando el video</entry>
 <entry key="Operation.AssignAdaptationProfile">No hay ficheros de adaptación creados en este capítulo.</entry>

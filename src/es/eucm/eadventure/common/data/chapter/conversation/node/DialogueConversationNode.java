@@ -73,6 +73,11 @@ public class DialogueConversationNode extends ConversationNode {
     private Effects effects;
 
     private boolean effectConsumed = false;
+    
+    /**
+     * Store if stop the line until the user decides.
+     */
+    private boolean keepShowing;
 
     /* Methods */
 
@@ -80,11 +85,17 @@ public class DialogueConversationNode extends ConversationNode {
      * Constructor
      */
     public DialogueConversationNode( ) {
+        this( false );
+
+    }
+    
+    public DialogueConversationNode( boolean waitUserInteraction) {
 
         dialogue = new ArrayList<ConversationLine>( );
         nextNode = null;
         terminal = true;
         effects = new Effects( );
+        this.keepShowing = waitUserInteraction;
     }
 
     /*
@@ -261,6 +272,7 @@ public class DialogueConversationNode extends ConversationNode {
         //dcn.nextNode = (nextNode != null ? (ConversationNode) nextNode.clone() : null);
         dcn.nextNode = null;
         dcn.terminal = terminal;
+        dcn.keepShowing = keepShowing;
         return dcn;
     }
 
@@ -272,6 +284,18 @@ public class DialogueConversationNode extends ConversationNode {
     public ConversationLine getConversationLine( int index ) {
 
         return dialogue.get( index );
+    }
+
+    
+    public Boolean isKeepShowing( ) {
+    
+        return keepShowing;
+    }
+
+    
+    public void setKeepShowing( Boolean keepShowing ) {
+    
+        this.keepShowing = keepShowing;
     }
 
 }

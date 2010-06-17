@@ -45,12 +45,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.common.data.adventure.CustomArrow;
 import es.eucm.eadventure.common.data.adventure.CustomButton;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 
 public class DescriptorDOMWriter {
 
@@ -104,6 +104,11 @@ public class DescriptorDOMWriter {
 
             // Create and append the configuration
             Node configurationNode = doc.createElement( "configuration" );
+            if (adventureData.isKeepShowing( ))
+                ((Element)configurationNode).setAttribute( "keepShowing", "yes" );
+            else 
+                ((Element)configurationNode).setAttribute( "keepShowing", "no" );
+            
             //GUI Element
             Element guiElement = doc.createElement( "gui" );
             if( adventureData.getGUIType( ) == DescriptorData.GUI_TRADITIONAL )

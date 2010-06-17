@@ -127,6 +127,26 @@ public class GraphConversationSubParser extends SubParser {
      * Check if the options in option node may be random
      */
     private boolean random;
+    
+    /**
+     * Check if the previous line will be showed at options node
+     */
+    private boolean keepShowing;
+    
+    /**
+     * Keep showing for each conversation line
+     */
+    private boolean keepShowingLine;
+    
+    /**
+     * Check if the user's response will be showed
+     */
+    private boolean showUserOption;
+    
+    /**
+     * Check if each conversation line will wait until user interacts
+     */
+    private boolean keepShowingDialogue;
 
     /**
      * Check if a conversation line must be synthesize
@@ -182,21 +202,47 @@ public class GraphConversationSubParser extends SubParser {
             // If it is a node, create a new node
             else if( qName.equals( "dialogue-node" ) || qName.equals( "option-node" ) ) {
                 // Create the node depending of the tag
-                if( qName.equals( "dialogue-node" ) )
-                    currentNode = new DialogueConversationNode( );
+                if( qName.equals( "dialogue-node" ) ){
+                    for( int i = 0; i < attrs.getLength( ); i++ ) {
+                        //If there is a "waitUserInteraction" attribute, store if the lines will wait until user interacts
+                        if( attrs.getQName( i ).equals( "keepShowing" ) ) {
+                            if( attrs.getValue( i ).equals( "yes" ) )
+                                keepShowingDialogue = true;
+                            else
+                                keepShowingDialogue = false;
+                        }
+                    
+                    currentNode = new DialogueConversationNode(keepShowingDialogue);
 
+                    }
+                }
+                
                 if( qName.equals( "option-node" ) ) {
                     for( int i = 0; i < attrs.getLength( ); i++ ) {
-                        //If there is a "random" attribute, store is the options will be random
+                        //If there is a "random" attribute, store if the options will be random
                         if( attrs.getQName( i ).equals( "random" ) ) {
                             if( attrs.getValue( i ).equals( "yes" ) )
                                 random = true;
                             else
                                 random = false;
                         }
+                      //If there is a "keepShowing" attribute, keep the previous conversation line showing
+                        if( attrs.getQName( i ).equals( "keepShowing" ) ) {
+                            if( attrs.getValue( i ).equals( "yes" ) )
+                                keepShowing = true;
+                            else
+                                keepShowing = false;
+                        }
+                      //If there is a "showUserOption" attribute, identify if show the user response at option node
+                        if( attrs.getQName( i ).equals( "showUserOption" ) ) {
+                            if( attrs.getValue( i ).equals( "yes" ) )
+                                showUserOption = true;
+                            else
+                                showUserOption = false;
+                        }
                     }
 
-                    currentNode = new OptionConversationNode( random );
+                    currentNode = new OptionConversationNode( random,keepShowing, showUserOption );
                 }
                 // Create a new vector for the links of the current node
                 currentLinks = new ArrayList<Integer>( );
@@ -224,6 +270,14 @@ public class GraphConversationSubParser extends SubParser {
                         else
                             synthesizerVoice = false;
                     }
+                    // If there is a "keepShowing" attribute, store its value
+                    if( attrs.getQName( i ).equals( "keepShowing" ) ) {
+                        String response = attrs.getValue( i );
+                        if( response.equals( "yes" ) )
+                            keepShowingLine = true;
+                        else
+                            keepShowingLine = false;
+                    }
                 }
             }
 
@@ -243,6 +297,14 @@ public class GraphConversationSubParser extends SubParser {
                             synthesizerVoice = true;
                         else
                             synthesizerVoice = false;
+                    }
+                 // If there is a "keepShowing" attribute, store its value
+                    if( attrs.getQName( i ).equals( "keepShowing" ) ) {
+                        String response = attrs.getValue( i );
+                        if( response.equals( "yes" ) )
+                            keepShowingLine = true;
+                        else
+                            keepShowingLine = false;
                     }
                 }
             }
@@ -314,6 +376,8 @@ public class GraphConversationSubParser extends SubParser {
                 }
                 if( synthesizerVoice != null )
                     conversationLine.setSynthesizerVoice( synthesizerVoice );
+               
+                conversationLine.setKeepShowing( keepShowingLine );
 
                 currentNode.addLine( conversationLine );
             }
@@ -329,6 +393,9 @@ public class GraphConversationSubParser extends SubParser {
                 }
                 if( synthesizerVoice != null )
                     conversationLine.setSynthesizerVoice( synthesizerVoice );
+
+                conversationLine.setKeepShowing( keepShowingLine );
+
                 currentNode.addLine( conversationLine );
             }
 

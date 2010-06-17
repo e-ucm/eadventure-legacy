@@ -44,6 +44,9 @@
 <!ELEMENT metadata (#PCDATA)>
 
 <!ELEMENT configuration (gui,mode,graphics?)>
+<!ATTLIST configuration 
+	keepShowing (yes|no) "yes"
+>
 <!ELEMENT invalid EMPTY>
 <!ELEMENT gui (cursors?, buttons?, arrows?)>
 <!ATTLIST gui

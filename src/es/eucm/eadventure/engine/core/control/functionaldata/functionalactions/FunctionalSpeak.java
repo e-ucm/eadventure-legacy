@@ -86,6 +86,11 @@ public class FunctionalSpeak extends FunctionalAction {
      * The time the character will be talking
      */
     private int timeTalking;
+    
+    /**
+     * Keep showing the current line until user skip it
+     */
+    private boolean keepShowing;
 
     /**
      * Constructor with the original action and the text to speak
@@ -94,13 +99,16 @@ public class FunctionalSpeak extends FunctionalAction {
      *            The original action
      * @param text
      *            The text to speak
+     * @param keepShowing
+     *            Keep showing the current line until the user skip it            
      */
-    public FunctionalSpeak( Action action, String text ) {
+    public FunctionalSpeak( Action action, String text, boolean keepShowing ) {
 
         super( action );
         type = ActionManager.ACTION_TALK;
         setText( text );
         task = new TTask();
+        this.keepShowing = keepShowing;
     }
 
     /**
@@ -113,14 +121,17 @@ public class FunctionalSpeak extends FunctionalAction {
      *            The text to speak
      * @param audioPath
      *            The path of the audio
+     * @param keepShowing
+     *            Keep showing the current line until the user skip it           
      */
-    public FunctionalSpeak( Action action, String text, String audioPath ) {
+    public FunctionalSpeak( Action action, String text, String audioPath, boolean keepShowing ) {
 
         super( action );
         type = ActionManager.ACTION_TALK;
         setText( text );
         setAudio( audioPath );
         task = new TTask();
+        this.keepShowing = keepShowing;
     }
 
     @Override
@@ -153,7 +164,7 @@ public class FunctionalSpeak extends FunctionalAction {
 
         totalTime += elapsedTime;
 
-        if( totalTime > timeTalking && ( audioId == -1 || !MultimediaManager.getInstance( ).isPlaying( audioId ) ) && (  task.isEnd( ) ) ) {
+        if( !keepShowing && totalTime > timeTalking && ( audioId == -1 || !MultimediaManager.getInstance( ).isPlaying( audioId ) ) && (  task.isEnd( ) ) ) {
             finished = true;
             functionalPlayer.popAnimation( );
             stopTTSTalking( );

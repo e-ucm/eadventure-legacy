@@ -44,13 +44,14 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.data.chapter.conversation.node.DialogueConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.control.tools.conversation.AddNodeLineTool;
 import es.eucm.eadventure.editor.control.tools.conversation.AddConversationNodeTool;
+import es.eucm.eadventure.editor.control.tools.conversation.AddNodeLineTool;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeLineTool;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeLinkTool;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeOptionTool;
@@ -470,6 +471,45 @@ public abstract class ConversationDataControl extends DataControl {
         //Change the randomly of showing of options
         controller.addTool( new ChangeBooleanValueTool( node, !( (OptionConversationNode) node ).isRandom( ), "isRandom", "setRandom" ) );
     }
+    
+    /**
+     * Change the keep showing option in the selected node, for option conversation node
+     * 
+     * @param selectedNode
+     *            The node in which will be the actions
+     * 
+     */
+    public void setKeepShowingOptionNodeOptions( ConversationNodeView selectedNode ) {
+
+        ConversationNode node = (ConversationNode) selectedNode;
+        controller.addTool( new ChangeBooleanValueTool( node, !( (OptionConversationNode) node ).isKeepShowing( ), "isKeepShowing", "setKeepShowing" ) );
+    }
+    
+    /**
+     * Change the show user option in the selected node.
+     * 
+     * @param selectedNode
+     *            The node in which will be the actions
+     * 
+     */
+    public void setShowUserOptionOptions( ConversationNodeView selectedNode ) {
+
+        ConversationNode node = (ConversationNode) selectedNode;
+        controller.addTool( new ChangeBooleanValueTool( node, !( (OptionConversationNode) node ).isShowUserOption( ), "isShowUserOption", "setShowUserOption" ) );
+    }
+    
+    /**
+     * Change the wait user interaction option in the selected node, for dialogue node
+     * 
+     * @param selectedNode
+     *            The node in which will be the actions
+     * 
+     */
+    public void setKeepShowingDialogueOptions( ConversationNodeView selectedNode ) {
+
+        ConversationNode node = (ConversationNode) selectedNode;
+        controller.addTool( new ChangeBooleanValueTool( node, !( (DialogueConversationNode) node ).isKeepShowing( ), "isKeepShowing", "setKeepShowing" ) );
+    }
 
     /**
      * Check if in selectedNode is active the random option
@@ -483,6 +523,47 @@ public abstract class ConversationDataControl extends DataControl {
         ConversationNode node = (ConversationNode) selectedNode;
         return ( (OptionConversationNode) node ).isRandom( );
     }
+    
+    /**
+     * Check if in selectedNode is active the keep showing the previous conversation line, for option node
+     * 
+     * @param selectedNode
+     *            The node in which will it ask
+     * @return
+     */
+    public boolean isKeepShowingOptionsNodeActivate( ConversationNodeView selectedNode ) {
+
+        ConversationNode node = (ConversationNode) selectedNode;
+        return ( (OptionConversationNode) node ).isKeepShowing( );
+    }
+
+    
+    /**
+     * Check if in selectedNode is active the show user response option
+     * 
+     * @param selectedNode
+     *            The node in which will it ask
+     * @return
+     */
+    public boolean isShowUserOptionActivate( ConversationNodeView selectedNode ) {
+
+        ConversationNode node = (ConversationNode) selectedNode;
+        return ( (OptionConversationNode) node ).isShowUserOption( );
+    }
+    
+    /**
+     * Check if in selectedNode is active the show user response option, for dialogue node
+     * 
+     * @param selectedNode
+     *            The node in which will it ask
+     * @return
+     */
+    public boolean isKeepShowingDialogueActivate( ConversationNodeView selectedNode ) {
+
+        ConversationNode node = (ConversationNode) selectedNode;
+        return ( (DialogueConversationNode) node ).isKeepShowing( );
+    }
+
 
     /**
      * An options node cannot be empty
