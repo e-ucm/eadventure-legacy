@@ -134,7 +134,7 @@ public class FunctionalTalk extends FunctionalAction {
             if( functionalPlayer.isAlwaysSynthesizer( ) )
                 functionalPlayer.speakWithFreeTTS( GameText.getTextTalkCannot( ), functionalPlayer.getPlayerVoice( ) );
             else
-                functionalPlayer.speak( GameText.getTextTalkCannot( ) );
+                functionalPlayer.speak( GameText.getTextTalkCannot( ), Game.getInstance().getGameDescriptor( ).isKeepShowing( ) );
             finished = true;
         }
 
@@ -165,7 +165,7 @@ public class FunctionalTalk extends FunctionalAction {
             if( functionalPlayer.isAlwaysSynthesizer( ) )
                 functionalPlayer.speakWithFreeTTS( GameText.getTextTalkCannot( ), functionalPlayer.getPlayerVoice( ) );
             else
-                functionalPlayer.speak( GameText.getTextTalkCannot( ) );
+                functionalPlayer.speak( GameText.getTextTalkCannot( ), Game.getInstance().getGameDescriptor( ).isKeepShowing( ) );
         }
         finished = true;
     }

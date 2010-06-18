@@ -561,7 +561,10 @@ public class GameStateConversation extends GameState {
      */
     private void skipToNextNode( ) {
 
-        lastConversationLine= currentNode.getConversationLine( currentLine - 1 );
+        if (currentLine!=0)
+            lastConversationLine= currentNode.getConversationLine( currentLine - 1 );
+        else 
+            lastConversationLine = new ConversationLine("fake","");
         if( currentNode.hasValidEffect( ) && !currentNode.isEffectConsumed( ) ) {
             currentNode.consumeEffect( );
             game.pushCurrentState( this );

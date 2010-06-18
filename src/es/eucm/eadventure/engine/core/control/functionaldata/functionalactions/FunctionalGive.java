@@ -42,6 +42,7 @@ import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.DebugLog;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
@@ -171,7 +172,7 @@ public class FunctionalGive extends FunctionalAction {
                         if( functionalPlayer.isAlwaysSynthesizer( ) )
                             functionalPlayer.speakWithFreeTTS( GameText.getTextGiveCannot( ), functionalPlayer.getPlayerVoice( ) );
                         else
-                            functionalPlayer.speak( GameText.getTextGiveCannot( ) );
+                            functionalPlayer.speak( GameText.getTextGiveCannot( ), Game.getInstance().getGameDescriptor( ).isKeepShowing( ) );
                         functionalPlayer.popAnimation( );
                         finished = true;
                     }

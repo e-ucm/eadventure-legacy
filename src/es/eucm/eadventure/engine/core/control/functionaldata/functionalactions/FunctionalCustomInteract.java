@@ -37,6 +37,7 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
@@ -133,7 +134,7 @@ public class FunctionalCustomInteract extends FunctionalAction {
                         if( functionalPlayer.isAlwaysSynthesizer( ) )
                             functionalPlayer.speakWithFreeTTS( GameText.getTextCustomCannot( ), functionalPlayer.getPlayerVoice( ) );
                         else
-                            functionalPlayer.speak( GameText.getTextCustomCannot( ) );
+                            functionalPlayer.speak( GameText.getTextCustomCannot( ), Game.getInstance().getGameDescriptor( ).isKeepShowing( ) );
                     }
                 }
                 if( anotherElement instanceof FunctionalNPC ) {
@@ -142,7 +143,7 @@ public class FunctionalCustomInteract extends FunctionalAction {
                         if( functionalPlayer.isAlwaysSynthesizer( ) )
                             functionalPlayer.speakWithFreeTTS( GameText.getTextCustomCannot( ), functionalPlayer.getPlayerVoice( ) );
                         else
-                            functionalPlayer.speak( GameText.getTextCustomCannot( ) );
+                            functionalPlayer.speak( GameText.getTextCustomCannot( ), Game.getInstance().getGameDescriptor( ).isKeepShowing( ) );
                     }
                 }
                 finished = true;
