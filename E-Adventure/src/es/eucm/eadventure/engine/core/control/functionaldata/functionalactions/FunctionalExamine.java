@@ -39,6 +39,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.DebugLog;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 
@@ -95,7 +96,7 @@ public class FunctionalExamine extends FunctionalAction {
             if( functionalPlayer.isAlwaysSynthesizer( ) )
                 functionalPlayer.speakWithFreeTTS( element.getElement( ).getDetailedDescription( ), functionalPlayer.getPlayerVoice( ) );
             else
-                functionalPlayer.speak( element.getElement( ).getDetailedDescription( ) );
+                functionalPlayer.speak( element.getElement( ).getDetailedDescription( ), Game.getInstance().getGameDescriptor( ).isKeepShowing( ) );
         }
         finished = true;
 

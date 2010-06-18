@@ -309,7 +309,7 @@ public class VarSummary implements Serializable {
     public String processText( String text ) {
 
         String newText = "";
-
+        if (text!=null){ 
         String[] parts = text.split( "\\(" );
         if( parts.length == 1 )
             return text;
@@ -332,6 +332,7 @@ public class VarSummary implements Serializable {
             }
 
             newText += parts[i];
+        }
         }
 
         return newText;

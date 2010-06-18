@@ -150,6 +150,8 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     private Image oldImage = null;
 
     private Image oldOriginalImage = null;
+    
+    private boolean keepShowingGlobal;
 
     /**
      * @return the isTransparent
@@ -212,6 +214,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         textBorderColor = generateColor( player.getTextBorderColor( ) );
         bubbleBkgColor = generateColor( player.getBubbleBkgColor( ) );
         bubbleBorderColor = generateColor( player.getBubbleBorderColor( ) );
+        keepShowingGlobal = Game.getInstance( ).getGameDescriptor( ).isKeepShowing( );
     }
 
     public boolean isAlwaysSynthesizer( ) {
@@ -390,14 +393,14 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                         if( player.isAlwaysSynthesizer( ) )
                             speakWithFreeTTS( GameText.getTextGiveObjectNotInventory( ), player.getVoice( ) );
                         else
-                            speak( GameText.getTextGiveObjectNotInventory( ) );
+                            speak( GameText.getTextGiveObjectNotInventory( ), keepShowingGlobal );
                     }
                 }
                 else {
                     if( player.isAlwaysSynthesizer( ) )
                         speakWithFreeTTS( GameText.getTextGiveNPC( ), player.getVoice( ) );
                     else
-                        speak( GameText.getTextGiveNPC( ) );
+                        speak( GameText.getTextGiveNPC( ), keepShowingGlobal );
                 }
                 break;
             case ActionManager.ACTION_GIVE_TO:
@@ -410,7 +413,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 }
                 else {
                     popAction( );
-                    speak( GameText.getTextGiveCannot( ) );
+                    speak( GameText.getTextGiveCannot( ), keepShowingGlobal );
                 }
                 break;
             case ActionManager.ACTION_GRAB:
@@ -420,10 +423,10 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                         nextAction = new FunctionalGrab( null, element );
                     }
                     else
-                        speak( GameText.getTextGrabObjectInventory( ) );
+                        speak( GameText.getTextGrabObjectInventory( ), keepShowingGlobal );
                 }
                 else
-                    speak( GameText.getTextGrabNPC( ) );
+                    speak( GameText.getTextGrabNPC( ), keepShowingGlobal );
                 break;
             case ActionManager.ACTION_TALK:
                 cancelActions( );
@@ -431,7 +434,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                     nextAction = new FunctionalTalk( null, element );
                 }
                 else
-                    speak( GameText.getTextTalkObject( ) );
+                    speak( GameText.getTextTalkObject( ), keepShowingGlobal );
                 break;
             case ActionManager.ACTION_USE:
                 if( element.canPerform( actionSelected ) ) {
@@ -447,7 +450,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 }
                 else {
                     popAction( );
-                    speak( GameText.getTextUseNPC( ) );
+                    speak( GameText.getTextUseNPC( ), keepShowingGlobal );
                 }
                 break;
             case ActionManager.ACTION_DRAG_TO:
@@ -488,7 +491,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 }
                 else {
                     popAction( );
-                    speak( GameText.getTextUseNPC( ) );
+                    speak( GameText.getTextUseNPC( ), keepShowingGlobal );
                 }
                 break;
         }
