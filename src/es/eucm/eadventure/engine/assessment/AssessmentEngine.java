@@ -201,36 +201,40 @@ public class AssessmentEngine implements TimerEventListener {
 	 * Process the rules, triggering them if necessary
 	 */
 	public void processRules() {
-		int i = 0;
+	    int i = 0;
+        try {
+      if (assessmentRules!=null){
+      // For every rule
+      while (i < assessmentRules.size()) {
 
-		if (assessmentRules!=null){
-		// For every rule
-		while (i < assessmentRules.size()) {
+          // If it was activated, execute the rule
+          if (isActive(assessmentRules.get(i))) {
+                  AssessmentRule oldRule=null;
+                  oldRule = (AssessmentRule) (assessmentRules.remove(i).clone( ));
+                  oldRule.setConcept( Game.getInstance( ).processText( oldRule.getConcept( )));
+                  oldRule.setText( Game.getInstance( ).processText( oldRule.getText( )));
+                  ProcessedRule rule = new ProcessedRule(oldRule, Game
+                      .getInstance().getTime());
+              
+                  //System.out.println("Se cumple la regla "+ oldRule.getId());
+                  checkProperties(oldRule.getAssessmentProperties());
+                  // Signal the LMS about the change
+                  if (Game.getInstance().isConnected()) {
+                      // check if it is necessary to send in-game value to the property
+                      List<AssessmentProperty> properties = checkProperties(oldRule.getAssessmentProperties());
+                      Game.getInstance().getComm().notifyRelevantState(properties);
+                      //  System.out.println("Mandamos regla de adaptacion");
+                  }
+                  processedRules.add(rule);
+          }
 
-			// If it was activated, execute the rule
-			if (isActive(assessmentRules.get(i))) {
-				AssessmentRule oldRule = assessmentRules.remove(i);
-				oldRule.setConcept( Game.getInstance( ).processText( oldRule.getConcept( )));
-				oldRule.setText( Game.getInstance( ).processText( oldRule.getText( )));
-				ProcessedRule rule = new ProcessedRule(oldRule, Game
-						.getInstance().getTime());
-				
-				 //System.out.println("Se cumple la regla "+ oldRule.getId());
-				// Signal the LMS about the change
-				if (Game.getInstance().isConnected()) {
-				    // check if it is necessary to send in-game value to the property
-				    List<AssessmentProperty> properties = checkProperties(oldRule.getAssessmentProperties());
-					Game.getInstance().getComm().notifyRelevantState(properties);
-				//	System.out.println("Mandamos regla de adaptacion");
-				}
-				processedRules.add(rule);
-			}
-
-			// Else, check the next rule
-			else
-				i++;
-		}
-		}
+          // Else, check the next rule
+          else
+              i++;
+      }
+      }
+        }catch( CloneNotSupportedException e ) {
+          }
 	}
 
 	private static boolean isActive(AssessmentRule rule) {
