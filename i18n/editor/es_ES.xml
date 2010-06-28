@@ -440,6 +440,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="Timer.InitConditions">Condiciones para activación del temporizador</entry>
 <entry key="Search.Documentation">Documentación</entry>
 <entry key="Effect.SetValue">Dar valor a variable</entry>
+<entry key="About.NewReleaseAvailable">Hay una nueva versión disponible</entry>
 <entry key="BackgroundAssets.Title">Recursos de fondos</entry>
 <entry key="NextScene.EditDestinyPosition">Editar la posición de destino para el protagonista en la nueva escena</entry>
 <entry key="Cursors.Title">Cursores</entry>
@@ -715,6 +716,7 @@ función de estos estados</entry>
 <entry key="Element.Name54">Estado global</entry>
 <entry key="Element.Name53">Barrera</entry>
 <entry key="Element.Name52">Barreras y trayectoria</entry>
+<entry key="About.CheckNewVersion">Comprobar si hay nueva versión</entry>
 <entry key="Element.Name51">Zona activa</entry>
 <entry key="Operation.RenameMacroMessage">Introduzca un nuevo identificador para el macro</entry>
 <entry key="Element.Name50">Zonas activas</entry>
@@ -1144,6 +1146,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 <entry key="Effect.SpeakCharacter">Personaje dice</entry>
 <entry key="LOMES.Date.Years">Año</entry>
 <entry key="Operation.SetAllAnimations.Title">¿Definir el resto de animaciones?</entry>
+<entry key="About.LatestRelease">Tienes la ultima versión</entry>
 <entry key="Atrezzo.DocPanelTitle">Información</entry>
 <entry key="Search.LineText">Texto de la linea</entry>
 <entry key="ErrorReport.Name">Nombre (opcional):</entry>
@@ -1594,6 +1597,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="Effect.DecrementVar">Decrementar variable</entry>
 <entry key="LOM.Technical.MinimumVersion">Minimum version</entry>
 <entry key="WaitTimeEffect.Label">Tiempo que permanecerá en espera el juego</entry>
+<entry key="About.FailedToCheck">Fallo al comprobar nueva versión</entry>
 <entry key="Operation.AddChapterDefaultValue">Título del capítulo</entry>
 <entry key="MenuEdit.Title">Edición</entry>
 <entry key="TreeNode.MoveElementUp">Subir elemento</entry>

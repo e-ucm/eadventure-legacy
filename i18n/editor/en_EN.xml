@@ -229,7 +229,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TimersList.Time">Time</entry>
 <entry key="LOM.Educational.Tab">Educational</entry>
 <entry key="Operation.FileNotSavedMessage">An error occurred and the project was not successfully saved</entry>
-<entry key="conditions.context.2.251"/>
+<entry key="conditions.context.2.251">The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will always be available&lt;/b&gt;, as it has no conditions:</entry>
 <entry key="Resources.ArrowRightNormal">Image for right normal arrow</entry>
 <entry key="FormattedTextAssets.NotAvailable">Not available</entry>
 <entry key="Item.Name">Name of the item</entry>
@@ -438,6 +438,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 <entry key="Timer.InitConditions">Conditions to start the timer</entry>
 <entry key="Search.Documentation">Documentation</entry>
 <entry key="Effect.SetValue">Set value</entry>
+<entry key="About.NewReleaseAvailable">A new release is available</entry>
 <entry key="BackgroundAssets.Title">Background assets</entry>
 <entry key="NextScene.EditDestinyPosition">Edit the destiny position for the player in the new scene</entry>
 <entry key="Cursors.Title">Cursors</entry>
@@ -711,6 +712,7 @@ based on the state of the flags.</entry>
 <entry key="Element.Name54">Global state</entry>
 <entry key="Element.Name53">Barrier</entry>
 <entry key="Element.Name52">Barriers and trajectory</entry>
+<entry key="About.CheckNewVersion">Check for new release</entry>
 <entry key="Element.Name51">Active area</entry>
 <entry key="Operation.RenameMacroMessage">Type a new identifier to rename the macro</entry>
 <entry key="Element.Name50">Active areas</entry>
@@ -1140,6 +1142,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 <entry key="Effect.SpeakCharacter">Speak character</entry>
 <entry key="LOMES.Date.Years">Year</entry>
 <entry key="Operation.SetAllAnimations.Title">Set the rest of the animations?</entry>
+<entry key="About.LatestRelease">You have the latest release</entry>
 <entry key="Atrezzo.DocPanelTitle">Documentation</entry>
 <entry key="Search.LineText">Line Text</entry>
 <entry key="ErrorReport.Name">Name (optional):</entry>
@@ -1589,6 +1592,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Effect.DecrementVar">Decrement var</entry>
 <entry key="LOM.Technical.MinimumVersion">Minimum version</entry>
 <entry key="WaitTimeEffect.Label">Time that game will be waiting</entry>
+<entry key="About.FailedToCheck">Failed to check for a new release</entry>
 <entry key="Operation.AddChapterDefaultValue">Chapter title</entry>
 <entry key="MenuEdit.Title">Edit</entry>
 <entry key="TreeNode.MoveElementUp">Move element up</entry>
