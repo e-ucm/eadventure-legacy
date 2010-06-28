@@ -38,6 +38,7 @@ package es.eucm.eadventure.editor.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
@@ -79,18 +80,7 @@ public class ProjectFolderChooser extends JFileChooser {
         return new File( defaultName );
 
     }
-
-    /*	@Override
-    	public File getSelectedFile() {
-    		File temp = super.getSelectedFile();
-    		
-    		if (projectName != null) {
-    			temp = new File(this.getCurrentDirectory().getAbsolutePath() + File.separatorChar + projectName.getText());
-    		}
-    		
-    		return temp;
-    	}
-    */
+    
     private static File getProjectsFolder( ) {
 
         File parentDir = ReleaseFolders.projectsFolder( );
@@ -116,6 +106,11 @@ public class ProjectFolderChooser extends JFileChooser {
         super.setSelectedFile( getDefaultSelectedFile( ) );
         super.setAcceptAllFileFilterUsed( false );
         preparePanel();
+        if( System.getProperty( "os.name" ).toLowerCase( ).contains( "mac" ) ) {
+            this.setPreferredSize( new Dimension(700, 600) );
+        }
+
+            
     }
 
     
@@ -138,7 +133,7 @@ public class ProjectFolderChooser extends JFileChooser {
 
         String os = System.getProperty( "os.name" );
         if( os.contains( "MAC" ) || os.contains( "mac" ) || os.contains( "Mac" ) ) {
-            projectName = new JTextField( 50 );
+            projectName = new JTextField( 30 );
             projectName.setText( ProjectFolderChooser.getDefaultSelectedFile( ).getName( ) );
             JPanel tempName = new JPanel( );
             tempName.add( new JLabel( TC.get( "Operation.NewProjectName" ) ) );
@@ -177,6 +172,7 @@ public class ProjectFolderChooser extends JFileChooser {
 
         add( mainPanel );
 
+        
     }
     
     private JPanel createOpenFilePanel( ) {
@@ -206,86 +202,4 @@ public class ProjectFolderChooser extends JFileChooser {
         return panelOpen;
     }
     
-    
-    // TODO delete next code: 
-    
-    /*@Override
-    protected JDialog createDialog( Component parent ) throws HeadlessException {
-
-        String title = TC.get( "Operation.NewProjectTitle" );
-        putClientProperty( AccessibleContext.ACCESSIBLE_DESCRIPTION_PROPERTY, title );
-
-        JDialog dialog;
-        Window window = JOptionPane.getFrameForComponent( parent );
-        //Window window = JOptionPane.getWindowForComponent(parent);
-        if( window instanceof Frame ) {
-            dialog = new JDialog( (Frame) window, title, true );
-        }
-        else {
-            dialog = new JDialog( (Dialog) window, title, true );
-        }
-        dialog.setComponentOrientation( this.getComponentOrientation( ) );
-
-        JPanel infoPanel = new JPanel( );
-        infoPanel.setLayout( new BorderLayout( ) );
-        JTextArea info = new JTextArea( );
-        info.setColumns( 10 );
-        info.setWrapStyleWord( true );
-        info.setFont( new Font( Font.SERIF, Font.PLAIN, 12 ) );
-        info.setEditable( false );
-        info.setBackground( infoPanel.getBackground( ) );
-        info.setText( TC.get( "Operation.NewProjectMessage", FolderFileFilter.getAllowedChars( ) ) );
-        infoPanel.add( info, BorderLayout.NORTH );
-
-        String os = System.getProperty( "os.name" );
-        if( os.contains( "MAC" ) || os.contains( "mac" ) || os.contains( "Mac" ) ) {
-            projectName = new JTextField( 50 );
-            projectName.setText( ProjectFolderChooser.getDefaultSelectedFile( ).getName( ) );
-            JPanel tempName = new JPanel( );
-            tempName.add( new JLabel( TC.get( "Operation.NewProjectName" ) ) );
-            tempName.add( projectName );
-            JButton create = new JButton( TC.get( "Operation.CreateNewProject" ) );
-            create.addActionListener( new ActionListener( ) {
-
-                public void actionPerformed( ActionEvent arg0 ) {
-
-                    if( projectName.getText( ) != null ) {
-                        String name = projectName.getText( );
-                        if( !name.endsWith( ".eap" ) )
-                            name = name + ".eap";
-                        File file = new File( ProjectFolderChooser.this.getCurrentDirectory( ).getAbsolutePath( ) + File.separatorChar + name );
-                        if( !file.exists( ) ) {
-                            try {
-                                file.createNewFile( );
-                                ProjectFolderChooser.this.updateUI( );
-                                ProjectFolderChooser.this.setSelectedFile( file );
-                                ProjectFolderChooser.this.approveSelection( );
-                            }
-                            catch( Exception e ) {
-                            }
-                        }
-                    }
-                }
-            } );
-            tempName.add( create );
-            infoPanel.add( tempName, BorderLayout.SOUTH );
-        }
-
-        Container contentPane = dialog.getContentPane( );
-        contentPane.setLayout( new BorderLayout( ) );
-        contentPane.add( this, BorderLayout.CENTER );
-        contentPane.add( infoPanel, BorderLayout.NORTH );
-
-        if( JDialog.isDefaultLookAndFeelDecorated( ) ) {
-            boolean supportsWindowDecorations = UIManager.getLookAndFeel( ).getSupportsWindowDecorations( );
-            if( supportsWindowDecorations ) {
-                dialog.getRootPane( ).setWindowDecorationStyle( JRootPane.FILE_CHOOSER_DIALOG );
-            }
-        }
-        dialog.pack( );
-        dialog.setLocationRelativeTo( parent );
-
-        return dialog;
-    }*/
-
 }
