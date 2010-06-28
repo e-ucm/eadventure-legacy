@@ -93,13 +93,21 @@ public class FunctionalTalk extends FunctionalAction {
 
         List<Action> actions = this.npc.getNPC( ).getActions( );
 
+        Action originalAction = null;
         anyConversation = false;
         for( int i = 0; i < actions.size( ) && !anyConversation; i++ )
-            if( actions.get( i ).getType( ) == Action.TALK_TO && new FunctionalConditions( actions.get( i ).getConditions( ) ).allConditionsOk( ) )
+            if( actions.get( i ).getType( ) == Action.TALK_TO && new FunctionalConditions( actions.get( i ).getConditions( ) ).allConditionsOk( ) ) {
+                originalAction = actions.get( i );
                 anyConversation = true;
+            }
 
         if( anyConversation ) {
             needsGoTo = true;
+            if (originalAction != null) {
+                needsGoTo = originalAction.isNeedsGoTo( );
+                //Better leave the distance automatically calculated.
+                //keepDistance = originalAction.getKeepDistance( );
+            }
         }
         else {
             needsGoTo = false;
