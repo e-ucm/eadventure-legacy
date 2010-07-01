@@ -176,12 +176,28 @@ public class CommManagerScorm extends AdventureApplet {
             AssessmentProperty assessProp = it.next( );
             String attribute = assessProp.getId( );
             String value = String.valueOf( assessProp.getValue( ) );
-            String command = "javascript:setLMSData(\"" + attribute + "\", \"" + value + "\");";
+            String command = "javascript:setLMSData(\"" + attribute + "\", \"" + removeQuotationMarks(value) + "\");";
             this.sendJavaScript( command );
             String command2 = "javascript:commit(\"\");";
             this.sendJavaScript( command2 );
         }
 
+    }
+    
+    private StringBuffer removeQuotationMarks(String ini){
+        
+        StringBuffer fin = new StringBuffer();
+        for (int i=0; i < ini.length( ); i++){
+            if (ini.charAt( i ) == '"'){
+                fin.append('\134');
+                fin.append('\042');
+            }
+            else
+                fin.append(ini.charAt(i));
+            
+        }
+        return fin;
+        
     }
 
     public boolean isConnected( ) {

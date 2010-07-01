@@ -46,6 +46,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
@@ -194,7 +195,6 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
         }
         
         //CELL RENDERER!!
-        JComboBox flagsAndVars = new JComboBox(  Controller.getInstance( ).getVarFlagSummary( ).getVarsAndFlags( ));
         propertiesTable.getColumnModel( ).getColumn( 1 ).setCellEditor( new AssessmentPropertyCellRenderer() );
         propertiesTable.getColumnModel( ).getColumn( 1 ).setCellRenderer( new AssessmentPropertyCellRenderer() );
         // Misc properties

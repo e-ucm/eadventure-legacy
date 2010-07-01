@@ -448,10 +448,12 @@ public class VarFlagSummary {
         return vars.toArray( new String[] {} );
     }
     
+    //It is only used to show all the flags and vars in assessment profiles
     public String[] getVarsAndFlags(){
         ArrayList<String> mix = new ArrayList<String>();
         mix.addAll( vars );
         mix.addAll( flags );
+        mix.add( "report" );
         return mix.toArray( new String[]{});
     }
 

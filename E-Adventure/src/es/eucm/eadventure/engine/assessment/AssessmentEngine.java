@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +65,7 @@ import javax.swing.text.BadLocationException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -202,28 +204,28 @@ public class AssessmentEngine implements TimerEventListener {
 	 */
 	public void processRules() {
 		int i = 0;
-
+		  try {
 		if (assessmentRules!=null){
 		// For every rule
 		while (i < assessmentRules.size()) {
 
 			// If it was activated, execute the rule
 			if (isActive(assessmentRules.get(i))) {
-				AssessmentRule oldRule = assessmentRules.remove(i);
-				oldRule.setConcept( Game.getInstance( ).processText( oldRule.getConcept( )));
-				oldRule.setText( Game.getInstance( ).processText( oldRule.getText( )));
-				ProcessedRule rule = new ProcessedRule(oldRule, Game
+				    AssessmentRule oldRule=null;
+                    oldRule = (AssessmentRule) (assessmentRules.remove(i).clone( ));
+                    oldRule.setConcept( Game.getInstance( ).processText( oldRule.getConcept( )));
+                    oldRule.setText( Game.getInstance( ).processText( oldRule.getText( )));
+                    ProcessedRule rule = new ProcessedRule(oldRule, Game
 						.getInstance().getTime());
-				
-				 //System.out.println("Se cumple la regla "+ oldRule.getId());
-				// Signal the LMS about the change
-				if (Game.getInstance().isConnected()) {
-				    // check if it is necessary to send in-game value to the property
-				    List<AssessmentProperty> properties = checkProperties(oldRule.getAssessmentProperties());
-					Game.getInstance().getComm().notifyRelevantState(properties);
-				//	System.out.println("Mandamos regla de adaptacion");
-				}
-				processedRules.add(rule);
+
+                    // Signal the LMS about the change
+                    if (Game.getInstance().isConnected()) {
+                        // check if it is necessary to send in-game value to the property
+                        List<AssessmentProperty> properties = checkProperties(oldRule.getAssessmentProperties());
+                        Game.getInstance().getComm().notifyRelevantState(properties);
+                        //	System.out.println("Mandamos regla de adaptacion");
+                    }
+                    processedRules.add(rule);
 			}
 
 			// Else, check the next rule
@@ -231,6 +233,8 @@ public class AssessmentEngine implements TimerEventListener {
 				i++;
 		}
 		}
+		  }catch( CloneNotSupportedException e ) {
+	        }
 	}
 
 	private static boolean isActive(AssessmentRule rule) {
@@ -251,8 +255,11 @@ public class AssessmentEngine implements TimerEventListener {
 	                        property.setValue( "false" );
 	                } else if (Game.getInstance().getVars( ).existVar(property.getVarName( ))){
 	                        property.setValue( Integer.toString( Game.getInstance().getVars( ).getValue( property.getVarName( ) )) );
-	                
-	                }
+	                        
+	                         //special variable value: report
+	                        } else if (property.getVarName( ).equals( "report" )) {
+	                            property.setValue(  generateXMLReport() );
+	                        }
 	                
 	    
 	            }
@@ -260,6 +267,8 @@ public class AssessmentEngine implements TimerEventListener {
 	    }
 	    return properties;
 	}
+	
+	
 	
 	/**
 	 * Returns the timed rule indexed by key "i".
@@ -272,6 +281,71 @@ public class AssessmentEngine implements TimerEventListener {
 		return timedRules.get(new Integer(i));
 	}
 
+	public String generateXMLReport() {
+	    
+	    StringWriter writer= null;
+	    try{
+	        Document doc = generateDOM(false);
+	        // String to output
+	        writer = new StringWriter();
+
+	        //Prepare the output of the string 
+	        Result result = new StreamResult(writer);
+	    
+	        // Create the necessary elements for export the DOM into a XML file
+	        TransformerFactory tFactory = TransformerFactory.newInstance();
+	        Transformer transformer = tFactory.newTransformer();
+        
+	        transformer.transform( new DOMSource(doc), result );
+        
+        
+	    }catch (TransformerConfigurationException exception) {
+            exception.printStackTrace();
+        } catch (TransformerException exception) {
+            exception.printStackTrace();
+        }
+       if (writer!=null){
+          System.out.println( writer.toString( ) );
+           return writer.toString( );
+       }else
+           return "";
+	}
+	
+	public Document generateDOM(boolean indent){
+	    Document doc=null;
+	    try{
+	   
+	        // Create the necessary elements for building the DOM
+	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+	        doc  = db.newDocument();
+	        // Create the root element, "report"
+	        Element report = doc.createElement("report");
+
+        // For each processed rule
+        for (ProcessedRule rule : processedRules) {
+            // Create a new "processed-rule" node (DOM element), and link it
+            // to the document
+            Element processedRule = rule.getDOMStructure();
+            doc.adoptNode(processedRule);
+
+            // Add the node
+            report.appendChild(processedRule);
+        }
+     // Add the report structure to the XML file
+        doc.appendChild(report);
+        if (indent)
+         // Indent the DOM
+            indentDOM(report, 0);
+            
+
+        
+	 } catch (ParserConfigurationException exception) {
+         exception.printStackTrace();
+     }
+	 return doc;
+	}
+	
 	/**
 	 * Generates a report file, in XML format
 	 * 
@@ -280,31 +354,8 @@ public class AssessmentEngine implements TimerEventListener {
 	 */
 	public void generateXMLReport(String filename) {
 		try {
-			// Create the necessary elements for building the DOM
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.newDocument();
 
-			// Create the root element, "report"
-			Element report = doc.createElement("report");
-
-			// For each processed rule
-			for (ProcessedRule rule : processedRules) {
-				// Create a new "processed-rule" node (DOM element), and link it
-				// to the document
-				Element processedRule = rule.getDOMStructure();
-				doc.adoptNode(processedRule);
-
-				// Add the node
-				report.appendChild(processedRule);
-			}
-
-			// Add the report structure to the XML file
-			doc.appendChild(report);
-
-			// Indent the DOM
-			indentDOM(report, 0);
-
+		    Document doc = generateDOM(true);
 			// Create the necessary elements for export the DOM into a XML file
 			TransformerFactory tFactory = TransformerFactory.newInstance();
 			Transformer transformer = tFactory.newTransformer();
@@ -317,8 +368,6 @@ public class AssessmentEngine implements TimerEventListener {
 			writeFile.close();
 
 		} catch (IOException exception) {
-			exception.printStackTrace();
-		} catch (ParserConfigurationException exception) {
 			exception.printStackTrace();
 		} catch (TransformerConfigurationException exception) {
 			exception.printStackTrace();
