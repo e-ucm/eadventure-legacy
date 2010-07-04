@@ -1847,7 +1847,7 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="IMS.Classification.Tab">Classification</entry>
 <entry key="Operation.RenameBookMessage">Geben Sie einen neuen ID ein, mit dem das Buch umbenennen:</entry>
 <entry key="Scene.UseInitialPosition">Start Position nutzen </entry>
-<entry key="Language.Name">Spanisch</entry>
+<entry key="Language.Name">Deutsch</entry>
 <entry key="Conditions.ConditionGroup.NotSatisfied">nicht zufrieden</entry>
 <entry key="Operation.AddSceneMessage">Geben Sie eine ID für die neue Szene ein:</entry>
 <entry key="MenuFile.Save">Speichern</entry>
