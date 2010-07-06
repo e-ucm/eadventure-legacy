@@ -76,8 +76,9 @@ Steps:
 	<property name="laneditor.dir" value="i18n/editor" />
 	<property name="release.version" value="1.0-portugues" />
 
-	
-	<property name="launch4j.dir" location="/Users/angel/Downloads/launch4j" />
+	<property name="plugin.dir" value="C:/Archivos de programa/Java/jre6/lib" />
+
+	<property name="launch4j.dir" location="C:/Archivos de programa/Launch4j" />
 
 	<path id="project.class.path">
 		<fileset dir="${lib.dir}">
@@ -85,9 +86,16 @@ Steps:
 		</fileset>
 	</path>
 
+	<path id="plugin.class.path">
+		<fileset dir="${plugin.dir}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
 	<target name="complie">
 		<javac srcdir="./src/" destdir="release-dir/">
 			<classpath refid="project.class.path" />
+			<classpath refid="plugin.class.path" />
 		</javac>
 	</target>
 
@@ -248,6 +256,18 @@ Steps:
 	<target name="generate_exes">
 		<launch4j configFile="${basedir}/release-dir/editor_exe.xml" />
 		<launch4j configFile="${basedir}/release-dir/engine_exe.xml" />
+			<javac srcdir="release-dir/installfiles/ConfigureEAd" destdir="release-dir/installfiles/ConfigureEAd">
+				<classpath refid="project.class.path" />
+				<classpath> 
+					<pathelement path="${classpath}"/> 
+					<pathelement location="release-dir/standalone-compiler.jar"/> 
+				</classpath> 
+			</javac>
+		<jar compress="true" destfile="release-dir/config_generator.jar">
+			<fileset dir="release-dir/installfiles/ConfigureEAd">
+				<include name="*.class" />
+			</fileset>
+		</jar>
 	</target>
 	
 	<taskdef name="izpack" classpath="${basedir}/release-dir/standalone-compiler.jar" classname="com.izforge.izpack.ant.IzPackTask"/>
@@ -256,6 +276,8 @@ Steps:
 		<izpack input="${basedir}/release-dir/installer.xml" output="${basedir}/release-dir/installer.jar" basedir="${basedir}/release-dir/"/>
 		<launch4j configFile="${basedir}/release-dir/installer_exe.xml" />
 	</target>
+	
+	
 	
 	<target name="build" description="build a project release">
 		<antcall target="clear-all" />
