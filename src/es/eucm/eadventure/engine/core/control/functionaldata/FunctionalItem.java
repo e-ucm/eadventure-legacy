@@ -261,8 +261,8 @@ public class FunctionalItem extends FunctionalElement {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
      */
     public void draw( ) {
-        int x_image = Math.round( (x + x1) - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
-        int y_image = Math.round( (y + y1) - getHeight( ) * scale );
+        int x_image = Math.round( (x + x1 * scale) - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+        int y_image = Math.round( (y + y1 * scale) - getHeight( ) * scale );
         if( scale != 1 ) {
             Image temp;
             if( image == oldOriginalImage && scale == oldScale ) {
