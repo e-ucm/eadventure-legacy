@@ -48,8 +48,6 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationProfilesDataControl extends DataControl {
@@ -100,6 +98,11 @@ public class AdaptationProfilesDataControl extends DataControl {
                 this.profiles.add( new AdaptationProfileDataControl( newRules, initialState, profileName ) );
                 data.add( (AdaptationProfile) profiles.get( profiles.size( ) - 1 ).getContent( ) );
                 controller.getIdentifierSummary( ).addAdaptationProfileId( profileName );
+                if (controller.getSelectedChapterDataControl( ).getAdaptationName( ) == null
+                        || controller.getSelectedChapterDataControl( ).getAdaptationName( ).equals( "" )) {
+                    controller.getSelectedChapterDataControl( ).setAdaptationPath( profileName );
+                }
+
                 //controller.dataModified( );
                 added = true;
 

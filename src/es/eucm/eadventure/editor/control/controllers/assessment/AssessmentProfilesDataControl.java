@@ -97,6 +97,10 @@ public class AssessmentProfilesDataControl extends DataControl {
                 this.profiles.add( new AssessmentProfileDataControl( newRules, profileName ) );
                 data.add( (AssessmentProfile) profiles.get( profiles.size( ) - 1 ).getContent( ) );
                 controller.getIdentifierSummary( ).addAssessmentProfileId( profileName );
+                if (controller.getSelectedChapterDataControl( ).getAssessmentName( ) == null
+                        || controller.getSelectedChapterDataControl( ).getAssessmentName( ).equals( "" )) {
+                    controller.getSelectedChapterDataControl( ).setAssessmentPath( profileName );
+                }
                 //controller.dataModified( );
                 added = true;
 
@@ -105,6 +109,8 @@ public class AssessmentProfilesDataControl extends DataControl {
                 }*/
             }
 
+            
+            
         }
         //}
         return added;

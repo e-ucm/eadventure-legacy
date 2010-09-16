@@ -62,11 +62,20 @@ public class ChangeSelectedProfileTool extends Tool {
     protected String oldValue;
 
     protected String newValue;
+    
+    public ChangeSelectedProfileTool( Chapter chapter, int mode, String profileName ) {
+
+        this.chapter = chapter;
+        this.mode = mode;
+        this.newValue = profileName;
+        controller = Controller.getInstance( );
+    }
 
     public ChangeSelectedProfileTool( Chapter chapter, int mode ) {
 
         this.chapter = chapter;
         this.mode = mode;
+        this.newValue = null;
         controller = Controller.getInstance( );
     }
 
@@ -117,7 +126,7 @@ public class ChangeSelectedProfileTool extends Tool {
                     controller.showErrorDialog( TC.get( "Resources.EditAsset" ), TC.get( "Operation.AssignAdaptationProfile" ) );
                 // If not empty, select one of them
             }
-            else {
+            else if (newValue == null) {
                 // Let the user choose between the profiles
                 String selectedProfile = controller.showInputDialog( TC.get( "Resources.EditAsset" ), TC.get( "Resources.EditAssetMessage" ), profileNames );
 
@@ -155,6 +164,17 @@ public class ChangeSelectedProfileTool extends Tool {
 
                     //controller.dataModified( );
                 }
+            } else {
+                if( mode == MODE_ASSESSMENT ) {
+                    oldValue = chapter.getAssessmentName( );
+                    chapter.setAssessmentName( newValue );
+                }
+                else if( mode == MODE_ADAPTATION ) {
+                    oldValue = chapter.getAdaptationName( );
+                    chapter.setAdaptationName( newValue );
+                }
+
+                done = true;
             }
         }
         // update var/flags summary, because in adaptation and/or assessement profiles may have new var/flag
