@@ -341,18 +341,17 @@ public class ChapterDataControl extends DataControl {
      * Sets the new assessment file for the chapter, showing a dialog to the
      * user.
      */
-    public void setAssessmentPath( ) {
-
-        Controller.getInstance( ).addTool( new ChangeSelectedProfileTool( chapter, ChangeSelectedProfileTool.MODE_ASSESSMENT ) );
+    public void setAssessmentPath( String profileName ) {
+        Controller.getInstance( ).addTool( new ChangeSelectedProfileTool( chapter, ChangeSelectedProfileTool.MODE_ASSESSMENT, profileName ) );
     }
 
     /**
      * Sets the new adaptation file for the chapter, showing a dialog to the
      * user.
+     * @param profileName 
      */
-    public void setAdaptationPath( ) {
-
-        Controller.getInstance( ).addTool( new ChangeSelectedProfileTool( chapter, ChangeSelectedProfileTool.MODE_ADAPTATION ) );
+    public void setAdaptationPath( String profileName ) {
+        Controller.getInstance( ).addTool( new ChangeSelectedProfileTool( chapter, ChangeSelectedProfileTool.MODE_ADAPTATION, profileName ) );
     }
 
     /**

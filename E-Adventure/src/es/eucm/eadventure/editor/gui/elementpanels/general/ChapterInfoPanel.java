@@ -283,14 +283,14 @@ public class ChapterInfoPanel extends JPanel {
             // Select assessment file button
             if( e.getSource( ).equals( selectAssessmentButton ) ) {
                 // Ask the user for an assessment file
-                chapterDataControl.setAssessmentPath( );
+                chapterDataControl.setAssessmentPath( null );
                 assessmentPathTextField.setText( chapterDataControl.getAssessmentName( ) );
             }
 
             // Select adaptation file button
             else if( e.getSource( ).equals( selectAdaptationButton ) ) {
                 // Ask the user for an adaptation file
-                chapterDataControl.setAdaptationPath( );
+                chapterDataControl.setAdaptationPath( null );
                 adaptationPathTextField.setText( chapterDataControl.getAdaptationName( ) );
             }
 
