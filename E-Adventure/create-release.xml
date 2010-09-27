@@ -196,6 +196,7 @@ Steps:
 		<copy todir="${basedir}/release-dir/eadventure" flatten="true">
 			<fileset dir="${basedir}">
 				<include name="*.dtd" />
+                <include name="datamodel*.xml" />
 			</fileset>
 		</copy>
 		<copy todir="${basedir}/release-dir/eadventure" flatten="true">
