@@ -313,6 +313,16 @@ class LinesPanel extends JPanel implements DataControlsPanel {
             }
         } );
         
+   
+        JCheckBox preListening = new JCheckBox( TC.get( "Conversation.PreListening" ),  conversationDataControl.isPreListeningActivate( conversationPanel.getSelectedNode( ) )  );
+        preListening.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+            
+                conversationDataControl.setPreListeningOptions( conversationPanel.getSelectedNode( ) );
+            }
+        } );  
+         
         JPanel checkboxPanel = new JPanel();
        // checkboxPanel.setLayout( new BorderLayout( ) );
         checkboxPanel.add( randomOrder);
@@ -329,8 +339,9 @@ class LinesPanel extends JPanel implements DataControlsPanel {
             } );  
             checkboxPanel.add( keepQuestionShowing);
         }
-        
+
         checkboxPanel.add( showUserResponse);
+        checkboxPanel.add( preListening);
         setLayout( new BorderLayout( ) );
         add( buttonsPanel, BorderLayout.EAST );
         add( tableScrollPanel, BorderLayout.CENTER );

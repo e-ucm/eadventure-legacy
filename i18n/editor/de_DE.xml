@@ -236,6 +236,7 @@ Auf diese Weise dann Bedingungen auf den Wert einer Variablen basiert definieren
 <entry key="GeneralText.LoadError">Fehlen beim Laden</entry>
 <entry key="Effect.DeactivateInfo">Flag deaktivieren: {#0}</entry>
 <entry key="Conversation.OptionDeleteNode">Knoten löschen</entry>
+<entry key="Conversation.PreListening"> Pre-Listening-Optionen </entry>
 <entry key="CutsceneTypes.Video">Videoszene</entry>
 <entry key="Operation.AddNPCTitle">Neuer Charakter hinzufügen</entry>
 <entry key="AssessmentProperties.InsertProperty">Neue Eigentum hinzufügen</entry>

@@ -1067,7 +1067,7 @@ public class Writer {
 
             // Create the output buffer, write the DOM and close it
             //fout = new FileOutputStream( zipFilename + "/imsmanifest.xml" );
-            fout = new FileOutputStream( "web/temp/parameters.xml" );
+            fout = new FileOutputStream( "web/temp/ead-parameters.xml" );
             writeFile = new OutputStreamWriter( fout, "UTF-8" );
             transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
             writeFile.close( );

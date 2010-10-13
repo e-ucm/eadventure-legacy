@@ -55,6 +55,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
  * A game main loop during a conversation
@@ -155,6 +156,16 @@ public class GameStateConversation extends GameState {
     private ConversationLine lastConversationLine;
 
     /**
+     * Store the audio ID for options pre-hearing
+     */
+    private long audioId;
+    
+    /**
+     * keep the last option which is being pre-hearing
+     */
+    private int linePreHearing;
+    
+    /**
      * Creates a new GameStateConversation
      */
     public GameStateConversation( ) {
@@ -172,6 +183,8 @@ public class GameStateConversation extends GameState {
         convID = new String( );
         lastConversationLine=null;
         generalKeepShowing = Game.getInstance().getGameDescriptor( ).isKeepShowing( );
+        audioId = -1;
+        linePreHearing=-1;
 
     }
 
@@ -348,6 +361,23 @@ public class GameStateConversation extends GameState {
             int green = textColor.getGreen( );
             int blue = textColor.getBlue( );
             textColor = new Color( 255 - red, 255 - green, 255 - blue );
+           
+            if (((OptionConversationNode)currentNode).isPreListening( )&&linePreHearing!=optionIndex + firstLineDisplayed){
+                
+                if( this.optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ){
+                    linePreHearing=optionIndex;
+                    setAudio( ((OptionConversationNode)currentNode).getLine( optionIndex ).getAudioPath( ) );
+                }else {
+               
+                    linePreHearing = optionIndex + firstLineDisplayed;
+
+                    int indexLastLine = Math.min( firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, currentNode.getLineCount( ) );
+
+                    if( linePreHearing != indexLastLine ) {
+                        setAudio( ((OptionConversationNode)currentNode).getLine( linePreHearing ).getAudioPath( ) );
+                    }
+                }
+            }
         }
         int y = GUI.getInstance( ).getResponseTextY( ) + optionIndex * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT;
         int x = GUI.getInstance( ).getResponseTextX( );
@@ -464,12 +494,17 @@ public class GameStateConversation extends GameState {
                 GUI.getInstance( ).getResponseTextY( ) <= e.getY( ) &&
                 GUI.getInstance( ).getResponseTextY( ) + currentNode.getLineCount( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) &&
                 !isOptionSelected) {
+           
+            if (MultimediaManager.getInstance( ).isPlaying( audioId ))
+                MultimediaManager.getInstance( ).stopPlaying( audioId );
+            
             optionSelected = ( e.getY( ) - GUI.getInstance( ).getResponseTextY( ) ) / RESPONSE_TEXT_HEIGHT;
             if( optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES )
                 selectDisplayedOption( );
             else
                 selectNoAllDisplayedOption( );
-        }
+            
+        } 
         else if( currentNode.getType( ) == ConversationNodeView.DIALOGUE || isOptionSelected) {
             if( e.getButton( ) == MouseEvent.BUTTON1 )
                 mouseClickedButton = MouseEvent.BUTTON1;
@@ -482,6 +517,9 @@ public class GameStateConversation extends GameState {
     public void keyPressed( KeyEvent e ) {
 
         if( currentNode.getType( ) == ConversationNodeView.OPTION && !isOptionSelected ) {
+            if (MultimediaManager.getInstance( ).isPlaying( audioId ))
+                MultimediaManager.getInstance( ).stopPlaying( audioId );
+            
             if( e.getKeyCode( ) >= KeyEvent.VK_1 && e.getKeyCode( ) <= KeyEvent.VK_9 )
                 optionSelected = e.getKeyCode( ) - KeyEvent.VK_1;
             else
@@ -499,7 +537,7 @@ public class GameStateConversation extends GameState {
     public void mouseMoved( MouseEvent e ) {
 
         if( GUI.getInstance( ).getResponseTextY( ) <= e.getY( ) )
-            optionHighlighted = ( e.getY( ) - GUI.getInstance( ).getResponseTextY( ) ) / RESPONSE_TEXT_HEIGHT;
+           optionHighlighted = ( e.getY( ) - GUI.getInstance( ).getResponseTextY( ) ) / RESPONSE_TEXT_HEIGHT;
         else
             optionHighlighted = -1;
     }
@@ -581,6 +619,32 @@ public class GameStateConversation extends GameState {
             currentLine = 0;
         }
     }
+    
+    /**
+     * Method used for pre-hearing the options when its have sound
+     */
+    public void setAudio( String audioPath ) {
+
+        if( audioPath != null ) {
+            
+            if (MultimediaManager.getInstance( ).isPlaying( audioId ))
+                MultimediaManager.getInstance( ).stopPlaying( audioId );
+            
+            audioId = MultimediaManager.getInstance( ).loadSound( audioPath, false );
+
+            MultimediaManager.getInstance( ).startPlaying( audioId );
+            while( !MultimediaManager.getInstance( ).isPlaying( audioId ) ) {
+                try {
+                    Thread.sleep( 1 );
+                }
+                catch( InterruptedException e ) {
+                }
+            }
+            
+        }
+    }
+
+    
 
     /**
      * @param convName

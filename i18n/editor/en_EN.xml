@@ -1921,6 +1921,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Operation.AddSceneMessage">Type an identifier for the new scene</entry>
 <entry key="MenuFile.Save">Save project</entry>
 <entry key="Conversation.OptionAddOptionNode">Add option node</entry>
+<entry key="Conversation.PreListening"> Options' pre-listening </entry>
 <entry key="SPEP.ShowObjectReferences">Items</entry>
 <entry key="ResizeableListPanel.Size0ToolTip">View all the elements in a simple list</entry>
 <entry key="Search.Effect">Effect</entry>

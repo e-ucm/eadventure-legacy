@@ -355,6 +355,7 @@
 	random (yes | no) "no"
 	keepShowing (yes | no) "no"
 	showUserOption (yes | no) "no"
+	preListening (yes | no) "no"
 >
 <!ELEMENT child EMPTY>
 <!ATTLIST child

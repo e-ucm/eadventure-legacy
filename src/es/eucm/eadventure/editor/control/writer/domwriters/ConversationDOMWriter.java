@@ -377,6 +377,9 @@ public class ConversationDOMWriter {
                     // Adds a random attribute if "showUserOption" is activate in conversation node data
                     if( ( (OptionConversationNode) node ).isShowUserOption( ) )
                         nodeElement.setAttribute( "showUserOption", "yes" );
+                    // Adds a random attribute if "preListening" is activate in conversation node data
+                    if( ( (OptionConversationNode) node ).isPreListening( ) )
+                        nodeElement.setAttribute( "preListening", "yes" );
                     
 
                     // For each line of the node
