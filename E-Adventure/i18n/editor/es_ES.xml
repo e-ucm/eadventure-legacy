@@ -157,6 +157,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Operation.RenameAssessmentFile">Renombrar fichero evaluación</entry>
 <entry key="ActivateEffect.Title">Efecto activar</entry>
 <entry key="MenuRun.Normal">Normal</entry>
+<entry key="ImageEdition.Contiguous">Contiguo</entry>
 <entry key="Resources.Select">Seleccionar...</entry>
 <entry key="LOMES.LCContribute.DialogTitle">Crear Nueva Contribución</entry>
 <entry key="Conversations.Listen">Escuchar</entry>
@@ -1545,6 +1546,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="LinesPanel.DialogueNode">Nodo de diálogo</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="ExitsList.Edit">Editar</entry>
+<entry key="ImageEdition.NoTransparencyAllowed">Este tipo de imagen no admite transparencia</entry>
 <entry key="Flags.Title">Flags</entry>
 <entry key="Assets.DeleteAsset">Eliminar recurso</entry>
 <entry key="BookPagesList.Type">Tipo</entry>
@@ -1570,6 +1572,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="LOMES.Educational.CognitiveProcess3">Compare</entry>
 <entry key="Conditions.Context.TimedAssessmentRuleB1"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará&lt;/b&gt; (el contador se detendrá y se ejecutará el bloque de post-efectos) cuando se cumpla la siguiente condición:</entry>
 <entry key="LOMES.Educational.CognitiveProcess2">Collaborate</entry>
+<entry key="ImageEdition.Threshold">Tolerancia</entry>
 <entry key="LOMES.Educational.CognitiveProcess1">Implement</entry>
 <entry key="LOMES.Educational.CognitiveProcess0">Analyse</entry>
 <entry key="Inventory.highlightedleft.Tip">Esta es la fecha izqueirda en su estado resaltado.</entry>
@@ -1620,6 +1623,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptacion</entry>
 <entry key="SPEP.ShowBarriers">Barreras</entry>
 <entry key="NextScene.EditDestinyPositionShort">Editar la posición de destino</entry>
+<entry key="ImageEdition.SelectColorTransparent">Seleccionar color transparente</entry>
 <entry key="Timer.DisplayName">Nombre a mostrar</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">IdAtrezzo</entry>
 <entry key="MenuAdventure.CustomizeGUI">Personalizar elementos de la interfaz...</entry>
@@ -1797,8 +1801,8 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="RandomEffect.DeleteEffect">Borrar este efecto</entry>
 <entry key="NextScene.AdvancedOptions">Opciones avanzadas</entry>
 <entry key="Element.Name251">Arrastrar a....</entry>
-<entry key="Element.Name250">Interacción personalizada</entry>
 <entry key="LOMES.Technical.Name12">Amaya</entry>
+<entry key="Element.Name250">Interacción personalizada</entry>
 <entry key="TreeNode.AddElement">Añadir elemento</entry>
 <entry key="LOMES.Technical.Name11">Opera</entry>
 <entry key="Operation.ExportSCORM2004.BadProfiles.Message">El perfil de evaluación y el de adaptación deben ser del tipo SCORM 2004 en caso de existir.</entry>

@@ -156,6 +156,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Operation.RenameAssessmentFile">Rename assessment file</entry>
 <entry key="ActivateEffect.Title">Activate effect</entry>
 <entry key="MenuRun.Normal">Normal</entry>
+<entry key="ImageEdition.Contiguous">Contiguous</entry>
 <entry key="Resources.Select">Select...</entry>
 <entry key="LOMES.LCContribute.DialogTitle">Create new Contribute</entry>
 <entry key="Conversations.Listen">Listen</entry>
@@ -1540,6 +1541,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="LinesPanel.DialogueNode">Dialogue node</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="ExitsList.Edit">Edit</entry>
+<entry key="ImageEdition.NoTransparencyAllowed">This image type does not allow transparency</entry>
 <entry key="Flags.Title">Flags</entry>
 <entry key="Assets.DeleteAsset">Delete asset</entry>
 <entry key="BookPagesList.Type">Type</entry>
@@ -1565,6 +1567,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="LOMES.Educational.CognitiveProcess3">Compare</entry>
 <entry key="Conditions.Context.TimedAssessmentRuleB1"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will get inactive&lt;/b&gt; (the timer will stop and the post-effect block will be executed) when the next condition is satisfied:</entry>
 <entry key="LOMES.Educational.CognitiveProcess2">Collaborate</entry>
+<entry key="ImageEdition.Threshold">Threshold</entry>
 <entry key="LOMES.Educational.CognitiveProcess1">Implement</entry>
 <entry key="LOMES.Educational.CognitiveProcess0">Analyse</entry>
 <entry key="Inventory.highlightedleft.Tip">This is the arrow in the left in its highlighted stated.</entry>
@@ -1615,6 +1618,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptation-profile</entry>
 <entry key="SPEP.ShowBarriers">Barriers</entry>
 <entry key="NextScene.EditDestinyPositionShort">Edit the destiny position</entry>
+<entry key="ImageEdition.SelectColorTransparent">Select transparent color</entry>
 <entry key="Timer.DisplayName">Display name</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">AtrezzoId</entry>
 <entry key="MenuAdventure.CustomizeGUI">Customize GUI elements...</entry>
@@ -1792,8 +1796,8 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="RandomEffect.DeleteEffect">Delete this effect</entry>
 <entry key="NextScene.AdvancedOptions">Advanced options</entry>
 <entry key="Element.Name251">Drag to</entry>
-<entry key="Element.Name250">CustomInteract</entry>
 <entry key="LOMES.Technical.Name12">Amaya</entry>
+<entry key="Element.Name250">CustomInteract</entry>
 <entry key="TreeNode.AddElement">Add element</entry>
 <entry key="LOMES.Technical.Name11">Opera</entry>
 <entry key="Operation.ExportSCORM2004.BadProfiles.Message">The assessment and adaptation profile must be SCORM 2004 if they exists.</entry>

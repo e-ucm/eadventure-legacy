@@ -74,7 +74,7 @@ import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataContro
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.AudioDialog;
-import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
+import es.eucm.eadventure.editor.gui.displaydialogs.EditImageDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.SlidesDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.VideoDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog.AnimationEditDialog;
@@ -660,7 +660,7 @@ public class ResourcesPanel extends JPanel {
                 case AssetsConstants.CATEGORY_ICON:
                 case AssetsConstants.CATEGORY_BUTTON:
                 case AssetsConstants.CATEGORY_ARROW_BOOK:
-                    new ImageDialog( assetPath );
+                    new EditImageDialog( assetPath );
                     break;
                 case AssetsConstants.CATEGORY_ANIMATION:
                     if( resourcesDataControl.getAssetFilter( assetIndex ) == AssetsController.FILTER_JPG && !assetPath.endsWith( ".eaa" ) )

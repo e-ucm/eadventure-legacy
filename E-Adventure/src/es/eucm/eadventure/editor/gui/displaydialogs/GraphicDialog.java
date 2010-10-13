@@ -63,6 +63,11 @@ public abstract class GraphicDialog extends JDialog {
      * Required.
      */
     private static final long serialVersionUID = 1L;
+    
+    /**
+     * Panel holding the image
+     */
+    protected ImagePanel imagePanel;
 
     /**
      * Creates a new graphic dialog.
@@ -79,7 +84,8 @@ public abstract class GraphicDialog extends JDialog {
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1;
         c.weighty = 1;
-        add( new ImagePanel( ), c );
+        imagePanel = new ImagePanel( );
+        add( imagePanel, c );
 
         // Set the dialog and show it
         addWindowListener( new WindowAdapter( ) {
@@ -122,11 +128,16 @@ public abstract class GraphicDialog extends JDialog {
      * Deletes the images when the dialog has been closed.
      */
     protected abstract void deleteImages( );
+    
+    /**
+     * Coordinates for the image
+     */
+    protected int imageX, imageY, imageWidth, imageHeight;
 
     /**
      * Panel which paints the image.
      */
-    protected class ImagePanel extends JPanel {
+    public class ImagePanel extends JPanel {
 
         /**
          * Required.
@@ -142,22 +153,21 @@ public abstract class GraphicDialog extends JDialog {
             double dialogRatio = (double) getWidth( ) / (double) getHeight( );
             double imageRatio = getCurrentImageRatio( );
             if( imageRatio != Double.MIN_VALUE ) {
-                int x, y, width, height;
                 if( dialogRatio <= imageRatio ) {
-                    width = getWidth( );
-                    height = (int) ( getWidth( ) / imageRatio );
-                    x = 0;
-                    y = ( ( getHeight( ) - height ) / 2 );
+                    imageWidth = getWidth( );
+                    imageHeight = (int) ( getWidth( ) / imageRatio );
+                    imageX = 0;
+                    imageY = ( ( getHeight( ) - imageHeight ) / 2 );
                 }
 
                 else {
-                    width = (int) ( getHeight( ) * imageRatio );
-                    height = getHeight( );
-                    x = ( ( getWidth( ) - width ) / 2 );
-                    y = 0;
+                    imageWidth = (int) ( getHeight( ) * imageRatio );
+                    imageHeight = getHeight( );
+                    imageX = ( ( getWidth( ) - imageWidth ) / 2 );
+                    imageY = 0;
                 }
 
-                g.drawImage( getCurrentImage( ), x, y, width, height, null, null );
+                g.drawImage( getCurrentImage( ), imageX, imageY, imageWidth, imageHeight, null );
             }
         }
     }
