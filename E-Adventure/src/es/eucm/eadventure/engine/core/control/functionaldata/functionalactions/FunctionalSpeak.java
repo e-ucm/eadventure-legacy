@@ -299,8 +299,11 @@ public class FunctionalSpeak extends FunctionalAction {
     @Override
     public void stop( ) {
 
-        if( this.isStarted( ) )
+        if( this.isStarted( ) ){
             stopTTSTalking( );
+            if( audioId != -1 ) 
+                MultimediaManager.getInstance( ).stopPlayingInmediately( audioId );
+         }
     }
 
     @Override

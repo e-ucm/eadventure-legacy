@@ -87,6 +87,11 @@ public class OptionConversationNode extends ConversationNode {
      * Show the option selected by user
      */
     private boolean showUserOption;
+    
+    /**
+     * Pre-listening the conversation line
+     */
+    private boolean preListening;
 
     /* Methods */
 
@@ -103,13 +108,14 @@ public class OptionConversationNode extends ConversationNode {
     /**
      * Constructor
      */
-    public OptionConversationNode( boolean random, boolean keepShowing, boolean showUserOption) {
+    public OptionConversationNode( boolean random, boolean keepShowing, boolean showUserOption, boolean preHearing) {
 
         options = new ArrayList<ConversationLine>( );
         optionNodes = new ArrayList<ConversationNode>( );
         this.random = random;
         this.keepShowing = keepShowing;
         this.showUserOption = showUserOption;
+        this.preListening = preHearing;
         effects = new Effects( );
     }
 
@@ -118,7 +124,7 @@ public class OptionConversationNode extends ConversationNode {
      */
     public OptionConversationNode( ) {
 
-        this( false, false, false );
+        this( false, false, false, false );
     }
 
     /*
@@ -345,5 +351,17 @@ public class OptionConversationNode extends ConversationNode {
     public void setShowUserOption( Boolean showUserOption ) {
     
         this.showUserOption = showUserOption;
+    }
+
+    
+    public Boolean isPreListening( ) {
+    
+        return preListening;
+    }
+
+    
+    public void setPreListening( Boolean preHearing ) {
+    
+        this.preListening = preHearing;
     }
 }

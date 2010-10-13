@@ -511,6 +511,21 @@ public abstract class ConversationDataControl extends DataControl {
         controller.addTool( new ChangeBooleanValueTool( node, !( (DialogueConversationNode) node ).isKeepShowing( ), "isKeepShowing", "setKeepShowing" ) );
     }
 
+    
+    /**
+     * Change the pre-hearing option in the selected option node
+     * 
+     * @param selectedNode
+     *            The node in which will be the actions
+     * 
+     */
+    public void setPreListeningOptions( ConversationNodeView selectedNode ) {
+
+        ConversationNode node = (ConversationNode) selectedNode;
+        controller.addTool( new ChangeBooleanValueTool( node, !( (OptionConversationNode) node ).isPreListening( ), "isPreListening", "setPreListening" ) );
+    }
+
+    
     /**
      * Check if in selectedNode is active the random option
      * 
@@ -549,6 +564,19 @@ public abstract class ConversationDataControl extends DataControl {
 
         ConversationNode node = (ConversationNode) selectedNode;
         return ( (OptionConversationNode) node ).isShowUserOption( );
+    }
+    
+    /**
+     * Check if in selectedNode is active the pre-hearing option
+     * 
+     * @param selectedNode
+     *            The node in which will it ask
+     * @return
+     */
+    public boolean isPreListeningActivate( ConversationNodeView selectedNode ) {
+
+        ConversationNode node = (ConversationNode) selectedNode;
+        return ( (OptionConversationNode) node ).isPreListening( );
     }
     
     /**

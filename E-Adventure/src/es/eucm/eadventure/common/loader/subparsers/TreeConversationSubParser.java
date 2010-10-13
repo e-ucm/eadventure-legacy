@@ -137,6 +137,12 @@ public class TreeConversationSubParser extends SubParser {
      * Check if the user's response will be showed
      */
     private boolean showUserOption;
+    
+    /**
+     * Check if the option node allows the pre-listening of the options
+     */
+    private boolean preListening;
+    
 
     /**
      * Check if a conversation line must be synthesize
@@ -255,9 +261,17 @@ public class TreeConversationSubParser extends SubParser {
                         else
                             showUserOption = false;
                     }
+                    
+                    //If there is a "showUserOption" attribute, identify if show the user response at option node
+                    if( attrs.getQName( i ).equals( "preListening" ) ) {
+                        if( attrs.getValue( i ).equals( "yes" ) )
+                            preListening = true;
+                        else
+                            preListening = false;
+                    }
                 }
                 // Create a new OptionNode, and link it to the current node
-                ConversationNode nuevoNodoOpcion = new OptionConversationNode( random,keepShowing, showUserOption );
+                ConversationNode nuevoNodoOpcion = new OptionConversationNode( random,keepShowing, showUserOption, preListening );
                 currentNode.addChild( nuevoNodoOpcion );
 
                 // Change the actual node for the option node recently created

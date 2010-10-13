@@ -142,6 +142,12 @@ public class GraphConversationSubParser extends SubParser {
      * Check if the user's response will be showed
      */
     private boolean showUserOption;
+
+    /**
+     * Check if the option node allows the pre-listening of the options
+     */
+    private boolean preListening;
+    
     
     /**
      * Check if each conversation line will wait until user interacts
@@ -240,9 +246,16 @@ public class GraphConversationSubParser extends SubParser {
                             else
                                 showUserOption = false;
                         }
+                        //If there is a "showUserOption" attribute, identify if show the user response at option node
+                        if( attrs.getQName( i ).equals( "preListening" ) ) {
+                            if( attrs.getValue( i ).equals( "yes" ) )
+                                preListening = true;
+                            else
+                                preListening = false;
+                        }
                     }
 
-                    currentNode = new OptionConversationNode( random,keepShowing, showUserOption );
+                    currentNode = new OptionConversationNode( random,keepShowing, showUserOption, preListening );
                 }
                 // Create a new vector for the links of the current node
                 currentLinks = new ArrayList<Integer>( );

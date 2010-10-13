@@ -1925,6 +1925,7 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="Operation.AddSceneMessage">Introduzca un identificador para la nueva escena:</entry>
 <entry key="MenuFile.Save">Guardar</entry>
 <entry key="Conversation.OptionAddOptionNode">Añadir nodo de opciones</entry>
+<entry key="Conversation.PreListening"> Pre-escucha de las opciones </entry>
 <entry key="SPEP.ShowObjectReferences">Objetos</entry>
 <entry key="ResizeableListPanel.Size0ToolTip">Ver los elementos en una lista sencilla</entry>
 <entry key="Search.Effect">Efecto</entry>
