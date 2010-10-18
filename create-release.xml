@@ -74,7 +74,9 @@ Steps:
 	<property name="help.dir" value="help" />
 	<property name="lanengine.dir" value="i18n/engine" />
 	<property name="laneditor.dir" value="i18n/editor" />
-	<property name="release.version" value="1.0E-20100101" />
+	<property name="release.version" value="1.2 RC1-20100907" />
+
+	<property name="plugin.dir" value="C:/Archivos de programa/Java/jre6/lib" />
 
 	<path id="project.class.path">
 		<fileset dir="${lib.dir}">
@@ -82,9 +84,17 @@ Steps:
 		</fileset>
 	</path>
 
+
+	<path id="plugin.class.path">
+		<fileset dir="${plugin.dir}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
 	<target name="complie">
 		<javac srcdir="./src/" destdir="release-dir/">
 			<classpath refid="project.class.path" />
+			<classpath refid="plugin.class.path" />
 		</javac>
 	</target>
 
