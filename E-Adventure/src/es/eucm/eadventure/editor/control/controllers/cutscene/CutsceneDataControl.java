@@ -378,7 +378,9 @@ public class CutsceneDataControl extends DataControlWithResources {
 
     @Override
     public void replaceIdentifierReferences( String oldId, String newId ) {
-
+        if( cutscene.getNext( ) == Cutscene.NEWSCENE && cutscene.getTargetId( ).equals( oldId ) )
+            cutscene.setTargetId( newId );
+        
         EffectsController.replaceIdentifierReferences( oldId, newId, cutscene.getEffects( ) );
     }
 
