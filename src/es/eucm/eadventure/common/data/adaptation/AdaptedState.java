@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.HasTargetId;
+import es.eucm.eadventure.common.gui.TC;
 
 /**
  * Stores the adaptation data, which includes the flag activation and
@@ -55,18 +56,18 @@ public class AdaptedState implements Cloneable, HasTargetId {
     /**
      * Flags values
      */
-    public static final String ACTIVATE = "activate";
+    public static final String ACTIVATE = TC.get( "Effect.Activate" );
 
-    public static final String DEACTIVATE = "deactivate";
+    public static final String DEACTIVATE = TC.get( "Effect.Deactivate" );
 
     /**
      * Vars values
      */
-    public static final String INCREMENT = "increment";
+    public static final String INCREMENT = TC.get( "Effect.Increment" );
 
-    public static final String DECREMENT = "decrement";
+    public static final String DECREMENT = TC.get( "Effect.Decrement" );
 
-    public static final String VALUE = "set-value";
+    public static final String VALUE = TC.get( "Effect.Option.SetValue" );
 
     /**
      * List of all flags and vars (in order)
