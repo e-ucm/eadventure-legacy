@@ -182,10 +182,17 @@ public class ReleaseFolders {
     }
 
     public static final String getAboutFilePath( String string ) {
+        
         return "about-" + string + ".html";
+    }
+    
+    public static final String getDefaultAboutFilePath( ) {
+        
+        return "about-" + LANGUAGE_DEFAULT + ".html";
     }
 
     public static final String getLanguageFilePath( String language ) {
+        
         return language + ".xml";
     }
 

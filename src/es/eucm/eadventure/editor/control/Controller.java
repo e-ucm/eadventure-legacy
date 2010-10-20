@@ -3355,7 +3355,7 @@ public boolean isCharacterValid(String elementId){
             JPanel panel = new JPanel();
             panel.setLayout( new BorderLayout() );
 
-            File file = new File( ReleaseFolders.LANGUAGE_DIR_EDITOR + "/" + ConfigData.getAboutFile( ) );
+            File file = new File( ConfigData.getAboutFile( ) );
             if( file.exists( ) ) {
                 JEditorPane pane = new JEditorPane( );
                 pane.setPage( file.toURI( ).toURL( ) );
@@ -3530,8 +3530,15 @@ public boolean isCharacterValid(String elementId){
         File fichero = new File(dirImageLoading);
         if (!fichero.exists( ))
             dirImageLoading = ReleaseFolders.IMAGE_LOADING_DIR + "/" + getDefaultLanguage( ) + "/Editor2D-Loading.png";
+       
+        //about file route
+        String dirAboutFile = ReleaseFolders.LANGUAGE_DIR_EDITOR + "/" + ReleaseFolders.getAboutFilePath( language );
+        File fichero2 = new File(dirAboutFile);
+        if (!fichero2.exists( ))
+            dirAboutFile = ReleaseFolders.LANGUAGE_DIR_EDITOR + "/" + ReleaseFolders.getDefaultAboutFilePath( );
         
-        ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ), dirImageLoading );
+        ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), dirAboutFile, dirImageLoading );
+        
         languageFile = language;
         TC.loadStrings( ReleaseFolders.getLanguageFilePath4Editor( true, languageFile ) );
         TC.appendStrings( ReleaseFolders.getLanguageFilePath4Editor( false, languageFile ) );
