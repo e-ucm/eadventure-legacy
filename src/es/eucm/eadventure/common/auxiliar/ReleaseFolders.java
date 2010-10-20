@@ -72,10 +72,8 @@ public class ReleaseFolders {
     public static final String LANGUAGE_DIR_EDITOR = "i18n/editor";
 
     public static final String LANGUAGE_DIR_ENGINE = "i18n/engine";
-
-    private static final String ENGLISH_LOADING_IMAGE = "img/Editor2D-Loading-Eng.png";
-
-    private static final String SPANISH_LOADING_IMAGE = "img/Editor2D-Loading-Esp.png";
+    
+    public static final String IMAGE_LOADING_DIR = "img/loading";
     
     private static HashMap<String, String> languageNames = new HashMap<String, String>();
 
@@ -185,19 +183,6 @@ public class ReleaseFolders {
 
     public static final String getAboutFilePath( String string ) {
         return "about-" + string + ".html";
-    }
-
-    public static final String getLoadingImagePath( String language ) {
-
-        if( language.equals(LANGUAGE_ENGLISH) ) {
-            return ENGLISH_LOADING_IMAGE;
-        }
-        else if( language.equals(LANGUAGE_SPANISH) ) {
-            return SPANISH_LOADING_IMAGE;
-        }
-        else {
-            return getLoadingImagePath( LANGUAGE_DEFAULT );
-        }
     }
 
     public static final String getLanguageFilePath( String language ) {
