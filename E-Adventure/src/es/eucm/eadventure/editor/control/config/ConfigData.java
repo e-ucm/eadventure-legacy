@@ -44,6 +44,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
+import es.eucm.eadventure.editor.control.Controller;
 
 public class ConfigData {
 
@@ -259,7 +260,7 @@ public class ConfigData {
             aboutFile = ReleaseFolders.getAboutFilePath( ReleaseFolders.LANGUAGE_ENGLISH );
         }
         if( loadingImage == null ) {
-            loadingImage = ReleaseFolders.getLoadingImagePath( ReleaseFolders.LANGUAGE_ENGLISH );
+            loadingImage = ReleaseFolders.IMAGE_LOADING_DIR + "/" + Controller.getInstance( ).getDefaultLanguage( ) + "/Editor2D-Loading.png";
         }
         if( exportsPath == null ) {
 
