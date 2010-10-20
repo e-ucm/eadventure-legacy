@@ -71,6 +71,7 @@
 <entry key="SceneLocation.XCoordinate">Coordenada X</entry>
 <entry key="HighlightItemEffect.Title">Efeito ressaltar objecto</entry>
 <entry key="LOMES.Date.Seconds">Segundo</entry>
+<entry key="Conversation.PreListening"> Opções pré-escuta </entry>
 <entry key="MenuAdventure.Commentaries">Comentarios automáticos</entry>
 <entry key="ActionsList.UseAction">Usar</entry>
 <entry key="Animation.AskFilenameTitle">Nova animação</entry>
@@ -201,7 +202,6 @@
 <entry key="Vars.DefaultVarId">IdVar</entry>
 <entry key="TreeNode.AddElement15">Agregar parágrafo de texto</entry>
 <entry key="Conversation.OperationDeleteOption">Eliminar opção</entry>
-<entry key="Conversation.PreListening"> Opções pré-escuta </entry>
 <entry key="LOMES.Add">Agregar</entry>
 <entry key="TreeNode.AddElement14">Agregar parágrafo de título</entry>
 <entry key="TreeNode.AddElement13">Agregar lista de parágrafos</entry>
@@ -841,6 +841,7 @@
 <entry key="Effect.PlaySound">Reproduzir som</entry>
 <entry key="GeneralText.Duplicate">Duplicar</entry>
 <entry key="ExitsList.Transition">Transição</entry>
+<entry key="Effect.Option.SetValue">Set-value</entry>
 <entry key="EffectsGroup.Miscellaneous">Miscelânea</entry>
 <entry key="Search.NextScene">Cena seguinte </entry>
 <entry key="ActiveAreasList.Title">Zonas activas</entry>
@@ -988,9 +989,9 @@
 <entry key="LOMES.Educational.LearningResourceType15">Master class</entry>
 <entry key="Search.Path">Localização</entry>
 <entry key="RandomEffect.Title">Efeito com probabilidade</entry>
+<entry key="MenuFile.LOMESProperties">Propriedades de Objeto de Aprendizagem para pacotes AGREGA (LOM-ES)</entry>
 <entry key="LOMES.Educational.LearningResourceType14">Leitura orientada</entry>
 <entry key="ErrorReport.Comments">Por favor, utilize este espaço para escrever seus comentarios e sugestões</entry>
-<entry key="MenuFile.LOMESProperties">Propriedades de Objeto de Aprendizagem para pacotes AGREGA (LOM-ES)</entry>
 <entry key="LOMES.Educational.LearningResourceType13">Tutorial</entry>
 <entry key="GeneralText.Replace">Substituir</entry>
 <entry key="LOMES.Educational.LearningResourceType12">Apresentação Multimédia</entry>
@@ -1474,6 +1475,7 @@
 <entry key="TriggerCutsceneEffect.Title">Efeito lançar cena intermédia</entry>
 <entry key="Operation.FileLoadedWithErrorMessage">O projecto carregou parcialmente devido à existencia de incidencias.</entry>
 <entry key="Adventure.ModePlayerTransparent.Description">Não se mostra o  jogador no ecrã</entry>
+<entry key="Effect.Increment">Incrementar</entry>
 <entry key="Conversation.OptionPreviewPartialConversation">Pré-visualizar nó seleccionado</entry>
 <entry key="LOM.Duration.InvalidValue.Message">O valor introduzido não é válido para {#0}. Por favor, escreva um número inteiro positivo ou deixe-o em branco.</entry>
 <entry key="Resources.DescriptionCharacterAnimationUseRight">Objecto à sua direita</entry>
@@ -1524,6 +1526,7 @@
 <entry key="LOMES.AddElement">Agregar Novo Elemento</entry>
 <entry key="StartDialog.NewAssessmentFile.Description">Você seleccionou para criar um arquivo de nova avaliação. Para a versão actual esta opção não está disponível. Você deve criar o arquivo de avaliação pela abertura / criação de um jogo de aventura nova, então usar o recurso aí incluídos </entry>
 <entry key="IMS.Educational.Contex10">Formação Profissional</entry>
+<entry key="Effect.Decrement">Diminuir</entry>
 <entry key="ElementList.Empty">Não está seleccionada nenhuma referência ao elemento</entry>
 <entry key="IMS.Educational.InteractivityLevel4">Muito Alto</entry>
 <entry key="IMS.Educational.InteractivityLevel3">Alto</entry>

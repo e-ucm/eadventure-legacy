@@ -13,6 +13,11 @@
 <entry key="Operation.RenameCutsceneTitle">Renombrar escena intermedia</entry>
 <entry key="CustomAction.SelectTypeTitle">Elija el tipo de la acción personalizada</entry>
 <entry key="AssessmentProperties.MoveDown">Mover propiedad seleccionada hacia abajo</entry>
+<entry key="ImageEdition.Contiguous">Contiguo</entry>
+<entry key="ImageEdition.NoTransparencyAllowed">Este tipo de imagen no admite transparencia</entry>
+<entry key="ImageEdition.Threshold">Tolerancia</entry>
+<entry key="ImageEdition.SelectColorTransparent">Seleccionar color transparente</entry>
+<entry key="Conversation.PreListening"> Pre-escucha de las opciones </entry>
 <entry key="SmallAction.NeedsGetTo">Necesita alcanzar</entry>
 <entry key="MoveObjectEffect.Animated">Animar</entry>
 <entry key="Item.Description">Descripción breve del objeto (se muestra al mirar el objeto)</entry>
@@ -157,7 +162,6 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Operation.RenameAssessmentFile">Renombrar fichero evaluación</entry>
 <entry key="ActivateEffect.Title">Efecto activar</entry>
 <entry key="MenuRun.Normal">Normal</entry>
-<entry key="ImageEdition.Contiguous">Contiguo</entry>
 <entry key="Resources.Select">Seleccionar...</entry>
 <entry key="LOMES.LCContribute.DialogTitle">Crear Nueva Contribución</entry>
 <entry key="Conversations.Listen">Escuchar</entry>
@@ -635,7 +639,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="ItemReferenceTable.TableBorder">Lista de referencias</entry>
 <entry key="AdaptationRulesList.ListTitle">Lista de reglas de adaptación</entry>
 <entry key="ItemsList.ActionsNumber">{#0} acciones</entry>
-<entry key="NPC.DialogPanelTip">Panel para editar las características de dialogos del persoaje</entry>
+<entry key="NPC.DialogPanelTip">Panel para editar las características de dialogos del personaje</entry>
 <entry key="Effect.MovePlayerInfo">Mover protagonista a x:{#0} y:{#1}</entry>
 <entry key="Operation.AddItemTitle">Añadir nuevo objeto</entry>
 <entry key="Inventory.OnlyTop">Solo arriba</entry>
@@ -870,7 +874,7 @@ función de estos estados</entry>
 <entry key="Conditions.Context.2.66"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se ejecutará siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="Timer.Time">Tiempo</entry>
 <entry key="ResourcesList.AddResourcesBlock">Añadir nuevo bloque de recursos</entry>
-<entry key="Button.use-grab.pressed.Description">Boton de user-coger presionado</entry>
+<entry key="Button.use-grab.pressed.Description">Boton de usar-coger presionado</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.Message">Escriba el nombre del perfil de adaptación</entry>
 <entry key="SceneLinksPanel.SceneID">ID de la escena</entry>
 <entry key="GeneralText.EmptyTable">No hay elementos en esta tabla</entry>
@@ -887,6 +891,7 @@ función de estos estados</entry>
 <entry key="PlayerPosition.Title">Posición del protagonista</entry>
 <entry key="Operation.ExportT.Success.Title">Exportación completada</entry>
 <entry key="Animation.AskFilename">Por favor, escriba un nombre para la animación (sin extensión)</entry>
+<entry key="Book.Previous">Página anterior</entry>
 <entry key="Effect.BorderHighlightItemInfo">Reslatar bordes de {#0} </entry>
 <entry key="Conditions.Context.1A.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se activará&lt;/b&gt; (empezará a contar) cuando se cumpla la siguiente condición:</entry>
 <entry key="Conditions.Group.Id">Id. del estado global</entry>
@@ -936,6 +941,7 @@ Esto puede provocar errores al cargar las aventuras.</entry>
 <entry key="Effect.PlaySound">Reproducir sonido</entry>
 <entry key="GeneralText.Duplicate">Duplicar</entry>
 <entry key="ExitsList.Transition">Transición</entry>
+<entry key="Effect.Option.SetValue">Dar-valor</entry>
 <entry key="EffectsGroup.Miscellaneous">Miscelánea</entry>
 <entry key="Search.NextScene">Siguiente escena</entry>
 <entry key="ActiveAreasList.Title">Zonas activas</entry>
@@ -1037,11 +1043,13 @@ Dicha operación no se completó.</entry>
 <entry key="ItemsList.Title">Objetos</entry>
 <entry key="LOM.Technical.Tip">Információn técnica del recurso</entry>
 <entry key="Animation.WaitForClick">Esperar al usuario</entry>
+<entry key="AssessmentRule.Effect.AddVarProperty">Añadir propiedad var/flag</entry>
 <entry key="Operation.AddNPCReferenceMessage">Seleccione el personaje que quiere añadir a la escena:</entry>
 <entry key="Adventure.CurrentPlayerMode">Modo actual</entry>
 <entry key="MacroReferenceEffect.Description">seleccione la macro que quiere lanzar en este punto del juego</entry>
 <entry key="GUIStyles.TraditionalDescription">Este tipo de interfaz presenta un gran parecido con las primeras aventuras gráficas de LucasArts. El usuario dispone de una serie de botones para efectuar acciones y un inventario en la parte inferior de la pantalla</entry>
 <entry key="ItemReferencesList.Title">Referencias a elementos</entry>
+<entry key="AssessmentRule.Effect.AddValueProperty">Añadir propiedad value</entry>
 <entry key="Search.EMail">e-mail</entry>
 <entry key="LOMES.Classification.TaxonId">Identificador</entry>
 <entry key="Search.NPCVoice">Voz del NPC</entry>
@@ -1161,6 +1169,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 <entry key="AssetsChooser.Cursor">Escoja una imagen de cursor</entry>
 <entry key="Exit.BottomToTop">Abajo hacia arriba</entry>
 <entry key="GlobalState.Conditions">Lista de conciciones del estado global</entry>
+<entry key="Book.Next">Página siguiente</entry>
 <entry key="PlayAnimationEffect.Title">Efecto reproducir animación</entry>
 <entry key="Operation.IdErrorCharacter">El identificador no debe contener caracteres inválidos</entry>
 <entry key="Operation.RenameAssessmentFile.FileName.Message">Introduzca el nombre del archivo de evaluación</entry>
@@ -1546,7 +1555,6 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="LinesPanel.DialogueNode">Nodo de diálogo</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="ExitsList.Edit">Editar</entry>
-<entry key="ImageEdition.NoTransparencyAllowed">Este tipo de imagen no admite transparencia</entry>
 <entry key="Flags.Title">Flags</entry>
 <entry key="Assets.DeleteAsset">Eliminar recurso</entry>
 <entry key="BookPagesList.Type">Tipo</entry>
@@ -1572,13 +1580,12 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="LOMES.Educational.CognitiveProcess3">Compare</entry>
 <entry key="Conditions.Context.TimedAssessmentRuleB1"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará&lt;/b&gt; (el contador se detendrá y se ejecutará el bloque de post-efectos) cuando se cumpla la siguiente condición:</entry>
 <entry key="LOMES.Educational.CognitiveProcess2">Collaborate</entry>
-<entry key="ImageEdition.Threshold">Tolerancia</entry>
 <entry key="LOMES.Educational.CognitiveProcess1">Implement</entry>
 <entry key="LOMES.Educational.CognitiveProcess0">Analyse</entry>
-<entry key="Inventory.highlightedleft.Tip">Esta es la fecha izqueirda en su estado resaltado.</entry>
+<entry key="Inventory.highlightedleft.Tip">Esta es la fecha izquierda en su estado resaltado.</entry>
 <entry key="Conditions.Context.2.231"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
-<entry key="Conditions.Context.2.230"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="LOMES.Technical.Name">Nombre</entry>
+<entry key="Conditions.Context.2.230"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="ActionsList.TalkToAction">Hablar con...</entry>
 <entry key="Operation.FileNotSavedTitle">¡No se salvó el proyecto!</entry>
 <entry key="Animation.GeneralInfo">Información de la animación</entry>
@@ -1623,7 +1630,6 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptacion</entry>
 <entry key="SPEP.ShowBarriers">Barreras</entry>
 <entry key="NextScene.EditDestinyPositionShort">Editar la posición de destino</entry>
-<entry key="ImageEdition.SelectColorTransparent">Seleccionar color transparente</entry>
 <entry key="Timer.DisplayName">Nombre a mostrar</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">IdAtrezzo</entry>
 <entry key="MenuAdventure.CustomizeGUI">Personalizar elementos de la interfaz...</entry>
@@ -1648,6 +1654,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="TriggerCutsceneEffect.Title">Efecto lanzar escena intermedia</entry>
 <entry key="Operation.FileLoadedWithErrorMessage">El proyecto se cargó parcialmente debido a la existencia de incidencias.</entry>
 <entry key="Adventure.ModePlayerTransparent.Description">No se muestra al jugador en pantalla</entry>
+<entry key="Effect.Increment">Incrementar</entry>
 <entry key="Conversation.OptionPreviewPartialConversation">Previsualizar nodo seleccionado</entry>
 <entry key="Export.Book">Exportar libro HTML</entry>
 <entry key="LOM.Duration.InvalidValue.Message">El valor introducido no es válido para {#0}. Por favor, escriba un número entero positivo o déjelo en blanco.</entry>
@@ -1711,6 +1718,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="LOMES.AddElement">Añadir Nuevo Elemento</entry>
 <entry key="StartDialog.NewAssessmentFile.Description"> You have selected to create a new Assessment file. For the present release this option is unavailable. You must create the assessment file by opening/creating a new adventure game; then use the facility therein included  </entry>
 <entry key="IMS.Educational.Contex10">Vocational Training</entry>
+<entry key="Effect.Decrement">Decrementar</entry>
 <entry key="ElementList.Empty">No se ha seleccionado ninguna referencia a elemento</entry>
 <entry key="IMS.Educational.InteractivityLevel4">Very High</entry>
 <entry key="IMS.Educational.InteractivityLevel3">High</entry>
@@ -1929,7 +1937,6 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="Operation.AddSceneMessage">Introduzca un identificador para la nueva escena:</entry>
 <entry key="MenuFile.Save">Guardar</entry>
 <entry key="Conversation.OptionAddOptionNode">Añadir nodo de opciones</entry>
-<entry key="Conversation.PreListening"> Pre-escucha de las opciones </entry>
 <entry key="SPEP.ShowObjectReferences">Objetos</entry>
 <entry key="ResizeableListPanel.Size0ToolTip">Ver los elementos en una lista sencilla</entry>
 <entry key="Search.Effect">Efecto</entry>
