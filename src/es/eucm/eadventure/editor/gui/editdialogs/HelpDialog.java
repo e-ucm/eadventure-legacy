@@ -96,7 +96,11 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
         addButtonPanel( );
         Dimension size = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( (int) ( size.getWidth( ) - HELP_WIDTH ) / 2, (int) ( size.getHeight( ) - HELP_HEIGHT ) / 2 );
-        String folder = "help/" + Controller.getInstance( ).getLanguage( ) + "/";
+        String folder = "help/" + Controller.getInstance( ).getLanguage( ) + "/";     
+        // if there isn't file, load the default file
+        File fichero = new File(folder);
+        if (!fichero.exists( ))
+            folder = "help/" + Controller.getInstance( ).getDefaultLanguage( ) + "/";
         File file = new File( folder + helpPath );
         if( file.exists( ) ) {
             pane = new JEditorPane( );
@@ -182,7 +186,7 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
     private void addButtonPanel( ) {
 
         JPanel buttonPanel = new JPanel( );
-        goBack = new JButton( "Back" );
+        goBack = new JButton( TC.get( "Tools.Back" ) );
         goBack.setEnabled( false );
         goBack.addActionListener( new ActionListener( ) {
 
@@ -193,7 +197,7 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
         } );
         buttonPanel.add( goBack );
 
-        goForward = new JButton( "Forward" );
+        goForward = new JButton( TC.get( "Tools.Forward" ) );
         goForward.setEnabled( false );
         goForward.addActionListener( new ActionListener( ) {
 
