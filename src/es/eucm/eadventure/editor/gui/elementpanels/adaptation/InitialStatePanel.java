@@ -391,7 +391,7 @@ class InitialStatePanel extends JPanel implements Updateable {
             else if( columnIndex == 1 )
                 name = "Flag?";
             if( columnIndex == 2 )
-                name = "Action";
+                name = TC.get( "Element.Action" );
             else if( columnIndex == 3 )
                 name = "Var/Flag";
             return name;

@@ -204,11 +204,11 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
             }
             selectedAction = split[0];
             // set the operations
-            operations = new String[] { "increment", "decrement", "set-value" };
+            operations = new String[] { TC.get( "Effect.Increment" ), TC.get( "Effect.Decrement" ), TC.get( "Effect.Option.SetValue" ) };
         }
         else {
             // set the operations
-            operations = new String[] { "activate", "deactivate" };
+            operations = new String[] { TC.get( "Effect.Activate" ), TC.get( "Effect.Deactivate" )};
         }
 
         // label for action name
@@ -221,7 +221,7 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
         labelCont.setBackground( Color.white );
 
         // button to edit the action
-        JButton edit = new JButton( "Edit" );
+        JButton edit = new JButton( TC.get( "GeneralText.Edit" ) );
         edit.addActionListener( new EditButtonListener( operations, varVal, rowIndex, selectedAction ) );
 
         // the component to show
