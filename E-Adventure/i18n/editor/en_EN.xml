@@ -156,7 +156,6 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Operation.RenameAssessmentFile">Rename assessment file</entry>
 <entry key="ActivateEffect.Title">Activate effect</entry>
 <entry key="MenuRun.Normal">Normal</entry>
-<entry key="ImageEdition.Contiguous">Contiguous</entry>
 <entry key="Resources.Select">Select...</entry>
 <entry key="LOMES.LCContribute.DialogTitle">Create new Contribute</entry>
 <entry key="Conversations.Listen">Listen</entry>
@@ -275,6 +274,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="FormattedTextAssets.Preview">Preview of the text</entry>
 <entry key="SpeakPlayerEffect.Description">Type the line you want the player to say</entry>
 <entry key="Scene.Documentation">Full description of the scene</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent.ToolTip">Select the action to be active even though there are no conditions</entry>
 <entry key="ActionsList.ActionName">Action</entry>
 <entry key="Operation.AddSceneTitle">Add scene</entry>
 <entry key="Timer.Effects">Effects to be executed if the timer expires</entry>
@@ -883,6 +883,7 @@ based on the state of the flags.</entry>
 <entry key="PlayerPosition.Title">Position of the player</entry>
 <entry key="Operation.ExportT.Success.Title">Export process completed</entry>
 <entry key="Animation.AskFilename">Please write a filename for the animation (without extention)</entry>
+<entry key="Book.Previous">Previous page</entry>
 <entry key="Effect.BorderHighlightItemInfo">Highlight borders of {#0}</entry>
 <entry key="Conditions.Context.1A.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will start&lt;/b&gt; when the next condition is satisfied:</entry>
 <entry key="Conditions.Group.Id">Global State Id</entry>
@@ -932,6 +933,7 @@ This could provoke errors when executing or loading the adventures.</entry>
 <entry key="Effect.PlaySound">Play sound</entry>
 <entry key="GeneralText.Duplicate">Duplicate</entry>
 <entry key="ExitsList.Transition">Transition</entry>
+<entry key="Effect.Option.SetValue">Set-value</entry>
 <entry key="EffectsGroup.Miscellaneous">Miscellaneous</entry>
 <entry key="Search.NextScene">Next Scene</entry>
 <entry key="ActiveAreasList.Title">Active areas</entry>
@@ -1033,11 +1035,13 @@ The operation was aborted.</entry>
 <entry key="ItemsList.Title">Items</entry>
 <entry key="LOM.Technical.Tip">Technical data</entry>
 <entry key="Animation.WaitForClick">Wait for click</entry>
+<entry key="AssessmentRule.Effect.AddVarProperty">Add var/flag property</entry>
 <entry key="Operation.AddNPCReferenceMessage">Select the character you want to add to the scene</entry>
 <entry key="Adventure.CurrentPlayerMode">Current mode</entry>
 <entry key="MacroReferenceEffect.Description">Select the macro to launch at this point</entry>
 <entry key="GUIStyles.TraditionalDescription">This type of GUI is much like the earlier adventures of LucasArts. The user has a set of buttons to perform actions, and an inventory in the lower part of the screen</entry>
 <entry key="ItemReferencesList.Title">Element references</entry>
+<entry key="AssessmentRule.Effect.AddValueProperty">Add value property</entry>
 <entry key="Search.EMail">e-mail</entry>
 <entry key="LOMES.Classification.TaxonId">Identifier</entry>
 <entry key="Search.NPCVoice">NPC Voice</entry>
@@ -1157,6 +1161,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 <entry key="AssetsChooser.Cursor">Choose an image for the cursor</entry>
 <entry key="Exit.BottomToTop">Bottom to top</entry>
 <entry key="GlobalState.Conditions">List of conditions of the global state</entry>
+<entry key="Book.Next">Next page</entry>
 <entry key="PlayAnimationEffect.Title">Play animation effect</entry>
 <entry key="Operation.IdErrorCharacter">The identifier must not contain invalid characters</entry>
 <entry key="Operation.RenameAssessmentFile.FileName.Message">Type the new name of the assessment file</entry>
@@ -1541,7 +1546,6 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="LinesPanel.DialogueNode">Dialogue node</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="ExitsList.Edit">Edit</entry>
-<entry key="ImageEdition.NoTransparencyAllowed">This image type does not allow transparency</entry>
 <entry key="Flags.Title">Flags</entry>
 <entry key="Assets.DeleteAsset">Delete asset</entry>
 <entry key="BookPagesList.Type">Type</entry>
@@ -1567,13 +1571,12 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="LOMES.Educational.CognitiveProcess3">Compare</entry>
 <entry key="Conditions.Context.TimedAssessmentRuleB1"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will get inactive&lt;/b&gt; (the timer will stop and the post-effect block will be executed) when the next condition is satisfied:</entry>
 <entry key="LOMES.Educational.CognitiveProcess2">Collaborate</entry>
-<entry key="ImageEdition.Threshold">Threshold</entry>
 <entry key="LOMES.Educational.CognitiveProcess1">Implement</entry>
 <entry key="LOMES.Educational.CognitiveProcess0">Analyse</entry>
 <entry key="Inventory.highlightedleft.Tip">This is the arrow in the left in its highlighted stated.</entry>
 <entry key="Conditions.Context.2.231"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
-<entry key="Conditions.Context.2.230"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="LOMES.Technical.Name">Name</entry>
+<entry key="Conditions.Context.2.230"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="ActionsList.TalkToAction">Talk to...</entry>
 <entry key="Operation.FileNotSavedTitle">Project not saved!</entry>
 <entry key="Animation.GeneralInfo">Animation Information</entry>
@@ -1618,7 +1621,6 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptation-profile</entry>
 <entry key="SPEP.ShowBarriers">Barriers</entry>
 <entry key="NextScene.EditDestinyPositionShort">Edit the destiny position</entry>
-<entry key="ImageEdition.SelectColorTransparent">Select transparent color</entry>
 <entry key="Timer.DisplayName">Display name</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">AtrezzoId</entry>
 <entry key="MenuAdventure.CustomizeGUI">Customize GUI elements...</entry>
@@ -1643,6 +1645,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="TriggerCutsceneEffect.Title">Trigger cutscene effect</entry>
 <entry key="Operation.FileLoadedWithErrorMessage">The project was loaded with incidences. Perhaps not all data was loaded.</entry>
 <entry key="Adventure.ModePlayerTransparent.Description">When this mode is selected, the player is not painted in the game, as if the user were directly embedded in the game. This mode is suitable for the production of Myst-like adventure games.</entry>
+<entry key="Effect.Increment">Increment</entry>
 <entry key="Conversation.OptionPreviewPartialConversation">Preview from selected node</entry>
 <entry key="Export.Book">Export HTML book</entry>
 <entry key="LOM.Duration.InvalidValue.Message">The value introduced is not valid for {#0}. Please type a numeric positive value or leave it blank.</entry>
@@ -1706,6 +1709,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="LOMES.AddElement">Add new element</entry>
 <entry key="StartDialog.NewAssessmentFile.Description"> You have selected to create a new Assessment file. For the present release this option is unavailable. You must create the assessment file by opening/creating a new adventure game; then use the facility therein included  </entry>
 <entry key="IMS.Educational.Contex10">Vocational Training</entry>
+<entry key="Effect.Decrement">Decrement</entry>
 <entry key="ElementList.Empty">No element reference has been selected</entry>
 <entry key="IMS.Educational.InteractivityLevel4">Very High</entry>
 <entry key="IMS.Educational.InteractivityLevel3">High</entry>
@@ -1925,7 +1929,6 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Operation.AddSceneMessage">Type an identifier for the new scene</entry>
 <entry key="MenuFile.Save">Save project</entry>
 <entry key="Conversation.OptionAddOptionNode">Add option node</entry>
-<entry key="Conversation.PreListening"> Options' pre-listening </entry>
 <entry key="SPEP.ShowObjectReferences">Items</entry>
 <entry key="ResizeableListPanel.Size0ToolTip">View all the elements in a simple list</entry>
 <entry key="Search.Effect">Effect</entry>
