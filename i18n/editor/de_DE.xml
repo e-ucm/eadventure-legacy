@@ -109,7 +109,6 @@
 <entry key="Conditions.Var.Description">Hier ist die Liste der Variablen des Kapitels. 
 	Ein Integer Wert kann den Variablen zu jeder Zeit im Spiel zugewiesen werden. 
 	Auf diese Weise können im Spiel die Bedingungen, basierend auf dem Wert einer Variablen, definiert werden.</entry>
-<entry key="Operation.AddWerkzeugReferenceTitle">Añadir referencia a objeto de atrezo</entry>
 <entry key="Button.examine.Description">Untersuchen Taste</entry>
 <entry key="ActionsList.CustomInteractAction">Modifizierte Interaktion mit {#0}</entry>
 <entry key="ActionsList.Conditions">Konditionen</entry>
@@ -441,7 +440,6 @@
 <entry key="Item.LookPanelTitle">Aussehen</entry>
 <entry key="Operation.AdventureConsistencyErrorPlayAnimation">Die Wirkung von "Animation abspielen" hat keine Animation verbunden</entry>
 <entry key="IMS.Educational.InteractivityLevel">Der Grad der Interaktion zwischen den Ressourcen und der Benutzer</entry>
-<entry key="Werkzeug.Preview">Werkzeug Objekt Vorschau</entry>
 <entry key="LOMES.Rights.Access">Zugang</entry>
 <entry key="Animation.DeleteFrame">Entfernen Sie das ausgewählte Bild der Animation</entry>
 <entry key="Action.MessageSelectNPC">Wählen Sie ein Charakter, um das Ziel der Aktion zu sein:</entry>
@@ -555,9 +553,7 @@
 <entry key="LOMES.Educational.CognitiveProcess15">Diskutieren</entry>
 <entry key="LOMES.Educational.CognitiveProcess14">Beschreiben</entry>
 <entry key="LOMES.Educational.CognitiveProcess13">Definieren</entry>
-<entry key="Werkzeug.Name">Werkzeug Objekt Name</entry>
 <entry key="LOMES.Educational.CognitiveProcess12">Entscheiden</entry>
-<entry key="Werkzeug.Documentation">Werkzeug Objekte Dokumentation (Im Engine nicht benutzt)</entry>
 <entry key="LOMES.Educational.CognitiveProcess11">Erstellen</entry>
 <entry key="SelectEffectDialog.Title">Effekte Schaffung Paneel</entry>
 <entry key="LOMES.Educational.CognitiveProcess10">Mitwirken</entry>
@@ -575,11 +571,9 @@
 <entry key="AnimationAssets.Preview">Animation Vorschau</entry>
 <entry key="Operation.SaveProjectAs">Operation: Projekt wird gespeichert als</entry>
 <entry key="BookParagraphs.AddParagraph">Neuer Absatz erstellen (Titel, Text, Bild oder Element Liste)</entry>
-<entry key="Operation.RenameWerkzeugTitle">Elemente umbenennen</entry>
 <entry key="BookTypes.Formatted">Text mit Format</entry>
 <entry key="GraphicConfig.BlackBkg">Starten auf einem schwarzen Hintergrund</entry>
 <entry key="Search.HTMLBookPage">HTML Buch Inhalt</entry>
-<entry key="Operation.RenameWerkzeugMessage">Geben Sie einen neuen ID, mit dem den Werkzeug Objekt umbennen:</entry>
 <entry key="DeleteUnusedAssets.Warning">Alle nicht referenziert Ressourcen werden aus dem Projekt entfernt. Dieser Aktion kann nicht rückgängig gemacht werden. Es wird dringend empfohlen, eine Sicherungskopie Ihres Projekts erstellen bevor Sie fortfahren.</entry>
 <entry key="Cursor.exit.Tip">Nur für kontextuellen GUI: Dieser Mauszeiger wird benutzt, wenn die Maus ist über ein Ausfahrt</entry>
 <entry key="PlayerPosition.PositionPanel">Wählen Sie den Ort, wo den Spieler erscheint wird</entry>
@@ -900,7 +894,6 @@
 <entry key="Error.NoFlagsAvailable.Message">Keine Flags in diesem Kapitel. Bitte, geben Sie den gewünschten Namen in der Liste der Flags ein, um neue Flags zu erstelen.</entry>
 <entry key="Error.BadAudioFormat.Message">Dieses Video ist ein nicht unterstütztes Format. Bitte, versuchen diese Video-Datei zu einem der folgenden Codecs konvertieren: MPEG 1 video, DivX 5 (oder weniger), MS-MPEG 4 V2 oder XVID. </entry>
 <entry key="Operation.CreateAssessmentFile.FileName.DefaultValue">Bewertung</entry>
-<entry key="Operation.AddWerkzeugDefaultValue">IdWerkzeug</entry>
 <entry key="IconAssets.ErrorIconSize">El archivo "{#0}" no puede ser añadido como recurso de icono.	El tamaño establecido para los iconos es de 80x48, mientras que el archivo tiene {#1}x{#2}</entry>
 <entry key="Conditions.Context.2.25"> Die Aktion {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;wird immer ausführbare werden&lt;/b&gt;, da keine Bedingung definiert wurde:</entry>
 <entry key="Conditions.Context.2.24"> Die Aktion {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;wird immer ausführbare werden&lt;/b&gt;, da keine Bedingung definiert wurde:</entry>
@@ -1086,7 +1079,6 @@
 <entry key="Effect.MovePlayer">Spieler verschieben</entry>
 <entry key="Flags.ErrorFlagWhitespaces">Das eingegebe Flag ID kann keine Leerzeichen enthalten</entry>
 <entry key="TriggerSceneEffect.ErrorNoScenes">Um diese Typ von Effekt hinzufügen, muss es mindestens eine Szene in Kapitel</entry>
-<entry key="SPEP.ShowWerkzeug">Elemente</entry>
 <entry key="Element.BookParagraph">Buch Absatz</entry>
 <entry key="Conversation.OptionRandomly">Zufallig Ordung des Optionen</entry>
 <entry key="Action.Documentation">Aktion Dokumentation</entry>
@@ -1150,7 +1142,6 @@
 <entry key="Ids.Title">Flags und variablen</entry>
 <entry key="Operation.SaveChangesTitle">Änderungen speichern?</entry>
 <entry key="StartDialog.Recent.OpenedYesterday">Gestern geöffnet</entry>
-<entry key="Werkzeug.DocPanelTitle">Information</entry>
 <entry key="Error.BadAudioFormat.Title">Video Format nicht unterstützt. </entry>
 <entry key="SceneLocation.YCoordinate">Koordinate Y</entry>
 <entry key="LOM.General.Description">Beschreibung</entry>
@@ -1175,7 +1166,6 @@
 <entry key="AtrezzoList.Title">Atrezzo Objekte</entry>
 <entry key="Inventory.Information">Desde este menú puede personalizar la apariencia de las fechas del inventario.  Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="SelectEffectDialog.AllEffects.ToolTipText">Zeigt alle Arten von Effekten</entry>
-<entry key="Operation.AddWerkzeugTitle">Neues Werkzeug-Objekt hinzufügen</entry>
 <entry key="Adventure.ModePlayerTransparent.Name">First-Person</entry>
 <entry key="Conditions.Group.Title">Werte der Global Zustand</entry>
 <entry key="Chapter.ChapterTitle">Kapiteltiteln</entry>
@@ -1307,11 +1297,9 @@
 <entry key="MenuConfiguration.Title">Einstellungen</entry>
 <entry key="GeneralText.Project">Projekt</entry>
 <entry key="Search.SMTPUser">SMTP Nutzer</entry>
-<entry key="Werkzeug.LookPanelTitle">Aussehen</entry>
 <entry key="TimedAssessmentRule.MinTime">Minimum Zeit (s)</entry>
 <entry key="CustomizeGUI.Title">Benutzerdefiniert GUI</entry>
 <entry key="Resources.DeleteAsset">Ressource löschen</entry>
-<entry key="Operation.AddWerkzeugReferenceMessage">Seleccione el objeto de atrezo que quiere añadir a la escena:</entry>
 <entry key="Effect.PlayAnimation">Animation spielen</entry>
 <entry key="Animation.Documentation">Dokumentation</entry>
 <entry key="Operation.DeleteElementWarning">El elemento "{#0}" tiene {#1} referencias en el capítulo, dichas referencias se eliminarán junto con el elemento.	¿Está seguro de que desea eliminarlo?</entry>
@@ -1394,7 +1382,6 @@
 <entry key="AssessmentRulesList.ColumnHeader0">Id</entry>
 <entry key="SpeakCharacterEffect.Title">Effect Charakter sagt</entry>
 <entry key="Error.LoadDescriptor.IO">Es war ein Problem beim Lesen der Deskriptor des Abenteuers</entry>
-<entry key="WerkzeugList.Title">Werkzeug Objekte</entry>
 <entry key="ActiveAreasList.Id">Id</entry>
 <entry key="LOM.LifeCycle.Tab">Life Cycle</entry>
 <entry key="Operation.RenameAssessmentRuleMessage">Geben Sie die neue ID für die Bewertungregeln</entry>
@@ -1675,7 +1662,6 @@
 <entry key="Conversations.Synthesize">Synthetisieren</entry>
 <entry key="Exit.TopToBottom">Von Oben nach Unten</entry>
 <entry key="Operation.ExportT.TargetInProjectDir.Title">Fehler! Ungültig Datei</entry>
-<entry key="Operation.AddReferenceErrorNoWerkzeug">No hay ningún objeto de atrezo definido en la aventura</entry>
 <entry key="IMS.Rights.Tab">Rights</entry>
 <entry key="Operation.IdErrorAlreadyUsed">Die eingegebene ID wird bereits verwendet</entry>
 <entry key="GeneralText.New">Neue</entry>
@@ -1804,7 +1790,6 @@
 <entry key="HighlightItemEffect.Animated">Animierte</entry>
 <entry key="TriggerSceneEffect.Description.FirstPerson">Wählen Sie die Szene:</entry>
 <entry key="AssessmentRule.Importance.High">Hoch</entry>
-<entry key="Operation.AddWerkzeugMessage">Geben Sie eine ID für das neue Werkzeug Objekt ein:</entry>
 <entry key="Assets.DeleteAssetWarning">Der Ressource "{#0}" hat {#1} Referenzen in Abenteuer, Referenzen werden mit der Ressource gelöscht. 		Willst du fortfahren?</entry>
 <entry key="MenuAdventure.GraphicConfig">Wählen Sie grafisches Einstellungen...</entry>
 <entry key="DeleteUnusedAssets.AssetsDeleted">{#0} nicht benutzt Ressourcen gelöscht</entry>
