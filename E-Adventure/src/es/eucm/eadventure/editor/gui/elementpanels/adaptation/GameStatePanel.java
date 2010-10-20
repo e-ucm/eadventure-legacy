@@ -43,6 +43,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -353,7 +354,7 @@ class GameStatePanel extends JPanel implements Updateable {
             else if( columnIndex == 1 )
                 name = "Flag?";
             if( columnIndex == 2 )
-                name = "Action";
+                name = TC.get( "Element.Action" );
             else if( columnIndex == 3 )
                 name = "Var/Flag";
             return name;
