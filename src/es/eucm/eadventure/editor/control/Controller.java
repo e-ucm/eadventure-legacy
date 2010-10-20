@@ -3487,7 +3487,16 @@ public boolean isCharacterValid(String elementId){
 
         return this.languageFile;
     }
+    
+    /**
+     * Get the default lenguage
+     * @return name of default language in standard internationalization
+     */
+    public String getDefaultLanguage( ) {
 
+        return ReleaseFolders.LANGUAGE_DEFAULT;
+    }
+    
     /**
      * Sets the current language of the editor. Accepted values are
      * {@value #LANGUAGE_ENGLISH} & {@value #LANGUAGE_ENGLISH}. This method
@@ -3515,7 +3524,14 @@ public boolean isCharacterValid(String elementId){
      */
     public void setLanguage( String language, boolean reloadData ) {
 
-        ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ), ReleaseFolders.getLoadingImagePath( language ) );
+        // image loading route
+        String dirImageLoading = ReleaseFolders.IMAGE_LOADING_DIR + "/" + language + "/Editor2D-Loading.png";
+        // if there isn't file, load the default file
+        File fichero = new File(dirImageLoading);
+        if (!fichero.exists( ))
+            dirImageLoading = ReleaseFolders.IMAGE_LOADING_DIR + "/" + getDefaultLanguage( ) + "/Editor2D-Loading.png";
+        
+        ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ), dirImageLoading );
         languageFile = language;
         TC.loadStrings( ReleaseFolders.getLanguageFilePath4Editor( true, languageFile ) );
         TC.appendStrings( ReleaseFolders.getLanguageFilePath4Editor( false, languageFile ) );
