@@ -79,6 +79,10 @@ public class EffectInfoPanel extends JPanel {
         //this.removeAll();
 
         String folder = "help/" + Controller.getInstance( ).getLanguage( ) + "/";
+        // if there isn't file, load the default file
+        File fichero = new File(folder);
+        if (!fichero.exists( ))
+            folder = "help/" + Controller.getInstance( ).getDefaultLanguage( ) + "/";
         File file = new File( folder + helpPath );
         if( file.exists( ) ) {
             try {
