@@ -1,5 +1,5 @@
 /*******************************************************************************
- * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
+ß * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
  *         research group.
  *  
  *   Copyright 2005-2010 <e-UCM> research group.
@@ -571,6 +571,10 @@ public class StartDialog extends JFileChooser {
         }
 
         String folder = "help/" + Controller.getInstance( ).getLanguage( ) + "/";
+        // if there isn't file, load the default file
+        File fichero = new File(folder);
+        if (!fichero.exists( ))
+            folder = "help/" + Controller.getInstance( ).getDefaultLanguage( ) + "/";
         File file = new File( folder + helpPath );
         if( file.exists( ) ) {
             try {
