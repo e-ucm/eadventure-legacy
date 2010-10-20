@@ -330,14 +330,21 @@ public class GameLauncher extends JFrame implements Runnable {
         String chain = "", chainAux = "";
         // We set the editor to use HTML content
         aboutEditor.setContentType( "text/html" );
+        
+        //about file route
+        String dirAboutFile = ReleaseFolders.LANGUAGE_DIR_ENGINE + "/" + ReleaseFolders.getAboutFilePath( ConfigData.getLanguage( ));
+        File fichero = new File(dirAboutFile);
+        if (!fichero.exists( ))
+            dirAboutFile = ReleaseFolders.LANGUAGE_DIR_ENGINE + "/" + ReleaseFolders.getDefaultAboutFilePath( );
+     
         try {
-            BufferedReader bf = new BufferedReader( new FileReader( ReleaseFolders.LANGUAGE_DIR_ENGINE + "/" + TC.get( "Information.FileAbout" ) ) );
+            BufferedReader bf = new BufferedReader( new FileReader( dirAboutFile ) );
             while( ( chainAux = bf.readLine( ) ) != null )
                 chain = chain + chainAux;
+            bf.close( );
         }
         catch( IOException e ) {
         }
-
         aboutEditor.setText( chain );
         aboutEditor.setEditable( false );
 
