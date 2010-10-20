@@ -74,6 +74,16 @@ public class ConfigData {
 
         return instance.languageFile;
     }
+    
+    /**
+     * Get the current language of the program
+     * @return name of language in standard internationalization
+     */
+    public static String getLanguage( ) {
+       
+        // take the xml file name without extension
+        return instance.languageFile.substring( 0, instance.languageFile.length( ) - 4 );
+    }
 
     public static String getAboutFile( ) {
 

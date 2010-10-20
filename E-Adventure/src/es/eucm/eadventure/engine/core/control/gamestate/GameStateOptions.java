@@ -48,14 +48,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 import es.eucm.eadventure.common.auxiliar.CreateImage;
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.engine.assessment.ReportDialog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
+import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -286,23 +289,23 @@ public class GameStateOptions extends GameState {
             imgPressedButton = createImage( 190, 48, "" );
 
         imgPanel = new Image[ NUMBER_OF_PANELS ];
-        imgPanel[OPTIONS_PANEL] = MultimediaManager.getInstance( ).loadImage( TC.get( "Options.OptionsPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[OPTIONS_PANEL] = MultimediaManager.getInstance( ).loadImage( LoadButton( "OptionsPanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[OPTIONS_PANEL] == null )
             imgPanel[OPTIONS_PANEL] = createImage( 200, 300, "Options" );
 
-        imgPanel[SAVELOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TC.get( "Options.SaveLoadPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[SAVELOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( LoadButton( "SaveLoadPanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[SAVELOAD_PANEL] == null )
             imgPanel[SAVELOAD_PANEL] = createImage( 200, 204, "Save/Load" );
 
-        imgPanel[SAVE_PANEL] = MultimediaManager.getInstance( ).loadImage( TC.get( "Options.SavePanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[SAVE_PANEL] = MultimediaManager.getInstance( ).loadImage( LoadButton( "SavePanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[SAVE_PANEL] == null )
             imgPanel[SAVE_PANEL] = createImage( 200, 300, "Save game" );
 
-        imgPanel[LOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TC.get( "Options.LoadPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[LOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( LoadButton( "LoadPanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[LOAD_PANEL] == null )
             imgPanel[LOAD_PANEL] = createImage( 200, 300, "Load game" );
 
-        imgPanel[CONFIGURATION_PANEL] = MultimediaManager.getInstance( ).loadImage( TC.get( "Options.ConfigurationPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[CONFIGURATION_PANEL] = MultimediaManager.getInstance( ).loadImage( LoadButton("ConfigurationPanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[CONFIGURATION_PANEL] == null )
             imgPanel[CONFIGURATION_PANEL] = createImage( 200, 252, "Configuration" );
 
@@ -316,6 +319,26 @@ public class GameStateOptions extends GameState {
         }
     }
 
+    private String LoadButton( String name ) {
+
+        //route to the gui elements
+        String route = "gui/options/";
+        String dirButton = null;
+        
+        if (Controller.getInstance( ).getLanguage( ) != null){
+        dirButton = route + Controller.getInstance( ).getLanguage( )+ "/" + name + ".png";
+        } else{
+            dirButton = route + ConfigData.getLanguage( )+ "/" + name + ".png";
+        }
+        
+        // if there isn't file, load the default file
+        File fichero = new File(dirButton);
+        if (!fichero.exists( ))
+            dirButton = route + Controller.getInstance( ).getDefaultLanguage( )+ "/" + name + ".png";
+        
+        return dirButton;
+    }
+    
     /**
      * Sets a new active panel
      * 
