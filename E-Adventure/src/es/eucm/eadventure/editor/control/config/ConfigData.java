@@ -257,7 +257,7 @@ public class ConfigData {
             languageFile = ReleaseFolders.getLanguageFilePath( ReleaseFolders.LANGUAGE_ENGLISH );
         }
         if( aboutFile == null ) {
-            aboutFile = ReleaseFolders.getAboutFilePath( ReleaseFolders.LANGUAGE_ENGLISH );
+            aboutFile = ReleaseFolders.LANGUAGE_DIR_EDITOR + "/" + ReleaseFolders.getDefaultAboutFilePath( );
         }
         if( loadingImage == null ) {
             loadingImage = ReleaseFolders.IMAGE_LOADING_DIR + "/" + Controller.getInstance( ).getDefaultLanguage( ) + "/Editor2D-Loading.png";
