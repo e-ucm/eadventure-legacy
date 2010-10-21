@@ -3,16 +3,13 @@
 <properties>
 <comment>comment</comment>
 <entry key="MainWindow.SelectGameText">[Selecteaza un joc pentru a vedea descrierea...]</entry>
-<entry key="Options.ConfigurationPanel">gui/options/ConfigurationPanelRO.png</entry>
 <entry key="GameText.Save/Load">Salvare/Incarcare</entry>
 <entry key="Report.Name">Nume:</entry>
 <entry key="ErrorReport.TitleComments">Trimiteti comentarii si sugestii</entry>
-<entry key="HUD.Traditional.btnTalk">gui/hud/traditional/btnTalkRO.png</entry>
 <entry key="GameText.Music">Muzica</entry>
 <entry key="ActionButton.Talk">Vorbeste cu...</entry>
 <entry key="DefaultText.Item">Obiect</entry>
 <entry key="ActionButton.Examine">Examinare</entry>
-<entry key="HUD.Traditional.btnGivePressed">gui/hud/traditional/btnGivePressedRO.png</entry>
 <entry key="DebugFrame.GlobalStates">Statut global</entry>
 <entry key="Report.Importance.High">Ridicata</entry>
 <entry key="GameText.TextGiveNPC2">Nu voi face asta</entry>
@@ -33,18 +30,13 @@
 <entry key="GameText.Empty">Gol</entry>
 <entry key="GameText.More">Mai mult....</entry>
 <entry key="GameText.Look">Priveste</entry>
-<entry key="HUD.Traditional.btnGrabPressed">gui/hud/traditional/btnGrabPressedRO.png</entry>
-<entry key="HUD.Traditional.btnUsePressed">gui/hud/traditional/btnUsePressedRO.png</entry>
 <entry key="MainWindow.ListGamesText">Lista jocurilor disponibile din locatia indicata</entry>
 <entry key="GameText.Slow">Incet</entry>
 <entry key="GameText.LoadingXML">Incarcare XML....</entry>
 <entry key="DebugFrameLog.UserTip">Afiseaza logurile cu interactiunile jucatorului</entry>
 <entry key="GameText.BackToGame">Inapoi la joc</entry>
 <entry key="GameText.With">Cu</entry>
-<entry key="Options.SaveLoadPanel">gui/options/SaveLoadPanelRO.png</entry>
 <entry key="Report.Title">Generare raport</entry>
-<entry key="HUD.Traditional.btnExaminePressed">gui/hud/traditional/btnExaminePressedRO.png</entry>
-<entry key="HUD.Traditional.btnUse">gui/hud/traditional/btnUseRO.png</entry>
 <entry key="Report.Importance.Normal">Normala</entry>
 <entry key="Report.HTMLReport">Raport HTML</entry>
 <entry key="ErrorReport.Cancel">Anulare</entry>
@@ -54,7 +46,6 @@
 <entry key="GameText.Configuration">Configurare</entry>
 <entry key="GameText.Talk">Vorbeste</entry>
 <entry key="Reports.InputReportName">Introduceti numele care va apare in raport</entry>
-<entry key="Options.SavePanel">gui/options/SavePanelRO.png</entry>
 <entry key="GameText.Examine">Examineaza</entry>
 <entry key="GameText.TextGrabNPC2">Fii serios! E imposibil!</entry>
 <entry key="GameText.TextGrabNPC1">Nu intra in buzunar</entry>
@@ -63,16 +54,12 @@
 <entry key="MainWindow.GameLauncherTitle">eAdventure Game Launcher</entry>
 <entry key="Report.OKSend">OK-Trimite raport</entry>
 <entry key="Conversation.WaitUserInteraction">Pastreaza textul pana la interactiunea cu utilizatorul</entry>
-<entry key="HUD.Traditional.btnUseFocus">gui/hud/traditional/btnUseFocusRO.png</entry>
 <entry key="Report.Importance.VeryLow">Foarte scazuta</entry>
 <entry key="GameText.Load">Incarca</entry>
 <entry key="MainWindow.TabOpen">Deschide jocul</entry>
 <entry key="GameText.GenerateReport">Genereaza raport</entry>
-<entry key="Options.OptionsPanel">gui/options/OptionsPanelRO.png</entry>
 <entry key="DebugFrame.GlobalStatesTip">Acest tabel afiseaza toate situatiile globale si valorile acestora</entry>
-<entry key="HUD.Traditional.btnGiveFocus">gui/hud/traditional/btnGiveFocusRO.png</entry>
 <entry key="MainWindow.FolderText">Selecteaza folderul in care sunt localizate fisierele eAdventure</entry>
-<entry key="HUD.Traditional.btnGive">gui/hud/traditional/btnGiveRO.png</entry>
 <entry key="SendMail.ErrorSendingEmail">Eroare la trimiterea e-mailului</entry>
 <entry key="GameText.TextGiveCannot2">Nu vreau sa fac asta</entry>
 <entry key="GameText.TextGiveCannot1">Nu poate fi dat</entry>
@@ -80,8 +67,6 @@
 <entry key="ActionButton.UseGive">Foloseste cu..../Da.....</entry>
 <entry key="GUI.NoFullscreenTitle">Problema legata de afisarea pe intregul excran</entry>
 <entry key="Report.SelectFolder">Selectati folderul in care doriti sa salvati raportul</entry>
-<entry key="Options.LoadPanel">gui/options/LoadPanelRO.png</entry>
-<entry key="Information.FileAbout">about-ro_RO.html</entry>
 <entry key="ErrorReport.ShortDescription">Faceti o scurta descriere a ceea ce ati facut</entry>
 <entry key="Report.GenerateXML">Genereaza raport XML</entry>
 <entry key="GameText.TextTalkObject2">Nu voi face asta!</entry>
@@ -95,12 +80,8 @@
 <entry key="DebugFrameLog.AllTip">Afiseaza toate logurile</entry>
 <entry key="GameText.TextGrabCannot2">Greutate prea mare...</entry>
 <entry key="GameText.TextGrabCannot1">Nu pot apuca </entry>
-<entry key="HUD.Traditional.btnLookFocus">gui/hud/traditional/btnLookFocusRO.png</entry>
-<entry key="HUD.Traditional.btnGrab">gui/hud/traditional/btnGrabRO.png</entry>
 <entry key="ActionButton.Grab">Apuca</entry>
-<entry key="HUD.Traditional.btnLookPressed">gui/hud/traditional/btnLookPressedRO.png</entry>
 <entry key="GUI.NoFullscreenContent">A aparut o problema care nu permite jocului sa fie afisat asa cum trebuie</entry>
-<entry key="HUD.Traditional.btnExamineFocus">gui/hud/traditional/btnExamineFocusRO.png</entry>
 <entry key="GameText.TextGrabObjectInventory2">Il pot pune in meta-inventar?</entry>
 <entry key="GameText.TextGrabObjectInventory1">Deja il/o am</entry>
 <entry key="ActionButton.GiveTo">Da....</entry>
@@ -116,19 +97,16 @@
 <entry key="GameText.LoadingData">Incarcare date.....</entry>
 <entry key="ErrorMessage.Title">Fisierul nu este valid. Selectati un nou fisier</entry>
 <entry key="DebugFrameLog.Entry">Intrare</entry>
-<entry key="HUD.Traditional.btnExamine">gui/hud/traditional/btnExamineRO.png</entry>
 <entry key="DebugFrameLog.User">Utilizator</entry>
 <entry key="GameText.Fast">Repede</entry>
 <entry key="MainWindow.buttonExamine">Examineaza...</entry>
 <entry key="GameText.Grab">Apuca</entry>
 <entry key="MainWindow.SelectLanguage">Selecteaza Limba</entry>
-<entry key="HUD.Traditional.btnGrabFocus">gui/hud/traditional/btnGrabFocusRO.png</entry>
 <entry key="GameText.Use">Foloseste</entry>
 <entry key="DebugFrame.ChangesTip">Acest tabel afiseaza numai marcatorii si variabilele care au fost recent modificate</entry>
 <entry key="Report.Importance">Importanta</entry>
 <entry key="GameText.TextUseNPC2">Ehhh...NU?</entry>
 <entry key="GameText.TextUseNPC1">Utilizare? In ce mod?</entry>
-<entry key="HUD.Traditional.btnTalkPressed">gui/hud/traditional/btnTalkPressedRO.png</entry>
 <entry key="ErrorReport.Comments">Utilizati acest spatiu pentru comentarii sau sugestii</entry>
 <entry key="DefaultText.ActiveArea">Zona activa</entry>
 <entry key="Report.XMLReport">Raport XML</entry>
@@ -153,7 +131,6 @@
 <entry key="ErrorReport.Name">Nume (optional):</entry>
 <entry key="MainWindow.TabAbout">Despre e-Adventure</entry>
 <entry key="Report.Importance.Low">Scazuta</entry>
-<entry key="HUD.Traditional.btnLook">gui/hud/traditional/btnLookRO.png</entry>
 <entry key="DesignError.Message">Eroare de design: nu te poti intoarce la o scena daca nu exista o scena la care sa te intorci</entry>
 <entry key="GameText.Go">Mergi</entry>
 <entry key="DebugFrameLog.General">General</entry>
@@ -162,7 +139,6 @@
 <entry key="MainWindow.buttonLoad">Incarca</entry>
 <entry key="DebugFrame.Changes">Modificari</entry>
 <entry key="Report.GenerateHTMLReport">Genereaza raport HTML</entry>
-<entry key="HUD.Traditional.btnTalkFocus">gui/hud/traditional/btnTalkFocusRO.png</entry>
 <entry key="DebugFrame.id">ID</entry>
 <entry key="ActionButton.UseWith">Foloseste cu....</entry>
 </properties>
