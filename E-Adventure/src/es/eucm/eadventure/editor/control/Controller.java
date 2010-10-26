@@ -1034,6 +1034,8 @@ public class Controller {
             //tsd = new ToolSystemDebugger( chaptersController );
         }
 
+        Controller.gc();
+
         return createNewFile;
     }
 
@@ -1197,6 +1199,8 @@ public class Controller {
             mainWindow.showInformationDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.FileNotLoadedMessage" ) );
         }
         loadingScreen.setVisible( false );
+
+        Controller.gc();
 
         return fileCreated;
 
@@ -1581,6 +1585,9 @@ public class Controller {
                 loadingScreen.setVisible( false );
             mainWindow.showInformationDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.FileNotLoadedMessage" ) );
         }
+        
+        Controller.gc();
+
         return fileLoaded;
     }
     
@@ -1752,7 +1759,8 @@ public class Controller {
             mainWindow.showInformationDialog( TC.get( "Operation.FileNotSavedTitle" ), TC.get( "Operation.FileNotSavedMessage" ) );
 
         }
-        //loadingScreen.close( );
+
+        Controller.gc();
 
         loadingScreen.setVisible( false );
 
@@ -3673,5 +3681,12 @@ public boolean isCharacterValid(String elementId){
         return new Color( r, g, b );
     }
 
-  
+
+    private static final Runnable gc = new Runnable() { public void run() { System.gc( );} };
+    /**
+     * Public method to perform garbage collection on a different thread.
+     */
+    public static void gc() {
+        new Thread(gc).run( );
+    }
 }

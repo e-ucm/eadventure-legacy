@@ -287,15 +287,15 @@ public class ActionManager {
         if( functionalScene == null )
             return;
         
-        FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), dragElement );
         Exit exit = functionalScene.getExitInside( e.getX( ), e.getY( ) );
+        FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), dragElement );
 
         if (dragElement != null) {
             dragElement.setX( e.getX( ) );
             dragElement.setY( e.getY( ) );
         }
         
-        if( elementInside != null ) {
+        if( exit == null && elementInside != null ) {
             setElementOver( elementInside );
         }
         else if( exit != null && actionSelected == ACTION_GOTO ) {
