@@ -347,7 +347,10 @@ class LinesPanel extends JPanel implements DataControlsPanel {
         add( tableScrollPanel, BorderLayout.CENTER );
         add( checkboxPanel, BorderLayout.NORTH );
     }
-
+    
+    public ConversationNodeView getSelectedNode(){
+        return conversationPanel.getSelectedNode( );
+    }
     /**
      * Called when a new node has been selected, it is taken from the principal
      * panel

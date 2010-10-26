@@ -165,9 +165,11 @@ public class LinesTable extends JTable {
     
     public void modifyConversationLineOutTable(String value){
       conversationDataControl.setNodeLineText( lastSelectedNode, lastSelectedConversationLine, value);
-
-
     }
+    
+    public void modifyConversationLineOutTable(String value, ConversationNodeView nodeView, int index){
+        conversationDataControl.setNodeLineText( nodeView, index, value);
+      }
 
     /**
      * Private class containing the model for the line table
