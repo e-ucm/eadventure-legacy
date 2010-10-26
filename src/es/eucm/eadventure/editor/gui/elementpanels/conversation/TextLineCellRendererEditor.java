@@ -69,8 +69,6 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 
     private LinesPanel linesPanel;
     
-    
-
     public TextLineCellRendererEditor( LinesPanel linesPanel ) {
 
         this.linesPanel = linesPanel;
@@ -86,7 +84,6 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
         ConversationNodeView node = ( (ConversationNodeView) value2 );
         this.value = node.getLineText( row );
         Color color = getColor( node, row );
-
         textPane = new JTextPane( );
         if (this.value.contains( TC.get( "ConversationLine.DefaultText" )+ "\n" ))
            value = value.substring( 0, value.indexOf( "\n" ) );
@@ -94,27 +91,10 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
         textPane.setAutoscrolls( true );
         textPane.setForeground( color );
       
-        textPane.addFocusListener( new FocusListener(){
-
-            public void focusGained( FocusEvent e ) {
-
-                // TODO Auto-generated method stub
-                
-            }
-
-            public void focusLost( FocusEvent e ) {
-               
-
-                if (value!=null){
-                    linesPanel.getLineTable( ).modifyConversationLineOutTable(value);
-                        
-                }
-                
-            }
-           
-            
-            
-        });
+        textPane.addFocusListener(new TextLineFocus());
+        
+        
+        
             textPane.getDocument( ).addDocumentListener( new DocumentListener( ) {
 
             public void changedUpdate( DocumentEvent arg0 ) {
@@ -216,5 +196,35 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
         }
         return color;
     }
+    
+    
+    private class TextLineFocus implements FocusListener{
 
+        
+        private int selectedLine;
+        
+        private ConversationNodeView node;
+        
+        public TextLineFocus(){
+            this.selectedLine = linesPanel.getLineTable( ).getSelectedRow( );
+            this.node = linesPanel.getSelectedNode( );
+        }
+
+        public void focusGained( FocusEvent e ) {
+
+            // TODO Auto-generated method stub
+            
+        }
+
+        public void focusLost( FocusEvent e ) {
+           
+            if ( selectedLine==linesPanel.getLineTable( ).getSelectedRow( ))
+               linesPanel.getLineTable( ).modifyConversationLineOutTable(value);
+            else if (linesPanel.getLineTable( ).getSelectedRow( )==-1)
+                linesPanel.getLineTable( ).modifyConversationLineOutTable(value,node,selectedLine);
+        }
+       
+        
+        
+    }
 }

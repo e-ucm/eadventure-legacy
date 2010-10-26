@@ -130,6 +130,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TreeNode.AddElement52">Add barriers</entry>
 <entry key="TreeNode.AddElement51">Add active area</entry>
 <entry key="Conversations.NoAudio">No audio</entry>
+<entry key="Conversation.PreListening">Pre-listening conversation options</entry>
 <entry key="TreeNode.AddElement50">Add active areas</entry>
 <entry key="Book.Contents.Tip">Use this panel for the edition of the contents of the book</entry>
 <entry key="Inventory.OnlyBottom">Only bottom</entry>
