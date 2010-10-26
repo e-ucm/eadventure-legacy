@@ -477,6 +477,9 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 
         JScrollPane scrollPane = new JScrollPane( list );
         temp.add( scrollPane, "list" );
+        
+        Controller.gc();
+        
         return temp;
     }
 
@@ -526,6 +529,9 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
             editorContainer.validate( );
             editorContainer.repaint( );
         }
+        
+        Controller.gc();
+
     }
 
     public void setSelectedItem( List<Searchable> path ) {
@@ -575,6 +581,8 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
             editorContainer.repaint( );
             list.requestFocusInWindow( );
         }
+        
+        Controller.gc();
     }
 
 }
