@@ -172,7 +172,7 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
             cursorPreview.setImage( image );
         }
 
-        final JButton button = new JButton( "Select..." );
+        final JButton button = new JButton( TC.get( "Buttons.Select" ) );
         button.setFocusable( false );
         button.addActionListener( new ActionListener( ) {
 
