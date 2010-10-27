@@ -144,7 +144,7 @@ public class ProcessedRule {
         StringBuffer code = new StringBuffer( );
 
         // Write execution time
-        code.append( "<h3>" );
+        code.append( "<h3 id=\""+ rule.getId( ) +"\">" );
         code.append( rule.getConcept( ) );
         code.append( " (" );
         if (time / 3600 < 10)
