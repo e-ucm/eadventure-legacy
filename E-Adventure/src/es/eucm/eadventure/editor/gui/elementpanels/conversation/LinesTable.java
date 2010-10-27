@@ -37,8 +37,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
 import java.awt.Dimension;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,23 +133,6 @@ public class LinesTable extends JTable {
             }
         } );
         
-        this.addFocusListener( new FocusListener(){
-
-            public void focusGained( FocusEvent e ) {
-
-               
-                
-            }
-
-            public void focusLost( FocusEvent e ) {
-
-                System.out.println( "Pierdo el foco en la tabla" );
-                
-                
-            }
-            
-        });
-        
     }
 
     public void newSelectedNode( ConversationNodeView selectedNode ) {
@@ -242,10 +223,9 @@ public class LinesTable extends JTable {
                         conversationDataControl.setNodeLineName( node, rowIndex, ConversationLine.PLAYER );
                     else
                         conversationDataControl.setNodeLineName( node, rowIndex, value.toString( ) );
-                if( columnIndex == 1 ){
+                if( columnIndex == 1 )
                     conversationDataControl.setNodeLineText( node, rowIndex, value.toString( ) );
-                  ((TextLineCellRendererEditor) (getColumnModel( ).getColumn( 1 ).getCellEditor( ))).restartValue();
-                }
+                 
                 fireTableCellUpdated( rowIndex, columnIndex );
             }
         }
