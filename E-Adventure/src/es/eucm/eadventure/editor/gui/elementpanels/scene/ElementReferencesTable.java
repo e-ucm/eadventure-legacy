@@ -172,6 +172,7 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
                 Boolean bvalue = (Boolean) value;
                 List<ElementContainer> references = dataControl.getAllReferencesDataControl( );
                 references.get( rowIndex ).setVisible( bvalue.booleanValue( ) );
+                spep.repaint( );
             }
         }
 
