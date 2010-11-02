@@ -185,4 +185,9 @@ public class ConfigData {
         this.aboutFile = aboutFile;
     }
 
+    public static String getDefaultLanguage( ) {
+
+        return "en_EN"; //default language
+    }
+
 }
