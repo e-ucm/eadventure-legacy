@@ -122,6 +122,7 @@ public class AssessmentDOMWriter {
                 ruleNode.setAttribute( "id", tRule.getId( ) );
                 ruleNode.setAttribute( "importance", AssessmentRule.IMPORTANCE_VALUES[tRule.getImportance( )] );
                 ruleNode.setAttribute( "usesEndConditions", ( tRule.isUsesEndConditions( ) ? "yes" : "no" ) );
+                ruleNode.setAttribute( "repeatRule", ( tRule.isRepeatRule( ) ? "yes" : "no" ) );
 
                 //Append concept
                 if( tRule.getConcept( ) != null && !tRule.getConcept( ).equals( "" ) ) {
@@ -179,6 +180,7 @@ public class AssessmentDOMWriter {
                 Element ruleNode = doc.createElement( "assessment-rule" );
                 ruleNode.setAttribute( "id", rule.getId( ) );
                 ruleNode.setAttribute( "importance", AssessmentRule.IMPORTANCE_VALUES[rule.getImportance( )] );
+                ruleNode.setAttribute( "repeatRule", ( rule.isRepeatRule( ) ? "yes" : "no" ) );
 
                 //Append concept
                 if( rule.getConcept( ) != null && !rule.getConcept( ).equals( "" ) ) {

@@ -46,7 +46,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
@@ -310,9 +309,9 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
                 //TODO i18n
                 String varName = "No flags/vars";
                 if (Controller.getInstance( ).getVarFlagSummary( ).getFlagCount( )!=0)
-                    varName = Controller.getInstance( ).getVarFlagSummary( ).getFlag( 1 );
+                    varName = Controller.getInstance( ).getVarFlagSummary( ).getFlag( 0 );
                 else if(Controller.getInstance( ).getVarFlagSummary( ).getVarCount( )!=0)
-                    varName = Controller.getInstance( ).getVarFlagSummary( ).getVar( 1 );
+                    varName = Controller.getInstance( ).getVarFlagSummary( ).getVar( 0 );
                     
                 if( assessmentRuleDataControl.addBlankProperty( selectedRow + 1, currentIndex, varName ) ) {
 

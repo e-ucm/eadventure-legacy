@@ -72,7 +72,7 @@ public class AssessmentRulesTableModel extends AbstractTableModel {
 
     public int getColumnCount( ) {
 
-        return 3;
+        return 4;
     }
 
     public int getRowCount( ) {
@@ -90,6 +90,8 @@ public class AssessmentRulesTableModel extends AbstractTableModel {
             columnName = TC.get( "AssessmentRulesList.ColumnHeader1" );
         else if( columnIndex == 2 )
             columnName = TC.get( "AssessmentRulesList.ColumnHeader2" );
+        else if( columnIndex == 3 )
+            columnName = TC.get( "Assessment.Column.RepeatRule" );
         return columnName;
     }
 
@@ -101,6 +103,8 @@ public class AssessmentRulesTableModel extends AbstractTableModel {
             return getImportance( dataControl.getAssessmentRules( ).get( rowIndex ).getImportance( ) );
         else if( columnIndex == 2 )
             return dataControl.getAssessmentRules( ).get( rowIndex ).getConditions( );
+        else if( columnIndex == 3 )
+            return dataControl.getAssessmentRules( ).get( rowIndex ).isRepeatRule( );
         return null;
     }
 
@@ -112,6 +116,9 @@ public class AssessmentRulesTableModel extends AbstractTableModel {
         }
         if( columnIndex == 1 ) {
             dataControl.getAssessmentRules( ).get( rowIndex ).setImportance( getImportance( (String) value ) );
+        }
+        if( columnIndex == 3 ) {
+            dataControl.getAssessmentRules( ).get( rowIndex ).setRepeatRule( (Boolean) value );
         }
     }
 

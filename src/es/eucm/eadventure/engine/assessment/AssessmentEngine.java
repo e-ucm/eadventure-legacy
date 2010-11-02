@@ -212,7 +212,10 @@ public class AssessmentEngine implements TimerEventListener {
 			// If it was activated, execute the rule
 			if (isActive(assessmentRules.get(i))) {
 				    AssessmentRule oldRule=null;
-                    oldRule = (AssessmentRule) (assessmentRules.remove(i).clone( ));
+				    if (assessmentRules.get( i ).isRepeatRule( ))
+				        oldRule = (AssessmentRule) (assessmentRules.get( i ).clone( ));
+				    else 
+				        oldRule = (AssessmentRule) (assessmentRules.remove(i).clone( ));
                     oldRule.setConcept( Game.getInstance( ).processText( oldRule.getConcept( )));
                     oldRule.setText( Game.getInstance( ).processText( oldRule.getText( )));
                     ProcessedRule rule = new ProcessedRule(oldRule, Game
@@ -223,7 +226,6 @@ public class AssessmentEngine implements TimerEventListener {
                         // check if it is necessary to send in-game value to the property
                         List<AssessmentProperty> properties = checkProperties(oldRule.getAssessmentProperties());
                         Game.getInstance().getComm().notifyRelevantState(properties);
-                        //	System.out.println("Mandamos regla de adaptacion");
                     }
                     processedRules.add(rule);
 			}

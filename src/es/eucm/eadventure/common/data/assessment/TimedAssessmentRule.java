@@ -83,9 +83,9 @@ public class TimedAssessmentRule extends AssessmentRule {
      * @param importance
      *            Importance of the rule
      */
-    public TimedAssessmentRule( String id, int importance ) {
+    public TimedAssessmentRule( String id, int importance, boolean repeatRule  ) {
 
-        super( id, importance );
+        super( id, importance, repeatRule );
         effects = new ArrayList<TimedAssessmentEffect>( );
         this.endConditions = new Conditions( );
         usesEndConditions = true;

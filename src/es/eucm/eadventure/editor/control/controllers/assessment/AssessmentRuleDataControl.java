@@ -62,6 +62,7 @@ import es.eucm.eadventure.editor.control.tools.assessment.DeleteAssessmentProper
 import es.eucm.eadventure.editor.control.tools.assessment.DeleteEffectTool;
 import es.eucm.eadventure.editor.control.tools.assessment.RenameRuleTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeIdTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
@@ -633,6 +634,11 @@ public class AssessmentRuleDataControl extends DataControl {
 
         return assessmentRule.getId( );
     }
+    
+    public boolean isRepeatRule(){
+        
+        return assessmentRule.isRepeatRule( );
+    }
 
     public boolean isTimedRule( ) {
 
@@ -756,6 +762,10 @@ public class AssessmentRuleDataControl extends DataControl {
 
         //Controller.getInstance( ).addTool( new ChangeIdTool( assessmentRule, value ) );
 	Controller.getInstance( ).addTool( new RenameRuleTool( this, value ) );
+    }
+    
+    public void setRepeatRule (Boolean value) {
+        Controller.getInstance( ).addTool( new ChangeBooleanValueTool(assessmentRule, value, "isRepeatRule", "setRepeatRule" ) );
     }
 
 }
