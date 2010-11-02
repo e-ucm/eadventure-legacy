@@ -224,10 +224,10 @@ public class MainWindow extends JFrame {
         // Set size and position
         setMinimumSize( new Dimension( 640, 400 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        int width = 960;
-        int height = 720;
+        int width = (int) Math.min( 960, screenSize.getWidth( ) );
+        int height = (int) Math.min( 720, screenSize.getHeight( ) );
         setSize( width, height );
-        setLocation( ( screenSize.width - width ) / 2, ( screenSize.height - height ) / 2 );
+        setLocation( Math.max( ( screenSize.width - width ) / 2, 0 ), Math.max(( screenSize.height - height ) / 2, 0) );
 
         //		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
