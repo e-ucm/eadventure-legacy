@@ -520,6 +520,7 @@ public class ChapterListDataControl {
         for( ChapterDataControl chapterDataControl : chapterDataControlList ) {
             VarFlagSummary tempSummary = new VarFlagSummary( );
             chapterDataControl.updateVarFlagSummary( tempSummary );
+            tempSummary.clean( );
             Chapter chapter = (Chapter) chapterDataControl.getContent( );
             // Update flags
             for( String flag : tempSummary.getFlags( ) ) {

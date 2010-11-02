@@ -451,7 +451,7 @@ public class ChapterDataControl extends DataControl {
     public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 
         // First of all, clear the summary
-        varFlagSummary.clear( );
+        varFlagSummary.clearReferences( );
 
         // Update the summary with the elements
         scenesListDataControl.updateVarFlagSummary( varFlagSummary );
