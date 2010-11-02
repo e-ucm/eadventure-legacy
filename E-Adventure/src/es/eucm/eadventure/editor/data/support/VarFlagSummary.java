@@ -81,15 +81,46 @@ public class VarFlagSummary {
     }
 
     /**
-     * Clears the summary, deleting all flags and references.
+     * Clears the summary, deleting all references.
      */
-    public void clear( ) {
+    public void clearReferences( ) {
 
         // Clear both lists
-        flags.clear( );
+        //flags.clear( );
         flagReferences.clear( );
-        vars.clear( );
+        for ( int i = 0; i < flags.size( ); i++ ){
+            flagReferences.add( 0 );
+        }
+        //vars.clear( );
         varReferences.clear( );
+        for ( int i = 0; i < vars.size( ); i++ ){
+            varReferences.add( 0 );
+        }
+    }
+    
+    /**
+     * Deletes all var and flags that have 0 references
+     */
+    public void clean( ){
+        for ( int i = 0 ; i < flagReferences.size( ); i++ ){
+            if ( flagReferences.get( i ) == 0 ){
+                flags.remove( i );
+            }
+        }
+        
+        while ( flagReferences.contains( 0 )){
+            flagReferences.remove( new Integer(0) );
+        }
+        
+        for ( int i = 0 ; i < varReferences.size( ); i++ ){
+            if ( varReferences.get( i ) == 0 ){
+                vars.remove( i );
+            }
+        }
+        
+        while ( varReferences.contains( 0 )){
+            varReferences.remove( new Integer(0) );
+        }
     }
 
     /**

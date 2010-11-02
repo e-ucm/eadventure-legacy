@@ -221,15 +221,10 @@ public class VarFlagsController {
                         else
                             Controller.getInstance( ).getVarFlagSummary( ).addVar( option );
                     }
-
-                    /*} else {
-                    	flagAdded = null;
-                    }*/
                 }
             }
         }
 
-        //Controller.getInstance( ).updateFlagSummary( );
         return flagVarAdded;
     }
 
