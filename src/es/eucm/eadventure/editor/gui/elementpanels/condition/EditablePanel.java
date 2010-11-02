@@ -52,6 +52,8 @@ import javax.swing.Timer;
 import javax.swing.border.Border;
 
 public abstract class EditablePanel extends JPanel {
+    
+    private static final long serialVersionUID = 6829039739384766833L;
 
     public static final int NO_SELECTED = 1;
 
@@ -146,14 +148,6 @@ public abstract class EditablePanel extends JPanel {
             @Override
             public void mouseExited( MouseEvent e ) {
 
-                //boolean exit = true;
-                /*for (Component component: EditablePanel.this.getComponents()){
-                	if (component == e.getSource()){
-                		exit =false;
-                		break;
-                	}
-                		
-                }*/
                 if( !isMouseInPanel( e ) && EditablePanel.this.state == OVER ) {
                     EditablePanel.this.setState( NO_SELECTED );
                 }
@@ -317,6 +311,8 @@ public abstract class EditablePanel extends JPanel {
      * 
      */
     protected abstract class ButtonsPanel extends JPanel {
+
+        private static final long serialVersionUID = 1L;
 
         protected abstract void createAddButtons( );
 

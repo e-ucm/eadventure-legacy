@@ -115,11 +115,6 @@ public class AtomicConditionPanel extends EditablePanel {
 
     }
 
-    private Icon[] getIcons( ) {
-
-        return new Icon[] { new ImageIcon( "img/icons/flag16.png" ), new ImageIcon( "img/icons/var16.png" ), new ImageIcon( "img/icons/group16.png" ) };
-    }
-
     private Icon getIcon( String type ) {
 
         Icon icon = null;
@@ -217,6 +212,8 @@ public class AtomicConditionPanel extends EditablePanel {
      * 
      */
     private class AtomicConditionButtonsPanel extends ButtonsPanel {
+
+        private static final long serialVersionUID = -4384802457254649642L;
 
         @Override
         protected void createAddButtons( ) {

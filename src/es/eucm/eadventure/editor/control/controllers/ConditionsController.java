@@ -1,38 +1,37 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
- *         research group.
- *  
- *   Copyright 2005-2010 <e-UCM> research group.
+ * research group.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
- *         http://e-adventure.e-ucm.es/contributors
+ * Copyright 2005-2010 <e-UCM> research group.
  * 
- *   <e-UCM> is a research group of the Department of Software Engineering
- *         and Artificial Intelligence at the Complutense University of Madrid
- *         (School of Computer Science).
+ * You can access a list of all the contributors to <e-Adventure> at:
+ * http://e-adventure.e-ucm.es/contributors
  * 
- *         C Profesor Jose Garcia Santesmases sn,
- *         28040 Madrid (Madrid), Spain.
+ * <e-UCM> is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
  * 
- *         For more info please visit:  <http://e-adventure.e-ucm.es> or
- *         <http://www.e-ucm.es>
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
  * 
  * ****************************************************************************
  * 
  * This file is part of <e-Adventure>, version 1.2.
  * 
- *     <e-Adventure> is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Lesser General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ * <e-Adventure> is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  * 
- *     <e-Adventure> is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU Lesser General Public License for more details.
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- *     You should have received a copy of the GNU Lesser General Public License
- *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.editor.control.controllers;
 
@@ -209,16 +208,16 @@ public class ConditionsController {
         return context1;
     }
 
-   /* private static HashMap<String, ConditionContextProperty> createContextFromOwnerMessage( int ownerType, String ownerName, String message1, String message2 ) {
+    /* private static HashMap<String, ConditionContextProperty> createContextFromOwnerMessage( int ownerType, String ownerName, String message1, String message2 ) {
 
-        HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>( );
-        ConditionOwner owner = new ConditionOwner( ownerType, ownerName );
+         HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>( );
+         ConditionOwner owner = new ConditionOwner( ownerType, ownerName );
 
-        ConditionCustomMessage cMessage = new ConditionCustomMessage( message1, message2 );
-        context1.put( CONDITION_CUSTOM_MESSAGE, cMessage );
-        context1.put( ConditionsController.CONDITION_OWNER, owner );
-        return context1;
-    }*/
+         ConditionCustomMessage cMessage = new ConditionCustomMessage( message1, message2 );
+         context1.put( CONDITION_CUSTOM_MESSAGE, cMessage );
+         context1.put( ConditionsController.CONDITION_OWNER, owner );
+         return context1;
+     }*/
 
     // Attributes
     private HashMap<String, ConditionContextProperty> context;
@@ -271,10 +270,10 @@ public class ConditionsController {
      * @param message1
      * @param message2
      */
-  /*  public ConditionsController( Conditions conditions, int ownerType, String ownerName, String message1, String message2 ) {
+    /*  public ConditionsController( Conditions conditions, int ownerType, String ownerName, String message1, String message2 ) {
 
-        this( conditions, createContextFromOwnerMessage( ownerType, ownerName, message1, message2 ) );
-    }*/
+          this( conditions, createContextFromOwnerMessage( ownerType, ownerName, message1, message2 ) );
+      }*/
 
     /**
      * Constructor.
@@ -422,14 +421,14 @@ public class ConditionsController {
      * @param newId
      */
     public void replaceIdentifierReferences( String oldId, String newId ) {
-        
-       for( int i = 0; i < conditions.size( );i++) {
+
+        for( int i = 0; i < conditions.size( ); i++ ) {
             for( int j = 0; j < conditions.get( i ).size( ); j++ ) {
-                if (conditions.get( i ).get( j ).getId( ).equals( oldId ))
-                        conditions.get( i ).get( j ).setId( newId );
+                if( conditions.get( i ).get( j ).getId( ).equals( oldId ) )
+                    conditions.get( i ).get( j ).setId( newId );
             }
         }
-         
+
     }
 
     /**
@@ -713,6 +712,33 @@ public class ConditionsController {
         public ConditionOwner getParent( ) {
 
             return parent;
+        }
+
+    }
+
+    public static String getOperatorFromString( String s ) {
+
+        int op = 0;
+        try {
+            op = Integer.parseInt( s );
+        }
+        catch( Exception e ) {
+
+        }
+
+        switch( op ) {
+            case VarCondition.VAR_GREATER_THAN:
+                return STATE_VALUES[2];
+            case VarCondition.VAR_GREATER_EQUALS_THAN:
+                return STATE_VALUES[3];
+            case VarCondition.VAR_LESS_THAN:
+                return STATE_VALUES[4];
+            case VarCondition.VAR_LESS_EQUALS_THAN:
+                return STATE_VALUES[5];
+            case VarCondition.VAR_EQUALS:
+                return STATE_VALUES[6];
+            default:
+                return STATE_VALUES[2];
         }
 
     }
