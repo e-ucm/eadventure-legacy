@@ -2003,13 +2003,13 @@ public class Controller {
     }
 
     public boolean exportGame( String targetFilePath ) {
-
         boolean exportGame = true;
         boolean exported = false;
         try {
             if( dataModified ) {
 
                 int option = mainWindow.showConfirmDialog( TC.get( "Operation.SaveChangesTitle" ), TC.get( "Operation.SaveChangesMessage" ) );
+
                 // If the data must be saved, load the new file only if the save was succesful
                 if( option == JOptionPane.YES_OPTION )
                     exportGame = saveFile( false );
@@ -2024,16 +2024,6 @@ public class Controller {
             }
 
             if( exportGame ) {
-                // Ask destiny file
-                /*JFileChooser chooser = new JFileChooser();
-                chooser.setFileFilter( new EADFileFilter() );
-                chooser.setMultiSelectionEnabled( false );
-                int option = chooser.showSaveDialog( mainWindow );
-                if (option == JFileChooser.APPROVE_OPTION){
-                	java.io.File destinyFile = chooser.getSelectedFile( );
-                	if (!destinyFile.getAbsolutePath( ).toLowerCase( ).endsWith( ".ead" )){
-                		destinyFile = new java.io.File (destinyFile.getAbsolutePath( )+".ead");*/
-
                 String selectedPath = targetFilePath;
                 if( selectedPath == null )
                     selectedPath = mainWindow.showSaveDialog( getCurrentExportSaveFolder( ), new EADFileFilter( ) );
@@ -2151,19 +2141,11 @@ public class Controller {
             }
 
             if( exportGame ) {
-                // Ask destiny file
-                //JFileChooser chooser = new JFileChooser();
-                //chooser.setFileFilter( new JARFileFilter() );
-                //chooser.setMultiSelectionEnabled( false );
                 String completeFilePath = null;
                 completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder( ), new JARFileFilter());
 
-                //int option = chooser.showSaveDialog( mainWindow );
-                //if (option == JFileChooser.APPROVE_OPTION){
                 if( completeFilePath != null ) {
-                    //java.io.File destinyFile = chooser.getSelectedFile( );
-                    //if (!destinyFile.getAbsolutePath( ).toLowerCase( ).endsWith( ".jar" )){
-                    //	destinyFile = new java.io.File (destinyFile.getAbsolutePath( )+".jar");
+
                     if( !completeFilePath.toLowerCase( ).endsWith( ".jar" ) )
                         completeFilePath = completeFilePath + ".jar";
                     // If the file exists, ask to overwrite
@@ -3687,6 +3669,21 @@ public boolean isCharacterValid(String elementId){
      * Public method to perform garbage collection on a different thread.
      */
     public static void gc() {
-        new Thread(gc).run( );
+        new Thread(gc).start( );
+    }
+    
+    public static java.io.File createTempDirectory() throws IOException
+    {
+        final java.io.File temp;
+    
+        temp = java.io.File.createTempFile("temp", Long.toString(System.nanoTime()));
+    
+        if(!(temp.delete()))
+            throw new IOException("Could not delete temp file: " + temp.getAbsolutePath());
+    
+        if(!(temp.mkdir()))
+            throw new IOException("Could not create temp directory: " + temp.getAbsolutePath());
+    
+        return (temp);
     }
 }

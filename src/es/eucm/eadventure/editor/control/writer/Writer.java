@@ -419,7 +419,7 @@ public class Writer {
             nodeDOM.appendChild( document.createTextNode( "\n" + getTab( depth ) ) );
     }
 
-    private static boolean writeWebPage( String loName, boolean windowed, String mainClass ) {
+    private static boolean writeWebPage( String tempDir, String loName, boolean windowed, String mainClass ) {
 
         boolean dataSaved = true;
         try {
@@ -484,7 +484,7 @@ public class Writer {
             jscript + "\t</head>\n" + "\t<body>\n" + "\t\t<applet code=\"" + mainClass + "\" archive=\"./" + loName + ".jar\" name=\"eadventure\" id=\"eadventure\" " + ( windowed ? "width=\"200\" height=\"150\"" : "width=\"800\" height=\"600\"" ) +  " MAYSCRIPT>\n" + "\t\t<param name=\"WINDOWED\" value=\"" + ( windowed ? "yes" : "no" ) + "\"/>\n" + "\t\t<param name=\"java_arguments\" value=\"-Xms512m -Xmx512m\"/>\n"+ "\t\t<param name=\"image\" value=\"splashScreen.gif\"/>\n"+
             (lams?lamsParam:"") + "\t\t</applet>\n" + "<div id=\"loadingMessage\"><p><b>"+TC.get( "Applet.LoadingMessage" )+"</b></p></div>\n" + "\t</body>\n" + "</html>\n";
 
-            File pageFile = new File( "web/temp/" + loName + ".html" );
+            File pageFile = new File( tempDir + "/" + loName + ".html" );
             pageFile.createNewFile( );
             OutputStream is = new FileOutputStream( pageFile );
             is.write( webPage.getBytes( ) );
@@ -609,15 +609,6 @@ public class Writer {
         boolean exported = true;
 
         try {
-
-            // Clear web/temp dir
-            /*File tempDir = new File("web/temp");
-            if (tempDir.exists( )){
-            	tempDir.deleteAll( );
-            } else {
-            	tempDir.create( );
-            }*/
-
             // Destiny file
             File destinyJarFile = new File( destinyJARPath );
 
@@ -653,37 +644,6 @@ public class Writer {
 
         return exported;
 
-        // Integrate game and jar into a new jar File
-
-        // Copy jar files to temp dir
-
-        /*File jarFolder = new File("web/JAR_S");
-        File jarTempFolder = new File("web/temp/JAR_S");
-        if (jarTempFolder.exists( )){
-        	jarTempFolder.deleteAll( );
-        }else{
-        	jarTempFolder.create( );
-        }
-        exported &= jarFolder.copyAllTo( jarTempFolder );
-        
-        // NO: Compress game project to web/temp/JAR_S
-        //File.zipDirectory( projectDirectory, new File(jarTempFolder,"integration.zip").getAbsolutePath( ) );
-        File projectDir = new File(projectDirectory);
-        projectDir.copyAllTo( jarTempFolder );
-        
-        // Compress jar temp folder
-        File jar = new File("web/temp/eAdventure.zip");
-        File.zipDirectory( jarTempFolder.getAbsolutePath( ), jar.getAbsolutePath( ) );
-        exported &= jar.copyTo( destinyJarFile );
-        jar.delete();
-        
-        // Delete temp jar dir
-        jarTempFolder.deleteAll( );
-        jarTempFolder.delete( );
-
-        
-        return exported;*/
-        //return true;
     }
 
     public static boolean exportAsLearningObject( String zipFilename, String loName, String authorName, String organization, boolean windowed, String gameFilename, AdventureDataControl adventureData ) {
@@ -701,7 +661,8 @@ public class Writer {
             OutputStreamWriter writeFile = null;
 
             //Clean temp directory
-            File tempDir = new File( "web/temp" );
+            File tempDir = new File(Controller.createTempDirectory( ).getAbsolutePath( ));
+            
             //for(File tempFile:tempDir.listFiles(tempDir.getArchiveDetector( ) )){
             for( File tempFile : tempDir.listFiles( ) ) {
                 if( tempFile.isDirectory( ) )
@@ -710,11 +671,11 @@ public class Writer {
             }
 
             // Copy the web to the zip
-            dataSaved &= writeWebPage( loName, windowed, "es.eucm.eadventure.engine.EAdventureApplet " );
+            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureApplet " );
 
             // Merge project & e-Adventure jar into file eAdventure_temp.jar
             // Destiny file
-            File jarUnsigned = new File( "web/temp/eAdventure.zip" );
+            File jarUnsigned = new File( tempDir.getAbsolutePath( ) + "/eAdventure.zip" );
 
             // Create output stream		
             FileOutputStream mergedFile = new FileOutputStream( jarUnsigned );
@@ -738,13 +699,13 @@ public class Writer {
 
             os.close( );
 
-            dataSaved &= jarUnsigned.renameTo( new File( "web/temp/" + loName + "_unsigned.jar" ) );
+            dataSaved &= jarUnsigned.renameTo( new File(tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ) );
 
             // Integrate game and jar into a new jar File
 
-            dataSaved = JARSigner.signJar( authorName, organization, "web/temp/" + loName + "_unsigned.jar", "web/temp/" + loName + ".jar" );
+            dataSaved = JARSigner.signJar( authorName, organization, tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar", tempDir.getAbsolutePath( ) + "/" + loName + ".jar" );
 
-            new File( "web/temp/" + loName + "_unsigned.jar" ).delete( );
+            new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ).delete( );
 
             /** ******* START WRITING THE MANIFEST ********* */
             // Create the necessary elements for building the DOM
@@ -833,27 +794,23 @@ public class Writer {
 
             // Create the output buffer, write the DOM and close it
             //fout = new FileOutputStream( zipFilename + "/imsmanifest.xml" );
-            fout = new FileOutputStream( "web/temp/imsmanifest.xml" );
+            fout = new FileOutputStream( tempDir.getAbsolutePath( ) + "/imsmanifest.xml" );
             writeFile = new OutputStreamWriter( fout, "UTF-8" );
             transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
             writeFile.close( );
             fout.close( );
-
-            //sourceFile = new File("web/temp/imsmanifest.xml");
-            //destinyFile = new File (zipFilename, "imsmanifest.xml");
-            //dataSaved &= sourceFile.copyTo( destinyFile );
             
             //copy loadingImage
             File splashScreen = new File( "web/splashScreen.gif" );
             if ( windowed ){
                 splashScreen = new File( "web/splashScreen_red.gif");
             }
-            splashScreen.copyTo( new File( "web/temp/splashScreen.gif" ) );
+            splashScreen.copyTo( new File( tempDir.getAbsolutePath( ) + "/splashScreen.gif" ) );
             
             /** ******** END WRITING THE MANIFEST ********** */
 
             /** COPY EVERYTHING TO THE ZIP */
-            File.zipDirectory( "web/temp/", zipFilename );
+            File.zipDirectory( tempDir.getAbsolutePath( ) + "/", zipFilename );
             //dataSaved&=new File("web/temp").archiveCopyAllTo( new File(zipFile) );
 
             // Update the zip files
@@ -900,7 +857,9 @@ public class Writer {
             OutputStreamWriter writeFile = null;
 
             //Clean temp directory
-            File tempDir = new File( "web/temp" );
+            File tempDir = new File(Controller.createTempDirectory( ).getAbsolutePath( ));
+
+
             //for(File tempFile:tempDir.listFiles(tempDir.getArchiveDetector( ) )){
             for( File tempFile : tempDir.listFiles( ) ) {
                 if( tempFile.isDirectory( ) )
@@ -909,11 +868,11 @@ public class Writer {
             }
 
             // Copy the web to the zip
-            dataSaved &= writeWebPage( loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletLAMS " );
+            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletLAMS " );
 
             // Merge project & e-Adventure jar into file eAdventure_temp.jar
             // Destiny file
-            File jarUnsigned = new File( "web/temp/eAdventure.zip" );
+            File jarUnsigned = new File( tempDir.getAbsolutePath( ) + "/eAdventure.zip" );
 
             // Create output stream     
             FileOutputStream mergedFile = new FileOutputStream( jarUnsigned );
@@ -934,13 +893,13 @@ public class Writer {
           
             os.close( );
 
-            dataSaved &= jarUnsigned.renameTo( new File( "web/temp/" + loName + "_unsigned.jar" ) );
+            dataSaved &= jarUnsigned.renameTo( new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ) );
 
             // Integrate game and jar into a new jar File
 
-            dataSaved = JARSigner.signJar( authorName, organization, "web/temp/" + loName + "_unsigned.jar", "web/temp/" + loName + ".jar" );
+            dataSaved = JARSigner.signJar( authorName, organization, tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar", tempDir.getAbsolutePath( ) + "/" + loName + ".jar" );
 
-            new File( "web/temp/" + loName + "_unsigned.jar" ).delete( );
+            new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ).delete( );
 
             /** ******* START WRITING THE MANIFEST ********* */
             // Create the necessary elements for building the DOM
@@ -1029,22 +988,18 @@ public class Writer {
 
             // Create the output buffer, write the DOM and close it
             //fout = new FileOutputStream( zipFilename + "/imsmanifest.xml" );
-            fout = new FileOutputStream( "web/temp/imsmanifest.xml" );
+            fout = new FileOutputStream( tempDir.getAbsolutePath( ) + "/imsmanifest.xml" );
             writeFile = new OutputStreamWriter( fout, "UTF-8" );
             transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
             writeFile.close( );
             fout.close( );
-
-            //sourceFile = new File("web/temp/imsmanifest.xml");
-            //destinyFile = new File (zipFilename, "imsmanifest.xml");
-            //dataSaved &= sourceFile.copyTo( destinyFile );
             
             //copy loadingImage
             File splashScreen = new File( "web/splashScreen.gif" );
             if ( windowed ){
                 splashScreen = new File( "web/splashScreen_red.gif");
             }
-            splashScreen.copyTo( new File( "web/temp/splashScreen.gif" ) );
+            splashScreen.copyTo( new File( tempDir.getAbsolutePath( ) + "/splashScreen.gif" ) );
             
             /** ******** END WRITING THE MANIFEST ********** */
             
@@ -1067,7 +1022,7 @@ public class Writer {
 
             // Create the output buffer, write the DOM and close it
             //fout = new FileOutputStream( zipFilename + "/imsmanifest.xml" );
-            fout = new FileOutputStream( "web/temp/ead-parameters.xml" );
+            fout = new FileOutputStream(tempDir.getAbsolutePath( ) + "/ead-parameters.xml" );
             writeFile = new OutputStreamWriter( fout, "UTF-8" );
             transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
             writeFile.close( );
@@ -1075,12 +1030,7 @@ public class Writer {
             /** ******* END WRITING THE IOParameters********* */
 
             /** COPY EVERYTHING TO THE ZIP */
-            File.zipDirectory( "web/temp/", zipFilename );
-            //dataSaved&=new File("web/temp").archiveCopyAllTo( new File(zipFile) );
-
-            // Update the zip files
-            //File.umount( );
-
+            File.zipDirectory( tempDir.getAbsolutePath( ) + "/", zipFilename );
         }
         catch( IOException exception ) {
             Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.WriteData" ) );
@@ -1158,7 +1108,8 @@ public class Writer {
             OutputStreamWriter writeFile = null;
 
             //Clean temp directory
-            File tempDir = new File( "web/temp" );
+            File tempDir = new File(Controller.createTempDirectory( ).getAbsolutePath( ));
+
             for( File tempFile : tempDir.listFiles( ) ) {
                 if( tempFile.isDirectory( ) )
                     tempFile.deleteAll( );
@@ -1166,11 +1117,11 @@ public class Writer {
             }
 
             // Copy the web to the zip
-            dataSaved &= writeWebPage( loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
+            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
 
             // Merge project & e-Adventure jar into file eAdventure_temp.jar
             // Destiny file
-            File jarUnsigned = new File( "web/temp/eAdventure.zip" );
+            File jarUnsigned = new File( tempDir.getAbsolutePath( ) + "/eAdventure.zip" );
 
             // Create output stream		
             FileOutputStream mergedFile = new FileOutputStream( jarUnsigned );
@@ -1196,13 +1147,13 @@ public class Writer {
             
             os.close( );
 
-            dataSaved &= jarUnsigned.renameTo( new File( "web/temp/" + loName + "_unsigned.jar" ) );
+            dataSaved &= jarUnsigned.renameTo( new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ) );
 
             // Integrate game and jar into a new jar File
 
-            dataSaved = JARSigner.signJar( authorName, organization, "web/temp/" + loName + "_unsigned.jar", "web/temp/" + loName + ".jar" );
+            dataSaved = JARSigner.signJar( authorName, organization, tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar", tempDir.getAbsolutePath( ) + "/" + loName + ".jar" );
 
-            new File( "web/temp/" + loName + "_unsigned.jar" ).delete( );
+            new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ).delete( );
 
             /** ******* START WRITING THE MANIFEST ********* */
             // Create the necessary elements for building the DOM
@@ -1290,7 +1241,7 @@ public class Writer {
 
             // Create the output buffer, write the DOM and close it
             //fout = new FileOutputStream( zipFilename + "/imsmanifest.xml" );
-            fout = new FileOutputStream( "web/temp/imsmanifest.xml" );
+            fout = new FileOutputStream( tempDir.getAbsolutePath( ) + "/imsmanifest.xml" );
             writeFile = new OutputStreamWriter( fout, "UTF-8" );
             transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
             writeFile.close( );
@@ -1298,24 +1249,24 @@ public class Writer {
 
             // copy mandatory xsd
             File xsd = new File( "web/adlcp_rootv1p2.xsd" );
-            xsd.copyTo( new File( "web/temp/adlcp_rootv1p2.xsd" ) );
+            xsd.copyTo( new File( tempDir.getAbsolutePath( ) + "/adlcp_rootv1p2.xsd" ) );
             xsd = new File( "web/ims_xml.xsd" );
-            xsd.copyTo( new File( "web/temp/ims_xml.xsd" ) );
+            xsd.copyTo( new File( tempDir.getAbsolutePath( ) + "/ims_xml.xsd" ) );
             xsd = new File( "web/imscp_rootv1p1p2.xsd" );
-            xsd.copyTo( new File( "web/temp/imscp_rootv1p1p2.xsd" ) );
+            xsd.copyTo( new File( tempDir.getAbsolutePath( ) + "/imscp_rootv1p1p2.xsd" ) );
             xsd = new File( "web/imsmd_rootv1p2p1.xsd" );
-            xsd.copyTo( new File( "web/temp/imsmd_rootv1p2p1.xsd" ) );
+            xsd.copyTo( new File( tempDir.getAbsolutePath( ) + "/imsmd_rootv1p2p1.xsd" ) );
 
             //copy javascript
             File javaScript = new File( "web/eadventure.js" );
-            javaScript.copyTo( new File( "web/temp/eadventure.js" ) );
+            javaScript.copyTo( new File( tempDir.getAbsolutePath( ) + "/eadventure.js" ) );
             
             //copy loadingImage
             File splashScreen = new File( "web/splashScreen.gif" );
             if ( windowed ){
                 splashScreen = new File( "web/splashScreen_red.gif");
             }
-            splashScreen.copyTo( new File( "web/temp/splashScreen.gif" ) );
+            splashScreen.copyTo( new File( tempDir.getAbsolutePath( ) + "/splashScreen.gif" ) );
             
             //sourceFile = new File("web/temp/imsmanifest.xml");
             //destinyFile = new File (zipFilename, "imsmanifest.xml");
@@ -1323,7 +1274,7 @@ public class Writer {
             /** ******** END WRITING THE MANIFEST ********** */
 
             /** COPY EVERYTHING TO THE ZIP */
-            File.zipDirectory( "web/temp/", zipFilename );
+            File.zipDirectory( tempDir.getAbsolutePath( ) + "/", zipFilename );
             //dataSaved&=new File("web/temp").archiveCopyAllTo( new File(zipFile) );
 
             // Update the zip files
@@ -1370,7 +1321,7 @@ public class Writer {
             OutputStreamWriter writeFile = null;
 
             //Clean temp directory
-            File tempDir = new File( "web/temp" );
+            File tempDir = new File(Controller.createTempDirectory( ).getAbsolutePath( ));
             for( File tempFile : tempDir.listFiles( ) ) {
                 if( tempFile.isDirectory( ) )
                     tempFile.deleteAll( );
@@ -1378,11 +1329,11 @@ public class Writer {
             }
 
             // Copy the web to the zip
-            dataSaved &= writeWebPage( loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
+            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
 
             // Merge project & e-Adventure jar into file eAdventure_temp.jar
             // Destiny file
-            File jarUnsigned = new File( "web/temp/eAdventure.zip" );
+            File jarUnsigned = new File( tempDir.getAbsolutePath( ) + "/eAdventure.zip" );
 
             // Create output stream		
             FileOutputStream mergedFile = new FileOutputStream( jarUnsigned );
@@ -1405,13 +1356,13 @@ public class Writer {
             
             os.close( );
 
-            dataSaved &= jarUnsigned.renameTo( new File( "web/temp/" + loName + "_unsigned.jar" ) );
+            dataSaved &= jarUnsigned.renameTo( new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ) );
 
             // Integrate game and jar into a new jar File
 
-            dataSaved = JARSigner.signJar( authorName, organization, "web/temp/" + loName + "_unsigned.jar", "web/temp/" + loName + ".jar" );
+            dataSaved = JARSigner.signJar( authorName, organization, tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar", tempDir.getAbsolutePath( ) + "/" + loName + ".jar" );
 
-            new File( "web/temp/" + loName + "_unsigned.jar" ).delete( );
+            new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ).delete( );
 
             /** ******* START WRITING THE MANIFEST ********* */
             // Create the necessary elements for building the DOM
@@ -1507,29 +1458,29 @@ public class Writer {
 
             // Create the output buffer, write the DOM and close it
             //fout = new FileOutputStream( zipFilename + "/imsmanifest.xml" );
-            fout = new FileOutputStream( "web/temp/imsmanifest.xml" );
+            fout = new FileOutputStream( tempDir.getAbsolutePath( ) + "/imsmanifest.xml" );
             writeFile = new OutputStreamWriter( fout, "UTF-8" );
             transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
             writeFile.close( );
             fout.close( );
 
             // copy mandatory xsd
-            File.unzipDir( "web/Scorm2004Content.zip", "web/temp/" );
+            File.unzipDir( "web/Scorm2004Content.zip", tempDir.getAbsolutePath( ) + "/" );
 
             //copy javascript
             File javaScript = new File( "web/eadventure.js" );
-            javaScript.copyTo( new File( "web/temp/eadventure.js" ) );
+            javaScript.copyTo( new File( tempDir.getAbsolutePath( ) + "/eadventure.js" ) );
             
             //copy loadingImage
             File splashScreen = new File( "web/splashScreen.gif" );
             if ( windowed ){
                 splashScreen = new File( "web/splashScreen_red.gif");
             }
-            splashScreen.copyTo( new File( "web/temp/splashScreen.gif" ) );
+            splashScreen.copyTo( new File( tempDir.getAbsolutePath( ) + "/splashScreen.gif" ) );
             /** ******** END WRITING THE MANIFEST ********** */
 
             /** COPY EVERYTHING TO THE ZIP */
-            File.zipDirectory( "web/temp/", zipFilename );
+            File.zipDirectory( tempDir.getAbsolutePath( ) + "/", zipFilename );
             //dataSaved&=new File("web/temp").archiveCopyAllTo( new File(zipFile) );
 
             // Update the zip files
@@ -1576,7 +1527,7 @@ public class Writer {
             OutputStreamWriter writeFile = null;
 
             //Clean temp directory
-            File tempDir = new File( "web/temp" );
+            File tempDir = new File(Controller.createTempDirectory( ).getAbsolutePath( ));
             for( File tempFile : tempDir.listFiles( ) ) {
                 if( tempFile.isDirectory( ) )
                     tempFile.deleteAll( );
@@ -1584,11 +1535,11 @@ public class Writer {
             }
 
             // Copy the web to the zip
-            dataSaved &= writeWebPage( loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
+            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
 
             // Merge project & e-Adventure jar into file eAdventure_temp.jar
             // Destiny file
-            File jarUnsigned = new File( "web/temp/eAdventure.zip" );
+            File jarUnsigned = new File( tempDir.getAbsolutePath( ) + "/eAdventure.zip" );
 
             // Create output stream		
             FileOutputStream mergedFile = new FileOutputStream( jarUnsigned );
@@ -1611,13 +1562,13 @@ public class Writer {
            
             os.close( );
 
-            dataSaved &= jarUnsigned.renameTo( new File( "web/temp/" + loName + "_unsigned.jar" ) );
+            dataSaved &= jarUnsigned.renameTo( new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ) );
 
             // Integrate game and jar into a new jar File
 
-            dataSaved = JARSigner.signJar( authorName, organization, "web/temp/" + loName + "_unsigned.jar", "web/temp/" + loName + ".jar" );
+            dataSaved = JARSigner.signJar( authorName, organization, tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar", tempDir.getAbsolutePath( ) + "/" + loName + ".jar" );
 
-            new File( "web/temp/" + loName + "_unsigned.jar" ).delete( );
+            new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ).delete( );
 
             /** ******* START WRITING THE MANIFEST ********* */
             // Create the necessary elements for building the DOM
@@ -1710,29 +1661,29 @@ public class Writer {
 
             // Create the output buffer, write the DOM and close it
             //fout = new FileOutputStream( zipFilename + "/imsmanifest.xml" );
-            fout = new FileOutputStream( "web/temp/imsmanifest.xml" );
+            fout = new FileOutputStream( tempDir.getAbsolutePath( ) + "/imsmanifest.xml" );
             writeFile = new OutputStreamWriter( fout, "UTF-8" );
             transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
             writeFile.close( );
             fout.close( );
 
             // copy mandatory xsd
-            File.unzipDir( "web/Scorm2004AgregaContent.zip", "web/temp/" );
+            File.unzipDir( "web/Scorm2004AgregaContent.zip", tempDir.getAbsolutePath( ) + "/" );
 
             //copy javascript
             File javaScript = new File( "web/eadventure.js" );
-            javaScript.copyTo( new File( "web/temp/eadventure.js" ) );
+            javaScript.copyTo( new File( tempDir.getAbsolutePath( ) + "/eadventure.js" ) );
             
             //copy loadingImage
             File splashScreen = new File( "web/splashScreen.gif" );
             if ( windowed ){
                 splashScreen = new File( "web/splashScreen_red.gif");
             }
-            splashScreen.copyTo( new File( "web/temp/splashScreen.gif" ) );
+            splashScreen.copyTo( new File( tempDir.getAbsolutePath( ) + "/splashScreen.gif" ) );
             /** ******** END WRITING THE MANIFEST ********** */
 
             /** COPY EVERYTHING TO THE ZIP */
-            File.zipDirectory( "web/temp/", zipFilename );
+            File.zipDirectory( tempDir.getAbsolutePath( ) + "/", zipFilename );
             //dataSaved&=new File("web/temp").archiveCopyAllTo( new File(zipFile) );
 
             // Update the zip files
@@ -1779,7 +1730,14 @@ public class Writer {
 
     public static boolean exportAsWebCTObject( String zipFilename, String loName, String authorName, String organization, boolean windowed, String gameFilename, AdventureDataControl adventureData ) {
 
-        File tempDir = new File( "web/temp" );
+        File tempDir;
+        try {
+            tempDir = new File(Controller.createTempDirectory( ).getAbsolutePath( ));
+        }
+        catch( IOException e1 ) {
+            e1.printStackTrace();
+            return false;
+        }
         for( File tempFile : tempDir.listFiles( ) ) {
             if( tempFile.isDirectory( ) )
                 tempFile.deleteAll( );
@@ -1787,7 +1745,7 @@ public class Writer {
         }
 
         try {
-            File jarUnsigned = new File( "web/temp/eAdventure.zip" );
+            File jarUnsigned = new File( tempDir.getAbsolutePath( ) + "/eAdventure.zip" );
             FileOutputStream mergedFile = new FileOutputStream( jarUnsigned );
             ZipOutputStream os = new ZipOutputStream( mergedFile );
             
@@ -1806,14 +1764,14 @@ public class Writer {
 
             String fixedLoName = "learningObject";
 
-            jarUnsigned.renameTo( new File( "web/temp/" + loName + "_unsigned.jar" ) );
-            File.unzipDir( "web/webct_temp.zip", "web/temp/" );
-            JARSigner.signJar( authorName, organization, "web/temp/" + loName + "_unsigned.jar", "web/temp/CMD_6988980_M/my_files/" + loName + ".jar" );
-            new File( "web/temp/" + loName + "_unsigned.jar" ).delete( );
-            writeWebPage( loName, windowed, "es.eucm.eadventure.engine.EAdventureApplet" );
+            jarUnsigned.renameTo( new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ) );
+            File.unzipDir( "web/webct_temp.zip", tempDir.getAbsolutePath( ) + "/" );
+            JARSigner.signJar( authorName, organization, tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar", tempDir.getAbsolutePath( ) + "/CMD_6988980_M/my_files/" + loName + ".jar" );
+            new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ).delete( );
+            writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureApplet" );
 
-            File webpage = new File( "web/temp/" + loName + ".html" );
-            webpage.copyTo( new File( "web/temp/CMD_6988980_M/my_files/" + fixedLoName + ".html" ) );
+            File webpage = new File( tempDir.getAbsolutePath( ) + "/" + loName + ".html" );
+            webpage.copyTo( new File(tempDir.getAbsolutePath( ) + "/CMD_6988980_M/my_files/" + fixedLoName + ".html" ) );
             webpage.delete( );
             
             //copy loadingImage
@@ -1821,9 +1779,9 @@ public class Writer {
             if ( windowed ){
                 splashScreen = new File( "web/splashScreen_red.gif");
             }
-            splashScreen.copyTo( new File( "web/temp/CMD_6988980_M/my_files/splashScreen.gif" ) );
+            splashScreen.copyTo( new File( tempDir.getAbsolutePath( ) + "/CMD_6988980_M/my_files/splashScreen.gif" ) );
 
-            File.zipDirectory( "web/temp/", zipFilename );
+            File.zipDirectory( tempDir.getAbsolutePath( ) + "/", zipFilename );
         }
         catch( Exception e ) {
             return false;

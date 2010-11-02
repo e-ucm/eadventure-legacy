@@ -101,15 +101,15 @@ public class SceneElement {
         tempImage = AssetsController.getImage( temp );
         int w = 800;
         int h = 600;
-        if( image == null ) {
+        if( tempImage == null ) {
             ImageIcon icon = new ImageIcon( "img/icons/noImageFrame.png" );
-            image = new BufferedImage( 800, 600, BufferedImage.TYPE_4BYTE_ABGR );
-            image.getGraphics( ).drawImage( icon.getImage( ), 0, 0, 800, 600, null );
+            tempImage = new BufferedImage( 800, 600, BufferedImage.TYPE_4BYTE_ABGR );
+            tempImage.getGraphics( ).drawImage( icon.getImage( ), 0, 0, 800, 600, null );
         } else {
             w = tempImage.getWidth( null );
             h = tempImage.getHeight( null );
         }
-        image = new BufferedImage( w / SceneLinksPanel.DEFAULT_SCALE, h / SceneLinksPanel.DEFAULT_SCALE, BufferedImage.TYPE_4BYTE_ABGR );
+        image = new BufferedImage( w / SceneLinksPanel.DEFAULT_SCALE, h / SceneLinksPanel.DEFAULT_SCALE, BufferedImage.TYPE_3BYTE_BGR );
         image.getGraphics( ).drawImage( tempImage, 0, 0, w / SceneLinksPanel.DEFAULT_SCALE, h / SceneLinksPanel.DEFAULT_SCALE, null );
         tempImage = null;
 
