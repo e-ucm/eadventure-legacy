@@ -1,38 +1,37 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
- *         research group.
- *  
- *   Copyright 2005-2010 <e-UCM> research group.
+ * research group.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
- *         http://e-adventure.e-ucm.es/contributors
+ * Copyright 2005-2010 <e-UCM> research group.
  * 
- *   <e-UCM> is a research group of the Department of Software Engineering
- *         and Artificial Intelligence at the Complutense University of Madrid
- *         (School of Computer Science).
+ * You can access a list of all the contributors to <e-Adventure> at:
+ * http://e-adventure.e-ucm.es/contributors
  * 
- *         C Profesor Jose Garcia Santesmases sn,
- *         28040 Madrid (Madrid), Spain.
+ * <e-UCM> is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
  * 
- *         For more info please visit:  <http://e-adventure.e-ucm.es> or
- *         <http://www.e-ucm.es>
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
  * 
  * ****************************************************************************
  * 
  * This file is part of <e-Adventure>, version 1.2.
  * 
- *     <e-Adventure> is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Lesser General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ * <e-Adventure> is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  * 
- *     <e-Adventure> is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU Lesser General Public License for more details.
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- *     You should have received a copy of the GNU Lesser General Public License
- *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.gamestate;
 
@@ -305,7 +304,7 @@ public class GameStateOptions extends GameState {
         if( imgPanel[LOAD_PANEL] == null )
             imgPanel[LOAD_PANEL] = createImage( 200, 300, "Load game" );
 
-        imgPanel[CONFIGURATION_PANEL] = MultimediaManager.getInstance( ).loadImage( LoadButton("ConfigurationPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[CONFIGURATION_PANEL] = MultimediaManager.getInstance( ).loadImage( LoadButton( "ConfigurationPanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[CONFIGURATION_PANEL] == null )
             imgPanel[CONFIGURATION_PANEL] = createImage( 200, 252, "Configuration" );
 
@@ -325,24 +324,30 @@ public class GameStateOptions extends GameState {
         String route = "gui/options/";
         String dirButton = null;
 
-        if (Game.getInstance( ).isFromEditor( )){
-            dirButton = route + Controller.getInstance( ).getLanguage( )+ "/" + name + ".png";
-            File fichero = new File(dirButton);
-            if (!fichero.exists( )){
+        if( Game.getInstance( ).isFromEditor( ) ) {
+            dirButton = route + Controller.getInstance( ).getLanguage( ) + "/" + name + ".png";
+            File fichero = new File( dirButton );
+            if( !fichero.exists( ) ) {
                 // if there isn't file, load the default file 
-                dirButton = route + Controller.getInstance( ).getDefaultLanguage( )+ "/" + name + ".png";
+                dirButton = route + Controller.getInstance( ).getDefaultLanguage( ) + "/" + name + ".png";
             }
-        } else{
-            dirButton = route + ConfigData.getLanguage( )+ "/" + name + ".png";
-            File fichero = new File(dirButton);
-            if (!fichero.exists( )){
-                // if there isn't file, load the default file
-                dirButton = route + ConfigData.getDefaultLanguage( )+ "/" + name + ".png";
+        }
+        else {
+            try {
+                dirButton = route + ConfigData.getLanguage( ) + "/" + name + ".png";
+                File fichero = new File( dirButton );
+                if( !fichero.exists( ) ) {
+                    // if there isn't file, load the default file
+                    dirButton = route + ConfigData.getDefaultLanguage( ) + "/" + name + ".png";
+                }
+            }
+            catch( NullPointerException e ) {
+                dirButton = route + TC.get( "Language.Internationalize" ) + "/" + name + ".png";
             }
         }
         return dirButton;
     }
-    
+
     /**
      * Sets a new active panel
      * 
