@@ -1604,6 +1604,7 @@
 <entry key="LOMES.AddElement">Neues Element hinzufügen</entry>
 <entry key="StartDialog.NewAssessmentFile.Description"> You have selected to create a new Assessment file. For the present release this option is unavailable. You must create the assessment file by opening/creating a new adventure game; then use the facility therein included  </entry>
 <entry key="IMS.Educational.Contex10">Vocational Training</entry>
+<entry key="Assessment.Column.RepeatRule">Wiederholen Bewertung Regel</entry>
 <entry key="Effect.Decrement">Verkleinern</entry>
 <entry key="ElementList.Empty">Es gibt keinen Referenz auf ausgewählte Element</entry>
 <entry key="IMS.Educational.InteractivityLevel4">Very High</entry>

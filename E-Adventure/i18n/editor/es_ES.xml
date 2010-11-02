@@ -1767,6 +1767,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="EffectsGroup.Main">Todos los efectos</entry>
 <entry key="Effect.TriggerLastSceneInfo">Lanzar escena anterior</entry>
 <entry key="IMS.Classification.Tip">Classification Data</entry>
+<entry key="Assessment.Column.RepeatRule">Repetir regla de evaluación</entry>
 <entry key="GlobalStatesList.ID">Identificador de estado global</entry>
 <entry key="Item.ReturnsWhenDragged">El objeto vuelve a su posición inicial después de ser arrastrado</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicar regla</entry>

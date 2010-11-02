@@ -105,10 +105,10 @@ public class AssessmentProfileDataControl extends DataControl {
                 AssessmentRule assRule = null;
                 
                 if( type == Controller.TIMED_ASSESSMENT_RULE ) {
-                    assRule = new TimedAssessmentRule( assRuleId, AssessmentRule.IMPORTANCE_NORMAL );
+                    assRule = new TimedAssessmentRule( assRuleId, AssessmentRule.IMPORTANCE_NORMAL, false );
                 }
                 else {
-                    assRule = new AssessmentRule( assRuleId, AssessmentRule.IMPORTANCE_NORMAL );
+                    assRule = new AssessmentRule( assRuleId, AssessmentRule.IMPORTANCE_NORMAL, false );
                 }
                 this.profile.getRules( ).add( assRule );
                 dataControls.add( new AssessmentRuleDataControl( assRule, profile ) );

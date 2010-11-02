@@ -105,6 +105,11 @@ public class AssessmentRule implements Cloneable, HasId {
      * The effect of the rule
      */
     protected AssessmentEffect effect;
+    
+    /**
+     * If it is active, the assessment rule can be executed more than 1 times
+     */
+    protected boolean repeatRule;
 
     /**
      * Default constructor
@@ -114,13 +119,14 @@ public class AssessmentRule implements Cloneable, HasId {
      * @param importance
      *            Importance of the rule
      */
-    public AssessmentRule( String id, int importance ) {
+    public AssessmentRule( String id, int importance, boolean repeatRule ) {
 
         this.id = id;
         this.importance = importance;
         concept = null;
         conditions = new Conditions( );
         effect = new AssessmentEffect( );
+        this.repeatRule = repeatRule;
     }
 
     /**
@@ -232,6 +238,21 @@ public class AssessmentRule implements Cloneable, HasId {
 
         this.id = assRuleId;
     }
+    
+    /**
+     * 
+     * @return if the rule can be executed one or more times
+     */
+    public Boolean isRepeatRule( ) {
+    
+        return repeatRule;
+    }
+
+    
+    public void setRepeatRule( Boolean repeatRule ) {
+    
+        this.repeatRule = repeatRule;
+    }
 
     @Override
     public Object clone( ) throws CloneNotSupportedException {
@@ -244,6 +265,7 @@ public class AssessmentRule implements Cloneable, HasId {
             ar.effect = (AssessmentEffect) effect.clone( );
         ar.id = ( id != null ? new String( id ) : null );
         ar.importance = importance;
+        ar.repeatRule = repeatRule;
         return ar;
     }
 }

@@ -310,12 +310,16 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
                 }
             }
         } );
+
         informationTable.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 
         JComboBox importance = new JComboBox( new String[] { TC.get( "AssessmentRule.Importance.VeryLow" ), TC.get( "AssessmentRule.Importance.Low" ), TC.get( "AssessmentRule.Importance.Normal" ), TC.get( "AssessmentRule.Importance.High" ), TC.get( "AssessmentRule.Importance.VeryHigh" ) } );
         informationTable.getColumnModel( ).getColumn( 1 ).setCellEditor( new DefaultCellEditor( importance ) );
         informationTable.getColumnModel( ).getColumn( 2 ).setCellEditor( new ConditionsCellRendererEditor( ) );
         informationTable.getColumnModel( ).getColumn( 2 ).setCellRenderer( new ConditionsCellRendererEditor( ) );
+        informationTable.getColumnModel( ).getColumn( 3 ).setCellEditor( informationTable.getDefaultEditor( Boolean.class ) );
+        informationTable.getColumnModel( ).getColumn( 3 ).setCellRenderer(  informationTable.getDefaultRenderer( Boolean.class ) );
+
 
         ruleListPanel = new JPanel( );
         ruleListPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRulesList.ListTitle" ) ) );

@@ -162,6 +162,7 @@ public class AssessmentSubParser extends SubParser {
 
             String id = null;
             int importance = 0;
+            boolean repeatRule = false;
 
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "id" ) )
@@ -171,9 +172,11 @@ public class AssessmentSubParser extends SubParser {
                         if( attrs.getValue( i ).equals( AssessmentRule.IMPORTANCE_VALUES[j] ) )
                             importance = j;
                 }
+                if( attrs.getQName( i ).equals( "repeatRule" ) )
+                    repeatRule = attrs.getValue( i ).equals( "yes" );
             }
 
-            currentAssessmentRule = new AssessmentRule( id, importance );
+            currentAssessmentRule = new AssessmentRule( id, importance, repeatRule );
         }
 
         else if( qName.equals( "timed-assessment-rule" ) ) {
@@ -182,6 +185,7 @@ public class AssessmentSubParser extends SubParser {
             int importance = 0;
             boolean usesEndConditions = false;
             boolean has = false;
+            boolean repeatRule = false;
 
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "id" ) )
@@ -195,9 +199,11 @@ public class AssessmentSubParser extends SubParser {
                     has = true;
                     usesEndConditions = attrs.getValue( i ).equals( "yes" );
                 }
+                if( attrs.getQName( i ).equals( "repeatRule" ) )
+                    repeatRule = attrs.getValue( i ).equals( "yes" );
             }
 
-            currentAssessmentRule = new TimedAssessmentRule( id, importance );
+            currentAssessmentRule = new TimedAssessmentRule( id, importance, repeatRule );
             if( has )
                 ( (TimedAssessmentRule) currentAssessmentRule ).setUsesEndConditions( usesEndConditions );
         }
