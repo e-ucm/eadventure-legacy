@@ -416,6 +416,29 @@ public class AdaptedState implements Cloneable, HasTargetId {
         return actionsValues;
     }
 
+    
+    /**
+     * Check if the given String is a "activate" operation
+     * 
+     * @param op
+     * @return
+     */
+    public static boolean isActivateOp( String op ) {
+
+        return op.contains( ACTIVATE );
+    }
+    
+    /**
+     * Check if the given String is a "deactivate" operation
+     * 
+     * @param op
+     * @return
+     */
+    public static boolean isDeactivateOp( String op ) {
+
+        return op.contains( DEACTIVATE );
+    }
+    
     /**
      * Check if the given String is a "set-value" operation
      * 

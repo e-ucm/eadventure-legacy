@@ -100,21 +100,24 @@ public class AdaptationDOMWriter {
             // Append activate / deactivate flags or set value var
             Element actionFlag;
             for( int i = 0; i < initialState.getFlagsVars( ).size( ); i++ ) {
+             // check the operation's type
+                actionFlag = null;
                 if( initialState.isFlag( i ) ) {
-                    actionFlag = doc.createElement( initialState.getAction( i ) );
+                    if( AdaptedState.isActivateOp( initialState.getAction( i ) ) )
+                        actionFlag = doc.createElement( "activate" );
+                    if( AdaptedState.isDeactivateOp( initialState.getAction( i ) ) )
+                        actionFlag = doc.createElement( "deactivate" );
+                    
                     actionFlag.setAttribute( "flag", initialState.getFlagVar( i ) );
-
                 }
                 else {
-                    // check the operation's type
-                    actionFlag = null;
                     if( AdaptedState.isSetValueOp( initialState.getAction( i ) ) )
                         // get only the title of the operation
-                        actionFlag = doc.createElement( AdaptedState.VALUE );
+                        actionFlag = doc.createElement( "set-value" );
                     else if( AdaptedState.isIncrementOp( initialState.getAction( i ) ) )
-                        actionFlag = doc.createElement( AdaptedState.INCREMENT );
+                        actionFlag = doc.createElement( "increment" );
                     else if( AdaptedState.isDecrementOp( initialState.getAction( i ) ) )
-                        actionFlag = doc.createElement( AdaptedState.DECREMENT );
+                        actionFlag = doc.createElement( "decrement" );
 
                     //set the name of the current var
                     actionFlag.setAttribute( "var", initialState.getFlagVar( i ) );
