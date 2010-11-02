@@ -37,7 +37,6 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -56,7 +55,7 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
     /**
      * The text that will be shown
      */
-    private String[] text;
+    private String text;
 
     /**
      * The time that text will be shown
@@ -87,7 +86,7 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
 
         super( effect );
         // split the text if don't fit in the screen
-        this.text = GUI.getInstance( ).splitText( effect.getText( ) );
+        this.text = effect.getText( );
 
         // obtain the text speed
         float multiplier = 1;
@@ -139,7 +138,6 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
     public void draw( ) {
 
         GUI.getInstance( ).getGraphics( ).setFont( GUI.getInstance( ).getGraphics( ).getFont( ).deriveFont( 18.0f ) );
-        FontMetrics fontMetrics = GUI.getInstance( ).getGraphics( ).getFontMetrics( );
         GUI.getInstance( ).addTextToDraw( text, ( (ShowTextEffect) effect ).getX( ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), ( (ShowTextEffect) effect ).getY( ), new Color( ( (ShowTextEffect) effect ).getRgbFrontColor( ) ), new Color( ( (ShowTextEffect) effect ).getRgbBorderColor( ) ) );
 
     }

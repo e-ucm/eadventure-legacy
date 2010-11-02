@@ -58,7 +58,7 @@ public class NPCTalking extends NPCState {
     /**
      * The text the character will speak
      */
-    private String[] text;
+    private String text;
 
     private long audioId = -1;
 
@@ -103,7 +103,7 @@ public class NPCTalking extends NPCState {
      */
     public void setText( String text, boolean keepShowing ) {
 
-        this.text = GUI.getInstance( ).splitText( text );
+        this.text = text;
         this.keepShowing = keepShowing;
         float multiplier = 1;
         if( Game.getInstance( ).getOptions( ).getTextSpeed( ) == Options.TEXT_SLOW )
@@ -185,7 +185,7 @@ public class NPCTalking extends NPCState {
 
         super.draw( x, y, scale, depth, fe );
         // If there is a line to speak, draw it
-        if( text.length >= 1 && !text[0].equals( "" ) ) {
+        if( text != null && !text.equals( "" ) ) {
             if( npc.getShowsSpeechBubbles( ) )
                 GUI.getInstance( ).addTextToDraw( text, x - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y - Math.round( npc.getHeight( ) * scale ) - 15, npc.getTextFrontColor( ), npc.getTextBorderColor( ), npc.getBubbleBkgColor( ), npc.getBubbleBorderColor( ), true );
             else
