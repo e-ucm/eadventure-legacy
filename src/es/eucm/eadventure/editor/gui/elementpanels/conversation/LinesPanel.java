@@ -413,6 +413,7 @@ class LinesPanel extends JPanel implements DataControlsPanel {
                 // Move the selection along with the line
                 lineTable.setRowSelectionInterval( selectedRow - 1, selectedRow - 1 );
                 lineTable.scrollRectToVisible( lineTable.getCellRect( selectedRow - 1, 0, true ) );
+                conversationDataControl.updateAllConditions( );
 
                 // Update the view if the node is an option node
                 if( selectedNode.getType( ) == ConversationNodeView.OPTION )
@@ -443,6 +444,7 @@ class LinesPanel extends JPanel implements DataControlsPanel {
                 // Move the selection along with the line
                 lineTable.setRowSelectionInterval( selectedRow + 1, selectedRow + 1 );
                 lineTable.scrollRectToVisible( lineTable.getCellRect( selectedRow + 1, 0, true ) );
+                conversationDataControl.updateAllConditions( );
 
                 // Update the view if the node is an option node
                 if( selectedNode.getType( ) == ConversationNodeView.OPTION )

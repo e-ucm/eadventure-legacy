@@ -64,7 +64,7 @@ public class FunctionalSpeak extends FunctionalAction {
     /**
      * The text to be spoken
      */
-    private String[] text;
+    private String text;
 
     /**
      * The id of the spoken audio
@@ -177,11 +177,9 @@ public class FunctionalSpeak extends FunctionalAction {
      * @param text
      *            the text to be displayed
      */
-    public void setText( String text2 ) {
+    public void setText( String text2 ) {        
 
-        String text = Game.getInstance( ).processText( text2 );
-
-        this.text = GUI.getInstance( ).splitText( text );
+        this.text = Game.getInstance( ).processText( text2 );
 
         float multiplier = 1;
         if( Game.getInstance( ).getOptions( ).getTextSpeed( ) == Options.TEXT_SLOW )
@@ -277,7 +275,7 @@ public class FunctionalSpeak extends FunctionalAction {
     @Override
     public void drawAditionalElements( ) {
 
-        if( text != null && ( text.length > 1 || !text[0].equals( "" ) ) ) {
+        if( text != null && text != "" ) {
             int posX;
             int posY;
             if( functionalPlayer != null && !functionalPlayer.isTransparent( ) ) {

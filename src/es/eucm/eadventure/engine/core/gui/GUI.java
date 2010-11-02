@@ -1,38 +1,37 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
- *         research group.
- *  
- *   Copyright 2005-2010 <e-UCM> research group.
+ * research group.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
- *         http://e-adventure.e-ucm.es/contributors
+ * Copyright 2005-2010 <e-UCM> research group.
  * 
- *   <e-UCM> is a research group of the Department of Software Engineering
- *         and Artificial Intelligence at the Complutense University of Madrid
- *         (School of Computer Science).
+ * You can access a list of all the contributors to <e-Adventure> at:
+ * http://e-adventure.e-ucm.es/contributors
  * 
- *         C Profesor Jose Garcia Santesmases sn,
- *         28040 Madrid (Madrid), Spain.
+ * <e-UCM> is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
  * 
- *         For more info please visit:  <http://e-adventure.e-ucm.es> or
- *         <http://www.e-ucm.es>
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
  * 
  * ****************************************************************************
  * 
  * This file is part of <e-Adventure>, version 1.2.
  * 
- *     <e-Adventure> is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Lesser General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ * <e-Adventure> is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  * 
- *     <e-Adventure> is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU Lesser General Public License for more details.
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- *     You should have received a copy of the GNU Lesser General Public License
- *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.gui;
 
@@ -48,13 +47,16 @@ import java.awt.Frame;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -67,6 +69,7 @@ import javax.swing.JFrame;
 import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalhighlights.FunctionalHighlight;
+import es.eucm.eadventure.engine.core.gui.ballonfactory.BallonFactory;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
@@ -162,7 +165,7 @@ public abstract class GUI implements FocusListener {
      * List of texts to be painted.
      */
     protected ArrayList<Text> textToDraw;
-    
+
     /**
      * Stores the static component for show (report,book,video, etc)
      */
@@ -175,21 +178,21 @@ public abstract class GUI implements FocusListener {
     private boolean moveOffsetRight = false;
 
     private boolean moveOffsetLeft = false;
-    
+
     /**
-     * This attribute store the interactive elements (which can be painted) in the same order
-     * that they will be painted.
+     * This attribute store the interactive elements (which can be painted) in
+     * the same order that they will be painted.
      */
     private List<FunctionalElement> elementsToInteract = null;
-    
+
     private Image loadingImage;
-    
+
     private int loading;
-    
+
     private Timer loadingTimer;
-    
+
     private TimerTask loadingTask;
-    
+
     /**
      * Return the GUI instance. GUI is a singleton class.
      * 
@@ -238,7 +241,7 @@ public abstract class GUI implements FocusListener {
      * @return
      */
     public abstract JFrame showComponent( Component component );
-    
+
     public abstract JFrame showComponent( Component component, int w, int h );
 
     /**
@@ -271,11 +274,12 @@ public abstract class GUI implements FocusListener {
     /**
      * Repaint call to the "component"
      */
-    public void componentRepaint(){
-	if (component!=null)
-		component.repaint();
+    public void componentRepaint( ) {
+
+        if( component != null )
+            component.repaint( );
     }
-    
+
     /**
      * Returns the X point of the response block text
      * 
@@ -554,19 +558,19 @@ public abstract class GUI implements FocusListener {
         g.setColor( bubbleBorder );
         g.drawRoundRect( tempX - maxWidth / 2 - 5, tempY - textBlockHeight - 5, maxWidth + 10, textBlockHeight + 10, 20, 20 );
 
-        if (showArrow) {
+        if( showArrow ) {
             g.setComposite( alphaComposite );
             g.setColor( bkgColor );
             int x_p[] = new int[] { tempX - 10, tempX + 10, tempX };
             int y_p[] = new int[] { tempY + 5, tempY + 5, tempY + 15 };
             g.fillPolygon( x_p, y_p, 3 );
-    
+
             g.setComposite( temp );
             g.setColor( bubbleBorder );
             g.drawLine( x_p[0], y_p[0], x_p[2], y_p[2] );
             g.drawLine( x_p[1], y_p[1], x_p[2], y_p[2] );
         }
-        
+
         drawStringOnto( g, strings, x, y, textColor, borderColor );
     }
 
@@ -716,50 +720,50 @@ public abstract class GUI implements FocusListener {
      *            Graphics2D to be used by the scene buffer
      */
     public void drawScene( Graphics2D g, long elapsedTime ) {
+
         if( transition != null && !transition.hasStarted( ) ) {
             drawToGraphics( (Graphics2D) transition.getGraphics( ) );
             transition.start( this.getGraphics( ) );
         }
-        else if( g != null && (transition == null || transition.hasFinished( elapsedTime )) ) {
+        else if( g != null && ( transition == null || transition.hasFinished( elapsedTime ) ) ) {
             transition = null;
             drawToGraphics( g );
         }
-        else if ( g != null ) {
+        else if( g != null ) {
             transition.update( g );
         }
     }
-    
-    private void recalculateInteractiveElementsOrder(){
-        elementsToInteract = new ArrayList<FunctionalElement>();
-        for (ElementImage ei:elementsToDraw){
-            if (ei.getFunctionalElement( )!=null)
-            elementsToInteract.add( ei.getFunctionalElement( ) );
+
+    private void recalculateInteractiveElementsOrder( ) {
+
+        elementsToInteract = new ArrayList<FunctionalElement>( );
+        for( ElementImage ei : elementsToDraw ) {
+            if( ei.getFunctionalElement( ) != null )
+                elementsToInteract.add( ei.getFunctionalElement( ) );
         }
     }
 
     public void drawToGraphics( Graphics2D g ) {
+
         if( background != null ) {
             background.draw( g );
             //background = null;
         }
- 
+
         for( ElementImage element : elementsToDraw )
             element.draw( g );
-        recalculateInteractiveElementsOrder();
+        recalculateInteractiveElementsOrder( );
         elementsToDraw.clear( );
 
- 
         if( foreground != null ) {
             foreground.draw( g );
             foreground = null;
         }
 
-
         TimerManager timerManager = TimerManager.getInstance( );
         if( timerManager != null ) {
             timerManager.draw( g );
         }
-
 
         if( showsOffsetArrows ) {
             g.setColor( Color.BLACK );
@@ -908,6 +912,7 @@ public abstract class GUI implements FocusListener {
      *            Offset of the background
      */
     public void addBackgroundToDraw( Image background, int offsetX ) {
+
         this.background = new SceneImage( background, offsetX );
     }
 
@@ -1059,7 +1064,8 @@ public abstract class GUI implements FocusListener {
      * @param borderColor
      *            Color if the border of the string
      */
-    public void addTextToDraw( String[] string, int x, int y, Color textColor, Color borderColor) {
+    public void addTextToDraw( String string, int x, int y, Color textColor, Color borderColor ) {
+
         boolean added = false;
         int i = 0;
         Text text = new Text( string, x, y, textColor, borderColor );
@@ -1092,7 +1098,7 @@ public abstract class GUI implements FocusListener {
      * @param bubbleBorderColor
      *            Color of the bubbles border
      */
-    public void addTextToDraw( String[] string, int x, int y, Color textColor, Color borderColor, Color bubbleBkgColor, Color bubbleBorderColor, boolean showArrow  ) {
+    public void addTextToDraw( String string, int x, int y, Color textColor, Color borderColor, Color bubbleBkgColor, Color bubbleBorderColor, boolean showArrow ) {
 
         boolean added = false;
         int i = 0;
@@ -1145,8 +1151,9 @@ public abstract class GUI implements FocusListener {
          *            Graphics2D to draw the background
          */
         public void draw( Graphics2D g ) {
+
             g.drawImage( background, -offsetX, 0, null );
-//            g.drawImage( background, 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, offsetX, 0, offsetX + GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, gameFrame );
+            //            g.drawImage( background, 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, offsetX, 0, offsetX + GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, gameFrame );
         }
     }
 
@@ -1182,9 +1189,9 @@ public abstract class GUI implements FocusListener {
         private int depth;
 
         private FunctionalHighlight highlight;
-        
+
         private FunctionalElement functionalElement;
-        
+
         /**
          * Constructor of the class
          * 
@@ -1198,6 +1205,7 @@ public abstract class GUI implements FocusListener {
          *            Depth to draw the image
          */
         public ElementImage( Image image, int x, int y, int depth, int originalY ) {
+
             this.image = image;
             this.x = x;
             this.y = y;
@@ -1205,9 +1213,10 @@ public abstract class GUI implements FocusListener {
             this.originalY = originalY;
             this.highlight = null;
         }
-        
-        public ElementImage( Image image, int x, int y, int depth, int originalY, FunctionalHighlight highlight, FunctionalElement fe) {
-            this(image, x, y, depth, originalY);
+
+        public ElementImage( Image image, int x, int y, int depth, int originalY, FunctionalHighlight highlight, FunctionalElement fe ) {
+
+            this( image, x, y, depth, originalY );
             this.highlight = highlight;
             this.functionalElement = fe;
         }
@@ -1219,9 +1228,11 @@ public abstract class GUI implements FocusListener {
          *            Graphics2D to draw the image
          */
         public void draw( Graphics2D g ) {
-            if (highlight != null) {
+
+            if( highlight != null ) {
                 g.drawImage( highlight.getHighlightedImage( image ), x + highlight.getDisplacementX( ), y + highlight.getDisplacementY( ), null );
-            } else {
+            }
+            else {
                 g.drawImage( image, x, y, null );
             }
         }
@@ -1266,12 +1277,11 @@ public abstract class GUI implements FocusListener {
             return originalY;
         }
 
-        
         /**
          * @return the functionalElement
          */
         public FunctionalElement getFunctionalElement( ) {
-        
+
             return functionalElement;
         }
     }
@@ -1285,7 +1295,13 @@ public abstract class GUI implements FocusListener {
         /**
          * Array string
          */
-        private String[] text;
+        private String text;
+
+        private ArrayList<String> lines;
+
+        private Shape bubbleShape;
+
+        private Rectangle textBounds;
 
         /**
          * X coordinate
@@ -1310,10 +1326,16 @@ public abstract class GUI implements FocusListener {
         private Color bubbleBkgColor;
 
         private Color bubbleBorderColor;
-        
+
         private boolean showArrow = true;
 
         private boolean showBubble = false;
+
+        private Stroke stroke;
+
+        private AffineTransform af;
+
+        private Shape[] arrow;
 
         /**
          * Constructor of the class
@@ -1329,13 +1351,15 @@ public abstract class GUI implements FocusListener {
          * @param borderColor
          *            Color of the borde of the text
          */
-        public Text( String[] text, int x, int y, Color textColor, Color borderColor ) {
+        public Text( String text, int x, int y, Color textColor, Color borderColor ) {
 
             this.text = text;
+            this.lines = null;
             this.x = x;
             this.y = y;
             this.textColor = textColor;
             this.borderColor = borderColor;
+            init( );
         }
 
         /**
@@ -1352,9 +1376,10 @@ public abstract class GUI implements FocusListener {
          * @param borderColor
          *            Color of the borde of the text
          */
-        public Text( String[] text, int x, int y, Color textColor, Color borderColor, Color bubbleBkgColor, Color bubbleBorderColor, boolean showArrow ) {
+        public Text( String text, int x, int y, Color textColor, Color borderColor, Color bubbleBkgColor, Color bubbleBorderColor, boolean showArrow ) {
 
             this.text = text;
+            this.lines = null;
             this.x = x;
             this.y = y;
             this.textColor = textColor;
@@ -1363,6 +1388,18 @@ public abstract class GUI implements FocusListener {
             this.bubbleBkgColor = bubbleBkgColor;
             this.bubbleBorderColor = bubbleBorderColor;
             this.showArrow = showArrow;
+            init( );
+        }
+
+        private void init( ) {
+
+            FontMetrics f = GUI.getInstance( ).getGraphics( ).getFontMetrics( );
+            lines = BallonFactory.getLines( f, text, 0.66f, GUI.WINDOW_WIDTH );
+            textBounds = BallonFactory.getTextBounds( x, y, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
+            bubbleShape = BallonFactory.getPath( textBounds, 20, 10 );
+            stroke = BallonFactory.getStroke( );
+            af = BallonFactory.getTransformation( );
+            arrow = BallonFactory.getArrow( x, y );
         }
 
         /**
@@ -1373,10 +1410,67 @@ public abstract class GUI implements FocusListener {
          */
         public void draw( Graphics2D g ) {
 
-            if( showBubble )
-                GUI.drawStringOnto( g, text, x, y, textColor, borderColor, bubbleBkgColor, bubbleBorderColor, showArrow );
-            else
-                GUI.drawStringOnto( g, text, x, y, textColor, borderColor );
+            AffineTransform a = g.getTransform( );
+
+            g.setTransform( af );
+
+            //g.setStroke( new WobbleStroke( 1.0f, 2.0f ) );
+
+            if( showBubble ) {
+                AlphaComposite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 0.8f );
+                Composite temp = g.getComposite( );
+                g.setComposite( alphaComposite );
+
+                g.setColor( bubbleBkgColor );
+                g.fill( bubbleShape );
+                g.setColor( bubbleBorderColor );
+                Stroke s = g.getStroke( );
+                g.setStroke( stroke );
+
+                g.draw( bubbleShape );
+
+                if( showArrow ) {
+                    g.setComposite( alphaComposite );
+
+                    for( Shape sh : arrow ) {
+                        g.setColor( bubbleBkgColor );
+                        g.fill( sh );
+                        g.setColor( bubbleBorderColor );
+                        g.draw( sh );
+                    }
+
+                    g.setComposite( temp );
+
+                }
+
+                g.setStroke( s );
+                g.setComposite( temp );
+            }
+
+            int sy = textBounds.y + g.getFontMetrics( ).getHeight( ) + BallonFactory.padding / 2;
+            for( String s : lines ) {
+                int lineWidth = g.getFontMetrics( ).stringWidth( s );
+                // align to left
+                // g2.drawString(s, r.x, sy);
+                // align to right
+                // g2.drawString(s, r.x + ( r.width - lineWidth ), sy);
+                // centered
+
+                int realX = textBounds.x + ( textBounds.width - lineWidth ) / 2;
+
+                g.setColor( borderColor );
+                g.drawString( s, realX - 1, sy - 1 );
+                g.drawString( s, realX - 1, sy + 1 );
+                g.drawString( s, realX + 1, sy - 1 );
+                g.drawString( s, realX + 1, sy + 1 );
+                g.setColor( textColor );
+
+                g.drawString( s, realX, sy );
+                sy += g.getFontMetrics( ).getHeight( ) + BallonFactory.marginTop;
+            }
+
+            g.setTransform( a );
+
         }
 
         /**
@@ -1442,6 +1536,7 @@ public abstract class GUI implements FocusListener {
     }
 
     public void setLastMouseMove( MouseEvent e ) {
+
         hud.setLastMouseMove( e );
     }
 
@@ -1449,89 +1544,92 @@ public abstract class GUI implements FocusListener {
 
     }
 
-    
     /**
      * @return the elementsToDraw
      */
     public ArrayList<ElementImage> getElementsToDraw( ) {
-    
+
         return elementsToDraw;
     }
 
-    
     /**
      * @return the elementsToInteract
      */
     public List<FunctionalElement> getElementsToInteract( ) {
-    
+
         return elementsToInteract;
     }
 
     public void loading( int percent ) {
-        if (percent == 0) {
-            
+
+        if( percent == 0 ) {
+
             // FIXME Chapucilla que huele a pipi
             //this.loadingImage =  new ImageIcon("gui/loading.jpg").getImage();
             this.loadingImage = MultimediaManager.getInstance( ).loadImage( "gui/loading.jpg", MultimediaManager.IMAGE_MENU );
-            if (this.loadingImage == null ){
+            if( this.loadingImage == null ) {
                 this.loadingImage = MultimediaManager.getInstance( ).loadImageFromZip( "gui/loading.jpg", MultimediaManager.IMAGE_MENU );
             }
             this.loading = percent;
-            loadingTimer = new Timer();
-            loadingTask = new TimerTask() {
+            loadingTimer = new Timer( );
+            loadingTask = new TimerTask( ) {
+
                 private int cont = 20;
+
                 private boolean contracting = false;
-                
+
                 @Override
                 public void run( ) {
+
                     Graphics2D g = GUI.this.getGraphics( );
-                    g.drawImage( loadingImage, 0, 0, null);
-                    
-                    g.setColor( new Color(250, 173, 6) );
+                    g.drawImage( loadingImage, 0, 0, null );
+
+                    g.setColor( new Color( 250, 173, 6 ) );
                     g.fillRoundRect( 200, 300, loading * 4, 50, 10, 10 );
-//                    g.setColor( Color.BLUE );
-//                    g.fillArc( 350, 250, 50, 50, cont, 20 );
-                    
-                    g.setStroke( new BasicStroke(4.0f) );
-                    g.setColor( new Color(90, 32, 2) );
+                    //                    g.setColor( Color.BLUE );
+                    //                    g.fillArc( 350, 250, 50, 50, cont, 20 );
+
+                    g.setStroke( new BasicStroke( 4.0f ) );
+                    g.setColor( new Color( 90, 32, 2 ) );
                     g.drawRoundRect( 200, 300, 400, 50, 10, 10 );
 
-                    g.setColor( new Color(247, 215, 105) );
+                    g.setColor( new Color( 247, 215, 105 ) );
                     g.fillOval( 400 - cont / 2, 100 - cont / 2, cont, cont );
-                    
-//                    g.setColor( Color.BLACK );
-//                    g.drawOval( 350, 250, 50, 50 );
 
-                    if (!contracting) {
+                    //                    g.setColor( Color.BLACK );
+                    //                    g.drawOval( 350, 250, 50, 50 );
+
+                    if( !contracting ) {
                         cont += 1;
-                        if (cont > 60)
+                        if( cont > 60 )
                             contracting = true;
-                    } else {
+                    }
+                    else {
                         cont -= 1;
-                        if (cont < 10)
+                        if( cont < 10 )
                             contracting = false;
                     }
-                    
+
                     GUI.this.endDraw( );
                 }
             };
             loadingTimer.scheduleAtFixedRate( loadingTask, 20, 20 );
         }
-        if (percent == 100) {
+        if( percent == 100 ) {
             loadingTimer.cancel( );
         }
         this.loading = percent;
-        
-        Graphics2D g = this.getGraphics( );
-        g.drawImage( loadingImage, 0, 0, null);
 
-        g.setColor( new Color(250, 173, 6) );
+        Graphics2D g = this.getGraphics( );
+        g.drawImage( loadingImage, 0, 0, null );
+
+        g.setColor( new Color( 250, 173, 6 ) );
         g.fillRoundRect( 200, 300, loading * 4, 50, 10, 10 );
-        
-        g.setStroke( new BasicStroke(4.0f) );
-        g.setColor( new Color(90, 32, 2) );
+
+        g.setStroke( new BasicStroke( 4.0f ) );
+        g.setColor( new Color( 90, 32, 2 ) );
         g.drawRoundRect( 200, 300, 400, 50, 10, 10 );
-        
+
         this.endDraw( );
     }
 
