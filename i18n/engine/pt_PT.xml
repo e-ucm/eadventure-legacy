@@ -42,6 +42,7 @@
 <entry key="Reports.InputReportName">Escreva o nome que aparecerá no relatório</entry>
 <entry key="Report.Cancel">Cancelar</entry>
 <entry key="GameText.TextSpeed">Velocidade do Texto</entry>
+<entry key="Language.Internationalize">pt_PT</entry>
 <entry key="GameText.TextGiveNPC2">Não vou fazer isso</entry>
 <entry key="MainWindow.GameDescriptionText">Esta é a descrição do jogo actualmente seleccionado</entry>
 <entry key="GameText.TextGiveNPC1">O Quê??</entry>
