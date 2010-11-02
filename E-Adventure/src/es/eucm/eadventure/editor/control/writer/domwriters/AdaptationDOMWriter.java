@@ -172,7 +172,10 @@ public class AdaptationDOMWriter {
                 Element actionFlag = null;
                 for( int i = 0; i < rule.getAdaptedState( ).getFlagsVars( ).size( ); i++ ) {
                     if( rule.getAdaptedState( ).isFlag( i ) ) {
-                        actionFlag = doc.createElement( rule.getAdaptedState( ).getAction( i ) );
+                        if( AdaptedState.isActivateOp( rule.getAdaptedState( ).getAction( i ) ) )
+                            actionFlag = doc.createElement( "activate" );
+                        if( AdaptedState.isDeactivateOp( rule.getAdaptedState( ).getAction( i ) ) )
+                            actionFlag = doc.createElement( "deactivate" );
                         actionFlag.setAttribute( "flag", rule.getAdaptedState( ).getFlagVar( i ) );
 
                     }
@@ -180,15 +183,15 @@ public class AdaptationDOMWriter {
                         // check if this operation is "set-value"
                         if( AdaptedState.isSetValueOp( rule.getAdaptedState( ).getAction( i ) ) )
                             // get only the title of the operation
-                            actionFlag = doc.createElement( AdaptedState.VALUE );
+                            actionFlag = doc.createElement( "set-value" );
                         // check if this operation is "increment"
                         else if( AdaptedState.isIncrementOp( rule.getAdaptedState( ).getAction( i ) ) )
                             // get only the title of the operation
-                            actionFlag = doc.createElement( AdaptedState.INCREMENT );
+                            actionFlag = doc.createElement( "increment" );
                         // check if this operation is "decrement"
                         else if( AdaptedState.isDecrementOp( rule.getAdaptedState( ).getAction( i ) ) )
                             // get only the title of the operation
-                            actionFlag = doc.createElement( AdaptedState.DECREMENT );
+                            actionFlag = doc.createElement( "decrement" );
 
                         //set the name of the current var
                         actionFlag.setAttribute( "var", rule.getAdaptedState( ).getFlagVar( i ) );
