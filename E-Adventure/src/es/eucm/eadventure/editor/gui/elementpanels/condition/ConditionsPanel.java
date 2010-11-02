@@ -358,8 +358,6 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
     public void editCondition( int index1, int index2 ) {
 
         // Take the actual values of the condition, and display the editing dialog
-        //String stateValue = conditionsTable.getValueAt( selectedCondition, 0 ).toString( );
-        //String flagValue = conditionsTable.getValueAt( selectedCondition, 1 ).toString( );
         HashMap<String, String> properties = getCondition( index1, index2 );
         String defaultId = properties.get( ConditionsPanelController.CONDITION_ID );
         String defaultFlag = properties.get( ConditionsPanelController.CONDITION_ID );
