@@ -1489,6 +1489,7 @@
 <entry key="Book.Doc.Tip">Utilizati acest panou pentru editarea documentatiei cartii</entry>
 <entry key="NextScene.BottomToTop">De jos in sus</entry>
 <entry key="ConversationLine.NewOption">Optiune noua</entry>
+<entry key="Element.Interaction">Actiune</entry>
 <entry key="NPC.ActionsPanelTip">Panou pentru editarea  diferitelor actiuni care pot fi efectuate cu personajul</entry>
 <entry key="Error.LoadData.IO">A aparut o eroare la citirea datelor</entry>
 <entry key="Scene.LookPanelTip">Panou de editare a modului de afisare a scenei</entry>
