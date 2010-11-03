@@ -75,6 +75,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.tools.scene.AddExitTool;
 import es.eucm.eadventure.editor.control.tools.scene.DeleteExitTool;
 import es.eucm.eadventure.editor.control.tools.scene.DuplicateExitTool;
+import es.eucm.eadventure.editor.control.tools.scene.MoveExitTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -105,6 +106,10 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
     private JPanel auxPanel;
 
     private JButton deleteButton;
+    
+    private JButton moveUpButton;
+
+    private JButton moveDownButton;
 
     private JButton duplicateButton;
 
@@ -170,13 +175,19 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 
                 if( table.getSelectedRow( ) >= 0 ) {
                     deleteButton.setEnabled( true );
-                    duplicateButton.setEnabled( true );
+                    duplicateButton.setEnabled( true );  
+                    //Enable moveUp and moveDown buttons when there is more than one element
+                    moveUpButton.setEnabled( dataControl.getExits( ).size( ) > 1 && table.getSelectedRow( ) > 0 );
+                    moveDownButton.setEnabled( dataControl.getExits( ).size( ) > 1 && table.getSelectedRow( ) < table.getRowCount( ) - 1 );
+               
                     iaep.setRectangular( dataControl.getExits( ).get( table.getSelectedRow( ) ) );
                     iaep.repaint( );
                 }
                 else {
                     deleteButton.setEnabled( false );
-                    duplicateButton.setEnabled( false );
+                    duplicateButton.setEnabled( false );   
+                    moveUpButton.setEnabled( false );
+                    moveDownButton.setEnabled( false );
                 }
                 updateAuxPanel( );
                 deleteButton.repaint( );
@@ -225,17 +236,50 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
                 deleteExit( );
             }
         } );
+        
+        moveUpButton = new JButton( new ImageIcon( "img/icons/moveNodeUp.png" ) );
+        moveUpButton.setContentAreaFilled( false );
+        moveUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+        moveUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
+        moveUpButton.setToolTipText( TC.get( "ExitList.MoveUp" ) );
+        moveUpButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                moveUp( );
+            }
+        } );
+        moveUpButton.setEnabled( false );
+        
+        moveDownButton = new JButton( new ImageIcon( "img/icons/moveNodeDown.png" ) );
+        moveDownButton.setContentAreaFilled( false );
+        moveDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+        moveDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
+        moveDownButton.setToolTipText( TC.get( "ExitList.MoveDown" ) );
+        moveDownButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                moveDown( );
+            }
+        } );
+        moveDownButton.setEnabled( false );
+        
         buttonsPanel.setLayout( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.gridx = 0;
         c.gridy = 0;
         buttonsPanel.add( newButton, c );
         c.gridy = 1;
-        buttonsPanel.add( duplicateButton, c );
+        buttonsPanel.add( duplicateButton, c );       
+        c.gridy = 2;
+        buttonsPanel.add( moveUpButton, c );
         c.gridy = 3;
+        buttonsPanel.add( moveDownButton, c );
+        c.gridy = 5;
         buttonsPanel.add( deleteButton, c );
 
-        c.gridy = 2;
+        c.gridy = 4;
         c.fill = GridBagConstraints.VERTICAL;
         c.weighty = 2.0;
         buttonsPanel.add( new JFiller( ), c );
@@ -298,6 +342,18 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
     protected void deleteExit( ) {
 
         Controller.getInstance( ).addTool( new DeleteExitTool( dataControl, table, iaep ) );
+    }
+    
+    private void moveUp( ) {
+
+        Controller.getInstance( ).addTool( new MoveExitTool( dataControl,table, true ) );
+
+    }
+
+    private void moveDown( ) {
+
+        Controller.getInstance( ).addTool( new MoveExitTool( dataControl,table, false ) );
+
     }
 
     protected void updateAuxPanel( ) {

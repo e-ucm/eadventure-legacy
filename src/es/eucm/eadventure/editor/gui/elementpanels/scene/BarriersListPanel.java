@@ -1,38 +1,37 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
- *         research group.
- *  
- *   Copyright 2005-2010 <e-UCM> research group.
+ * research group.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
- *         http://e-adventure.e-ucm.es/contributors
+ * Copyright 2005-2010 <e-UCM> research group.
  * 
- *   <e-UCM> is a research group of the Department of Software Engineering
- *         and Artificial Intelligence at the Complutense University of Madrid
- *         (School of Computer Science).
+ * You can access a list of all the contributors to <e-Adventure> at:
+ * http://e-adventure.e-ucm.es/contributors
  * 
- *         C Profesor Jose Garcia Santesmases sn,
- *         28040 Madrid (Madrid), Spain.
+ * <e-UCM> is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
  * 
- *         For more info please visit:  <http://e-adventure.e-ucm.es> or
- *         <http://www.e-ucm.es>
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
  * 
  * ****************************************************************************
  * 
  * This file is part of <e-Adventure>, version 1.2.
  * 
- *     <e-Adventure> is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Lesser General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ * <e-Adventure> is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  * 
- *     <e-Adventure> is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU Lesser General Public License for more details.
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- *     You should have received a copy of the GNU Lesser General Public License
- *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
@@ -71,6 +70,8 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.tools.scene.AddBarrierTool;
 import es.eucm.eadventure.editor.control.tools.scene.DeleteBarrierTool;
+import es.eucm.eadventure.editor.control.tools.scene.DuplicateBarrierTool;
+import es.eucm.eadventure.editor.control.tools.scene.MoveBarrierTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -80,7 +81,6 @@ import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 
 public class BarriersListPanel extends JPanel implements Updateable, DataControlsPanel, DataControlSelectionListener {
-
 
     private static final long serialVersionUID = 1L;
 
@@ -93,7 +93,11 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
     private JButton deleteButton;
 
     private JButton duplicateButton;
-    
+
+    private JButton moveUpButton;
+
+    private JButton moveDownButton;
+
     private static final int HORIZONTAL_SPLIT_POSITION = 140;
 
     /**
@@ -108,9 +112,9 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
         String scenePath = Controller.getInstance( ).getSceneImagePath( barriersListDataControl.getParentSceneId( ) );
         spep = new ScenePreviewEditionPanel( false, scenePath );
         this.setRectangular( );
-    
+
         setLayout( new BorderLayout( ) );
-        
+
         JPanel tablePanel = createTablePanel( );
 
         JSplitPane tableWithSplit = new JSplitPane( JSplitPane.VERTICAL_SPLIT, tablePanel, spep );
@@ -124,20 +128,21 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
         spep.setDataControlSelectionListener( this );
         addElementsToPreview( scenePath );
     }
-    
-    public void setRectangular(  ) {
-            spep.changeController( new NormalScenePreviewEditionController( spep ) );
-            spep.setShowTextEdition( true );
-            spep.setMovableCategory( ScenePreviewEditionPanel.CATEGORY_POINT, false );
-            spep.removeElements( ScenePreviewEditionPanel.CATEGORY_POINT );
+
+    public void setRectangular( ) {
+
+        spep.changeController( new NormalScenePreviewEditionController( spep ) );
+        spep.setShowTextEdition( true );
+        spep.setMovableCategory( ScenePreviewEditionPanel.CATEGORY_POINT, false );
+        spep.removeElements( ScenePreviewEditionPanel.CATEGORY_POINT );
         this.updateUI( );
     }
-  
+
     private JPanel createTablePanel( ) {
 
         JPanel tablePanel = new JPanel( );
-        
- 		table = new BarriersTable( dataControl );
+
+        table = new BarriersTable( dataControl );
         JScrollPane scroll = new TableScrollPane( table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 
         scroll.setMinimumSize( new Dimension( 0, HORIZONTAL_SPLIT_POSITION ) );
@@ -149,12 +154,18 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
                 if( table.getSelectedRow( ) >= 0 && table.getSelectedRow( ) < dataControl.getBarriers( ).size( ) ) {
                     deleteButton.setEnabled( true );
                     duplicateButton.setEnabled( true );
+                    //Enable moveUp and moveDown buttons when there is more than one element
+                    moveUpButton.setEnabled( dataControl.getBarriers( ).size( ) > 1 && table.getSelectedRow( ) > 0 );
+                    moveDownButton.setEnabled( dataControl.getBarriers( ).size( ) > 1 && table.getSelectedRow( ) < table.getRowCount( ) - 1 );
+
                     spep.setSelectedElement( dataControl.getBarriers( ).get( table.getSelectedRow( ) ) );
                     spep.repaint( );
                 }
                 else {
                     deleteButton.setEnabled( false );
                     duplicateButton.setEnabled( false );
+                    moveUpButton.setEnabled( false );
+                    moveDownButton.setEnabled( false );
                 }
                 deleteButton.repaint( );
             }
@@ -200,6 +211,34 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
             }
         } );
 
+        moveUpButton = new JButton( new ImageIcon( "img/icons/moveNodeUp.png" ) );
+        moveUpButton.setContentAreaFilled( false );
+        moveUpButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+        moveUpButton.setBorder( BorderFactory.createEmptyBorder( ) );
+        moveUpButton.setToolTipText( TC.get( "BarrierList.MoveUp" ) );
+        moveUpButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                moveUp( );
+            }
+        } );
+        moveUpButton.setEnabled( false );
+
+        moveDownButton = new JButton( new ImageIcon( "img/icons/moveNodeDown.png" ) );
+        moveDownButton.setContentAreaFilled( false );
+        moveDownButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+        moveDownButton.setBorder( BorderFactory.createEmptyBorder( ) );
+          moveDownButton.setToolTipText( TC.get( "BarrierList.MoveDown" ) );
+        moveDownButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                moveDown( );
+            }
+        } );
+        moveDownButton.setEnabled( false );
+
         buttonsPanel.setLayout( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.gridx = 0;
@@ -207,10 +246,14 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
         buttonsPanel.add( newButton, c );
         c.gridy = 1;
         buttonsPanel.add( duplicateButton, c );
+        c.gridy = 2;
+        buttonsPanel.add( moveUpButton, c );
         c.gridy = 3;
+        buttonsPanel.add( moveDownButton, c );
+        c.gridy = 5;
         buttonsPanel.add( deleteButton, c );
 
-        c.gridy = 2;
+        c.gridy = 4;
         c.fill = GridBagConstraints.VERTICAL;
         c.weighty = 2.0;
         buttonsPanel.add( new JFiller( ), c );
@@ -261,24 +304,33 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 
     protected void addBarrier( ) {
 
-        Controller.getInstance( ).addTool( new AddBarrierTool( dataControl, spep ) );
+        String defaultId = dataControl.getDefaultId( );
+
+        Controller.getInstance( ).addTool( new AddBarrierTool( dataControl, defaultId, spep ) );
         ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
         table.changeSelection( dataControl.getBarriers( ).size( ) - 1, dataControl.getBarriers( ).size( ) - 1, false, false );
     }
 
     protected void duplicateBarrier( ) {
 
-        if( dataControl.duplicateElement( dataControl.getBarriers( ).get( table.getSelectedRow( ) ) ) ) {
-            spep.addBarrier( dataControl.getLastBarrier( ) );
-            spep.repaint( );
-            ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
-            table.changeSelection( dataControl.getBarriers( ).size( ) - 1, dataControl.getBarriers( ).size( ) - 1, false, false );
-        }
+        Controller.getInstance( ).addTool( new DuplicateBarrierTool( dataControl, spep, table ) );
     }
 
     protected void deleteBarrier( ) {
 
         Controller.getInstance( ).addTool( new DeleteBarrierTool( dataControl, table, spep ) );
+    }
+
+    private void moveUp( ) {
+
+        Controller.getInstance( ).addTool( new MoveBarrierTool( dataControl, table, true ) );
+
+    }
+
+    private void moveDown( ) {
+
+        Controller.getInstance( ).addTool( new MoveBarrierTool( dataControl, table, false ) );
+
     }
 
     public boolean updateFields( ) {
@@ -324,5 +376,5 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
         else
             table.clearSelection( );
     }
-    
+
 }

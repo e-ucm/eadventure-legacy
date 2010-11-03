@@ -36,6 +36,9 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.control.tools.scene;
 
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
@@ -43,20 +46,20 @@ import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataContr
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class AddBarrierTool extends Tool {
+public class DuplicateBarrierTool extends Tool {
 
     private BarriersListDataControl dataControl;
 
     private ScenePreviewEditionPanel spep;
-    
-    private String id;
+
+    private JTable table;
 
     private BarrierDataControl newBarrier;
 
-    public AddBarrierTool( BarriersListDataControl dataControl, String id, ScenePreviewEditionPanel spep2 ) {
+    public DuplicateBarrierTool( BarriersListDataControl dataControl2, ScenePreviewEditionPanel spep2, JTable table2 ) {
 
-        this.dataControl = dataControl;
-        this.id = id;
+        this.dataControl = dataControl2;
+        this.table = table2;
         this.spep = spep2;
     }
 
@@ -81,10 +84,17 @@ public class AddBarrierTool extends Tool {
     @Override
     public boolean doTool( ) {
 
-        if( dataControl.addElement( dataControl.getAddableElements( )[0], id ) ) {
+        
+        if( dataControl.duplicateElement( dataControl.getBarriers( ).get( table.getSelectedRow( ) ) ) ) {
             newBarrier = dataControl.getLastBarrier( );
             spep.addBarrier( dataControl.getLastBarrier( ) );
             spep.repaint( );
+            ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
+            table.changeSelection( dataControl.getBarriers( ).size( ) - 1, dataControl.getBarriers( ).size( ) - 1, false, false );
+           //table.editCellAt( dataControl.getActiveAreas( ).size( ) - 1, 0 );
+          //  if( table.isEditing( ) ) {
+          //      table.getEditorComponent( ).requestFocusInWindow( );
+          //  }
             return true;
         }
         return false;
@@ -93,9 +103,10 @@ public class AddBarrierTool extends Tool {
     @Override
     public boolean redoTool( ) {
 
-        dataControl.getBarriersList( ).add( (Barrier) newBarrier.getContent( ) );
         dataControl.getBarriers( ).add( newBarrier );
+        dataControl.getBarriersList( ).add( (Barrier) newBarrier.getContent( ) );
         spep.addBarrier( dataControl.getLastBarrier( ) );
+        Controller.getInstance( ).getIdentifierSummary( ).addActiveAreaId( newBarrier.getId( ) );
         Controller.getInstance( ).updatePanel( );
         return true;
     }
