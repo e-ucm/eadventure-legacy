@@ -36,28 +36,36 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.control.tools.scene;
 
-import es.eucm.eadventure.common.data.chapter.elements.Barrier;
-import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataControl;
+import javax.swing.JTable;
+
+import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
-import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class AddBarrierTool extends Tool {
-
-    private BarriersListDataControl dataControl;
-
-    private ScenePreviewEditionPanel spep;
+/**
+ * That tool edit the changes in active area layer because of the fact of active areas's
+ * movements in ScenePanel table
+ * 
+ */
+public class MoveActiveAreaTool extends Tool {
     
-    private String id;
+    private ActiveAreasListDataControl dataControl;
 
-    private BarrierDataControl newBarrier;
+    private JTable table;
 
-    public AddBarrierTool( BarriersListDataControl dataControl, String id, ScenePreviewEditionPanel spep2 ) {
+    private boolean moveUp;
 
-        this.dataControl = dataControl;
-        this.id = id;
-        this.spep = spep2;
+    private ActiveAreaDataControl element;
+
+    private int position;
+
+    public MoveActiveAreaTool( ActiveAreasListDataControl dataControl2, JTable table2, boolean isMoveUp ) {
+
+        this.dataControl = dataControl2;
+        this.table = table2;
+        this.moveUp = isMoveUp;
+        position = table.getSelectedRow( );
+        element = dataControl.getActiveAreas( ).get( position );
     }
 
     @Override
@@ -81,31 +89,37 @@ public class AddBarrierTool extends Tool {
     @Override
     public boolean doTool( ) {
 
-        if( dataControl.addElement( dataControl.getAddableElements( )[0], id ) ) {
-            newBarrier = dataControl.getLastBarrier( );
-            spep.addBarrier( dataControl.getLastBarrier( ) );
-            spep.repaint( );
-            return true;
+        action( moveUp );
+        return true;
+    }
+
+    private void action( boolean up ) {
+
+        // do moveDown 
+        if( !up && dataControl.moveElementDown( element ) ) {
+            table.getSelectionModel( ).setSelectionInterval( position + 1, position + 1 );
+            table.updateUI( );
         }
-        return false;
+        //do moveUp
+        if( up && dataControl.moveElementUp( element ) ) {
+            table.getSelectionModel( ).setSelectionInterval( position - 1, position - 1 );
+            table.updateUI( );
+        }
+        moveUp = !moveUp;
     }
 
     @Override
     public boolean redoTool( ) {
 
-        dataControl.getBarriersList( ).add( (Barrier) newBarrier.getContent( ) );
-        dataControl.getBarriers( ).add( newBarrier );
-        spep.addBarrier( dataControl.getLastBarrier( ) );
-        Controller.getInstance( ).updatePanel( );
+        action( moveUp );
         return true;
     }
 
     @Override
     public boolean undoTool( ) {
 
-        dataControl.deleteElement( newBarrier, false );
-        spep.removeElement( newBarrier );
-        Controller.getInstance( ).updatePanel( );
+        action( moveUp );
         return true;
     }
+
 }

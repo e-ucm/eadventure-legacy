@@ -163,7 +163,7 @@ public class BarriersListDataControl extends DataControl {
         boolean elementAdded = false;
 
         if( type == Controller.BARRIER ) {
-            Barrier newBarrier = new Barrier( Integer.toString( id ), 200, 200, 100, 100 );
+            Barrier newBarrier = new Barrier(  barrierId, 200, 200, 100, 100 );
             id++;
             BarrierDataControl newBarrierDataControl = new BarrierDataControl( sceneDataControl, newBarrier );
             barriersList.add( newBarrier );
@@ -174,6 +174,11 @@ public class BarriersListDataControl extends DataControl {
         return elementAdded;
     }
 
+    public String getDefaultId( ) {
+
+        return Integer.toString( id );
+    }
+    
     @Override
     public boolean duplicateElement( DataControl dataControl ) {
 
@@ -182,7 +187,8 @@ public class BarriersListDataControl extends DataControl {
 
         try {
             Barrier newElement = (Barrier) ( ( (Barrier) ( dataControl.getContent( ) ) ).clone( ) );
-            newElement.setId( Integer.toString( id ) );
+           
+            newElement.setId( Integer.toString( id ));
             id++;
             barriersList.add( newElement );
             barriersDataControlList.add( new BarrierDataControl( sceneDataControl, newElement ) );
@@ -259,7 +265,7 @@ public class BarriersListDataControl extends DataControl {
 
         boolean valid = true;
 
-        // Iterate through the activeAreas
+        // Iterate through the barriers
         for( int i = 0; i < barriersDataControlList.size( ); i++ ) {
             String activeAreaPath = currentPath + " >> " + TC.getElement( Controller.BARRIER ) + " #" + ( i + 1 );
             valid &= barriersDataControlList.get( i ).isValid( activeAreaPath, incidences );

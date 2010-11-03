@@ -89,7 +89,7 @@ public class BarriersTable extends JTable {
         public Object getValueAt( int rowIndex, int columnIndex ) {
 
             if( columnIndex == 0 )
-                return TC.get( "BarriersList.BarrierNumber" ) + ( rowIndex + 1 );
+                return TC.get( "BarriersList.BarrierNumber" ) + dataControl.getBarriers( ).get( rowIndex ).getId( );
             if( columnIndex == 1 )
                 return dataControl.getBarriers( ).get( rowIndex ).getConditions( );
             return null;
