@@ -1450,6 +1450,7 @@
 <entry key="Operation.AddGlobalStateDefaultValue">IdGlobalZustand</entry>
 <entry key="Error.LoadDescriptor.NoDescriptor">Es trat ein Fehler beim Lesen der Abenteuer descriptor Datei: descriptor Datei fehlt</entry>
 <entry key="LinesPanel.DialogueNode">Unterhaltungsknoten</entry>
+<entry key="Animation.Image">Bild</entry>
 <entry key="IMS.General.Catalog">Katalog</entry>
 <entry key="ExitsList.Edit">Bearbeiten</entry>
 <entry key="Flags.Title">Flags</entry>
@@ -1514,6 +1515,7 @@
 <entry key="Error.LoadAssessmentData.SAX">Ein Fehler ist aufgetreten mit der Konsistenz der XML-Daten</entry>
 <entry key="IMS.Rights.Tip">Rights Data</entry>
 <entry key="Buttons.Information">Hier kannst du anpassen, wie die Aktions Buttons aussiehen. Wenn nicht angepasst, wird standardmäßig Tasten im Spiel verwendet.</entry>
+<entry key="Animation.Sound">Spielen</entry>
 <entry key="MoveObjectEffect.NoSceneSelected">Keine ausgewählte Szene</entry>
 <entry key="SCORMDialog.Title">Edcición del atributo {#1} de SCORM {#0}.</entry>
 <entry key="SmallAction.Conditions">Bedigungen</entry>

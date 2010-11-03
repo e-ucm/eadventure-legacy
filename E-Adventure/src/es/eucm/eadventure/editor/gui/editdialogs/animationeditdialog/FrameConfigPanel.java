@@ -145,7 +145,7 @@ public class FrameConfigPanel extends JPanel {
 
         JPanel imageAssetPanel = new JPanel( );
         imageAssetPanel.setLayout( new GridBagLayout( ) );
-        imageAssetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Imagen" ) );
+        imageAssetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Animation.Image" ) ) );
         GridBagConstraints c2 = new GridBagConstraints( );
         c2.insets = new Insets( 2, 2, 2, 2 );
         c2.fill = GridBagConstraints.NONE;
@@ -184,7 +184,7 @@ public class FrameConfigPanel extends JPanel {
 
         JPanel soundAssetPanel = new JPanel( );
         soundAssetPanel.setLayout( new GridBagLayout( ) );
-        soundAssetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Sound" ) );
+        soundAssetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Animation.Sound" ) ) );
         GridBagConstraints c2 = new GridBagConstraints( );
         c2.insets = new Insets( 2, 2, 2, 2 );
         c2.fill = GridBagConstraints.NONE;

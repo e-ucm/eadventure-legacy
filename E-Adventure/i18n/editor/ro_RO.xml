@@ -1254,8 +1254,8 @@
 <entry key="LOM.Educational.LearningResourceType4">Prelegere</entry>
 <entry key="LOM.Educational.LearningResourceType3">Autoevaluare</entry>
 <entry key="LOM.Educational.LearningResourceType2">Examen</entry>
-<entry key="LOM.Educational.LearningResourceType1">Simulare</entry>
 <entry key="LOMES.TaxonPath.Name">cale taxon</entry>
+<entry key="LOM.Educational.LearningResourceType1">Simulare</entry>
 <entry key="LOM.Educational.LearningResourceType0">Exercitiu</entry>
 <entry key="NextScene.Title">Scena urmatoare</entry>
 <entry key="Operation.ExportToLOM.LOMName">Numele obiectului de invatare</entry>
@@ -1440,6 +1440,7 @@
 <entry key="Operation.AddGlobalStateDefaultValue">ID Status Global</entry>
 <entry key="Error.LoadDescriptor.NoDescriptor">A aparut o eroare la citirea fisierului de descriere a aventurii: fisierul de descriere lipseste. </entry>
 <entry key="LinesPanel.DialogueNode">Nod de dialog</entry>
+<entry key="Animation.Image">Imagine</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="ExitsList.Edit">Editare</entry>
 <entry key="Flags.Title">Marcatori</entry>
@@ -1471,8 +1472,8 @@
 <entry key="LOMES.Educational.CognitiveProcess0">Analiza</entry>
 <entry key="Inventory.highlightedleft.Tip">Aceasta este sageata la stanga evidentiata</entry>
 <entry key="Conditions.Context.2.231">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va fi intotdeauna executabila&lt;/b&gt;, daca nicio conditie nu a fost definita:</entry>
-<entry key="Conditions.Context.2.230">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va fi intotdeauna executabila&lt;/b&gt;, daca nicio conditie nu a fost definita:</entry>
 <entry key="LOMES.Technical.Name">Nume</entry>
+<entry key="Conditions.Context.2.230">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va fi intotdeauna executabila&lt;/b&gt;, daca nicio conditie nu a fost definita:</entry>
 <entry key="ExitList.MoveDown">Coborati referinta cu un nivel</entry>
 <entry key="ActionsList.TalkToAction">Vorbeste cu...</entry>
 <entry key="Operation.FileNotSavedTitle">Proiectul nu a fost salvat!</entry>
@@ -1505,6 +1506,7 @@
 <entry key="Error.LoadAssessmentData.SAX">A aparut o eroare la consistenta XML  a datelor de evaluare</entry>
 <entry key="IMS.Rights.Tip">Drepturi</entry>
 <entry key="Buttons.Information">Aici puteti stabili cum sa arate butonul de actiune. Cand nu este prestabilit, butonul implicit va fi utilizat in joc. </entry>
+<entry key="Animation.Sound">Sunet</entry>
 <entry key="MoveObjectEffect.NoSceneSelected">Nicio scena selectata</entry>
 <entry key="SCORMDialog.Title">Editare atribut SCORM  {#0} {#1} </entry>
 <entry key="SmallAction.Conditions">Conditii</entry>
