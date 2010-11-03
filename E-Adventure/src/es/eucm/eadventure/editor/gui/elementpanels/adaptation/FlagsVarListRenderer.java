@@ -49,18 +49,17 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
-import es.eucm.eadventure.editor.gui.editdialogs.GenericOptionPaneDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.VarDialog;
 
 public class FlagsVarListRenderer extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
@@ -210,8 +209,10 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
             // set the operations
             operations = new String[] { TC.get( "Effect.Activate" ), TC.get( "Effect.Deactivate" )};
         }
-
+        
         // label for action name
+        selectedAction = getActionNameFromEngineName(selectedAction);
+        
         JLabel actionName = new JLabel( selectedAction );
         JPanel labelCont = new JPanel( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
@@ -223,6 +224,7 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
         // button to edit the action
         JButton edit = new JButton( TC.get( "GeneralText.Edit" ) );
         edit.addActionListener( new EditButtonListener( operations, varVal, rowIndex, selectedAction ) );
+        
 
         // the component to show
         JPanel component = new JPanel( new GridLayout( 0, 2 ) );
@@ -242,6 +244,47 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 
         return component;
 
+    }
+    
+    
+    private String getActionNameFromEngineName(String i18n){
+        
+        if (i18n.equalsIgnoreCase( AdaptedState.ACTIVATE ))
+            i18n = TC.get( "Effect.Activate" );
+        else if (i18n.equalsIgnoreCase(AdaptedState.DEACTIVATE  ))
+            i18n = TC.get( "Effect.Deactivate" );
+        else if (i18n.equalsIgnoreCase(AdaptedState.INCREMENT  ))
+            i18n = TC.get( "Effect.Increment" );
+        else if (i18n.equalsIgnoreCase( AdaptedState.DECREMENT ))
+            i18n = TC.get( "Effect.Decrement" );
+        else if (i18n.equalsIgnoreCase( AdaptedState.VALUE ))
+            i18n =  TC.get( "Effect.Option.SetValue" );
+        
+        return i18n;
+    }
+    
+    /**
+     * This method takes the i18n name and change it to engine action name
+     *  
+     * @return
+     */
+    private String getActionNameFromi18n(String i18n){
+        
+        String[] split = i18n.split( " " );
+        if (split[0].equalsIgnoreCase( TC.get( "Effect.Activate" ) ))
+            split[0] = AdaptedState.ACTIVATE;
+        else if (split[0].equalsIgnoreCase( TC.get( "Effect.Deactivate" ) ))
+            split[0] = AdaptedState.DEACTIVATE ;
+        else if (split[0].equalsIgnoreCase( TC.get( "Effect.Increment" ) ))
+            split[0] = AdaptedState.INCREMENT;
+        else if (split[0].equalsIgnoreCase( TC.get( "Effect.Decrement" ) ))
+            split[0] = AdaptedState.DECREMENT ;
+        else if (split[0].equalsIgnoreCase( TC.get( "Effect.Option.SetValue" ) ))
+            split[0] = AdaptedState.VALUE ;
+        if (split.length==1)
+            return split[0];
+        else  
+            return split[0] + " " + split[1];
     }
 
     /**
@@ -339,24 +382,18 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 
             // ask for new values
             VarDialog dialog = new VarDialog( varVal, actions, action );
-            // set new values
-            if( dialog.getValue( ).equals( VarDialog.ERROR ) ) {
-                //TODO i18n
-                GenericOptionPaneDialog.showMessageDialog( null, "asiiii no", "asiiii no", JOptionPane.ERROR_MESSAGE );
-            }
-            else {
                 if( !dialog.getValue( ).equals( VarDialog.CLOSE ) ) {
                     if( value instanceof AdaptationRuleDataControl ) {
-                        ( (AdaptationRuleDataControl) value ).setAction( rowIndex, dialog.getValue( ) );
+                        ( (AdaptationRuleDataControl) value ).setAction( rowIndex,  getActionNameFromi18n(dialog.getValue( )) );
                     }
                     else if( value instanceof AdaptationProfileDataControl ) {
-                        ( (AdaptationProfileDataControl) value ).setAction( rowIndex, dialog.getValue( ) );
+                        ( (AdaptationProfileDataControl) value ).setAction( rowIndex, getActionNameFromi18n(dialog.getValue( )) );
                     }
                     // actualize varVal with new introduced value
                     if( varVal >= 0 )
                         varVal = Integer.parseInt( dialog.getValue( ).split( " " )[1] );
                     stopCellEditing( );
-                }
+                
             }
 
         }

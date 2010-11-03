@@ -67,13 +67,9 @@ public class VarDialog extends JDialog {
 
     private static final long serialVersionUID = 2389765067746677296L;
 
-    public static final String ERROR = "error";
-
     public static final String CLOSE = "close";
 
     private WholeNumberField value;
-
-    private boolean err;
 
     private JComboBox actions;
 
@@ -86,7 +82,6 @@ public class VarDialog extends JDialog {
         // Call to the JDialog constructor
         super( Controller.getInstance( ).peekWindow( ), TC.get( "VarDialog.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
 
-        err = false;
         close = false;
         isVar = true;
         if( var == -1 ) {
@@ -152,9 +147,8 @@ public class VarDialog extends JDialog {
 
     public String getValue( ) {
 
-        if( err )
-            return ERROR;
-        else if( close )
+        
+        if( close )
             return CLOSE;
         else if( isVar )
             return (String) actions.getSelectedItem( ) + " " + value.getText( );
@@ -227,7 +221,6 @@ public class VarDialog extends JDialog {
                     else {
                         toolkit.beep( );
                         Controller.getInstance( ).showErrorDialog( TC.get( "VarDialog.Err.Title" ), TC.get( "VarDialog.Err.Message" ) );
-                        err = false;
                     }
                 }
                 super.insertString( offs, new String( result, 0, j ), a );
