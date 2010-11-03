@@ -39,6 +39,7 @@ package es.eucm.eadventure.common.data.chapter.elements;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.Rectangle;
@@ -253,6 +254,10 @@ public class ActiveArea extends Item implements Rectangle {
     public Object clone( ) throws CloneNotSupportedException {
 
         ActiveArea aa = (ActiveArea) super.clone( );
+        
+        //can not be two identical id
+        String id = aa.getId( ) + "-" + ( new Random( ) ).nextInt( 1000 );
+        aa.setId( id );
         aa.conditions = ( conditions != null ? (Conditions) conditions.clone( ) : null );
         aa.height = height;
         aa.width = width;
