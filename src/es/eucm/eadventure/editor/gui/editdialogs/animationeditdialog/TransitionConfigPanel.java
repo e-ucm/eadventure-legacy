@@ -51,6 +51,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.animation.Transition;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.animation.TransitionDataControl;
 
 public class TransitionConfigPanel extends JPanel {
@@ -75,7 +76,7 @@ public class TransitionConfigPanel extends JPanel {
         this.setLayout( new GridLayout( 1, 1 ) );
 
         JPanel temp2 = new JPanel( );
-        temp2.add( new JLabel( "Duration" + ": " ) );
+        temp2.add( new JLabel( TC.get( "Animation.Duration" ) + ": " ) );
         SpinnerModel sm = new SpinnerNumberModel( transitionDataControl.getTime( ), 0, 10000, 100 );
         spinner = new JSpinner( sm );
         spinner.addChangeListener( new ChangeListener( ) {

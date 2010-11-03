@@ -1553,6 +1553,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Operation.AddGlobalStateDefaultValue">GlobalStateId</entry>
 <entry key="Error.LoadDescriptor.NoDescriptor">An error occurred reading the adventure descriptor file: descriptor file is missing</entry>
 <entry key="LinesPanel.DialogueNode">Dialogue node</entry>
+<entry key="Animation.Image">Image</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="ExitsList.Edit">Edit</entry>
 <entry key="Flags.Title">Flags</entry>
@@ -1619,6 +1620,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="IMS.Rights.Tip">Rights Data</entry>
 <entry key="Buttons.Information">Here you can customize how the action buttons look. 
 When not customized, default buttons will be used in the game.</entry>
+<entry key="Animation.Sound">Sound</entry>
 <entry key="MoveObjectEffect.NoSceneSelected">No scene selected</entry>
 <entry key="SCORMDialog.Title">Edit the SCORM {#0} {#1} attribute.</entry>
 <entry key="SmallAction.Conditions">Conditions</entry>

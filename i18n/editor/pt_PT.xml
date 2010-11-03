@@ -1383,6 +1383,7 @@
 <entry key="Operation.AddGlobalStateDefaultValue">IdEstadoGlobal</entry>
 <entry key="Error.LoadDescriptor.NoDescriptor">Ocorreu um problema a ler o descriptor da aventura: o descriptor não se encuentram</entry>
 <entry key="LinesPanel.DialogueNode">Nó de diálogo</entry>
+<entry key="Animation.Image">Imagem</entry>
 <entry key="IMS.General.Catalog">Catálogo</entry>
 <entry key="ExitsList.Edit">Editar</entry>
 <entry key="Flags.Title">Flags</entry>
@@ -1446,6 +1447,7 @@
 <entry key="Error.LoadAssessmentData.SAX">Ocorreu um problema com a consistencia XML dos dados de avaliação</entry>
 <entry key="IMS.Rights.Tip">Dados sobre os direitos</entry>
 <entry key="Buttons.Information">Desde este menu pode personalizar a aparência dos botões para as distintas acções do jogo. Se não os altera, o jogo empregara os botões por defeito.</entry>
+<entry key="Animation.Sound">Som</entry>
 <entry key="MoveObjectEffect.NoSceneSelected">Nenhuma cena seleccionada</entry>
 <entry key="SCORMDialog.Title">Edição do atributo {#1} de SCORM {#0}</entry>
 <entry key="SmallAction.Conditions">Condições</entry>

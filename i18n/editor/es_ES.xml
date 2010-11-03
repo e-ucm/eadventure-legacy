@@ -796,8 +796,8 @@ función de estos estados</entry>
 <entry key="Element.Name25">Entregar a</entry>
 <entry key="Element.Name24">Usar con</entry>
 <entry key="TriggerCutsceneEffect.Description">Seleccione la escena intermedia que se ejecutará:</entry>
-<entry key="Element.Name23">Usar</entry>
 <entry key="LOMES.Rights.AccessDescription">Descripción del acceso</entry>
+<entry key="Element.Name23">Usar</entry>
 <entry key="Effect.SpeakPlayer">Protagonista dice</entry>
 <entry key="Element.Name22">Coger</entry>
 <entry key="Element.Name21">Examinar</entry>
@@ -1558,6 +1558,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="Operation.AddGlobalStateDefaultValue">IdEstadoGlobal</entry>
 <entry key="Error.LoadDescriptor.NoDescriptor">Ocurrió un problema al leer el descriptor de la aventura: el descriptor no se encuentra</entry>
 <entry key="LinesPanel.DialogueNode">Nodo de diálogo</entry>
+<entry key="Animation.Image">Imagen</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="ExitsList.Edit">Editar</entry>
 <entry key="ImageEdition.NoTransparencyAllowed">Este tipo de imagen no admite transparencia</entry>
@@ -1626,6 +1627,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="IMS.Rights.Tip">Rights Data</entry>
 <entry key="Buttons.Information"> Desde este menú puede personalizar la apariencia de los botones para las distintas acciones del juego. 
 Si no los cambia, el juego empleará los botones por defecto.</entry>
+<entry key="Animation.Sound">Sonido</entry>
 <entry key="MoveObjectEffect.NoSceneSelected">Ninguna escena seleccionada</entry>
 <entry key="SCORMDialog.Title">Edcición del atributo {#1} de SCORM {#0}.</entry>
 <entry key="SmallAction.Conditions">Condiciones</entry>
