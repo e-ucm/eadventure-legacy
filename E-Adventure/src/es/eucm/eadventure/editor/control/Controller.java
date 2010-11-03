@@ -591,7 +591,7 @@ public class Controller {
     public String getLastDirectory( ) {
 
         if( lastDialogDirectory != null ) {
-            return lastDialogDirectory;
+            return lastDialogDirectory; 
         }
         else
             return ReleaseFolders.projectsFolder( ).getAbsolutePath( );

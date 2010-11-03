@@ -1266,8 +1266,8 @@
 <entry key="LOM.Educational.LearningResourceType4">Lecture</entry>
 <entry key="LOM.Educational.LearningResourceType3">Self assessment</entry>
 <entry key="LOM.Educational.LearningResourceType2">Exam</entry>
-<entry key="LOM.Educational.LearningResourceType1">Simulation</entry>
 <entry key="LOMES.TaxonPath.Name">Ruta Taxonómica</entry>
+<entry key="LOM.Educational.LearningResourceType1">Simulation</entry>
 <entry key="LOM.Educational.LearningResourceType0">Exercise</entry>
 <entry key="NextScene.Title">Nächste Szene</entry>
 <entry key="Operation.ExportToLOM.LOMName">Name des Lernobjekt</entry>
@@ -1498,6 +1498,7 @@
 <entry key="Book.Doc.Tip">Benutzen Sie dieses Eingabefeld für die Ausgabe des Buches Dokumentation</entry>
 <entry key="NextScene.BottomToTop">Von Unter nach Oben</entry>
 <entry key="ConversationLine.NewOption">Neue Option</entry>
+<entry key="Element.Interaction">Interaktion</entry>
 <entry key="NPC.ActionsPanelTip">Panel para editar las distintas acciones disponibles para realizar con el personaje</entry>
 <entry key="Error.LoadData.IO">Es trat ein Problem beim Lesen von Daten</entry>
 <entry key="Scene.LookPanelTip">Panel para la edición de apariencias alternativas para la escena</entry>

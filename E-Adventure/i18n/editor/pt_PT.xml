@@ -1431,6 +1431,7 @@
 <entry key="Book.Doc.Tip">Painel para introduzir a documentação do livro</entry>
 <entry key="NextScene.BottomToTop">De abaixo para acima</entry>
 <entry key="ConversationLine.NewOption">Nova opção</entry>
+<entry key="Element.Interaction">Interacção</entry>
 <entry key="NPC.ActionsPanelTip">Painel para editar as distintas acções disponíveis para realizar com o personagem</entry>
 <entry key="Error.LoadData.IO">Ocorreu um problema um ler os dados</entry>
 <entry key="Scene.LookPanelTip">Painel para a edição de aparências alternativas para a cena</entry>

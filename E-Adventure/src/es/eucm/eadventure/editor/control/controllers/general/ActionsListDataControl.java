@@ -40,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
@@ -239,9 +241,8 @@ public class ActionsListDataControl extends DataControl {
                 name = "NONAME_" + ( new Random( ) ).nextInt( 1000 );
             }
 
-            String[] options = { "Action", "Interaction" };
-            //int option = JOptionPane.showOptionDialog( null, TC.get( "CustomAction.SelectTypeMessage" ), TC.get( "CustomAction.SelectTypeTitle" ), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0 );
-            int option = controller.showOptionDialog( TC.get( "CustomAction.SelectTypeTitle" ), TC.get( "CustomAction.SelectTypeMessage" ), options ) ;
+            String[] options = { TC.get( "Element.Action" ), TC.get( "Element.Interaction" )};
+            int option = JOptionPane.showOptionDialog( null, TC.get( "CustomAction.SelectTypeMessage" ), TC.get( "CustomAction.SelectTypeTitle" ), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0 );
             if( option == 0 ) {
                 newAction = new CustomAction( Action.CUSTOM );
                 ( (CustomAction) newAction ).setName( name );

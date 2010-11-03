@@ -606,8 +606,8 @@ It's strongly recommended that you backup your project before continuing.</entry
 <entry key="LOMES.Rights.CopyAndOthers5">public domain</entry>
 <entry key="LOMES.Rights.CopyAndOthers4">other free software licenses</entry>
 <entry key="Error.EffectMovePlayerNotAllowed.Message">Sorry, but the move player effect is not supported for the current adventure mode.</entry>
-<entry key="Conditions.Title">Conditions</entry>
 <entry key="LOMES.Rights.CopyAndOthers3">dual free content license GPL and EUPL</entry>
+<entry key="Conditions.Title">Conditions</entry>
 <entry key="LOMES.Rights.CopyAndOthers2">free software license GPL</entry>
 <entry key="LOMES.Rights.CopyAndOthers1">free software license EUPL</entry>
 <entry key="LOMES.Rights.CopyAndOthers0">propietary license</entry>
@@ -1602,6 +1602,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Book.Doc.Tip">Use this panel for the edition of the book's documentation</entry>
 <entry key="NextScene.BottomToTop">Bottom to top</entry>
 <entry key="ConversationLine.NewOption">New option</entry>
+<entry key="Element.Interaction">Interaction</entry>
 <entry key="NPC.ActionsPanelTip">Panel for the edition of the different actions that can be performed with the character</entry>
 <entry key="Error.LoadData.IO">An error occurred reading the data</entry>
 <entry key="Scene.LookPanelTip">Panel for the edition of the different appearances of the scene</entry>

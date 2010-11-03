@@ -1609,6 +1609,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="Book.Doc.Tip">Panel para introducir la documentación del libro</entry>
 <entry key="NextScene.BottomToTop">De abajo hacia arriba</entry>
 <entry key="ConversationLine.NewOption">Nueva opción</entry>
+<entry key="Element.Interaction">Interacción</entry>
 <entry key="NPC.ActionsPanelTip">Panel para editar las distintas acciones disponibles para realizar con el personaje</entry>
 <entry key="Error.LoadData.IO">Ocurrió un problema al leer los datos</entry>
 <entry key="Scene.LookPanelTip">Panel para la edición de apariencias alternativas para la escena</entry>
