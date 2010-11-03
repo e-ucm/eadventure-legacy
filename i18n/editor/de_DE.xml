@@ -696,6 +696,7 @@
 <entry key="EffectsGroup.GameState">Spiel Zustand wechseln</entry>
 <entry key="Adventure.ModePlayerVisible.Name">Unsichtbarer Spieler</entry>
 <entry key="LOMES.LifeCycle.DateTitle">Neues Datum erstellen</entry>
+<entry key="Assessment.Column.RepeatRule">Wiederholen Bewertung Regel</entry>
 <entry key="Operation.IdErrorTitle">ID Fehler</entry>
 <entry key="ItemReferencesList.PreviewTitle">Referenzen Positionen Vorschau</entry>
 <entry key="Element.Name49">Timer Regeln</entry>
@@ -1480,8 +1481,8 @@
 <entry key="LOMES.Educational.CognitiveProcess0">Analyse</entry>
 <entry key="Inventory.highlightedleft.Tip">Das ist den Pfeil nacht links in hervorgehobene Zustand</entry>
 <entry key="Conditions.Context.2.231"> Die Aktion {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;wird immer ausführbare werden&lt;/b&gt;, da keine Bedingung definiert wurde:</entry>
-<entry key="Conditions.Context.2.230"> Die Aktion {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;wird immer ausführbare werden&lt;/b&gt;, da keine Bedingung definiert wurde:</entry>
 <entry key="LOMES.Technical.Name">Name</entry>
+<entry key="Conditions.Context.2.230"> Die Aktion {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;wird immer ausführbare werden&lt;/b&gt;, da keine Bedingung definiert wurde:</entry>
 <entry key="ActionsList.TalkToAction">Sprechen mit...</entry>
 <entry key="Operation.FileNotSavedTitle">Das Projekt würde nicht gespeichert!</entry>
 <entry key="Animation.GeneralInfo">Animation Information</entry>
@@ -1604,7 +1605,6 @@
 <entry key="LOMES.AddElement">Neues Element hinzufügen</entry>
 <entry key="StartDialog.NewAssessmentFile.Description"> You have selected to create a new Assessment file. For the present release this option is unavailable. You must create the assessment file by opening/creating a new adventure game; then use the facility therein included  </entry>
 <entry key="IMS.Educational.Contex10">Vocational Training</entry>
-<entry key="Assessment.Column.RepeatRule">Wiederholen Bewertung Regel</entry>
 <entry key="Effect.Decrement">Verkleinern</entry>
 <entry key="ElementList.Empty">Es gibt keinen Referenz auf ausgewählte Element</entry>
 <entry key="IMS.Educational.InteractivityLevel4">Very High</entry>

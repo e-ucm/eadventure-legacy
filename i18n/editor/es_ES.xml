@@ -252,6 +252,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Error.SpecialAssetNotFound">El asset especial "{#0}" no se ha encontrado y no será añadido a la aventura.
 		Por favor compruebe que dicho archivo se encuentra junto con el editor, dado que su carencia puede dar lugar a funcionamientos erróneos de las aventuras</entry>
 <entry key="Conversation.Title">Conversación</entry>
+<entry key="ExitList.MoveUp">Subir la referencia en la tabla</entry>
 <entry key="HTMLEditor.Title">Editor HTML - {#0}</entry>
 <entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Title">Perfiles incorrectos</entry>
 <entry key="Search.EffectName">Nombre del efecto</entry>
@@ -639,6 +640,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="ItemsList.ActionsNumber">{#0} acciones</entry>
 <entry key="NPC.DialogPanelTip">Panel para editar las características de dialogos del personaje</entry>
 <entry key="Effect.MovePlayerInfo">Mover protagonista a x:{#0} y:{#1}</entry>
+<entry key="BarrierList.MoveDown">Bajar la referencia en la tabla</entry>
 <entry key="Operation.AddItemTitle">Añadir nuevo objeto</entry>
 <entry key="Inventory.OnlyTop">Solo arriba</entry>
 <entry key="NextScene.TransitionTime">Time de transicion</entry>
@@ -735,6 +737,7 @@ función de estos estados</entry>
 <entry key="EffectsGroup.GameState">Cambios estado del juego</entry>
 <entry key="Adventure.ModePlayerVisible.Name">Jugador Visible</entry>
 <entry key="LOMES.LifeCycle.DateTitle">Crear Nueva Fecha</entry>
+<entry key="Assessment.Column.RepeatRule">Repetir regla de evaluación</entry>
 <entry key="Operation.IdErrorTitle">Error de identificador</entry>
 <entry key="ItemReferencesList.PreviewTitle">Previsualización de la posición de las referencias</entry>
 <entry key="Element.Name49">Regla temporizada</entry>
@@ -746,6 +749,7 @@ función de estos estados</entry>
 <entry key="Resources.Create">Crear</entry>
 <entry key="Operation.AddAssessmentRuleTitle">Añadir regla de evaluación</entry>
 <entry key="Element.Name44">Temporizador</entry>
+<entry key="BarrierList.MoveUp">Subir la referencia en la tabla</entry>
 <entry key="ActiveAreasList.DuplicateActiveArea">Duplicar la zona activa seleccionada</entry>
 <entry key="Element.Name43">Página de libro</entry>
 <entry key="LOM.Duration.InvalidValue.Title">Valor incorrecto</entry>
@@ -1236,7 +1240,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="Conditions.Group.Title">Campos del Estado Global</entry>
 <entry key="Chapter.ChapterTitle">Título del capítulo</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Message">El nuevo nombre existe en el capítulo actual.</entry>
-<entry key="ItemReferenceTable.MoveDown">Bajar la referencia en la table cambiando la capa (se disminuye la profundidad)</entry>
+<entry key="ItemReferenceTable.MoveDown">Bajar la referencia en la tabla cambiando la capa (se disminuye la profundidad)</entry>
 <entry key="Element.Name331">Opción</entry>
 <entry key="Element.Name330">Línea de diálogo</entry>
 <entry key="Synthesizer.CheckAlways">Sintetizar todas las conversaciones</entry>
@@ -1446,6 +1450,7 @@ Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán v�
 <entry key="Operation.FileLoadedMessage">El proyecto pudo cargarse correctamente.</entry>
 <entry key="Operation.AddBookDefaultValue">IdLibro</entry>
 <entry key="LOMES.ClassificationTaxonPath.DialogTitle">añadir Nueva Ruta Taxonómica</entry>
+<entry key="ActiveAreasList.MoveUp">Subir la referencia en la tabla</entry>
 <entry key="Item.DocPanelTitle">Información</entry>
 <entry key="IMS.Educational.Difficulty">Define la dificultad del recurso</entry>
 <entry key="NPC.Description">Descripción breve del personaje (se muestra al mirar el personaje)</entry>
@@ -1588,6 +1593,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="Conditions.Context.2.231"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="LOMES.Technical.Name">Nombre</entry>
 <entry key="Conditions.Context.2.230"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+<entry key="ExitList.MoveDown">Bajar la referencia en la tabla</entry>
 <entry key="ActionsList.TalkToAction">Hablar con...</entry>
 <entry key="Operation.FileNotSavedTitle">¡No se salvó el proyecto!</entry>
 <entry key="Animation.GeneralInfo">Información de la animación</entry>
@@ -1771,7 +1777,6 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="EffectsGroup.Main">Todos los efectos</entry>
 <entry key="Effect.TriggerLastSceneInfo">Lanzar escena anterior</entry>
 <entry key="IMS.Classification.Tip">Classification Data</entry>
-<entry key="Assessment.Column.RepeatRule">Repetir regla de evaluación</entry>
 <entry key="GlobalStatesList.ID">Identificador de estado global</entry>
 <entry key="Item.ReturnsWhenDragged">El objeto vuelve a su posición inicial después de ser arrastrado</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicar regla</entry>
@@ -1804,6 +1809,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="GeneralText.Is.Singular">está</entry>
 <entry key="Operation.AddBookMessage">Introduzca un identificador para el nuevo libro:</entry>
 <entry key="Effect.TriggerConversationInfo">Lanzar conversación {#0}</entry>
+<entry key="ActiveAreasList.MoveDown">Bajar la referencia en la tabla</entry>
 <entry key="Operation.RenameConversationTitle">Renombrar conversación</entry>
 <entry key="IMS.Meta.Tab">MetaMetaData</entry>
 <entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">El perfil de evaluación y el de adaptación deben ser del tipo SCORM 2004 en caso de existir para poder exportar en formato AGREGA.</entry>
