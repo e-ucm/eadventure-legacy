@@ -13,11 +13,6 @@
 <entry key="Operation.RenameCutsceneTitle">Renombrar escena intermedia</entry>
 <entry key="CustomAction.SelectTypeTitle">Elija el tipo de la acción personalizada</entry>
 <entry key="AssessmentProperties.MoveDown">Mover propiedad seleccionada hacia abajo</entry>
-<entry key="ImageEdition.Contiguous">Contiguo</entry>
-<entry key="ImageEdition.NoTransparencyAllowed">Este tipo de imagen no admite transparencia</entry>
-<entry key="ImageEdition.Threshold">Tolerancia</entry>
-<entry key="ImageEdition.SelectColorTransparent">Seleccionar color transparente</entry>
-<entry key="Conversation.PreListening"> Pre-escucha de las opciones </entry>
 <entry key="SmallAction.NeedsGetTo">Necesita alcanzar</entry>
 <entry key="MoveObjectEffect.Animated">Animar</entry>
 <entry key="Item.Description">Descripción breve del objeto (se muestra al mirar el objeto)</entry>
@@ -162,6 +157,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Operation.RenameAssessmentFile">Renombrar fichero evaluación</entry>
 <entry key="ActivateEffect.Title">Efecto activar</entry>
 <entry key="MenuRun.Normal">Normal</entry>
+<entry key="ImageEdition.Contiguous">Contiguo</entry>
 <entry key="Resources.Select">Seleccionar...</entry>
 <entry key="LOMES.LCContribute.DialogTitle">Crear Nueva Contribución</entry>
 <entry key="Conversations.Listen">Escuchar</entry>
@@ -351,6 +347,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Search.BriefDescription">Descripción breve</entry>
 <entry key="MovePlayerEffect.Title">Efecto mover protagonista</entry>
 <entry key="MenuAdventure.DeleteUnusedAssets">Eliminar recursos no utilizados</entry>
+<entry key="ConversationLine.Type">Tipo de línea</entry>
 <entry key="ExitLook.HelpText">Aquí puede modificar la apariencia del cursor al colocarse sobre la salida y la etiqueta que aparece junto al mismo. Por defecto, se muestra un cursor estándar y la etiqueta contiene el nombre de la escena de destino.   Esa información se puede cambiar en la definición de la salida y en la definición del enlace con la escena siguiente. En caso de definirse en la propia salida, afectará a todos los posibles enlaces de salida que no tengan su propia información personalizada. Para que el cambio afecte a un único enlace, podrá indicarlo en las opciones avanzadas del propio enlace.</entry>
 <entry key="Effect.MoveObject">Mover objeto</entry>
 <entry key="Conversations.DeleteAudio">Eliminar audio</entry>
@@ -604,15 +601,15 @@ Es muy recomendable que haga una copia de seguridad de su proyecto antes de cont
 <entry key="Operation.CreateAssessmentFile.FileName">Nombre del perfil de evaluación</entry>
 <entry key="LOMES.Rights.CopyAndOthers9">creative commons: attribution - non derived work</entry>
 <entry key="LOMES.Rights.CopyAndOthers8">creative commons: attribution</entry>
-<entry key="Buttons.Title">Botones</entry>
 <entry key="LOMES.Rights.CopyAndOthers7">intellectual property license</entry>
+<entry key="Buttons.Title">Botones</entry>
 <entry key="Barrier.DocPanelTitle">Documentación</entry>
 <entry key="LOMES.Rights.CopyAndOthers6">not appropriate</entry>
 <entry key="LOMES.Rights.CopyAndOthers5">public domain</entry>
-<entry key="Error.EffectMovePlayerNotAllowed.Message">Lo sentimos, pero el efecto "mover jugador" no está permitido en el modo actual de aventura</entry>
 <entry key="LOMES.Rights.CopyAndOthers4">other free software licenses</entry>
-<entry key="Conditions.Title">Condiciones</entry>
+<entry key="Error.EffectMovePlayerNotAllowed.Message">Lo sentimos, pero el efecto "mover jugador" no está permitido en el modo actual de aventura</entry>
 <entry key="LOMES.Rights.CopyAndOthers3">dual free content license GPL and EUPL</entry>
+<entry key="Conditions.Title">Condiciones</entry>
 <entry key="LOMES.Rights.CopyAndOthers2">free software license GPL</entry>
 <entry key="LOMES.Rights.CopyAndOthers1">free software license EUPL</entry>
 <entry key="LOMES.Rights.CopyAndOthers0">propietary license</entry>
@@ -625,6 +622,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="ResourcesList.DuplicateResourcesBlock">Duplicar el bloque de recursos seleccionado</entry>
 <entry key="GraphicConfig.Title">Configuración gráfica de la aventura</entry>
 <entry key="LOMES.Educational.LearningResourceType9">Hypertext</entry>
+<entry key="Conversation.PreListening"> Pre-escucha de las opciones </entry>
 <entry key="LOMES.Educational.LearningResourceType8">Narrative text</entry>
 <entry key="LOMES.Educational.LearningResourceType7">Compound audio</entry>
 <entry key="LOMES.Educational.LearningResourceType6">Voice-over</entry>
@@ -1034,6 +1032,7 @@ Dicha operación no se completó.</entry>
 <entry key="Operation.AdaptationPanel.InsertButton">Insertar</entry>
 <entry key="Error.CopyingFiles">Ocurrió un problema copiando el fichero {#0} al destino {#1}</entry>
 <entry key="LOMES.General.Identifier">Identificador</entry>
+<entry key="ConversationLine.Type.Thought">Pensamiento</entry>
 <entry key="Error.LoadAdaptationData.SAX">Ocurrió un problema con la consistencia XML de los datos de adaptación</entry>
 <entry key="LOMES.GeneralIdentifier.DialogTitle">Crear Nuevo Identificador</entry>
 <entry key="SPEP.ShowTrajectory">Trayectoria del protagonista</entry>
@@ -1332,8 +1331,8 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="LOM.Educational.LearningResourceType4">Lecture</entry>
 <entry key="LOM.Educational.LearningResourceType3">Self assessment</entry>
 <entry key="LOM.Educational.LearningResourceType2">Exam</entry>
-<entry key="LOM.Educational.LearningResourceType1">Simulation</entry>
 <entry key="LOMES.TaxonPath.Name">Ruta Taxonómica</entry>
+<entry key="LOM.Educational.LearningResourceType1">Simulation</entry>
 <entry key="LOM.Educational.LearningResourceType0">Exercise</entry>
 <entry key="NextScene.Title">Siguiente escena</entry>
 <entry key="Operation.ExportToLOM.LOMName">Nombre del Objeto de Aprendizahe</entry>
@@ -1459,6 +1458,7 @@ Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán v�
 <entry key="IMS.LifeCycle.Status">Estado o condición en el que está el recurso</entry>
 <entry key="MenuChapters.DeleteChapter">Eliminar capítulo</entry>
 <entry key="Effect.RedHighlightItemInfo">Reslatar {#0} en rojo</entry>
+<entry key="ConversationLine.Type.Whisper">Susurro</entry>
 <entry key="ActiveAreasList.EditActions">Editar acciones</entry>
 <entry key="Operation.RenameAssessmentFile.Message">¿Está seguro de que desea renombrar el fichero?</entry>
 <entry key="AssetsChooser.Image">Escoja una imagen</entry>
@@ -1555,6 +1555,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="LinesPanel.DialogueNode">Nodo de diálogo</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="ExitsList.Edit">Editar</entry>
+<entry key="ImageEdition.NoTransparencyAllowed">Este tipo de imagen no admite transparencia</entry>
 <entry key="Flags.Title">Flags</entry>
 <entry key="Assets.DeleteAsset">Eliminar recurso</entry>
 <entry key="BookPagesList.Type">Tipo</entry>
@@ -1580,6 +1581,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="LOMES.Educational.CognitiveProcess3">Compare</entry>
 <entry key="Conditions.Context.TimedAssessmentRuleB1"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará&lt;/b&gt; (el contador se detendrá y se ejecutará el bloque de post-efectos) cuando se cumpla la siguiente condición:</entry>
 <entry key="LOMES.Educational.CognitiveProcess2">Collaborate</entry>
+<entry key="ImageEdition.Threshold">Tolerancia</entry>
 <entry key="LOMES.Educational.CognitiveProcess1">Implement</entry>
 <entry key="LOMES.Educational.CognitiveProcess0">Analyse</entry>
 <entry key="Inventory.highlightedleft.Tip">Esta es la fecha izquierda en su estado resaltado.</entry>
@@ -1630,6 +1632,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptacion</entry>
 <entry key="SPEP.ShowBarriers">Barreras</entry>
 <entry key="NextScene.EditDestinyPositionShort">Editar la posición de destino</entry>
+<entry key="ImageEdition.SelectColorTransparent">Seleccionar color transparente</entry>
 <entry key="Timer.DisplayName">Nombre a mostrar</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">IdAtrezzo</entry>
 <entry key="MenuAdventure.CustomizeGUI">Personalizar elementos de la interfaz...</entry>
@@ -1651,6 +1654,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="ScenesList.Title">Escenas</entry>
 <entry key="Operation.ExportToLOM.AuthorName">Autor</entry>
 <entry key="MenuFile.LOMProperties">Propiedades de Objeto de Aprendizaje para paquetes IMS-CP y SCORM 2004 (LSTC-LOM)</entry>
+<entry key="ConversationLine.Type.Yell">Grito</entry>
 <entry key="TriggerCutsceneEffect.Title">Efecto lanzar escena intermedia</entry>
 <entry key="Operation.FileLoadedWithErrorMessage">El proyecto se cargó parcialmente debido a la existencia de incidencias.</entry>
 <entry key="Adventure.ModePlayerTransparent.Description">No se muestra al jugador en pantalla</entry>
@@ -1932,6 +1936,7 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="LOM.Educational.InteractivityLevel0">Very low</entry>
 <entry key="IMS.Classification.Tab">Classification</entry>
 <entry key="Operation.RenameBookMessage">Introduzca un nuevo identificador con el que renombrar el libro:</entry>
+<entry key="ConversationLine.Type.Normal">Normal</entry>
 <entry key="Scene.UseInitialPosition">Usar una posición inicial </entry>
 <entry key="Language.Name">Español</entry>
 <entry key="Conditions.ConditionGroup.NotSatisfied">no se cumple</entry>

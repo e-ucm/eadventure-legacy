@@ -130,7 +130,6 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TreeNode.AddElement52">Add barriers</entry>
 <entry key="TreeNode.AddElement51">Add active area</entry>
 <entry key="Conversations.NoAudio">No audio</entry>
-<entry key="Conversation.PreListening">Pre-listening conversation options</entry>
 <entry key="TreeNode.AddElement50">Add active areas</entry>
 <entry key="Book.Contents.Tip">Use this panel for the edition of the contents of the book</entry>
 <entry key="Inventory.OnlyBottom">Only bottom</entry>
@@ -346,6 +345,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Search.BriefDescription">Brief Description</entry>
 <entry key="MovePlayerEffect.Title">Move player effect</entry>
 <entry key="MenuAdventure.DeleteUnusedAssets">Delete unused assets</entry>
+<entry key="ConversationLine.Type">Line type</entry>
 <entry key="ExitLook.HelpText"> Here you are allowed to customize the look of cursor shown when the mouse is over the exit, as well as the text displayed. Initially the default cursor is shown, and the text displayed will be the name of the scene you will get through this exit, so it is not compulsory to specify those values. However, you can customize both cursor and text for the exit (general case) and for each next scene. The text or cursor edited for the exit will only be used in case it was not customized for the next scene</entry>
 <entry key="Effect.MoveObject">Move Object</entry>
 <entry key="Conversations.DeleteAudio">Delete audio</entry>
@@ -598,8 +598,8 @@ It's strongly recommended that you backup your project before continuing.</entry
 <entry key="Operation.CreateAssessmentFile.FileName">Name of the new assessment profile</entry>
 <entry key="LOMES.Rights.CopyAndOthers9">creative commons: attribution - non derived work</entry>
 <entry key="LOMES.Rights.CopyAndOthers8">creative commons: attribution</entry>
-<entry key="Buttons.Title">Buttons</entry>
 <entry key="LOMES.Rights.CopyAndOthers7">intellectual property license</entry>
+<entry key="Buttons.Title">Buttons</entry>
 <entry key="Barrier.DocPanelTitle">Documentation</entry>
 <entry key="LOMES.Rights.CopyAndOthers6">not appropriate</entry>
 <entry key="LOMES.Rights.CopyAndOthers5">public domain</entry>
@@ -619,6 +619,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 <entry key="ResourcesList.DuplicateResourcesBlock">Duplicate the selected resources block</entry>
 <entry key="GraphicConfig.Title">Graphic configuration for the adventure</entry>
 <entry key="LOMES.Educational.LearningResourceType9">Hypertext</entry>
+<entry key="Conversation.PreListening">Pre-listening conversation options</entry>
 <entry key="LOMES.Educational.LearningResourceType8">Narrative text</entry>
 <entry key="LOMES.Educational.LearningResourceType7">Compound audio</entry>
 <entry key="LOMES.Educational.LearningResourceType6">Voice-over</entry>
@@ -1027,6 +1028,7 @@ The operation was aborted.</entry>
 <entry key="Operation.AdaptationPanel.InsertButton">Insert statement</entry>
 <entry key="Error.CopyingFiles">An error occurred when copying the file {#0} to {#1}</entry>
 <entry key="LOMES.General.Identifier">Identifier</entry>
+<entry key="ConversationLine.Type.Thought">Thought</entry>
 <entry key="Error.LoadAdaptationData.SAX">An error occurred with the XML consistency of the adaptation data</entry>
 <entry key="LOMES.GeneralIdentifier.DialogTitle">Create new Identifier</entry>
 <entry key="SPEP.ShowTrajectory">Player's trajectory</entry>
@@ -1325,8 +1327,8 @@ When not customized, default arrows will be used in the game.</entry>
 <entry key="LOM.Educational.LearningResourceType4">Lecture</entry>
 <entry key="LOM.Educational.LearningResourceType3">Self assessment</entry>
 <entry key="LOM.Educational.LearningResourceType2">Exam</entry>
-<entry key="LOM.Educational.LearningResourceType1">Simulation</entry>
 <entry key="LOMES.TaxonPath.Name">Taxon Path</entry>
+<entry key="LOM.Educational.LearningResourceType1">Simulation</entry>
 <entry key="LOM.Educational.LearningResourceType0">Exercise</entry>
 <entry key="NextScene.Title">Next scene</entry>
 <entry key="Operation.ExportToLOM.LOMName">Name for the Learning Object</entry>
@@ -1451,6 +1453,7 @@ Folders with names containing other characters will not be valid.</entry>
 <entry key="IMS.LifeCycle.Status">The state or condition this resource is in</entry>
 <entry key="MenuChapters.DeleteChapter">Delete chapter</entry>
 <entry key="Effect.RedHighlightItemInfo">Highlight {#0} in red</entry>
+<entry key="ConversationLine.Type.Whisper">Whisper</entry>
 <entry key="ActiveAreasList.EditActions">Edit actions</entry>
 <entry key="Operation.RenameAssessmentFile.Message">Are you sure you want to rename the assessment file?</entry>
 <entry key="AssetsChooser.Image">Choose an image</entry>
@@ -1643,6 +1646,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="ScenesList.Title">Scenes</entry>
 <entry key="Operation.ExportToLOM.AuthorName">Author name</entry>
 <entry key="MenuFile.LOMProperties">Learning Object properties</entry>
+<entry key="ConversationLine.Type.Yell">Yell</entry>
 <entry key="TriggerCutsceneEffect.Title">Trigger cutscene effect</entry>
 <entry key="Operation.FileLoadedWithErrorMessage">The project was loaded with incidences. Perhaps not all data was loaded.</entry>
 <entry key="Adventure.ModePlayerTransparent.Description">When this mode is selected, the player is not painted in the game, as if the user were directly embedded in the game. This mode is suitable for the production of Myst-like adventure games.</entry>
@@ -1925,6 +1929,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="LOM.Educational.InteractivityLevel0">Very low</entry>
 <entry key="IMS.Classification.Tab">Classification</entry>
 <entry key="Operation.RenameBookMessage">Type a new identifier to rename the book</entry>
+<entry key="ConversationLine.Type.Normal">Normal</entry>
 <entry key="Scene.UseInitialPosition">Use initial position </entry>
 <entry key="Language.Name">English</entry>
 <entry key="Conditions.ConditionGroup.NotSatisfied">is not satisfied</entry>

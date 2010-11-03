@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -80,7 +81,8 @@ public class ImageToolBar extends JPanel {
             c.gridx++;
             this.add( new JSeparator( JSeparator.VERTICAL ), c );
 
-            JButton undoButton = new JButton( TC.get( "Tools.Undo" ) );
+            JButton undoButton = new JButton( new ImageIcon( "img/icons/undo.png" ) );
+            undoButton.setToolTipText( TC.get( "Tools.Undo" ) );
             undoButton.addActionListener( new ActionListener( ) {
 
                 public void actionPerformed( ActionEvent e ) {
@@ -95,7 +97,8 @@ public class ImageToolBar extends JPanel {
             c.gridx++;
             this.add( undoButton, c );
 
-            JButton redoButton = new JButton( TC.get( "Tools.Redo" ) );
+            JButton redoButton = new JButton( new ImageIcon( "img/icons/redo.png" ) );
+            redoButton.setToolTipText( TC.get( "Tools.Redo" ) );
             redoButton.addActionListener( new ActionListener( ) {
 
                 public void actionPerformed( ActionEvent e ) {

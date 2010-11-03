@@ -38,6 +38,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -45,10 +46,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -58,6 +57,7 @@ import javax.swing.table.TableCellRenderer;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.gui.auxiliar.components.TalkTextField;
 
 public class TextLineCellRendererEditor extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
 
@@ -90,6 +90,7 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
         textPane.setText( this.value );
         textPane.setAutoscrolls( true );
         textPane.setForeground( color );
+        textPane.setMaximumSize( new Dimension( 300, 20 ) );
       
         textPane.addFocusListener(new TextLineFocus());
         
@@ -136,7 +137,7 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 
             }
         } );
-        JScrollPane scrollPane = new JScrollPane( textPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+        TalkTextField scrollPane = new TalkTextField( textPane );
 
         scrollPane.addFocusListener( new FocusListener( ) {
 

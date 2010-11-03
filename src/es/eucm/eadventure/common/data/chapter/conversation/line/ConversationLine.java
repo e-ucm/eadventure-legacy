@@ -1,50 +1,103 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
- *         research group.
- *  
- *   Copyright 2005-2010 <e-UCM> research group.
+ * research group.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
- *         http://e-adventure.e-ucm.es/contributors
+ * Copyright 2005-2010 <e-UCM> research group.
  * 
- *   <e-UCM> is a research group of the Department of Software Engineering
- *         and Artificial Intelligence at the Complutense University of Madrid
- *         (School of Computer Science).
+ * You can access a list of all the contributors to <e-Adventure> at:
+ * http://e-adventure.e-ucm.es/contributors
  * 
- *         C Profesor Jose Garcia Santesmases sn,
- *         28040 Madrid (Madrid), Spain.
+ * <e-UCM> is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
  * 
- *         For more info please visit:  <http://e-adventure.e-ucm.es> or
- *         <http://www.e-ucm.es>
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
  * 
  * ****************************************************************************
  * 
  * This file is part of <e-Adventure>, version 1.2.
  * 
- *     <e-Adventure> is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Lesser General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ * <e-Adventure> is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  * 
- *     <e-Adventure> is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU Lesser General Public License for more details.
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- *     You should have received a copy of the GNU Lesser General Public License
- *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.common.data.chapter.conversation.line;
 
 import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
+import es.eucm.eadventure.common.gui.TC;
 
 /**
  * This class stores a single conversation line, along with the name of the
  * speaker character.
  */
 public class ConversationLine implements Cloneable, Named {
+
+    public enum Type {
+        NORMAL, WHISPER, THOUGHT, YELL;
+
+        @Override
+        public String toString( ) {
+
+            switch( this ) {
+                case WHISPER:
+                    return "#:*";
+                case THOUGHT:
+                    return "#O";
+                case YELL:
+                    return "#!";
+                default:
+                    return "";
+            }
+        }
+
+        public String getName( ) {
+
+            String name;
+            switch( this ) {
+                case WHISPER:
+                    name = TC.get( "ConversationLine.Type.Whisper" );
+                    break;
+                case THOUGHT:
+                    name = TC.get( "ConversationLine.Type.Thought" );
+                    break;
+                case YELL:
+                    name = TC.get( "ConversationLine.Type.Yell" );
+                    break;
+                default:
+                    name = TC.get( "ConversationLine.Type.Normal" );
+                    break;
+            }
+            return name + " " + this.toString( );
+        }
+
+        public static Type getType( String s ) {
+
+            if( s.equals( WHISPER.toString( ) ) ) {
+                return WHISPER;
+            }
+            else if( s.equals( THOUGHT.toString( ) ) ) {
+                return THOUGHT;
+            }
+            else if( s.equals( YELL.toString( ) ) ) {
+                return YELL;
+            }
+            return NORMAL;
+        }
+    }
 
     /**
      * Constant for the player identifier for the lines.
@@ -75,7 +128,7 @@ public class ConversationLine implements Cloneable, Named {
      * Conditions associated to this line
      */
     private Conditions conditions;
-    
+
     /**
      * Keep line showing until user interacts
      */
@@ -227,15 +280,13 @@ public class ConversationLine implements Cloneable, Named {
         return cl;
     }
 
-    
     public boolean isKeepShowing( ) {
-    
+
         return keepShowing;
     }
 
-    
     public void setKeepShowing( boolean keepShowing ) {
-    
+
         this.keepShowing = keepShowing;
     }
 

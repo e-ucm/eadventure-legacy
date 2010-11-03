@@ -71,7 +71,6 @@
 <entry key="SceneLocation.XCoordinate">Coordenada X</entry>
 <entry key="HighlightItemEffect.Title">Efeito ressaltar objecto</entry>
 <entry key="LOMES.Date.Seconds">Segundo</entry>
-<entry key="Conversation.PreListening"> Opções pré-escuta </entry>
 <entry key="MenuAdventure.Commentaries">Comentarios automáticos</entry>
 <entry key="ActionsList.UseAction">Usar</entry>
 <entry key="Animation.AskFilenameTitle">Nova animação</entry>
@@ -571,6 +570,7 @@
 <entry key="ResourcesList.DuplicateResourcesBlock">Duplicar o bloco de recursos seleccionado</entry>
 <entry key="GraphicConfig.Title">Configuração gráfica da aventura</entry>
 <entry key="LOMES.Educational.LearningResourceType9">Hipertexto</entry>
+<entry key="Conversation.PreListening"> Opções pré-escuta </entry>
 <entry key="LOMES.Educational.LearningResourceType8">Narrativa de texto</entry>
 <entry key="LOMES.Educational.LearningResourceType7">Composição de áudio</entry>
 <entry key="LOMES.Educational.LearningResourceType6">Voice-over</entry>
