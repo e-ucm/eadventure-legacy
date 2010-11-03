@@ -912,7 +912,7 @@ Esto puede provocar errores al cargar las aventuras.</entry>
 <entry key="Error.ProjectFolderName">  El nombre seleccionado para la carpeta no es correcto.
  Recuerde que sólo puede usar caracteres de la siguiente lista:
  {#0}.</entry>
-<entry key="Inventory.Select">Elegir...</entry>
+<entry key="Inventory.Select">Seleccionar...</entry>
 <entry key="Resources.CreateIcon">Crear icono desde imagen</entry>
 <entry key="Operation.AdventureConsistencyErrorPlaySound">El efecto "Reproducir sonido" no tiene ningún archivo sonido asociado</entry>
 <entry key="ActionsList.ExamineAction">Examinar</entry>
@@ -1566,7 +1566,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="BookPagesList.Type">Tipo</entry>
 <entry key="Effect.RandomEffect">Efecto con probabilidad</entry>
 <entry key="Operation.RenameCutsceneMessage">Introduzca un nuevo identificador con el que renombrar la escena intermedia:</entry>
-<entry key="Buttons.Select">Elegir...</entry>
+<entry key="Buttons.Select">Seleccionar...</entry>
 <entry key="Conditions.And">Y además</entry>
 <entry key="GUIStyles.ContextualDescription">Este tipo de interfaz presenta un gran parecido con las últimas aventuras gráficas de LucasArts. Las acciones se muestran por pantalla encima del personaje u objeto, cuando el usuario así lo desea; el inventario también permanece oculto hasta que el usuario decide hacerlo visible</entry>
 <entry key="DecrementVarEffect.Title">Efecto decrementar variable</entry>
