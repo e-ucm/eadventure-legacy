@@ -317,7 +317,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     public void update( long elapsedTime ) {
 
         currentState.update( elapsedTime );
-        currentState.updateAnimation( );
+        //currentState.updateAnimation( );
         currentState.getCurrentAnimation( ).update( elapsedTime );
     }
 
