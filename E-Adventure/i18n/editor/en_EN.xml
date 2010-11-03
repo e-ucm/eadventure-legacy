@@ -250,6 +250,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Error.SpecialAssetNotFound">The special asset "{#0}" can't be found and won't be added in the adventure.
 		Please make sure that this file is included in the editor, as the lack of this file could lead to malfunction of the adventures</entry>
 <entry key="Conversation.Title">Conversation</entry>
+<entry key="ExitList.MoveUp">Move up current reference</entry>
 <entry key="HTMLEditor.Title">HTML Editor - {#0}</entry>
 <entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Title">Incorrect Profiles</entry>
 <entry key="Search.EffectName">Effect Name</entry>
@@ -603,8 +604,8 @@ It's strongly recommended that you backup your project before continuing.</entry
 <entry key="Barrier.DocPanelTitle">Documentation</entry>
 <entry key="LOMES.Rights.CopyAndOthers6">not appropriate</entry>
 <entry key="LOMES.Rights.CopyAndOthers5">public domain</entry>
-<entry key="Error.EffectMovePlayerNotAllowed.Message">Sorry, but the move player effect is not supported for the current adventure mode.</entry>
 <entry key="LOMES.Rights.CopyAndOthers4">other free software licenses</entry>
+<entry key="Error.EffectMovePlayerNotAllowed.Message">Sorry, but the move player effect is not supported for the current adventure mode.</entry>
 <entry key="Conditions.Title">Conditions</entry>
 <entry key="LOMES.Rights.CopyAndOthers3">dual free content license GPL and EUPL</entry>
 <entry key="LOMES.Rights.CopyAndOthers2">free software license GPL</entry>
@@ -636,6 +637,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 <entry key="ItemsList.ActionsNumber">{#0} actions</entry>
 <entry key="NPC.DialogPanelTip">Panel for the edition of the characteristics of the characters dialogs</entry>
 <entry key="Effect.MovePlayerInfo">Move player to x:{#0} y:{#1}</entry>
+<entry key="BarrierList.MoveDown">Move down current reference</entry>
 <entry key="Operation.AddItemTitle">Add item</entry>
 <entry key="Inventory.OnlyTop">Only top</entry>
 <entry key="NextScene.TransitionTime">Transition time</entry>
@@ -731,6 +733,7 @@ based on the state of the flags.</entry>
 <entry key="EffectsGroup.GameState">Change the game state</entry>
 <entry key="Adventure.ModePlayerVisible.Name">3rd person</entry>
 <entry key="LOMES.LifeCycle.DateTitle">Create new Date</entry>
+<entry key="Assessment.Column.RepeatRule">Repeat asessment rule</entry>
 <entry key="Operation.IdErrorTitle">Identifier error</entry>
 <entry key="ItemReferencesList.PreviewTitle">Preview of the element location</entry>
 <entry key="Element.Name49">Timed rule</entry>
@@ -742,6 +745,7 @@ based on the state of the flags.</entry>
 <entry key="Resources.Create">Create</entry>
 <entry key="Operation.AddAssessmentRuleTitle">Add assessment rule</entry>
 <entry key="Element.Name44">Timer</entry>
+<entry key="BarrierList.MoveUp">Move up current reference</entry>
 <entry key="ActiveAreasList.DuplicateActiveArea">Duplicate selected active area</entry>
 <entry key="Element.Name43">Book page</entry>
 <entry key="LOM.Duration.InvalidValue.Title">Value not valid</entry>
@@ -1441,6 +1445,7 @@ Folders with names containing other characters will not be valid.</entry>
 <entry key="Operation.FileLoadedMessage">The project was successfully loaded</entry>
 <entry key="Operation.AddBookDefaultValue">BookId</entry>
 <entry key="LOMES.ClassificationTaxonPath.DialogTitle">Add new Taxon Path entry</entry>
+<entry key="ActiveAreasList.MoveUp">Move up current reference</entry>
 <entry key="Item.DocPanelTitle">Documentation</entry>
 <entry key="IMS.Educational.Difficulty">It defines how hard it is to work through this resource for the typical target audience</entry>
 <entry key="NPC.Description">Brief description of the character</entry>
@@ -1581,6 +1586,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Conditions.Context.2.231"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="LOMES.Technical.Name">Name</entry>
 <entry key="Conditions.Context.2.230"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
+<entry key="ExitList.MoveDown">Move down current reference</entry>
 <entry key="ActionsList.TalkToAction">Talk to...</entry>
 <entry key="Operation.FileNotSavedTitle">Project not saved!</entry>
 <entry key="Animation.GeneralInfo">Animation Information</entry>
@@ -1705,7 +1711,6 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Conditions.Var.Value">Value [0,Inf)</entry>
 <entry key="LOM.Educational.SemanticDensity4">Very high</entry>
 <entry key="LOM.Educational.SemanticDensity3">High</entry>
-<entry key="Assessment.Column.RepeatRule">Repeat asessment rule</entry>
 <entry key="Conversation.ErrorLinkNode">Cannot link the selected node with the given node</entry>
 <entry key="LOM.Educational.SemanticDensity2">Medium</entry>
 <entry key="Animation.Duration">Duration (ms)</entry>
@@ -1796,6 +1801,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="GeneralText.Is.Singular">is</entry>
 <entry key="Operation.AddBookMessage">Type an identifier for the new book</entry>
 <entry key="Effect.TriggerConversationInfo">Trigger conversation {#0}</entry>
+<entry key="ActiveAreasList.MoveDown">Move down current reference</entry>
 <entry key="Operation.RenameConversationTitle">Rename conversation</entry>
 <entry key="IMS.Meta.Tab">MetaMetaData</entry>
 <entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">The assessment and adaptation profile must be SCORM 2004 if they exists to export in AGREGA format.</entry>

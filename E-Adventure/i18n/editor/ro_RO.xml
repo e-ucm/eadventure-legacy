@@ -242,6 +242,7 @@
 <entry key="Adventure.AdventureDescription">Descrierea aventurii</entry>
 <entry key="Error.SpecialAssetNotFound">Resursa speciala "{#0}" nu a fost gasita si nu va fi adaugata aventurii. Verificati ca fisierul a fost inclus in editor doarece lipsa acestuia poate cauza disfunctionalitati ale aventurii.</entry>
 <entry key="Conversation.Title">Conversatie</entry>
+<entry key="ExitList.MoveUp">Ridicati referinta cu un nivel</entry>
 <entry key="HTMLEditor.Title">Editor HTML  - {#0}</entry>
 <entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Title">Profile incorecte</entry>
 <entry key="Search.EffectName">Nume Efect</entry>
@@ -606,6 +607,7 @@
 <entry key="ItemsList.ActionsNumber">{#0} actiuni</entry>
 <entry key="NPC.DialogPanelTip">Panou de editare a caracteristicilor dialogului personajelor</entry>
 <entry key="Effect.MovePlayerInfo">Muta jucator la x:{#0} y:{#1}</entry>
+<entry key="BarrierList.MoveDown">Coborati referinta cu un nivel</entry>
 <entry key="Operation.AddItemTitle">Adauga item</entry>
 <entry key="Inventory.OnlyTop">Numai sus</entry>
 <entry key="NextScene.TransitionTime">Timp de tranzitie</entry>
@@ -697,6 +699,7 @@
 <entry key="Resources.Create">Creaza</entry>
 <entry key="Operation.AddAssessmentRuleTitle">Adauga regula de evaluare</entry>
 <entry key="Element.Name44">Cronometru</entry>
+<entry key="BarrierList.MoveUp">Ridicati referinta cu un nivel</entry>
 <entry key="ActiveAreasList.DuplicateActiveArea">Duplicati zona activa selectata</entry>
 <entry key="Element.Name43">Pagina de carte</entry>
 <entry key="LOM.Duration.InvalidValue.Title">Valoare invalida</entry>
@@ -1342,6 +1345,7 @@
 <entry key="Operation.FileLoadedMessage">Proiectul a fost incarcat cu succes</entry>
 <entry key="Operation.AddBookDefaultValue">IDCarte</entry>
 <entry key="LOMES.ClassificationTaxonPath.DialogTitle">Adaugati o noua intrare pentru calea taxonului</entry>
+<entry key="ActiveAreasList.MoveUp">Ridicati referinta cu un nivel</entry>
 <entry key="Item.DocPanelTitle">Documentatie</entry>
 <entry key="IMS.Educational.Difficulty">Defineste cat de dificil este lucrul cu aceasta resursa pentru un grupul tinta.</entry>
 <entry key="NPC.Description">Scurta descriere a personajului</entry>
@@ -1469,6 +1473,7 @@
 <entry key="Conditions.Context.2.231">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va fi intotdeauna executabila&lt;/b&gt;, daca nicio conditie nu a fost definita:</entry>
 <entry key="Conditions.Context.2.230">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va fi intotdeauna executabila&lt;/b&gt;, daca nicio conditie nu a fost definita:</entry>
 <entry key="LOMES.Technical.Name">Nume</entry>
+<entry key="ExitList.MoveDown">Coborati referinta cu un nivel</entry>
 <entry key="ActionsList.TalkToAction">Vorbeste cu...</entry>
 <entry key="Operation.FileNotSavedTitle">Proiectul nu a fost salvat!</entry>
 <entry key="Animation.GeneralInfo">Informatii animatie</entry>
@@ -1668,6 +1673,7 @@
 <entry key="GeneralText.Is.Singular">este</entry>
 <entry key="Operation.AddBookMessage">Tastati un identificator pentru noua carte</entry>
 <entry key="Effect.TriggerConversationInfo">Deschide conversatie {#0}</entry>
+<entry key="ActiveAreasList.MoveDown">Coborati referinta cu un nivel</entry>
 <entry key="Operation.RenameConversationTitle">Redenumeste conversatie</entry>
 <entry key="IMS.Meta.Tab">MetaMetaData</entry>
 <entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">Profilul de evaluare si de adaptare trebuie sa fie SCORM 2004, daca acestea exista pentru a putea fi exportate in formatul AGREGA.</entry>
@@ -1678,8 +1684,8 @@
 <entry key="RandomEffect.DeleteEffect">Stergeti acest efect</entry>
 <entry key="NextScene.AdvancedOptions">Optiuni avansate</entry>
 <entry key="Element.Name251">Trage catre</entry>
-<entry key="Element.Name250">Interactiune particularizata</entry>
 <entry key="LOMES.Technical.Name12">Amaya</entry>
+<entry key="Element.Name250">Interactiune particularizata</entry>
 <entry key="TreeNode.AddElement">Adauga element</entry>
 <entry key="LOMES.Technical.Name11">Opera</entry>
 <entry key="Operation.ExportSCORM2004.BadProfiles.Message">Profilul de evaluare si de adaptare trebuie sa fie SCORM 2004, daca acestea exista.</entry>
