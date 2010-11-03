@@ -43,7 +43,6 @@
 <entry key="Conditions.Context.2B.44"> Der {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;wird sofort gestoppt &lt;/b&gt;,da keine Bedingungen definiert worden sind:</entry>
 <entry key="LOM.Educational.LearningResourceType">Lernmitteltyp</entry>
 <entry key="Cutscene.GoToNextScene">Zu einer neuen Szene gehen</entry>
-<entry key="Conversation.PreListening"> Pre-Listening-Optionen </entry>
 <entry key="Operation.AddItemReferenceMessage">Wählen Sie das gewünschte Objekt, dass sie der Szene hinzuzufügen wollen:</entry>
 <entry key="Operation.RenameItemTitle">Objekt umbenennen</entry>
 <entry key="EffectsGroup.ChangeInScene">Änderungen in Szene</entry>
@@ -600,6 +599,7 @@
 <entry key="ResourcesList.DuplicateResourcesBlock">Ausgewählte Ressourcen Block verdoppeln</entry>
 <entry key="GraphicConfig.Title">Grafische Einstellung der Abenteuer</entry>
 <entry key="LOMES.Educational.LearningResourceType9">Hypertext</entry>
+<entry key="Conversation.PreListening"> Pre-Listening-Optionen </entry>
 <entry key="LOMES.Educational.LearningResourceType8">Narrative text</entry>
 <entry key="LOMES.Educational.LearningResourceType7">Compound audio</entry>
 <entry key="LOMES.Educational.LearningResourceType6">Voice-over</entry>

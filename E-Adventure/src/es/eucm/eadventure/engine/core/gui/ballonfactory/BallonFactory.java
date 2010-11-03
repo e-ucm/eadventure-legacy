@@ -11,30 +11,9 @@ import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.Random;
 
+import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
+
 public class BallonFactory {
-
-    public enum Type {
-        NORMAL, WHISPER, THOUGHT, ANGRY;
-
-        private static AffineTransform normal = new AffineTransform( );
-
-        private static AffineTransform whisper;
-
-        public AffineTransform getTransformation( ) {
-
-            switch( this ) {
-                case WHISPER:
-                    if( whisper == null ) {
-                        whisper = new AffineTransform( );
-                        whisper.translate( 20.0f, 0 );
-                        whisper.shear( -0.1f, 0 );
-                    }
-                    return whisper;
-                default:
-                    return normal;
-            }
-        }
-    }
 
     public static int marginTop = 2;
 
@@ -44,9 +23,13 @@ public class BallonFactory {
 
     private static int linesHeight = 0;
 
-    private static Type type = Type.NORMAL;
+    private static ConversationLine.Type type = ConversationLine.Type.NORMAL;
 
     private static int roundRadius = 10;
+
+    private static AffineTransform normal = new AffineTransform( );
+
+    private static AffineTransform whisper;
 
     /**
      * 
@@ -118,27 +101,15 @@ public class BallonFactory {
 
         if( text != null && !text.equals( "" ) && text.charAt( 0 ) == '#' ) {
             String tag = text.substring( 0, text.indexOf( ' ' ) );
-            if( tag.equals( "#:*" ) ) {
-                type = Type.WHISPER;
-                return text.substring( "#:* ".length( ) );
+            type = ConversationLine.Type.getType( tag );
+            if( tag != "" ) {
+                return text.substring( tag.length( ) );
             }
-            else if( tag.equals( "#O" ) ) {
-                type = Type.THOUGHT;
-                return text.substring( "#O ".length( ) );
-            }
-            else if( tag.equals( "#!" ) ) {
-                type = Type.ANGRY;
-                return text.substring( "#! ".length( ) );
-            }
-            else {
-                type = Type.NORMAL;
+            else
                 return text;
-            }
         }
-        else {
-            type = Type.NORMAL;
-            return text;
-        }
+        type = ConversationLine.Type.NORMAL;
+        return text;
 
     }
 
@@ -206,7 +177,7 @@ public class BallonFactory {
     public static Shape getPath( Rectangle r, int step, int amplitude ) {
 
         switch( type ) {
-            case ANGRY:
+            case YELL:
             case THOUGHT:
                 return getCirclePath( r );
             case WHISPER:
@@ -241,7 +212,7 @@ public class BallonFactory {
         while( !done ) {
             step = random.nextInt( maxStep ) + minStep;
             amplitude = random.nextInt( maxAmplitude ) + minAmplitude;
-            factor = type == Type.THOUGHT ? random.nextInt( maxFactor ) + 1 : 2;
+            factor = type == ConversationLine.Type.THOUGHT ? random.nextInt( maxFactor ) + 1 : 2;
 
             if( currentX + step > r.x + r.width ) {
                 done = true;
@@ -251,10 +222,10 @@ public class BallonFactory {
                 y1 = currentY - amplitude;
                 x2 = currentX + step;
                 y2 = currentY;
-                if( type == Type.THOUGHT ) {
+                if( type == ConversationLine.Type.THOUGHT ) {
                     path.quadTo( x1, y1, x2, y2 );
                 }
-                else if( type == Type.ANGRY ) {
+                else if( type == ConversationLine.Type.YELL ) {
                     path.lineTo( x1, y1 );
                     path.lineTo( x2, y2 );
                 }
@@ -268,10 +239,10 @@ public class BallonFactory {
         y1 = r.y;
         x2 = currentX;
         y2 = currentY + step;
-        if( type == Type.THOUGHT ) {
+        if( type == ConversationLine.Type.THOUGHT ) {
             path.quadTo( x1, y1, x2, y2 );
         }
-        else if( type == Type.ANGRY ) {
+        else if( type == ConversationLine.Type.YELL ) {
             path.lineTo( x1, y1 );
             path.lineTo( x2, y2 );
         }
@@ -282,7 +253,7 @@ public class BallonFactory {
         while( !done ) {
             step = random.nextInt( maxStep ) + minStep;
             amplitude = random.nextInt( maxAmplitude ) + minAmplitude;
-            factor = type == Type.THOUGHT ? random.nextInt( maxFactor ) + 1 : 2;
+            factor = type == ConversationLine.Type.THOUGHT ? random.nextInt( maxFactor ) + 1 : 2;
 
             if( currentY + step > r.y + r.height ) {
                 done = true;
@@ -292,10 +263,10 @@ public class BallonFactory {
                 y1 = currentY + step / factor;
                 x2 = currentX;
                 y2 = currentY + step;
-                if( type == Type.THOUGHT ) {
+                if( type == ConversationLine.Type.THOUGHT ) {
                     path.quadTo( x1, y1, x2, y2 );
                 }
-                else if( type == Type.ANGRY ) {
+                else if( type == ConversationLine.Type.YELL ) {
                     path.lineTo( x1, y1 );
                     path.lineTo( x2, y2 );
                 }
@@ -309,10 +280,10 @@ public class BallonFactory {
         y1 = currentY + amplitude;
         x2 = currentX - step;
         y2 = currentY;
-        if( type == Type.THOUGHT ) {
+        if( type == ConversationLine.Type.THOUGHT ) {
             path.quadTo( x1, y1, x2, y2 );
         }
-        else if( type == Type.ANGRY ) {
+        else if( type == ConversationLine.Type.YELL ) {
             path.lineTo( x1, y1 );
             path.lineTo( x2, y2 );
         }
@@ -323,7 +294,7 @@ public class BallonFactory {
         while( !done ) {
             step = random.nextInt( maxStep ) + minStep;
             amplitude = random.nextInt( maxAmplitude ) + minAmplitude;
-            factor = type == Type.THOUGHT ? random.nextInt( maxFactor ) + 1 : 2;
+            factor = type == ConversationLine.Type.THOUGHT ? random.nextInt( maxFactor ) + 1 : 2;
 
             if( currentX - step < r.x ) {
                 done = true;
@@ -334,10 +305,10 @@ public class BallonFactory {
                 y1 = currentY + amplitude;
                 x2 = currentX - step;
                 y2 = currentY;
-                if( type == Type.THOUGHT ) {
+                if( type == ConversationLine.Type.THOUGHT ) {
                     path.quadTo( x1, y1, x2, y2 );
                 }
-                else if( type == Type.ANGRY ) {
+                else if( type == ConversationLine.Type.YELL ) {
                     path.lineTo( x1, y1 );
                     path.lineTo( x2, y2 );
                 }
@@ -351,10 +322,10 @@ public class BallonFactory {
         y1 = r.y + r.height;
         x2 = currentX;
         y2 = currentY - step;
-        if( type == Type.THOUGHT ) {
+        if( type == ConversationLine.Type.THOUGHT ) {
             path.quadTo( x1, y1, x2, y2 );
         }
-        else if( type == Type.ANGRY ) {
+        else if( type == ConversationLine.Type.YELL ) {
             path.lineTo( x1, y1 );
             path.lineTo( x2, y2 );
         }
@@ -365,7 +336,7 @@ public class BallonFactory {
         while( !done ) {
             step = random.nextInt( maxStep ) + minStep;
             amplitude = random.nextInt( maxAmplitude ) + minAmplitude;
-            factor = type == Type.THOUGHT ? random.nextInt( maxFactor ) + 1 : 2;
+            factor = type == ConversationLine.Type.THOUGHT ? random.nextInt( maxFactor ) + 1 : 2;
 
             if( currentY - step < r.y ) {
                 done = true;
@@ -375,10 +346,10 @@ public class BallonFactory {
                 y1 = currentY - step / factor;
                 x2 = currentX;
                 y2 = currentY - step;
-                if( type == Type.THOUGHT ) {
+                if( type == ConversationLine.Type.THOUGHT ) {
                     path.quadTo( x1, y1, x2, y2 );
                 }
-                else if( type == Type.ANGRY ) {
+                else if( type == ConversationLine.Type.YELL ) {
                     path.lineTo( x1, y1 );
                     path.lineTo( x2, y2 );
                 }
@@ -391,10 +362,10 @@ public class BallonFactory {
         y1 = r.y;
         x2 = r.x;
         y2 = r.y;
-        if( type == Type.THOUGHT ) {
+        if( type == ConversationLine.Type.THOUGHT ) {
             path.quadTo( x1, y1, x2, y2 );
         }
-        else if( type == Type.ANGRY ) {
+        else if( type == ConversationLine.Type.YELL ) {
             path.lineTo( x1, y1 );
             path.lineTo( x2, y2 );
         }
@@ -424,7 +395,7 @@ public class BallonFactory {
         switch( type ) {
             case WHISPER:
                 return new BasicStroke( 1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 5.0f, new float[] { 5.0f }, 0 );
-            case ANGRY:
+            case YELL:
                 return new BasicStroke( 2 );
             default:
                 return new BasicStroke( 1 );
@@ -433,7 +404,17 @@ public class BallonFactory {
 
     public static AffineTransform getTransformation( ) {
 
-        return type.getTransformation( );
+        switch( type ) {
+            case WHISPER:
+                if( whisper == null ) {
+                    whisper = new AffineTransform( );
+                    whisper.translate( 20.0f, 0 );
+                    whisper.shear( -0.1f, 0 );
+                }
+                return whisper;
+            default:
+                return normal;
+        }
     }
 
     public static Shape[] getArrow( int x, int y ) {
@@ -441,7 +422,7 @@ public class BallonFactory {
         switch( type ) {
             case THOUGHT:
                 return new Shape[] { new Ellipse2D.Float( x, y + 25.0f, 12.0f, 12.0f ), new Ellipse2D.Float( x, y + 40.0f, 8.0f, 8.0f ) };
-            case ANGRY:
+            case YELL:
                 GeneralPath angryPath = new GeneralPath( );
                 angryPath.moveTo( x - 20, y + 13 );
                 angryPath.lineTo( x - 15, y + 45 );
@@ -450,8 +431,8 @@ public class BallonFactory {
                 angryPath.lineTo( x + 2, y + 25 );
                 angryPath.lineTo( x - 5, y + 30 );
                 angryPath.lineTo( x, y + 13 );
-                return new Shape[]{ angryPath };
-            default:               
+                return new Shape[] { angryPath };
+            default:
                 GeneralPath path = new GeneralPath( );
                 path.moveTo( x - 15, y + 15 );
                 path.lineTo( x - 3, y + 30 );

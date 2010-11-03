@@ -46,11 +46,11 @@ import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.gui.auxiliar.components.TalkTextField;
 
 public class SpeakPlayerEffectDialog extends EffectDialog {
 
@@ -62,7 +62,7 @@ public class SpeakPlayerEffectDialog extends EffectDialog {
     /**
      * Combo box with the books.
      */
-    private JTextArea textArea;
+    private JTextPane textArea;
 
     /**
      * Constructor.
@@ -89,10 +89,9 @@ public class SpeakPlayerEffectDialog extends EffectDialog {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1;
         c.weighty = 1;
-        textArea = new JTextArea( );
-        textArea.setWrapStyleWord( true );
-        textArea.setLineWrap( true );
-        mainPanel.add( new JScrollPane( textArea ), c );
+        textArea = new JTextPane( );
+        
+        mainPanel.add( new TalkTextField( textArea ), c );
 
         // Add the panel to the center
         add( mainPanel, BorderLayout.CENTER );
@@ -105,7 +104,7 @@ public class SpeakPlayerEffectDialog extends EffectDialog {
 
         // Set the dialog
         setResizable( false );
-        setSize( 400, 140 );
+        setSize( 400, 200 );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
         setVisible( true );
