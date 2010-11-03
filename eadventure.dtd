@@ -620,6 +620,7 @@
 <!ATTLIST assessment-rule
 	id NMTOKEN #REQUIRED
 	importance ( verylow | low | normal | high | veryhigh ) #REQUIRED
+	repeatRule (yes | no) "no"
 >
 
 <!ELEMENT timed-assessment-rule (concept?, init-condition?, end-condition?, assessEffect*)>
@@ -627,6 +628,7 @@
 	id NMTOKEN #REQUIRED
 	importance ( verylow | low | normal | high | veryhigh ) #REQUIRED
 	usesEndConditions ( yes | no) "yes"
+	repeatRule (yes | no) "no"
 >
 <!ELEMENT concept (#PCDATA)>
 <!ELEMENT assessEffect (set-text?, set-property*)>
