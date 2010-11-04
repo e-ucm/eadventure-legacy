@@ -46,8 +46,7 @@ import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
@@ -68,7 +67,7 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
     /**
      * Combo box with the books.
      */
-    private JTextPane textArea;
+    private JTextArea textArea;
 
     /**
      * Constructor.
@@ -105,9 +104,11 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
             c.fill = GridBagConstraints.BOTH;
             c.gridy = 1;
             c.weighty = 1;
-            textArea = new JTextPane( );
+            textArea = new JTextArea( );
+            textArea.setWrapStyleWord( true );
+            textArea.setLineWrap( true );
 
-            mainPanel.add( new JScrollPane( new TalkTextField( textArea ) ), c );
+            mainPanel.add( new TalkTextField( textArea ), c );
 
             // Add the panel to the center
             add( mainPanel, BorderLayout.CENTER );
