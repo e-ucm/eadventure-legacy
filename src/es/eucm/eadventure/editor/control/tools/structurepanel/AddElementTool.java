@@ -72,6 +72,12 @@ public class AddElementTool extends Tool {
 
         if( element.getDataControl( ).canAddElement( type ) ) {
             String defaultId = element.getDataControl( ).getDefaultId( type );
+            defaultId.replaceAll( " ", "_" );
+            if ( defaultId!=null && defaultId.length( )>0 && Character.isDigit( defaultId.charAt( 0 ) ) ){
+                defaultId="MH"+defaultId;
+            } else if (defaultId==null || defaultId.length( )==0){
+                defaultId="";
+            }
             String id = defaultId;
             int count = 0;
             while( !Controller.getInstance( ).isElementIdValid( id, false ) ) {
