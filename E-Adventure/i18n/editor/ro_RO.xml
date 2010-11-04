@@ -890,7 +890,7 @@
 <entry key="Flags.FlagName">Nume marcator</entry>
 <entry key="Error.NoFlagsAvailable.Message">Nu exista marcatori in capitol. Pentru a crea unul, completati casuta cu numele acestuia.</entry>
 <entry key="Error.BadAudioFormat.Message">Acest fisier video nu poate fi redat. Incercati sa il salvati intr-un alt format:  MPEG 1 video, DivX 5 (sau mai vechi), MS-MPEG 4 V2 sau XVID.</entry>
-<entry key="Operation.CreateAssessmentFile.FileName.DefaultValue">Profil de evaluare</entry>
+<entry key="Operation.CreateAssessmentFile.FileName.DefaultValue">evaluare</entry>
 <entry key="IconAssets.ErrorIconSize">Fisierul "{#0}" nu poate fi adaugat resurselor pictograma. Dimensiunea pentru o pictograma este 80x48 pixeli, iar dimensiunea fisierului dvs. este {#1}x{#2}</entry>
 <entry key="Conditions.Context.2.25">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va fi intotdeauna executabila&lt;/b&gt;, daca nicio conditie nu a fost definita:</entry>
 <entry key="Conditions.Context.2.24">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va fi intotdeauna executabila&lt;/b&gt;, daca nicio conditie nu a fost definita:</entry>
@@ -1527,7 +1527,7 @@
 <entry key="TimedAssessmentRule.MaxTime">Timp maxim (s):</entry>
 <entry key="TimersList.Display">Afiseaza in joc</entry>
 <entry key="IMS.Educational.Contex">Mediul in care se va desfasura procesul de invatare si vor fi folosite resursele.</entry>
-<entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">profil de adaptare</entry>
+<entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptare</entry>
 <entry key="SPEP.ShowBarriers">Bariere</entry>
 <entry key="NextScene.EditDestinyPositionShort">Editati destinatia</entry>
 <entry key="ImageEdition.SelectColorTransparent">Selectare transparenta culoare</entry>
