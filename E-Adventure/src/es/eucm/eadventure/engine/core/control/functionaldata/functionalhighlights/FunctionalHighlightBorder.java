@@ -59,7 +59,7 @@ public class FunctionalHighlightBorder extends FunctionalHighlight {
             calculateDisplacements(image.getWidth( null ), image.getHeight( null ));
 
         if (oldImage == null || oldImage != image) {
-            BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage(image.getWidth( null ), image.getHeight( null ), Transparency.BITMASK );
+            BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage(image.getWidth( null ), image.getHeight( null ), Transparency.TRANSLUCENT );
             temp.getGraphics( ).drawImage( image, 0, 0, null );
             for (int i = 0 ; i < image.getWidth( null ); i++) {
                 for (int j = 0; j < image.getHeight( null ); j++) {
@@ -71,7 +71,7 @@ public class FunctionalHighlightBorder extends FunctionalHighlight {
             oldImage = image;
             newImage = temp;
         }
-        BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.BITMASK );
+        BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.TRANSLUCENT );
         ((Graphics2D) temp.getGraphics( )).drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
         return temp;
 

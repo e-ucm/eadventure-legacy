@@ -249,8 +249,13 @@ public class MultimediaManager {
                 transform.translate( ( x - 1 ) * image.getWidth( null ) / 2, ( y - 1 ) * image.getHeight( null ) / 2 );
 
                 // create a transparent (not translucent) image
-                newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( image.getWidth( null ), image.getHeight( null ), Transparency.BITMASK );
+                newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( image.getWidth( null ), image.getHeight( null ), Transparency.TRANSLUCENT );
 
+                //newImage = new BufferedImage (titleWidth+4, titleHeight+4, BufferedImage.TYPE_INT_ARGB);
+                //Graphics2D gr = titleImage.createGraphics( );
+                //gr.setRenderingHints( GUI.getOptimumRenderingHints());
+
+                
                 // draw the transformed image
                 Graphics2D g = (Graphics2D) newImage.getGraphics( );
 
@@ -277,7 +282,7 @@ public class MultimediaManager {
         transform.scale( GUI.WINDOW_WIDTH / (double) image.getWidth( null ), GUI.WINDOW_HEIGHT / (double) image.getHeight( null ) );
 
         // create a transparent (not translucent) image
-        Image newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, Transparency.BITMASK );
+        Image newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, Transparency.TRANSLUCENT );
 
         // draw the transformed image
         Graphics2D g = (Graphics2D) newImage.getGraphics( );

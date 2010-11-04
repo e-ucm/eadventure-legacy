@@ -151,7 +151,7 @@ public class FunctionalTextBook extends FunctionalBook {
 
         // Create the image of the book and extract the graphics
         int y = 0;
-        imgBook = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( TEXT_WIDTH, totalHeight + PAGE_TEXT_HEIGHT, Transparency.BITMASK );
+        imgBook = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( TEXT_WIDTH, totalHeight + PAGE_TEXT_HEIGHT, Transparency.TRANSLUCENT );
         Graphics2D g = (Graphics2D) imgBook.getGraphics( );
         g.setFont( new Font( "Dialog", Font.PLAIN, 18 ) );
         g.setColor( Color.DARK_GRAY );
