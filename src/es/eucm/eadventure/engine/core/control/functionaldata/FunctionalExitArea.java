@@ -83,7 +83,7 @@ public class FunctionalExitArea extends FunctionalItem {
         this.influenceArea = influenceArea;
 
         // Create transparent image
-        BufferedImage bImagenTransparente = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( exit.getWidth( ), exit.getHeight( ), Transparency.BITMASK );
+        BufferedImage bImagenTransparente = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( exit.getWidth( ), exit.getHeight( ), Transparency.TRANSLUCENT );
 
         Graphics2D g2d = bImagenTransparente.createGraphics( );
 

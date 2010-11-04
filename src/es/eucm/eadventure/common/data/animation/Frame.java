@@ -82,7 +82,7 @@ public class Frame implements Cloneable, Timed {
     /**
      * The default time of a frame
      */
-    public static final int DEFAULT_TIME = 100;
+    public static final int DEFAULT_TIME = 40;
 
     /**
      * The url/resource path
@@ -375,7 +375,7 @@ public class Frame implements Cloneable, Timed {
             transform.translate( ( x - 1 ) * image.getWidth( null ) / 2, ( y - 1 ) * image.getHeight( null ) / 2 );
 
             // create a transparent (not translucent) image
-            newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( image.getWidth( null ), image.getHeight( null ), Transparency.BITMASK );
+            newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( image.getWidth( null ), image.getHeight( null ), Transparency.TRANSLUCENT );
 
             // draw the transformed image
             Graphics2D g = (Graphics2D) newImage.getGraphics( );
@@ -395,7 +395,7 @@ public class Frame implements Cloneable, Timed {
      * @return a scaled image that fits in the game screen.
      */
     private Image getFullscreenImage( Image image ) {
-        Image newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, Transparency.BITMASK );
+        Image newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, Transparency.TRANSLUCENT );
 
         Graphics2D g = (Graphics2D) newImage.getGraphics( );
         g.drawImage( image, 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, null );
