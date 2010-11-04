@@ -1225,6 +1225,7 @@ Se abortó el proceso.</entry>
 <entry key="LOM.Educational.IntendedEndUserRole">Intended end user role</entry>
 <entry key="Player.FrontColor">Editar el color principal</entry>
 <entry key="Search.AssetDescription">Descripción recurso</entry>
+<entry key="ResizeImageDialog.Title">Mover y/o escalar el área de selección para personalizar el fondo de la escena</entry>
 <entry key="CutscenesList.Videoscene">Escena de vídeo</entry>
 <entry key="Conditions.ConditionGroup">Ref. a un Estado Global</entry>
 <entry key="Element.Action">Acción</entry>
@@ -1744,6 +1745,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="Resources.DescriptionSceneBackground">Imagen de fondo de la escena</entry>
 <entry key="IconAssets.Preview">Previsualización del icono</entry>
 <entry key="NPC.DetailedDescription">Descripción detallada del personaje (se muestra al examinar el personaje)</entry>
+<entry key="ResizeImageDialog.Description">Seleccionar fondo de la escena</entry>
 <entry key="Operation.RenameElementWarning">El elemento "{#0}" tiene {#1} referencias en el capítulo.
 		¿Está seguro de que desea renombrarlo?</entry>
 <entry key="Error.DTD.NotCopied.Title">Archivo importante no copiado</entry>
