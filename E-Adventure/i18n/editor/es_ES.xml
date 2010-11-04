@@ -1447,6 +1447,7 @@ Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán v�
 <entry key="Operation.AddNextSceneMessage">Seleccione una escena para enlazar a la estructura de la siguiente escena:</entry>
 <entry key="MacroReferenceEffect.Title">Lanzar macro</entry>
 <entry key="Book.App.Tip">Panel para modificar la apariencia del libro</entry>
+<entry key="HelpDialog.FileNotFound">No se ha encontrado</entry>
 <entry key="Operation.FileLoadedMessage">El proyecto pudo cargarse correctamente.</entry>
 <entry key="Operation.AddBookDefaultValue">IdLibro</entry>
 <entry key="LOMES.ClassificationTaxonPath.DialogTitle">añadir Nueva Ruta Taxonómica</entry>
@@ -1824,6 +1825,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="NextScene.AdvancedOptions">Opciones avanzadas</entry>
 <entry key="Element.Name251">Arrastrar a....</entry>
 <entry key="LOMES.Technical.Name12">Amaya</entry>
+<entry key="Animation.DuplicateFrame">Duplicar el cuadro seleccionado</entry>
 <entry key="Element.Name250">Interacción personalizada</entry>
 <entry key="TreeNode.AddElement">Añadir elemento</entry>
 <entry key="LOMES.Technical.Name11">Opera</entry>

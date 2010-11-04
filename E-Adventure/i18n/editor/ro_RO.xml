@@ -151,6 +151,7 @@
 <entry key="Operation.RenameAssessmentFile">Redenumiti fisierul de evaluare</entry>
 <entry key="ActivateEffect.Title">Activati efectul</entry>
 <entry key="MenuRun.Normal">Normal</entry>
+<entry key="ImageEdition.Contiguous">Invecinat</entry>
 <entry key="Resources.Select">Selectare...</entry>
 <entry key="LOMES.LCContribute.DialogTitle">Creati o noua Contributie</entry>
 <entry key="Conversations.Listen">Ascultati</entry>
@@ -573,15 +574,15 @@
 <entry key="Operation.CreateAssessmentFile.FileName">Numele noului profil de evaluare</entry>
 <entry key="LOMES.Rights.CopyAndOthers9">creative commons: atribuire - fara opere derivate</entry>
 <entry key="LOMES.Rights.CopyAndOthers8">creative commons: atribuire</entry>
-<entry key="Buttons.Title">Butoane</entry>
 <entry key="LOMES.Rights.CopyAndOthers7">Drepturi de proprietate intelectuala</entry>
+<entry key="Buttons.Title">Butoane</entry>
 <entry key="Barrier.DocPanelTitle">Documentatie</entry>
 <entry key="LOMES.Rights.CopyAndOthers6">Nepotrivit</entry>
 <entry key="LOMES.Rights.CopyAndOthers5">domeniul public</entry>
-<entry key="Error.EffectMovePlayerNotAllowed.Message">Ne pare rau dar efectul de miscare al jucatorului nu poate fi redat in statusul actual al aventurii</entry>
 <entry key="LOMES.Rights.CopyAndOthers4">Alte licente software free </entry>
-<entry key="Conditions.Title">Conditii</entry>
+<entry key="Error.EffectMovePlayerNotAllowed.Message">Ne pare rau dar efectul de miscare al jucatorului nu poate fi redat in statusul actual al aventurii</entry>
 <entry key="LOMES.Rights.CopyAndOthers3">Licenta software free dubla GPL si EUPL</entry>
+<entry key="Conditions.Title">Conditii</entry>
 <entry key="LOMES.Rights.CopyAndOthers2">Licenta software free GPL </entry>
 <entry key="LOMES.Rights.CopyAndOthers1">Software free- Licenta Publica a Uniunii Europene (EUPL)</entry>
 <entry key="LOMES.Rights.CopyAndOthers0">Licenta</entry>
@@ -591,6 +592,7 @@
 <entry key="ResourcesList.DuplicateResourcesBlock">Duplicati blocul de resurse selectat</entry>
 <entry key="GraphicConfig.Title">Configurare grafica a aventurii</entry>
 <entry key="LOMES.Educational.LearningResourceType9">Hypertext</entry>
+<entry key="Conversation.PreListening">Previzualizare optiuni</entry>
 <entry key="LOMES.Educational.LearningResourceType8">Text narativ</entry>
 <entry key="LOMES.Educational.LearningResourceType7">Compus audio</entry>
 <entry key="LOMES.Educational.LearningResourceType6">Voce</entry>
@@ -688,6 +690,7 @@
 <entry key="EffectsGroup.GameState">Schimba statusul jocului</entry>
 <entry key="Adventure.ModePlayerVisible.Name">persoana a III a</entry>
 <entry key="LOMES.LifeCycle.DateTitle">Creati o noua data</entry>
+<entry key="Assessment.Column.RepeatRule">Repetare regula evaluare</entry>
 <entry key="Operation.IdErrorTitle">identificator eroare</entry>
 <entry key="ItemReferencesList.PreviewTitle">Previzualizare locatie element</entry>
 <entry key="Element.Name49">Regula temporizata</entry>
@@ -833,6 +836,7 @@
 <entry key="PlayerPosition.Title">Pozitia jucatorului</entry>
 <entry key="Operation.ExportT.Success.Title">Exportare incheiata.</entry>
 <entry key="Animation.AskFilename">Scrieti numele fisierului pentru animatie (fara extensie)</entry>
+<entry key="Book.Previous">Pagina anterioara</entry>
 <entry key="Effect.BorderHighlightItemInfo">Evidentiaza borduri ale {#0}</entry>
 <entry key="Conditions.Context.1A.44">{#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va incepe&lt;/b&gt; cand urmatoarea conditie este satisfacuta:</entry>
 <entry key="Conditions.Group.Id">ID Conditii globale</entry>
@@ -877,6 +881,7 @@
 <entry key="Effect.PlaySound">Ruleaza sunet</entry>
 <entry key="GeneralText.Duplicate">Duplicare</entry>
 <entry key="ExitsList.Transition">Tranzitie</entry>
+<entry key="Effect.Option.SetValue">Stabilire valoare</entry>
 <entry key="EffectsGroup.Miscellaneous">Diverse</entry>
 <entry key="Search.NextScene">Scena urmatoare</entry>
 <entry key="ActiveAreasList.Title">Zone active</entry>
@@ -976,11 +981,13 @@
 <entry key="ItemsList.Title">Itemi</entry>
 <entry key="LOM.Technical.Tip">Date tehnice</entry>
 <entry key="Animation.WaitForClick">Asteapta pentru click</entry>
+<entry key="AssessmentRule.Effect.AddVarProperty">Adauga variabila/proprietate marcator</entry>
 <entry key="Operation.AddNPCReferenceMessage">Selectati personajul pe care il veti adauga scenei</entry>
 <entry key="Adventure.CurrentPlayerMode">Modul curent</entry>
 <entry key="MacroReferenceEffect.Description">Seelectati macroul care va fi lansat in acest punct</entry>
 <entry key="GUIStyles.TraditionalDescription">Acest tip de interfata arata ca versiunile anterioare ale aventurilor lui LucasArt. Utilizatorul are un set de butoane pentru a realizarea actiunilor si un inventar in partea de jos a ecranului.  </entry>
 <entry key="ItemReferencesList.Title">Referinta</entry>
+<entry key="AssessmentRule.Effect.AddValueProperty">Adauga valoare proprietate</entry>
 <entry key="Search.EMail">e-mail</entry>
 <entry key="LOMES.Classification.TaxonId">Indentificator</entry>
 <entry key="Search.NPCVoice">Voce NPC</entry>
@@ -1096,6 +1103,7 @@
 <entry key="AssetsChooser.Cursor">Alege o imagine pentru cursor</entry>
 <entry key="Exit.BottomToTop">De jos in sus</entry>
 <entry key="GlobalState.Conditions">Lista conditiilor statusului global</entry>
+<entry key="Book.Next">Pagina urmatoare</entry>
 <entry key="PlayAnimationEffect.Title">Ruleaza efectul de animatie</entry>
 <entry key="Operation.IdErrorCharacter">Indentificatorul nu trebuie sa contina caractere invalide.</entry>
 <entry key="Operation.RenameAssessmentFile.FileName.Message">Scrieti noul nume al fisierului de evaluae</entry>
@@ -1443,6 +1451,7 @@
 <entry key="Animation.Image">Imagine</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="ExitsList.Edit">Editare</entry>
+<entry key="ImageEdition.NoTransparencyAllowed">Acest format al imaginii nu suporta transparenta</entry>
 <entry key="Flags.Title">Marcatori</entry>
 <entry key="Assets.DeleteAsset">Sterge resusa</entry>
 <entry key="BookPagesList.Type">Tip</entry>
@@ -1468,6 +1477,7 @@
 <entry key="LOMES.Educational.CognitiveProcess3">Compara</entry>
 <entry key="Conditions.Context.TimedAssessmentRuleB1">{#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va deveni inactiv&lt;/b&gt;(cronometrul se va opri si blocul post-efect va fi executat) cand urmatoarea conditie este satisfacuta:</entry>
 <entry key="LOMES.Educational.CognitiveProcess2">Colaboreaza</entry>
+<entry key="ImageEdition.Threshold">Toleranta</entry>
 <entry key="LOMES.Educational.CognitiveProcess1">Implementeaza</entry>
 <entry key="LOMES.Educational.CognitiveProcess0">Analiza</entry>
 <entry key="Inventory.highlightedleft.Tip">Aceasta este sageata la stanga evidentiata</entry>
@@ -1520,6 +1530,7 @@
 <entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">profil de adaptare</entry>
 <entry key="SPEP.ShowBarriers">Bariere</entry>
 <entry key="NextScene.EditDestinyPositionShort">Editati destinatia</entry>
+<entry key="ImageEdition.SelectColorTransparent">Selectare transparenta culoare</entry>
 <entry key="Timer.DisplayName">Afiseaza nume</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">ID Atrezzo</entry>
 <entry key="MenuAdventure.CustomizeGUI">Personalizeaza elementele interfetei grafice</entry>
@@ -1544,6 +1555,7 @@
 <entry key="TriggerCutsceneEffect.Title">Deschideti efect secventa</entry>
 <entry key="Operation.FileLoadedWithErrorMessage">Proiect incarcat cu probleme. Este posibil sa nu se fi incarcat toate datele</entry>
 <entry key="Adventure.ModePlayerTransparent.Description">Cand acest mod este selectat, jucatorul nu este descris in joc, ca atunci cand utilizatorul ar fi fost inclus direct in joc. Acest mod este potrivit pentru producerea jocurilor de aventura de tip Myst-like.</entry>
+<entry key="Effect.Increment">Increment</entry>
 <entry key="Conversation.OptionPreviewPartialConversation">Previzualizeaza nodul selectat</entry>
 <entry key="Export.Book">Exportati carte in format HTML</entry>
 <entry key="LOM.Duration.InvalidValue.Message">Valoarea introdusa nu este valida pentru  {#0}. Introduceti o valoare numerica pozitiva sau lasati spatiul liber.</entry>
@@ -1598,6 +1610,7 @@
 <entry key="LOMES.AddElement">Adauga un nou element</entry>
 <entry key="StartDialog.NewAssessmentFile.Description">Ati ales sa creati un nou fisier de evaluare. Pentru  versiunea curenta aceasta optiune este indisponibila. Trebuie sa creati un nou fisier de evaluare deschizand/creand un nou joc de aventura; utilizati apoi facilitatile incluse acolo.</entry>
 <entry key="IMS.Educational.Contex10">Educatie vocationala</entry>
+<entry key="Effect.Decrement">Decrement</entry>
 <entry key="ElementList.Empty">Niciun element de referinta nu a fost selectat</entry>
 <entry key="IMS.Educational.InteractivityLevel4">Foarte mare</entry>
 <entry key="IMS.Educational.InteractivityLevel3">Mare</entry>
@@ -1829,18 +1842,4 @@
 <entry key="TalkToAction.MessageSelectConversation">Selecteaza conversatie</entry>
 <entry key="BookPage.NotValidURL">Adresa furnizata nu este accesibila deci e posibil sa nu fie afisata in joc. Verificati daca ati scris corect adresa si daca functioneaza conexiunea la Internet.</entry>
 <entry key="LOMES.MetaMetaData.Language">Limba</entry>
-
-<entry key="AssessmentRule.Effect.AddValueProperty">Adauga valoare proprietate</entry>
-<entry key="AssessmentRule.Effect.AddVarProperty">Adauga variabila/proprietate marcator</entry>
-<entry key="Book.Next">Pagina urmatoare</entry>
-<entry key="Book.Previous">Pagina anterioara</entry>
-<entry key="Conversation.PreListening">Previzualizare optiuni</entry>
-<entry key="Effect.Decrement">Decrement</entry>
-<entry key="Effect.Increment">Increment</entry>
-<entry key="Effect.Option.SetValue">Stabilire valoare</entry>
-<entry key="ImageEdition.Contiguous">Invecinat</entry>
-<entry key="ImageEdition.NoTransparencyAllowed">Acest format al imaginii nu suporta transparenta</entry>
-<entry key="ImageEdition.SelectColorTransparent">Selectare transparenta culoare</entry>
-<entry key="ImageEdition.Threshold">Toleranta</entry>
-<entry key="Assessment.Column.RepeatRule">Repetare regula evaluare</entry>
 </properties>

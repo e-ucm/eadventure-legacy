@@ -792,8 +792,8 @@ based on the state of the flags.</entry>
 <entry key="Element.Name25">Give to</entry>
 <entry key="Element.Name24">Use with</entry>
 <entry key="TriggerCutsceneEffect.Description">Select the cutscene you want to trigger</entry>
-<entry key="Element.Name23">Use</entry>
 <entry key="LOMES.Rights.AccessDescription">Access Description</entry>
+<entry key="Element.Name23">Use</entry>
 <entry key="Effect.SpeakPlayer">Speak player</entry>
 <entry key="Element.Name22">Grab</entry>
 <entry key="Element.Name21">Examine</entry>
@@ -1442,6 +1442,7 @@ Folders with names containing other characters will not be valid.</entry>
 <entry key="Operation.AddNextSceneMessage">Select a scene to link with the "Next scene" structure</entry>
 <entry key="MacroReferenceEffect.Title">Launch macro</entry>
 <entry key="Book.App.Tip">Use this panel for the edition of the book's background image</entry>
+<entry key="HelpDialog.FileNotFound">Not found</entry>
 <entry key="Operation.FileLoadedMessage">The project was successfully loaded</entry>
 <entry key="Operation.AddBookDefaultValue">BookId</entry>
 <entry key="LOMES.ClassificationTaxonPath.DialogTitle">Add new Taxon Path entry</entry>
@@ -1817,6 +1818,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="NextScene.AdvancedOptions">Advanced options</entry>
 <entry key="Element.Name251">Drag to</entry>
 <entry key="LOMES.Technical.Name12">Amaya</entry>
+<entry key="Animation.DuplicateFrame">Duplicate the selected frame</entry>
 <entry key="Element.Name250">CustomInteract</entry>
 <entry key="TreeNode.AddElement">Add element</entry>
 <entry key="LOMES.Technical.Name11">Opera</entry>
