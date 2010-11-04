@@ -134,6 +134,11 @@ public class AnimationEditDialog extends ToolManagableDialog {
      * The button to add a frame
      */
     private JButton addButton;
+    
+    /**
+     * The button to duplicate a frame
+     */
+    private JButton duplicateButton;
 
     /**
      * JCheckBox to set the useTransitions property of the animation
@@ -452,6 +457,23 @@ public class AnimationEditDialog extends ToolManagableDialog {
         } );
         buttons.add( addButton );
 
+
+        duplicateButton = new JButton( new ImageIcon( "img/icons/duplicateNode.png" ) );
+        duplicateButton.setContentAreaFilled( false );
+        duplicateButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+        duplicateButton.setBorder( BorderFactory.createEmptyBorder( ) );
+        duplicateButton.setToolTipText( TC.get( "Animation.DuplicateFrame" ) );
+        duplicateButton.setEnabled( false );
+        duplicateButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                duplicateFrame( );
+            }
+        } );
+        buttons.add( duplicateButton );
+
+        
         moveRightButton = new JButton( new ImageIcon( "img/icons/moveNodeRight.png" ) );
         moveRightButton.setContentAreaFilled( false );
         moveRightButton.setMargin( new Insets( 0, 0, 0, 0 ) );
@@ -503,6 +525,34 @@ public class AnimationEditDialog extends ToolManagableDialog {
         frameList.setSelectedIndex( newFrameIndex );
     }
 
+    /**
+     * Method to add a duplicate the selected frame to the animation. The new frame will be added
+     * just after the original one.
+     */
+    protected void duplicateFrame( ) {
+
+        Frame newFrame = new Frame( animationDataControl.getImageLoaderFactory( )  );
+        
+        int index = frameList.getSelectedIndex( ) / 2;
+        if( !animationDataControl.isUseTransitions( ) ) {
+            index = frameList.getSelectedIndex( );
+        }
+        if( frameList.getSelectedIndex( ) == -1 )
+            index = animationDataControl.getFrameCount( ) - 1;
+
+        FrameDataControl frameToDuplicate = animationDataControl.getFrameDataControl( index );
+        newFrame.setUri( frameToDuplicate.getImageURI( ) );
+        newFrame.setSoundUri( frameToDuplicate.getSoundUri( ) );
+        newFrame.setTime( frameToDuplicate.getTime( ) );
+        
+        animationDataControl.duplicateFrame( index, newFrame );
+
+        frameList.updateUI( );
+        int newFrameIndex = animationDataControl.indexOfFrame( newFrame );
+        frameList.setSelectedIndex( newFrameIndex );
+    }
+
+    
     /**
      * Delete the selected frame from the list
      */
@@ -653,6 +703,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         else
             moveLeftButton.setEnabled( false );
         deleteButton.setEnabled( true );
+        duplicateButton.setEnabled( true );
 
         configurationPanel.removeAll( );
         frameConfigPanel = new FrameConfigPanel( animationDataControl.getFrameDataControl( i ), frameList, this );
@@ -669,6 +720,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         moveRightButton.setEnabled( false );
         moveLeftButton.setEnabled( false );
         deleteButton.setEnabled( false );
+        duplicateButton.setEnabled( false );
         configurationPanel.removeAll( );
         this.validate( );
         this.repaint( );
@@ -686,6 +738,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
         moveRightButton.setEnabled( false );
         moveLeftButton.setEnabled( false );
         deleteButton.setEnabled( false );
+        duplicateButton.setEnabled( false );
 
         configurationPanel.removeAll( );
         configurationPanel.add( new TransitionConfigPanel( animationDataControl.getTransitionDataControls( ).get( i ), frameList ) );

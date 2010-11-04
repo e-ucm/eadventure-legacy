@@ -45,13 +45,13 @@ import java.awt.Transparency;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class FunctionalActiveArea extends FunctionalItem {
 
@@ -87,7 +87,7 @@ public class FunctionalActiveArea extends FunctionalItem {
         this.influenceArea = influenceArea;
 
         // Create transparent image
-        BufferedImage bImagenTransparente = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( activeArea.getWidth( ), activeArea.getHeight( ), Transparency.BITMASK );
+        BufferedImage bImagenTransparente = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( activeArea.getWidth( ), activeArea.getHeight( ), Transparency.TRANSLUCENT );
 
         Graphics2D g2d = bImagenTransparente.createGraphics( );
 

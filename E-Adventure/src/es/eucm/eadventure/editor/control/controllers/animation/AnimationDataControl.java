@@ -53,6 +53,7 @@ import es.eucm.eadventure.editor.control.tools.animation.AddNewFrameTool;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeSlidesTool;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeUseTransitionsTool;
 import es.eucm.eadventure.editor.control.tools.animation.DeleteFrameTool;
+import es.eucm.eadventure.editor.control.tools.animation.DuplicateFrameTool;
 import es.eucm.eadventure.editor.control.tools.animation.MoveFrameLeftTool;
 import es.eucm.eadventure.editor.control.tools.animation.MoveFrameRightTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
@@ -169,6 +170,11 @@ public class AnimationDataControl extends DataControl {
     public void addFrame( int index, Frame newFrame ) {
 
         Controller.getInstance( ).addTool( new AddNewFrameTool( this, index, newFrame ) );
+    }
+    
+    public void duplicateFrame( int index, Frame newFrame ) {
+
+        Controller.getInstance( ).addTool( new DuplicateFrameTool( this, index, newFrame ) );
     }
 
     public void moveFrameLeft( FrameDataControl temp ) {

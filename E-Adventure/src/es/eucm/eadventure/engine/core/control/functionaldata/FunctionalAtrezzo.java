@@ -138,7 +138,7 @@ public class FunctionalAtrezzo extends FunctionalElement {
                 boolean y_clear = true;
                 BufferedImage bufferedImage = (BufferedImage) tempimage;
                 int alpha = bufferedImage.getRGB( i, j ) >>> 24;
-                if (alpha > 128) {
+                if (alpha > 0) {
                     if (x_clear)
                         x1 = Math.min( x1, i );
                     if (y_clear)
@@ -152,7 +152,7 @@ public class FunctionalAtrezzo extends FunctionalElement {
         }
         
         // create a transparent (not translucent) image
-        image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( x2 - x1, y2 - y1, Transparency.BITMASK );
+        image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( x2 - x1, y2 - y1, Transparency.TRANSLUCENT );
 
         // draw the transformed image
         Graphics2D g = (Graphics2D) image.getGraphics( );
@@ -243,7 +243,7 @@ public class FunctionalAtrezzo extends FunctionalElement {
                 temp = oldImage;
             }
             else {
-                temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.BITMASK );
+                temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.TRANSLUCENT );
                 ((Graphics2D) temp.getGraphics( )).drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
 
                 oldImage = temp;
