@@ -38,15 +38,12 @@ package es.eucm.eadventure.editor.gui.editdialogs.effectdialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
@@ -62,7 +59,7 @@ public class SpeakPlayerEffectDialog extends EffectDialog {
     /**
      * Combo box with the books.
      */
-    private JTextPane textArea;
+    private JTextArea textArea;
 
     /**
      * Constructor.
@@ -77,21 +74,23 @@ public class SpeakPlayerEffectDialog extends EffectDialog {
 
         // Create the main panel
         JPanel mainPanel = new JPanel( );
-        mainPanel.setLayout( new GridBagLayout( ) );
-        GridBagConstraints c = new GridBagConstraints( );
+        mainPanel.setLayout( new BorderLayout( ) );
+        //GridBagConstraints c = new GridBagConstraints( );
 
         // Set the border of the panel with the description
         mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "SpeakPlayerEffect.Description" ) ) ) );
 
         // Create and add the list of flags
-        c.insets = new Insets( 2, 4, 4, 4 );
+        /*c.insets = new Insets( 2, 4, 4, 4 );
         c.fill = GridBagConstraints.BOTH;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1;
-        c.weighty = 1;
-        textArea = new JTextPane( );
+        c.weighty = 1;*/
+        textArea = new JTextArea( );
+        textArea.setWrapStyleWord( true );
+        textArea.setLineWrap( true );
         
-        mainPanel.add( new TalkTextField( textArea ), c );
+        mainPanel.add( new TalkTextField( textArea ), BorderLayout.CENTER );
 
         // Add the panel to the center
         add( mainPanel, BorderLayout.CENTER );
