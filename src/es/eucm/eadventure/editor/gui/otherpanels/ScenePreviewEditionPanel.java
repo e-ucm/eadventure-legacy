@@ -878,15 +878,17 @@ public class ScenePreviewEditionPanel extends JPanel {
             if( !isInside( selectedElement, x, y, true ) && isInside( influenceArea, x, y, false ) )
                 return influenceArea;
         }
+        
+        ImageElement found = null;
         for( Integer key : movableCategory.keySet( ) ) {
             if( movableCategory.get( key ) && ( displayCategory.get( key ) != null ? displayCategory.get( key ) : false ) ) {
                 for( ImageElement imageElement : elements.get( key ) ) {
                     if( isInside( imageElement, x, y, true ) )
-                        return imageElement;
+                        found = imageElement;
                 }
             }
         }
-        return null;
+        return found;
     }
 
     private boolean isInside( ImageElement imageElement, int x, int y, boolean checkTransparent ) {

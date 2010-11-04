@@ -136,7 +136,7 @@ public class ImageToolBar extends JPanel {
             c.gridx++;
             this.add( new JLabel( TC.get( "ImageEdition.Threshold" ) ), c );
 
-            JSpinner s = new JSpinner( new SpinnerNumberModel( filter.getThreshold( ), 0, 255, 1 ) );
+            JSpinner s = new JSpinner( new SpinnerNumberModel( filter.getThreshold( ), 10, 255, 1 ) );
             s.addChangeListener( new ChangeListener( ) {
 
                 public void stateChanged( ChangeEvent arg0 ) {

@@ -81,11 +81,6 @@ public class SpeakPlayerEffectDialog extends EffectDialog {
         mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "SpeakPlayerEffect.Description" ) ) ) );
 
         // Create and add the list of flags
-        /*c.insets = new Insets( 2, 4, 4, 4 );
-        c.fill = GridBagConstraints.BOTH;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
-        c.weighty = 1;*/
         textArea = new JTextArea( );
         textArea.setWrapStyleWord( true );
         textArea.setLineWrap( true );
