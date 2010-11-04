@@ -530,7 +530,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 image = oldImage;
             else if( scale != 1 ) {
                 oldOriginalImage = image;
-                image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.BITMASK );
+                image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.TRANSLUCENT );
                 ((Graphics2D) image.getGraphics( )).drawImage( oldOriginalImage, AffineTransform.getScaleInstance( scale, scale ), null );
             }
             else

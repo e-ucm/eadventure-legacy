@@ -201,7 +201,7 @@ public class FunctionalScene implements Renderable {
         if( background != null && resources.existAsset( Scene.RESOURCE_TYPE_FOREGROUND ) ) {
             BufferedImage bufferedBackground = (BufferedImage) background;
             BufferedImage foregroundHardMap = (BufferedImage) MultimediaManager.getInstance( ).loadImageFromZip( resources.getAssetPath( Scene.RESOURCE_TYPE_FOREGROUND ), MultimediaManager.IMAGE_SCENE );
-            BufferedImage bufferedForeground = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( foregroundHardMap.getWidth( null ), foregroundHardMap.getHeight( null ), Transparency.BITMASK );
+            BufferedImage bufferedForeground = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( foregroundHardMap.getWidth( null ), foregroundHardMap.getHeight( null ), Transparency.TRANSLUCENT );
 
             for( int i = 0; i < foregroundHardMap.getWidth( null ); i++ ) {
                 for( int j = 0; j < foregroundHardMap.getHeight( null ); j++ ) {
@@ -480,7 +480,7 @@ public class FunctionalScene implements Renderable {
             if( background != null && resources.existAsset( Scene.RESOURCE_TYPE_FOREGROUND ) ) {
                 BufferedImage bufferedBackground = (BufferedImage) background;
                 BufferedImage foregroundHardMap = (BufferedImage) MultimediaManager.getInstance( ).loadImageFromZip( resources.getAssetPath( Scene.RESOURCE_TYPE_FOREGROUND ), MultimediaManager.IMAGE_SCENE );
-                BufferedImage bufferedForeground = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( foregroundHardMap.getWidth( null ), foregroundHardMap.getHeight( null ), Transparency.BITMASK );
+                BufferedImage bufferedForeground = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( foregroundHardMap.getWidth( null ), foregroundHardMap.getHeight( null ), Transparency.TRANSLUCENT );
 
                 for( int i = 0; i < foregroundHardMap.getWidth( null ); i++ ) {
                     for( int j = 0; j < foregroundHardMap.getHeight( null ); j++ ) {

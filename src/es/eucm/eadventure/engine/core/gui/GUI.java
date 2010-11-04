@@ -310,6 +310,45 @@ public abstract class GUI implements FocusListener {
         return hud.getResponseTextNumberLines( );
     }
 
+    public static RenderingHints getOptimumRenderingHints(){
+        RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        rh.put(
+                RenderingHints.KEY_ALPHA_INTERPOLATION,
+                RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        
+        rh.put(
+                RenderingHints.KEY_COLOR_RENDERING,
+                RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        
+        rh.put( RenderingHints.KEY_DITHERING,
+                RenderingHints.VALUE_DITHER_ENABLE );
+
+        rh.put( RenderingHints.KEY_FRACTIONALMETRICS,
+                RenderingHints.VALUE_FRACTIONALMETRICS_ON );
+
+        rh.put( RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC );
+        
+        rh.put( RenderingHints.KEY_RENDERING,
+                RenderingHints.VALUE_RENDER_QUALITY );
+        
+        rh.put(
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        
+        rh.put(
+                RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_NORMALIZE);
+        //RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+         //       RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        return rh;
+    }
+
+    
+    
     /**
      * Gets the graphics context for the display. The ScreenManager uses double
      * buffering, so applications must call update() to show any graphics drawn.
@@ -744,7 +783,9 @@ public abstract class GUI implements FocusListener {
     }
 
     public void drawToGraphics( Graphics2D g ) {
-
+        RenderingHints rh = GUI.getOptimumRenderingHints( );
+        g.setRenderingHints(rh);
+        
         if( background != null ) {
             background.draw( g );
             //background = null;
