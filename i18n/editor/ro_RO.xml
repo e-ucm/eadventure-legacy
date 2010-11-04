@@ -1829,4 +1829,18 @@
 <entry key="TalkToAction.MessageSelectConversation">Selecteaza conversatie</entry>
 <entry key="BookPage.NotValidURL">Adresa furnizata nu este accesibila deci e posibil sa nu fie afisata in joc. Verificati daca ati scris corect adresa si daca functioneaza conexiunea la Internet.</entry>
 <entry key="LOMES.MetaMetaData.Language">Limba</entry>
+
+<entry key="AssessmentRule.Effect.AddValueProperty">Adauga valoare proprietate</entry>
+<entry key="AssessmentRule.Effect.AddVarProperty">Adauga variabila/proprietate marcator</entry>
+<entry key="Book.Next">Pagina urmatoare</entry>
+<entry key="Book.Previous">Pagina anterioara</entry>
+<entry key="Conversation.PreListening">Previzualizare optiuni</entry>
+<entry key="Effect.Decrement">Decrement</entry>
+<entry key="Effect.Increment">Increment</entry>
+<entry key="Effect.Option.SetValue">Stabilire valoare</entry>
+<entry key="ImageEdition.Contiguous">Invecinat</entry>
+<entry key="ImageEdition.NoTransparencyAllowed">Acest format al imaginii nu suporta transparenta</entry>
+<entry key="ImageEdition.SelectColorTransparent">Selectare transparenta culoare</entry>
+<entry key="ImageEdition.Threshold">Toleranta</entry>
+<entry key="Assessment.Column.RepeatRule">Repetare regula evaluare</entry>
 </properties>
