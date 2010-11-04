@@ -31,6 +31,16 @@ public class BallonFactory {
 
     private static AffineTransform whisper;
 
+    private static final int VERTICAL_MARGIN = 50;
+
+    private static final int HORIZONTAL_MARGIN = 60;
+
+    private static Position position;
+
+    private enum Position {
+        NORTH, SOUTH, EAST, WEST
+    };
+
     /**
      * 
      * @param f
@@ -143,35 +153,81 @@ public class BallonFactory {
 
     public static Rectangle getTextBounds( int showX, int showY, int maxWidth, int maxHeight ) {
 
-        int bubbleMarkerSize = 10;
+        // Try to put it in NORTH
+        Rectangle r = new Rectangle( showX - maxLineWidth / 2, showY - linesHeight, maxLineWidth, linesHeight );
 
-        int x = showX - maxLineWidth / 2;
-        int y = showY - bubbleMarkerSize - linesHeight;
-
-        if( x < 0 )
-            x = 0;
-
-        if( x + maxLineWidth > maxWidth )
-            x = maxWidth - maxLineWidth;
-
-        if( y < 0 )
-            y = bubbleMarkerSize;
-
-        if( y + linesHeight > maxHeight )
-            y = maxHeight - linesHeight;
-
-        Rectangle r = new Rectangle( x, y, maxLineWidth, linesHeight );
-        while( r.contains( showX, showY ) ) {
-            r.x++;
-            r.y++;
+        if( correctHorizontally( r, maxWidth, maxHeight ) ) {
+            if( !r.contains( showX, showY ) ) {
+                position = Position.NORTH;
+                return addPadding( r );
+            }
         }
-        r.y += bubbleMarkerSize;
+        // Try to put it in WEST
+        r = new Rectangle( showX - r.width - HORIZONTAL_MARGIN, showY, maxLineWidth, linesHeight );
+
+        if( correctVertically( r, maxWidth, maxHeight ) ) {
+            if( !r.contains( showX, showY ) ) {
+                position = Position.WEST;
+                return addPadding( r );
+            }
+
+        }
+
+        // Try to put it in EAST
+        r = new Rectangle( showX + HORIZONTAL_MARGIN, showY, maxLineWidth, linesHeight );
+        if( correctVertically( r, maxWidth, maxHeight ) ) {
+            if( !r.contains( showX, showY ) ) {
+                position = Position.EAST;
+                return addPadding( r );
+            }
+
+        }
+
+        // If we get here, we put it un SOUTH
+        r = new Rectangle( showX - maxLineWidth / 2, showY + linesHeight + VERTICAL_MARGIN, maxLineWidth, linesHeight );
+        position = Position.SOUTH;
+        correctHorizontally( r, maxWidth, maxHeight );
+        return addPadding( r );
+    }
+
+    private static Rectangle addPadding( Rectangle r ) {
 
         r.x -= padding;
         r.y -= padding;
         r.height += padding * 2;
         r.width += padding * 2;
         return r;
+    }
+
+    private static boolean correctHorizontally( Rectangle r, int maxWidth, int maxHeight ) {
+
+        if( r.x < 0 ) {
+            r.x = 2;
+        }
+
+        if( r.x + r.width > maxWidth ) {
+            r.x = maxWidth - r.width - 2;
+        }
+
+        return isInsideBounds( r, maxWidth, maxHeight );
+    }
+
+    private static boolean correctVertically( Rectangle r, int maxWidth, int maxHeight ) {
+
+        if( r.y < 0 ) {
+            r.y = 2;
+        }
+
+        if( r.y + r.height > maxHeight ) {
+            r.y = maxHeight - r.height - 2;
+        }
+
+        return isInsideBounds( r, maxWidth, maxHeight );
+    }
+
+    private static boolean isInsideBounds( Rectangle r, int maxWidth, int maxHeight ) {
+
+        return r.x > 0 && r.y > 0 && r.x + r.width <= maxWidth && r.height <= maxHeight;
     }
 
     public static Shape getPath( Rectangle r, int step, int amplitude ) {
@@ -431,13 +487,26 @@ public class BallonFactory {
                 angryPath.lineTo( x + 2, y + 25 );
                 angryPath.lineTo( x - 5, y + 30 );
                 angryPath.lineTo( x, y + 13 );
+                transformPath( angryPath );
                 return new Shape[] { angryPath };
             default:
                 GeneralPath path = new GeneralPath( );
                 path.moveTo( x - 15, y + 15 );
                 path.lineTo( x - 3, y + 30 );
                 path.lineTo( x, y + 15 );
+                transformPath( path );
                 return new Shape[] { path };
         }
+    }
+
+    private static void transformPath( GeneralPath path ) {
+
+       /* switch( position ) {
+            case WEST:
+                
+                path.transform( AffineTransform.getTranslateInstance( -HORIZONTAL_MARGIN, 0 ) );
+                path.transform( AffineTransform.getQuadrantRotateInstance( 3 ) );
+                break;
+        }*/
     }
 }

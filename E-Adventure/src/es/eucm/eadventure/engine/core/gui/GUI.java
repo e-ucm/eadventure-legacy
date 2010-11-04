@@ -1109,16 +1109,18 @@ public abstract class GUI implements FocusListener {
 
         boolean added = false;
         int i = 0;
-        Text text = new Text( string, x, y, textColor, borderColor );
-        while( !added && i < textToDraw.size( ) ) {
-            if( y <= textToDraw.get( i ).getY( ) ) {
-                textToDraw.add( i, text );
-                added = true;
+        if( !string.equals( "" ) ) {
+            Text text = new Text( string, x, y, textColor, borderColor );
+            while( !added && i < textToDraw.size( ) ) {
+                if( y <= textToDraw.get( i ).getY( ) ) {
+                    textToDraw.add( i, text );
+                    added = true;
+                }
+                i++;
             }
-            i++;
+            if( !added )
+                textToDraw.add( text );
         }
-        if( !added )
-            textToDraw.add( text );
     }
 
     /**
@@ -1143,16 +1145,18 @@ public abstract class GUI implements FocusListener {
 
         boolean added = false;
         int i = 0;
-        Text text = new Text( string, x, y, textColor, borderColor, bubbleBkgColor, bubbleBorderColor, showArrow );
-        while( !added && i < textToDraw.size( ) ) {
-            if( y <= textToDraw.get( i ).getY( ) ) {
-                textToDraw.add( i, text );
-                added = true;
+        if( !string.equals( "" ) ) {
+            Text text = new Text( string, x, y, textColor, borderColor, bubbleBkgColor, bubbleBorderColor, showArrow );
+            while( !added && i < textToDraw.size( ) ) {
+                if( y <= textToDraw.get( i ).getY( ) ) {
+                    textToDraw.add( i, text );
+                    added = true;
+                }
+                i++;
             }
-            i++;
+            if( !added )
+                textToDraw.add( text );
         }
-        if( !added )
-            textToDraw.add( text );
     }
 
     /**
