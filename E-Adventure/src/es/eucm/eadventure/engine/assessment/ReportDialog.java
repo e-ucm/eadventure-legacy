@@ -328,7 +328,7 @@ public class ReportDialog extends JDialog {
         if( chkXMLReport.isSelected( ) )
             assessmentEngine.generateXMLReport( txtCurrentDir.getText( ) + "/" + adventureID + "-report.xml" );
         if( chkHTMLReport.isSelected( ) )
-            assessmentEngine.generateHTMLReport( txtCurrentDir.getText( ) + "/" + adventureID + "-report.html", cmbImportanceFilter.getSelectedIndex( ) );
+            assessmentEngine.generateHTMLReportFile( txtCurrentDir.getText( ) + "/" + adventureID + "-report.html", cmbImportanceFilter.getSelectedIndex( ) );
     }
 
     /**

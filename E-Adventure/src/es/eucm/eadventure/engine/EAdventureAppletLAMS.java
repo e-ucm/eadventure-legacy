@@ -135,7 +135,7 @@ public class EAdventureAppletLAMS extends CommManagerLAMS{
 
         System.out.println( "Closing..." );
         eAdventure.setGameOver( );
-        Game.getInstance( ).getComm( ).sendHTMLReport( Game.getInstance( ).getAssessmentEngine( ).generateReportToSend( ) );
+        Game.getInstance( ).getComm( ).sendHTMLReport( Game.getInstance( ).getAssessmentEngine( ).getHTMLReportStringLAMS( ) );
         this.disconnect( new HashMap<String, String>( ) );
         try {
             System.out.println( "Trying to join..." );

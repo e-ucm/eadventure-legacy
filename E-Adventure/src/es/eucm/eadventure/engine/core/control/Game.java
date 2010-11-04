@@ -892,8 +892,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             adaptationEngine.stopAdaptationClock( );
 
         // Stop the communication 
-        if( comm.getCommType( ) == CommManagerApi.LAMS_TYPE || comm.getCommType( ) == CommManagerApi.SCORMV12_TYPE || comm.getCommType( ) == CommManagerApi.SCORMV2004_TYPE) {
-            comm.sendHTMLReport( assessmentEngine.generateReportToSend( ) ); 
+        if( comm.getCommType( ) == CommManagerApi.LAMS_TYPE ){
+            comm.sendHTMLReport( assessmentEngine.getHTMLReportStringLAMS( ) ); 
+            comm.disconnect( null );
+        } else if (comm.getCommType( ) == CommManagerApi.SCORMV12_TYPE || comm.getCommType( ) == CommManagerApi.SCORMV2004_TYPE) {
+            comm.sendHTMLReport( assessmentEngine.getHTMLReportString( ) ); 
             comm.disconnect( null );
             
         }
