@@ -125,6 +125,11 @@ public class AssessmentEngine implements TimerEventListener {
 	 * List of rules to be checked
 	 */
 	private List<AssessmentRule> assessmentRules;
+	
+	/**
+	 * This list sto 
+	 */
+	private List<AssessmentRule> repeatedRules;
 
 	/**
 	 * List of executed rules
@@ -145,6 +150,7 @@ public class AssessmentEngine implements TimerEventListener {
 	 */
 	public AssessmentEngine() {
 		processedRules = new ArrayList<ProcessedRule>();
+		repeatedRules = new ArrayList<AssessmentRule>();
 		timedRules = new HashMap<Integer, TimedAssessmentRule>();
 		state = STATE_NONE;
 	}
@@ -156,9 +162,7 @@ public class AssessmentEngine implements TimerEventListener {
 	 *            Path of the file containing the assessment data
 	 */
 	public void loadAssessmentRules(AssessmentProfile profile) {
-		//if (assessmentPath != null && !assessmentPath.equals("")) {
-			//assessmentProfile = Loader.loadAssessmentProfile(ResourceHandler
-			//		.getInstance(), assessmentPath, new ArrayList<Incidence>());
+		
 			if (profile!=null){
 	    		assessmentProfile = profile;
 			assessmentRules = new ArrayList<AssessmentRule>(assessmentProfile.getRules());
@@ -171,9 +175,7 @@ public class AssessmentEngine implements TimerEventListener {
 			for (String var : assessmentProfile.getVars()) {
 				vars.addVar(var);
 			}
-		//} else {
-			//assessmentRules = new ArrayList<AssessmentRule>();
-		//}
+
 
 		// Iterate through the rules: those timed add them to the timer manager
 		for (AssessmentRule assessmentRule : assessmentRules) {
@@ -204,39 +206,55 @@ public class AssessmentEngine implements TimerEventListener {
 		int i = 0;
 		  try {
 		if (assessmentRules!=null){
+		 // check if repeated rules have to be executed again 
+	        for (AssessmentRule repeatRule: repeatedRules){
+	            if (isActive(repeatRule)){
+	                triggerRule(repeatRule);
+	            }
+	        }
+	        
 		// For every rule
 		while (i < assessmentRules.size()) {
 
 			// If it was activated, execute the rule
 			if (isActive(assessmentRules.get(i))) {
-				    AssessmentRule oldRule=null;
-				    if (assessmentRules.get( i ).isRepeatRule( ))
-				        oldRule = (AssessmentRule) (assessmentRules.get( i ).clone( ));
-				    else 
-				        oldRule = (AssessmentRule) (assessmentRules.remove(i).clone( ));
-                    oldRule.setConcept( Game.getInstance( ).processText( oldRule.getConcept( )));
-                    oldRule.setText( Game.getInstance( ).processText( oldRule.getText( )));
-                    ProcessedRule rule = new ProcessedRule(oldRule, Game
-						.getInstance().getTime());
-
-                    // Signal the LMS about the change
-                    if (Game.getInstance().isConnected()) {
-                        // check if it is necessary to send in-game value to the property
-                        List<AssessmentProperty> properties = checkProperties(oldRule.getAssessmentProperties());
-                        Game.getInstance().getComm().notifyRelevantState(properties);
-                    }
-                    processedRules.add(rule);
+				    AssessmentRule oldRule = (AssessmentRule) (assessmentRules.remove(i).clone( ));
+				    
+				    // first time that the repeatRule is executed
+				    if (oldRule.isRepeatRule( ))
+				        repeatedRules.add( oldRule );
+				    
+				    triggerRule(oldRule);
 			}
 
 			// Else, check the next rule
 			else
 				i++;
 		}
+		
+		
 		}
 		  }catch( CloneNotSupportedException e ) {
 	        }
 	}
 
+	private void triggerRule(AssessmentRule oldRule){
+	    
+        oldRule.setConcept( Game.getInstance( ).processText( oldRule.getConcept( )));
+        oldRule.setText( Game.getInstance( ).processText( oldRule.getText( )));
+        ProcessedRule rule = new ProcessedRule(oldRule, Game
+            .getInstance().getTime());
+
+        // Signal the LMS about the change
+        if (Game.getInstance().isConnected()) {
+            // check if it is necessary to send in-game value to the property
+            List<AssessmentProperty> properties = checkProperties(oldRule.getAssessmentProperties());
+            Game.getInstance().getComm().notifyRelevantState(properties);
+        }
+        processedRules.add(rule);
+	}
+	
+	
 	private static boolean isActive(AssessmentRule rule) {
 		return new FunctionalConditions(rule.getConditions()).allConditionsOk();
 	}
