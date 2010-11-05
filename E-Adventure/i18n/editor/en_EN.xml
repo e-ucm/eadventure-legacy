@@ -1637,6 +1637,9 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="SPEP.ShowBarriers">Barriers</entry>
 <entry key="NextScene.EditDestinyPositionShort">Edit the destination position</entry>
 <entry key="ImageEdition.SelectColorTransparent">Select transparent color</entry>
+<entry key="ImageEdition.NoTransparencyAllowed">No transparency allowed</entry>
+<entry key="ImageEdition.Contiguous">Contigous</entry>
+<entry key="ImageEdition.Threshold">Threshold</entry>
 <entry key="Timer.DisplayName">Display name</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">AtrezzoId</entry>
 <entry key="MenuAdventure.CustomizeGUI">Customize GUI elements...</entry>
