@@ -477,36 +477,80 @@ public class BallonFactory {
 
         switch( type ) {
             case THOUGHT:
-                return new Shape[] { new Ellipse2D.Float( x, y + 25.0f, 12.0f, 12.0f ), new Ellipse2D.Float( x, y + 40.0f, 8.0f, 8.0f ) };
+                float bubble1X,
+                bubble1Y,
+                bubble2X,
+                bubble2Y;
+                switch( position ) {
+                    case WEST:
+                        bubble1X = x - 40.0f;
+                        bubble1Y = y + linesHeight / 2;
+                        bubble2X = x - 20.0f;
+                        bubble2Y = y + linesHeight / 2;
+                        break;
+                    case EAST:
+                        bubble1X = x + 40.0f;
+                        bubble1Y = y + linesHeight / 2;
+                        bubble2X = x + 20.0f;
+                        bubble2Y = y + linesHeight / 2;
+                        break;
+                    case SOUTH:
+                        bubble1X = x;
+                        bubble1Y = y + 20.0f + linesHeight;
+                        bubble2X = x;
+                        bubble2Y = y + 5.0f + linesHeight;
+                        break;
+                    default:
+                        bubble1X = x;
+                        bubble1Y = y + 25.0f;
+                        bubble2X = x;
+                        bubble2Y = y + 40.0f;
+
+                }
+                return new Shape[] { new Ellipse2D.Float( bubble1X, bubble1Y, 12.0f, 12.0f ), new Ellipse2D.Float( bubble2X, bubble2Y, 8.0f, 8.0f ) };
             case YELL:
                 GeneralPath angryPath = new GeneralPath( );
-                angryPath.moveTo( x - 20, y + 13 );
-                angryPath.lineTo( x - 15, y + 45 );
-                angryPath.lineTo( x - 7, y + 40 );
-                angryPath.lineTo( x, y + 60 );
-                angryPath.lineTo( x + 2, y + 25 );
-                angryPath.lineTo( x - 5, y + 30 );
-                angryPath.lineTo( x, y + 13 );
-                transformPath( angryPath );
+                if( position == Position.NORTH ) {
+                    angryPath.moveTo( x - 20, y + 13 );
+                    angryPath.lineTo( x - 15, y + 45 );
+                    angryPath.lineTo( x - 7, y + 40 );
+                    angryPath.lineTo( x, y + 60 );
+                    angryPath.lineTo( x + 2, y + 25 );
+                    angryPath.lineTo( x - 5, y + 30 );
+                    angryPath.lineTo( x, y + 13 );
+                }
                 return new Shape[] { angryPath };
             default:
                 GeneralPath path = new GeneralPath( );
-                path.moveTo( x - 15, y + 15 );
-                path.lineTo( x - 3, y + 30 );
-                path.lineTo( x, y + 15 );
-                transformPath( path );
+                switch( position ) {
+                    case WEST:
+                    case NORTH:
+                        path.moveTo( x - 15, y + 15 );
+                        path.lineTo( x - 3, y + 30 );
+                        switch( position ) {
+                            case NORTH:
+                                path.lineTo( x, y + 15 );
+                                break;
+                            case WEST:
+                                path.lineTo( x - 15, y + 32 );
+                                path.transform( AffineTransform.getTranslateInstance( -HORIZONTAL_MARGIN / 2, 0 ) );
+                                break;
+                        }
+                        break;
+                    case EAST:
+                        path.moveTo( x - 15, y + 15 );
+                        path.lineTo( x - 27, y + 30 );
+                        path.lineTo( x - 15, y + 32 );
+                        path.transform( AffineTransform.getTranslateInstance( HORIZONTAL_MARGIN + 1, 0 ) );
+                        break;
+                    case SOUTH:
+                        path.moveTo( x - 15, y + 15 );
+                        path.lineTo( x - 3, y - 15 );
+                        path.lineTo( x, y + 15 );
+                        path.transform( AffineTransform.getTranslateInstance( 0, VERTICAL_MARGIN + linesHeight - 29 ) );
+                        break;
+                }
                 return new Shape[] { path };
         }
-    }
-
-    private static void transformPath( GeneralPath path ) {
-
-       /* switch( position ) {
-            case WEST:
-                
-                path.transform( AffineTransform.getTranslateInstance( -HORIZONTAL_MARGIN, 0 ) );
-                path.transform( AffineTransform.getQuadrantRotateInstance( 3 ) );
-                break;
-        }*/
     }
 }
