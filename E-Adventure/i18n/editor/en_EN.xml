@@ -163,7 +163,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Conditions.Context.Sentence2b"> will be &lt;b&gt;always active&lt;/b&gt;, as it has no condition </entry>
 <entry key="Conditions.Context.Sentence2a"> will be active when the next condition is satisfied: </entry>
 <entry key="Timer.RunsInLoop">Runs in loops</entry>
-<entry key="Cutscene.ReturnToLastScene">Returns to the last scene</entry>
+<entry key="Cutscene.ReturnToLastScene">Returns to the previous scene</entry>
 <entry key="BookPages.DeletePage">Delete the selected page</entry>
 <entry key="TreeNode.AddElement39">Add adaptation rule</entry>
 <entry key="TreeNode.AddElement38">Add assessment rule</entry>
