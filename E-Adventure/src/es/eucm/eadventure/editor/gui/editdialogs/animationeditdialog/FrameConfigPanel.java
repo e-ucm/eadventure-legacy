@@ -60,6 +60,7 @@ import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.animation.FrameDataControl;
+import es.eucm.eadventure.editor.gui.displaydialogs.EditImageDialog;
 
 public class FrameConfigPanel extends JPanel {
 
@@ -141,7 +142,7 @@ public class FrameConfigPanel extends JPanel {
         this.add( createSoundAssetPanel( frameDataControl ), c );
     }
 
-    private JPanel createImageAssetPanel( FrameDataControl frameDataControl ) {
+    private JPanel createImageAssetPanel( final FrameDataControl frameDataControl ) {
 
         JPanel imageAssetPanel = new JPanel( );
         imageAssetPanel.setLayout( new GridBagLayout( ) );
@@ -162,18 +163,42 @@ public class FrameConfigPanel extends JPanel {
         imageAssetPanel.add( imageUriTextField, c2 );
 
         // Create the "Select" button and insert it
+        final JButton imageViewButton = new JButton( TC.get( "Resources.Edit" ) );
         JButton imageSelectButton = new JButton( TC.get( "Resources.Select" ) );
         imageSelectButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
 
                 selectImage( );
+                if (frameDataControl.getImageURI( ) != null
+                        && !frameDataControl.getImageURI( ).equals( "" ))
+                    imageViewButton.setEnabled( true );
+                else
+                    imageViewButton.setEnabled( false );
             }
         } );
         c2.gridx = 1;
         c2.fill = GridBagConstraints.NONE;
         c2.weightx = 0;
         imageAssetPanel.add( imageSelectButton, c2 );
+
+        imageViewButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                new EditImageDialog( frameDataControl );
+            }
+        } );
+        if (frameDataControl.getImageURI( ) != null
+                && !frameDataControl.getImageURI( ).equals( "" ))
+            imageViewButton.setEnabled( true );
+        else
+            imageViewButton.setEnabled( false );
+
+        c2.gridx = 2;
+        c2.fill = GridBagConstraints.NONE;
+        c2.weightx = 0;
+        imageAssetPanel.add( imageViewButton, c2 );
 
         return imageAssetPanel;
     }
