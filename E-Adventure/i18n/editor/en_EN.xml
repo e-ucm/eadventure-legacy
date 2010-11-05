@@ -49,7 +49,7 @@
 <entry key="EffectsGroup.ChangeInScene">Changes the scene</entry>
 <entry key="Search.Name">Name</entry>
 <entry key="Operation.ExportT.Success.Message">The export process was successfully completed.</entry>
-<entry key="NextSceneCell.UsePosition">Use destiny position</entry>
+<entry key="NextSceneCell.UsePosition">Use destination position</entry>
 <entry key="IMS.Educational.Contex9">Continuous Formation</entry>
 <entry key="IMS.Educational.Contex8">Professional Formation</entry>
 <entry key="Adventure.ModePlayerVisible.Description">When this mode is selected, the player is normally painted in the game, as another character of the adventure. This mode is suitable for the production of common point-and-click adventures, such as the Monkey IslandTM saga.</entry>
@@ -317,7 +317,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="IMS.LifeCycle.Status1">Final</entry>
 <entry key="IMS.LifeCycle.Status0">Draft</entry>
 <entry key="Applet.LoadingMessage">The game is initiating... please be patient while the digital signature is verified (this action may take some minutes)</entry>
-<entry key="NextScene.UseDestinyPosition">Use a destiny position for the player</entry>
+<entry key="NextScene.UseDestinyPosition">Use a destination position for the player</entry>
 <entry key="Inventory.Position">Position</entry>
 <entry key="Action.ErrorNoNPCs">There are no characters defined in the chapter
 		It's impossible to add an action of this type</entry>
@@ -443,7 +443,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 <entry key="Effect.SetValue">Set value</entry>
 <entry key="About.NewReleaseAvailable">A new release is available</entry>
 <entry key="BackgroundAssets.Title">Background assets</entry>
-<entry key="NextScene.EditDestinyPosition">Edit the destiny position for the player in the new scene</entry>
+<entry key="NextScene.EditDestinyPosition">Edit the destination position for the player in the new scene</entry>
 <entry key="Cursors.Title">Cursors</entry>
 <entry key="GeneralText.EditInitConditions">Edit init conditions</entry>
 <entry key="Conversation.OptionLinkNode">Link node to...</entry>
@@ -693,7 +693,7 @@ Flags can be active or inactive at any moment in the game, as traffic lights can
 green or red to allow or forbid crossing. In the game you can define conditions
 based on the state of the flags.</entry>
 <entry key="ErrorSolving.Asset.Deleted.Title">Error: Reference to a not existing asset</entry>
-<entry key="NextScene.DestinyPosition">Destiny position for the player</entry>
+<entry key="NextScene.DestinyPosition">Destination position for the player</entry>
 <entry key="Button.use-grab.Description">Use-grab button</entry>
 <entry key="Operation.SaveProject">Operation: Saving project</entry>
 <entry key="Effect.TriggerScene">Trigger scene</entry>
@@ -1201,7 +1201,7 @@ The load process was aborted</entry>
 <entry key="ResourcesList.DeleteResourcesBlock">Delete the selected resources block</entry>
 <entry key="Conditions.EditConditionMessage">Select the type of condition and then the fields appropriate for such type.</entry>
 <entry key="Book.Documentation">Full description of the book</entry>
-<entry key="NextScene.NextSceneId">Id of the next scene</entry>
+<entry key="NextScene.NextSceneId">Next scene</entry>
 <entry key="MoveObjectEffect.TranslateSpeed">Translate speed</entry>
 <entry key="Ids.Title">Flags &amp; Variables</entry>
 <entry key="Operation.SaveChangesTitle">Save changes?</entry>
@@ -1516,7 +1516,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Operation.FileLoadedWithErrorTitle">Project loaded with problems</entry>
 <entry key="ItemReferenceTable.MoveUp">Move up current reference changing its layer (making deeper)</entry>
 <entry key="ArrowAssets.ErrorArrowSize">The file "{#0}" can't be added to the arrow assets. 		The maximun dimensions for a background are 300x200 pixels, whilst the file's are {#1}x{#2}</entry>
-<entry key="NextSceneCell.EditDestinyPosition">Edit destiny position</entry>
+<entry key="NextSceneCell.EditDestinyPosition">Edit destination position</entry>
 <entry key="AssessmentRule.Conditions">Conditions</entry>
 <entry key="Effect.WaitTimeInfo">Wait {#0} seconds</entry>
 <entry key="Cursor.examine.Tip">For traditional gui only: This cursor will be used for "examine" actions</entry>
@@ -1635,7 +1635,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="IMS.Educational.Contex">The principal environment within which the learning  and use of this resource is intended to take place</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptation-profile</entry>
 <entry key="SPEP.ShowBarriers">Barriers</entry>
-<entry key="NextScene.EditDestinyPositionShort">Edit the destiny position</entry>
+<entry key="NextScene.EditDestinyPositionShort">Edit the destination position</entry>
 <entry key="ImageEdition.SelectColorTransparent">Select transparent color</entry>
 <entry key="Timer.DisplayName">Display name</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">AtrezzoId</entry>
