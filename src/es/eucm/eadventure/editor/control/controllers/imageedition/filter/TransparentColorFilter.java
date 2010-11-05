@@ -122,8 +122,8 @@ public class TransparentColorFilter implements ImageFilter {
     }
 
     public void setThreshold( int threshold ) {
-
-        this.threshold = threshold;
+        if (threshold >= 1 && threshold <= 255)
+            this.threshold = threshold;
     }
 
     public int getThreshold( ) {

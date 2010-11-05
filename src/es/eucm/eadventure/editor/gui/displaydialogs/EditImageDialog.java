@@ -53,6 +53,7 @@ import javax.swing.JPanel;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.controllers.imageedition.EditImageController;
 import es.eucm.eadventure.editor.control.controllers.imageedition.ImageToolBar;
 import es.eucm.eadventure.editor.control.controllers.imageedition.filter.TransparentColorFilter;
@@ -74,20 +75,27 @@ public class EditImageDialog extends GraphicDialog {
 
     private EditImageController controller;
 
-    public EditImageDialog( String imagePath ) {
-
-        this.path = imagePath;
+    private ResourcesDataControl resourcesDataControl;
+    
+    private int assetIndex;
+    
+    public EditImageDialog( ResourcesDataControl resourcesDataControl2, int assetIndex2 ) {
+        this.path = resourcesDataControl2.getAssetPath( assetIndex2 );
+        this.resourcesDataControl = resourcesDataControl2;
+        this.assetIndex = assetIndex2;
 
         // Load the image
-        image = (BufferedImage) AssetsController.getImage( imagePath );
-        setSize( image.getWidth( ) > 700 ? 700 : image.getWidth( ), image.getHeight( ) > 600 ? 600 : image.getHeight( ) );
+        BufferedImage tempImage = (BufferedImage) AssetsController.getImage( path );
+        image = new BufferedImage(tempImage.getWidth( ), tempImage.getHeight( ), BufferedImage.TYPE_4BYTE_ABGR);
+        image.getGraphics( ).drawImage( tempImage, 0, 0, null );
+        setSize( image.getWidth( ) > 450 ? image.getWidth( ) : 450, image.getHeight( ) > 600 ? 600 : image.getHeight( ) );
 
         // Set the dialog and show it
-        setTitle( TC.get( "ImageDialog.Title", AssetsController.getFilename( imagePath ) ) );
+        setTitle( TC.get( "ImageDialog.Title", AssetsController.getFilename( path ) ) );
 
         controller = new EditImageController( image, this );
 
-        TransparentColorFilter filter = new TransparentColorFilter( false, 0 );
+        TransparentColorFilter filter = new TransparentColorFilter( false, 15 );
         controller.setImageFilter( filter );
 
         GridBagConstraints c = new GridBagConstraints( );
@@ -122,9 +130,23 @@ public class EditImageDialog extends GraphicDialog {
             public void actionPerformed( ActionEvent e ) {
 
                 if( transparencyAllowed && controller.isChanged( ) ) {
-                    File f = new File( Controller.getInstance( ).getProjectFolder( ), path );
+                    String temp[] = path.split( "\\." );
+                    String ext = temp[temp.length - 1];
+                    String newPath = path;
+                    File f;
+                    if (ext.equals( "png" ))
+                        f = new File( Controller.getInstance( ).getProjectFolder( ), path );
+                    else {
+                        newPath = "";
+                        for (int i = 0; i < temp.length -1; i++)
+                            newPath = newPath + temp[i] + ".";
+                        newPath = newPath + "png";
+                        f = new File( Controller.getInstance( ).getProjectFolder( ), newPath );
+                    }
                     try {
                         ImageIO.write( image, "png", ImageIO.createImageOutputStream( f ) );
+                        if (!newPath.equals( path ))
+                            resourcesDataControl.setAssetPath( newPath, assetIndex );
                     }
                     catch( IOException e1 ) {
                         e1.printStackTrace( );
@@ -156,6 +178,7 @@ public class EditImageDialog extends GraphicDialog {
         this.setVisible( true );
 
     }
+
 
     @Override
     protected void deleteImages( ) {

@@ -660,7 +660,7 @@ public class ResourcesPanel extends JPanel {
                 case AssetsConstants.CATEGORY_ICON:
                 case AssetsConstants.CATEGORY_BUTTON:
                 case AssetsConstants.CATEGORY_ARROW_BOOK:
-                    new EditImageDialog( assetPath );
+                    new EditImageDialog( resourcesDataControl, assetIndex );
                     break;
                 case AssetsConstants.CATEGORY_ANIMATION:
                     if( resourcesDataControl.getAssetFilter( assetIndex ) == AssetsController.FILTER_JPG && !assetPath.endsWith( ".eaa" ) )
