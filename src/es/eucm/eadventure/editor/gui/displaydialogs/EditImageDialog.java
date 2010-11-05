@@ -53,6 +53,7 @@ import javax.swing.JPanel;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.animation.FrameDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.controllers.imageedition.EditImageController;
 import es.eucm.eadventure.editor.control.controllers.imageedition.ImageToolBar;
@@ -79,16 +80,33 @@ public class EditImageDialog extends GraphicDialog {
     
     private int assetIndex;
     
+    private FrameDataControl frameDataControl;
+    
     public EditImageDialog( ResourcesDataControl resourcesDataControl2, int assetIndex2 ) {
         this.path = resourcesDataControl2.getAssetPath( assetIndex2 );
         this.resourcesDataControl = resourcesDataControl2;
         this.assetIndex = assetIndex2;
+
+        fillAndInitilize();
+    }
+
+
+    public EditImageDialog( FrameDataControl frameDataControl ) {
+        this.frameDataControl = frameDataControl;
+        this.path = frameDataControl.getImageURI( );
+
+        fillAndInitilize();
+    }
+
+    
+    private void fillAndInitilize() {
 
         // Load the image
         BufferedImage tempImage = (BufferedImage) AssetsController.getImage( path );
         image = new BufferedImage(tempImage.getWidth( ), tempImage.getHeight( ), BufferedImage.TYPE_4BYTE_ABGR);
         image.getGraphics( ).drawImage( tempImage, 0, 0, null );
         setSize( image.getWidth( ) > 450 ? image.getWidth( ) : 450, image.getHeight( ) > 600 ? 600 : image.getHeight( ) );
+
 
         // Set the dialog and show it
         setTitle( TC.get( "ImageDialog.Title", AssetsController.getFilename( path ) ) );
@@ -145,8 +163,10 @@ public class EditImageDialog extends GraphicDialog {
                     }
                     try {
                         ImageIO.write( image, "png", ImageIO.createImageOutputStream( f ) );
-                        if (!newPath.equals( path ))
+                        if (!newPath.equals( path ) && resourcesDataControl != null)
                             resourcesDataControl.setAssetPath( newPath, assetIndex );
+                        if (!newPath.equals( path ) && frameDataControl != null)
+                            frameDataControl.setImageURI( newPath );
                     }
                     catch( IOException e1 ) {
                         e1.printStackTrace( );
@@ -178,7 +198,6 @@ public class EditImageDialog extends GraphicDialog {
         this.setVisible( true );
 
     }
-
 
     @Override
     protected void deleteImages( ) {
