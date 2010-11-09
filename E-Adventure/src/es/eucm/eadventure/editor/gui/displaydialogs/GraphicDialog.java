@@ -148,8 +148,16 @@ public abstract class GraphicDialog extends JDialog {
         public void paint( Graphics g ) {
 
             super.paint( g );
+            updateImageValues();
+            g.drawImage( getCurrentImage( ), imageX, imageY, imageWidth, imageHeight, null );
+        }
 
-            // To paint, we compare the ratios of the dialog and the image
+        /**
+         * Updates imageWidth, imageHeight, imageX and imageY according to current dialog size 
+         * and image resolution
+         */
+        public void updateImageValues(){
+            // We compare the ratios of the dialog and the image
             double dialogRatio = (double) getWidth( ) / (double) getHeight( );
             double imageRatio = getCurrentImageRatio( );
             if( imageRatio != Double.MIN_VALUE ) {
@@ -166,8 +174,6 @@ public abstract class GraphicDialog extends JDialog {
                     imageX = ( ( getWidth( ) - imageWidth ) / 2 );
                     imageY = 0;
                 }
-
-                g.drawImage( getCurrentImage( ), imageX, imageY, imageWidth, imageHeight, null );
             }
         }
     }

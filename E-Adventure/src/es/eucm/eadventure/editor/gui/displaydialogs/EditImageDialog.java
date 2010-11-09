@@ -105,7 +105,8 @@ public class EditImageDialog extends GraphicDialog {
         BufferedImage tempImage = (BufferedImage) AssetsController.getImage( path );
         image = new BufferedImage(tempImage.getWidth( ), tempImage.getHeight( ), BufferedImage.TYPE_4BYTE_ABGR);
         image.getGraphics( ).drawImage( tempImage, 0, 0, null );
-        setSize( image.getWidth( ) > 450 ? image.getWidth( ) : 450, image.getHeight( ) > 600 ? 600 : image.getHeight( ) );
+        
+        //setSize( image.getWidth( ) > 450 ? image.getWidth( ) : 450, image.getHeight( ) > 600 ? 600 : image.getHeight( ) );
 
 
         // Set the dialog and show it
@@ -195,6 +196,9 @@ public class EditImageDialog extends GraphicDialog {
         c.gridy++;
         this.add( bottomPanel, c );
         
+        imagePanel.updateImageValues();
+        this.pack( );
+        //this.setSize( imageWidth+10, imageHeight+100 );
         this.setVisible( true );
 
     }
