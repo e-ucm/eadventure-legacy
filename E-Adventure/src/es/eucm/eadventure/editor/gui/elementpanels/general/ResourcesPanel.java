@@ -75,6 +75,7 @@ import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.AudioDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.EditImageDialog;
+import es.eucm.eadventure.editor.gui.displaydialogs.SelectImageDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.SlidesDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.VideoDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog.AnimationEditDialog;
@@ -456,6 +457,21 @@ public class ResourcesPanel extends JPanel {
 
             resourcesDataControl.editAssetPath( assetIndex );
             assetFields[fieldIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
+            
+            int assetType = resourcesDataControl.getAssetCategory( assetIndex );
+            String assetPath = resourcesDataControl.getAssetPath( assetIndex );
+
+            switch( assetType ) {
+                case AssetsConstants.CATEGORY_BACKGROUND:
+                    BufferedImage image = (BufferedImage) AssetsController.getImage( assetPath );
+                    if( image.getHeight( ) > 600 || image.getWidth( ) < 800 ) { 
+                      //IF THE IMAGE HAS NO THE DEFAULT SIZE
+                        new SelectImageDialog( assetPath );
+                    }
+                    break;
+            }
+            
+            
             viewButtons[fieldIndex].setEnabled( resourcesDataControl.getAssetPath( assetIndex ) != null );
             if( previewUpdater != null ) {
                 previewUpdater.updateResources( );
