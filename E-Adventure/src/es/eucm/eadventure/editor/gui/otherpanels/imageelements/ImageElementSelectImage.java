@@ -301,7 +301,12 @@ public class ImageElementSelectImage extends ImageElement {
         if( x < 0 )
             x = 0;
         if( y < 0 )
-            x = 0;
+            y = 0;
+        if( x > this.originalWidth - this.width )
+            x = originalWidth - width;
+        if( y > this.originalHeight - this.height )
+            y = originalHeight - height;
+        
         this.recreateImage( );
 
     }
