@@ -143,11 +143,19 @@ public abstract class GraphicDialog extends JDialog {
          * Required.
          */
         private static final long serialVersionUID = 1L;
-
+        
+        private int marginX;
+        
+        private int marginY;
+        
         @Override
         public void paint( Graphics g ) {
 
             super.paint( g );
+            
+            marginX = 0;
+            marginY = 0;
+            
             updateImageValues();
             g.drawImage( getCurrentImage( ), imageX, imageY, imageWidth, imageHeight, null );
         }
@@ -166,6 +174,7 @@ public abstract class GraphicDialog extends JDialog {
                     imageHeight = (int) ( getWidth( ) / imageRatio );
                     imageX = 0;
                     imageY = ( ( getHeight( ) - imageHeight ) / 2 );
+                    marginY = ( getHeight( ) - imageHeight );
                 }
 
                 else {
@@ -173,8 +182,17 @@ public abstract class GraphicDialog extends JDialog {
                     imageHeight = getHeight( );
                     imageX = ( ( getWidth( ) - imageWidth ) / 2 );
                     imageY = 0;
+                    marginX = ( getWidth( ) - imageWidth );
                 }
             }
+        }
+        
+        public int getMarginX(){
+            return marginX;
+        }
+        
+        public int getMarginY(){
+            return marginY;
         }
     }
 }
