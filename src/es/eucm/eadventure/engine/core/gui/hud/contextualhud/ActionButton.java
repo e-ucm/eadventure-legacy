@@ -56,12 +56,12 @@ public class ActionButton {
     /**
      * Width of an action button
      */
-    public static final int ACTIONBUTTON_WIDTH = 40;
+    public int button_width = 40;
 
     /**
      * Height of an action button
      */
-    public static final int ACTIONBUTTON_HEIGHT = 40;
+    public int button_height = 40;
 
     /**
      * Constant that represent the hand button
@@ -182,6 +182,9 @@ public class ActionButton {
         buttonNormal = loadImage( customNormalPath, "gui/hud/contextual/" + name + ".png" );
         buttonOver = loadImage( customHighlightedPath, "gui/hud/contextual/" + name + "Highlighted.png" );
         buttonPressed = loadImage( customPressedPath, "gui/hud/contextual/" + name + "Pressed.png" );
+        
+        button_width = buttonNormal.getWidth( null );
+        button_height = buttonNormal.getHeight( null );
     }
 
     private Image loadImage( String customPath, String defaultPath ) {
@@ -224,6 +227,8 @@ public class ActionButton {
         buttonOver = scaleButton( buttonOver );
         buttonPressed = scaleButton( buttonPressed );
 
+        button_width = buttonNormal.getWidth( null );
+        button_height = buttonNormal.getHeight( null );
         this.type = CUSTOM_BUTTON;
     }
 
@@ -235,7 +240,7 @@ public class ActionButton {
      * @return the scaled image
      */
     private Image scaleButton( Image button ) {
-
+/* FIXME: Removed commented lines, which were commented because they are irrelevant.
         if( button.getWidth( null ) > ActionButtons.MAX_BUTTON_WIDTH )
             button = button.getScaledInstance( ActionButtons.MAX_BUTTON_WIDTH, button.getHeight( null ), Image.SCALE_SMOOTH );
         if( button.getWidth( null ) < ActionButtons.MIN_BUTTON_WIDTH )
@@ -244,7 +249,9 @@ public class ActionButton {
             button = button.getScaledInstance( button.getWidth( null ), ActionButtons.MAX_BUTTON_HEIGHT, Image.SCALE_SMOOTH );
         if( button.getHeight( null ) < ActionButtons.MIN_BUTTON_HEIGHT )
             button = button.getScaledInstance( button.getWidth( null ), ActionButtons.MIN_BUTTON_HEIGHT, Image.SCALE_SMOOTH );
+*/
         return button;
+
     }
 
     /**
@@ -291,16 +298,16 @@ public class ActionButton {
 
     public void draw( Graphics2D g, float percent, int posX, int posY ) {
 
-        int x = ( this.posX - ACTIONBUTTON_WIDTH / 2 );
-        int y = this.posY - ACTIONBUTTON_HEIGHT / 2;
+        int x = ( this.posX - button_width / 2 );
+        int y = this.posY - button_height / 2;
         if( pressed )
             g.drawImage( buttonPressed, x, y, null );
         else if( over ) {
             g.drawImage( buttonOver, x, y, null );
         }
         else {
-            x = ( posX - ACTIONBUTTON_WIDTH / 2 );
-            y = posY - ACTIONBUTTON_HEIGHT / 2;
+            x = ( posX - button_width / 2 );
+            y = posY - button_height / 2;
             Composite original = g.getComposite( );
             Composite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, percent );
             g.setComposite( alphaComposite );
@@ -311,7 +318,7 @@ public class ActionButton {
 
     public void drawName( Graphics2D g ) {
 
-        int y = this.posY - ACTIONBUTTON_HEIGHT / 2;
+        int y = this.posY - button_height / 2;
         String[] text = new String[] { actionName };
         GUI.drawStringOnto( g, text, posX, y, Color.BLACK, Color.WHITE );
     }
@@ -337,7 +344,7 @@ public class ActionButton {
      */
     public boolean isInside( int x, int y ) {
 
-        if( x > ( posX - ACTIONBUTTON_WIDTH / 2 ) && x < ( posX + ACTIONBUTTON_WIDTH / 2 ) && y > ( posY - ACTIONBUTTON_HEIGHT / 2 ) && y < ( posY + ACTIONBUTTON_HEIGHT / 2 ) )
+        if( x > ( posX - button_width / 2 ) && x < ( posX + button_width / 2 ) && y > ( posY - button_height / 2 ) && y < ( posY + button_height / 2 ) )
             return true;
         return false;
     }
