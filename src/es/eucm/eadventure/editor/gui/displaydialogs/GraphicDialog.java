@@ -1,38 +1,37 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
- *         research group.
- *  
- *   Copyright 2005-2010 <e-UCM> research group.
+ * research group.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
- *         http://e-adventure.e-ucm.es/contributors
+ * Copyright 2005-2010 <e-UCM> research group.
  * 
- *   <e-UCM> is a research group of the Department of Software Engineering
- *         and Artificial Intelligence at the Complutense University of Madrid
- *         (School of Computer Science).
+ * You can access a list of all the contributors to <e-Adventure> at:
+ * http://e-adventure.e-ucm.es/contributors
  * 
- *         C Profesor Jose Garcia Santesmases sn,
- *         28040 Madrid (Madrid), Spain.
+ * <e-UCM> is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
  * 
- *         For more info please visit:  <http://e-adventure.e-ucm.es> or
- *         <http://www.e-ucm.es>
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
  * 
  * ****************************************************************************
  * 
  * This file is part of <e-Adventure>, version 1.2.
  * 
- *     <e-Adventure> is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Lesser General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ * <e-Adventure> is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  * 
- *     <e-Adventure> is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU Lesser General Public License for more details.
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- *     You should have received a copy of the GNU Lesser General Public License
- *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.editor.gui.displaydialogs;
 
@@ -63,7 +62,7 @@ public abstract class GraphicDialog extends JDialog {
      * Required.
      */
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Panel holding the image
      */
@@ -128,7 +127,7 @@ public abstract class GraphicDialog extends JDialog {
      * Deletes the images when the dialog has been closed.
      */
     protected abstract void deleteImages( );
-    
+
     /**
      * Coordinates for the image
      */
@@ -143,28 +142,29 @@ public abstract class GraphicDialog extends JDialog {
          * Required.
          */
         private static final long serialVersionUID = 1L;
-        
+
         private int marginX;
-        
+
         private int marginY;
-        
+
         @Override
         public void paint( Graphics g ) {
 
             super.paint( g );
-            
+
             marginX = 0;
             marginY = 0;
-            
-            updateImageValues();
+
+            updateImageValues( );
             g.drawImage( getCurrentImage( ), imageX, imageY, imageWidth, imageHeight, null );
         }
 
         /**
-         * Updates imageWidth, imageHeight, imageX and imageY according to current dialog size 
-         * and image resolution
+         * Updates imageWidth, imageHeight, imageX and imageY according to
+         * current dialog size and image resolution
          */
-        public void updateImageValues(){
+        public void updateImageValues( ) {
+
             // We compare the ratios of the dialog and the image
             double dialogRatio = (double) getWidth( ) / (double) getHeight( );
             double imageRatio = getCurrentImageRatio( );
@@ -174,24 +174,25 @@ public abstract class GraphicDialog extends JDialog {
                     imageHeight = (int) ( getWidth( ) / imageRatio );
                     imageX = 0;
                     imageY = ( ( getHeight( ) - imageHeight ) / 2 );
-                    marginY = ( getHeight( ) - imageHeight );
+                    marginY = ( getHeight( ) - imageHeight ) / 2;
                 }
-
                 else {
                     imageWidth = (int) ( getHeight( ) * imageRatio );
                     imageHeight = getHeight( );
                     imageX = ( ( getWidth( ) - imageWidth ) / 2 );
                     imageY = 0;
-                    marginX = ( getWidth( ) - imageWidth );
+                    marginX = ( getWidth( ) - imageWidth ) / 2;
                 }
             }
         }
-        
-        public int getMarginX(){
+
+        public int getMarginX( ) {
+
             return marginX;
         }
-        
-        public int getMarginY(){
+
+        public int getMarginY( ) {
+
             return marginY;
         }
     }

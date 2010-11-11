@@ -36,13 +36,12 @@
 
 package es.eucm.eadventure.editor.control.controllers.imageedition;
 
-import java.awt.Point;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 
 import javax.swing.event.MouseInputAdapter;
 
 import es.eucm.eadventure.editor.gui.displaydialogs.SelectImageDialog;
-import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementSelectImage;
 
 public class SelectImageController extends MouseInputAdapter {
@@ -84,7 +83,6 @@ public class SelectImageController extends MouseInputAdapter {
      */
     protected float originalScale;
 
-
     private SelectImageDialog selectImageDialog;
 
     public SelectImageController( ImageElementSelectImage selectImage, SelectImageDialog selectImageDialog ) {
@@ -97,42 +95,16 @@ public class SelectImageController extends MouseInputAdapter {
     public void mouseClicked( MouseEvent e ) {
 
         setMouseUnder( e.getX( ), e.getY( ) );
-        /*
-                setMouseUnder( e.getX( ), e.getY( ) );
-                if( spep.getSelectedElement( ) != null && e.getClickCount( ) == 2 && spep.getSelectedElement( ) instanceof ImageElementReference ) {
-                    StructureControl.getInstance( ).changeDataControl( spep.getSelectedElement( ).getReferencedDataControl( ) );
-                }
-                else if( underMouse != null && !spep.getFixedSelectedElement( ) && !( spep.getSelectedElement( ) instanceof ImageElementInfluenceArea ) ) {
-                    spep.setSelectedElement( underMouse );
-                    spep.notifySelectionListener( );
-                    spep.repaint( );
-                }
-                else if( underMouse == null && !spep.getFixedSelectedElement( ) ) {
-                    spep.setSelectedElement( (ImageElement) null );
-                    spep.notifySelectionListener( );
-                    spep.repaint( );
-                }
-                else if( spep.getFixedSelectedElement( ) ) {
-                    int x = spep.getRealX( e.getX( ) );
-                    int y = spep.getRealY( e.getY( ) );
-                    spep.getSelectedElement( ).changePosition( x, y );
-                    spep.updateTextEditionPanel( );
-                    spep.repaint( );
-                }*/
     }
 
     @Override
     public void mousePressed( MouseEvent e ) {
 
-        Point p = e.getPoint( );
-        System.out.println( "pulsado " + e.getPoint( ).x + " " + e.getPoint( ).y );
-        System.out.println( "traducido " + underMouse.getRealX( e.getPoint( ).x ) + " " + underMouse.getRealY( e.getPoint( ).y ) );
-
-        this.setMouseUnder( p.x, p.y );
+        setMouseUnder( e.getX( ), e.getY( ) );
 
         if( underMouse.isMovable( ) || underMouse.isResize( ) || underMouse.isResizeWidth( ) ) {
-            startDragX = e.getX( );
-            startDragY = e.getY( );
+            startDragX = underMouse.getRealSize( e.getX( ) );
+            startDragY = underMouse.getRealSize( e.getY( ) );
             originalX = underMouse.getX( );
             originalY = underMouse.getY( );
             originalWidth = underMouse.getWidth( );
@@ -146,7 +118,6 @@ public class SelectImageController extends MouseInputAdapter {
     @Override
     public void mouseEntered( MouseEvent e ) {
 
-        //TODO resaltar  area.
     }
 
     @Override
@@ -160,32 +131,31 @@ public class SelectImageController extends MouseInputAdapter {
     @Override
     public void mouseReleased( MouseEvent e ) {
 
-        //   dragging = false;
     }
 
     @Override
     public void mouseDragged( MouseEvent e ) {
 
+         //Movable area
         if( underMouse.isMovable( ) && !underMouse.isResizeWidth( ) && !underMouse.isResize( ) ) {
-            int changeX = underMouse.getRealX( e.getX( ) - startDragX );
-            int changeY = underMouse.getRealY( e.getY( ) - startDragY );
+            int changeX = underMouse.getRealSize( e.getX( ) ) - startDragX;
+            int changeY = underMouse.getRealSize( e.getY( ) ) - startDragY;
             int x = originalX + changeX;
             int y = originalY + changeY;
             underMouse.changePosition( x, y );
             this.selectImageDialog.repaint( );
-        } 
-        else if (!underMouse.isResize( ) && underMouse.isResizeWidth( )){
-            int changeX = underMouse.getRealX( e.getX( ) - startDragX );
-            underMouse.changeSize( originalWidth + changeX, originalHeight );
+        } //Expand the area to the right
+        else if( !underMouse.isResize( ) && underMouse.isResizeWidth( ) ) {
+            int changeX = underMouse.getRealSize( e.getX( ) ) - startDragX;
+            underMouse.changeWidth( originalWidth + changeX );
             this.selectImageDialog.repaint( );
-        }
-        else if (underMouse.isResize( ) && !underMouse.isResizeWidth( )){
-            int changeX = underMouse.getRealX( e.getX( ) - startDragX );
-            int changeY = underMouse.getRealY( e.getY( ) - startDragY );
+        } //Rescale the area
+        else if( underMouse.isResize( ) && !underMouse.isResizeWidth( ) ) {
+            int changeX = underMouse.getRealSize( e.getX( ) ) - startDragX;
+            int changeY = underMouse.getRealSize( e.getY( ) ) - startDragY;
             underMouse.changeSize( originalWidth + changeX, originalHeight + changeY );
             this.selectImageDialog.repaint( );
         }
-            
     }
 
     protected void setMouseUnder( int mouseX, int mouseY ) {
@@ -194,12 +164,16 @@ public class SelectImageController extends MouseInputAdapter {
         int y = underMouse.getRealY( mouseY );
         underMouse.getMovableElement( x, y );
         underMouse.getResizeElement( x, y );
-
-    }
-
-    public ImageElement getUnderMouse( ) {
-
-        return underMouse;
+        //check for change the cursor
+        if( underMouse.isResize( ) ) {
+            selectImageDialog.setCursor( Cursor.getPredefinedCursor( Cursor.SE_RESIZE_CURSOR ) );
+        }
+        else if( underMouse.isResizeWidth( ) ) {
+            selectImageDialog.setCursor( Cursor.getPredefinedCursor( Cursor.E_RESIZE_CURSOR ) );
+        }
+        else {
+            selectImageDialog.setCursor( Cursor.getDefaultCursor( ) );
+        }
     }
 
 }
