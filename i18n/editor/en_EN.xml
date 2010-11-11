@@ -356,7 +356,6 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Operation.AddBookTitle">Add book</entry>
 <entry key="IMS.General.Entry">Entry</entry>
 <entry key="LOMES.Educational.CognitiveProcess">"Cognitive Process"</entry>
-<entry key="ResizeImageDialog.AutomaticButton"/>
 <entry key="Error.LoadAborted.Title">Load Aborted!</entry>
 <entry key="AssessmentProfiles.Title">Assessment profiles</entry>
 <entry key="Error.Title">Error</entry>
@@ -399,6 +398,8 @@ All the references to the profile were deleted.</entry>
 <entry key="Resources.DescriptionVideoscenes">Video of the videoscene</entry>
 <entry key="Resources.DescriptionButtonPressed">Image for the button when it is pressed</entry>
 <entry key="Item.Preview">Graphical preview of the item</entry>
+<entry key="SelectImageDialog.SaveButton">Save selection</entry>
+<entry key="SelectImageDialog.Title">Move or scale the selection area to customize the scene background</entry>
 <entry key="Effect.MacroRefInfo">Launch Macro {#0}</entry>
 <entry key="Resources.Button">Button</entry>
 <entry key="NextScene.Effects">Effects of the next scene</entry>
@@ -813,6 +814,7 @@ based on the state of the flags.</entry>
 <entry key="Element.Name19">Item</entry>
 <entry key="Synthesizer.Empty">No voice</entry>
 <entry key="Element.Name18">Items</entry>
+<entry key="SelectImageDialog.AutomaticButton">Automatic fit</entry>
 <entry key="Effect.WaitTime">Wait time</entry>
 <entry key="Element.Name17">Image paragraph</entry>
 <entry key="GenerateObject.Title">Generate object effect</entry>
@@ -987,6 +989,7 @@ The operation was aborted.</entry>
 <entry key="LOMES.Date.Minutes">Minute</entry>
 <entry key="ActionsList.NotRelevant">Not relevant</entry>
 <entry key="Conditions.EditCondition">Edit condition</entry>
+<entry key="SelectImageDialog.Message">The selected image is too large (greater than 800x600). Please select the section of the image to use as background. To make an automatic adjustment, click the button below.</entry>
 <entry key="Cursor.action.Tip">For contextual gui only: This cursor will be used when an action is going to be performed</entry>
 <entry key="StartDialog.Title">Welcome to the &lt;e-Adventure&gt; editor</entry>
 <entry key="Flags.DefaultFlagName">newFlag</entry>
@@ -1016,6 +1019,7 @@ The operation was aborted.</entry>
 <entry key="Cursor.use.Tip">For traditional gui only: This cursor will be used for "use" actions</entry>
 <entry key="AnimationPanel.AnimationNotAvalaible">Animation not avalaible</entry>
 <entry key="Operation.AdventureConsistentReport">The adventure is completely consistent and can be played in the &lt;e-Adventure&gt; engine</entry>
+<entry key="SelectImageDialog.Description">To set the background image must move or expand the area highlighted.</entry>
 <entry key="Book.Contents">Contents</entry>
 <entry key="Macro.Documentation">Documentation (not used in game engine)</entry>
 <entry key="LOM.General.SetDefaults">Set defaults</entry>
@@ -1223,7 +1227,6 @@ The load process was aborted</entry>
 <entry key="LOM.Educational.IntendedEndUserRole">Intended end user role</entry>
 <entry key="Player.FrontColor">Edit font front color</entry>
 <entry key="Search.AssetDescription">Asset Description</entry>
-<entry key="ResizeImageDialog.Title">Move or scale the selection area to customize the scene background</entry>
 <entry key="CutscenesList.Videoscene">Videoscene</entry>
 <entry key="Conditions.ConditionGroup">Ref. to Global state</entry>
 <entry key="Element.Action">Action</entry>
@@ -1742,7 +1745,6 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Resources.DescriptionSceneBackground">Background image of the scene</entry>
 <entry key="IconAssets.Preview">Preview of the icon</entry>
 <entry key="NPC.DetailedDescription">Detailed description of the character</entry>
-<entry key="ResizeImageDialog.Description">Select scene background</entry>
 <entry key="Operation.RenameElementWarning">The element "{#0}" have {#1} references in the chapter.
 		Are you sure that you want to rename it?</entry>
 <entry key="Error.DTD.NotCopied.Title">Important file not copied</entry>

@@ -466,6 +466,7 @@ public class ResourcesPanel extends JPanel {
                     BufferedImage image = (BufferedImage) AssetsController.getImage( assetPath );
                     if( image.getHeight( ) > 600 || image.getWidth( ) < 800 ) { 
                       //IF THE IMAGE HAS NO THE DEFAULT SIZE
+                        JOptionPane.showMessageDialog( null, TC.get( "SelectImageDialog.Message" ),"Info", JOptionPane.DEFAULT_OPTION );
                         new SelectImageDialog( assetPath );
                     }
                     break;

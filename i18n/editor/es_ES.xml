@@ -357,7 +357,6 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Operation.AddBookTitle">Añadir nuevo libro</entry>
 <entry key="IMS.General.Entry">Entry</entry>
 <entry key="LOMES.Educational.CognitiveProcess">"Proceso Cognitivo"</entry>
-<entry key="ResizeImageDialog.AutomaticButton">Ajuste automático</entry>
 <entry key="Error.LoadAborted.Title">¡Se canceló el proceso de carga!</entry>
 <entry key="AssessmentProfiles.Title">Perfiles de evaluación</entry>
 <entry key="Error.Title">Error</entry>
@@ -400,6 +399,8 @@ Se han borrado las referencias a dicho perfil.</entry>
 <entry key="Resources.DescriptionVideoscenes">Video para la escena intermedia</entry>
 <entry key="Resources.DescriptionButtonPressed">Imagen para el botón cuando se pulsa</entry>
 <entry key="Item.Preview">Previsualización del objeto</entry>
+<entry key="SelectImageDialog.SaveButton">Guardar selección</entry>
+<entry key="SelectImageDialog.Title">Mover y/o escalar el área de selección para personalizar el fondo de la escena</entry>
 <entry key="Effect.MacroRefInfo">Lanzar macro {#0}</entry>
 <entry key="Resources.Button">Boton</entry>
 <entry key="NextScene.Effects">Efectos de la "Siguiente escena"</entry>
@@ -816,6 +817,7 @@ función de estos estados</entry>
 <entry key="Element.Name19">Objeto</entry>
 <entry key="Synthesizer.Empty">Sin voz</entry>
 <entry key="Element.Name18">Objetos</entry>
+<entry key="SelectImageDialog.AutomaticButton">Ajuste automático</entry>
 <entry key="Effect.WaitTime">Esperar tiempo</entry>
 <entry key="Element.Name17">Párrafo de imagen</entry>
 <entry key="GenerateObject.Title">Efecto generar objeto</entry>
@@ -990,6 +992,7 @@ Dicha operación no se completó.</entry>
 <entry key="LOMES.Date.Minutes">Minuto</entry>
 <entry key="ActionsList.NotRelevant">No es relevante</entry>
 <entry key="Conditions.EditCondition">Editar condición</entry>
+<entry key="SelectImageDialog.Message">La imagen seleccionada es demasiado grande (mayor que 800x600). Por favor, selecciona la sección de la imagen a utilizar como fondo. Para hacer un ajuste automático, pulsa el botón inferior.</entry>
 <entry key="Cursor.action.Tip">Este cursor se emplea cuando se va a realizar una acción (sólo interfaz contextual)</entry>
 <entry key="StartDialog.Title">Editor de aventuras</entry>
 <entry key="Flags.DefaultFlagName">nuevoFlag</entry>
@@ -1019,6 +1022,7 @@ Dicha operación no se completó.</entry>
 <entry key="Cursor.use.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "usar" (sólo interfaz tradicional)</entry>
 <entry key="AnimationPanel.AnimationNotAvalaible">Animación no disponible</entry>
 <entry key="Operation.AdventureConsistentReport">La aventura es completamente válida y puede ser ejecutada en el motor &lt;e-Adventure&gt;</entry>
+<entry key="SelectImageDialog.Description">Para ajustar la imagen de fondo, mueve o expande el area resaltada.</entry>
 <entry key="Book.Contents">Contenido del libro</entry>
 <entry key="Macro.Documentation">Descripción (no se usa en el motor)</entry>
 <entry key="LOM.General.SetDefaults">Valores por defecto</entry>
@@ -1226,7 +1230,6 @@ Se abortó el proceso.</entry>
 <entry key="LOM.Educational.IntendedEndUserRole">Intended end user role</entry>
 <entry key="Player.FrontColor">Editar el color principal</entry>
 <entry key="Search.AssetDescription">Descripción recurso</entry>
-<entry key="ResizeImageDialog.Title">Mover y/o escalar el área de selección para personalizar el fondo de la escena</entry>
 <entry key="CutscenesList.Videoscene">Escena de vídeo</entry>
 <entry key="Conditions.ConditionGroup">Ref. a un Estado Global</entry>
 <entry key="Element.Action">Acción</entry>
@@ -1746,7 +1749,6 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="Resources.DescriptionSceneBackground">Imagen de fondo de la escena</entry>
 <entry key="IconAssets.Preview">Previsualización del icono</entry>
 <entry key="NPC.DetailedDescription">Descripción detallada del personaje (se muestra al examinar el personaje)</entry>
-<entry key="ResizeImageDialog.Description">Seleccionar fondo de la escena</entry>
 <entry key="Operation.RenameElementWarning">El elemento "{#0}" tiene {#1} referencias en el capítulo.
 		¿Está seguro de que desea renombrarlo?</entry>
 <entry key="Error.DTD.NotCopied.Title">Archivo importante no copiado</entry>

@@ -46,6 +46,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 
 public class ImageElementSelectImage extends ImageElement {
 
+    // Borders
     private static final int LIGHT_BORDER = 1;
 
     private static final int HARD_BORDER = 2;
@@ -86,11 +87,11 @@ public class ImageElementSelectImage extends ImageElement {
 
     private boolean resizeWidth;
 
-    private String path;
+    private BufferedImage background;
+    
 
     public ImageElementSelectImage( BufferedImage image2, String path ) {
 
-        this.path = path;
         this.originalHeight = image2.getHeight( );
         this.originalWidth = image2.getWidth( );
 
@@ -108,15 +109,14 @@ public class ImageElementSelectImage extends ImageElement {
         this.resizeWidth = false;
         this.movable = false;
 
+        background = (BufferedImage) AssetsController.getImage( path );
         fillImage( );
     }
 
     private void fillImage( ) {
 
-        //reload the image
-        BufferedImage tempImage = (BufferedImage) AssetsController.getImage( path );
         // image = new BufferedImage(getWidth( ), getHeight( ), BufferedImage.TYPE_4BYTE_ABGR);
-        image.getGraphics( ).drawImage( tempImage, 0, 0, null );
+        image.getGraphics( ).drawImage( background, 0, 0, null );
 
         Graphics2D g = (Graphics2D) image.getGraphics( );
         AlphaComposite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 0.3f );
@@ -132,10 +132,11 @@ public class ImageElementSelectImage extends ImageElement {
         Graphics2D g = (Graphics2D) image.getGraphics( );
         if( border_type == LIGHT_BORDER ) {
             Color color = g.getColor( );
-            g.setColor( Color.RED );
-            g.drawRect( x - 1, y - 1, width + 1, height + 1 );
-            g.drawRect( x, y, width, height );
-            g.drawRect( x + 1, y + 1, width - 1, height - 1 );
+            g.setColor( Color.GRAY );
+            g.fillRect( x - 2, y - 2, width + 4, this.getRealSize( 2 ) );
+            g.fillRect( x - 2, y - 2, this.getRealSize( 2 ), height + 2 );
+            g.fillRect( x + width, y, this.getRealSize( 2 ), height + 2 );
+            g.fillRect( x - 2, y + height, width + 2, this.getRealSize( 2 ) );
             g.setColor( color );
         }
         else if( border_type == HARD_BORDER ) {
@@ -146,38 +147,49 @@ public class ImageElementSelectImage extends ImageElement {
             g.fillRect( x + width, y, this.getRealSize( 3 ), height + 4 );
             g.fillRect( x - 4, y + height, width + 4, this.getRealSize( 3 ) );
             g.setColor( color );
-            //    drawPanel.paintRelativeImage( element.getImage( ), element.getX( ), element.getY( ), element.getScale( ), 0.5f );
         }
         else if( border_type == RESCALE_BORDER ) {
             Color color = g.getColor( );
             g.setColor( Color.GREEN );
-            g.drawRect( x + width - this.getRealSize( 10 ), y + height - this.getRealSize( 10 ), this.getRealSize( 10 ) * 2, this.getRealSize( 10 ) * 2 );
-
+            AlphaComposite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 0.3f );
+            g.setComposite( alphaComposite );
+            g.fillRect( x + width - this.getRealSize( 10 ), y - this.getRealSize( 10 ), this.getRealSize( 10 ) * 2, this.getRealSize( 10 ) * 2 );
             g.setColor( color );
         }
         else if( border_type == RESCALE_BORDER_ACTIVE ) {
             Color color = g.getColor( );
-            g.setColor( Color.BLUE );
-            g.drawRect( x + width - this.getRealSize( 10 ), y + height - this.getRealSize( 10 ), this.getRealSize( 10 ) * 2, this.getRealSize( 10 ) * 2 );
-            g.drawRect( x + width - 8, y + height - 8, 16, 16 );
             g.setColor( Color.RED );
-            g.fillRect( x + width, y, this.getRealSize( 5 ), height );
+            g.fillRect( x - 4, y - 4, width + 8, this.getRealSize( 3 ) );
+            g.fillRect( x - 4, y - 4, this.getRealSize( 3 ), height + 4 );
+            g.fillRect( x + width, y, this.getRealSize( 3 ), height + 4 );
+            g.fillRect( x - 4, y + height, width + 4, this.getRealSize( 3 ) );
+            g.setColor( Color.BLUE );
+            AlphaComposite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 0.3f );
+            g.setComposite( alphaComposite );
+            g.fillRect( x + width - this.getRealSize( 10 ), y - this.getRealSize( 10 ), this.getRealSize( 10 ) * 2, this.getRealSize( 10 ) * 2 );
             g.setColor( color );
         }
         else if( border_type == RESIZE_BORDER ) {
             Color color = g.getColor( );
             g.setColor( Color.GREEN );
-            g.drawRect( x + width - 10, y + height - 10, 20, 20 );
+            AlphaComposite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 0.3f );
+            g.setComposite( alphaComposite );
+            g.fillRect( x + width - getRealSize( 10 ), y + height - getRealSize( 10 ), getRealSize( 10 ) * 2, getRealSize( 10 ) * 2 );
             g.setColor( color );
         }
         else if( border_type == RESIZE_BORDER_ACTIVE ) {
             Color color = g.getColor( );
+            g.setColor( Color.RED );
+            g.fillRect( x - 4, y - 4, width + 8, this.getRealSize( 3 ) );
+            g.fillRect( x - 4, y - 4, this.getRealSize( 3 ), height + 4 );
+            g.fillRect( x + width, y, this.getRealSize( 3 ), height + 4 );
+            g.fillRect( x - 4, y + height, width + 4, this.getRealSize( 3 ) );
             g.setColor( Color.BLUE );
-            g.drawRect( x + width - 10, y + height - 10, 20, 20 );
-            g.drawRect( x + width - 8, y + height - 8, 16, 16 );
+            AlphaComposite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 0.3f );
+            g.setComposite( alphaComposite );
+            g.fillRect( x + width - getRealSize( 10 ), y + height - getRealSize( 10 ), getRealSize( 10 ) * 2, getRealSize( 10 ) * 2 );
             g.setColor( color );
         }
-
     }
 
     @Override
@@ -210,7 +222,8 @@ public class ImageElementSelectImage extends ImageElement {
     public void changeWidth( int width2 ) {
 
         this.width = width2;
-        // minimum
+        // we don't rescale now
+        height = 600;
         if( width < 800 )
             width = 800;
 
@@ -285,19 +298,18 @@ public class ImageElementSelectImage extends ImageElement {
         if( !movable && !resize && !resizeWidth ) {
             paintBorders( LIGHT_BORDER );
         }
-        if( movable ) {
+        if( movable )
             paintBorders( HARD_BORDER );
-            if( resizeWidth )
-                paintBorders( RESCALE_BORDER_ACTIVE );
-            else
-                paintBorders( RESCALE_BORDER );
+        if( resizeWidth )
+            paintBorders( RESCALE_BORDER_ACTIVE );
+        else
+            paintBorders( RESCALE_BORDER );
 
-            if( resize )
-                paintBorders( RESIZE_BORDER_ACTIVE );
-            else
-                paintBorders( RESIZE_BORDER );
+        if( resize )
+            paintBorders( RESIZE_BORDER_ACTIVE );
+        else
+            paintBorders( RESIZE_BORDER );
 
-        }
     }
 
     @Override

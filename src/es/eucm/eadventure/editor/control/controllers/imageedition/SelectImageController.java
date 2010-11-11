@@ -101,7 +101,6 @@ public class SelectImageController extends MouseInputAdapter {
     public void mousePressed( MouseEvent e ) {
 
         setMouseUnder( e.getX( ), e.getY( ) );
-
         if( underMouse.isMovable( ) || underMouse.isResize( ) || underMouse.isResizeWidth( ) ) {
             startDragX = underMouse.getRealSize( e.getX( ) );
             startDragY = underMouse.getRealSize( e.getY( ) );
@@ -112,7 +111,6 @@ public class SelectImageController extends MouseInputAdapter {
             originalScale = underMouse.getScale( );
         }
         underMouse.recreateImage( );
-
     }
 
     @Override
@@ -136,7 +134,7 @@ public class SelectImageController extends MouseInputAdapter {
     @Override
     public void mouseDragged( MouseEvent e ) {
 
-         //Movable area
+        //Movable area
         if( underMouse.isMovable( ) && !underMouse.isResizeWidth( ) && !underMouse.isResize( ) ) {
             int changeX = underMouse.getRealSize( e.getX( ) ) - startDragX;
             int changeY = underMouse.getRealSize( e.getY( ) ) - startDragY;
@@ -170,6 +168,9 @@ public class SelectImageController extends MouseInputAdapter {
         }
         else if( underMouse.isResizeWidth( ) ) {
             selectImageDialog.setCursor( Cursor.getPredefinedCursor( Cursor.E_RESIZE_CURSOR ) );
+        }
+        else if( underMouse.isMovable( ) ) {
+            selectImageDialog.setCursor( Cursor.getPredefinedCursor( Cursor.MOVE_CURSOR ) );
         }
         else {
             selectImageDialog.setCursor( Cursor.getDefaultCursor( ) );
