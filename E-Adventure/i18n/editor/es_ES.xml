@@ -357,6 +357,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Operation.AddBookTitle">Añadir nuevo libro</entry>
 <entry key="IMS.General.Entry">Entry</entry>
 <entry key="LOMES.Educational.CognitiveProcess">"Proceso Cognitivo"</entry>
+<entry key="ResizeImageDialog.AutomaticButton">Ajuste automático</entry>
 <entry key="Error.LoadAborted.Title">¡Se canceló el proceso de carga!</entry>
 <entry key="AssessmentProfiles.Title">Perfiles de evaluación</entry>
 <entry key="Error.Title">Error</entry>
@@ -1116,7 +1117,7 @@ Por favor escribe otro nombre.</entry>
 <entry key="LOMES.Educational.LearningResourceType11">Integrated media</entry>
 <entry key="LOMES.Educational.LearningResourceType10">Computer graphics</entry>
 <entry key="Effect.Deactivate">Desactivar</entry>
-<entry key="BackgroundAssets.ErrorBackgroundSize">El archivo "{#0}" no puede ser añadido como recurso de fondo. 		El tamaño mínimo para un fondo es de 800x400 pixels, mientras que el archivo tiene {#1}x{#2}</entry>
+<entry key="BackgroundAssets.ErrorBackgroundSize">El archivo "{#0}" no puede ser añadido como recurso de fondo. 		El tamaño mínimo para un fondo es de 800x600 pixels, mientras que el archivo tiene {#1}x{#2}</entry>
 <entry key="Tools.Back">Atras</entry>
 <entry key="BarriersList.Conditions">Condiciones</entry>
 <entry key="Flags.AddFlag">Añadir flag</entry>

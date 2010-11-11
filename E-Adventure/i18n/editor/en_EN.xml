@@ -156,6 +156,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Operation.RenameAssessmentFile">Rename assessment file</entry>
 <entry key="ActivateEffect.Title">Activate effect</entry>
 <entry key="MenuRun.Normal">Normal</entry>
+<entry key="ImageEdition.Contiguous">Contigous</entry>
 <entry key="Resources.Select">Select...</entry>
 <entry key="LOMES.LCContribute.DialogTitle">Create new Contribute</entry>
 <entry key="Conversations.Listen">Listen</entry>
@@ -355,6 +356,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Operation.AddBookTitle">Add book</entry>
 <entry key="IMS.General.Entry">Entry</entry>
 <entry key="LOMES.Educational.CognitiveProcess">"Cognitive Process"</entry>
+<entry key="ResizeImageDialog.AutomaticButton"/>
 <entry key="Error.LoadAborted.Title">Load Aborted!</entry>
 <entry key="AssessmentProfiles.Title">Assessment profiles</entry>
 <entry key="Error.Title">Error</entry>
@@ -1112,7 +1114,7 @@ Please type another name.</entry>
 <entry key="LOMES.Educational.LearningResourceType11">Integrated media</entry>
 <entry key="LOMES.Educational.LearningResourceType10">Computer graphics</entry>
 <entry key="Effect.Deactivate">Deactivate</entry>
-<entry key="BackgroundAssets.ErrorBackgroundSize">The file "{#0}" can't be added to the background assets. 		The minimun dimensions for a background are 800x400 pixels, whilst the file's are {#1}x{#2}</entry>
+<entry key="BackgroundAssets.ErrorBackgroundSize">The file "{#0}" can't be added to the background assets. 		The minimun dimensions for a background are 800x600 pixels, whilst the file's are {#1}x{#2}</entry>
 <entry key="Tools.Back">Back</entry>
 <entry key="BarriersList.Conditions">Conditions</entry>
 <entry key="Flags.AddFlag">Add flag</entry>
@@ -1558,6 +1560,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Animation.Image">Image</entry>
 <entry key="IMS.General.Catalog">Catalog</entry>
 <entry key="ExitsList.Edit">Edit</entry>
+<entry key="ImageEdition.NoTransparencyAllowed">No transparency allowed</entry>
 <entry key="Flags.Title">Flags</entry>
 <entry key="Assets.DeleteAsset">Delete asset</entry>
 <entry key="BookPagesList.Type">Type</entry>
@@ -1583,6 +1586,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="LOMES.Educational.CognitiveProcess3">Compare</entry>
 <entry key="Conditions.Context.TimedAssessmentRuleB1"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will get inactive&lt;/b&gt; (the timer will stop and the post-effect block will be executed) when the next condition is satisfied:</entry>
 <entry key="LOMES.Educational.CognitiveProcess2">Collaborate</entry>
+<entry key="ImageEdition.Threshold">Threshold</entry>
 <entry key="LOMES.Educational.CognitiveProcess1">Implement</entry>
 <entry key="LOMES.Educational.CognitiveProcess0">Analyse</entry>
 <entry key="Inventory.highlightedleft.Tip">This is the arrow in the left in its highlighted stated.</entry>
@@ -1637,9 +1641,6 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="SPEP.ShowBarriers">Barriers</entry>
 <entry key="NextScene.EditDestinyPositionShort">Edit the destination position</entry>
 <entry key="ImageEdition.SelectColorTransparent">Select transparent color</entry>
-<entry key="ImageEdition.NoTransparencyAllowed">No transparency allowed</entry>
-<entry key="ImageEdition.Contiguous">Contigous</entry>
-<entry key="ImageEdition.Threshold">Threshold</entry>
 <entry key="Timer.DisplayName">Display name</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">AtrezzoId</entry>
 <entry key="MenuAdventure.CustomizeGUI">Customize GUI elements...</entry>

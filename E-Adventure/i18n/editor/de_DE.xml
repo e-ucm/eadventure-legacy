@@ -1054,7 +1054,7 @@
 <entry key="LOMES.Educational.LearningResourceType11">Integrated media</entry>
 <entry key="LOMES.Educational.LearningResourceType10">Computer graphics</entry>
 <entry key="Effect.Deactivate">Deaktivieren</entry>
-<entry key="BackgroundAssets.ErrorBackgroundSize">Die Datei "{#0}" kann nicht als Hintergrund Ressource hinzufügen werden. 		Die Mindestgröße für einen Hintergrund ist 800x400 Pixel, aber diese Date ist(# 1) x (# 2)</entry>
+<entry key="BackgroundAssets.ErrorBackgroundSize">Die Datei "{#0}" kann nicht als Hintergrund Ressource hinzufügen werden. 		Die Mindestgröße für einen Hintergrund ist 800x600 Pixel, aber diese Date ist(# 1) x (# 2)</entry>
 <entry key="Tools.Back">Zurück</entry>
 <entry key="BarriersList.Conditions">Konditionen</entry>
 <entry key="Flags.AddFlag">Flag hinzufügen</entry>

@@ -58,9 +58,9 @@ public class ImageElementSelectImage extends ImageElement {
 
     private static final int RESIZE_BORDER_ACTIVE = 6;
 
-    private final int DEFAULTWIDTH = 800;
+    private int DEFAULTWIDTH = 800;
 
-    private final int DEFAULTHEIGHT = 600;
+    private int DEFAULTHEIGHT = 600;
 
     private int width;
 
@@ -69,10 +69,6 @@ public class ImageElementSelectImage extends ImageElement {
     private int originalWidth;
 
     private int originalHeight;
-
-    private double ratioWidth;//TODO revisar
-
-    private double ratioHeight;
 
     private int marginX;
 
@@ -100,9 +96,6 @@ public class ImageElementSelectImage extends ImageElement {
 
         this.image = image2;
 
-        ratioWidth = originalWidth / DEFAULTWIDTH;
-        ratioHeight = originalHeight / DEFAULTHEIGHT;
-
         this.width = DEFAULTWIDTH;
         this.height = DEFAULTHEIGHT;
 
@@ -115,7 +108,6 @@ public class ImageElementSelectImage extends ImageElement {
         this.resizeWidth = false;
         this.movable = false;
 
-        System.out.println( "imageancho: " + this.originalWidth + " imagealto: " + this.originalHeight + "x: " + x + "y: " + y + "width: " + width + "height: " + height );
         fillImage( );
     }
 
@@ -141,47 +133,48 @@ public class ImageElementSelectImage extends ImageElement {
         if( border_type == LIGHT_BORDER ) {
             Color color = g.getColor( );
             g.setColor( Color.RED );
+            g.drawRect( x - 1, y - 1, width + 1, height + 1 );
             g.drawRect( x, y, width, height );
+            g.drawRect( x + 1, y + 1, width - 1, height - 1 );
             g.setColor( color );
-            //drawPanel.paintRelativeImage( element.getImage( ), element.getX( ), element.getY( ), element.getScale( ), 0.5f );
         }
         else if( border_type == HARD_BORDER ) {
             Color color = g.getColor( );
             g.setColor( Color.RED );
-            g.fillRect( x - 4, y - 4, width + 8, 4 );
-            g.fillRect( x - 4, y - 4, 4, height + 4 );
-            g.fillRect( x + width, y, 4, height + 4 );
-            g.fillRect( x - 4, y + height, width + 4, 4 );
+            g.fillRect( x - 4, y - 4, width + 8, this.getRealSize( 3 ) );
+            g.fillRect( x - 4, y - 4, this.getRealSize( 3 ), height + 4 );
+            g.fillRect( x + width, y, this.getRealSize( 3 ), height + 4 );
+            g.fillRect( x - 4, y + height, width + 4, this.getRealSize( 3 ) );
             g.setColor( color );
             //    drawPanel.paintRelativeImage( element.getImage( ), element.getX( ), element.getY( ), element.getScale( ), 0.5f );
         }
         else if( border_type == RESCALE_BORDER ) {
             Color color = g.getColor( );
             g.setColor( Color.GREEN );
-            g.drawRect( x + width - 8, y - 8, 16, 16 );
+            g.drawRect( x + width - this.getRealSize( 10 ), y + height - this.getRealSize( 10 ), this.getRealSize( 10 ) * 2, this.getRealSize( 10 ) * 2 );
+
             g.setColor( color );
         }
-        else if( border_type == RESCALE_BORDER_ACTIVE ) {// a la izquierda también
+        else if( border_type == RESCALE_BORDER_ACTIVE ) {
             Color color = g.getColor( );
             g.setColor( Color.BLUE );
-            g.drawRect( x + width - 8, y - 8, 16, 16 );
-            g.drawRect( x + width - 7, y - 7, 14, 14 );
+            g.drawRect( x + width - this.getRealSize( 10 ), y + height - this.getRealSize( 10 ), this.getRealSize( 10 ) * 2, this.getRealSize( 10 ) * 2 );
+            g.drawRect( x + width - 8, y + height - 8, 16, 16 );
             g.setColor( Color.RED );
-            g.fillRect( x + width, y, 6, height );
+            g.fillRect( x + width, y, this.getRealSize( 5 ), height );
             g.setColor( color );
         }
         else if( border_type == RESIZE_BORDER ) {
             Color color = g.getColor( );
             g.setColor( Color.GREEN );
-            g.drawRect( x + width - 8, y + height - 8, 16, 16 );
+            g.drawRect( x + width - 10, y + height - 10, 20, 20 );
             g.setColor( color );
         }
         else if( border_type == RESIZE_BORDER_ACTIVE ) {
-            System.out.println( "yes" );
             Color color = g.getColor( );
             g.setColor( Color.BLUE );
+            g.drawRect( x + width - 10, y + height - 10, 20, 20 );
             g.drawRect( x + width - 8, y + height - 8, 16, 16 );
-            g.drawRect( x + width - 7, y + height - 7, 14, 14 );
             g.setColor( color );
         }
 
@@ -190,25 +183,40 @@ public class ImageElementSelectImage extends ImageElement {
     @Override
     public void changeSize( int width2, int height2 ) {
 
-        /*   if (width2 < height2) {
-               height2 = (height2 * 800) / width2;
-               width2 = 800;
-             }
-             else {
-               width2 = (width2 * 600) / height2;
-               height2 = 600;
-             }*///falta reescalar
-        // TODO
         this.width = width2;
         this.height = height2;
-        if( width < 1 )
-            width = 1;
-        if( height < 1 )
-            height = 1;
-        if( height < 600 ) //TODO ajustar proporciones
+        // minimum
+        if( height < 600 )
             height = 600;
-        if( width < 800 ) //TODO ajustar proporciones
+        if( width < 800 )
             width = 800;
+
+        // ratio 4:3
+        if( width > ( height * 4 / 3 ) ) {
+            height = width / 4 * 3;
+        }
+        else {
+            width = height * 4 / 3;
+        }
+
+        if( height > this.originalHeight )
+            height = originalHeight;
+        if( width > this.originalWidth )
+            width = originalWidth;
+
+        recreateImage( );
+    }
+
+    public void changeWidth( int width2 ) {
+
+        this.width = width2;
+        // minimum
+        if( width < 800 )
+            width = 800;
+
+        if( width > this.originalWidth )
+            width = originalWidth;
+
         recreateImage( );
     }
 
@@ -226,12 +234,17 @@ public class ImageElementSelectImage extends ImageElement {
 
     public int getRealX( int x ) {
 
-        return ( ( this.originalWidth * x ) / DEFAULTWIDTH ) + marginX;
+        return ( ( this.originalWidth * ( x - marginX ) ) / DEFAULTWIDTH );
     }
 
     public int getRealY( int y ) {
 
-        return ( ( this.originalHeight * y ) / DEFAULTHEIGHT ) + marginY;
+        return ( ( this.originalHeight * ( y - marginY ) ) / DEFAULTHEIGHT );
+    }
+
+    public int getRealSize( int x ) {
+
+        return ( ( this.originalWidth * x ) / DEFAULTWIDTH );
     }
 
     @Override
@@ -306,7 +319,7 @@ public class ImageElementSelectImage extends ImageElement {
             x = originalWidth - width;
         if( y > this.originalHeight - this.height )
             y = originalHeight - height;
-        
+
         this.recreateImage( );
 
     }
@@ -354,33 +367,20 @@ public class ImageElementSelectImage extends ImageElement {
 
     public void getResizeElement( int x, int y ) {
 
-        int x_image = ( this.x + width );
-        int y_image = ( this.y );
+        int x_image = this.x + width;
+        int y_image = this.y;
 
         this.resize = false;
         this.resizeWidth = false;
 
-        int margin = getRealX( 8 );
+        int margin = this.getRealSize( 25 ); // We can choose the margin, to rescale.
 
-        if( ( x > ( x_image - margin ) ) && ( x < ( x_image + margin ) ) && y > ( y_image + height - margin ) && y < ( y_image + height + margin ) ) {
+        if( ( x > ( x_image - margin ) ) && x < ( x_image + margin ) && y > ( y_image + height - margin ) && y < ( y_image + height + margin ) ) {
             this.resize = true;
         }
         else if( ( x > ( x_image - margin ) ) && ( x < ( x_image + margin ) ) && y > ( y_image ) && y < ( height ) ) {
             this.resizeWidth = true;
         }
-
-    }
-
-    public void getRescaleElement( int x2, int y2 ) {
-
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setScale( float scale ) {
-
-        // TODO Auto-generated method stub
 
     }
 
@@ -390,4 +390,14 @@ public class ImageElementSelectImage extends ImageElement {
         this.marginY = marginY2;
     }
 
+    public void updateSize( int i, int j ) {
+
+        this.DEFAULTHEIGHT = j;
+        this.DEFAULTWIDTH = i - marginX * 2;
+    }
+
+    @Override
+    public void setScale( float scale ) {
+
+    }
 }

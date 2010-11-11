@@ -1003,7 +1003,7 @@
 <entry key="LOMES.Educational.LearningResourceType11">Media integrada</entry>
 <entry key="LOMES.Educational.LearningResourceType10">Grafico computacional</entry>
 <entry key="Effect.Deactivate">Desactivar</entry>
-<entry key="BackgroundAssets.ErrorBackgroundSize">O arquivo "{#0}" não pode ser agregado como recurso de fundo. O tamanho mínimo para um fundo é de 800x400 pixels, enquanto que o arquivo tem {#1}x{#2}</entry>
+<entry key="BackgroundAssets.ErrorBackgroundSize">O arquivo "{#0}" não pode ser agregado como recurso de fundo. O tamanho mínimo para um fundo é de 800x600 pixels, enquanto que o arquivo tem {#1}x{#2}</entry>
 <entry key="Tools.Back">Atrás</entry>
 <entry key="BarriersList.Conditions">Condições</entry>
 <entry key="Flags.AddFlag">Agregar flag</entry>

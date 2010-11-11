@@ -89,22 +89,30 @@ public class SelectImageDialog extends GraphicDialog {
 
         setSize( image.getWidth( ) > 800 ? 800 : image.getWidth( ), image.getHeight( ) > 600 ? 600 : image.getHeight( ) );
 
-        //TODO ajustar las dimensiones de la pantalla
-
         // Set the dialog and show it
         setTitle( TC.get( "ResizeImageDialog.Title", AssetsController.getFilename( imagePath ) ) );
 
         selectImage = new ImageElementSelectImage( image, imagePath );
 
         SelectImageController controller = new SelectImageController( selectImage, this );
-        
-        // imagePanel.setBackground( Color.pink );
-        //TODO comprobaciones
         imagePanel.addMouseListener( controller );
         imagePanel.addMouseMotionListener( controller );
 
         JPanel bottomPanel = new JPanel( );
 
+        JButton automaticButton = new JButton( TC.get( "ResizeImageDialog.AutomaticButton" ) );
+        automaticButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                rescaleImage( );
+                setVisible( false );
+                deleteImages( );
+                dispose( );
+
+            }
+        } );
+        bottomPanel.add( automaticButton );
         JButton okButton = new JButton( TC.get( "GeneralText.OK" ) );
         okButton.addActionListener( new ActionListener( ) {
 
@@ -119,13 +127,13 @@ public class SelectImageDialog extends GraphicDialog {
         } );
         bottomPanel.add( okButton );
 
-        // Set the dialog and show it
+        //if you close the windows, automatic rescale
         addWindowListener( new WindowAdapter( ) {
 
             @Override
             public void windowClosing( WindowEvent e ) {
 
-                saveImage( );
+                rescaleImage( );
                 setVisible( false );
                 deleteImages( );
                 dispose( );
@@ -144,10 +152,32 @@ public class SelectImageDialog extends GraphicDialog {
         //reload the image
         BufferedImage tempImage = (BufferedImage) AssetsController.getImage( path );
         image.getGraphics( ).drawImage( tempImage, 0, 0, null );
+        BufferedImage newImage = null;
 
-        BufferedImage newImage = image.getSubimage( selectImage.getX( ), selectImage.getY( ), selectImage.getWidth( ), selectImage.getHeight( ) );
+        if( ( selectImage.getWidth( ) == 800 ) && ( selectImage.getHeight( ) == 600 ) ) {
+            newImage = image.getSubimage( selectImage.getX( ), selectImage.getY( ), selectImage.getWidth( ), selectImage.getHeight( ) );
+        }
+        else if( selectImage.getHeight( ) > 600 ) {
+            newImage = image.getSubimage( selectImage.getX( ), selectImage.getY( ), selectImage.getWidth( ), selectImage.getHeight( ) );
+            //scale the image to 800x600
+            Image tempImage2 = image.getScaledInstance( 800, 600, 1 );
+
+            image.getGraphics( ).drawImage( tempImage2, 0, 0, null );
+
+            newImage = image.getSubimage( 0, 0, 800, 600 );
+        }
+        else if( selectImage.getHeight( ) == 600 && selectImage.getWidth( ) > 800 ) {
+            newImage = image.getSubimage( selectImage.getX( ), selectImage.getY( ), selectImage.getWidth( ), selectImage.getHeight( ) );
+            //scale the image to widthx600
+            Image tempImage2 = image.getScaledInstance( selectImage.getWidth( ), 600, 1 );
+
+            image.getGraphics( ).drawImage( tempImage2, 0, 0, null );
+
+            newImage = image.getSubimage( 0, 0, selectImage.getWidth( ), 600 );
+        }
+
         String ext = AssetsController.getFilename( path );
-        ext = ext.substring( ext.lastIndexOf( "." )+1, ext.length( ) );
+        ext = ext.substring( ext.lastIndexOf( "." ) + 1, ext.length( ) );
         File f = new File( Controller.getInstance( ).getProjectFolder( ), path );
         try {
             ImageIO.write( newImage, ext, f );
@@ -156,6 +186,25 @@ public class SelectImageDialog extends GraphicDialog {
             e1.printStackTrace( );
         }
 
+    }
+
+    protected void rescaleImage( ) {
+
+        //scale the image to 800x600
+        Image tempImage = ( AssetsController.getImage( path ).getScaledInstance( 800, 600, 1 ) );//.getSubimage( selectImage.getX( ), selectImage.getY( ), selectImage.getWidth( ), selectImage.getHeight( ) );
+        image.getGraphics( ).drawImage( tempImage, 0, 0, null );
+
+        BufferedImage newImage = image.getSubimage( 0, 0, 800, 600 );
+
+        String ext = AssetsController.getFilename( path );
+        ext = ext.substring( ext.lastIndexOf( "." ) + 1, ext.length( ) );
+        File f = new File( Controller.getInstance( ).getProjectFolder( ), path );
+        try {
+            ImageIO.write( newImage, ext, f );
+        }
+        catch( IOException e1 ) {
+            e1.printStackTrace( );
+        }
     }
 
     @Override
@@ -177,6 +226,7 @@ public class SelectImageDialog extends GraphicDialog {
 
         super.repaint( );
         this.selectImage.updateMargin( super.imagePanel.getMarginX( ), super.imagePanel.getMarginY( ) );
+        this.selectImage.updateSize( super.imagePanel.getWidth( ), super.imagePanel.getHeight( ) );
     }
 
 }

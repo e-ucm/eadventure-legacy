@@ -1050,7 +1050,7 @@
 <entry key="LOMES.Educational.LearningResourceType11">Resurse media</entry>
 <entry key="LOMES.Educational.LearningResourceType10">Grafica pe calculator</entry>
 <entry key="Effect.Deactivate">Dezactiveaza</entry>
-<entry key="BackgroundAssets.ErrorBackgroundSize">Fisierul "{#0}"  nu poate fi adaugat fundalului. Dimensiunea minima pentru un fundal este de 800x400 de pixeli, iar a acestui fisier de {#1}x{#2}</entry>
+<entry key="BackgroundAssets.ErrorBackgroundSize">Fisierul "{#0}"  nu poate fi adaugat fundalului. Dimensiunea minima pentru un fundal este de 800x600 de pixeli, iar a acestui fisier de {#1}x{#2}</entry>
 <entry key="Tools.Back">Inapoi</entry>
 <entry key="BarriersList.Conditions">Conditii</entry>
 <entry key="Flags.AddFlag">Adaugare marcator</entry>
