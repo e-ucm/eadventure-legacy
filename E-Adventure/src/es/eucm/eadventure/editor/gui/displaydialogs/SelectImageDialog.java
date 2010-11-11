@@ -57,17 +57,13 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.imageedition.SelectImageController;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementSelectImage;
 
-/**
- * Dialog holding image edition
- * 
- */
 public class SelectImageDialog extends GraphicDialog {
 
-    private static final long serialVersionUID = 3449739085089862729L;
-
     /**
-     * Image
+     * 
      */
+    private static final long serialVersionUID = -6270014367469640519L;
+
     private BufferedImage image;
 
     private String path;
@@ -81,7 +77,7 @@ public class SelectImageDialog extends GraphicDialog {
         GridBagConstraints c = new GridBagConstraints( );
         c.gridx = 0;
         c.gridy = 1;
-        this.add( new JLabel( TC.get( "ResizeImageDialog.Description" ) ), c );
+        this.add( new JLabel( TC.get( "SelectImageDialog.Description" ) ), c );
 
         c.gridy++;
         // Load the image
@@ -90,7 +86,7 @@ public class SelectImageDialog extends GraphicDialog {
         setSize( image.getWidth( ) > 800 ? 800 : image.getWidth( ), image.getHeight( ) > 600 ? 600 : image.getHeight( ) );
 
         // Set the dialog and show it
-        setTitle( TC.get( "ResizeImageDialog.Title", AssetsController.getFilename( imagePath ) ) );
+        setTitle( TC.get( "SelectImageDialog.Title", AssetsController.getFilename( imagePath ) ) );
 
         selectImage = new ImageElementSelectImage( image, imagePath );
 
@@ -100,7 +96,7 @@ public class SelectImageDialog extends GraphicDialog {
 
         JPanel bottomPanel = new JPanel( );
 
-        JButton automaticButton = new JButton( TC.get( "ResizeImageDialog.AutomaticButton" ) );
+        JButton automaticButton = new JButton( TC.get( "SelectImageDialog.AutomaticButton" ) );
         automaticButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -113,7 +109,7 @@ public class SelectImageDialog extends GraphicDialog {
             }
         } );
         bottomPanel.add( automaticButton );
-        JButton okButton = new JButton( TC.get( "GeneralText.OK" ) );
+        JButton okButton = new JButton( TC.get( "SelectImageDialog.SaveButton" ) );
         okButton.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -154,26 +150,19 @@ public class SelectImageDialog extends GraphicDialog {
         image.getGraphics( ).drawImage( tempImage, 0, 0, null );
         BufferedImage newImage = null;
 
+        // only cut a image of 800 x 600 px
         if( ( selectImage.getWidth( ) == 800 ) && ( selectImage.getHeight( ) == 600 ) ) {
             newImage = image.getSubimage( selectImage.getX( ), selectImage.getY( ), selectImage.getWidth( ), selectImage.getHeight( ) );
-        }
+        }// cut and rescale any image
         else if( selectImage.getHeight( ) > 600 ) {
             newImage = image.getSubimage( selectImage.getX( ), selectImage.getY( ), selectImage.getWidth( ), selectImage.getHeight( ) );
             //scale the image to 800x600
-            Image tempImage2 = image.getScaledInstance( 800, 600, 1 );
-
+            Image tempImage2 = newImage.getScaledInstance( 800, 600, 1 );
             image.getGraphics( ).drawImage( tempImage2, 0, 0, null );
-
             newImage = image.getSubimage( 0, 0, 800, 600 );
-        }
+        }// cut a image of  (width x 600px) 
         else if( selectImage.getHeight( ) == 600 && selectImage.getWidth( ) > 800 ) {
             newImage = image.getSubimage( selectImage.getX( ), selectImage.getY( ), selectImage.getWidth( ), selectImage.getHeight( ) );
-            //scale the image to widthx600
-            Image tempImage2 = image.getScaledInstance( selectImage.getWidth( ), 600, 1 );
-
-            image.getGraphics( ).drawImage( tempImage2, 0, 0, null );
-
-            newImage = image.getSubimage( 0, 0, selectImage.getWidth( ), 600 );
         }
 
         String ext = AssetsController.getFilename( path );
@@ -191,7 +180,7 @@ public class SelectImageDialog extends GraphicDialog {
     protected void rescaleImage( ) {
 
         //scale the image to 800x600
-        Image tempImage = ( AssetsController.getImage( path ).getScaledInstance( 800, 600, 1 ) );//.getSubimage( selectImage.getX( ), selectImage.getY( ), selectImage.getWidth( ), selectImage.getHeight( ) );
+        Image tempImage = ( AssetsController.getImage( path ).getScaledInstance( 800, 600, 1 ) );
         image.getGraphics( ).drawImage( tempImage, 0, 0, null );
 
         BufferedImage newImage = image.getSubimage( 0, 0, 800, 600 );
