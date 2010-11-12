@@ -1,38 +1,37 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
- *         research group.
- *  
- *   Copyright 2005-2010 <e-UCM> research group.
+ * research group.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
- *         http://e-adventure.e-ucm.es/contributors
+ * Copyright 2005-2010 <e-UCM> research group.
  * 
- *   <e-UCM> is a research group of the Department of Software Engineering
- *         and Artificial Intelligence at the Complutense University of Madrid
- *         (School of Computer Science).
+ * You can access a list of all the contributors to <e-Adventure> at:
+ * http://e-adventure.e-ucm.es/contributors
  * 
- *         C Profesor Jose Garcia Santesmases sn,
- *         28040 Madrid (Madrid), Spain.
+ * <e-UCM> is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
  * 
- *         For more info please visit:  <http://e-adventure.e-ucm.es> or
- *         <http://www.e-ucm.es>
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
  * 
  * ****************************************************************************
  * 
  * This file is part of <e-Adventure>, version 1.2.
  * 
- *     <e-Adventure> is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Lesser General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ * <e-Adventure> is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  * 
- *     <e-Adventure> is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU Lesser General Public License for more details.
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- *     You should have received a copy of the GNU Lesser General Public License
- *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.gamestate;
 
@@ -139,7 +138,7 @@ public class GameStateConversation extends GameState {
      * Store only the option which has all conditions OK
      */
     private ArrayList<ConversationLine> optionsToShow;
-    
+
     /**
      * Like keepShowing, but at adventure level
      */
@@ -149,7 +148,7 @@ public class GameStateConversation extends GameState {
      * The name of conversation
      */
     private String convID;
-    
+
     /**
      * Last Conversation line previous to an option node
      */
@@ -159,12 +158,12 @@ public class GameStateConversation extends GameState {
      * Store the audio ID for options pre-hearing
      */
     private long audioId;
-    
+
     /**
      * keep the last option which is being pre-hearing
      */
     private int linePreHearing;
-    
+
     /**
      * Creates a new GameStateConversation
      */
@@ -181,10 +180,10 @@ public class GameStateConversation extends GameState {
         optionsToShow = new ArrayList<ConversationLine>( );
         isOptionSelected = false;
         convID = new String( );
-        lastConversationLine=null;
-        generalKeepShowing = Game.getInstance().getGameDescriptor( ).isKeepShowing( );
+        lastConversationLine = null;
+        generalKeepShowing = Game.getInstance( ).getGameDescriptor( ).isKeepShowing( );
         audioId = -1;
-        linePreHearing=-1;
+        linePreHearing = -1;
 
     }
 
@@ -264,28 +263,27 @@ public class GameStateConversation extends GameState {
      */
     private void processOptionNode( Graphics2D g ) {
 
-        if( !isOptionSelected ){
+        if( !isOptionSelected ) {
             optionNodeNoOptionSelected( g );
-            showPlayerQuestion();
+            showPlayerQuestion( );
         }
         else
             optionNodeWithOptionSelected( );
     }
 
-    
     /**
      * Keep showing in option node the last line in previous dialog node
      */
-    private void showPlayerQuestion(){
- 
-        if (((OptionConversationNode)currentNode).isKeepShowing( )){
+    private void showPlayerQuestion( ) {
+
+        if( ( (OptionConversationNode) currentNode ).isKeepShowing( ) ) {
             FunctionalPlayer player = game.getFunctionalPlayer( );
             player.speak( lastConversationLine.getText( ), true );
             game.setCharacterCurrentlyTalking( player );
         }
-        
+
     }
-    
+
     /**
      * When in an option node, if no option is selected all the possible options
      * must be displayed on screen.
@@ -299,7 +297,7 @@ public class GameStateConversation extends GameState {
             ( (OptionConversationNode) currentNode ).doRandom( );
             firstTime = false;
         }
-           
+
         numberDisplayedOptions = 0;
 
         storeOKConditionsConversationLines( );
@@ -361,27 +359,38 @@ public class GameStateConversation extends GameState {
             int green = textColor.getGreen( );
             int blue = textColor.getBlue( );
             textColor = new Color( 255 - red, 255 - green, 255 - blue );
-           
-            if (((OptionConversationNode)currentNode).isPreListening( )&&linePreHearing!=optionIndex + firstLineDisplayed){
-                
-                if( this.optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ){
-                    linePreHearing=optionIndex;
-                    setAudio( ((OptionConversationNode)currentNode).getLine( optionIndex ).getAudioPath( ) );
-                }else {
-               
+
+            if( ( (OptionConversationNode) currentNode ).isPreListening( ) && linePreHearing != optionIndex + firstLineDisplayed ) {
+
+                if( this.optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
+                    linePreHearing = optionIndex;
+                    setAudio( ( (OptionConversationNode) currentNode ).getLine( optionIndex ).getAudioPath( ) );
+                }
+                else {
+
                     linePreHearing = optionIndex + firstLineDisplayed;
 
                     int indexLastLine = Math.min( firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, currentNode.getLineCount( ) );
 
                     if( linePreHearing != indexLastLine ) {
-                        setAudio( ((OptionConversationNode)currentNode).getLine( linePreHearing ).getAudioPath( ) );
+                        setAudio( ( (OptionConversationNode) currentNode ).getLine( linePreHearing ).getAudioPath( ) );
                     }
                 }
             }
         }
         int y = GUI.getInstance( ).getResponseTextY( ) + optionIndex * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT;
         int x = GUI.getInstance( ).getResponseTextX( );
+        
+        if( text.startsWith( ConversationLine.Type.THOUGHT.toString( ) ) || text.startsWith( ConversationLine.Type.YELL.toString( ) ) || text.startsWith( ConversationLine.Type.WHISPER.toString( ) ) ) {
+            int spaceIndex = text.indexOf( ' ' );
+            if ( spaceIndex != -1 )
+                text = text.substring( spaceIndex + 1);
+        }
+        
         String fullText = ( lineIndex + 1 ) + ".- " + text;
+
+
+
         GUI.drawStringOnto( g, fullText, x, y, false, textColor, Game.getInstance( ).getFunctionalPlayer( ).getTextBorderColor( ), true );
     }
 
@@ -395,14 +404,16 @@ public class GameStateConversation extends GameState {
     private void optionNodeWithOptionSelected( ) {
 
         if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) ) {
-            if( mouseClickedButton == MouseEvent.BUTTON1) {
+            if( mouseClickedButton == MouseEvent.BUTTON1 ) {
                 DebugLog.user( "Skipped line in conversation" );
                 game.getCharacterCurrentlyTalking( ).stopTalking( );
                 mouseClickedButton = MouseEvent.NOBUTTON;
-            } else if ( mouseClickedButton == MouseEvent.BUTTON3 ) {
+            }
+            else if( mouseClickedButton == MouseEvent.BUTTON3 ) {
                 DebugLog.user( "Skipped conversation" );
                 game.getCharacterCurrentlyTalking( ).stopTalking( );
-            } else
+            }
+            else
                 return;
         }
 
@@ -448,19 +459,20 @@ public class GameStateConversation extends GameState {
             FunctionalPlayer player = game.getFunctionalPlayer( );
             ConversationLine line = currentNode.getLine( correspondingIndex.get( optionSelected ) );
 
-            if (((OptionConversationNode)currentNode).isShowUserOption( )){
-              
+            if( ( (OptionConversationNode) currentNode ).isShowUserOption( ) ) {
+
                 if( line.isValidAudio( ) ) {
                     player.speak( line.getText( ), line.getAudioPath( ), generalKeepShowing );
                 }
                 else if( line.getSynthesizerVoice( ) || player.isAlwaysSynthesizer( ) ) {
                     player.speakWithFreeTTS( line.getText( ), player.getPlayerVoice( ), generalKeepShowing );
                 }
-                else 
+                else
                     player.speak( line.getText( ), generalKeepShowing );
-                
-        }else 
-           player.speak( "" );
+
+            }
+            else
+                player.speak( "" );
 
             game.setCharacterCurrentlyTalking( player );
             isOptionSelected = true;
@@ -490,22 +502,19 @@ public class GameStateConversation extends GameState {
     @Override
     public synchronized void mouseClicked( MouseEvent e ) {
 
-        if( currentNode.getType( ) == ConversationNodeView.OPTION &&
-                GUI.getInstance( ).getResponseTextY( ) <= e.getY( ) &&
-                GUI.getInstance( ).getResponseTextY( ) + currentNode.getLineCount( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) &&
-                !isOptionSelected) {
-           
-            if (MultimediaManager.getInstance( ).isPlaying( audioId ))
+        if( currentNode.getType( ) == ConversationNodeView.OPTION && GUI.getInstance( ).getResponseTextY( ) <= e.getY( ) && GUI.getInstance( ).getResponseTextY( ) + currentNode.getLineCount( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) && !isOptionSelected ) {
+
+            if( MultimediaManager.getInstance( ).isPlaying( audioId ) )
                 MultimediaManager.getInstance( ).stopPlaying( audioId );
-            
+
             optionSelected = ( e.getY( ) - GUI.getInstance( ).getResponseTextY( ) ) / RESPONSE_TEXT_HEIGHT;
             if( optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES )
                 selectDisplayedOption( );
             else
                 selectNoAllDisplayedOption( );
-            
-        } 
-        else if( currentNode.getType( ) == ConversationNodeView.DIALOGUE || isOptionSelected) {
+
+        }
+        else if( currentNode.getType( ) == ConversationNodeView.DIALOGUE || isOptionSelected ) {
             if( e.getButton( ) == MouseEvent.BUTTON1 )
                 mouseClickedButton = MouseEvent.BUTTON1;
             else if( e.getButton( ) == MouseEvent.BUTTON3 )
@@ -517,9 +526,9 @@ public class GameStateConversation extends GameState {
     public void keyPressed( KeyEvent e ) {
 
         if( currentNode.getType( ) == ConversationNodeView.OPTION && !isOptionSelected ) {
-            if (MultimediaManager.getInstance( ).isPlaying( audioId ))
+            if( MultimediaManager.getInstance( ).isPlaying( audioId ) )
                 MultimediaManager.getInstance( ).stopPlaying( audioId );
-            
+
             if( e.getKeyCode( ) >= KeyEvent.VK_1 && e.getKeyCode( ) <= KeyEvent.VK_9 )
                 optionSelected = e.getKeyCode( ) - KeyEvent.VK_1;
             else
@@ -537,7 +546,7 @@ public class GameStateConversation extends GameState {
     public void mouseMoved( MouseEvent e ) {
 
         if( GUI.getInstance( ).getResponseTextY( ) <= e.getY( ) )
-           optionHighlighted = ( e.getY( ) - GUI.getInstance( ).getResponseTextY( ) ) / RESPONSE_TEXT_HEIGHT;
+            optionHighlighted = ( e.getY( ) - GUI.getInstance( ).getResponseTextY( ) ) / RESPONSE_TEXT_HEIGHT;
         else
             optionHighlighted = -1;
     }
@@ -567,7 +576,7 @@ public class GameStateConversation extends GameState {
 
         // Only talk if all conditions in current line are OK
         if( ( new FunctionalConditions( currentNode.getLine( currentLine ).getConditions( ) ).allConditionsOk( ) ) ) {
-            
+
             if( line.isPlayerLine( ) )
                 talking = game.getFunctionalPlayer( );
             else {
@@ -579,11 +588,11 @@ public class GameStateConversation extends GameState {
 
             if( talking != null ) {
                 boolean keepShowing = false;
-                if (generalKeepShowing||line.isKeepShowing( ) ||((DialogueConversationNode)currentNode).isKeepShowing( ))
+                if( generalKeepShowing || line.isKeepShowing( ) || ( (DialogueConversationNode) currentNode ).isKeepShowing( ) )
                     keepShowing = true;
                 if( line.isValidAudio( ) )
                     talking.speak( line.getText( ), line.getAudioPath( ), keepShowing );
-                else if( line.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ))
+                else if( line.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) )
                     talking.speakWithFreeTTS( line.getText( ), talking.getPlayerVoice( ), keepShowing );
                 else
                     talking.speak( line.getText( ), keepShowing );
@@ -599,10 +608,10 @@ public class GameStateConversation extends GameState {
      */
     private void skipToNextNode( ) {
 
-        if (currentLine!=0)
-            lastConversationLine= currentNode.getConversationLine( currentLine - 1 );
-        else 
-            lastConversationLine = new ConversationLine("fake","");
+        if( currentLine != 0 )
+            lastConversationLine = currentNode.getConversationLine( currentLine - 1 );
+        else
+            lastConversationLine = new ConversationLine( "fake", "" );
         if( currentNode.hasValidEffect( ) && !currentNode.isEffectConsumed( ) ) {
             currentNode.consumeEffect( );
             game.pushCurrentState( this );
@@ -619,17 +628,17 @@ public class GameStateConversation extends GameState {
             currentLine = 0;
         }
     }
-    
+
     /**
      * Method used for pre-hearing the options when its have sound
      */
     public void setAudio( String audioPath ) {
 
         if( audioPath != null ) {
-            
-            if (MultimediaManager.getInstance( ).isPlaying( audioId ))
+
+            if( MultimediaManager.getInstance( ).isPlaying( audioId ) )
                 MultimediaManager.getInstance( ).stopPlaying( audioId );
-            
+
             audioId = MultimediaManager.getInstance( ).loadSound( audioPath, false );
 
             MultimediaManager.getInstance( ).startPlaying( audioId );
@@ -640,11 +649,9 @@ public class GameStateConversation extends GameState {
                 catch( InterruptedException e ) {
                 }
             }
-            
+
         }
     }
-
-    
 
     /**
      * @param convName
