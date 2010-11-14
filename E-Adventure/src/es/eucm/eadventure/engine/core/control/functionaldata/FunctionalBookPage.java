@@ -1,38 +1,37 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
- *         research group.
- *  
- *   Copyright 2005-2010 <e-UCM> research group.
+ * research group.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
- *         http://e-adventure.e-ucm.es/contributors
+ * Copyright 2005-2010 <e-UCM> research group.
  * 
- *   <e-UCM> is a research group of the Department of Software Engineering
- *         and Artificial Intelligence at the Complutense University of Madrid
- *         (School of Computer Science).
+ * You can access a list of all the contributors to <e-Adventure> at:
+ * http://e-adventure.e-ucm.es/contributors
  * 
- *         C Profesor Jose Garcia Santesmases sn,
- *         28040 Madrid (Madrid), Spain.
+ * <e-UCM> is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
  * 
- *         For more info please visit:  <http://e-adventure.e-ucm.es> or
- *         <http://www.e-ucm.es>
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
  * 
  * ****************************************************************************
  * 
  * This file is part of <e-Adventure>, version 1.2.
  * 
- *     <e-Adventure> is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Lesser General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ * <e-Adventure> is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  * 
- *     <e-Adventure> is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU Lesser General Public License for more details.
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- *     You should have received a copy of the GNU Lesser General Public License
- *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
@@ -312,8 +311,7 @@ public class FunctionalBookPage extends JPanel {
             if( !fBook.isInFirstPage( ) )
                 g.drawImage( currentArrowLeft, previousPage.x, previousPage.y, currentArrowLeft.getWidth( null ), currentArrowLeft.getHeight( null ), null );
 
-            if( !fBook.isInLastPage( ) )
-                g.drawImage( currentArrowRight, nextPage.x, nextPage.y, currentArrowRight.getWidth( null ), currentArrowRight.getHeight( null ), null );
+            g.drawImage( currentArrowRight, nextPage.x, nextPage.y, currentArrowRight.getWidth( null ), currentArrowRight.getHeight( null ), null );
         }
         super.paint( g );
     }
