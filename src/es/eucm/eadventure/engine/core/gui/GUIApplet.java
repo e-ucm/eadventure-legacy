@@ -45,7 +45,9 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.font.TextAttribute;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
@@ -88,6 +90,9 @@ public class GUIApplet extends GUI {
 
         gameFrame.setIgnoreRepaint( true );
         gameFrame.setFont( new Font( "Dialog", Font.PLAIN, 18 ) );
+        Hashtable attributes = new Hashtable();
+        attributes.put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_EXTENDED);
+        gameFrame.setFont( gameFrame.getFont( ).deriveFont( attributes ) );
         gameFrame.setBackground( Color.black );
         gameFrame.setForeground( Color.white );
         gameFrame.setSize( new Dimension( WINDOW_WIDTH, WINDOW_HEIGHT ) );

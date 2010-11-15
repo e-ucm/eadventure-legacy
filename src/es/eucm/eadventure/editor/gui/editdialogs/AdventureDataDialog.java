@@ -51,6 +51,8 @@ import java.awt.event.FocusEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -59,6 +61,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
@@ -222,7 +225,36 @@ public class AdventureDataDialog extends ToolManagableDialog {
         c.gridy = 4;
         guiStylesPanel.add(waitUserInteractionPanel, c);
         
+        
+        JPanel panel = new JPanel();
+        panel.setLayout( new GridLayout(0,1) );
+        panel.add( new JLabel( TC.get( "DefaultClickAction.Explanation" )) );
+        String[] values = { TC.get( "DefaultClickAction.ShowDetails" ),
+                TC.get( "DefaultClickAction.ShowActions" )};
+        final JComboBox comboBox = new JComboBox(values);
+        switch (controller.getDefaultCursorAction()) {
+            case showDetails:
+                comboBox.setSelectedIndex( 0 );
+                break;
+            case showActions:
+                comboBox.setSelectedIndex( 1 );
+                break;
+        }
+        comboBox.addActionListener( new ActionListener() {
 
+            public void actionPerformed( ActionEvent arg0 ) {
+                controller.setDefaultCursorAction((comboBox.getSelectedIndex( ) == 0 ?
+                        DescriptorData.DefaultClickAction.showDetails :
+                            DescriptorData.DefaultClickAction.showActions));
+            }
+            
+        });
+        panel.add( comboBox );
+        
+        c.gridy = 5;
+        guiStylesPanel.add( panel, c);
+        
+        
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
         JButton btnExit = new JButton( TC.get( "GeneralText.Close" ) );

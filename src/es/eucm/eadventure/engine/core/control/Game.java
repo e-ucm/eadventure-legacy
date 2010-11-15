@@ -1883,4 +1883,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         return gameDescriptor.getInventoryPosition( ) == DescriptorData.INVENTORY_BOTTOM || gameDescriptor.getInventoryPosition( ) == DescriptorData.INVENTORY_TOP_BOTTOM;
     }
 
+    public boolean isShowActions( ) {
+        return gameDescriptor.getDefaultClickAction( ) == DescriptorData.DefaultClickAction.showActions;
+    }
+
 }

@@ -129,10 +129,14 @@ public class DescriptorHandler extends DefaultHandler {
         
         if( qName.equals( "configuration" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ ) {
-        
-            if( attrs.getQName( i ).equals( "keepShowing" ) ) {
-                gameDescriptor.setKeepShowing( attrs.getValue( i ).equals( "yes" ) );
-            }
+                if( attrs.getQName( i ).equals( "keepShowing" ) )
+                    gameDescriptor.setKeepShowing( attrs.getValue( i ).equals( "yes" ) );
+                if( attrs.getQName( i ).equals( "defaultClickAction" ) ) {
+                    if (attrs.getValue( i ).equals( "showDetails" ))
+                        gameDescriptor.setDeafultClickAction(DescriptorData.DefaultClickAction.showDetails);
+                    if (attrs.getValue( i ).equals( "showActions" ))
+                        gameDescriptor.setDeafultClickAction(DescriptorData.DefaultClickAction.showActions);
+                }
             }
         }
 

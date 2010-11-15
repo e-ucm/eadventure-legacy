@@ -95,6 +95,10 @@ public class DescriptorData implements Cloneable, Described, Titled {
     public static final int INVENTORY_TOP = 2;
 
     public static final int INVENTORY_BOTTOM = 3;
+    
+    public static enum DefaultClickAction {
+        showDetails, showActions
+    }
 
     public static String getCursorTypeString( int index ) {
 
@@ -298,6 +302,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
      * game
      */
     protected String projectName;
+    
+    protected DefaultClickAction defaultClickAction;
 
     /**
      * Constant for identify when a game is executed from engine
@@ -753,4 +759,11 @@ public class DescriptorData implements Cloneable, Described, Titled {
         this.keepShowing = keepShowing;
     }
 
+    public void setDeafultClickAction( DefaultClickAction clickAction ) {
+        this.defaultClickAction = clickAction;
+    }
+
+    public DefaultClickAction getDefaultClickAction() {
+        return defaultClickAction;
+    }
 }

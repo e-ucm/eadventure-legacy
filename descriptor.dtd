@@ -46,6 +46,7 @@
 <!ELEMENT configuration (gui,mode,graphics?)>
 <!ATTLIST configuration 
 	keepShowing (yes|no) "yes"
+	defaultClickAction (showDetails | showActions) "showDetails"
 >
 <!ELEMENT invalid EMPTY>
 <!ELEMENT gui (cursors?, buttons?, arrows?)>

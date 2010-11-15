@@ -47,6 +47,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
+import java.util.Hashtable;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Action;
@@ -417,7 +419,7 @@ public class ContextualHUD extends HUD {
 
         ActionManager actionManager = game.getActionManager( );
 
-        if( e.getButton( ) != MouseEvent.BUTTON1 && e.getButton( ) != MouseEvent.BUTTON3 )
+        if( !game.isShowActions() &&  e.getButton( ) != MouseEvent.BUTTON1 && e.getButton( ) != MouseEvent.BUTTON3 )
             return false;
 
         boolean button = false;
@@ -427,7 +429,7 @@ public class ContextualHUD extends HUD {
                 button = true;
         }
 
-        if( ( !button && e.getButton( ) == MouseEvent.BUTTON3 && elementInCursor == null ) || 
+        if( ( !button && (e.getButton( ) == MouseEvent.BUTTON3 || game.isShowActions( )) && elementInCursor == null ) || 
                 ( e.getClickCount( ) == 2 && System.getProperty( "os.name" ).contains( "Windows" ) ) || 
                 ( !button && actionManager.getElementOver( ) == null && elementInCursor != null ) ) {
             System.out.println( "RIGHT CLICK o similar" );
@@ -805,6 +807,9 @@ public class ContextualHUD extends HUD {
 
         //set the font and color for the text (tooltip)
         g.setFont( new Font( null, Font.BOLD, 16 ) );
+        Hashtable attributes = new Hashtable();
+        attributes.put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_EXTENDED);
+        g.setFont( g.getFont( ).deriveFont( attributes ) );
         g.setColor( Color.WHITE );
 
         //If there is no element selected
