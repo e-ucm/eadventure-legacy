@@ -205,12 +205,12 @@ public class FunctionalGoTo extends FunctionalAction {
                 functionalPlayer.setDirection( AnimationState.WEST );
                 speedX = -FunctionalPlayer.DEFAULT_SPEED;
             }
-            if( functionalPlayer.getY( ) < posY ) {
+            /*if( functionalPlayer.getY( ) < posY ) {
                 speedY = FunctionalPlayer.DEFAULT_SPEED;
             }
             else {
                 speedY = -FunctionalPlayer.DEFAULT_SPEED;
-            }
+            }*/
             Animation[] animations = new Animation[ 4 ];
             if( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ) )
                 animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
@@ -238,7 +238,8 @@ public class FunctionalGoTo extends FunctionalAction {
 
         if( !trajectory.hasTrajectory( ) && !finished ) {
             boolean endX = false;
-            boolean endY = false;
+            //boolean endY = false;
+            boolean endY = true;
             if( ( speedX > 0 && functionalPlayer.getX( ) < posX - keepDistance ) || ( speedX <= 0 && functionalPlayer.getX( ) >= posX + keepDistance ) ) {
                 float oldX = functionalPlayer.getX( );
                 float newX = oldX + speedX * elapsedTime / 1000;
@@ -247,7 +248,7 @@ public class FunctionalGoTo extends FunctionalAction {
             else {
                 endX = true;
             }
-            if( ( speedY > 0 && functionalPlayer.getY( ) < posY - keepDistance ) || ( speedY <= 0 && functionalPlayer.getY( ) >= posY + keepDistance ) ) {
+           /* if( ( speedY > 0 && functionalPlayer.getY( ) < posY - keepDistance ) || ( speedY <= 0 && functionalPlayer.getY( ) >= posY + keepDistance ) ) {
                 float oldY = functionalPlayer.getY( );
                 float newY = oldY + speedY * elapsedTime / 1000;
                 
@@ -261,7 +262,7 @@ public class FunctionalGoTo extends FunctionalAction {
             }
             else {
                 endY = true;
-            }
+            }*/
             if( endX && endY ) {
                 finished = true;
                 functionalPlayer.popAnimation( );
@@ -278,9 +279,9 @@ public class FunctionalGoTo extends FunctionalAction {
                 float newX = oldX + trajectory.getSpeedX( ) * elapsedTime / 1000;
                 functionalPlayer.setX( newX );
 
-                float oldY = functionalPlayer.getY( );
+              /*  float oldY = functionalPlayer.getY( );
                 float newY = oldY + trajectory.getSpeedY( ) * elapsedTime / 1000;
-                functionalPlayer.setY( newY );
+                functionalPlayer.setY( newY );*/
             }
             else {
                 finished = true;
