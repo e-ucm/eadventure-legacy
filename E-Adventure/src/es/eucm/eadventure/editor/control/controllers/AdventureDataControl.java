@@ -44,6 +44,7 @@ import es.eucm.eadventure.common.data.adventure.CustomArrow;
 import es.eucm.eadventure.common.data.adventure.CustomButton;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.DefaultClickAction;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSDataControl;
@@ -440,6 +441,10 @@ public class AdventureDataControl {
 
         return adventureData.isKeepShowing( );
     }
+    
+    public DescriptorData.DefaultClickAction getDefaultClickAction() {
+        return adventureData.getDefaultClickAction( );
+    }
 
     public void setKeepShowing( boolean keepShowing ) {
 
@@ -537,6 +542,12 @@ public class AdventureDataControl {
 
         Tool tool = new ChangeIntegerValueTool( adventureData, optionSelected, "getGUIType", "setGUIType" );
         Controller.getInstance( ).addTool( tool );
+        
+    }
+
+    public void setDefaultClickAction( DefaultClickAction defaultClickAction ) {
+
+        adventureData.setDeafultClickAction( defaultClickAction );
         
     }
 

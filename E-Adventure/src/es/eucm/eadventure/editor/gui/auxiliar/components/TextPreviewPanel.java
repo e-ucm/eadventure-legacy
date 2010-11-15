@@ -39,6 +39,8 @@ package es.eucm.eadventure.editor.gui.auxiliar.components;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.font.TextAttribute;
+import java.util.Hashtable;
 
 import javax.swing.JPanel;
 
@@ -135,6 +137,10 @@ public class TextPreviewPanel extends JPanel {
 
         // Calculate the position to paint
         g.setFont( g.getFont( ).deriveFont( 18.0f ) );
+        Hashtable attributes = new Hashtable();
+        attributes.put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_EXTENDED);
+        g.setFont( g.getFont( ).deriveFont( attributes ) );
+
         FontMetrics fontMetrics = g.getFontMetrics( );
 
         int x = ( getWidth( ) / 2 ) - ( fontMetrics.stringWidth( displayText ) / 2 );
@@ -153,6 +159,7 @@ public class TextPreviewPanel extends JPanel {
 
         // Draw the border of the text
         g.setColor( textBorderColor );
+
         g.drawString( displayText, x - 1, y - 1 );
         g.drawString( displayText, x - 1, y + 1 );
         g.drawString( displayText, x + 1, y - 1 );

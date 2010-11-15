@@ -39,6 +39,8 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.font.TextAttribute;
+import java.util.Hashtable;
 
 import javax.swing.Timer;
 
@@ -138,6 +140,9 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
     public void draw( ) {
 
         GUI.getInstance( ).getGraphics( ).setFont( GUI.getInstance( ).getGraphics( ).getFont( ).deriveFont( 18.0f ) );
+        Hashtable attributes = new Hashtable();
+        attributes.put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_EXTENDED);
+        GUI.getInstance( ).getGraphics( ).setFont( GUI.getInstance( ).getGraphics( ).getFont( ).deriveFont( attributes ) );
         GUI.getInstance( ).addTextToDraw( text, ( (ShowTextEffect) effect ).getX( ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), ( (ShowTextEffect) effect ).getY( ), new Color( ( (ShowTextEffect) effect ).getRgbFrontColor( ) ), new Color( ( (ShowTextEffect) effect ).getRgbBorderColor( ) ) );
 
     }

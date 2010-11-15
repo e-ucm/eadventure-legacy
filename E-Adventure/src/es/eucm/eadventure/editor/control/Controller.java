@@ -66,6 +66,7 @@ import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.DefaultClickAction;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.chapter.Chapter;
@@ -3685,5 +3686,13 @@ public boolean isCharacterValid(String elementId){
             throw new IOException("Could not create temp directory: " + temp.getAbsolutePath());
     
         return (temp);
+    }
+
+    public DefaultClickAction getDefaultCursorAction( ) {
+        return this.adventureDataControl.getDefaultClickAction( );
+    }
+
+    public void setDefaultCursorAction( DefaultClickAction defaultClickAction ) {
+        this.adventureDataControl.setDefaultClickAction(defaultClickAction);
     }
 }

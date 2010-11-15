@@ -52,7 +52,9 @@ import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.FocusListener;
+import java.awt.font.TextAttribute;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -175,6 +177,9 @@ public class GUIFrame extends GUI implements FocusListener {
 
         gameFrame.setIgnoreRepaint( true );
         gameFrame.setFont( new Font( "Dialog", Font.PLAIN, 18 ) );
+        Hashtable attributes = new Hashtable();
+        attributes.put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_EXTENDED);
+        gameFrame.setFont( gameFrame.getFont( ).deriveFont( attributes ) );
         gameFrame.setBackground( Color.black );
         gameFrame.setForeground( Color.white );
         gameFrame.setSize( new Dimension( WINDOW_WIDTH, WINDOW_HEIGHT ) );

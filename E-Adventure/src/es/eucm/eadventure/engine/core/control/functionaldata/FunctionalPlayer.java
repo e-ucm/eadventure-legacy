@@ -375,7 +375,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         if( actionSelected == ActionManager.ACTION_LOOK ) {
             addAction( new FunctionalLook( element ) );
             return;
-        }
+        } 
         FunctionalAction nextAction = new FunctionalNullAction( );
         switch( actionSelected ) {
             case ActionManager.ACTION_EXAMINE:

@@ -1978,4 +1978,7 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="TalkToAction.MessageSelectConversation">Seleccione una conversación</entry>
 <entry key="BookPage.NotValidURL">No se puede acceder a la URL indicada. Por favor, compruebe la dirección y el funcionamiento de su conexión a Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Lengua</entry>
+<entry key="DefaultClickAction.Explanation">Acción por defecto para click derecho</entry>
+<entry key="DefaultClickAction.ShowDetails">Mostrar detalles</entry>
+<entry key="DefaultClickAction.ShowActions">Mostrar acciones</entry>
 </properties>

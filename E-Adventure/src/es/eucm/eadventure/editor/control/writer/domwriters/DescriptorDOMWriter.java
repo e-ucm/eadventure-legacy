@@ -108,6 +108,14 @@ public class DescriptorDOMWriter {
                 ((Element)configurationNode).setAttribute( "keepShowing", "yes" );
             else 
                 ((Element)configurationNode).setAttribute( "keepShowing", "no" );
+            switch (adventureData.getDefaultClickAction()) {
+                case showDetails:
+                    ((Element)configurationNode).setAttribute( "defaultClickAction", "showDetails" );
+                    break;
+                case showActions:
+                    ((Element)configurationNode).setAttribute( "defaultClickAction", "showActions" );
+                    break;
+            }
             
             //GUI Element
             Element guiElement = doc.createElement( "gui" );
