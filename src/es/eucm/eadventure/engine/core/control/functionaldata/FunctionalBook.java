@@ -47,9 +47,7 @@ import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.PixelGrabber;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import es.eucm.eadventure.common.auxiliar.ImageTransformer;
@@ -327,24 +325,19 @@ public abstract class FunctionalBook {
 
     private void loadDefaultArrows( ) {
 
-        try {
-            arrowLeftNormal = (BufferedImage) MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL, MultimediaManager.IMAGE_SCENE );
-            if( arrowLeftNormal == null ) {
-                arrowLeftNormal = ImageIO.read( getClass( ).getResourceAsStream( "/es/eucm/eadventure/engine/core/gui/images/defaultleftnormalarrow.png" ) );
-            }
-
-            arrowRightNormal = (BufferedImage) ImageTransformer.getInstance( ).getScaledImage( arrowLeftNormal, -1.0f, 1.0f );
-
-            arrowLeftOver = (BufferedImage) MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER, MultimediaManager.IMAGE_SCENE );
-            if( arrowLeftOver == null ) {
-                arrowLeftOver = ImageIO.read( getClass( ).getResourceAsStream( "/es/eucm/eadventure/engine/core/gui/images/defaultleftoverarrow.png" ) );
-            }
-
-            arrowRightOver = (BufferedImage) ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, -1.0f, 1.0f );
+        arrowLeftNormal = this.toBufferedImage( MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_NORMAL, MultimediaManager.IMAGE_SCENE ) );
+        if( arrowLeftNormal == null ) {
+            arrowLeftNormal = this.toBufferedImage( MultimediaManager.getInstance( ).loadImage( "gui/defaultassets/DefaultLeftNormalArrow.png", MultimediaManager.IMAGE_PLAYER ) );
         }
-        catch( IOException e ) {
-            e.printStackTrace( );
+
+        arrowRightNormal = (BufferedImage) ImageTransformer.getInstance( ).getScaledImage( arrowLeftNormal, -1.0f, 1.0f );
+
+        arrowLeftOver = (BufferedImage) MultimediaManager.getInstance( ).loadImageFromZip( SpecialAssetPaths.ASSET_DEFAULT_ARROW_OVER, MultimediaManager.IMAGE_SCENE );
+        if( arrowLeftOver == null ) {
+            arrowLeftOver = this.toBufferedImage( MultimediaManager.getInstance( ).loadImage( "gui/defaultassets/DefaultLeftOverArrow.png", MultimediaManager.IMAGE_PLAYER ) );
         }
+
+        arrowRightOver = (BufferedImage) ImageTransformer.getInstance( ).getScaledImage( arrowLeftOver, -1.0f, 1.0f );
     }
 
     private void setDefaultArrowsPosition( ) {
@@ -408,6 +401,9 @@ public abstract class FunctionalBook {
 
     // MÉTODOS PARA DETERMINAR LAS TRANSPARENCIAS DE LAS FLECHAS
     public BufferedImage toBufferedImage( Image image ) {
+        if ( image == null ){
+            return null;
+        }
 
         if( image instanceof BufferedImage ) {
             return (BufferedImage) image;
