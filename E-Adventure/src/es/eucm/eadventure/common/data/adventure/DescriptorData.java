@@ -322,6 +322,7 @@ public class DescriptorData implements Cloneable, Described, Titled {
         title = null;
         description = null;
         guiType = -1;
+        defaultClickAction = DefaultClickAction.showDetails;
         playerMode = MODE_PLAYER_1STPERSON;
         graphicConfig = GRAPHICS_WINDOWED;
         projectName = ENGINE_EXECUTION;
