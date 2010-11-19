@@ -63,6 +63,8 @@ public class ImageToolBar extends JPanel {
                 public void actionPerformed( ActionEvent e ) {
 
                     boolean selected = ( (JToggleButton) ( e.getSource( ) ) ).isSelected( );
+                    
+                    ImageToolBar.this.filter.setActive( selected );
 
                     for( JComponent c : tools ) {
                         c.setEnabled( selected );

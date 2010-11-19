@@ -15,16 +15,22 @@ public class TransparentColorFilter implements ImageFilter {
     private boolean contiguous = true;
     
     private int alphaValue = 0;
+    
+    private boolean active = false;
 
     public TransparentColorFilter( boolean contiguous, int threshold ) {
 
         this.contiguous = contiguous;
         this.threshold = threshold;
     }
+    
+    public void setActive( boolean active ){
+        this.active = active;
+    }
 
     public void transform( BufferedImage image, int x, int y ) {
 
-        if( image.getColorModel( ).getNumComponents( ) == 4 ) {
+        if( active && image.getColorModel( ).getNumComponents( ) == 4 ) {
             WritableRaster raster = image.getRaster( );
 
             int transparentColor[] = new int[ 4 ];
