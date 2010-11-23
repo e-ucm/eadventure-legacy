@@ -2892,7 +2892,7 @@ public class Controller {
         boolean elementIdValid = false;
 
         // Check if the identifier has no spaces
-        if( !elementId.contains( " " ) ) {
+        if( !elementId.contains( " " ) && !elementId.contains( "'" )) {
 
             // If the identifier doesn't exist already
             if( !getIdentifierSummary( ).existsId( elementId ) ) {
