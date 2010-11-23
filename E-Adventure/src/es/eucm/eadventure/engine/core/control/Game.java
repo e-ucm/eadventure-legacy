@@ -59,6 +59,7 @@ import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
+import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
@@ -813,6 +814,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             GUI.getInstance( ).loading( 10 );
             
             while( !gameOver ) {
+                int timeBarrier = 60;
                 loadCurrentChapter( g );
                 
                 GUI.getInstance( ).loading( 100 );
@@ -849,6 +851,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                     currentState.mainLoop( elapsedTime, oldFps );
                     
                     MultimediaManager.getInstance( ).update( );
+                    // sent time to LAMS each 1 minute
+                    if( comm!=null && comm.getCommType( ) == CommManagerApi.LAMS_TYPE && (totalTime/1000 > timeBarrier)) {
+                        timeBarrier += 60;
+                      //Sent the time
+                        ArrayList l = new ArrayList();
+                        l.add( new AssessmentProperty("total-time",  String.valueOf(getTime( ))) );
+                        comm.notifyRelevantState( l );
+                    }
                     
                     try {
                         Thread.sleep( Math.max((10 - (System.currentTimeMillis( ) - time)), 0) );
@@ -1068,10 +1078,13 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void generateItem( String itemId ) {
 
         if( itemSummary.isItemNormal( itemId ) ) {
-            inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ), (InfluenceArea) null ) );
-            itemSummary.grabItem( itemId );
+           // 23/11/2010 the object has to disappear from the scene when it's generated (aba)
+            // inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ), (InfluenceArea) null ) );
+           // itemSummary.grabItem( itemId );
+            grabItem(itemId);
         }
         else if( itemSummary.isItemConsumed( itemId ) ) {
+            // 23/11/2010 in this case it is not necesary because the item is not being showhed in the secene
             itemSummary.regenerateItem( itemId );
             inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ), (InfluenceArea) null ) );
             itemSummary.grabItem( itemId );
@@ -1541,7 +1554,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * game, and the rules processed.
      */
     public synchronized void updateDataPendingFromState( boolean notifyTimerCycles ) {
-
         timerManager.update( notifyTimerCycles );
         functionalScene.updateScene( );
         if( gameData.hasAssessmentProfile( ) )
