@@ -264,8 +264,9 @@ public class GameStateConversation extends GameState {
     private void processOptionNode( Graphics2D g ) {
 
         if( !isOptionSelected ) {
-            optionNodeNoOptionSelected( g );
             showPlayerQuestion( );
+            optionNodeNoOptionSelected( g );
+            
         }
         else
             optionNodeWithOptionSelected( );
@@ -278,7 +279,18 @@ public class GameStateConversation extends GameState {
 
         if( ( (OptionConversationNode) currentNode ).isKeepShowing( ) ) {
             FunctionalPlayer player = game.getFunctionalPlayer( );
-            player.speak( lastConversationLine.getText( ), true );
+            
+            
+            if (firstTime){
+                if( lastConversationLine.isValidAudio( ))
+                    player.speak( lastConversationLine.getText( ), lastConversationLine.getAudioPath( ), true );
+                else if( lastConversationLine.getSynthesizerVoice( ) || player.isAlwaysSynthesizer( ) )
+                    player.speakWithFreeTTS( lastConversationLine.getText( ), player.getPlayerVoice( ), true );
+            
+            }else
+                player.speak( lastConversationLine.getText( ), true );
+            
+            
             game.setCharacterCurrentlyTalking( player );
         }
 
@@ -571,9 +583,17 @@ public class GameStateConversation extends GameState {
      */
     private void playNextLineInNode( ) {
 
-        ConversationLine line = currentNode.getLine( currentLine );
-        TalkingElement talking = null;
-
+        //if the line before the option node is going to be shown, skip it and show directly with the options
+        if (currentLine + 1 == currentNode.getLineCount( ) && !currentNode.isTerminal( ) && 
+                currentNode.getChild( 0 ).getType( ) == ConversationNodeView.OPTION && ((OptionConversationNode)currentNode.getChild( 0 )).isKeepShowing( )){
+            
+            currentLine++;
+            skipToNextNode( );
+            
+        } else {
+            ConversationLine line = currentNode.getLine( currentLine );
+            TalkingElement talking = null;
+        
         // Only talk if all conditions in current line are OK
         if( ( new FunctionalConditions( currentNode.getLine( currentLine ).getConditions( ) ).allConditionsOk( ) ) ) {
 
@@ -600,6 +620,7 @@ public class GameStateConversation extends GameState {
             game.setCharacterCurrentlyTalking( talking );
         }
         currentLine++;
+        }
     }
 
     /**
