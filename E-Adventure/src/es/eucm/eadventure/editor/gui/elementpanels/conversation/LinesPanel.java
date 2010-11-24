@@ -328,7 +328,7 @@ class LinesPanel extends JPanel implements DataControlsPanel {
         checkboxPanel.add( randomOrder);
         
         // add "keepshowing" option only if user doesn't select "keepShowing" option in adventure data panel
-        if (!Controller.getInstance( ).isKeepShowing( )){
+        //if (!Controller.getInstance( ).isKeepShowing( )){
             JCheckBox keepQuestionShowing = new JCheckBox( TC.get( "Conversation.KeepShowing" ), conversationDataControl.isKeepShowingOptionsNodeActivate( conversationPanel.getSelectedNode( ) ) );
             keepQuestionShowing.addActionListener( new ActionListener( ) {
 
@@ -338,7 +338,7 @@ class LinesPanel extends JPanel implements DataControlsPanel {
                 }
             } );  
             checkboxPanel.add( keepQuestionShowing);
-        }
+        //}
 
         checkboxPanel.add( showUserResponse);
         checkboxPanel.add( preListening);
