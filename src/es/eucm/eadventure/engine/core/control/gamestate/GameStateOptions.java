@@ -45,13 +45,11 @@ import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Hashtable;
 
 import es.eucm.eadventure.common.auxiliar.CreateImage;
 import es.eucm.eadventure.common.gui.TC;
@@ -484,9 +482,6 @@ public class GameStateOptions extends GameState {
             int i;
             // For every savegame slot
             g.setFont( savegameFont );
-            Hashtable attributes = new Hashtable();
-            attributes.put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_EXTENDED);
-            g.setFont( g.getFont( ).deriveFont( attributes ) );
             for( i = 0; i < MAX_NUM_SAVEGAME_SLOTS; i++ ) {
                 boolean isValidSlot = isValidSlotGame( i );
                 // Draw the button
@@ -513,7 +508,6 @@ public class GameStateOptions extends GameState {
 
             // Draw the "Back" button
             g.setFont( optionsFont );
-            g.setFont( g.getFont( ).deriveFont( attributes ) );
 
             g.drawImage( ( highlightedOption == i && mouseButtonPressed ) ? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
             g.setColor( highlightedOption == i ? HIGHLIGHTED_COLOR : NORMAL_COLOR );
@@ -542,9 +536,6 @@ public class GameStateOptions extends GameState {
 
             // Paint the options
             g.setFont( optionsFont );
-            Hashtable attributes = new Hashtable();
-            attributes.put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_EXTENDED);
-            g.setFont( g.getFont( ).deriveFont( attributes ) );
             for( int i = 0; i < NUMBER_OPTIONS_OF_PANEL[currentPanel]; i++ ) {
                 if( Game.getInstance( ).isAppletMode( ) && ( i == 0 || i == 3 ) ) {
                     g.drawImage( imgPressedButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
