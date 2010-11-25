@@ -1036,17 +1036,26 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     public void grabItem( String itemId ) {
 
-        // Remove the FunctionalItem from the scene and store it into the inventory
+        // Remove the FunctionalItem from the scene and store it into the inventory,  
         FunctionalItem grabbedItem = null;
 
         for( FunctionalItem currentItem : functionalScene.getItems( ) )
             // If we found the item we wanted
             if( currentItem.getItem( ).getId( ).equals( itemId ) )
                 grabbedItem = currentItem;
+                    
+        // if the element is not in the scene, take it from the data model
+        if (grabbedItem == null){
+            grabbedItem = new FunctionalItem( gameData.getItem( itemId ), (InfluenceArea) null );
+        } 
+        // if the element is in the scene
+        else {
+            
+            // Delete the item from the scene
+            functionalScene.getItems( ).remove( grabbedItem );
+        }
 
-        // Delete the item from the scene
-        functionalScene.getItems( ).remove( grabbedItem );
-
+        
         // Insert the item in the inventory
         inventory.storeItem( grabbedItem );
 
