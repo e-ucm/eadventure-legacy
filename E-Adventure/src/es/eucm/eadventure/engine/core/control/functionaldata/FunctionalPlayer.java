@@ -376,6 +376,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
             addAction( new FunctionalLook( element ) );
             return;
         } 
+        
         FunctionalAction nextAction = new FunctionalNullAction( );
         switch( actionSelected ) {
             case ActionManager.ACTION_EXAMINE:
@@ -504,7 +505,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 addAction( functionalGoTo );
             }
             else {
-                addAction( functionalGoTo );
+                //addAction( functionalGoTo ); this avoid a lock of player
             }
             return;
         }
