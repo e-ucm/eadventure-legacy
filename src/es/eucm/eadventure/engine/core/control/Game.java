@@ -58,6 +58,7 @@ import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.Perspective;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.data.chapter.Chapter;
@@ -1905,7 +1906,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     }
 
     public boolean isShowActions( ) {
-        return gameDescriptor.getDefaultClickAction( ) == DescriptorData.DefaultClickAction.showActions;
+        return gameDescriptor.getDefaultClickAction( ) == DescriptorData.DefaultClickAction.SHOW_ACTIONS;
+    }
+    
+    public boolean isIsometric() {
+        return gameDescriptor.getPerspective( ) == Perspective.ISOMETRIC;
     }
 
 }

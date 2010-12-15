@@ -116,29 +116,46 @@ public abstract class AnimationState {
 
         if( getCurrentDirection( ) == -1 )
             setCurrentDirection( SOUTH );
-        //Si es el eje Norte-Sur
-        if( Math.abs( getVelocityY( ) ) > Math.abs( getVelocityX( ) ) ) {
-            //Si baja
-            //FIXME: EL = del IF se ha puesto a pelo, sin ver que pasa en juegos 3ªpersona
-            if( getVelocityY( ) >= 0 ) {
+        
+        //TODO ISOMETRIC
+        if (Game.getInstance( ).isIsometric( )) {
+            double angle = Math.atan2( getVelocityY(), getVelocityX() );
+    
+            if (angle < -Math.PI / 1.2) {
                 tempDirection = SOUTH;
-            }
-            else if( getVelocityY( ) < 0 ) {
-                tempDirection = NORTH;
-            }
-            //Si es el eje Este-Oeste
-        }
-        else {
-            //Si a la derecha
-            //FIXME: EL = del IF se ha puesto a pelo, sin ver que pasa en juegos 3ªpersona
-            if( getVelocityX( ) >= 0 ) {
+            } else if (angle < 0) {
                 tempDirection = EAST;
-            }
-            else if( getVelocityX( ) < 0 ) {
+            } else if (angle < Math.PI / 1.2) {
+                tempDirection = NORTH;
+            } else {
                 tempDirection = WEST;
             }
+            tempDirection = WEST;
+        } else {
+            if( Math.abs( getVelocityY( ) ) > Math.abs( getVelocityX( ) ) ) {
+                //Si baja
+                //FIXME: EL = del IF se ha puesto a pelo, sin ver que pasa en juegos 3ªpersona
+                if( getVelocityY( ) >= 0 ) {
+                    tempDirection = SOUTH;
+                }
+                else if( getVelocityY( ) < 0 ) {
+                    tempDirection = NORTH;
+                }
+                //Si es el eje Este-Oeste
+            }
+            else {
+                //Si a la derecha
+                //FIXME: EL = del IF se ha puesto a pelo, sin ver que pasa en juegos 3ªpersona
+                if( getVelocityX( ) >= 0 ) {
+                    tempDirection = EAST;
+                }
+                else if( getVelocityX( ) < 0 ) {
+                    tempDirection = WEST;
+                }
+            }
         }
-
+        
+        
         if( Math.abs( getVelocityX( ) ) != 0 && Math.abs( getVelocityY( ) ) != 0 && tempDirection != -1 && (tempDirection != getCurrentDirection( ) ||isResetAnimation())) {
             setCurrentDirection( tempDirection );
             animations[getCurrentDirection( )].start( );

@@ -47,6 +47,7 @@
 <!ATTLIST configuration 
 	keepShowing (yes|no) "yes"
 	defaultClickAction (showDetails | showActions) "showDetails"
+	perspective (regular | isometric) "regular"
 >
 <!ELEMENT invalid EMPTY>
 <!ELEMENT gui (cursors?, buttons?, arrows?)>

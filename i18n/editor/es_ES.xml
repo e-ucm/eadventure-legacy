@@ -1981,4 +1981,7 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="DefaultClickAction.Explanation">Acción por defecto para click derecho</entry>
 <entry key="DefaultClickAction.ShowDetails">Mostrar detalles</entry>
 <entry key="DefaultClickAction.ShowActions">Mostrar acciones</entry>
+<entry key="Perspective.Explanation">Perspectiva aplicada el movimiento de personajes y jugador</entry>
+<entry key="Perspective.Regular">Normal</entry>
+<entry key="Perspective.Isometric">Isométrica</entry>
 </properties>

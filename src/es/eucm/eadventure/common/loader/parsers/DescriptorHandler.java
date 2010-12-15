@@ -48,6 +48,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.Perspective;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 
 /**
@@ -133,9 +134,15 @@ public class DescriptorHandler extends DefaultHandler {
                     gameDescriptor.setKeepShowing( attrs.getValue( i ).equals( "yes" ) );
                 if( attrs.getQName( i ).equals( "defaultClickAction" ) ) {
                     if (attrs.getValue( i ).equals( "showDetails" ))
-                        gameDescriptor.setDeafultClickAction(DescriptorData.DefaultClickAction.showDetails);
+                        gameDescriptor.setDeafultClickAction(DescriptorData.DefaultClickAction.SHOW_DETAILS);
                     if (attrs.getValue( i ).equals( "showActions" ))
-                        gameDescriptor.setDeafultClickAction(DescriptorData.DefaultClickAction.showActions);
+                        gameDescriptor.setDeafultClickAction(DescriptorData.DefaultClickAction.SHOW_ACTIONS);
+                }
+                if ( attrs.getQName( i ).equals( "perspective" )) {
+                    if (attrs.getValue( i ).equals( "regular" ))
+                        gameDescriptor.setPerspective( Perspective.REGULAR );
+                    if (attrs.getValue( i ).equals( "isometric" ))
+                        gameDescriptor.setPerspective( Perspective.ISOMETRIC );
                 }
             }
         }

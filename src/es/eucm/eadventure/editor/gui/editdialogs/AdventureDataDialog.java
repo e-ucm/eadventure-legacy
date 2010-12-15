@@ -233,10 +233,10 @@ public class AdventureDataDialog extends ToolManagableDialog {
                 TC.get( "DefaultClickAction.ShowActions" )};
         final JComboBox comboBox = new JComboBox(values);
         switch (controller.getDefaultCursorAction()) {
-            case showDetails:
+            case SHOW_DETAILS:
                 comboBox.setSelectedIndex( 0 );
                 break;
-            case showActions:
+            case SHOW_ACTIONS:
                 comboBox.setSelectedIndex( 1 );
                 break;
         }
@@ -244,8 +244,8 @@ public class AdventureDataDialog extends ToolManagableDialog {
 
             public void actionPerformed( ActionEvent arg0 ) {
                 controller.setDefaultCursorAction((comboBox.getSelectedIndex( ) == 0 ?
-                        DescriptorData.DefaultClickAction.showDetails :
-                            DescriptorData.DefaultClickAction.showActions));
+                        DescriptorData.DefaultClickAction.SHOW_DETAILS :
+                            DescriptorData.DefaultClickAction.SHOW_ACTIONS));
             }
             
         });
@@ -254,7 +254,35 @@ public class AdventureDataDialog extends ToolManagableDialog {
         c.gridy = 5;
         guiStylesPanel.add( panel, c);
         
+
+        JPanel panel2 = new JPanel();
+        panel2.setLayout( new GridLayout(0,1) );
+        panel2.add( new JLabel( TC.get( "Perspective.Explanation" )) );
+        String[] values2 = { TC.get( "Perspective.Regular" ),
+                TC.get( "Perspective.Isometric" )};
+        final JComboBox comboBox2 = new JComboBox(values2);
+        switch (controller.getPerspective( )) {
+            case REGULAR:
+                comboBox2.setSelectedIndex( 0 );
+                break;
+            case ISOMETRIC:
+                comboBox2.setSelectedIndex( 1 );
+                break;
+        }
+        comboBox2.addActionListener( new ActionListener() {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+                controller.setPerspective((comboBox2.getSelectedIndex( ) == 0 ?
+                        DescriptorData.Perspective.REGULAR :
+                            DescriptorData.Perspective.ISOMETRIC));
+            }
+            
+        });
+        panel2.add( comboBox2 );
         
+        c.gridy++;
+        guiStylesPanel.add( panel2, c);
+
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
         JButton btnExit = new JButton( TC.get( "GeneralText.Close" ) );

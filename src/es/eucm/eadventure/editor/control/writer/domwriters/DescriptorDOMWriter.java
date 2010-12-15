@@ -108,15 +108,25 @@ public class DescriptorDOMWriter {
                 ((Element)configurationNode).setAttribute( "keepShowing", "yes" );
             else 
                 ((Element)configurationNode).setAttribute( "keepShowing", "no" );
+
             switch (adventureData.getDefaultClickAction()) {
-                case showDetails:
+                case SHOW_DETAILS:
                     ((Element)configurationNode).setAttribute( "defaultClickAction", "showDetails" );
                     break;
-                case showActions:
+                case SHOW_ACTIONS:
                     ((Element)configurationNode).setAttribute( "defaultClickAction", "showActions" );
                     break;
             }
-            
+
+            switch (adventureData.getPerspective( )) {
+                case REGULAR:
+                    ((Element)configurationNode).setAttribute( "perspective", "regular" );
+                    break;
+                case ISOMETRIC:
+                    ((Element)configurationNode).setAttribute( "perspective", "isometric" );
+                    break;
+            }
+
             //GUI Element
             Element guiElement = doc.createElement( "gui" );
             if( adventureData.getGUIType( ) == DescriptorData.GUI_TRADITIONAL )

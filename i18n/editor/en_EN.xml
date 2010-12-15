@@ -1978,4 +1978,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="DefaultClickAction.Explanation">Default action for right-click</entry>
 <entry key="DefaultClickAction.ShowDetails">Show details</entry>
 <entry key="DefaultClickAction.ShowActions">Show actions</entry>
+<entry key="Perspective.Explanation">Perspective applied to character and player movement</entry>
+<entry key="Perspective.Regular">Regular</entry>
+<entry key="Perspective.Isometric">Isometric</entry>
 </properties>

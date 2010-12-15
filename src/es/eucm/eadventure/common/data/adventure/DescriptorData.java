@@ -97,7 +97,11 @@ public class DescriptorData implements Cloneable, Described, Titled {
     public static final int INVENTORY_BOTTOM = 3;
     
     public static enum DefaultClickAction {
-        showDetails, showActions
+        SHOW_DETAILS, SHOW_ACTIONS
+    }
+    
+    public static enum Perspective {
+        REGULAR, ISOMETRIC
     }
 
     public static String getCursorTypeString( int index ) {
@@ -305,6 +309,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
     
     protected DefaultClickAction defaultClickAction;
 
+    protected Perspective perspective;
+    
     /**
      * Constant for identify when a game is executed from engine
      */
@@ -322,7 +328,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
         title = null;
         description = null;
         guiType = -1;
-        defaultClickAction = DefaultClickAction.showDetails;
+        defaultClickAction = DefaultClickAction.SHOW_DETAILS;
+        perspective = Perspective.REGULAR;
         playerMode = MODE_PLAYER_1STPERSON;
         graphicConfig = GRAPHICS_WINDOWED;
         projectName = ENGINE_EXECUTION;
@@ -767,4 +774,13 @@ public class DescriptorData implements Cloneable, Described, Titled {
     public DefaultClickAction getDefaultClickAction() {
         return defaultClickAction;
     }
+    
+    public void setPerspective( Perspective perspective ) {
+        this.perspective = perspective;
+    }
+    
+    public Perspective getPerspective() {
+        return perspective;
+    }
+
 }
