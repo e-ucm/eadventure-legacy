@@ -272,9 +272,9 @@ public class AdventureHandler extends DefaultHandler {
 	                adventureData.setKeepShowing( attrs.getValue( i ).equals( "yes" ) );
                 if( attrs.getQName( i ).equals( "defaultClickAction" ) ) {
                     if (attrs.getValue( i ).equals( "showDetails" ))
-                        adventureData.setDeafultClickAction(DescriptorData.DefaultClickAction.showDetails);
+                        adventureData.setDeafultClickAction(DescriptorData.DefaultClickAction.SHOW_DETAILS);
                     if (attrs.getValue( i ).equals( "showActions" ))
-                        adventureData.setDeafultClickAction(DescriptorData.DefaultClickAction.showActions);
+                        adventureData.setDeafultClickAction(DescriptorData.DefaultClickAction.SHOW_ACTIONS);
                 }
 
 	            }

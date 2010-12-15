@@ -67,6 +67,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData.DefaultClickAction;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.Perspective;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.chapter.Chapter;
@@ -3694,5 +3695,13 @@ public boolean isCharacterValid(String elementId){
 
     public void setDefaultCursorAction( DefaultClickAction defaultClickAction ) {
         this.adventureDataControl.setDefaultClickAction(defaultClickAction);
+    }
+    
+    public Perspective getPerspective() {
+        return this.adventureDataControl.getPerspective( );
+    }
+    
+    public void setPerspective( Perspective perspective ) {
+        this.adventureDataControl.setPerspective( perspective );
     }
 }

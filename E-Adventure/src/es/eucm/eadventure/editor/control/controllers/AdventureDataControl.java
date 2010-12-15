@@ -445,6 +445,10 @@ public class AdventureDataControl {
     public DescriptorData.DefaultClickAction getDefaultClickAction() {
         return adventureData.getDefaultClickAction( );
     }
+    
+    public DescriptorData.Perspective getPerspective() {
+        return adventureData.getPerspective( );
+    }
 
     public void setKeepShowing( boolean keepShowing ) {
 
@@ -549,6 +553,10 @@ public class AdventureDataControl {
 
         adventureData.setDeafultClickAction( defaultClickAction );
         
+    }
+    
+    public void setPerspective( DescriptorData.Perspective perspective ) {
+        adventureData.setPerspective(  perspective );
     }
 
 }

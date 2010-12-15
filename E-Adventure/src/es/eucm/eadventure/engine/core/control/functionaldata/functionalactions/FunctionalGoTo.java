@@ -315,19 +315,35 @@ public class FunctionalGoTo extends FunctionalAction {
         animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
 
         int nextDir = AnimationState.EAST;
-        if( Math.abs( newSpeedY ) > Math.abs( newSpeedX ) ) {
-            if( newSpeedY > 0 )
-                nextDir = AnimationState.SOUTH;
-            else
-                nextDir = AnimationState.NORTH;
-        }
-        else {
-            if( newSpeedX > 0 )
-                nextDir = AnimationState.EAST;
-            else
-                nextDir = AnimationState.WEST;
-        }
+        
+        if (Game.getInstance( ).isIsometric( )) {
+            double angle = Math.atan2( newSpeedY, newSpeedX );
 
+            System.out.println(angle);
+            if (angle < -Math.PI / 2) {
+                nextDir = AnimationState.WEST;
+            } else if (angle < 0) {
+                nextDir = AnimationState.NORTH;
+            } else if (angle < Math.PI / 2) {
+                nextDir = AnimationState.EAST;
+            } else {
+                nextDir = AnimationState.SOUTH;
+            }
+        } else {
+            if( Math.abs( newSpeedY ) > Math.abs( newSpeedX ) ) {
+                if( newSpeedY > 0 )
+                    nextDir = AnimationState.SOUTH;
+                else
+                    nextDir = AnimationState.NORTH;
+            }
+            else {
+                if( newSpeedX > 0 )
+                    nextDir = AnimationState.EAST;
+                else
+                    nextDir = AnimationState.WEST;
+            }
+        }
+        
         if( !hasAnimation ) {
             hasAnimation = true;
             functionalPlayer.setDirection( nextDir );
