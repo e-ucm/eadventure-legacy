@@ -117,6 +117,8 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
             if( currentProperties != null ) {
                 if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_TEXT ) )
                     textArea.setText( (String) currentProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
+                if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_TARGET ) )
+                    charactersComboBox.setSelectedItem(  currentProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
             }
 
             // Set the dialog
