@@ -2935,11 +2935,8 @@ public boolean isCharacterValid(String elementId){
     int i=1;
     while (i < elementId.length( ) && isValid) {  
       chId = elementId.charAt( i );
-      if (chId =='&'   || chId == '%'  || chId == '?'  || chId == '¿'   ||
-          chId =='¡'  || chId == '!'   || chId== '='   || chId == '$'  || 
-          chId == '*' || chId == '/' || chId == '(' || chId == ')' )
-            isValid = false;
-        i++;
+      isValid = Character.isLetterOrDigit( chId );
+      i++;
     }
    
     return isValid;
