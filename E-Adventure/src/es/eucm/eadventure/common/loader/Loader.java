@@ -78,6 +78,11 @@ public class Loader {
      * execution)
      */
     private static AdventureData adventureData;
+    
+    /**
+     * Cache the SaxParserFactory
+     */
+    private static SAXParserFactory factory = SAXParserFactory.newInstance( );
 
     /**
      * Private constructor
@@ -99,9 +104,6 @@ public class Loader {
         try {
             // Set the adventure handler
             AdventureHandler adventureParser = new AdventureHandler( isCreator, incidences, validate );
-
-            // Create a new factory
-            SAXParserFactory factory = SAXParserFactory.newInstance( );
             factory.setValidating( true );
             SAXParser saxParser = factory.newSAXParser( );
 
@@ -152,9 +154,7 @@ public class Loader {
                 // Set the adventure handler
                 DescriptorHandler descriptorParser = new DescriptorHandler( isCreator );
 
-                // Create a new factory
-                SAXParserFactory factory = SAXParserFactory.newInstance( );
-                factory.setValidating( true );
+                factory.setValidating( false );
                 SAXParser saxParser = factory.newSAXParser( );
 
                 // Read and close the inputstrea
@@ -239,9 +239,8 @@ public class Loader {
                     // Set the chapter handler
                     ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter );
 
-                    // Create a new factory
-                    SAXParserFactory factory = SAXParserFactory.newInstance( );
-                    factory.setValidating( validate );
+                   factory.setValidating( validate );
+                    
                     SAXParser saxParser = factory.newSAXParser( );
 
                     // Parse the data and close the data
@@ -306,8 +305,6 @@ public class Loader {
                 profile.setName( name );
                 AssessmentHandler assParser = new AssessmentHandler( isCreator, profile );
 
-                // Create a new factory
-                SAXParserFactory factory = SAXParserFactory.newInstance( );
                 factory.setValidating( true );
                 SAXParser saxParser = factory.newSAXParser( );
 
@@ -371,8 +368,6 @@ public class Loader {
                 AdaptedState initialState = new AdaptedState( );
                 AdaptationHandler adpParser = new AdaptationHandler( isCreator, rules, initialState );
 
-                // Create a new factory
-                SAXParserFactory factory = SAXParserFactory.newInstance( );
                 factory.setValidating( true );
                 SAXParser saxParser = factory.newSAXParser( );
 
@@ -435,7 +430,6 @@ public class Loader {
         AnimationHandler animationHandler = new AnimationHandler( isCreator, imageloader );
 
         // Create a new factory
-        SAXParserFactory factory = SAXParserFactory.newInstance( );
         factory.setValidating( true );
         SAXParser saxParser;
         try {

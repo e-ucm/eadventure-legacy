@@ -686,8 +686,12 @@ public class Writer {
             // Create and copy the manifest into the output stream
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureApplet" );
             ZipEntry manifestEntry = new ZipEntry( "META-INF/MANIFEST.MF" );
+            ZipEntry manifestEntry2 = new ZipEntry( "META-INF/services/javax.xml.parsers.SAXParserFactory" );
+            ZipEntry manifestEntry3 = new ZipEntry( "META-INF/services/javax.xml.parsers.DocumentBuilderFactory" );
             os.putNextEntry( manifestEntry );
             os.write( manifestText.getBytes( ) );
+            os.putNextEntry( manifestEntry2 );
+            os.putNextEntry( manifestEntry3 );
             os.closeEntry( );
             os.flush( );
             
@@ -882,7 +886,12 @@ public class Writer {
             
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletLAMS" );
             ZipEntry manifestEntry = new ZipEntry( "META-INF/MANIFEST.MF" );
+            ZipEntry manifestEntry2 = new ZipEntry( "META-INF/services/javax.xml.parsers.SAXParserFactory" );
+            ZipEntry manifestEntry3 = new ZipEntry( "META-INF/services/javax.xml.parsers.DocumentBuilderFactory" );
             os.putNextEntry( manifestEntry );
+            os.write( manifestText.getBytes( ) );
+            os.putNextEntry( manifestEntry2 );
+            os.putNextEntry( manifestEntry3 );
             os.write( manifestText.getBytes( ) );
             os.closeEntry( );
 
@@ -1132,8 +1141,12 @@ public class Writer {
             // Create and copy the manifest into the output stream
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
             ZipEntry manifestEntry = new ZipEntry( "META-INF/MANIFEST.MF" );
+            ZipEntry manifestEntry2 = new ZipEntry( "META-INF/services/javax.xml.parsers.SAXParserFactory" );
+            ZipEntry manifestEntry3 = new ZipEntry( "META-INF/services/javax.xml.parsers.DocumentBuilderFactory" );
             os.putNextEntry( manifestEntry );
             os.write( manifestText.getBytes( ) );
+            os.putNextEntry( manifestEntry2 );
+            os.putNextEntry( manifestEntry3 );
             os.closeEntry( );
             os.flush( );
             
@@ -1344,8 +1357,12 @@ public class Writer {
             // Create and copy the manifest into the output stream
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
             ZipEntry manifestEntry = new ZipEntry( "META-INF/MANIFEST.MF" );
+            ZipEntry manifestEntry2 = new ZipEntry( "META-INF/services/javax.xml.parsers.SAXParserFactory" );
+            ZipEntry manifestEntry3 = new ZipEntry( "META-INF/services/javax.xml.parsers.DocumentBuilderFactory" );
             os.putNextEntry( manifestEntry );
             os.write( manifestText.getBytes( ) );
+            os.putNextEntry( manifestEntry2 );
+            os.putNextEntry( manifestEntry3 );
             os.closeEntry( );
             os.flush( );
 
@@ -1550,8 +1567,12 @@ public class Writer {
             // Create and copy the manifest into the output stream
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
             ZipEntry manifestEntry = new ZipEntry( "META-INF/MANIFEST.MF" );
+            ZipEntry manifestEntry2 = new ZipEntry( "META-INF/services/javax.xml.parsers.SAXParserFactory" );
+            ZipEntry manifestEntry3 = new ZipEntry( "META-INF/services/javax.xml.parsers.DocumentBuilderFactory" );
             os.putNextEntry( manifestEntry );
             os.write( manifestText.getBytes( ) );
+            os.putNextEntry( manifestEntry2 );
+            os.putNextEntry( manifestEntry3 );
             os.closeEntry( );
             os.flush( );
 
@@ -1751,8 +1772,12 @@ public class Writer {
             
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
             ZipEntry manifestEntry = new ZipEntry( "META-INF/MANIFEST.MF" );
+            ZipEntry manifestEntry2 = new ZipEntry( "META-INF/services/javax.xml.parsers.SAXParserFactory" );
+            ZipEntry manifestEntry3 = new ZipEntry( "META-INF/services/javax.xml.parsers.DocumentBuilderFactory" );
             os.putNextEntry( manifestEntry );
             os.write( manifestText.getBytes( ) );
+            os.putNextEntry( manifestEntry2 );
+            os.putNextEntry( manifestEntry3 );
             os.closeEntry( );
             os.flush( );
 

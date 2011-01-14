@@ -140,6 +140,11 @@ public class AssessmentEngine implements TimerEventListener {
 	 * Structure of timed rules
 	 */
 	private HashMap<Integer, TimedAssessmentRule> timedRules;
+	
+	/**
+     * Cache the DocumentBuilderFactory
+     */
+    protected static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
 
 	private String playerName;
 
@@ -334,7 +339,6 @@ public class AssessmentEngine implements TimerEventListener {
 	    try{
 	   
 	        // Create the necessary elements for building the DOM
-	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	        DocumentBuilder db = dbf.newDocumentBuilder();
 	        doc  = db.newDocument();
 	        // Create the root element, "report"

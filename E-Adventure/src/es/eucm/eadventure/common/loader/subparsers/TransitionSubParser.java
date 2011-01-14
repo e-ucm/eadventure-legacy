@@ -36,17 +36,27 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.loader.subparsers;
 
+import java.io.InputStream;
+
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Transition;
+import es.eucm.eadventure.common.loader.InputStreamCreator;
 
 public class TransitionSubParser extends DefaultHandler {
 
     private Animation animation;
 
     private Transition transition;
+    
+    /**
+     * InputStreamCreator used in resolveEntity to find dtds (only required in
+     * Applet mode)
+     */
+    private InputStreamCreator isCreator;
 
     public TransitionSubParser( Animation animation ) {
 
@@ -83,4 +93,17 @@ public class TransitionSubParser extends DefaultHandler {
             animation.getTransitions( ).add( transition );
         }
     }
+    
+    /*
+     *  (non-Javadoc)
+     * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+     */
+    @Override
+    public InputSource resolveEntity( String publicId, String systemId ) {
+        int startFilename = systemId.lastIndexOf( "/" ) + 1;
+        String filename = systemId.substring( startFilename, systemId.length( ) );
+        InputStream inputStream = isCreator.buildInputStream( filename );
+        return new InputSource( inputStream );
+    }
+
 }

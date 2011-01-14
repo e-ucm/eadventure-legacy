@@ -37,7 +37,6 @@
 package es.eucm.eadventure.engine.assessment;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
@@ -56,7 +55,7 @@ public class ProcessedRule {
      * Executed rule
      */
     private AssessmentRule rule;
-
+    
     /**
      * Time in which the rule was executed (stored in seconds)
      */
@@ -98,8 +97,7 @@ public class ProcessedRule {
 
         try {
             // Create the necessary elements to create the DOM
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
-            DocumentBuilder db = dbf.newDocumentBuilder( );
+            DocumentBuilder db = AssessmentEngine.dbf.newDocumentBuilder( );
             Document doc = db.newDocument( );
 
             // Create the root node

@@ -36,8 +36,6 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.loader.parsers;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -413,7 +411,8 @@ public class AdventureHandler extends DefaultHandler {
 
 				// Create a new factory
 				SAXParserFactory factory = SAXParserFactory.newInstance( );
-				factory.setValidating( validate );
+				//factory.setValidating( validate );
+				factory.setValidating( false );
 				SAXParser saxParser = factory.newSAXParser( );
 
 				// Set the input stream with the file
@@ -567,25 +566,10 @@ public class AdventureHandler extends DefaultHandler {
      */
     @Override
     public InputSource resolveEntity( String publicId, String systemId ) {
-        // Take the name of the file SAX is looking for
+
         int startFilename = systemId.lastIndexOf( "/" ) + 1;
         String filename = systemId.substring( startFilename, systemId.length( ) );
-        
-        // Build and return a input stream with the file (usually the DTD): 
-        // 1) First try looking at main folder
-        InputStream inputStream = AdventureHandler.class.getResourceAsStream( filename );
-        if ( inputStream==null ){
-        	try {
-				inputStream = new FileInputStream ( filename );
-			} catch (FileNotFoundException e) {
-				inputStream = null;
-			}
-        }
-        
-        // 2) Secondly use the inputStreamCreator
-        if ( inputStream == null)
-        	inputStream = isCreator.buildInputStream( filename );
-        
+        InputStream inputStream = isCreator.buildInputStream( filename );
         return new InputSource( inputStream );
     }
 
