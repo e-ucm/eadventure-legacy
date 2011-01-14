@@ -313,6 +313,10 @@ public class Book implements Cloneable, Documented, HasId {
             for( Resources r : resources )
                 b.resources.add( (Resources) r.clone( ) );
         }
+        
+        b.nextPagePoint = (Point) this.nextPagePoint.clone( );
+        b.previousPagePoint = (Point) this.previousPagePoint.clone( );
+        
         b.type = type;
         return b;
     }
