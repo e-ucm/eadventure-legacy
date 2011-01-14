@@ -314,8 +314,11 @@ public class Book implements Cloneable, Documented, HasId {
                 b.resources.add( (Resources) r.clone( ) );
         }
         
-        b.nextPagePoint = (Point) this.nextPagePoint.clone( );
-        b.previousPagePoint = (Point) this.previousPagePoint.clone( );
+        if ( nextPagePoint != null )
+            b.nextPagePoint = (Point) this.nextPagePoint.clone( );
+        
+        if ( previousPagePoint != null)
+            b.previousPagePoint = (Point) this.previousPagePoint.clone( );
         
         b.type = type;
         return b;
