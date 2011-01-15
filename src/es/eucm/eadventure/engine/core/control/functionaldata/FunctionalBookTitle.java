@@ -43,7 +43,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
-import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
  * This is a block of text that can be put in a book scene
@@ -86,7 +85,7 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
         String word = "";
         String line = "";
 
-        Font font = GUI.getInstance( ).getFrame( ).getFont( ).deriveFont( Font.PLAIN, 30 );
+        Font font = new Font( "Dialog", Font.PLAIN, 32 );
 
         //while there is still text to be process
         while( !text.equals( "" ) ) {
@@ -197,7 +196,7 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
 
             // TODO ¿parche?
             Font font = g.getFont( );
-            g.setFont( font.deriveFont( Font.PLAIN, 30 ) );
+            g.setFont( font.deriveFont( Font.PLAIN, 32 ) );
             g.drawString( line, x, y + FunctionalTextBook.TITLE_HEIGHT - 15 );
             g.setFont( font );
 

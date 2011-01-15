@@ -87,7 +87,7 @@ public class FunctionalTextBook extends FunctionalBook {
     /**
      * Height of each line of a title
      */
-    public static final int TITLE_HEIGHT = 40;
+    public static final int TITLE_HEIGHT = 50;
 
     /**
      * Number of lines per column

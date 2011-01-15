@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.font.FontRenderContext;
@@ -43,7 +44,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
-import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
@@ -91,6 +91,7 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
         String text = bookBullet.getContent( );
         String word = "";
         String line = "";
+        Font font = new Font( "Dialog", Font.PLAIN, 18 );
         //while there is still text to be process
         while( !text.equals( "" ) ) {
             //get the first char
@@ -100,7 +101,7 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
             //If the first char is a new line
             if( c == '\n' ) {
                 // get the width of the line and the word
-                Rectangle2D r = GUI.getInstance( ).getFrame( ).getFont( ).getStringBounds( line + " " + word, new FontRenderContext( null, false, true ) );
+                Rectangle2D r = font.getStringBounds( line + " " + word, new FontRenderContext( null, false, true ) );
                 //if its width size don't go out of the line text width
                 if( r.getWidth( ) < FunctionalTextBook.TEXT_WIDTH_BULLET ) {
                     //finish the line with the current word
@@ -121,7 +122,7 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
             //if its a white space
             else if( Character.isWhitespace( c ) ) {
                 //get the width of the line and the word
-                Rectangle2D r = GUI.getInstance( ).getFrame( ).getFont( ).getStringBounds( line + " " + word, new FontRenderContext( null, false, true ) );
+                Rectangle2D r = font.getStringBounds( line + " " + word, new FontRenderContext( null, false, true ) );
                 //if its width size don't go out of the line text width
                 if( r.getWidth( ) < FunctionalTextBook.TEXT_WIDTH_BULLET ) {
                     //add the word to the line
@@ -139,14 +140,14 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
             }
             //else we add it to the current word
             else {
-                Rectangle2D r = GUI.getInstance( ).getFrame( ).getFont( ).getStringBounds( line + word + c, new FontRenderContext( null, false, true ) );
+                Rectangle2D r = font.getStringBounds( line + word + c, new FontRenderContext( null, false, true ) );
                 if( r.getWidth( ) < FunctionalTextBook.TEXT_WIDTH_BULLET )
                     word = word + c;
                 else {
                     if( line != "" )
                         textLines.add( line );
                     line = "";
-                    Rectangle2D r2 = GUI.getInstance( ).getFrame( ).getFont( ).getStringBounds( word + c, new FontRenderContext( null, false, true ) );
+                    Rectangle2D r2 = font.getStringBounds( word + c, new FontRenderContext( null, false, true ) );
                     if( r2.getWidth( ) < FunctionalTextBook.TEXT_WIDTH_BULLET )
                         word = word + c;
                     else {
@@ -158,7 +159,7 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
         }
 
         //All the text has been process except the last line and last word
-        Rectangle2D r = GUI.getInstance( ).getFrame( ).getFont( ).getStringBounds( line + " " + word, new FontRenderContext( null, false, true ) );
+        Rectangle2D r = font.getStringBounds( line + " " + word, new FontRenderContext( null, false, true ) );
         if( r.getWidth( ) < FunctionalTextBook.TEXT_WIDTH_BULLET ) {
             line = line + word;
         }
@@ -197,15 +198,15 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
             }
             //the the string
             String line = textLines.get( i );
+            
+            if ( FunctionalTextBook.PAGE_TEXT_HEIGHT - ( y % FunctionalTextBook.PAGE_TEXT_HEIGHT ) < FunctionalTextBook.LINE_HEIGHT ){
+                y += ( FunctionalTextBook.PAGE_TEXT_HEIGHT - ( y % FunctionalTextBook.PAGE_TEXT_HEIGHT ) );
+            }
+            
             g.drawString( line, x, y + FunctionalTextBook.LINE_HEIGHT - 9 );
-
+            
             //add the line height to the Y coordinate for the next line
             y = y + FunctionalTextBook.LINE_HEIGHT;
-
-            /*if( i == 0 + FunctionalBook.TEXT_LINES ) {
-                x = FunctionalBook.TEXT_X_2+(FunctionalBook.TEXT_WIDTH-FunctionalBook.TEXT_WIDTH_BULLET);
-                y = FunctionalBook.TEXT_Y;
-            }*/
         }
     }
 

@@ -479,7 +479,7 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
         for( int i = 0; i < textLines.size( ); i++ ) {
             // Draw the line string
             line = textLines.get( i );
-            g.drawString( line, x, y + TITLE_HEIGHT - 16 );
+            g.drawString( line, x, y + TITLE_HEIGHT - 15 );
 
             // Add the line height to the Y coordinate for the next line
             y = y + TITLE_HEIGHT;
