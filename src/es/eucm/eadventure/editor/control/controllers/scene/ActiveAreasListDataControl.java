@@ -191,10 +191,10 @@ public class ActiveAreasListDataControl extends DataControl {
 
         try {
             ActiveArea newElement = (ActiveArea) ( ( (ActiveArea) ( dataControl.getContent( ) ) ).clone( ) );
-            String id = newElement.getId( );
+            String id;
             int i = 1;
             do {
-                id = newElement.getId( ) + i;
+                id = getDefaultId( 0 ) + i;
                 i++;
             } while( !controller.isElementIdValid( id, false ) );
             newElement.setId( id );
