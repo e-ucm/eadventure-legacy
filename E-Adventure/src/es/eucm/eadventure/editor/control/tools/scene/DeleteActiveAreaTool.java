@@ -106,6 +106,7 @@ public class DeleteActiveAreaTool extends Tool {
         element = dataControl.getActiveAreas( ).get( position );
         if( dataControl.deleteElement( element, true ) ) {
             iaep.getScenePreviewEditionPanel( ).removeElement( element );
+            iaep.setRectangular( null );
             iaep.getScenePreviewEditionPanel( ).setSelectedElement( (ImageElement) null );
             ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
             return true;
