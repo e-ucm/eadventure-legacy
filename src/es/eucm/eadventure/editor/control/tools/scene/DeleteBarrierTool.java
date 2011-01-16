@@ -88,8 +88,9 @@ public class DeleteBarrierTool extends Tool {
 
         int position = table.getSelectedRow( );
         element = dataControl.getBarriers( ).get( position );
-        spep.removeElement( element );
         dataControl.deleteElement( element, true );
+        spep.removeElement( element );
+        spep.updateUI( );
         ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
         return true;
     }
