@@ -2935,7 +2935,8 @@ public boolean isCharacterValid(String elementId){
     int i=1;
     while (i < elementId.length( ) && isValid) {  
       chId = elementId.charAt( i );
-      isValid = Character.isLetterOrDigit( chId );
+      if (chId =='&'   || chId == '"'  || chId == '\''  || chId == '<'   ||  chId =='>'  )
+                          isValid = false;
       i++;
     }
    
@@ -3701,4 +3702,6 @@ public boolean isCharacterValid(String elementId){
     public void setPerspective( Perspective perspective ) {
         this.adventureDataControl.setPerspective( perspective );
     }
+    
+
 }
