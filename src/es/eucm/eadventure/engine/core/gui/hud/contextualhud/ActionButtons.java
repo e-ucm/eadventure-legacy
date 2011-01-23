@@ -335,14 +335,52 @@ public class ActionButtons {
         
         if( !item.isInInventory( ) ) {
             handButton.setName( TC.get( "ActionButton.Grab" ) );
-            if (item.getFirstValidAction( Action.GRAB ) != null)
+            Action grabAction = item.getFirstValidAction( Action.GRAB );
+            Action useAction = item.getFirstValidAction( Action.USE );
+            if ( grabAction != null)
                 addHandButton = true;
-            if( item.getFirstValidAction( Action.USE ) != null ) {
-                handButton.setName( TC.get( "ActionButton.Use" ) );
+            if( useAction != null ) {
+                //if the conditions of useAction are not met and the conditions of grab action are met, the handButton
+                //name must be "grabAction"
+                if (grabAction != null && (useAction.isConditionsAreMeet( ) || !grabAction.isConditionsAreMeet( ) ) )
+                    handButton.setName( TC.get( "ActionButton.Use" ) );
                 addHandButton = true;
             }
         }
         else {
+            /*
+             * Change the next lines of code to distinguish between give to/ use with
+             * 
+             * 
+             * 
+            // check if can be use alone and the action "use" don't meet the conditions
+            // this way, check if useWith, giveTo or both meet the conditions to show this actions in the hud
+            Action giveToAction = item.getFirstValidAction( Action.GIVE_TO );
+            Action useWithAction =  item.getFirstValidAction( Action.USE_WITH );
+            Action useAction = item.getFirstValidAction( Action.USE );
+            boolean useAlone = item.canBeUsedAlone( );
+            boolean giveTo = giveToAction != null;
+            boolean useWith = useWithAction != null;
+            addHandButton = useAlone || giveTo || useWith; 
+            boolean useActionNotMeetConditions = useAction!=null && !useAction.isConditionsAreMeet( );
+            boolean giveToConditionsAreMet = giveToAction.isConditionsAreMeet( );
+            boolean useWithConditionsAreMet = useWithAction.isConditionsAreMeet( );
+            if( useAlone && !giveTo && !useWith ) {
+                handButton.setName( TC.get( "ActionButton.Use" ) );
+            }
+            else if( (!useAlone || (useActionNotMeetConditions && giveToConditionsAreMet)) && giveTo && (!useWith || !useWithConditionsAreMet )) {
+                handButton.setName( TC.get( "ActionButton.GiveTo" ) );
+            }
+            else if( (!useAlone || (useActionNotMeetConditions && useWithConditionsAreMet )) && (!giveTo && !giveToConditionsAreMet) && useWith ) {
+                handButton.setName( TC.get( "ActionButton.UseWith" ) );
+            }
+            else if( (!useAlone || (useActionNotMeetConditions && (useWithConditionsAreMet && giveToConditionsAreMet)  )) && giveTo && useWith ) {
+                handButton.setName( TC.get( "ActionButton.UseGive" ) );
+            }
+            else {
+                handButton.setName( TC.get( "ActionButton.Use" ) );
+            }
+             */
             boolean useAlone = item.canBeUsedAlone( );
             boolean giveTo = item.getFirstValidAction( Action.GIVE_TO ) != null;
             boolean useWith = item.getFirstValidAction( Action.USE_WITH ) != null;
