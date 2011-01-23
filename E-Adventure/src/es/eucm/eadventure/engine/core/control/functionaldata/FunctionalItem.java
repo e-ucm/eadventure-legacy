@@ -377,14 +377,35 @@ public class FunctionalItem extends FunctionalElement {
     public boolean canBeUsedAlone( ) {
 
         boolean canBeUsedAlone = false;
-
+        Action grabAction = getFirstValidAction( Action.GRAB );
+        Action useWithAction = getFirstValidAction( Action.USE_WITH );
+        Action giveToAction = getFirstValidAction( Action.GIVE_TO );
+        // if the conditions are not met but there are a grabAction, useWith or giveTo defined for this item and its conditions are met, can't be use alone
+        boolean grabActionPartial;
+        if (grabAction == null)
+            grabActionPartial = true;
+        else 
+            grabActionPartial = !grabAction.isConditionsAreMeet( );
+        boolean useWithActionPartial;
+        if (useWithAction == null)
+            useWithActionPartial = true;
+        else 
+            useWithActionPartial = !useWithAction.isConditionsAreMeet( );
+        boolean giveToActionPartial;
+        if (giveToAction == null)
+            giveToActionPartial = true;
+        else 
+            giveToActionPartial = !giveToAction.isConditionsAreMeet( );
+        boolean ifUseNotMeetConditionsNeitherOther =  grabActionPartial && useWithActionPartial && giveToActionPartial;
+                                                      
         // Check only for one valid use action
         for( int i = 0; i < item.getActions( ).size( ) && !canBeUsedAlone; i++ ) {
             Action action = item.getAction( i );
+            
             if( action.getType( ) == Action.USE ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
-                    canBeUsedAlone = true;
-                } else if (action.isActivatedNotEffects( ))
+                    canBeUsedAlone = true;   
+                } else if (action.isActivatedNotEffects( ) && ifUseNotMeetConditionsNeitherOther)
                     canBeUsedAlone = true;
                 
              }
@@ -408,12 +429,15 @@ public class FunctionalItem extends FunctionalElement {
         return canBeDragged;
     }
 
+    
+    
     @Override
     public Action getFirstValidAction( int actionType ) {
 
         for( Action action : item.getActions( ) ) {
             if( action.getType( ) == actionType ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
+                    action.setConditionsAreMeet( true );
                     return action;
                 }
             }
@@ -423,6 +447,7 @@ public class FunctionalItem extends FunctionalElement {
         for( Action action : item.getActions( ) ) {
             if( action.getType( ) == actionType ) {
                 if( action.isActivatedNotEffects( ) ) {
+                    action.setConditionsAreMeet( false );
                     return action;
                 }
             }
