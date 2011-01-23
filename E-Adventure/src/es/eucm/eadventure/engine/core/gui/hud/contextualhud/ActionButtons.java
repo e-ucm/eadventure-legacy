@@ -192,7 +192,7 @@ public class ActionButtons {
         for( Action action : actions ) {
             if( buttons.size( ) >= 8 )
                 return;
-            if( action.getType( ) == Action.DRAG_TO && !drag_to) {
+            if( action.getType( ) == Action.DRAG_TO && !drag_to&&!functionalElement.isInInventory( )) {
                 boolean add = functionalElement.getFirstValidAction( Action.DRAG_TO ) != null;
                 if( add ) {
                 buttons.add( new ActionButton(ActionButton.DRAG_BUTTON) );
