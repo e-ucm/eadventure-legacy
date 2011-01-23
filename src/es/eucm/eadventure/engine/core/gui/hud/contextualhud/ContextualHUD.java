@@ -428,10 +428,14 @@ public class ContextualHUD extends HUD {
             if( actionButtons.getButtonPressed( ) != null )
                 button = true;
         }
+        
+        Game game = Game.getInstance( );
+        FunctionalScene functionalScene = game.getFunctionalScene( );
+        FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), null );
 
         if( ( !button && (e.getButton( ) == MouseEvent.BUTTON3 || game.isShowActions( )) && elementInCursor == null ) || 
                 ( e.getClickCount( ) == 2 && System.getProperty( "os.name" ).contains( "Windows" ) ) || 
-                ( !button && actionManager.getElementOver( ) == null && elementInCursor != null ) ) {
+                ( !button && elementInside == null && elementInCursor != null ) ) {
             System.out.println( "RIGHT CLICK o similar" );
             inHud = processRightClickNoButton( pressedElement, e );
             DebugLog.user( "Mouse click, no action button. " + e.getX( ) + " , " + e.getY( ) );
