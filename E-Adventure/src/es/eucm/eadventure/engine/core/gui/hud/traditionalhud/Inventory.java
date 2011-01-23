@@ -187,9 +187,6 @@ public class Inventory {
                 indexX += TraditionalHUD.ITEM_SPACING_X;
         }
 
-        if( element != null )
-            Game.getInstance( ).getActionManager( ).setElementOver( element );
-        else
-            Game.getInstance( ).getActionManager( ).setElementOver( null );
+        Game.getInstance( ).getActionManager( ).setElementOver( element );
     }
 }
