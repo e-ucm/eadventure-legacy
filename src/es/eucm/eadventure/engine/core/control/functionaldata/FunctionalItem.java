@@ -503,9 +503,9 @@ public class FunctionalItem extends FunctionalElement {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.GRAB ) {
                 if( action.isActivatedNotEffects( ) ) {
-                    // If the it has not a cancel action, grab the item
-                    if( !action.getEffects( ).hasCancelAction( ) )
-                        Game.getInstance( ).grabItem( item.getId( ) );
+                    // When not effects are active, the item hasn't be grabbed
+                    //if( !action.getEffects( ).hasCancelAction( ) )
+                      //  Game.getInstance( ).grabItem( item.getId( ) );
 
                     // Store the effects
                     FunctionalEffects.storeAllEffects( action.getNotEffects( ) );
@@ -776,9 +776,9 @@ public class FunctionalItem extends FunctionalElement {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.GIVE_TO && action.getTargetId( ).equals( npc.getElement( ).getId( ) ) ) {
                 if( action.isActivatedNotEffects( ) ) {
-                    // If the item has not a cancel action, consume the item
-                    if( !action.getEffects( ).hasCancelAction( ) )
-                        Game.getInstance( ).consumeItem( item.getId( ) );
+                    // When not effects are active, the item hasn't be grabbed
+                    //if( !action.getEffects( ).hasCancelAction( ) )
+                      //  Game.getInstance( ).consumeItem( item.getId( ) );
 
                     // Store the effects
                     FunctionalEffects.storeAllEffects( action.getNotEffects( ) );
