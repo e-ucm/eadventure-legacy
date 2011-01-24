@@ -136,6 +136,11 @@ public class Action implements Cloneable, Documented, HasTargetId {
      * object and himself
      */
     private int keepDistance;
+    
+    /**
+     * The conditions of the action are met
+     */
+    private boolean conditionsAreMeet;
 
     /**
      * Constructor.
@@ -413,6 +418,18 @@ public class Action implements Cloneable, Documented, HasTargetId {
     public void setActivatedNotEffects( boolean activateNotEffects ) {
 
         this.activatedNotEffects = activateNotEffects;
+    }
+
+    
+    public boolean isConditionsAreMeet( ) {
+    
+        return conditionsAreMeet;
+    }
+
+    
+    public void setConditionsAreMeet( boolean conditionsAreMeet ) {
+    
+        this.conditionsAreMeet = conditionsAreMeet;
     }
 
 }
