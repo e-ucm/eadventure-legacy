@@ -45,7 +45,7 @@ import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 
 public class SelectedEffectsController {
 
-    private static final int NUMBER_OF_EFFECTS = 23;
+    private static final int NUMBER_OF_EFFECTS = 25;
 
     /**
      * Constants for each type of effects.
@@ -124,7 +124,7 @@ public class SelectedEffectsController {
 
     public static String[] getAllEffectTypes( ) {
 
-        return new String[] { ACTIVATE, DEACTIVATE, INCREMENT, DECREMENT, SETVALUE, MACRO, CONSUME, GENERATE, CANCEL, SPPLAYER, SPNPC, BOOK, SOUND, ANIMATION, MVPLAYER, MVNPC, CONVERSATION, CUTSCENE, SCENE, LASTSCENE, RANDOM, SHOWTEXT, WAITTIME };
+        return new String[] { ACTIVATE, DEACTIVATE, INCREMENT, DECREMENT, SETVALUE, MACRO, CONSUME, GENERATE, CANCEL, SPPLAYER, SPNPC, BOOK, SOUND, ANIMATION, MVPLAYER, MVNPC, CONVERSATION, CUTSCENE, SCENE, LASTSCENE, RANDOM, SHOWTEXT, WAITTIME, HIGHLIGHT, MOVE_OBJECT };
     }
 
     /**
@@ -132,7 +132,7 @@ public class SelectedEffectsController {
      */
     private void init( ) {
 
-        final String[] effectNames = { ACTIVATE, DEACTIVATE, INCREMENT, DECREMENT, SETVALUE, MACRO, CONSUME, GENERATE, CANCEL, SPPLAYER, SPNPC, BOOK, SOUND, ANIMATION, MVPLAYER, MVNPC, CONVERSATION, CUTSCENE, SCENE, LASTSCENE, RANDOM, SHOWTEXT, WAITTIME };
+        final String[] effectNames = { ACTIVATE, DEACTIVATE, INCREMENT, DECREMENT, SETVALUE, MACRO, CONSUME, GENERATE, CANCEL, SPPLAYER, SPNPC, BOOK, SOUND, ANIMATION, MVPLAYER, MVNPC, CONVERSATION, CUTSCENE, SCENE, LASTSCENE, RANDOM, SHOWTEXT, WAITTIME, HIGHLIGHT, MOVE_OBJECT };
         selectedEffects = new HashMap<String, ListElement>( );
         for( int i = 0; i < effectNames.length; i++ ) {
             String result = ProjectConfigData.getProperty( effectNames[i] );
@@ -298,7 +298,11 @@ public class SelectedEffectsController {
         }
         else if( effectName.equals( WAITTIME ) )
             return TC.get( "Effect.WaitTime" );
-        else
+        else if( effectName.equals( HIGHLIGHT ) )
+            return TC.get( "Effect.HighlightItem" );
+        if( effectName.equals( MOVE_OBJECT ) )
+            return TC.get( "Effect.MoveObject" );
+ 
             return null;
     }
 
