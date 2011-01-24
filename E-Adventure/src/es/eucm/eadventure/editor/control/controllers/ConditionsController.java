@@ -46,6 +46,7 @@ import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.conditions.AddConditionTool;
+import es.eucm.eadventure.editor.control.tools.general.conditions.ClearConditionsTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.DeleteConditionTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.DuplicateConditionTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.SetConditionTool;
@@ -741,5 +742,11 @@ public class ConditionsController {
                 return STATE_VALUES[2];
         }
 
+    }
+    
+    public void clearConditions(){
+        
+        Controller.getInstance( ).addTool( new ClearConditionsTool(conditions ));
+        
     }
 }
