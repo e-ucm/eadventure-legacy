@@ -152,7 +152,8 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
     }
 
     public void updatePreview( ) {
-
+       
+        
         // First page only
         currentPage = 0;
 
@@ -256,6 +257,9 @@ public class BookParagraphPreviewPanel extends BookPreviewPanel {
             if( currentPage < pageCount - 1 ) {
                 g.drawImage( bookContinousImage, getAbsoluteX( TEXT_SECOND_COLUMN ), getAbsoluteY( TEXT_TOP_POSITION + 5 ), getAbsoluteX( TEXT_SECOND_COLUMN + TEXT_WIDTH ), getAbsoluteY( TEXT_TOP_POSITION + PAGE_TEXT_HEIGHT + 5 ), 0, ( currentPage + 1 ) * PAGE_TEXT_HEIGHT, TEXT_WIDTH, ( currentPage + 2 ) * PAGE_TEXT_HEIGHT, null );
             }
+        }
+        else {
+            paintBackground( g );
         }
     }
 
