@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.media.Codec;
@@ -44,6 +45,7 @@ import javax.media.PlugInManager;
 import javax.media.format.VideoFormat;
 
 import es.eucm.eadventure.comm.manager.commManager.CommManagerLAMS;
+import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -74,8 +76,8 @@ public class EAdventureAppletLAMS extends CommManagerLAMS{
      * @see java.applet.Applet#init()
      */
     @Override
-    public void init( ) {
-
+    public void init(){
+      
         TC.loadStrings( EAdventureApplet.class.getResourceAsStream( "/i18n/engine/en_EN.xml" ) );
 
         
@@ -101,19 +103,10 @@ public class EAdventureAppletLAMS extends CommManagerLAMS{
         eAdventure = Game.getInstance( );
         eAdventure.setAdventureName( adventureName );
 
-        /*try {
-            this.sendMessage("esto es", "un mensaje");
-            //this.connect(new HashMap<String, String>());
-        } catch (CommException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }*/
         eAdventure.setComm( this );
-        //System.out.println("Init finished succesfully");
-        //System.out.println( " CODE BASE="+this.getCodeBase( ).toString( ));
 
     }
-
+    
     /*
      *  (non-Javadoc)
      * @see java.applet.Applet#start()
@@ -136,6 +129,10 @@ public class EAdventureAppletLAMS extends CommManagerLAMS{
         System.out.println( "Closing..." );
         eAdventure.setGameOver( );
         Game.getInstance( ).getComm( ).sendHTMLReport( Game.getInstance( ).getAssessmentEngine( ).getHTMLReportStringLAMS( ) );
+        //Sent the time
+        ArrayList l = new ArrayList();
+        l.add( new AssessmentProperty("total-time",  String.valueOf(Game.getInstance( ).getTime( ))) );
+        Game.getInstance( ).getComm( ).notifyRelevantState( l );
         this.disconnect( new HashMap<String, String>( ) );
         try {
             System.out.println( "Trying to join..." );
@@ -153,7 +150,7 @@ public class EAdventureAppletLAMS extends CommManagerLAMS{
         }
         this.destroy( );
     }
-
+    
     @Override
     public void dataFromLMS( String key, String value ) {
 

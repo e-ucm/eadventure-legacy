@@ -194,55 +194,6 @@ public class CommManagerLAMS extends AdventureApplet{
     }
 
 
-    
-    private void teCallas(){
-        // Create the URL and URL Connection
-        URL programUrl;
-        try {
-            
-            //programUrl = new URL( appletURL+BASE_URL+userId+"/"+runId+ "/"+ varName);
-            programUrl = new URL( appletURL+BASE_URL);
-            System.out.println(appletURL+BASE_URL);
-            //System.out.println(appletURL+BASE_URL+userId+"/"+runId+ "/"+ varName);
-        HttpURLConnection connection = (HttpURLConnection)programUrl.openConnection();
-                
-        (connection).setRequestMethod("POST");
-        connection.setDoOutput(true);
-        //connection.setDoInput(true); //Only if you expect to read a response...
-        connection.setUseCaches(false); //Highly recommended...
-        connection.setRequestProperty("Content-Type", "application/x-java-serialized-object");
-        
-/*        PrintWriter output = new PrintWriter(new OutputStreamWriter(connection.getOutputStream()));
-        output.println(data);
-        output.flush();
-        output.close(); */
-     
-       OutputStream outstream = connection.getOutputStream();
-       ObjectOutputStream oos = new ObjectOutputStream(outstream);
-       oos.writeObject(/*data*/"descomentgar");
-       oos.flush();
-        oos.close();
-        
-        
-        //connection.connect();
-
-        //InputStream is = connection.getInputStream();
-        //InputStreamReader isr = new InputStreamReader(is);
-        //BufferedReader br = new BufferedReader(isr);
-     
-        }
-        catch( MalformedURLException e ) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch( IOException e ) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    
-    
-    
     private void sendData(String data, String varName){
         // Create the URL and URL Connection
         URL programUrl;
