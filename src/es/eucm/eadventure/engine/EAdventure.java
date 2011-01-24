@@ -59,7 +59,7 @@ import es.eucm.eadventure.engine.gamelauncher.GameLauncher;
  */
 public class EAdventure {
 
-    public static String VERSION = "1.0b";
+    public static String VERSION = "1.3";
 
     public static String languageFile = ReleaseFolders.LANGUAGE_UNKNOWN;
 
