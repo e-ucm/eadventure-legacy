@@ -1125,6 +1125,7 @@ public class Writer {
                 tempFile.delete( );
             }
 
+
             // Copy the web to the zip
             dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
 
@@ -1341,6 +1342,7 @@ public class Writer {
                 tempFile.delete( );
             }
 
+            
             // Copy the web to the zip
             dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
 
@@ -1550,10 +1552,11 @@ public class Writer {
                     tempFile.deleteAll( );
                 tempFile.delete( );
             }
+           
 
             // Copy the web to the zip
             dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
-
+            
             // Merge project & e-Adventure jar into file eAdventure_temp.jar
             // Destiny file
             File jarUnsigned = new File( tempDir.getAbsolutePath( ) + "/eAdventure.zip" );
@@ -1766,10 +1769,11 @@ public class Writer {
         }
 
         try {
+
             File jarUnsigned = new File( tempDir.getAbsolutePath( ) + "/eAdventure.zip" );
             FileOutputStream mergedFile = new FileOutputStream( jarUnsigned );
             ZipOutputStream os = new ZipOutputStream( mergedFile );
-            
+         
             String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
             ZipEntry manifestEntry = new ZipEntry( "META-INF/MANIFEST.MF" );
             ZipEntry manifestEntry2 = new ZipEntry( "META-INF/services/javax.xml.parsers.SAXParserFactory" );
