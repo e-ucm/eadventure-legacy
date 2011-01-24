@@ -160,8 +160,8 @@ public class Frame implements Cloneable, Timed {
      * @param time
      *            The time (duration) of the frame
      */
-    public Frame( ImageLoaderFactory factory, String uri, long time ) {
-        this.uri = uri;
+    public Frame( ImageLoaderFactory factory, long time ) {
+        this.uri = "";
         this.factory = factory;
         type = TYPE_IMAGE;
         this.time = time;

@@ -379,6 +379,11 @@ public class NPCsListDataControl extends DataControl {
                 return npc;
         }
         return null;
+
+    }
+    
+    public List<NPCDataControl> getAllNPCDataControls(){
+        return npcsDataControlList;
         
     }
 }
