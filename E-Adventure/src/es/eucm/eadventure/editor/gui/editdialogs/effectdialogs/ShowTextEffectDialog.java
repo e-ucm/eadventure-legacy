@@ -255,7 +255,7 @@ public class ShowTextEffectDialog extends EffectDialog {
         else {
             //create front and border colors
             frontColor = Color.white;
-            borderColor = Color.yellow;
+            borderColor = Color.black;
             // Create the panel which will display the background and the position
             imagePanel = new TextImagePanel( text.getText( ), frontColor, borderColor );
             textPositionPanel = new PositionPanel( imagePanel, 400, 500 );
@@ -285,7 +285,7 @@ public class ShowTextEffectDialog extends EffectDialog {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weighty = 0.1;
 
-        textPreviewPanel = new TextPreviewPanel( Color.WHITE, Color.yellow, false, null, null );
+        textPreviewPanel = new TextPreviewPanel( Color.WHITE, Color.black, false, null, null );
         c.gridy++;
         c.weighty = 1.0;
         c.ipady = 40;
