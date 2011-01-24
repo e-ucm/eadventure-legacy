@@ -61,9 +61,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
+import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData.DefaultClickAction;
@@ -86,6 +88,7 @@ import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
@@ -95,6 +98,7 @@ import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
+import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
@@ -103,6 +107,7 @@ import es.eucm.eadventure.editor.control.tools.general.SwapPlayerModeTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.AddChapterTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.DeleteChapterTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.MoveChapterTool;
+import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.control.writer.Writer;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -2277,6 +2282,11 @@ public class Controller {
                                         try {
                                             if( newFile.exists( ) )
                                                 newFile.delete( );
+                                            
+                                            //change the old animations to eaa animations, this method force to save game
+                                            changeAllAnimationFormats();
+                                            saveFile( false );
+                                            
                                             //LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ExportProject.AsJAR" ), getLoadingImage( ), mainWindow);
                                             loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsLO" ) );
                                             loadingScreen.setVisible( true );
@@ -2485,6 +2495,23 @@ public class Controller {
             }
         }
         return isValid;
+    }
+    
+    /**
+     * Confirm user that the conditions associated to resource block will be deleted
+     * @return
+     */
+    public boolean askDeleteConditionsResourceBlock(){
+        int option = mainWindow.showConfirmDialog(TC.get( "ResourceBlock.deleteOnlyOneBlock.title") ,TC.get("ResourceBlock.deleteOnlyOneBlock.message"));
+     
+        if( option == JOptionPane.YES_OPTION )
+            return true;
+
+        else if( option == JOptionPane.NO_OPTION || option == JOptionPane.CANCEL_OPTION )
+            return false;
+        
+        return false;
+
     }
 
     /**
@@ -3317,12 +3344,12 @@ public boolean isCharacterValid(String elementId){
 
     public String getEditorMinVersion( ) {
 
-        return "1.0b";
+        return "1.3";
     }
 
     public String getEditorVersion( ) {
 
-        return "1.0b";
+        return "1.3";
     }
 
     public void updateLOMLanguage( ) {
@@ -3702,6 +3729,73 @@ public boolean isCharacterValid(String elementId){
     public void setPerspective( Perspective perspective ) {
         this.adventureDataControl.setPerspective( perspective );
     }
+    
+    /**
+     * Change all animation old formats (name_01) for new formats (.eaa)
+     */
+     public void changeAllAnimationFormats(){
+         
+         //Get al de data controls that can have animations
+         List<DataControlWithResources> dataControlList = new ArrayList<DataControlWithResources>();
+         dataControlList.addAll(chaptersController.getSelectedChapterDataControl( ).getCutscenesList( ).getAllCutsceneDataControls( ));
+         dataControlList.addAll(chaptersController.getSelectedChapterDataControl( ).getNPCsList( ).getAllNPCDataControls( ));
+         dataControlList.add(chaptersController.getSelectedChapterDataControl( ).getPlayer( ));
+         
+         // Take the project folder to check if the .eaa animation has been previously created
+         File projectFolder = new File( Controller.getInstance( ).getProjectFolder( ) );
+         
+         
+         for (DataControlWithResources dc:dataControlList){
+             String filename = null;
+             // iterate the whole list of resourceDataControls looking for all animations
+             List<ResourcesDataControl> resourcesDataControl = dc.getResources( );
+             for (ResourcesDataControl rdc :resourcesDataControl){
+                 for (int i=0; i<rdc.getAssetCount( );i++){
+                     if (rdc.getAssetCategory( i ) == AssetsConstants.CATEGORY_ANIMATION ){
+                     String assetPath = rdc.getAssetPath( i );
+                     if ((assetPath==null || assetPath.equals( "" )) /*&&  !assetPath.equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION )*/ ){
+                         assetPath = SpecialAssetPaths.ASSET_EMPTY_ANIMATION;                         
+                     }
+                         
+                     if (!assetPath.toLowerCase( ).endsWith( ".eaa" ) ){
+                         String path;
+                         String[] temp = assetPath.split( "/" );
+                         String animationName = temp[temp.length - 1];
+                         if (assetPath.equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ))
+                             path = AssetsController.CATEGORY_ANIMATION_FOLDER + "/" + animationName;
+                         else
+                             path = assetPath;
+                         if (!new File(projectFolder, path + ".eaa").exists( )){
+                             filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
+                             if( filename != null ) {
+                                 File file = new File( filename );
+                                 file.create( );
+                                 Animation animation = new Animation( animationName, new EditorImageLoader(), 100 );
+                                 animation.setDocumentation( rdc.getAssetDescription( i ) );
+                                     // add the images of the old animation
+                                     ResourcesDataControl.framesFromImages( animation, assetPath);
+                                         AnimationWriter.writeAnimation( filename, animation );
+                                         rdc.setAssetPath( filename, i );
+                             } 
+                         } else {
+                             // if the eaa animation for this old animation was previously created, change only the path (without using Tools, cause this operation
+                             // ask for user confirmation if animation path previously exist)
+                             rdc.changeAssetPath( i , rdc.getAssetPath( i ) + ".eaa");
+                         }
+                     
+                         }
+                     }
+                 
+             
+                 }
+                 
+              
+             }
+             }
+         
+ 
+     }
+
     
 
 }
