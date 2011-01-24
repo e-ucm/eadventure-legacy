@@ -1306,6 +1306,8 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="AssessmentProperties.DeleteProperty">Eliminar propiedad seleccionada</entry>
 <entry key="ActionsList.DragToAction">Arrastrar a: {#0}</entry>
 <entry key="ResourcesList.Conditions">Condiciones</entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.message"> ¿Esta seguro de que desea borrar el bloque de recursos? Las condiciones del bloque de recursos que quedará activo para este elemento serán borradas. </entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.title"> Borrando bloque de recursos </entry>
 <entry key="AdaptationProfile.Empty">No hay ninguna regla seleccionada.</entry>
 <entry key="Search.CustomizedText">Texto personalizado</entry>
 <entry key="Operation.NewProjectTitle">Proyecto nuevo: seleccionar carpeta</entry>

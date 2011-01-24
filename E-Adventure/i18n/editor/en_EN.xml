@@ -621,6 +621,8 @@ It's strongly recommended that you backup your project before continuing.</entry
 Do you really want to create it? 
 Otherwise you can select one of those found similar from the list.</entry>
 <entry key="ResourcesList.DuplicateResourcesBlock">Duplicate the selected resources block</entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.message"> Are you sure to delete the selected resource block? The conditions in the other block will be deleted </entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.title"> Deleting resource block</entry>
 <entry key="GraphicConfig.Title">Graphic configuration for the adventure</entry>
 <entry key="LOMES.Educational.LearningResourceType9">Hypertext</entry>
 <entry key="Conversation.PreListening">Pre-listening conversation options</entry>
@@ -1520,7 +1522,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Error.LoadDescriptor.SAX">An error occurred with the XML consistency of the adventure descriptor file</entry>
 <entry key="Operation.FileLoadedWithErrorTitle">Project loaded with problems</entry>
 <entry key="ItemReferenceTable.MoveUp">Move up current reference changing its layer (making deeper)</entry>
-<entry key="ArrowAssets.ErrorArrowSize">The file "{#0}" can't be added to the arrow assets. 		The maximun dimensions for a background are 300x200 pixels, whilst the file's are {#1}x{#2}</entry>
+<entry key="ArrowAssets.ErrorArrowSize">The file "{#0}" can't be added to the arrow assets. 		The maximun dimensions for an arrow are 300x200 pixels, whilst the file's are {#1}x{#2}</entry>
 <entry key="NextSceneCell.EditDestinyPosition">Edit destination position</entry>
 <entry key="AssessmentRule.Conditions">Conditions</entry>
 <entry key="Effect.WaitTimeInfo">Wait {#0} seconds</entry>

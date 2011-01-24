@@ -582,5 +582,13 @@ public class ResourcesDataControl extends DataControl {
     public String getName( ) {
         return this.resources.getName( );
     }
+    
+    /**
+     * This method change the assets path without using a tool for it. That is necessary when old animations are changed at LO generation
+     */
+    public void changeAssetPath(int index, String path){
+        resources.deleteAsset( assetsInformation[index].name );
+        resources.addAsset( assetsInformation[index].name, path);
+    }
 
 }
