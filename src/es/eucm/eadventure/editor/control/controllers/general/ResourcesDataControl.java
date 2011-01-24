@@ -127,7 +127,7 @@ public class ResourcesDataControl extends DataControl {
                         new AssetInformation( "Resources.ArrowRightOver", "arrowRightOver", false, AssetsConstants.CATEGORY_ARROW_BOOK, AssetsController.FILTER_PNG) };
                 break;
             case Controller.ITEM:
-                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionItemImage" , "image", false, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionItemIcon" , "icon", false, AssetsConstants.CATEGORY_ICON, AssetsController.FILTER_NONE ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionItemImage" , "image", true, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionItemIcon" , "icon", false, AssetsConstants.CATEGORY_ICON, AssetsController.FILTER_NONE ) };
                 imageIconMap = new HashMap<String, String>( );
                 imageIconMap.put( "icon", "image" );
                 break;
@@ -135,7 +135,7 @@ public class ResourcesDataControl extends DataControl {
             case Controller.NPC:
                 assetsInformation = new AssetInformation[] { new AssetInformation( "Resources.DescriptionCharacterAnimationStandUp" , "standup", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
                         new AssetInformation( "Resources.DescriptionCharacterAnimationStandDown" , "standdown", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
-                        new AssetInformation( "Resources.DescriptionCharacterAnimationStandRight" , "standright", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationStandRight" , "standright", true, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
                         new AssetInformation( "Resources.DescriptionCharacterAnimationStandLeft" , "standleft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
                         new AssetInformation( "Resources.DescriptionCharacterAnimationSpeakUp", "speakup", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
                         new AssetInformation( "Resources.DescriptionCharacterAnimationSpeakDown" , "speakdown", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
@@ -151,7 +151,7 @@ public class ResourcesDataControl extends DataControl {
                 groupsInfo = new String[] { "Resources.StandingAnimations" , "Resources.SpeakingAnimations" , "Resources.UsingAnimations" , "Resources.WalkingAnimations" };
                 break;
             case Controller.ATREZZO:
-                assetsInformation = new AssetInformation[] { new AssetInformation( "Resources.DescriptionItemImage" , "image", false, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_NONE ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation( "Resources.DescriptionItemImage" , "image", true, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_NONE ) };
                 break;
         }
 
