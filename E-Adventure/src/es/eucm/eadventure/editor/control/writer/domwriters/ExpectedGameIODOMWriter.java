@@ -47,6 +47,7 @@ import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.UOLProperty;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
+import es.eucm.eadventure.editor.control.Controller;
 
 
 public class ExpectedGameIODOMWriter {
@@ -59,8 +60,15 @@ public class ExpectedGameIODOMWriter {
     private static final String INTEGER = "integer";
     
     
-    public static String getType(String value){
+    public static String getType(String value, boolean isVarFlag){
         
+        
+        if (isVarFlag){
+            if (Controller.getInstance( ).getVarFlagSummary( ).existsVar( value ))
+                return INTEGER;
+            else
+                return BOOLEAN;
+        }
         
         try{
         Integer.parseInt( value );
@@ -78,6 +86,18 @@ public class ExpectedGameIODOMWriter {
         }
     
     
+    private static boolean defaultVar(String name){
+        if (name.equals( "game-completed" ))
+            return true;
+        else if (name.equals( "score" ))
+            return true;
+        else if (name.equals( "total-time" ))
+            return true;
+        else if (name.equals( "real-time" ))
+            return true;
+        else return false;
+    }
+    
     
     /**
      * Write the xml which describes the eAdventure expected outputs (nowadays used in LAMS)
@@ -91,11 +111,7 @@ public class ExpectedGameIODOMWriter {
             Element parameterList = null;
 
             parameterList = doc.createElement( "io-parameter-list" );
-            
-           
-            
-            
-      
+
             HashSet<String> inputsID = new HashSet<String>();
             HashSet<String> outputsID = new HashSet<String>();
             
@@ -110,7 +126,7 @@ public class ExpectedGameIODOMWriter {
                         inputsID.add( property.getId( ) );
                         Element iParameter = doc.createElement( "i-parameter" );
                         iParameter.setAttribute( "name", property.getId( ) );
-                        iParameter.setAttribute( "type", getType(property.getValue( )) );
+                        iParameter.setAttribute( "type", getType(property.getValue( ), false) );
                         parameterList.appendChild( iParameter );
                     }
                 }
@@ -123,20 +139,15 @@ public class ExpectedGameIODOMWriter {
                 Iterator it2 =rule.getAssessmentProperties( ).iterator( );
                 while (it2.hasNext( )){
                     AssessmentProperty property = (AssessmentProperty) it2.next( );
-                    if (!outputsID.contains( property.getId( ) )){
+                    if (!outputsID.contains( property.getId( ) ) &&!defaultVar(property.getId( ))){
                         outputsID.add( property.getId( ) );
                         Element oParameter = doc.createElement( "o-parameter" );
                         oParameter.setAttribute( "name", property.getId( ) );
-                        oParameter.setAttribute( "type", getType(property.getValue( )));
+                        oParameter.setAttribute( "type", getType(property.getVarName( )!=null?property.getVarName( ):property.getValue( ), property.getVarName( )!=null));
                         parameterList.appendChild( oParameter );
                     }
                 }
             } 
-            
-           
-            
-         
-            
             return parameterList;
             
         }
