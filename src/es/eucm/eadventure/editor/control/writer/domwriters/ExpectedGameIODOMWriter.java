@@ -68,7 +68,7 @@ public class ExpectedGameIODOMWriter {
                 return INTEGER;
             else
                 return BOOLEAN;
-        }
+        } else {
         
         try{
         Integer.parseInt( value );
@@ -80,6 +80,8 @@ public class ExpectedGameIODOMWriter {
                     return BOOLEAN;
             else 
                 return STRING;
+        }
+        
         }
       
         
