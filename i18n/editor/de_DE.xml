@@ -1232,6 +1232,8 @@
 <entry key="AssessmentProperties.DeleteProperty">Löschen ausgewählten Eigenschaft</entry>
 <entry key="ActionsList.DragToAction">Ziehen nach: {#0}</entry>
 <entry key="ResourcesList.Conditions">Konditionen</entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.message"> Sind Sie sicher, um die ausgewählte Ressource Block löschen? Die Bedingungen in den anderen Block wird gelöscht. </entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.title"> Löschen Resource Block </entry>
 <entry key="AdaptationProfile.Empty">Keine ausgewählte Regeln.</entry>
 <entry key="Search.CustomizedText">Benutzerdefinierter Text</entry>
 <entry key="Operation.NewProjectTitle">Neues Projekt: Ordner auswählen</entry>

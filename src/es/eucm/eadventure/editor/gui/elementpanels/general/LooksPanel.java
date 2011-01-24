@@ -227,17 +227,32 @@ public abstract class LooksPanel extends JPanel implements Updateable {
         // XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
         public void actionPerformed( ActionEvent e ) {
 
-            if( resourcesTable.getSelectedIndex( ) >= 0 ) {
-                dataControl.setSelectedResources( resourcesTable.getSelectedIndex( ) );
-                int selectedBlock = dataControl.getSelectedResources( );
-                DataControl resourcesToDelete = dataControl.getResources( ).get( selectedBlock );
-                if( dataControl.deleteElement( resourcesToDelete, true ) ) {
-                    dataControl.setSelectedResources( 0 );
-                    resourcesTable.setSelectedIndex( 0 );
-                    updateResources( );
-                    resourcesTable.updateUI( );
-                    ( (AbstractTableModel) resourcesTable.getModel( ) ).fireTableDataChanged( );
-                   resourcesTable.changeSelection( dataControl.getResourcesCount( ) -1, 0, false, false );
+            boolean canDelete=true;
+            boolean clearConditions=false;
+            //Check if after delete a resource block, there are only one block. In this case, delete its conditions due to
+            //when there is only one block its conditions can be edited
+            if (dataControl.getResources( ).size( )==2){
+                // inform user about the conditions will be deleted
+                canDelete =  Controller.getInstance( ).askDeleteConditionsResourceBlock();
+                clearConditions = true;
+            }
+            if (canDelete){
+                if( resourcesTable.getSelectedIndex( ) >= 0 ) {
+                    dataControl.setSelectedResources( resourcesTable.getSelectedIndex( ) );
+                    int selectedBlock = dataControl.getSelectedResources( );
+                    DataControl resourcesToDelete = dataControl.getResources( ).get( selectedBlock );
+                    if( dataControl.deleteElement( resourcesToDelete, true ) ) {
+                        dataControl.setSelectedResources( 0 );
+                        resourcesTable.setSelectedIndex( 0 );
+                        updateResources( );
+                        resourcesTable.updateUI( );
+                        ( (AbstractTableModel) resourcesTable.getModel( ) ).fireTableDataChanged( );
+                        resourcesTable.changeSelection( dataControl.getResourcesCount( ) -1, 0, false, false );
+                    }
+                
+                }
+                if (clearConditions && !dataControl.getResources( ).get( 0 ).getConditions( ).isEmpty( )){
+                    dataControl.getResources( ).get( 0 ).getConditions( ).clearConditions( );
                 }
             }
         }

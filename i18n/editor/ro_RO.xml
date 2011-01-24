@@ -1228,6 +1228,8 @@
 <entry key="AssessmentProperties.DeleteProperty">Sterge proprietatea selectata</entry>
 <entry key="ActionsList.DragToAction">Trage catre: {#0}</entry>
 <entry key="ResourcesList.Conditions">Conditii</entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.message">Eşti sigur să ştergeţi blocul de resurse selectate? Condiţiile în blocul celelalte vor fi şterse. </entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.title"> Ştergerea bloc de resurse </entry>
 <entry key="AdaptationProfile.Empty">Nicio regula selectata.</entry>
 <entry key="Search.CustomizedText">Text particularizat</entry>
 <entry key="Operation.NewProjectTitle">Proiect nou: selectati folder</entry>

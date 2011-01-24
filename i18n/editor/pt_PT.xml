@@ -1172,6 +1172,8 @@
 <entry key="AssessmentProperties.DeleteProperty">Eliminar propriedade seleccionada</entry>
 <entry key="ActionsList.DragToAction">Arrastar para: {#0}</entry>
 <entry key="ResourcesList.Conditions">Condições</entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.message">Tem certeza que quer apagar o bloco recurso selecionado? As condições no outro bloco será apagado. </entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.title"> Excluindo bloco de recursos </entry>
 <entry key="AdaptationProfile.Empty">Não há nenhuma regra seleccionada</entry>
 <entry key="Search.CustomizedText">Texto personalizado</entry>
 <entry key="Operation.NewProjectTitle">Projecto novo: seleccionar pasta</entry>

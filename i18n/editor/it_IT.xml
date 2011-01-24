@@ -1235,6 +1235,8 @@
 <entry key="AssessmentProperties.DeleteProperty">Elimina proprietà selezionata</entry>
 <entry key="ActionsList.DragToAction">Trascinare {#0}</entry>
 <entry key="ResourcesList.Conditions">Termini</entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.message">Sei sicuro di voler eliminare il blocco selezionato risorsa? Le condizioni nel blocco di altri verranno eliminati. </entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.title"> Eliminazione di blocco delle risorse </entry>
 <entry key="AdaptationProfile.Empty">Non c'è una regola selezionata.</entry>
 <entry key="Search.CustomizedText">Testo personalizzato</entry>
 <entry key="Operation.NewProjectTitle">Nuovo progetto: Seleziona cartella</entry>
