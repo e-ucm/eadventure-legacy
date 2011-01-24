@@ -432,7 +432,12 @@ public class ContextualHUD extends HUD {
         Game game = Game.getInstance( );
         FunctionalScene functionalScene = game.getFunctionalScene( );
         FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), null );
-
+        
+        if (showInventory && elementInside == null) {
+            inventory.mouseMoved( e );
+            elementInside = actionManager.getElementOver( );
+        }
+            
         if( ( !button && (e.getButton( ) == MouseEvent.BUTTON3 || game.isShowActions( )) && elementInCursor == null ) || 
                 ( e.getClickCount( ) == 2 && System.getProperty( "os.name" ).contains( "Windows" ) ) || 
                 ( !button && elementInside == null && elementInCursor != null ) ) {
