@@ -41,7 +41,6 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
-import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
 import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 import es.eucm.eadventure.common.gui.TC;
@@ -397,6 +396,10 @@ public class CutscenesListDataControl extends DataControl {
     public List<Searchable> getPathToDataControl( Searchable dataControl ) {
 
         return getPathFromChild( dataControl, cutscenesDataControlList );
+    }
+    
+    public List<CutsceneDataControl> getAllCutsceneDataControls(){
+        return cutscenesDataControlList;
     }
 
 }
