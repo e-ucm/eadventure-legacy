@@ -64,6 +64,8 @@ public class ResourcesDOMWriter {
     public static final int RESOURCES_ANIMATION = 5;
 
     public static final int RESOURCES_CUSTOM_ACTION = 6;
+    
+    public static final int RESOURCES_BOOK = 7;
 
     /**
      * Private constructor.
@@ -172,6 +174,20 @@ public class ResourcesDOMWriter {
                         Element assetElement = doc.createElement( "asset" );
                         assetElement.setAttribute( "type", asset );
                         assetElement.setAttribute( "uri", SpecialAssetPaths.ASSET_EMPTY_ICON );
+                        resourcesNode.appendChild( assetElement );
+                    }
+                }
+            }
+            
+            // if the owner is a book
+            else if( resourcesType == RESOURCES_BOOK  ) {
+                // For each asset, if it has not been declared attach the empty animation
+                String[] assets = new String[] { "background"/*, "arrowLeftNormal", "arrowRightNormal", "arrowLeftOver", "arrowRightOver" */};
+                for( String asset : assets ) {
+                    if( resources.getAssetPath( asset ) == null ) {
+                        Element assetElement = doc.createElement( "asset" );
+                        assetElement.setAttribute( "type", asset );
+                        assetElement.setAttribute( "uri", SpecialAssetPaths.ASSET_EMPTY_BACKGROUND );
                         resourcesNode.appendChild( assetElement );
                     }
                 }
