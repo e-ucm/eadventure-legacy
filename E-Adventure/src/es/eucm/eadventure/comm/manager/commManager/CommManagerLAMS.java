@@ -85,10 +85,8 @@ public class CommManagerLAMS extends AdventureApplet{
     /**
      * Read the default parameters from LAMS via JavaScript (due to synchronize with the begining of the applet)
      */
-    //TODO delete!
     public void setParams(String aplURL, String usrFN, String usrLN, String lamsUserID, String toolContentID){
-        System.out.println( "se ejecuta" );
-        
+       
         appletURL= aplURL;
         
         userFName = usrFN;
@@ -99,21 +97,7 @@ public class CommManagerLAMS extends AdventureApplet{
        
        runId = toolContentID;
        
-       System.out.println( appletURL);
-       
-       System.out.println( userFName );
-       
-       System.out.println( userLName );
-       
-       System.out.println( userId  );
-       
-       System.out.println( runId);
-        
     }
-    
-    
-
-    
  
     public void connectionEstablished( String serverComment ) {
 
@@ -192,41 +176,33 @@ public class CommManagerLAMS extends AdventureApplet{
         
         return connect;
     }
-
+    
+    public void sendHTMLReport(String report ) {
+        sendData(REPORT,report);
+    }
 
     private void sendData(String data, String varName){
         // Create the URL and URL Connection
         URL programUrl;
         try {
             programUrl = new URL( appletURL+BASE_URL+userId+"/"+runId+"/"+varName );
-            System.out.println(  appletURL+BASE_URL+userId+"/"+runId+REPORT + runId+"/"+varName );
+            System.out.println(  appletURL+BASE_URL+userId+"/" + runId+"/"+varName );
         HttpURLConnection connection = (HttpURLConnection)programUrl.openConnection();
                 
-        // send report
-        
-           
+        // send data
             (connection).setRequestMethod("POST");
             connection.setDoOutput(true);
             //connection.setDoInput(true); //Only if you expect to read a response...
             connection.setUseCaches(false); //Highly recommended...
             connection.setRequestProperty("Content-Type", "application/x-java-serialized-object");
-            
-            //PrintWriter output = new PrintWriter(new OutputStreamWriter(connection.getOutputStream()));
-            //output.println(data);
-            //output.flush();
-            //output.close(); 
-            
+          
             OutputStream outstream = connection.getOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(outstream);
             oos.writeObject(data);
             oos.flush();
              oos.close();
-          
-            
-            
-         
+             
             connection.connect();
-           //TODO ver que pasa si se quita
             InputStream is = connection.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
@@ -242,10 +218,6 @@ public class CommManagerLAMS extends AdventureApplet{
             }
             
             br.close( );
-    
-            
-        
-   
      
         }
         catch( MalformedURLException e ) {
@@ -270,8 +242,6 @@ public class CommManagerLAMS extends AdventureApplet{
         else{
             dataToSend.addAll( list );
         }
-        
-        
         Iterator<AssessmentProperty> it = list.iterator( );
         while( it.hasNext( ) ) {
             AssessmentProperty assessProp = it.next( );
@@ -280,8 +250,6 @@ public class CommManagerLAMS extends AdventureApplet{
             sendData(value,attribute);
             
         }
- 
-        
     }
 
     
@@ -290,57 +258,6 @@ public class CommManagerLAMS extends AdventureApplet{
         // TODO Auto-generated method stub
         
     }
-
-
-    
-    public void sendHTMLReport(String report ) {
-        // Create the URL and URL Connection
-        URL programUrl;
-        try {
-            programUrl = new URL( appletURL+BASE_URL+userId+"/"+runId+REPORT );
-            System.out.println(  appletURL+BASE_URL+userId+"/"+runId+REPORT );
-        HttpURLConnection connection = (HttpURLConnection)programUrl.openConnection();
-        // send report
-        
-        
-        (connection).setRequestMethod("POST");
-        connection.setDoOutput(true);
-        //connection.setDoInput(true); //Only if you expect to read a response...
-        connection.setUseCaches(false); //Highly recommended...
-        connection.setRequestProperty("Content-Type", "application/x-java-serialized-object");
-        
-        //PrintWriter output = new PrintWriter(new OutputStreamWriter(connection.getOutputStream()));
-        //output.println(data);
-        //output.flush();
-        //output.close(); 
-        
-        OutputStream outstream = connection.getOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(outstream);
-        oos.writeObject(report);
-        oos.flush();
-         oos.close();
-
-        connection.connect();
-       //TODO ver que pasa si se quita
-        InputStream is = connection.getInputStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
- 
-        }
-        catch( MalformedURLException e ) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch( IOException e ) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-
-    }
-
-
-
 
     
     /**
@@ -351,10 +268,6 @@ public class CommManagerLAMS extends AdventureApplet{
         return appletURL;
     }
 
-
-
-
-    
     /**
      * @param appletURL the appletURL to set
      */
@@ -367,10 +280,6 @@ public class CommManagerLAMS extends AdventureApplet{
         System.out.println( this.appletURL );
     }
 
-
-
-
-    
     /**
      * @return the userFName
      */
@@ -378,10 +287,6 @@ public class CommManagerLAMS extends AdventureApplet{
     
         return userFName;
     }
-
-
-
-
     
     /**
      * @param userFName the userFName to set
@@ -389,12 +294,8 @@ public class CommManagerLAMS extends AdventureApplet{
     public void setUserFName( String userFName ) {
     
         this.userFName = userFName;
-        System.out.println( userFName );
+        //  System.out.println( userFName );
     }
-
-
-
-
     
     /**
      * @return the userLName
@@ -403,10 +304,6 @@ public class CommManagerLAMS extends AdventureApplet{
     
         return userLName;
     }
-
-
-
-
     
     /**
      * @param userLName the userLName to set
@@ -416,7 +313,5 @@ public class CommManagerLAMS extends AdventureApplet{
         this.userLName = userLName;
         System.out.println( userLName );
     }
-    
-   
 
 }
