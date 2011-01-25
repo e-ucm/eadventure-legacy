@@ -458,17 +458,7 @@ public class Writer {
             if( mainClass.equals( "es.eucm.eadventure.engine.EAdventureAppletScorm" ) ) {
                 jscript += "\n\t\t<script type='text/javascript' src='eadventure.js'></script>\n";
             }
-            
-            
-            
-            // quizas no lo utilizamos mas....
-            String lamsParam = "\t\t<param id=\"appletURL\" name=\"appletURL\" value=\"\"/>\n"+ 
-            "\t\t<param id=\"userFName\" name=\"userFName\" value=\"\"/>\n"
-            + "\t\t<param id=\"userLName\" name=\"userLName\" value=\"\"/>\n"+ 
-            "\t\t<param id=\"userID\" name=\"userID\" value=\"\"/>\n"+ 
-            "\t\t<param id=\"tool_session_id\" name=\"tool_session_id\" value=\"\"/>\n";
 
-  
             String webPage = "<html>\n" + "\t<head>\n" +
             //"\t\t<script type='text/javascript' src='commapi.js'></script>\n"+
             //"\t\t<script type='text/javascript' src='ajax-wrapper.js'></script>\n"+
@@ -476,13 +466,9 @@ public class Writer {
             
             //"\t\t<param name=\"USER_ID\" value=\"567\"/>\n" + "\t\t<param name=\"RUN_ID\" value=\"5540\"/>\n" +
             //The game is initating.. please be patient while the digital sign is verified
-            
-           
-            
-            
-            
+ 
             jscript + "\t</head>\n" + "\t<body>\n" + "\t\t<applet code=\"" + mainClass + "\" archive=\"./" + loName + ".jar\" name=\"eadventure\" id=\"eadventure\" " + ( windowed ? "width=\"200\" height=\"150\"" : "width=\"800\" height=\"600\"" ) +  " MAYSCRIPT>\n" + "\t\t<param name=\"WINDOWED\" value=\"" + ( windowed ? "yes" : "no" ) + "\"/>\n" + "\t\t<param name=\"java_arguments\" value=\"-Xms512m -Xmx512m\"/>\n"+ "\t\t<param name=\"image\" value=\"splashScreen.gif\"/>\n"+
-            (lams?lamsParam:"") + "\t\t</applet>\n" + "<div id=\"loadingMessage\"><p><b>"+TC.get( "Applet.LoadingMessage" )+"</b></p></div>\n" + "\t</body>\n" + "</html>\n";
+            "\t\t</applet>\n" + "<div id=\"loadingMessage\"><p><b>"+TC.get( "Applet.LoadingMessage" )+"</b></p></div>\n" + "\t</body>\n" + "</html>\n";
 
             File pageFile = new File( tempDir + "/" + loName + ".html" );
             pageFile.createNewFile( );
