@@ -3758,14 +3758,10 @@ public boolean isCharacterValid(String elementId){
                      }
                          
                      if (!assetPath.toLowerCase( ).endsWith( ".eaa" ) ){
-                         String path;
+                        // String path;
                          String[] temp = assetPath.split( "/" );
                          String animationName = temp[temp.length - 1];
-                         if (assetPath.equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ))
-                             path = AssetsController.CATEGORY_ANIMATION_FOLDER + "/" + animationName;
-                         else
-                             path = assetPath;
-                         if (!new File(projectFolder, path + ".eaa").exists( )){
+                         if (!new File(projectFolder, assetPath + ".eaa").exists( )){
                              filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
                              if( filename != null ) {
                                  File file = new File( filename );
