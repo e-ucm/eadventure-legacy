@@ -892,7 +892,6 @@ public class Writer {
             os.write( manifestText.getBytes( ) );
             os.putNextEntry( manifestEntry2 );
             os.putNextEntry( manifestEntry3 );
-            os.write( manifestText.getBytes( ) );
             os.closeEntry( );
 
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
