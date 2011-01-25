@@ -175,6 +175,8 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
      * Path for the arrows of books
      */
     private static final String CATEGORY_ARROW_BOOK_PATH = "assets/arrows";
+    
+    private static final String CATEGORY_SPECIAL_ASSETS = "assets/special";
 
     /**
      * Static class. Private constructor.
@@ -649,8 +651,12 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
                 Animation animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), assetPath, new EditorImageLoader( ) );
                 animation.setAbsolutePath( assetPath );
-                File sourceFile = new File( assetPath );
-                File destinyFile = new File( categoryFolder, sourceFile.getName( ) );
+                File sourceFile = new File( assetPath ); 
+                File destinyFile;
+                if (sourceFile.getName( ).contains( "EmptyAnimation" )){
+                    destinyFile = new File( Controller.getInstance( ).getProjectFolder( ) + "/" + CATEGORY_SPECIAL_ASSETS + "/" + sourceFile.getName( ));
+                } else 
+                    destinyFile   = new File( categoryFolder, sourceFile.getName( ) );
 
                 if( !sourceFile.getAbsolutePath( ).toLowerCase( ).equals( destinyFile.getAbsolutePath( ).toLowerCase( ) ) ) {
                     if( destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Assets.AddAsset" ), TC.get( "Assets.WarningAssetFound", sourceFile.getName( ) ) ) ) {
