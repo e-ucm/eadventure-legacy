@@ -94,7 +94,7 @@ public class BookDOMWriter {
 
             // Append the resources
             for( Resources resources : book.getResources( ) ) {
-                Node resourcesNode = ResourcesDOMWriter.buildDOM( resources );
+                Node resourcesNode = ResourcesDOMWriter.buildDOM( resources, ResourcesDOMWriter.RESOURCES_BOOK );
                 doc.adoptNode( resourcesNode );
                 bookElement.appendChild( resourcesNode );
             }
