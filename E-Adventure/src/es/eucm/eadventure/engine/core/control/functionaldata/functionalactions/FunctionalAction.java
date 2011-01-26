@@ -39,6 +39,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 
 /**
  * This abstract class represents an action that can be taken by the player.
@@ -88,6 +89,11 @@ public abstract class FunctionalAction {
      * must reach the later to be performed
      */
     protected int keepDistance = 0;
+    
+    /**
+     * The click effects are launched;
+     */
+    protected boolean storeClickEffects = false;
 
     /**
      * Default constructor, taking an original action.
@@ -214,5 +220,16 @@ public abstract class FunctionalAction {
     public FunctionalElement getAnotherElement( ) {
 
         return null;
+    }
+    
+    /**
+     * Launch click effects
+     */
+    public void launchClickEffects(){
+        if (storeClickEffects){
+            storeClickEffects=false;
+            if (originalAction.isActivatedClickEffects())
+                FunctionalEffects.storeAllEffects( originalAction.getClickEffects( ) );
+        }
     }
 }

@@ -124,9 +124,9 @@ public class CustomAction extends Action implements Named {
      *            The effects of the action when the conditions aren't OK (must
      *            not be null)
      */
-    public CustomAction( int type, String idTarget, Conditions conditions, Effects effects, Effects notEffects ) {
+    public CustomAction( int type, String idTarget, Conditions conditions, Effects effects, Effects notEffects, Effects clickEffects ) {
 
-        super( type, idTarget, conditions, effects, notEffects );
+        super( type, idTarget, conditions, effects, notEffects, clickEffects );
         resources = new ArrayList<Resources>( );
     }
 
@@ -138,7 +138,7 @@ public class CustomAction extends Action implements Named {
      */
     public CustomAction( Action action ) {
 
-        super( action.getType( ), action.getTargetId( ), action.getConditions( ), action.getEffects( ), action.getNotEffects( ) );
+        super( action.getType( ), action.getTargetId( ), action.getConditions( ), action.getEffects( ), action.getNotEffects( ), action.getClickEffects( ) );
         resources = new ArrayList<Resources>( );
     }
 

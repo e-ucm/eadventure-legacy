@@ -257,26 +257,29 @@
 	keepDistance CDATA "10"
 	not-effects (yes | no) "no"
 >
-<!ELEMENT use-with (documentation?, condition?, effect?,not-effect?)>
+<!ELEMENT use-with (documentation?, condition?, effect?,not-effect?,click-effect?)>
 <!ATTLIST use-with
 	idTarget IDREF #REQUIRED
 	needsGoTo (yes | no) "yes"
 	keepDistance CDATA "10"
 	not-effects (yes | no) "no"
+	click-effects (yes | no) "no"
 >
-<!ELEMENT give-to (documentation?, condition?, effect?,not-effect?)>
+<!ELEMENT give-to (documentation?, condition?, effect?,not-effect?,click-effect?)>
 <!ATTLIST give-to
 	idTarget IDREF #REQUIRED
 	needsGoTo (yes | no) "yes"
 	keepDistance CDATA "35"
 	not-effects (yes | no) "no"
+	click-effects (yes | no) "no"
 >
-<!ELEMENT drag-to (documentation?, condition?, effect?,not-effect?)>
+<!ELEMENT drag-to (documentation?, condition?, effect?,not-effect?,click-effect?)>
 <!ATTLIST drag-to
 	idTarget IDREF #REQUIRED
 	needsGoTo (yes | no) "no"
 	keepDistance CDATA "0"
 	not-effects (yes | no) "no"
+	click-effects (yes | no) "no"
 >
 <!ELEMENT talk-to (documentation?, condition?, effect?,not-effect?)>
 <!ATTLIST talk-to
@@ -291,13 +294,14 @@
 	keepDistance CDATA "0"
 	not-effects (yes | no) "no"
 >
-<!ELEMENT custom-interact (resources*, documentation?, condition?, effect?,not-effect?)>
+<!ELEMENT custom-interact (resources*, documentation?, condition?, effect?,not-effect?,click-effect?)>
 <!ATTLIST custom-interact
 	idTarget IDREF #REQUIRED
 	name CDATA #REQUIRED
 	needsGoTo (yes | no) "no"
 	keepDistance CDATA "0"
 	not-effects (yes | no) "no"
+	click-effects (yes | no) "no"
 >
 
 <!ELEMENT voice EMPTY>
@@ -457,6 +461,7 @@
 >
 <!ELEMENT post-effect (%effects;)>
 <!ELEMENT not-effect (%effects;)>
+<!ELEMENT click-effect (%effects;)>
 
 <!ELEMENT activate EMPTY>
 <!ATTLIST activate

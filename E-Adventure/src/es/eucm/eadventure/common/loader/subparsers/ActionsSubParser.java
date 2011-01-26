@@ -78,6 +78,12 @@ public class ActionsSubParser extends SubParser {
      * Stores the current not-effects being read
      */
     private Effects currentNotEffects;
+    
+    /**
+     * Stores the current click-effects being read
+     * 
+     */
+    private Effects currentClickEffects;
 
     /**
      * Stores the current documentation being read
@@ -158,6 +164,11 @@ public class ActionsSubParser extends SubParser {
      * Activate not effects
      */
     boolean activateNotEffects;
+    
+    /**
+     * Activate click effects
+     */
+    boolean activateClickEffects;
 
     /**
      * Default constructor
@@ -200,6 +211,7 @@ public class ActionsSubParser extends SubParser {
                 currentConditions = new Conditions( );
                 currentEffects = new Effects( );
                 currentNotEffects = new Effects( );
+                currentClickEffects = new Effects( );
                 currentDocumentation = null;
                 reading = READING_ACTION;
             }
@@ -215,10 +227,13 @@ public class ActionsSubParser extends SubParser {
                         currentKeepDistance = Integer.parseInt( attrs.getValue( i ) );
                     if( attrs.getQName( i ).equals( "not-effects" ) )
                         activateNotEffects = attrs.getValue( i ).equals( "yes" );
+                    if( attrs.getQName( i ).equals( "click-effects" ) )
+                        activateClickEffects = attrs.getValue( i ).equals( "yes" );
                 }
                 currentConditions = new Conditions( );
                 currentEffects = new Effects( );
                 currentNotEffects = new Effects( );
+                currentClickEffects = new Effects( );
                 currentDocumentation = null;
                 reading = READING_ACTION;
             }
@@ -235,11 +250,14 @@ public class ActionsSubParser extends SubParser {
                         currentKeepDistance = Integer.parseInt( attrs.getValue( i ) );
                     if( attrs.getQName( i ).equals( "not-effects" ) )
                         activateNotEffects = attrs.getValue( i ).equals( "yes" );
+                    if( attrs.getQName( i ).equals( "click-effects" ) )
+                        activateClickEffects = attrs.getValue( i ).equals( "yes" );
                 }
 
                 currentConditions = new Conditions( );
                 currentEffects = new Effects( );
                 currentNotEffects = new Effects( );
+                currentClickEffects = new Effects( );
                 currentDocumentation = null;
                 if( qName.equals( "custom" ) )
                     currentCustomAction = new CustomAction( Action.CUSTOM );
@@ -293,6 +311,12 @@ public class ActionsSubParser extends SubParser {
                 subParser = new EffectSubParser( currentNotEffects, chapter );
                 subParsing = SUBPARSING_EFFECT;
             }
+            
+            // If it is a click-effect tag, create new effects and switch the state
+            else if( qName.equals( "click-effect" ) ) {
+                subParser = new EffectSubParser( currentClickEffects, chapter );
+                subParsing = SUBPARSING_EFFECT;
+            }
         }
 
         // If it is reading an effect or a condition, spread the call
@@ -333,6 +357,7 @@ public class ActionsSubParser extends SubParser {
                 examineAction.setKeepDistance( currentKeepDistance );
                 examineAction.setNeedsGoTo( currentNeedsGoTo );
                 examineAction.setActivatedNotEffects( activateNotEffects );
+                examineAction.setActivatedClickEffects( activateClickEffects );
                 element.addAction( examineAction );
                 reading = READING_NONE;
             }
@@ -344,6 +369,7 @@ public class ActionsSubParser extends SubParser {
                 grabAction.setKeepDistance( currentKeepDistance );
                 grabAction.setNeedsGoTo( currentNeedsGoTo );
                 grabAction.setActivatedNotEffects( activateNotEffects );
+                grabAction.setActivatedClickEffects( activateClickEffects );
                 element.addAction( grabAction );
                 reading = READING_NONE;
             }
@@ -355,6 +381,7 @@ public class ActionsSubParser extends SubParser {
                 useAction.setNeedsGoTo( currentNeedsGoTo );
                 useAction.setKeepDistance( currentKeepDistance );
                 useAction.setActivatedNotEffects( activateNotEffects );
+                useAction.setActivatedClickEffects( activateClickEffects );
                 element.addAction( useAction );
                 reading = READING_NONE;
             }
@@ -366,39 +393,43 @@ public class ActionsSubParser extends SubParser {
                 talkToAction.setNeedsGoTo( currentNeedsGoTo );
                 talkToAction.setKeepDistance( currentKeepDistance );
                 talkToAction.setActivatedNotEffects( activateNotEffects );
+                talkToAction.setActivatedClickEffects( activateClickEffects );
                 element.addAction( talkToAction );
                 reading = READING_NONE;
             }
 
             // If it is an use-with tag, store the new action in the object
             else if( qName.equals( "use-with" ) ) {
-                Action useWithAction = new Action( Action.USE_WITH, currentIdTarget, currentConditions, currentEffects, currentNotEffects );
+                Action useWithAction = new Action( Action.USE_WITH, currentIdTarget, currentConditions, currentEffects, currentNotEffects, currentClickEffects );
                 useWithAction.setDocumentation( currentDocumentation );
                 useWithAction.setKeepDistance( currentKeepDistance );
                 useWithAction.setNeedsGoTo( currentNeedsGoTo );
                 useWithAction.setActivatedNotEffects( activateNotEffects );
+                useWithAction.setActivatedClickEffects( activateClickEffects );
                 element.addAction( useWithAction );
                 reading = READING_NONE;
             }
 
             // If it is an use-with tag, store the new action in the object
             else if( qName.equals( "drag-to" ) ) {
-                Action useWithAction = new Action( Action.DRAG_TO, currentIdTarget, currentConditions, currentEffects, currentNotEffects );
+                Action useWithAction = new Action( Action.DRAG_TO, currentIdTarget, currentConditions, currentEffects, currentNotEffects, currentClickEffects );
                 useWithAction.setDocumentation( currentDocumentation );
                 useWithAction.setKeepDistance( currentKeepDistance );
                 useWithAction.setNeedsGoTo( currentNeedsGoTo );
                 useWithAction.setActivatedNotEffects( activateNotEffects );
+                useWithAction.setActivatedClickEffects( activateClickEffects );
                 element.addAction( useWithAction );
                 reading = READING_NONE;
             }
 
             // If it is a give-to tag, store the new action in the object
             else if( qName.equals( "give-to" ) ) {
-                Action giveToAction = new Action( Action.GIVE_TO, currentIdTarget, currentConditions, currentEffects, currentNotEffects );
+                Action giveToAction = new Action( Action.GIVE_TO, currentIdTarget, currentConditions, currentEffects, currentNotEffects, currentClickEffects );
                 giveToAction.setDocumentation( currentDocumentation );
                 giveToAction.setKeepDistance( currentKeepDistance );
                 giveToAction.setNeedsGoTo( currentNeedsGoTo );
                 giveToAction.setActivatedNotEffects( activateNotEffects );
+                giveToAction.setActivatedClickEffects( activateClickEffects );
                 element.addAction( giveToAction );
                 reading = READING_NONE;
             }
@@ -413,6 +444,8 @@ public class ActionsSubParser extends SubParser {
                 currentCustomAction.setKeepDistance( currentKeepDistance );
                 currentCustomAction.setNeedsGoTo( currentNeedsGoTo );
                 currentCustomAction.setActivatedNotEffects( activateNotEffects );
+                currentCustomAction.setClickEffects( currentClickEffects );
+                currentCustomAction.setActivatedClickEffects( activateClickEffects );
                 //				customAction.addResources(currentResources);
                 element.addAction( currentCustomAction );
                 currentCustomAction = null;
@@ -430,6 +463,8 @@ public class ActionsSubParser extends SubParser {
                 currentCustomAction.setKeepDistance( currentKeepDistance );
                 currentCustomAction.setNeedsGoTo( currentNeedsGoTo );
                 currentCustomAction.setActivatedNotEffects( activateNotEffects );
+                currentCustomAction.setClickEffects( currentClickEffects );
+                currentCustomAction.setActivatedClickEffects( activateClickEffects );
                 //				customAction.addResources(currentResources);
                 element.addAction( currentCustomAction );
                 currentCustomAction = null;
@@ -467,6 +502,10 @@ public class ActionsSubParser extends SubParser {
             }
             // If the not-effect tag is being closed, switch the state
             else if( qName.equals( "not-effect" ) ) {
+                subParsing = SUBPARSING_NONE;
+            }
+            // If the not-effect tag is being closed, switch the state
+            else if( qName.equals( "click-effect" ) ) {
                 subParsing = SUBPARSING_NONE;
             }
         }

@@ -125,6 +125,16 @@ public class Action implements Cloneable, Documented, HasTargetId {
      * Activate not effects
      */
     private boolean activatedNotEffects;
+    
+    /**
+     * Effects to be launched when an "interaction" action (give to, drag, use with, custom interaction) is pressed 
+     */
+    private Effects clickEffects;
+    
+    /**
+     * Activate click effects
+     */
+    private boolean activatedClickEffects;
 
     /**
      * Indicates whether the character needs to go up to the object
@@ -150,7 +160,7 @@ public class Action implements Cloneable, Documented, HasTargetId {
      */
     public Action( int type ) {
 
-        this( type, null, new Conditions( ), new Effects( ), new Effects( ) );
+        this( type, null, new Conditions( ), new Effects( ), new Effects( ), new Effects() );
         switch( type ) {
             case EXAMINE:
                 needsGoTo = false;
@@ -197,11 +207,12 @@ public class Action implements Cloneable, Documented, HasTargetId {
      */
     public Action( int type, String idTarget ) {
 
-        this( type, idTarget, new Conditions( ), new Effects( ), new Effects( ) );
+        this( type, idTarget, new Conditions( ), new Effects( ), new Effects( ), new Effects() );
     }
 
     /**
-     * Constructor
+     * Constructor  for actions that only need one object. This constructor cant't be called to 
+     * create interactions actions (drag to, use with, give to, custom interaction) due to don't init clickEffects
      * 
      * @param type
      *            The type of the action
@@ -215,7 +226,8 @@ public class Action implements Cloneable, Documented, HasTargetId {
      */
     public Action( int type, Conditions conditions, Effects effects, Effects notEffects ) {
 
-        this( type, null, conditions, effects, notEffects );
+        // added attribute to the constructor: this co 
+        this( type, null, conditions, effects, notEffects, new Effects() );
     }
 
     /**
@@ -232,14 +244,17 @@ public class Action implements Cloneable, Documented, HasTargetId {
      * @param notEffects
      *            The effects of the action when the conditions aren't OK (must
      *            not be null)
+     * @param clickEffects
+     *            The effects of the "interaction" action when user makes first click  
      */
-    public Action( int type, String idTarget, Conditions conditions, Effects effects, Effects notEffects ) {
+    public Action( int type, String idTarget, Conditions conditions, Effects effects, Effects notEffects, Effects clickEffects ) {
 
         this.type = type;
         this.idTarget = idTarget;
         this.conditions = conditions;
         this.effects = effects;
         this.notEffects = notEffects;
+        this.clickEffects = clickEffects;
         documentation = null;
     }
 
@@ -400,6 +415,9 @@ public class Action implements Cloneable, Documented, HasTargetId {
         a.type = type;
         a.notEffects = ( notEffects != null ? (Effects) notEffects.clone( ) : null );
         a.activatedNotEffects = activatedNotEffects;
+        a.activatedClickEffects = activatedClickEffects;
+        a.clickEffects = (clickEffects != null ? (Effects) clickEffects.clone( ) :  null);
+        a.conditionsAreMeet = conditionsAreMeet;
         return a;
     }
 
@@ -430,6 +448,30 @@ public class Action implements Cloneable, Documented, HasTargetId {
     public void setConditionsAreMeet( boolean conditionsAreMeet ) {
     
         this.conditionsAreMeet = conditionsAreMeet;
+    }
+
+    
+    public Effects getClickEffects( ) {
+    
+        return clickEffects;
+    }
+
+    
+    public void setClickEffects( Effects clickEffects ) {
+    
+        this.clickEffects = clickEffects;
+    }
+
+    
+    public boolean isActivatedClickEffects( ) {
+    
+        return activatedClickEffects;
+    }
+
+    
+    public void setActivatedClickEffects( boolean activatedClickEffects ) {
+    
+        this.activatedClickEffects = activatedClickEffects;
     }
 
 }
