@@ -560,6 +560,8 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         }
         if( !getCurrentAction( ).isStarted( ) ) {
             getCurrentAction( ).start( this );
+            //TODO descomentar para activar los efectos en el primer click de interacciones
+            //getCurrentAction( ).launchClickEffects( );
         }
         else {
             getCurrentAction( ).update( elapsedTime );
