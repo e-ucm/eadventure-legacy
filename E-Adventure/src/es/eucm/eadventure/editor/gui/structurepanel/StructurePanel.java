@@ -72,6 +72,7 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.tools.structurepanel.AddElementTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
@@ -477,8 +478,9 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 
         JScrollPane scrollPane = new JScrollPane( list );
         temp.add( scrollPane, "list" );
-        
-        Controller.gc();
+        boolean isSceneData = element.getDataControl( ) instanceof ScenesListDataControl;
+        if (!isSceneData)
+            Controller.gc();
         
         return temp;
     }
