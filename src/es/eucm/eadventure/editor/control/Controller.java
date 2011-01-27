@@ -3741,6 +3741,9 @@ public boolean isCharacterValid(String elementId){
          dataControlList.addAll(chaptersController.getSelectedChapterDataControl( ).getNPCsList( ).getAllNPCDataControls( ));
          dataControlList.add(chaptersController.getSelectedChapterDataControl( ).getPlayer( ));
          
+         loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsLO" ) );
+         loadingScreen.setVisible( true );
+         
          // Take the project folder to check if the .eaa animation has been previously created
          File projectFolder = new File( Controller.getInstance( ).getProjectFolder( ) );
          
@@ -3771,7 +3774,10 @@ public boolean isCharacterValid(String elementId){
                                      // add the images of the old animation
                                      ResourcesDataControl.framesFromImages( animation, assetPath);
                                          AnimationWriter.writeAnimation( filename, animation );
-                                         rdc.setAssetPath( filename, i );
+                                        // rdc.setAssetPath( filename, i );
+                                         // CAUTION!! adding resources without using tool
+                                         AssetsController.addSingleAsset( AssetsController.CATEGORY_ANIMATION , assetPath );
+                                         rdc.addAsset( rdc.getAssetName( i ) , assetPath );
                              } 
                          } else {
                              // if the eaa animation for this old animation was previously created, change only the path (without using Tools, cause this operation
@@ -3791,6 +3797,7 @@ public boolean isCharacterValid(String elementId){
          
  
      }
+     
 
     
 
