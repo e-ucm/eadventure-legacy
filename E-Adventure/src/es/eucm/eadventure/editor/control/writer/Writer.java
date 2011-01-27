@@ -78,7 +78,6 @@ import es.eucm.eadventure.editor.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
@@ -531,12 +530,17 @@ public class Writer {
         File.addJarContentsToZip("jars/mp3spi1.9.4.jar", os);
         File.addJarContentsToZip("jars/jl1.0.jar", os);
         File.addJarContentsToZip("jars/jmf.jar", os );
+        //mails libraries are always added because they are needed to show report error dialog
+        // TODO mirar de donde salen las referencias a este jar, supuestamente para el report dialog no hace falta
+        File.addJarContentsToZip( "jars/mailapi.jar", os );
+        File.addJarContentsToZip( "jars/smtp.jar", os);
+        File.addJarContentsToZip( "jars/activation.jar", os );
 
         boolean needsFreeTts = false;
 
         boolean needsJFFMpeg = false;
         
-        boolean needsEmail = false;
+      
         
         for (ChapterDataControl chapter :controller.getCharapterList( ).getChapters( )) {
             for (CutsceneDataControl cutscene : chapter.getCutscenesList( ).getCutscenes( )) {
@@ -557,9 +561,7 @@ public class Writer {
                 }
             }
         }
-        for (AssessmentProfileDataControl profile : Controller.getInstance( ).getAssessmentController( ).getProfiles( )) {
-            needsEmail = needsEmail || profile.isSendByEmail( );
-        }
+       
         if (needsFreeTts) {
             File.addJarContentsToZip("jars/freetts.jar", os);
             File.addJarContentsToZip("jars/cmu_time_awb.jar", os);
@@ -572,11 +574,7 @@ public class Writer {
         if (needsJFFMpeg) {
            File.addJarContentsToZip("jars/jffmpeg-1.1.0.jar", os );
         }
-        if (needsEmail) {
-            File.addJarContentsToZip( "jars/mailapi.jar", os );
-            File.addJarContentsToZip( "jars/smtp.jar", os);
-            File.addJarContentsToZip( "jars/activation.jar", os );
-        }
+       
         
         File.addFileToZip( new File(ReleaseFolders.getLanguageFilePath4Engine( Controller.getInstance( ).getLanguage( ) )), "i18n/engine/en_EN.xml", os );
         
