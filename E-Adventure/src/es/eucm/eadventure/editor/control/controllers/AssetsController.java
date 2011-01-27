@@ -653,6 +653,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
                 animation.setAbsolutePath( assetPath );
                 File sourceFile = new File( assetPath ); 
                 File destinyFile;
+                // empty animation always goes to assets/special folder
                 if (sourceFile.getName( ).contains( "EmptyAnimation" )){
                     destinyFile = new File( Controller.getInstance( ).getProjectFolder( ) + "/" + CATEGORY_SPECIAL_ASSETS + "/" + sourceFile.getName( ));
                 } else 

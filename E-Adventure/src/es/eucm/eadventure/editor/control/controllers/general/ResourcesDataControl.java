@@ -590,5 +590,13 @@ public class ResourcesDataControl extends DataControl {
         resources.deleteAsset( assetsInformation[index].name );
         resources.addAsset( assetsInformation[index].name, path);
     }
+    
+    /**
+     * Adding resource without using tool. 
+     */
+    public void addAsset(String name, String path){
+        // used to convert old animation at LO export time
+        resources.addAsset( name, path);
+    }
 
 }
