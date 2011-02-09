@@ -36,35 +36,25 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.loader.subparsers;
 
-import java.io.InputStream;
-
 import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.loader.InputStreamCreator;
 
-public class FrameSubParser extends DefaultHandler {
+public class FrameSubParser extends SubParser {
 
     private Animation animation;
 
     private Frame frame;
 
     private Resources currentResources;
-    
-    /**
-     * InputStreamCreator used in resolveEntity to find dtds (only required in
-     * Applet mode)
-     */
-    private InputStreamCreator isCreator;
 
     public FrameSubParser( Animation animation ) {
-
+        super (null);
         this.animation = animation;
         frame = new Frame( animation.getImageLoaderFactory( ) );
+        animation.getFrames( ).add( frame );
     }
 
     @Override
@@ -122,25 +112,22 @@ public class FrameSubParser extends DefaultHandler {
     @Override
     public void endElement( String namespaceURI, String sName, String qName ) {
 
-        if( qName.equals( "frame" ) ) {
-            animation.getFrames( ).add( frame );
-        }
-
         if( qName.equals( "resources" ) ) {
             frame.addResources( currentResources );
         }
+        
+        /***************************************************************/
+        // Añadido para el prototipo de technosite
+        /****************************************************************/
+        
+        if( qName.equals( "documentation" ) ) {
+            frame.setDocumentation( currentString.toString( ).trim( ) );
+            System.out.println( "[DOC SET] "+frame.getDocumentation( ) );
+        }
     }
-    
-    /*
-     *  (non-Javadoc)
-     * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
-     */
-    @Override
-    public InputSource resolveEntity( String publicId, String systemId ) {
-        int startFilename = systemId.lastIndexOf( "/" ) + 1;
-        String filename = systemId.substring( startFilename, systemId.length( ) );
-        InputStream inputStream = isCreator.buildInputStream( filename );
-        return new InputSource( inputStream );
-    }
+    /***************************************************************/
+    // Añadido para el prototipo de technosite
+    /****************************************************************/
+        
 
 }
