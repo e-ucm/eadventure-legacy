@@ -49,6 +49,7 @@ import es.eucm.eadventure.common.data.animation.ImageLoaderFactory;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.subparsers.FrameSubParser;
+import es.eucm.eadventure.common.loader.subparsers.SubParser;
 import es.eucm.eadventure.common.loader.subparsers.TransitionSubParser;
 
 public class AnimationHandler extends DefaultHandler {
@@ -86,7 +87,7 @@ public class AnimationHandler extends DefaultHandler {
     /**
      * Current subparser being used
      */
-    private DefaultHandler subParser;
+    private SubParser subParser;
 
     /**
      * Animation being read.
@@ -191,13 +192,13 @@ public class AnimationHandler extends DefaultHandler {
         }
 
         if( reading != READING_NONE ) {
-            try {
+             try {
                 subParser.endElement( namespaceURI, sName, qName );
-            }
-            catch( SAXException e ) {
+             catch( SAXException e ) {
                 e.printStackTrace( );
-            }
-            reading = READING_NONE;
+             }
+            if (qName.equals( "transition" ) || qName.equals( "frame" ))
+                reading = READING_NONE;
         }
 
     }
@@ -215,6 +216,9 @@ public class AnimationHandler extends DefaultHandler {
 
         // Append the new characters
         currentString.append( new String( buf, offset, len ) );
+        if( reading != READING_NONE ) {
+            subParser.characters( buf, offset, len );
+        }
     }
 
     public Animation getAnimation( ) {
