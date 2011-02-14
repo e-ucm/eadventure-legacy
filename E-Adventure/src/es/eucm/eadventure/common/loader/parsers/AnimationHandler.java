@@ -192,11 +192,7 @@ public class AnimationHandler extends DefaultHandler {
         }
 
         if( reading != READING_NONE ) {
-             try {
-                subParser.endElement( namespaceURI, sName, qName );
-             catch( SAXException e ) {
-                e.printStackTrace( );
-             }
+            subParser.endElement( namespaceURI, sName, qName );
             if (qName.equals( "transition" ) || qName.equals( "frame" ))
                 reading = READING_NONE;
         }

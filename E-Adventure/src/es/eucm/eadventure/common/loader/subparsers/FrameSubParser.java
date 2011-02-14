@@ -115,19 +115,8 @@ public class FrameSubParser extends SubParser {
         if( qName.equals( "resources" ) ) {
             frame.addResources( currentResources );
         }
-        
-        /***************************************************************/
-        // Añadido para el prototipo de technosite
-        /****************************************************************/
-        
-        if( qName.equals( "documentation" ) ) {
-            frame.setDocumentation( currentString.toString( ).trim( ) );
-            System.out.println( "[DOC SET] "+frame.getDocumentation( ) );
-        }
-    }
-    /***************************************************************/
-    // Añadido para el prototipo de technosite
-    /****************************************************************/
+      
+   }
         
 
 }
