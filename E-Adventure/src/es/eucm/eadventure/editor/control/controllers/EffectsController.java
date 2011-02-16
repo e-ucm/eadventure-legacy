@@ -441,7 +441,8 @@ public class EffectsController {
                 String negInfo = "";
                 if( randomEffect.getPositiveEffect( ) != null )
                     posInfo = getEffectInfo( randomEffect.getPositiveEffect( ) );
-                negInfo = getEffectInfo( randomEffect.getNegativeEffect( ) );
+                if( randomEffect.getNegativeEffect( ) != null )
+                    negInfo = getEffectInfo( randomEffect.getNegativeEffect( ) );
                 effectInfo = TC.get( "Effect.RandomInfo", new String[] { Integer.toString( randomEffect.getProbability( ) ), Integer.toString( 100 - randomEffect.getProbability( ) ), posInfo, negInfo } );
                 break;
             case Effect.WAIT_TIME:
