@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.gui.editorpane;
 
+import java.awt.Graphics;
 import java.net.URL;
 
 import javax.swing.text.Element;
@@ -59,6 +60,11 @@ public class BookEditorPaneEngine extends BookEditorPane {
         super( );
         this.uri = uri.substring( 0, uri.lastIndexOf( "/" ) + 1 );
         this.setEditorKit( new BookHTMLEditorKitEngine( ) );
+    }
+
+    @Override
+    public void paint( Graphics g ) {
+
     }
 
     private class BookHTMLEditorKitEngine extends BookHTMLEditorKit {

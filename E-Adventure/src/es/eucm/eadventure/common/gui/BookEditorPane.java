@@ -115,11 +115,6 @@ public class BookEditorPane extends JEditorPane {
     }
 
     @Override
-    public void paint( Graphics g ) {
-
-    }
-
-    @Override
     public void setText( String t ) {
 
         try {

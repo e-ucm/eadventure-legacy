@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.gui.otherpanels.bookpanels;
 
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -97,5 +98,11 @@ public class BookEditorPaneEditor extends BookEditorPane {
         return super.imageUpdate( img, infoflags, x, y, width, height );
 
     }
+    
+    @Override
+    public void paint( Graphics g ) {
+
+    }
+
 
 }
