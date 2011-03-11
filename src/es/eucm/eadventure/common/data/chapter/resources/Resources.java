@@ -38,6 +38,7 @@ package es.eucm.eadventure.common.data.chapter.resources;
 
 import java.util.HashMap;
 
+import es.eucm.eadventure.common.auxiliar.AllElementsWithAssets;
 import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
@@ -63,6 +64,8 @@ public class Resources implements Cloneable, Named {
      */
     public Resources( ) {
         assets = new HashMap<String, String>( );
+        // add the hash map of asset AllElements with asset 
+        AllElementsWithAssets.addAsset( assets );
         conditions = new Conditions( );
         name = "No name";
     }

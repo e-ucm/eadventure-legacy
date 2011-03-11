@@ -176,7 +176,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
      */
     private static final String CATEGORY_ARROW_BOOK_PATH = "assets/arrows";
     
-    private static final String CATEGORY_SPECIAL_ASSETS = "assets/special";
+    public static final String CATEGORY_SPECIAL_ASSETS = "assets/special";
 
     /**
      * Static class. Private constructor.

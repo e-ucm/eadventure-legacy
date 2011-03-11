@@ -39,6 +39,8 @@ package es.eucm.eadventure.common.data.chapter.effects;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.AllElementsWithAssets;
+
 /**
  * A list of effects that can be triggered by an unique player's action during
  * the game.
@@ -85,6 +87,19 @@ public class Effects implements Cloneable {
     public void add( AbstractEffect effect ) {
 
         effects.add( effect );
+        
+        //Check if the effect has resources, to add it in the AllAssetsPaths
+        if (effect.getType( ) == Effect.PLAY_ANIMATION || effect.getType( ) == Effect.PLAY_SOUND ){
+            AllElementsWithAssets.addAsset( effect );
+        } else if (effect.getType( ) == Effect.RANDOM_EFFECT ){
+            if (((RandomEffect)effect).getPositiveEffect( ).getType( ) == Effect.PLAY_ANIMATION){
+                AllElementsWithAssets.addAsset( ((RandomEffect)effect).getPositiveEffect( ) );
+            }
+            if (((RandomEffect)effect).getNegativeEffect( ).getType( ) == Effect.PLAY_SOUND){
+                AllElementsWithAssets.addAsset( ((RandomEffect)effect).getNegativeEffect( ) );
+            }
+        }
+        
     }
 
     /**
