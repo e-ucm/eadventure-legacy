@@ -106,6 +106,7 @@ import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.control.tools.general.SwapPlayerModeTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.AddChapterTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.DeleteChapterTool;
+import es.eucm.eadventure.editor.control.tools.general.chapters.ImportChapterTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.MoveChapterTool;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.control.writer.Writer;
@@ -1598,14 +1599,6 @@ public class Controller {
         return fileLoaded;
     }
     
-    public boolean importJAR(){
-     
-        return false;
-    }
-    
-    public boolean importLO(){
-        return false;
-    }
     
     
     /**
@@ -1808,10 +1801,6 @@ public class Controller {
 
         char[] digits = versionNumber.toCharArray( );
         return increaseVersionNumber( digits, digits.length - 1 );
-    }
-
-    public void importChapter( ) {
-
     }
 
     public void importGame( ) {
@@ -2759,6 +2748,18 @@ public class Controller {
         else
             mainWindow.showInformationDialog( TC.get( "DeleteUnusedAssets.Title" ), TC.get( "DeleteUnusedAssets.NoUnsuedAssetsFound" ) );
     }
+    
+    public java.io.File selectXMLChapterFile(){
+        JFileChooser chooser = new JFileChooser( );
+        chooser.setFileFilter( new XMLFileFilter( ) );
+        chooser.setMultiSelectionEnabled( false );
+        chooser.setCurrentDirectory( new File( getCurrentLoadFolder( )) );
+        int option = chooser.showOpenDialog( mainWindow );
+        if( option == JFileChooser.APPROVE_OPTION ) 
+            return chooser.getSelectedFile( );
+        else 
+            return null;
+    }
 
     /**
      * Shows the flags dialog.
@@ -2793,6 +2794,15 @@ public class Controller {
     public void addChapter( ) {
 
         addTool( new AddChapterTool( chaptersController ) );
+    }
+    
+    /**
+     * Imports a new chapter to the adventure. This method open a window to select
+     * the xml chapter.
+     */
+    public void importChapter( ) {
+
+        addTool( new ImportChapterTool( chaptersController ) );
     }
 
     /**
@@ -3061,6 +3071,30 @@ public boolean isCharacterValid(String elementId){
         return (Player)getSelectedChapterDataControl( ).getPlayer( ).getContent( );
     }
     
+    
+    /**
+     * Change the player resources when the mode is changed.
+     * @param assetNecessary
+     *            
+     */
+    public void changePlayerNecessaryResources(boolean assetNecessary){
+        int right,left;
+        //TODO no se comprueba el caso en el que el player tenga uno de los dos.... al realizar 2 veces el cambio de 
+        // tipo de juego, se setean ambos como necesarios y solo aparece uno...
+        for (ResourcesDataControl rdc : getSelectedChapterDataControl( ).getPlayer( ).getResources( )){
+            for (int i=0;  i < rdc.getAssetsInformation( ).length; i++ ){
+                if (rdc.getAssetsInformation( )[i].name.equals( "standleft" )){
+                    rdc.getAssetsInformation( )[i].assetNecessary = assetNecessary;
+                    left = i;
+                } else if (rdc.getAssetsInformation( )[i].name.equals( "standright" )){
+                    rdc.getAssetsInformation( )[i].assetNecessary = assetNecessary;
+                    right = i;
+                }   
+            }
+          
+        }
+    }
+    
     /**
      * This method returns the absolute path of the default image of the given
      * element (item or character).
@@ -3234,6 +3268,20 @@ public boolean isCharacterValid(String elementId){
     public void popWindow( ) {
 
         mainWindow.popWindow( );
+    }
+    
+    
+    /**
+     * Shows a dialog showing information and with the button "Ok" 
+     * 
+     * @param title
+     *            Title of the dialog
+     * @param message
+     *            Message of the dialog
+     */
+    public void showInformationDialog( String title, String message ) {
+
+        mainWindow.showInformationDialog( title, message );
     }
 
     /**
