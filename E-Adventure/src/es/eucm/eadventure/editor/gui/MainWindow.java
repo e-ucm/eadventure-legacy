@@ -661,6 +661,9 @@ public class MainWindow extends JFrame {
         } );
         adventureMenu.add( itDeleteUnusedAssets );
 
+        // BE CAREFULL!! if you add/remove some items in the chapter menu, change the index at updateChapterMenu()
+        // (there are a commentary there explaining how-to)
+        
         // Create the "Chapter" elements
         JMenuItem itAddChapter = new JMenuItem( TC.get( "MenuChapters.AddChapter" ) );
         itAddChapter.addActionListener( new ActionListener( ) {
@@ -680,6 +683,18 @@ public class MainWindow extends JFrame {
             }
         } );
         chaptersMenu.add( itDeleteChapter );
+        
+        // import chapter option
+        JMenuItem itImportChapter = new JMenuItem( /*TC.get( "MenuChapters.AddChapter" )*/ "Importar" );
+        itImportChapter.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.importChapter( );
+            }
+        } );
+        chaptersMenu.add( itImportChapter );
+        
         chaptersMenu.addSeparator( );
         
         JMenuItem itMoveChapterUp = new JMenuItem( TC.get( "MenuChapters.MoveChapterUp" ) );
@@ -857,8 +872,9 @@ public class MainWindow extends JFrame {
         }
         if( chapterIndex < 2)
         {
-            chaptersMenu.getItem( 3 ).setEnabled( false );   
+            // Change those index if some elements in the chapter menu are added/removed
             chaptersMenu.getItem( 4 ).setEnabled( false );   
+            chaptersMenu.getItem( 5 ).setEnabled( false );   
         }
     
     }

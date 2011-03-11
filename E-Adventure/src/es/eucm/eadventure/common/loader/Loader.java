@@ -474,4 +474,10 @@ public class Loader {
         else
             return new Animation( "anim" + ( new Random( ) ).nextInt( 1000 ) , imageloader);
     }
+
+    
+    public static SAXParserFactory getFactory( ) {
+    
+        return factory;
+    }
 }

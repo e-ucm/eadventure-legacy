@@ -35,6 +35,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.data.chapter.conversation.line;
 
+import es.eucm.eadventure.common.auxiliar.AllElementsWithAssets;
 import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
@@ -218,6 +219,11 @@ public class ConversationLine implements Cloneable, Named {
     public void setAudioPath( String audioPath ) {
 
         this.audioPath = audioPath;
+        
+        //if audioPath is not null, store the conversation line 
+        if (audioPath != null)
+            AllElementsWithAssets.addAsset( this );
+        
     }
 
     /**
