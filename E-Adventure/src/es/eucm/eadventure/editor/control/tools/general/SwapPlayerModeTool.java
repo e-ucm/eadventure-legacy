@@ -36,6 +36,8 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.control.tools.general;
 
+import java.util.ArrayList;
+
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TC;
@@ -44,7 +46,6 @@ import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
-import java.util.ArrayList;
 
 public class SwapPlayerModeTool extends Tool {
 
@@ -139,12 +140,16 @@ public class SwapPlayerModeTool extends Tool {
                 adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
                 // adds player reference
                 chapterDataControlList.addPlayerToAllScenesChapters( );
+                //adds "standright" and "standright" resources of the player as necessary
+                controller.changePlayerNecessaryResources(true);
                 return true;
             }
             else if( adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
                 adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_1STPERSON );
                 // delete player reference
                 chapterDataControlList.deletePlayerToAllScenesChapters( );
+                //remove "standright" and "standright" resources of the player as necessary
+                controller.changePlayerNecessaryResources(false);
                 return true;
             }
         }
