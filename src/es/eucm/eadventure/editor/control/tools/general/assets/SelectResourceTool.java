@@ -103,6 +103,45 @@ public class SelectResourceTool extends ResourcesTool {
                             break;
                         }
                     }
+                    
+                    //THE SAME CODE IS IN EDITRESOURCETOOL!!
+                    // check if the asset is "standright" or "standleft" in order to modify the attr assetNecessary
+                    // for the assetInformation
+                    if (assetsInformation[index].name.equals( "standright" ) ){
+                       // if "standright" asset is necessary, set the "standleft" as not necessary
+                       if (assetsInformation[index].assetNecessary){ 
+                        for (int i=0;  i < assetsInformation.length; i++ ){
+                            if (assetsInformation[i].name.equals( "standleft" ))
+                                assetsInformation[i].assetNecessary = false;
+                        }
+                       } 
+                       //if is not art necessary and is 3rd person game, look for "standleft", if this asset is 
+                       // not necessary, set "standright as necessary"
+                       else if (!Controller.getInstance( ).isPlayTransparent( )){
+                           for (int i=0;  i < assetsInformation.length; i++ ){
+                               if (assetsInformation[i].name.equals( "standleft" )){
+                                   assetsInformation[index].assetNecessary = true;
+                                   assetsInformation[i].assetNecessary = false;
+                               }
+                           }
+                       }
+                    } else if (assetsInformation[index].name.equals( "standleft" )){
+                     // if "standleft" asset is necessary, set the "standright" as not necessary
+                        if (assetsInformation[index].assetNecessary){ 
+                         for (int i=0;  i < assetsInformation.length; i++ ){
+                                 assetsInformation[i].assetNecessary = false;
+                         }
+                        } //if is not art necessary and is 3rd person game, look for "standright", if this asset is 
+                        // not necessary, set "standright as necessary"
+                        else if (!Controller.getInstance( ).isPlayTransparent( )){
+                            for (int i=0;  i < assetsInformation.length; i++ ){
+                                if (assetsInformation[i].name.equals( "standright" )){
+                                    assetsInformation[index].assetNecessary = true;
+                                    assetsInformation[i].assetNecessary = false;
+                                }
+                            }
+                        }
+                    }
 
                     if( !someAnimationSet && controller.showStrictConfirmDialog( TC.get( "Operation.SetAllAnimations.Title" ), TC.get( "Operation.SetAllAnimations.Message" ) ) ) {
                         for( int i = 0; i < assetsInformation.length; i++ ) {

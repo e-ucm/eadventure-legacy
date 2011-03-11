@@ -39,6 +39,7 @@ package es.eucm.eadventure.editor.control.tools.general.assets;
 import java.io.File;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.data.AssetInformation;
 
@@ -72,6 +73,8 @@ public class EditResourceTool extends ResourcesTool {
         String selectedAsset = ( new File( filename ) ).getName( );
         // If a file was selected
         if( selectedAsset != null ) {
+           
+            
             // Take the index of the selected asset
             String[] assetFilenames = AssetsController.getAssetFilenames( assetsInformation[index].category, assetsInformation[index].filter );
             String[] assetPaths = AssetsController.getAssetsList( assetsInformation[index].category, assetsInformation[index].filter );
@@ -79,12 +82,58 @@ public class EditResourceTool extends ResourcesTool {
             for( int i = 0; i < assetFilenames.length; i++ )
                 if( assetFilenames[i].equals( selectedAsset ) )
                     assetIndex = i;
-
-            resources.addAsset( assetsInformation[index].name, assetPaths[assetIndex] );
+            
+            // check if the asset is "standright" or "standleft" in order to modify the attr assetNecessary
+            // for the assetInformation
+            if (assetsInformation[index].name.equals( "standright" ) ){
+               // if "standright" asset is necessary, set the "standleft" as not necessary
+               if (assetsInformation[index].assetNecessary){ 
+                for (int i=0;  i < assetsInformation.length; i++ ){
+                    if (assetsInformation[i].name.equals( "standleft" ))
+                        assetsInformation[i].assetNecessary = false;
+                }
+               } 
+               //if is not art necessary and is 3rd person game, look for "standleft", if this asset is 
+               // not necessary, set "standright as necessary"
+               else if (!Controller.getInstance( ).isPlayTransparent( )){
+                   for (int i=0;  i < assetsInformation.length; i++ ){
+                       if (assetsInformation[i].name.equals( "standleft" )){
+                           assetsInformation[index].assetNecessary = true;
+                           assetsInformation[i].assetNecessary = false;
+                       }
+                   }
+               }
+            } else if (assetsInformation[index].name.equals( "standleft" )){
+             // if "standleft" asset is necessary, set the "standright" as not necessary
+                if (assetsInformation[index].assetNecessary){ 
+                 for (int i=0;  i < assetsInformation.length; i++ ){
+                         assetsInformation[i].assetNecessary = false;
+                 }
+                } //if is not art necessary and is 3rd person game, look for "standright", if this asset is 
+                // not necessary, set "standright as necessary"
+                else if (!Controller.getInstance( ).isPlayTransparent( )){
+                    for (int i=0;  i < assetsInformation.length; i++ ){
+                        if (assetsInformation[i].name.equals( "standright" )){
+                            assetsInformation[index].assetNecessary = true;
+                            assetsInformation[i].assetNecessary = false;
+                        }
+                    }
+                }
+            }
+            //The empty animation is, in fact, a special asset. When this asset is in an animation, it is considered as animation asset.
+            // For this reason,at this point, assetIndex is = -1. So, if animation is emptyAnimation, change the path in addAsset method
+            boolean changeFilter = false;
+            String specialPath = AssetsController.CATEGORY_SPECIAL_ASSETS + "/" + "EmptyAnimation.eaa";
+            if ( filename.contains( "EmptyAnimation" ))
+                changeFilter = true;
+            
+            resources.addAsset( assetsInformation[index].name,changeFilter?specialPath:assetPaths[assetIndex] );
             done = true;
-        }
+        
 
+        }
         return done;
+    
     }
 
 }
