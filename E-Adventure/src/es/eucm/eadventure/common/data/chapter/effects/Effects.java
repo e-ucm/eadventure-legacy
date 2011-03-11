@@ -92,10 +92,10 @@ public class Effects implements Cloneable {
         if (effect.getType( ) == Effect.PLAY_ANIMATION || effect.getType( ) == Effect.PLAY_SOUND ){
             AllElementsWithAssets.addAsset( effect );
         } else if (effect.getType( ) == Effect.RANDOM_EFFECT ){
-            if (((RandomEffect)effect).getPositiveEffect( ).getType( ) == Effect.PLAY_ANIMATION){
+            if ( ((RandomEffect)effect).getPositiveEffect( )!=null &&   ((RandomEffect)effect).getPositiveEffect( ).getType( ) == Effect.PLAY_ANIMATION){
                 AllElementsWithAssets.addAsset( ((RandomEffect)effect).getPositiveEffect( ) );
             }
-            if (((RandomEffect)effect).getNegativeEffect( ).getType( ) == Effect.PLAY_SOUND){
+            if (  ((RandomEffect)effect).getNegativeEffect( )!=null && ((RandomEffect)effect).getNegativeEffect( ).getType( ) == Effect.PLAY_SOUND){
                 AllElementsWithAssets.addAsset( ((RandomEffect)effect).getNegativeEffect( ) );
             }
         }
