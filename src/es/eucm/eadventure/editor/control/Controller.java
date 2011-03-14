@@ -2801,8 +2801,15 @@ public class Controller {
      * the xml chapter.
      */
     public void importChapter( ) {
-
-        addTool( new ImportChapterTool( chaptersController ) );
+        try{    
+            addTool( new ImportChapterTool( chaptersController ) );
+        }
+        catch (Exception ex){
+            ex.getStackTrace( );
+            loadingScreen.setVisible( false );
+            showInformationDialog(TC.get( "ImportChapter.UnknowProblems.Title" ), TC.get( "ImportChapter.UnknowProblems.Message" ));  
+        }
+    
     }
 
     /**

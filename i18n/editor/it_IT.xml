@@ -1859,4 +1859,21 @@
 <entry key="DefaultClickAction.Explanation">Azione di default del tasto destro</entry>
 <entry key="DefaultClickAction.ShowDetails">Mostra i dettagli</entry>
 <entry key="DefaultClickAction.ShowActions">Mostra azioni</entry>
+<entry key="LoadingScreen.ImportChapter.Message">Importazione capitolo</entry>
+<entry key="ImportChapter.ChapterDefault.Title">Importato capitolo</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Title">I file modificati durante il processo di importazione</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Message">{#0} file è stato rinominato durante l'importazione capitolo a causa di nome collisione tra la fonte ed i progetti destinty.</entry>
+<entry key="ImportChapter.ImportationOK.Title">Importazione finito</entry>
+<entry key="ImportChapter.ImportationOK.Message">Il capitolo è stato correttamente importato.</entry>
+<entry key="ImportChapter.BadFile.Title">File non valido</entry>
+<entry key="ImportChapter.BadFile.Message">Il file selezionato non è un capitolo XML e-Adventure file.</entry>
+<entry key="ImportChapter.ProblemsParsing.Title">Problemi di analisi del capitolo</entry>
+<entry key="ImportChapter.ProblemsParsing.Message">Il processo di importazione capitolo è stato interrotto per problemi di parsing del capitolo.</entry>
+<entry key="ImportChapter.ProblemsCopying.Title">File problema</entry>
+<entry key="ImportChapter.ProblemsCopying.Message">Il file {#0} non possono essere copiati.</entry>
+<entry key="ImportChapter.UnknowProblems.Title">Problemi durante l'importazione</entry>
+<entry key="ImportChapter.UnknowProblems.Message">Il processo di importazione capitolo è stato interrotto.</entry>
+<entry key="ImportChapter.Notice.Title">Avviso di importazione</entry>
+<entry key="ImportChapter.Notice.Message">Sebbene il processo di importazione viene completata correttamente, non vi è alcuna garanzia che il capitolo verrà eseguito. Vuoi continuare?</entry>
+<entry key="MenuChapters.ImportChapter">Importa capitolo</entry>
 </properties>
