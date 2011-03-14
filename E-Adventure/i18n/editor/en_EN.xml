@@ -40,6 +40,15 @@
 <entry key="AssessmentRulesList.ListTitle">List of assessment rules</entry>
 <entry key="EffectsGroup.Trigger">Trigger an event</entry>
 <entry key="Action.ActiveWhenConditionsArent.ToolTip">Active action when conditions are not</entry>
+<entry key="ActionProperties.EditClickEffects">Edit "click effects"</entry>
+<entry key="ActionProperties.EnableClickEffects">Activate "click effects"</entry>
+<entry key="ActionProperties.EnableClickEffects.ToolTip">Select to add "click effects". 
+This kind of effects will be triggered when player select this action in the game.</entry>
+<entry key="ActionProperties.EditClickFailEffects">Edit "fail click effects"</entry>
+<entry key="ActionProperties.EnableClickFailEffects">Activate "fail click effects"</entry>
+<entry key="ActionProperties.EnableClickFailEffects.ToolTip">Select to add "fail click effects". 
+This kind of effects will be triggered when the player doesn't hit the target of the action.</entry>
+<entry key="ActionProperties.EditComplexEffects">Edit complex effects</entry>
 <entry key="Error.DTD.NotFound.Title">Important file not found</entry>
 <entry key="Conditions.Context.2B.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will stop immediately&lt;/b&gt;, as no condition has been defined:</entry>
 <entry key="LOM.Educational.LearningResourceType">Learning resource type</entry>
@@ -1983,4 +1992,21 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Perspective.Explanation">Perspective applied to character and player movement</entry>
 <entry key="Perspective.Regular">Regular</entry>
 <entry key="Perspective.Isometric">Isometric</entry>
+<entry key="LoadingScreen.ImportChapter.Message">Importing chapter</entry>
+<entry key="ImportChapter.ChapterDefault.Title">Imported Chapter</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Title">Files modified during importation process</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Message">{#0} files has been renamed during the chapter importation due to name collision between the source and the destinty projects.</entry>
+<entry key="ImportChapter.ImportationOK.Title">Importation finished</entry>
+<entry key="ImportChapter.ImportationOK.Message">The chapter has been correctly imported.</entry>
+<entry key="ImportChapter.BadFile.Title">File not valid</entry>
+<entry key="ImportChapter.BadFile.Message">The selected file is not a XML e-Adventure chapter file.</entry>
+<entry key="ImportChapter.ProblemsParsing.Title">Problems parsing the chapter</entry>
+<entry key="ImportChapter.ProblemsParsing.Message">The chapter importation process has been interrupted for problems parsing the chapter.</entry>
+<entry key="ImportChapter.ProblemsCopying.Title">File problem</entry>
+<entry key="ImportChapter.ProblemsCopying.Message">The file {#0} can not be copied.</entry>
+<entry key="ImportChapter.UnknowProblems.Title">Problems during importation</entry>
+<entry key="ImportChapter.UnknowProblems.Message">The chapter importation process has been interrupted.</entry>
+<entry key="ImportChapter.Notice.Title">Notice of importation</entry>
+<entry key="ImportChapter.Notice.Message">Although the import process completes successfully, there is no guarantee that chapter will run. Do you want to continue?</entry>
+<entry key="MenuChapters.ImportChapter">Import chapter</entry>
 </properties>

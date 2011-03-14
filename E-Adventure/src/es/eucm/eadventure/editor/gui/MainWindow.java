@@ -685,7 +685,7 @@ public class MainWindow extends JFrame {
         chaptersMenu.add( itDeleteChapter );
         
         // import chapter option
-        JMenuItem itImportChapter = new JMenuItem( /*TC.get( "MenuChapters.AddChapter" )*/ "Importar" );
+        JMenuItem itImportChapter = new JMenuItem( TC.get( "MenuChapters.ImportChapter" ));
         itImportChapter.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {

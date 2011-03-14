@@ -1844,4 +1844,21 @@
 <entry key="TalkToAction.MessageSelectConversation">Selecteaza conversatie</entry>
 <entry key="BookPage.NotValidURL">Adresa furnizata nu este accesibila deci e posibil sa nu fie afisata in joc. Verificati daca ati scris corect adresa si daca functioneaza conexiunea la Internet.</entry>
 <entry key="LOMES.MetaMetaData.Language">Limba</entry>
+<entry key="LoadingScreen.ImportChapter.Message">Importul capitol</entry>
+<entry key="ImportChapter.ChapterDefault.Title">Importate Capitolul</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Title">Fişierele modificate în timpul procesului de import</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Message">{#0} dosare a fost redenumit în timpul importului capitol din cauza numelui coliziune între sursă şi proiecte destinty.</entry>
+<entry key="ImportChapter.ImportationOK.Title">Importul terminat</entry>
+<entry key="ImportChapter.ImportationOK.Message">Capitol a fost corect importate.</entry>
+<entry key="ImportChapter.BadFile.Title">Fişierul nu a fost valabil</entry>
+<entry key="ImportChapter.BadFile.Message">Fişierul selectat nu este un XML de e-Adventure fişier capitol.</entry>
+<entry key="ImportChapter.ProblemsParsing.Title">Probleme de analiză capitol</entry>
+<entry key="ImportChapter.ProblemsParsing.Message">Procesul de import capitol a fost întreruptă pentru probleme de analiză capitol.</entry>
+<entry key="ImportChapter.ProblemsCopying.Title">Fişier problemă</entry>
+<entry key="ImportChapter.ProblemsCopying.Message">Fişierul {#0} nu poate fi copiat.</entry>
+<entry key="ImportChapter.UnknowProblems.Title">Probleme în timpul importului</entry>
+<entry key="ImportChapter.UnknowProblems.Message">Procesul de import capitol a fost întrerupt.</entry>
+<entry key="ImportChapter.Notice.Title">Aviz de import</entry>
+<entry key="ImportChapter.Notice.Message">Deşi procesul de import se încheie cu succes, nu există nici o garanţie că va rula capitol. Doriţi să continuaţi?</entry>
+<entry key="MenuChapters.ImportChapter">Import capitol</entry>
 </properties>

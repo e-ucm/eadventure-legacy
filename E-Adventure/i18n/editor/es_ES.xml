@@ -39,6 +39,16 @@
 <entry key="AssessmentRule.Importance.VeryLow">Muy baja</entry>
 <entry key="AssessmentRulesList.ListTitle">Lista de reglas de evaluación</entry>
 <entry key="EffectsGroup.Trigger">Lanzar evento</entry>
+<entry key="ActionProperties.EditClickEffects">Editar "efectos click"</entry>
+<entry key="ActionProperties.EnableClickEffects">Activar "efectos click"</entry>
+<entry key="ActionProperties.EnableClickEffects.ToolTip">Seleccionar para añadir "efectos click". 
+Este tipo de efectos se ejecutarán cuando seleccione la acción dentro del juego.</entry>
+<entry key="ActionProperties.EditClickFailEffects">Editar "efectos click fallido"</entry>
+<entry key="ActionProperties.EnableClickFailEffects">Activar "efectos click fallido"</entry>
+<entry key="ActionProperties.EnableClickFailEffects.ToolTip">Seleccionar para añadir "efectos click fallido". 
+Este tipo de efectos se ejecutarán cuando dentro del juego no se realice la acción correctamente (por ejemplo, no se "use con el 
+objeto seleccionado para la acción").</entry>
+<entry key="ActionProperties.EditComplexEffects">Editar efectos complejos</entry>
 <entry key="Action.ActiveWhenConditionsArent.ToolTip">Seleccionar para que la acción esté activa a pesar de que no haya condiciones</entry>
 <entry key="Error.DTD.NotFound.Title">Archivo importante no encontrado</entry>
 <entry key="Conditions.Context.2B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará nada más comenzar a contar&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
@@ -1986,4 +1996,21 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="Perspective.Explanation">Perspectiva aplicada el movimiento de personajes y jugador</entry>
 <entry key="Perspective.Regular">Normal</entry>
 <entry key="Perspective.Isometric">Isométrica</entry>
+<entry key="LoadingScreen.ImportChapter.Message">Importando capítulo</entry>
+<entry key="ImportChapter.ChapterDefault.Title">Capítulo importado</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Title">Modificación de archivos</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Message">{#0} archivos fueron renombrados en el proceso de importación debido a la colisión de nombres entre el proyecto fuente y el destino.</entry>
+<entry key="ImportChapter.ImportationOK.Title">Importación finalizada</entry>
+<entry key="ImportChapter.ImportationOK.Message">El capítulo ha sido correctamente importado.</entry>
+<entry key="ImportChapter.BadFile.Title">Fichero no válido</entry>
+<entry key="ImportChapter.BadFile.Message">El fichero seleccionado no es un XML de capítulo eAdventure.</entry>
+<entry key="ImportChapter.ProblemsParsing.Title">Problemas parseando el capítulo</entry>
+<entry key="ImportChapter.ProblemsParsing.Message">El proceso de importación del capítulo ha sido interrumpido por problemas parseando el XML.</entry>
+<entry key="ImportChapter.ProblemsCopying.Title">Problema con fichero</entry>
+<entry key="ImportChapter.ProblemsCopying.Message">El fichero {#0} no pudo ser copiado.</entry>
+<entry key="ImportChapter.UnknowProblems.Title">Problemas durante la importación</entry>
+<entry key="ImportChapter.UnknowProblems.Message">EL proceso de importación de ficheros ha sido interrumpido.</entry>
+<entry key="ImportChapter.Notice.Title">Aviso de importación</entry>
+<entry key="ImportChapter.Notice.Message">Aunque el proceso de importación termine correctamente no se garantiza que el capítulo se pueda ejecutar. ¿Desea continuar?</entry>
+<entry key="MenuChapters.ImportChapter">Importar capítulo</entry>
 </properties>

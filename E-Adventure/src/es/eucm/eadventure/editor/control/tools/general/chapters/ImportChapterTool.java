@@ -44,7 +44,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -63,6 +62,7 @@ import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.parsers.ChapterHandler;
@@ -81,7 +81,7 @@ public class ImportChapterTool extends Tool {
     
     private int index;
     
-    private HashSet<String> resourcesAdded;
+    private HashMap<String,String> resourcesAdded;
     
     private int numberFilesChanged;
     
@@ -118,7 +118,7 @@ public class ImportChapterTool extends Tool {
     public ImportChapterTool(ChapterListDataControl cldc){
         controller = Controller.getInstance();
         chaptersController = cldc;
-        resourcesAdded = new HashSet<String>();
+        resourcesAdded = new HashMap<String,String>();
         numberFilesChanged = 0;
         
     }
@@ -145,37 +145,33 @@ public class ImportChapterTool extends Tool {
         java.io.File selectedChaperXML = controller.selectXMLChapterFile( );
         
         if (selectedChaperXML!=null){
-        //TODO warning de que el capítulo a importar puede que no sea vañido
-        controller.showLoadingScreen( "IMPORTANDO!!!" );
-        // parse chapter
-        Chapter importedChapter = parseChapter(selectedChaperXML);
-        //if there are not assets in the parsed XML, the xml is not chapter file
-        if (AllElementsWithAssets.getAllAssets( ).size( ) > 0){
-        //move all the assets used in the imported chapter to the project path
-        getAllFiles(selectedChaperXML);
-        // the title of the chapter is stored in the descriptor.xml file
-       
-        // TODO INTERNACIONALIZAR!!!!!!!!!!!!!!!!!
-        importedChapter.setTitle( " title " );
+            if (controller.showStrictConfirmDialog(TC.get( "ImportChapter.Notice.Title" ), TC.get( "ImportChapter.Notice.Message"))) {
+            controller.showLoadingScreen( TC.get("LoadingScreen.ImportChapter.Message"));
+            // parse chapter
+            Chapter importedChapter = parseChapter(selectedChaperXML);
+            //if there are not assets in the parsed XML, the xml is not chapter file
+            if (AllElementsWithAssets.getAllAssets( ).size( ) > 0){
+            //move all the assets used in the imported chapter to the project path
+                getAllFiles(selectedChaperXML);
+                // the title of the chapter is stored in the descriptor.xml file       
+                importedChapter.setTitle( TC.get("ImportChapter.ChapterDefault.Title") );
         
-        // ADD chapter to the current data model TODO añadir título!!!!!
-        chaptersController.addChapterDataControl( importedChapter );
-        index = chaptersController.getSelectedChapter( );
-        controller.reloadData( );
-        controller.hideLoadingScreen();
-        if (numberFilesChanged>0)
-            controller.showInformationDialog("Archivos modificados", "Se han modificado " + numberFilesChanged +  " ficheros");
-        controller.showInformationDialog("OK", "el capítulo se ha importado correctamente");
-        return true;
+                // ADD chapter to the current data model
+                chaptersController.addChapterDataControl( importedChapter);
+                index = chaptersController.getSelectedChapter( );
+                  controller.reloadData( );
+                  controller.hideLoadingScreen();
+                  if (numberFilesChanged>0)
+                      controller.showInformationDialog(TC.get( "ImportChapter.ModifyFilesMessage.Title" ), TC.get( "ImportChapter.ModifyFilesMessage.Message", Integer.toString( numberFilesChanged  )) );
+                  controller.showInformationDialog(TC.get( "ImportChapter.ImportationOK.Title" ), TC.get( "ImportChapter.ImportationOK.Message"));
+                  return true;
+            }
+            controller.hideLoadingScreen();
+            controller.showInformationDialog(TC.get( "ImportChapter.BadFile.Title" ), TC.get( "ImportChapter.BadFile.Message"));
+            return false;
+         }
         }
-     // TODO informar de que el fichero xml no es de capitulo
-        controller.hideLoadingScreen();
-        controller.showInformationDialog("fichero no valido", "el fichero importado no es válido");
-        return false;
-        }
-     // TODO informar de que no se ha seleccionado bien
-      //  controller.hideLoadingScreen();
-        //controller.showInformationDialog("fichero no valido", "el fichero importado no es válido");
+        // the user cancel the importation process
         return false;
     }
     
@@ -213,12 +209,18 @@ public class ImportChapterTool extends Tool {
             }
             catch( ParserConfigurationException e ) {
                 //TODO mostrar mensaje de error significativo
+                e.getStackTrace( );
+                controller.showInformationDialog(TC.get( "ImportChapter.ProblemsParsing.Title" ), TC.get( "ImportChapter.ProblemsParsing.Message" )); 
             }
             catch( SAXException e ) {
                 //TODO mostrar mensaje de error significativo
+                e.getStackTrace( );
+                controller.showInformationDialog(TC.get( "ImportChapter.ProblemsParsing.Title" ), TC.get( "ImportChapter.ProblemsParsing.Message" ));
             }
             catch( IOException e ) {
                 //TODO mostrar mensaje de error significativo
+                e.getStackTrace( );
+                controller.showInformationDialog(TC.get( "ImportChapter.ProblemsParsing.Title" ), TC.get( "ImportChapter.ProblemsParsing.Message" )); 
             }
         }
         return importedChapter;
@@ -248,6 +250,9 @@ public class ImportChapterTool extends Tool {
                 while (it.hasNext()) {
                     Map.Entry entry = (Map.Entry)it.next( );
                     oldPath = (String)entry.getValue( );
+                 // extract the full path without the file name and the name of the asset
+                    String[] oldPathSplit = oldPath.split( "/" );
+                    String fileName = oldPathSplit[oldPathSplit.length-1]; 
                     
                     // if the selected file is .eaa file, all the assets referenced in the .eaa file must be copied too
                     if (oldPath.endsWith( ".eaa" )){
@@ -271,14 +276,46 @@ public class ImportChapterTool extends Tool {
                            newPath =  copyFile(newBasePath,oldPath,xmlPath);
                            // second, overwrite this file to ensure that all the inner resources paths are correct
                            AnimationWriter.writeAnimation( newPath, animation );
-                    } 
+                    } else 
+                        // if the file hasn't sufix is because it's a file with _01 patter (old eAd animations), look for the file with .png or .jpg extension
+                        // Repeat the process for _0X files 
+                        if (!fileName.contains( "." )){
+                            String oldPathWithoutName = oldPath.substring( 0, oldPath.indexOf( fileName ) );
+                            String tempPath = xmlPath + oldPathWithoutName + fileName;
+                            String extension = "";
+                            // check the extension: .jpg or .png
+                            if (new File(tempPath + "_01.jpg").exists( ))
+                                extension = ".jpg";
+                            else if (new File(tempPath + "_01.png").exists( ))
+                                extension = ".png";
+                            int i = 1;
+                            //look for all the frames of the old eAd animation
+                            String fullPath = tempPath +"_01" + extension;
+                            
+                            if (new File(fullPath).exists( )){
+                                boolean moreFrames = true;
+                                while (moreFrames){
+                                
+                                    newPath = copyFile(newBasePath, oldPathWithoutName + fullPath.substring( fullPath.indexOf( fileName ), fullPath.length( ) ),xmlPath);
+                                    if (i<9)
+                                        fullPath = tempPath +"_0" + i + extension;
+                                    else 
+                                        fullPath = tempPath +"_" + i + extension;
+                                    i++;
+                                    moreFrames = new File(fullPath).exists( );
+                                }
+                            } else {
+                                newPath = copyFile(newBasePath, oldPathWithoutName + fullPath.substring( fullPath.indexOf( fileName ), fullPath.length( ) ),xmlPath);
+                            }
+                            //in the path to be set for the resource mustn't appear the _0X suffix
+                            newPath = newPath.substring( 0, newPath.lastIndexOf( "_" ) );
+                            
+                    }
                     // For the other kinds of resources
                     else {
                      // extract the new path taking the folder and the name of the oldPath and adding the current project folder
                         newPath = copyFile(newBasePath,oldPath,xmlPath);
-                        
                     }
-                    
                     // set the path in the all resource (the name could be changed)
                     entry.setValue( newPath );
                   }
@@ -328,36 +365,49 @@ public class ImportChapterTool extends Tool {
      */
     private String copyFile(String newBasePath, String oldPath, String xmlPath ){
      // the assets can be referenced more than one time in the xml file, check if the asset is already added
-        if (!resourcesAdded.contains( oldPath )){
-            resourcesAdded.add( oldPath );
-        
-        
+        if (resourcesAdded.get( oldPath ) == null){
+            
         // extract the new path for the file taking the folder and the name of the oldPath and adding the current project folder
         String newPath = newBasePath + "\\" + oldPath;
         java.io.File newPathFile = new File(newPath);
         // extract the full path without the file name and the name of the asset
-        String[] oldPathSplit = oldPath.split( "/" );
-        String fileName = oldPathSplit[oldPathSplit.length-1]; 
+        String fileName = oldPath.substring( oldPath.lastIndexOf( "/" ) ); 
         String oldPathWithoutName = oldPath.substring( 0, oldPath.indexOf( fileName ) );
         String fullPathWithoutName = newBasePath + "/" + oldPathWithoutName;
         
         //If the file contains assets/special* and exists, don't copy it!!
         if ( !oldPath.contains( "assets/special" ) || !newPathFile.exists( )  ){
-        
-            
         // check if the file to be copied already exits in destiny folder 
         int i=0;
         boolean firstTime = true;
+      //if the file is an old eAd animation, store the suffix
+        String suffix = "";
+        boolean isOldAnimation=false;
+        if (Character.isDigit( fileName.charAt( fileName.lastIndexOf( "_") + 1 )) &&  
+                Character.isDigit( fileName.charAt( fileName.lastIndexOf( "_") + 2 )) && fileName.charAt( fileName.lastIndexOf( "_") + 3 )=='.' ){
+            suffix = fileName.substring(fileName.lastIndexOf( "_" ), fileName.lastIndexOf( "." ));
+            isOldAnimation = true;
+        }
+        
+        
         while (newPathFile.exists( )){
-            // if it exists, add a prefix until the file doesn't exist
+            
+            
+            // if it exists, add a import suffix until the file doesn't exist
             if (fileName.contains( "impEad" )){
                 String[] splitFileName = fileName.split( "impEad" );
-                fileName = splitFileName[0] + "impEad" +i + splitFileName[1].substring( 1 ); // quit the digit
+                // is it's an old animation, remove the old _0X and add it before _impEad
+                if (isOldAnimation){
+                    splitFileName[0] = splitFileName[0].substring( 0, splitFileName[0].lastIndexOf( "_" ));
+                }
+                fileName = splitFileName[0] + "impEad" + i + suffix + splitFileName[1].substring( 1 ); // quit the digit
             } else {
                 String[] splitFileName = fileName.split( "\\." );
-                // it is possible that some resources hasn't "." in the path (e.g., animation_01)
-                String extension = splitFileName.length==1?"":"." + splitFileName[1];
-                fileName = splitFileName[0] + "_impEad" + i + extension;
+                // is it's an old animation, remove the old _0X and add it before _impEad
+                if (isOldAnimation){
+                    splitFileName[0] = splitFileName[0].substring( 0, splitFileName[0].lastIndexOf( "_" ));
+                }
+                fileName = splitFileName[0] + "_impEad" + i + suffix + "." + splitFileName[1];
             }
             
             if (firstTime)
@@ -370,13 +420,16 @@ public class ImportChapterTool extends Tool {
         }
         
             if (!File.copyTo( new File(xmlPath+oldPath), new File(newPath)))
-                controller.showInformationDialog("no se pudo copiar fichero", "el fichero " + xmlPath+oldPath + " no se pudo copiar");
+                controller.showInformationDialog(TC.get( "ImportChapter.ProblemsCopying.Title" ), TC.get( "ImportChapter.ProblemsCopying.Message",xmlPath+oldPath  ));
         }
+        
+        // store for the oldPath key the newPath to change future appearances of oldPath for other resources in the chapter 
+        resourcesAdded.put( oldPath, oldPathWithoutName + fileName  );
        
         return oldPathWithoutName + fileName;
         }
-        
-        return oldPath;
+       
+        return resourcesAdded.get( oldPath );
     }
     
 
@@ -389,13 +442,12 @@ public class ImportChapterTool extends Tool {
 
     @Override
     public boolean undoTool( ) {
-      //  if (successfullyImported){
-            //TODO añadir cartelito indicando que los archivos copiados no se borraran, que  vayan a la opción de liberar asstes para hacer eso
+
+            //TODO notice that files can not be deleted after undo importation
             boolean done = ( chaptersController.removeChapterDataControl( index ) ) != null;
             controller.reloadData( );
             return done;
-        //} else
-          //      return true;
+
     }
 
 }

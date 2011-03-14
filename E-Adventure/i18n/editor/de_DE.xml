@@ -1767,6 +1767,15 @@
 <entry key="BookParagraphsList.TextParagraph">{#0} - Textsabsatz</entry>
 <entry key="IMS.Educational.SemanticDensity0">Very Low</entry>
 <entry key="Search.ActionOverGameState">Action über den Stand des Spiels</entry>
+<entry key="ActionProperties.EditClickEffects">Bearbeiten "klick-effekte"</entry>
+<entry key="ActionProperties.EnableClickEffects">Aktivieren sie "klick-effekte"</entry>
+<entry key="ActionProperties.EnableClickEffects.ToolTip">Wählen sie zum hinzufügen "klick-effekte".
+Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswählen..</entry>
+<entry key="ActionProperties.EditClickFailEffects">Bearbeiten "klick-scheitern-effekte"</entry>
+<entry key="ActionProperties.EnableClickFailEffects">Aktivieren sie "klick-scheitern-effekte"</entry>
+<entry key="ActionProperties.EnableClickFailEffects.ToolTip">>Wählen sie zum hinzufügen "klick-scheitern-effekte".
+Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der maßnahme betroffen sein.</entry>
+<entry key="ActionProperties.EditComplexEffects">Bearbeiten komplexer effekte</entry>
 <entry key="MenuAdventure.CheckConsistency">Überprüfung der Gültigkeit</entry>
 <entry key="Effect.GenerateObject">Objekt erzeugen</entry>
 <entry key="AssetsChooser.Audio">Wählen Sie eine Tonspur</entry>
@@ -1841,4 +1850,21 @@
 <entry key="TalkToAction.MessageSelectConversation">Wählen Sie ein Gespräch</entry>
 <entry key="BookPage.NotValidURL">Der Server konnte nicht gefunden werden. Bitte überprüfen Sie die Adresse und die Internetverbindung</entry>
 <entry key="LOMES.MetaMetaData.Language">Sprache</entry>
+<entry key="LoadingScreen.ImportChapter.Message">Importieren Kapitel</entry>
+<entry key="ImportChapter.ChapterDefault.Title">Importierte Kapitel</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Title">Dateien während der Einfuhr Prozess geändert</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Message">{#0} Dateien während der Kapitel Einfuhr aufgrund einer Kollision zwischen der Quelle und der destinty Projekte Namen umbenannt.</entry>
+<entry key="ImportChapter.ImportationOK.Title">Einfuhr fertig</entry>
+<entry key="ImportChapter.ImportationOK.Message">Das Kapitel wurde korrekt importiert.</entry>
+<entry key="ImportChapter.BadFile.Title">Datei nicht gültig</entry>
+<entry key="ImportChapter.BadFile.Message">Die ausgewählte Datei ist keine XML e-Adventure Kapitel Datei.</entry>
+<entry key="ImportChapter.ProblemsParsing.Title">Probleme Parsen der Kapitel</entry>
+<entry key="ImportChapter.ProblemsParsing.Message">Das Kapitel Einfuhr Prozess hat für Probleme Parsen der Kapitel unterbrochen worden.</entry>
+<entry key="ImportChapter.ProblemsCopying.Title">Datei Problem</entry>
+<entry key="ImportChapter.ProblemsCopying.Message">Die Datei {#0} kann nicht kopiert werden.</entry>
+<entry key="ImportChapter.UnknowProblems.Title">Probleme bei der Einfuhr</entry>
+<entry key="ImportChapter.UnknowProblems.Message">Das Kapitel Einfuhr Prozess wurde unterbrochen.</entry>
+<entry key="ImportChapter.Notice.Title">Bekanntmachung über die Einfuhr</entry>
+<entry key="ImportChapter.Notice.Message">Obwohl der Import erfolgreich abgeschlossen wurde, gibt es keine Garantie, dass Kapitel ausgeführt wird. Wollen Sie weitermachen?</entry>
+<entry key="MenuChapters.ImportChapter">Import Kapitel</entry>
 </properties>

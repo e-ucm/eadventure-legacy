@@ -1758,4 +1758,21 @@
 <entry key="TalkToAction.MessageSelectConversation">Seleccione uma conversação</entry>
 <entry key="BookPage.NotValidURL">Não se pode aceder à URL indicada. Por favor, comprove o endereço e o  funcionamento da sua conexão à Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Língua</entry>
+<entry key="LoadingScreen.ImportChapter.Message">Capítulo Importação</entry>
+<entry key="ImportChapter.ChapterDefault.Title">Importado Capítulo</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Title">Arquivos modificados durante o processo de importação</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Message">{#0} arquivos foram renomeados durante a importação capítulo devido ao nome da colisão entre a fonte e os projetos destinty.</entry>
+<entry key="ImportChapter.ImportationOK.Title">Importação concluída</entry>
+<entry key="ImportChapter.ImportationOK.Message">O capítulo foi importado corretamente.</entry>
+<entry key="ImportChapter.BadFile.Title">Arquivo não é válido</entry>
+<entry key="ImportChapter.BadFile.Message">O arquivo selecionado não é um XML e Aventura de arquivo capítulo.</entry>
+<entry key="ImportChapter.ProblemsParsing.Title">Problemas de análise do capítulo</entry>
+<entry key="ImportChapter.ProblemsParsing.Message">O processo de importação capítulo foi interrompida por problemas de análise do capítulo.</entry>
+<entry key="ImportChapter.ProblemsCopying.Title">Arquivo com problema</entry>
+<entry key="ImportChapter.ProblemsCopying.Message">O arquivo {#0} não pode ser copiado.</entry>
+<entry key="ImportChapter.UnknowProblems.Title">Problemas durante a importação</entry>
+<entry key="ImportChapter.UnknowProblems.Message">O processo de importação capítulo foi interrompida.</entry>
+<entry key="ImportChapter.Notice.Title">Aviso de importação</entry>
+<entry key="ImportChapter.Notice.Message">Embora o processo de importação é concluída com êxito, não há garantia de que o capítulo será executado. Você quer continuar?</entry>
+<entry key="MenuChapters.ImportChapter">Capítulo Importação</entry>
 </properties>
