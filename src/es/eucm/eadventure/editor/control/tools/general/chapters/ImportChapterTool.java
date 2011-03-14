@@ -193,6 +193,7 @@ public class ImportChapterTool extends Tool {
             
                 if( chapterIS != null ) {
                     // set AllElementsWithAssets to store
+                    AllElementsWithAssets.resetAllAssets( );
                     AllElementsWithAssets.setStorePath( true );
                     // Set the chapter handler with a new created chapter; 
                     ChapterHandler chapterParser = new ChapterHandler( isCreator,importedChapter );
@@ -284,10 +285,12 @@ public class ImportChapterTool extends Tool {
                             String tempPath = xmlPath + oldPathWithoutName + fileName;
                             String extension = "";
                             // check the extension: .jpg or .png
-                            if (new File(tempPath + "_01.jpg").exists( ))
+                            // the right side of the or is added for EmptyImage or empty Icon
+                            if (new File(tempPath + "_01.jpg").exists( ) || new File(tempPath +".jpg").exists( ))
                                 extension = ".jpg";
-                            else if (new File(tempPath + "_01.png").exists( ))
+                            else if (new File(tempPath + "_01.png").exists( ) || new File(tempPath +".png").exists( ))
                                 extension = ".png";
+                         
                             int i = 1;
                             //look for all the frames of the old eAd animation
                             String fullPath = tempPath +"_01" + extension;
@@ -383,15 +386,19 @@ public class ImportChapterTool extends Tool {
       //if the file is an old eAd animation, store the suffix
         String suffix = "";
         boolean isOldAnimation=false;
+       // try {
         if (Character.isDigit( fileName.charAt( fileName.lastIndexOf( "_") + 1 )) &&  
                 Character.isDigit( fileName.charAt( fileName.lastIndexOf( "_") + 2 )) && fileName.charAt( fileName.lastIndexOf( "_") + 3 )=='.' ){
             suffix = fileName.substring(fileName.lastIndexOf( "_" ), fileName.lastIndexOf( "." ));
             isOldAnimation = true;
         }
+        //}catch (Exception e){
+          //  suffix = "";
+        //}
+        
         
         
         while (newPathFile.exists( )){
-            
             
             // if it exists, add a import suffix until the file doesn't exist
             if (fileName.contains( "impEad" )){
@@ -417,6 +424,7 @@ public class ImportChapterTool extends Tool {
             newPath = fullPathWithoutName + fileName; 
             newPathFile = new File(newPath);
             i++;
+       
         }
         
             if (!File.copyTo( new File(xmlPath+oldPath), new File(newPath)))
