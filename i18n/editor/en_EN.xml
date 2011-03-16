@@ -2009,4 +2009,6 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="ImportChapter.Notice.Title">Notice of importation</entry>
 <entry key="ImportChapter.Notice.Message">Although the import process completes successfully, there is no guarantee that chapter will run. Do you want to continue?</entry>
 <entry key="MenuChapters.ImportChapter">Import chapter</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Title">Folder not found</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Message">The folder with the image files for {#0} file has not been found. Nevertheless, the importation process will continue.</entry>
 </properties>

@@ -1861,4 +1861,6 @@
 <entry key="ImportChapter.Notice.Title">Aviz de import</entry>
 <entry key="ImportChapter.Notice.Message">Deşi procesul de import se încheie cu succes, nu există nici o garanţie că va rula capitol. Doriţi să continuaţi?</entry>
 <entry key="MenuChapters.ImportChapter">Import capitol</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Title">Dosar nu a fost găsit</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Message">Folderul cu fişierele de imagine pentru {#0} fişier nu a fost găsit. Cu toate acestea, procesul de import va continua.</entry>
 </properties>

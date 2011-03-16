@@ -40,6 +40,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.AllElementsWithAssets;
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.HasId;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -207,7 +208,11 @@ public class Book implements Cloneable, Documented, HasId {
 
     public void addPage( String uri, int type, int margin, boolean scrollable ) {
 
-        pages.add( new BookPage( uri, type, margin, scrollable ) );
+        BookPage page = new BookPage( uri, type, margin, scrollable );
+        pages.add( page );
+     // add the page to the structure that gather all elements with assets (for chapter importation)
+        if (uri!= null && !uri.equals( "" ))
+            AllElementsWithAssets.addAsset( page );
     }
 
     /**
@@ -218,8 +223,12 @@ public class Book implements Cloneable, Documented, HasId {
      */
 
     public void addPage( String uri, int type, int margin, int marginEnd, int marginTop, int marginBottom, boolean scrollable ) {
-
-        pages.add( new BookPage( uri, type, margin, marginEnd, marginTop, marginBottom, scrollable ) );
+        
+        BookPage page = new BookPage( uri, type, margin, marginEnd, marginTop, marginBottom, scrollable );
+        pages.add(  page );
+        // add the page to the structure that gather all elements with assets (for chapter importation)
+        if (uri!= null && !uri.equals( "" ))
+            AllElementsWithAssets.addAsset( page );
     }
 
     /**
@@ -231,7 +240,11 @@ public class Book implements Cloneable, Documented, HasId {
 
     public void addPage( String uri, int type ) {
 
-        pages.add( new BookPage( uri, type ) );
+        BookPage page = new BookPage( uri, type );
+        pages.add( page );
+        // add the page to the structure that gather all elements with assets (for chapter importation)
+        if (uri!= null && !uri.equals( "" ))
+            AllElementsWithAssets.addAsset( page );
     }
 
     /**
@@ -290,6 +303,9 @@ public class Book implements Cloneable, Documented, HasId {
     public void addParagraph( BookParagraph paragraph ) {
 
         paragraphs.add( paragraph );
+        // add the page to the structure that gather all elements with assets (for chapter importation)
+        if (paragraph.getType( ) == BookParagraph.IMAGE)
+            AllElementsWithAssets.addAsset( paragraph );
     }
 
     @Override

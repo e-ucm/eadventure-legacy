@@ -2013,4 +2013,6 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="ImportChapter.Notice.Title">Aviso de importación</entry>
 <entry key="ImportChapter.Notice.Message">Aunque el proceso de importación termine correctamente no se garantiza que el capítulo se pueda ejecutar. ¿Desea continuar?</entry>
 <entry key="MenuChapters.ImportChapter">Importar capítulo</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Title">Carpeta no encontrada</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Message">La carpeta con los ficheros de imagen para {#0} no ha sido encontrada. No obstante, el proceso de importación continuará.</entry>
 </properties>
