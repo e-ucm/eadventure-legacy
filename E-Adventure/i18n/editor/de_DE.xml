@@ -1867,4 +1867,6 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="ImportChapter.Notice.Title">Bekanntmachung über die Einfuhr</entry>
 <entry key="ImportChapter.Notice.Message">Obwohl der Import erfolgreich abgeschlossen wurde, gibt es keine Garantie, dass Kapitel ausgeführt wird. Wollen Sie weitermachen?</entry>
 <entry key="MenuChapters.ImportChapter">Import Kapitel</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Title">Ordner nicht gefunden</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Message">Der Ordner mit den Bilddateien für {#0} Datei wurde nicht gefunden. Dennoch wird die Einfuhr fortzusetzen.</entry>
 </properties>

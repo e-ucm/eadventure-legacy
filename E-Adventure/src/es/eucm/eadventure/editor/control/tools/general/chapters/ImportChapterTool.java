@@ -57,6 +57,8 @@ import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.book.BookPage;
+import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
@@ -149,6 +151,9 @@ public class ImportChapterTool extends Tool {
             controller.showLoadingScreen( TC.get("LoadingScreen.ImportChapter.Message"));
             // parse chapter
             Chapter importedChapter = parseChapter(selectedChaperXML);
+            // if importedChapter is null, something went wrong during parsing. 
+            if (importedChapter !=null){
+            
             //if there are not assets in the parsed XML, the xml is not chapter file
             if (AllElementsWithAssets.getAllAssets( ).size( ) > 0){
             //move all the assets used in the imported chapter to the project path
@@ -169,7 +174,11 @@ public class ImportChapterTool extends Tool {
             controller.hideLoadingScreen();
             controller.showInformationDialog(TC.get( "ImportChapter.BadFile.Title" ), TC.get( "ImportChapter.BadFile.Message"));
             return false;
-         }
+         }// if importedChapter is null
+            controller.hideLoadingScreen();
+            controller.showInformationDialog(TC.get( "ImportChapter.UnknowProblems.Title" ), TC.get( "ImportChapter.UnknowProblems.Message" )); 
+            return false;
+            }
         }
         // the user cancel the importation process
         return false;
@@ -198,7 +207,7 @@ public class ImportChapterTool extends Tool {
                     // Set the chapter handler with a new created chapter; 
                     ChapterHandler chapterParser = new ChapterHandler( isCreator,importedChapter );
 
-                    Loader.getFactory( ).setValidating( true );
+                    Loader.getFactory( ).setValidating( false );
                     
                     SAXParser saxParser = Loader.getFactory( ).newSAXParser( );
 
@@ -212,16 +221,19 @@ public class ImportChapterTool extends Tool {
                 //TODO mostrar mensaje de error significativo
                 e.getStackTrace( );
                 controller.showInformationDialog(TC.get( "ImportChapter.ProblemsParsing.Title" ), TC.get( "ImportChapter.ProblemsParsing.Message" )); 
+                importedChapter = null;
             }
             catch( SAXException e ) {
                 //TODO mostrar mensaje de error significativo
                 e.getStackTrace( );
                 controller.showInformationDialog(TC.get( "ImportChapter.ProblemsParsing.Title" ), TC.get( "ImportChapter.ProblemsParsing.Message" ));
+                importedChapter = null;
             }
             catch( IOException e ) {
                 //TODO mostrar mensaje de error significativo
                 e.getStackTrace( );
                 controller.showInformationDialog(TC.get( "ImportChapter.ProblemsParsing.Title" ), TC.get( "ImportChapter.ProblemsParsing.Message" )); 
+                importedChapter = null;
             }
         }
         return importedChapter;
@@ -231,6 +243,7 @@ public class ImportChapterTool extends Tool {
      * Copy all the elements from chapter's folder to the current project's folder
      * 
      * @param selectedFile
+     *              the xmlFile selected
      */
     private void getAllFiles(java.io.File selectedFile){
         String xmlPath = selectedFile.getAbsolutePath( ).substring( 0, selectedFile.getAbsolutePath( ).indexOf( selectedFile.getName( )  ));
@@ -245,80 +258,12 @@ public class ImportChapterTool extends Tool {
             //identify the kind of the object
             
             // Get all the files for Resources objects in the chapter (in the AllElementsWithAssets structure the hashmap with all
-            // resources for the Resources is added)
+            // resources for the Resources are added)
             if (o instanceof HashMap){
                 Iterator it = ((HashMap)o).entrySet( ).iterator( );
                 while (it.hasNext()) {
                     Map.Entry entry = (Map.Entry)it.next( );
-                    oldPath = (String)entry.getValue( );
-                 // extract the full path without the file name and the name of the asset
-                    String[] oldPathSplit = oldPath.split( "/" );
-                    String fileName = oldPathSplit[oldPathSplit.length-1]; 
-                    
-                    // if the selected file is .eaa file, all the assets referenced in the .eaa file must be copied too
-                    if (oldPath.endsWith( ".eaa" )){
-                        
-                        Animation animation = Loader.loadAnimation( isCreator, xmlPath + oldPath , new EditorImageLoader() );
-                        
-                        //Iterate the list of frames copying all the resources (both images and sound files, if they exist)
-                        // and changing the name if it was necessary
-                        for( Frame f : animation.getFrames( ) ) {
-                            if( f.getUri( ) != null ) {
-                               f.setUri( copyFile(newBasePath,f.getUri( ),xmlPath) );
-                            }
-                            if( f.getSoundUri( ) != null && f.getSoundUri( )!="" ) {
-                                f.setSoundUri( copyFile(newBasePath,f.getSoundUri( ),xmlPath) );
-                            }
-                        }
-                        
-                        // Once all the animation's resources has been copied, write again the Animation cause the name of some of its resources
-                        // may have changed.
-                           // first, copy the .eaa file because it would be necessary to change its name
-                           newPath =  copyFile(newBasePath,oldPath,xmlPath);
-                           // second, overwrite this file to ensure that all the inner resources paths are correct
-                           AnimationWriter.writeAnimation( newPath, animation );
-                    } else 
-                        // if the file hasn't sufix is because it's a file with _01 patter (old eAd animations), look for the file with .png or .jpg extension
-                        // Repeat the process for _0X files 
-                        if (!fileName.contains( "." )){
-                            String oldPathWithoutName = oldPath.substring( 0, oldPath.indexOf( fileName ) );
-                            String tempPath = xmlPath + oldPathWithoutName + fileName;
-                            String extension = "";
-                            // check the extension: .jpg or .png
-                            // the right side of the or is added for EmptyImage or empty Icon
-                            if (new File(tempPath + "_01.jpg").exists( ) || new File(tempPath +".jpg").exists( ))
-                                extension = ".jpg";
-                            else if (new File(tempPath + "_01.png").exists( ) || new File(tempPath +".png").exists( ))
-                                extension = ".png";
-                         
-                            int i = 1;
-                            //look for all the frames of the old eAd animation
-                            String fullPath = tempPath +"_01" + extension;
-                            
-                            if (new File(fullPath).exists( )){
-                                boolean moreFrames = true;
-                                while (moreFrames){
-                                
-                                    newPath = copyFile(newBasePath, oldPathWithoutName + fullPath.substring( fullPath.indexOf( fileName ), fullPath.length( ) ),xmlPath);
-                                    if (i<9)
-                                        fullPath = tempPath +"_0" + i + extension;
-                                    else 
-                                        fullPath = tempPath +"_" + i + extension;
-                                    i++;
-                                    moreFrames = new File(fullPath).exists( );
-                                }
-                            } else {
-                                newPath = copyFile(newBasePath, oldPathWithoutName + fullPath.substring( fullPath.indexOf( fileName ), fullPath.length( ) ),xmlPath);
-                            }
-                            //in the path to be set for the resource mustn't appear the _0X suffix
-                            newPath = newPath.substring( 0, newPath.lastIndexOf( "_" ) );
-                            
-                    }
-                    // For the other kinds of resources
-                    else {
-                     // extract the new path taking the folder and the name of the oldPath and adding the current project folder
-                        newPath = copyFile(newBasePath,oldPath,xmlPath);
-                    }
+                    newPath = manageResourcesAssets((String)entry.getValue( ), newBasePath, xmlPath);
                     // set the path in the all resource (the name could be changed)
                     entry.setValue( newPath );
                   }
@@ -342,7 +287,51 @@ public class ImportChapterTool extends Tool {
                     newPath = copyFile(newBasePath,oldPath,xmlPath);
                     ((PlayAnimationEffect)o).setPath( newPath );
                 }
+            } 
+            // Get the path for html files in books
+            else if (o instanceof BookPage){
+                oldPath = ((BookPage)o).getUri( );
+             // extract the new path taking the folder and the name of the oldPath and adding the current project folder
+                newPath = copyFile(newBasePath,oldPath,xmlPath);
+                // look for the folder with the assets for the HTML
+                // oldPath is used because the names inside the HTML won't be changed (images in html will be copied
+                // with the same name to the destiny folder)
+                // TODO change names inside HTML when it is necessary
+                String originExtension="";
+                String htmlWithoutExtension = oldPath.substring( 0 , oldPath.lastIndexOf( "." ));
+                if (new File(xmlPath + htmlWithoutExtension  + "_files").exists( ))
+                    originExtension = "_files";
+                else if (new File(xmlPath + htmlWithoutExtension + "_archivos").exists( ))
+                    originExtension = "_archivos";
+                else
+                    controller.showInformationDialog(TC.get("ImportChapter.NoFolderForHTMLImages.Title"), TC.get( "ImportChapter.NoFolderForHTMLImages.Message",xmlPath + oldPath  ));
+                
+                if (!originExtension.equals( "" )){
+                    File destinyFolder = new File(newBasePath +"/" + htmlWithoutExtension + originExtension);
+                    File originFolder = new File(xmlPath + "/" + htmlWithoutExtension + originExtension);
+                    if (!destinyFolder.exists( ))
+                        destinyFolder.mkdir( );
+                    String[] filesToCopy = originFolder.list( );
+                    for (int i=0; i<filesToCopy.length;i++){
+                        if (!File.copyTo( new File(originFolder, filesToCopy[i]), new File(destinyFolder, filesToCopy[i]))){
+                            //TODO mensaje de error
+                            System.out.println("something wrong happens");
+                        }
+                    }
+                }
+                
+                
+                
+                ((BookPage)o).setUri( newPath );
             }
+            // Get the path of an image in image paragraphs in books
+            else if (o instanceof BookParagraph){
+                oldPath = ((BookParagraph)o).getContent( );
+             // extract the new path taking the folder and the name of the oldPath and adding the current project folder
+                newPath = copyFile(newBasePath,oldPath,xmlPath);
+                ((BookParagraph)o).setContent( newPath );
+            }
+            
              
         }
         
@@ -351,6 +340,90 @@ public class ImportChapterTool extends Tool {
         AllElementsWithAssets.resetAllAssets( );
     }
     
+    /**
+     * Manage the assets for 
+     * 
+     * 
+     * @param oldPath
+     * @param newBasePath
+     * @param xmlPath
+     * @return
+     */
+    private String manageResourcesAssets(String oldPath, String newBasePath, String xmlPath){
+        
+        String newPath = "";
+        // extract the full path without the file name and the name of the asset
+           String[] oldPathSplit = oldPath.split( "/" );
+           String fileName = oldPathSplit[oldPathSplit.length-1]; 
+           
+           // if the selected file is .eaa file, all the assets referenced in the .eaa file must be copied too
+           if (oldPath.endsWith( ".eaa" )){
+               
+               Animation animation = Loader.loadAnimation( isCreator, xmlPath + oldPath , new EditorImageLoader() );
+               
+               //Iterate the list of frames copying all the resources (both images and sound files, if they exist)
+               // and changing the name if it was necessary
+               for( Frame f : animation.getFrames( ) ) {
+                   if( f.getUri( ) != null && !f.getUri( ).equals( "" )) {
+                      f.setUri( copyFile(newBasePath,f.getUri( ),xmlPath) );
+                   }
+                   if( f.getSoundUri( ) != null && f.getSoundUri( )!="" ) {
+                       f.setSoundUri( copyFile(newBasePath,f.getSoundUri( ),xmlPath) );
+                   }
+               }
+               
+               // Once all the animation's resources has been copied, write again the Animation cause the name of some of its resources
+               // may have changed.
+                  // first, copy the .eaa file because it would be necessary to change its name
+                  newPath =  copyFile(newBasePath,oldPath,xmlPath);
+                  // second, overwrite this file to ensure that all the inner resources paths are correct
+                  AnimationWriter.writeAnimation( newPath, animation );
+           } else 
+               // if the file hasn't sufix is because it's a file with _01 patter (old eAd animations), look for the file with .png or .jpg extension
+               // Repeat the process for _0X files 
+               if (!fileName.contains( "." )){
+                   String oldPathWithoutName = oldPath.substring( 0, oldPath.indexOf( fileName ) );
+                   String tempPath = xmlPath + oldPathWithoutName + fileName;
+                   String extension = "";
+                   // check the extension: .jpg or .png
+                   // the right side of the or is added for EmptyImage or empty Icon
+                   if (new File(tempPath + "_01.jpg").exists( ) || new File(tempPath +".jpg").exists( ))
+                       extension = ".jpg";
+                   else if (new File(tempPath + "_01.png").exists( ) || new File(tempPath +".png").exists( ))
+                       extension = ".png";
+                
+                   int i = 2;
+                   //look for all the frames of the old eAd animation
+                   String fullPath = tempPath +"_01" + extension;
+                   
+                   if (new File(fullPath).exists( )){
+                       boolean moreFrames = true;
+                       while (moreFrames){
+                       
+                           newPath = copyFile(newBasePath, oldPathWithoutName + fullPath.substring( fullPath.indexOf( fileName ), fullPath.length( ) ),xmlPath);
+                           if (i<9)
+                               fullPath = tempPath +"_0" + i + extension;
+                           else 
+                               fullPath = tempPath +"_" + i + extension;
+                           i++;
+                           moreFrames = new File(fullPath).exists( );
+                       }
+                   } else {
+                       newPath = copyFile(newBasePath, oldPathWithoutName + fullPath.substring( fullPath.indexOf( fileName ), fullPath.length( ) ),xmlPath);
+                   }
+                   //in the path to be set for the resource mustn't appear the _0X suffix
+                   newPath = newPath.substring( 0, newPath.lastIndexOf( "_" ) );
+                   
+           }
+           // For the other kinds of resources
+           else {
+            // extract the new path taking the folder and the name of the oldPath and adding the current project folder
+               newPath = copyFile(newBasePath,oldPath,xmlPath);
+           }
+           
+           return newPath;
+        
+    }
     
     
     /**
@@ -392,22 +465,16 @@ public class ImportChapterTool extends Tool {
             suffix = fileName.substring(fileName.lastIndexOf( "_" ), fileName.lastIndexOf( "." ));
             isOldAnimation = true;
         }
-        //}catch (Exception e){
-          //  suffix = "";
-        //}
-        
-        
         
         while (newPathFile.exists( )){
             
             // if it exists, add a import suffix until the file doesn't exist
             if (fileName.contains( "impEad" )){
                 String[] splitFileName = fileName.split( "impEad" );
-                // is it's an old animation, remove the old _0X and add it before _impEad
-                if (isOldAnimation){
-                    splitFileName[0] = splitFileName[0].substring( 0, splitFileName[0].lastIndexOf( "_" ));
-                }
-                fileName = splitFileName[0] + "impEad" + i + suffix + splitFileName[1].substring( 1 ); // quit the digit
+                // remove the old _0X and add it before _impEad
+                //quit the number of the impEad 
+                splitFileName[1] = splitFileName[1].substring( splitFileName[1].lastIndexOf( "." ));
+                fileName = splitFileName[0] + "impEad" + i + suffix + splitFileName[1]; 
             } else {
                 String[] splitFileName = fileName.split( "\\." );
                 // is it's an old animation, remove the old _0X and add it before _impEad

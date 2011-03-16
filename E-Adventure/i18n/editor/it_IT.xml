@@ -1876,4 +1876,6 @@
 <entry key="ImportChapter.Notice.Title">Avviso di importazione</entry>
 <entry key="ImportChapter.Notice.Message">Sebbene il processo di importazione viene completata correttamente, non vi è alcuna garanzia che il capitolo verrà eseguito. Vuoi continuare?</entry>
 <entry key="MenuChapters.ImportChapter">Importa capitolo</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Title">Cartella non trovata</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Message">La cartella con i file di immagine per {#0} file non è stato trovato. Tuttavia, il processo di importazione continuerà.</entry>
 </properties>
