@@ -227,7 +227,7 @@ public class Book implements Cloneable, Documented, HasId {
         BookPage page = new BookPage( uri, type, margin, marginEnd, marginTop, marginBottom, scrollable );
         pages.add(  page );
         // add the page to the structure that gather all elements with assets (for chapter importation)
-        if (uri!= null && !uri.equals( "" ))
+        if (type!=BookPage.TYPE_URL && uri!= null && !uri.equals( "" ))
             AllElementsWithAssets.addAsset( page );
     }
 
