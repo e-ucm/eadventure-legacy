@@ -299,6 +299,9 @@ public class ImportChapterTool extends Tool {
                 // TODO change names inside HTML when it is necessary
                 String originExtension="";
                 String htmlWithoutExtension = oldPath.substring( 0 , oldPath.lastIndexOf( "." ));
+                
+                // if the book page is resource, check the folder with images for the html
+                if (((BookPage)o).getType( ) == BookPage.TYPE_RESOURCE){
                 if (new File(xmlPath + htmlWithoutExtension  + "_files").exists( ))
                     originExtension = "_files";
                 else if (new File(xmlPath + htmlWithoutExtension + "_archivos").exists( ))
@@ -319,7 +322,7 @@ public class ImportChapterTool extends Tool {
                         }
                     }
                 }
-                
+                }
                 
                 
                 ((BookPage)o).setUri( newPath );
