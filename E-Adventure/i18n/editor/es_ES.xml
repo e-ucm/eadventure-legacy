@@ -6,6 +6,7 @@
 <entry key="GeneralText.EditEffects">Editar efectos</entry>
 <entry key="UOLProperties.InsertProperty">Insertar nueva propiedad</entry>
 <entry key="GlobalStatesList.DeleteGlobalState">Eliminar el estado global seleccionado</entry>
+<entry key="ImportChapter.ChapterDefault.Title">Capítulo importado</entry>
 <entry key="Operation.RenameAtrezzoTitle">Renombrar objeto de atrezo</entry>
 <entry key="Operation.AddChapterTitle">Añadir nuevo capítulo</entry>
 <entry key="MenuAdventure.ModePlayerVisible">Modo jugador visible</entry>
@@ -15,8 +16,8 @@
 <entry key="AssessmentProperties.MoveDown">Mover propiedad seleccionada hacia abajo</entry>
 <entry key="SmallAction.NeedsGetTo">Necesita alcanzar</entry>
 <entry key="MoveObjectEffect.Animated">Animar</entry>
-<entry key="Item.Description">Descripción breve del objeto (se muestra al mirar el objeto)</entry>
 <entry key="LOMES.LifeCycle.Role9">Technical validator</entry>
+<entry key="Item.Description">Descripción breve del objeto (se muestra al mirar el objeto)</entry>
 <entry key="ActiveAreasList.AddActiveArea">Añadir nueva zona activa</entry>
 <entry key="LOMES.LifeCycle.Role8">Content provider</entry>
 <entry key="BarriersList.EditSides">Editar lados</entry>
@@ -26,8 +27,8 @@
 <entry key="Operation.AddAssessmentRuleMessage">Escriba un identificador para la nueva regla</entry>
 <entry key="LOMES.LifeCycle.Role4">Validator</entry>
 <entry key="BookPages.AddPage">Crear nueva página</entry>
-<entry key="Effect.ShowText">Mostrar texto</entry>
 <entry key="LOMES.LifeCycle.Role3">Terminator</entry>
+<entry key="Effect.ShowText">Mostrar texto</entry>
 <entry key="LOMES.LifeCycle.Role2">Initiator</entry>
 <entry key="LOMES.LifeCycle.Role1">Publisher</entry>
 <entry key="LOMES.LifeCycle.Role0">Author</entry>
@@ -39,16 +40,6 @@
 <entry key="AssessmentRule.Importance.VeryLow">Muy baja</entry>
 <entry key="AssessmentRulesList.ListTitle">Lista de reglas de evaluación</entry>
 <entry key="EffectsGroup.Trigger">Lanzar evento</entry>
-<entry key="ActionProperties.EditClickEffects">Editar "efectos click"</entry>
-<entry key="ActionProperties.EnableClickEffects">Activar "efectos click"</entry>
-<entry key="ActionProperties.EnableClickEffects.ToolTip">Seleccionar para añadir "efectos click". 
-Este tipo de efectos se ejecutarán cuando seleccione la acción dentro del juego.</entry>
-<entry key="ActionProperties.EditClickFailEffects">Editar "efectos click fallido"</entry>
-<entry key="ActionProperties.EnableClickFailEffects">Activar "efectos click fallido"</entry>
-<entry key="ActionProperties.EnableClickFailEffects.ToolTip">Seleccionar para añadir "efectos click fallido". 
-Este tipo de efectos se ejecutarán cuando dentro del juego no se realice la acción correctamente (por ejemplo, no se "use con el 
-objeto seleccionado para la acción").</entry>
-<entry key="ActionProperties.EditComplexEffects">Editar efectos complejos</entry>
 <entry key="Action.ActiveWhenConditionsArent.ToolTip">Seleccionar para que la acción esté activa a pesar de que no haya condiciones</entry>
 <entry key="Error.DTD.NotFound.Title">Archivo importante no encontrado</entry>
 <entry key="Conditions.Context.2B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará nada más comenzar a contar&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
@@ -85,11 +76,12 @@ Por favor, seleccione una de las siguientes opciones:
 <entry key="MoveNPCEffect.Title">Efecto mover personaje</entry>
 <entry key="SceneLocation.XCoordinate">Coordenada X</entry>
 <entry key="HighlightItemEffect.Title">Efecto resaltar objeto</entry>
+<entry key="ImportChapter.BadFile.Message">El fichero seleccionado no es un XML de capítulo eAdventure.</entry>
 <entry key="LOMES.Date.Seconds">Segundo</entry>
 <entry key="MenuAdventure.Commentaries">Comentarios automáticos</entry>
 <entry key="ActionsList.UseAction">Usar</entry>
 <entry key="Animation.AskFilenameTitle">Nueva animación</entry>
-<entry key="Button.use-grab.highlighted.Tip">Este es el botono de usar-coger resaltado, el que se eseña cuando el ratón esta sobre él pero no está presionado</entry>
+<entry key="Button.use-grab.highlighted.Tip">Este es el botono de usar-coger resaltado, el que se eseña cuando el ratón está sobre él pero no está presionado</entry>
 <entry key="StartDialog.Recent">Recientes</entry>
 <entry key="LOMES.LifeCycle.Role13">Subject matter expert</entry>
 <entry key="LOMES.LifeCycle.Role12">Instructional designer</entry>
@@ -100,17 +92,22 @@ Por favor, seleccione una de las siguientes opciones:
 <entry key="LOM.Duration.Minutes">Minutes</entry>
 <entry key="ErrorSolving.Asset.Deleted.Message">No se encontró el fichero "{#0}".
 Las referencias a dicho recurso fueron eliminadas.</entry>
+<entry key="MenuChapters.ImportChapter">Importar capítulo</entry>
 <entry key="Cursor.PreviewTitle">Previsualización</entry>
 <entry key="Action.OperationAddAction">Añadir acción</entry>
 <entry key="Resources.DescriptionCharacterAnimationWalkRight">Hacia la derecha</entry>
+<entry key="ImportChapter.ProblemsParsing.Title">Problemas parseando el capítulo</entry>
 <entry key="Cursors.Select">Seleccionar...</entry>
 <entry key="HighlightItemEffect.Description">Seleccione el objeto que desea resaltar, el tipo de resaltado y si el objeto debe animarse</entry>
 <entry key="Operation.IdErrorBlankSpaces">El identificador no debe contener espacios en blanco</entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.title"> Borrando bloque de recursos </entry>
 <entry key="LOMES.Technical.Type">Tipo</entry>
 <entry key="Scene.LookPanelTitle">Apariencias</entry>
 <entry key="AssetsChooser.Icon">Escoja una imagen de icono</entry>
 <entry key="AdaptationRule.InitialState.InitialScene">Escena inicial (opcional)</entry>
 <entry key="Resources.SpeakingAnimations">Animaciones hablando</entry>
+<entry key="ActionProperties.EnableClickEffects.ToolTip">Seleccionar para añadir "efectos click". 
+Este tipo de efectos se ejecutarán cuando seleccione la acción dentro del juego.</entry>
 <entry key="SmallAction.Appearence">Apariencia</entry>
 <entry key="CustomAction.PersonalizationTip">Panel para la personalización de la acción y el botón</entry>
 <entry key="Vars.DefaultVarName">nuevaVar</entry>
@@ -176,6 +173,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Conditions.Context.Sentence2a"> estará activo cuando se cumpla la siguiente condición: </entry>
 <entry key="Timer.RunsInLoop">Utiliza bucles</entry>
 <entry key="Cutscene.ReturnToLastScene">Vuelve a la escena anterior</entry>
+<entry key="DefaultClickAction.ShowDetails">Mostrar detalles</entry>
 <entry key="BookPages.DeletePage">Borrar página seleccioanda</entry>
 <entry key="TreeNode.AddElement39">Añadir regla de adaptación</entry>
 <entry key="TreeNode.AddElement38">Añadir regla de evaluacíón</entry>
@@ -303,6 +301,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Search.LineName">Nombre de la linea</entry>
 <entry key="HelpDialog.Title">Ayuda</entry>
 <entry key="BarriersList.Barrier">Barrera</entry>
+<entry key="DefaultClickAction.ShowActions">Mostrar acciones</entry>
 <entry key="NextScene.NoTransition">Sin transicion</entry>
 <entry key="Resources.DescriptionItemIcon">Icono de inventario del objeto</entry>
 <entry key="MenuChapters.MoveChapterDown">Mover capítulo abajo</entry>
@@ -346,6 +345,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="ExitsList.DuplicateExit">Duplicar la salida seleccionada</entry>
 <entry key="Operation.ExportProject.AsLO">Operación: Exportando proyecto como Objeto de Aprendizaje</entry>
 <entry key="Element.PostEffects">Post efectos</entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.message"> ¿Esta seguro de que desea borrar el bloque de recursos? Las condiciones del bloque de recursos que quedará activo para este elemento serán borradas. </entry>
 <entry key="Effect.MoveCharacterInfo">Mover personaje {#0} a x:{#1} y:{#2}</entry>
 <entry key="Action.ErrorNoItems">No hay objetos definidos en el capítulo.
 		Es imposible añadir una acción de este tipo.</entry>
@@ -480,7 +480,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 Se han borrado las referencias a dicho perfil.</entry>
 <entry key="Operation.AdventureConsistencyTitle">Validez de la aventura</entry>
 <entry key="NPC.Documentation">Documentación del personaje (no se usa en el motor)</entry>
-<entry key="Button.examine.pressed.Tip">Este es el botón de examinar presionado, el que se eseña cuando el ratón está pulsado sobre él</entry>
+<entry key="Button.examine.pressed.Tip">Este es el botón de examinar presionado, el que se enseña cuando el ratón está pulsado sobre él</entry>
 <entry key="Operation.AdaptationPanel.DeleteButton">Borrar</entry>
 <entry key="VarDialog.Err.Title">Formato de entrada erróneo</entry>
 <entry key="Operation.NewProject.FolderNotEmptyMessage">El directorio seleccionado no está vacío.
@@ -488,6 +488,7 @@ Se han borrado las referencias a dicho perfil.</entry>
 Si la carpeta del proyecto no está vacía, por favor compruebe
 que no contiene ningún fichero con el nombre 'descriptor.xml' o 'chapterXX.xml',
 donde XX es un múmero cualquiera.</entry>
+<entry key="ImportChapter.UnknowProblems.Message">EL proceso de importación de ficheros ha sido interrumpido.</entry>
 <entry key="MenuAdventure.CommentariesLabel">Marcar para habilitar los comentarios automáticos del jugador</entry>
 <entry key="SPEP.YCoordinate">Coordenada Y</entry>
 <entry key="MenuAdventure.AdventureData">Editar datos de la aventura...</entry>
@@ -506,6 +507,7 @@ donde XX es un múmero cualquiera.</entry>
 <entry key="SPEP.ConvertToIrregularArea">Convertir en area irregular</entry>
 <entry key="Button.talk.pressed.Description">Boton de hablar presionado</entry>
 <entry key="Operation.ExportToLOM.OK">Aceptar</entry>
+<entry key="ImportChapter.ProblemsParsing.Message">El proceso de importación del capítulo ha sido interrumpido por problemas parseando el XML.</entry>
 <entry key="HTMLEditor.QuitMessageTitle">Saliendo del editor</entry>
 <entry key="PlayAnimationEffect.Description">Seleccione una animación y una posición de destino para reproducirla:</entry>
 <entry key="Operation.ErrorLastScene">No se puede eliminar la última escena del capítulo.
@@ -562,6 +564,7 @@ donde XX es un múmero cualquiera.</entry>
 <entry key="LOMES.Educational.CognitiveProcess24">Investigate</entry>
 <entry key="LOMES.Educational.CognitiveProcess23">Innovate</entry>
 <entry key="VarDialog.Title">Introduzca el valor para la variable</entry>
+<entry key="ImportChapter.UnknowProblems.Title">Problemas durante la importación</entry>
 <entry key="LOMES.Educational.CognitiveProcess22">Extrapolate</entry>
 <entry key="Buttons.Preview">Ver el boton</entry>
 <entry key="MenuFile.ExportGame">Exportar como fichero EAD</entry>
@@ -629,6 +632,7 @@ Es muy recomendable que haga una copia de seguridad de su proyecto antes de cont
 <entry key="Operation.RenameConversationMessage">Introduzca un nuevo identificador con el que renombrar la conversación:</entry>
 <entry key="SwapPlayerMode.Message">Seguro que desea cambiar de modalidad? 
 	En cualquier caso, es posible volver a la modalidad anterior sin perder datos.</entry>
+<entry key="ImportChapter.BadFile.Title">Fichero no válido</entry>
 <entry key="Vars.ConfirmNewVar.Text">El nombre introducido se parece mucho a otros.
 ¿Estás seguro de que quieres crearlo? 
 Si no puedes seleccionar alguno de los que son similares de la lista</entry>
@@ -795,7 +799,7 @@ función de estos estados</entry>
 <entry key="GeneralText.EditEndConditions">Editar condiciones finales</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Title">El nombre existe.</entry>
 <entry key="BookPage.NotValidImage">Se han encontrado problemas con el formato de imagen</entry>
-<entry key="Button.examine.normal.Tip">Este es el botón de examinar normal, el que se eseña cuando el ratón no está sobre él</entry>
+<entry key="Button.examine.normal.Tip">Este es el botón de examinar normal, el que se enseña cuando el ratón no está sobre él</entry>
 <entry key="ActivateEffect.Description">Seleccione el flag que será activado:</entry>
 <entry key="DeleteUnusedAssets.NoUnsuedAssetsFound">No se encontraron recursos no utilizados</entry>
 <entry key="MacrosList.Title">Macros</entry>
@@ -877,6 +881,7 @@ función de estos estados</entry>
 <entry key="GraphicConfig.WindowedDescription">La aventura aparece en una ventana sobre el escritorio del usuario</entry>
 <entry key="Resources.ArrowLeftOver">Imagen para la flecha izquierda cuándo el ratón está encima</entry>
 <entry key="Error.EffectMovePlayerNotAllowed.Title">Operación no permitida</entry>
+<entry key="Perspective.Regular">Normal</entry>
 <entry key="BarriersList.AddBarrier">Añadir nueva barrera</entry>
 <entry key="LOMES.Classification.TaxonPathTaxon">Taxón</entry>
 <entry key="ShowTextEffect.TextLabel">Introduzca el texto: </entry>
@@ -928,6 +933,7 @@ Esto puede provocar errores al cargar las aventuras.</entry>
 <entry key="Inventory.Select">Seleccionar...</entry>
 <entry key="Resources.CreateIcon">Crear icono desde imagen</entry>
 <entry key="Operation.AdventureConsistencyErrorPlaySound">El efecto "Reproducir sonido" no tiene ningún archivo sonido asociado</entry>
+<entry key="ImportChapter.ProblemsCopying.Title">Problema con fichero</entry>
 <entry key="ActionsList.ExamineAction">Examinar</entry>
 <entry key="AdaptationRulesList.ColumnHeader3">Estado inicial de los flags</entry>
 <entry key="HighlightItemEffect.Red">Resaltar en rojo</entry>
@@ -1027,6 +1033,7 @@ Dicha operación no se completó.</entry>
 <entry key="Effect.IncrementVarInfo">Incrementar la variable "{#0}" en "{#1}" unidades</entry>
 <entry key="MenuConfiguration.AutoBackup">Copia de seguridad automática cada 15 minutos</entry>
 <entry key="LOM.Educational.Difficulty">Difficulty</entry>
+<entry key="DefaultClickAction.Explanation">Acción por defecto para click derecho</entry>
 <entry key="MenuAdventure.ModePlayerTransparent">Modo primera persona</entry>
 <entry key="Operation.AddMacroDefaultValue">IdMacro</entry>
 <entry key="Cursor.use.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "usar" (sólo interfaz tradicional)</entry>
@@ -1038,6 +1045,7 @@ Dicha operación no se completó.</entry>
 <entry key="LOM.General.SetDefaults">Valores por defecto</entry>
 <entry key="Animation.UseTransitions">Usar transiciones</entry>
 <entry key="GraphicConfig.Fullscreen">Ejectuar en modo pantalla completa (solo Windows)</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Title">Modificación de archivos</entry>
 <entry key="DrawPanel.ZoomSlider">Zoom actual del panel</entry>
 <entry key="BookParagraphs.MoveParagraphDown">Bajar el párrafo seleccionado</entry>
 <entry key="LOMES.Value">Valor</entry>
@@ -1045,6 +1053,7 @@ Dicha operación no se completó.</entry>
 <entry key="Conditions.Context.1.231"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
 <entry key="LOM.Educational.IntendedEndUserRole3">Manager</entry>
 <entry key="Conditions.Context.1.230"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+<entry key="ImportChapter.ImportationOK.Title">Importación finalizada</entry>
 <entry key="LOM.Educational.IntendedEndUserRole2">Learner</entry>
 <entry key="LOM.Educational.IntendedEndUserRole1">Author</entry>
 <entry key="LOM.Educational.IntendedEndUserRole0">Teacher</entry>
@@ -1067,6 +1076,7 @@ Dicha operación no se completó.</entry>
 <entry key="MacroReferenceEffect.Description">seleccione la macro que quiere lanzar en este punto del juego</entry>
 <entry key="GUIStyles.TraditionalDescription">Este tipo de interfaz presenta un gran parecido con las primeras aventuras gráficas de LucasArts. El usuario dispone de una serie de botones para efectuar acciones y un inventario en la parte inferior de la pantalla</entry>
 <entry key="ItemReferencesList.Title">Referencias a elementos</entry>
+<entry key="Perspective.Explanation">Perspectiva aplicada el movimiento de personajes y jugador</entry>
 <entry key="AssessmentRule.Effect.AddValueProperty">Añadir propiedad value</entry>
 <entry key="Search.EMail">e-mail</entry>
 <entry key="LOMES.Classification.TaxonId">Identificador</entry>
@@ -1082,7 +1092,7 @@ Dicha operación no se completó.</entry>
 <entry key="Search.Description">Descripción</entry>
 <entry key="LOMES.Educational.LearningResourceType26">Simulation</entry>
 <entry key="GraphicConfig.FullscreenDescription">La aventura utiliza toda la pantalla disponible</entry>
-<entry key="Button.talk.highlighted.Tip">Este es el boton de hablar resaltado, el que se eseña cuando el retón está sobre él pero no está presionado</entry>
+<entry key="Button.talk.highlighted.Tip">Este es el boton de hablar resaltado, el que se enseña cuando el ratón está sobre él pero no está presionado</entry>
 <entry key="LOMES.Educational.LearningResourceType25">Real project</entry>
 <entry key="LOMES.Educational.LearningResourceType24">Experiment</entry>
 <entry key="LOMES.Educational.LearningResourceType23">Webquest</entry>
@@ -1151,6 +1161,7 @@ Por favor escribe otro nombre.</entry>
 <entry key="Resources.DescriptionCharacterAnimationStandUp">Hacia arriba</entry>
 <entry key="Operation.NewFileTitle">Nuevo archivo</entry>
 <entry key="IMS.Classification.Keyword">Keywords</entry>
+<entry key="ImportChapter.Notice.Message">Aunque el proceso de importación termine correctamente no se garantiza que el capítulo se pueda ejecutar. ¿Desea continuar?</entry>
 <entry key="Scene.UseTrajectory">Usar trayectoria</entry>
 <entry key="LOM.General.SetDefaultsTip">Pulse aquí para que los campos título y descripción adopten los datos generales de la aventura</entry>
 <entry key="ActionsList.GiveToAction">Entregar a {#0}</entry>
@@ -1226,6 +1237,9 @@ Se abortó el proceso.</entry>
 <entry key="Operation.SaveChangesTitle">¿Guardar cambios?</entry>
 <entry key="StartDialog.Recent.OpenedYesterday">Abierto ayer</entry>
 <entry key="Error.BadAudioFormat.Title">Formato de video no soportado. </entry>
+<entry key="ActionProperties.EnableClickFailEffects.ToolTip">Seleccionar para añadir "efectos click fallido". 
+Este tipo de efectos se ejecutarán cuando dentro del juego no se realice la acción correctamente (por ejemplo, no se "use con el 
+objeto seleccionado para la acción").</entry>
 <entry key="SceneLocation.YCoordinate">Coordenada Y</entry>
 <entry key="LOM.General.Description">Description</entry>
 <entry key="Button.talk.highlighted.Description">Boton de hablar resaltado</entry>
@@ -1316,8 +1330,6 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="AssessmentProperties.DeleteProperty">Eliminar propiedad seleccionada</entry>
 <entry key="ActionsList.DragToAction">Arrastrar a: {#0}</entry>
 <entry key="ResourcesList.Conditions">Condiciones</entry>
-<entry key="ResourceBlock.deleteOnlyOneBlock.message"> ¿Esta seguro de que desea borrar el bloque de recursos? Las condiciones del bloque de recursos que quedará activo para este elemento serán borradas. </entry>
-<entry key="ResourceBlock.deleteOnlyOneBlock.title"> Borrando bloque de recursos </entry>
 <entry key="AdaptationProfile.Empty">No hay ninguna regla seleccionada.</entry>
 <entry key="Search.CustomizedText">Texto personalizado</entry>
 <entry key="Operation.NewProjectTitle">Proyecto nuevo: seleccionar carpeta</entry>
@@ -1325,6 +1337,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="Operation.RenameGlobalStateMessage">Introduzca un nuevo identificador con el que renombrar el estado global:</entry>
 <entry key="LOMES.LifeCycle.Role">Rol</entry>
 <entry key="Operation.AddCutsceneDefaultValue">IdEscenaIntermedia</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Message">{#0} archivos fueron renombrados en el proceso de importación debido a la colisión de nombres entre el proyecto fuente y el destino.</entry>
 <entry key="SelectEffectDialog.ByCategory">Por categorías</entry>
 <entry key="Atrezzo.Name">Nombre del objeto de atrezo</entry>
 <entry key="Error.Import.FileNotFound.Title">No se encontró el fichero</entry>
@@ -1345,7 +1358,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="Search.AssetPath">Ubicación recurso</entry>
 <entry key="AdaptationRulesList.Normal">Perfil Normal</entry>
 <entry key="PlaySoundEffect.Title">Efecto reproducir sonido</entry>
-<entry key="Button.talk.normal.Tip">Este es el boton de hablar normal, el que se enseña cuando el ratón no esta sobre él</entry>
+<entry key="Button.talk.normal.Tip">Este es el boton de hablar normal, el que se enseña cuando el ratón no está sobre él</entry>
 <entry key="Operation.AdventureInconsistentReport">La aventura es inválida y no podrá ejecutarse hasta que los siguientes errores hayan sido solucionados:</entry>
 <entry key="ExitsList.DeleteExit">Eliminar la salida seleccionada</entry>
 <entry key="Operation.FileLoadedTitle">Proyecto cargado correctamente</entry>
@@ -1356,6 +1369,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="LOM.Educational.LearningResourceType1">Simulation</entry>
 <entry key="LOM.Educational.LearningResourceType0">Exercise</entry>
 <entry key="NextScene.Title">Siguiente escena</entry>
+<entry key="ActionProperties.EditComplexEffects">Editar efectos complejos</entry>
 <entry key="Operation.ExportToLOM.LOMName">Nombre del Objeto de Aprendizahe</entry>
 <entry key="ActionsList.GrabAction">Coger</entry>
 <entry key="ShowTextEffect.Border">Previsualización</entry>
@@ -1418,7 +1432,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 <entry key="Resources.DescriptionCharacterAnimationUseLeft">Objeto a su izquierda</entry>
 <entry key="Operation.AddItemReferenceErrorNoItems">Debe haber al menos un objeto en el capítulo para añadir una referencia</entry>
 <entry key="GeneralText.Abort">Abortar</entry>
-<entry key="Button.examine.highlighted.Tip">Este es el botón de examinar resaltado, el que se eseña cuando el ratón estña sobre él pero no está presionado</entry>
+<entry key="Button.examine.highlighted.Tip">Este es el botón de examinar resaltado, el que se enseña cuando el ratón está sobre él pero no está presionado</entry>
 <entry key="SmallActionList.Action">Acción</entry>
 <entry key="VideoDialog.Title">Previsualización del vídeo</entry>
 <entry key="Player.Title">Protagonista</entry>
@@ -1452,6 +1466,7 @@ Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán v�
       Desactivo -&gt; Si el temporizador esta parado no vuelve a comenzar incluso si se cumplen las condiciones de entrada</entry>
 <entry key="RandomEffect.Probability.Description">Probabilidad del primer efecto(1-100):</entry>
 <entry key="LOMES.Date.TimeZone">Zona Horária</entry>
+<entry key="LoadingScreen.ImportChapter.Message">Importando capítulo</entry>
 <entry key="WaitTimeEffect.Title">Efecto para esperar un determinado tiempo</entry>
 <entry key="Operation.SaveProjectAs.TargetFolderInUse.Title">La operación "Guardar como" no pudo realizarse</entry>
 <entry key="LOMES.Rights.AccessType">Tipo de Acceso</entry>
@@ -1529,6 +1544,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="Button.use-grab.normal.Description">Boton de usar-coger normal</entry>
 <entry key="CustomAction.GetNameTitle">Nombre de la acción</entry>
 <entry key="Effect.DecrementVarInfo">Decrementar la variable "{#0}" en "{#1}" unidades</entry>
+<entry key="ActionProperties.EnableClickEffects">Activar "efectos click"</entry>
 <entry key="Inventory.Tip">Presonalización de los elementos del inventario</entry>
 <entry key="Operation.ExitMessage">El archivo actual tiene cambios sin salvar. ¿Quiere guardar los cambios antes de salir?</entry>
 <entry key="MenuFile.SaveAs">Guardar como...</entry>
@@ -1543,8 +1559,8 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="Cursor.examine.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "examinar" (sólo interfaz tradicional)</entry>
 <entry key="Error.NoVarsAvailable.Message">No hay variables disponibles en este capítulo. Por favor, cree flags introduciendo el nombre deseado en la lista de los flags.</entry>
 <entry key="LOMES.Educational.Context13">distance</entry>
-<entry key="LOMES.Educational.Context12">face to face</entry>
 <entry key="LOMES.LangString.Value">Valor</entry>
+<entry key="LOMES.Educational.Context12">face to face</entry>
 <entry key="LOMES.Educational.Context11">presencial</entry>
 <entry key="LOMES.Educational.Context10">blended</entry>
 <entry key="AdaptationRule.InitialState.Title">Estado inicial estático (por defecto)</entry>
@@ -1652,6 +1668,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="Operation.ExportToLOM.LOMAppletRunInsideBrowser">El applet se ejecuta dentro del explorador</entry>
 <entry key="UOLProperties.DeleteProperty">Eliminar propiedad seleccionada</entry>
 <entry key="Effect.SetValueInfo">Dar a la variable "{#0}" el valor "{#1}"</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Message">La carpeta con los ficheros de imagen para {#0} no ha sido encontrada. No obstante, el proceso de importación continuará.</entry>
 <entry key="ErrorReport.Send">Enviar</entry>
 <entry key="TimedAssessmentRule.MaxTime">Tiempo máx  (s): </entry>
 <entry key="TimersList.Display">Mostrar en juego</entry>
@@ -1664,7 +1681,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">IdAtrezzo</entry>
 <entry key="MenuAdventure.CustomizeGUI">Personalizar elementos de la interfaz...</entry>
 <entry key="LOMES.Requirement.Title">Crear Nuevo Requerimiento</entry>
-<entry key="Button.talk.pressed.Tip">Este es el boton de hablar presionado, el que se eseña cuando el ratón esta pulsado sobre él</entry>
+<entry key="Button.talk.pressed.Tip">Este es el boton de hablar presionado, el que se eseña cuando el ratón está pulsado sobre él</entry>
 <entry key="LOMES.LifeCyle.Date">Fechas</entry>
 <entry key="ErrorReport.Title">Informe de error</entry>
 <entry key="IMS.Meta.Tip">Meta meta data</entry>
@@ -1699,6 +1716,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 <entry key="Conversation.ConfirmationDeleteOption">¿Está seguro de que quiere borrar esta opción?
 		Todo nodo sin padre se perderá. 
 		Los datos eliminados no podrán recuperarse.</entry>
+<entry key="ImportChapter.ImportationOK.Message">El capítulo ha sido correctamente importado.</entry>
 <entry key="Cursor.exit.Description">Cursor de salida</entry>
 <entry key="LOMES.Technical.Requirement">Requerimientos</entry>
 <entry key="conditions.context.1.251">La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
@@ -1727,6 +1745,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="Operation.AddReferenceErrorNoAtrezzo">No hay ningún objeto de atrezo definido en la aventura</entry>
 <entry key="Operation.AddMacroMessage">Introduzca un identificador para la nueva macro</entry>
 <entry key="Effect.MacroReference">Lanzar una macro</entry>
+<entry key="ActionProperties.EnableClickFailEffects">Activar "efectos click fallido"</entry>
 <entry key="VarDialog.Err.Message">Solo se pueden insertar números.</entry>
 <entry key="Operation.AddAtrezzoReferenceMessage">Seleccione el objeto de atrezo que quiere añadir a la escena:</entry>
 <entry key="IMS.Rights.Cost">Cost</entry>
@@ -1796,6 +1815,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="CustomAction.SelectTypeMessage">Elija si la acción se realiza sobre el objeto o necesita la interacción con otro</entry>
 <entry key="CustomAction.ConfigurationTitle">Configuración</entry>
 <entry key="EffectsGroup.Main">Todos los efectos</entry>
+<entry key="ImportChapter.Notice.Title">Aviso de importación</entry>
 <entry key="Effect.TriggerLastSceneInfo">Lanzar escena anterior</entry>
 <entry key="IMS.Classification.Tip">Classification Data</entry>
 <entry key="GlobalStatesList.ID">Identificador de estado global</entry>
@@ -1887,15 +1907,18 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="Operation.AssignAdaptationProfile">No hay ficheros de adaptación creados en este capítulo.</entry>
 <entry key="AssessmentRule.Importance.Low">Baja</entry>
 <entry key="Effects.Title">Efectos</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Title">Carpeta no encontrada</entry>
 <entry key="Action.Conditions">Condición de la acción</entry>
 <entry key="SetValueEffect.Description">Seleccione la variable y el valor que se le debe asignar</entry>
 <entry key="Operation.AssignAssessmentProfile">No hay ficheros de evaluación creados en este capítulo.</entry>
 <entry key="MenuFile.ExportLOM">Exportar como Objeto de Aprendizaje (LO)</entry>
 <entry key="Element.Name231">Hablar con...</entry>
 <entry key="Element.Name230">Personalizada</entry>
+<entry key="Perspective.Isometric">Isométrica</entry>
 <entry key="Adventure.AdventureTitle">Título de la aventura</entry>
 <entry key="Operation.ExportToLOM.DefaultValue">learningObject</entry>
 <entry key="AssessmentRule.CheckRule.Data2004">no es parte del modelo de datos SCORM 2004</entry>
+<entry key="ImportChapter.ProblemsCopying.Message">El fichero {#0} no pudo ser copiado.</entry>
 <entry key="AssessmentRule.CheckRule.Property">la propiedad</entry>
 <entry key="AssessmentProfile.Feedback.Title">Configuración de "feedback" al alumno</entry>
 <entry key="Cutscene.CutsceneEnd">Configuración del final</entry>
@@ -1911,6 +1934,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="IMS.Educational.SemanticDensity0">Very Low</entry>
 <entry key="Search.ActionOverGameState">Acción sobre el estado del juego</entry>
 <entry key="MenuAdventure.CheckConsistency">Comprobar validez</entry>
+<entry key="ActionProperties.EditClickEffects">Editar "efectos click"</entry>
 <entry key="Effect.GenerateObject">Generar objeto</entry>
 <entry key="AssetsChooser.Audio">Escoja una pista de sonido</entry>
 <entry key="DrawPanel.ZoomOut">Menos zoom</entry>
@@ -1936,6 +1960,7 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 <entry key="Error.LoadAssessmentData.IO">Ocurrió un problema con la lectura de los datos de evaluación</entry>
 <entry key="BookParagraphsList.NotApplicable">- No aplicable -</entry>
 <entry key="Cursors.Tip">Personalización de cursores</entry>
+<entry key="ActionProperties.EditClickFailEffects">Editar "efectos click fallido"</entry>
 <entry key="Search.AssessmentPath">Ubicación del fichero de aprendiaje</entry>
 <entry key="StartDialog.Message">Para comenzar a usar el editor de &lt;e-Adventure&gt;, debe escoger entre crear un nuevo archivo para almacenar la nueva aventura, o seleccionar una aventura ya creada para editarla.</entry>
 <entry key="HighlightItemEffect.Animated">Animado</entry>
@@ -1990,29 +2015,4 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="TalkToAction.MessageSelectConversation">Seleccione una conversación</entry>
 <entry key="BookPage.NotValidURL">No se puede acceder a la URL indicada. Por favor, compruebe la dirección y el funcionamiento de su conexión a Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Lengua</entry>
-<entry key="DefaultClickAction.Explanation">Acción por defecto para click derecho</entry>
-<entry key="DefaultClickAction.ShowDetails">Mostrar detalles</entry>
-<entry key="DefaultClickAction.ShowActions">Mostrar acciones</entry>
-<entry key="Perspective.Explanation">Perspectiva aplicada el movimiento de personajes y jugador</entry>
-<entry key="Perspective.Regular">Normal</entry>
-<entry key="Perspective.Isometric">Isométrica</entry>
-<entry key="LoadingScreen.ImportChapter.Message">Importando capítulo</entry>
-<entry key="ImportChapter.ChapterDefault.Title">Capítulo importado</entry>
-<entry key="ImportChapter.ModifyFilesMessage.Title">Modificación de archivos</entry>
-<entry key="ImportChapter.ModifyFilesMessage.Message">{#0} archivos fueron renombrados en el proceso de importación debido a la colisión de nombres entre el proyecto fuente y el destino.</entry>
-<entry key="ImportChapter.ImportationOK.Title">Importación finalizada</entry>
-<entry key="ImportChapter.ImportationOK.Message">El capítulo ha sido correctamente importado.</entry>
-<entry key="ImportChapter.BadFile.Title">Fichero no válido</entry>
-<entry key="ImportChapter.BadFile.Message">El fichero seleccionado no es un XML de capítulo eAdventure.</entry>
-<entry key="ImportChapter.ProblemsParsing.Title">Problemas parseando el capítulo</entry>
-<entry key="ImportChapter.ProblemsParsing.Message">El proceso de importación del capítulo ha sido interrumpido por problemas parseando el XML.</entry>
-<entry key="ImportChapter.ProblemsCopying.Title">Problema con fichero</entry>
-<entry key="ImportChapter.ProblemsCopying.Message">El fichero {#0} no pudo ser copiado.</entry>
-<entry key="ImportChapter.UnknowProblems.Title">Problemas durante la importación</entry>
-<entry key="ImportChapter.UnknowProblems.Message">EL proceso de importación de ficheros ha sido interrumpido.</entry>
-<entry key="ImportChapter.Notice.Title">Aviso de importación</entry>
-<entry key="ImportChapter.Notice.Message">Aunque el proceso de importación termine correctamente no se garantiza que el capítulo se pueda ejecutar. ¿Desea continuar?</entry>
-<entry key="MenuChapters.ImportChapter">Importar capítulo</entry>
-<entry key="ImportChapter.NoFolderForHTMLImages.Title">Carpeta no encontrada</entry>
-<entry key="ImportChapter.NoFolderForHTMLImages.Message">La carpeta con los ficheros de imagen para {#0} no ha sido encontrada. No obstante, el proceso de importación continuará.</entry>
 </properties>
