@@ -6,6 +6,7 @@
 <entry key="GeneralText.EditEffects">Editare efecte</entry>
 <entry key="UOLProperties.InsertProperty">Adauga o noua proprietate</entry>
 <entry key="GlobalStatesList.DeleteGlobalState">Serge statusul global selectat</entry>
+<entry key="ImportChapter.ChapterDefault.Title">Capitol importate</entry>
 <entry key="Operation.RenameAtrezzoTitle">Redenumiti item</entry>
 <entry key="Operation.AddChapterTitle">Adauga capitol</entry>
 <entry key="MenuAdventure.ModePlayerVisible">persoana a III a</entry>
@@ -15,8 +16,8 @@
 <entry key="AssessmentProperties.MoveDown">Muta proprietatea selectata in jos</entry>
 <entry key="SmallAction.NeedsGetTo">Nevoie sa ajunga</entry>
 <entry key="MoveObjectEffect.Animated">Animeaza</entry>
-<entry key="Item.Description">Scurta descriere itemi</entry>
 <entry key="LOMES.LifeCycle.Role9">Validator tehnic</entry>
+<entry key="Item.Description">Scurta descriere itemi</entry>
 <entry key="ActiveAreasList.AddActiveArea">Adaugati o noua zona activa</entry>
 <entry key="LOMES.LifeCycle.Role8">Furnizor de continut</entry>
 <entry key="BarriersList.EditSides">Editare laturi</entry>
@@ -26,8 +27,8 @@
 <entry key="Operation.AddAssessmentRuleMessage">Scrieti un identificator pentru noua regula de evaluare</entry>
 <entry key="LOMES.LifeCycle.Role4">Validator</entry>
 <entry key="BookPages.AddPage">Creati o pagina noua</entry>
-<entry key="Effect.ShowText">Afiseaza text</entry>
 <entry key="LOMES.LifeCycle.Role3">Finalizator</entry>
+<entry key="Effect.ShowText">Afiseaza text</entry>
 <entry key="LOMES.LifeCycle.Role2">Intiator</entry>
 <entry key="LOMES.LifeCycle.Role1">Editor</entry>
 <entry key="LOMES.LifeCycle.Role0">Autor</entry>
@@ -73,6 +74,7 @@
 <entry key="MoveNPCEffect.Title">Muta efectul personajului</entry>
 <entry key="SceneLocation.XCoordinate">Coordonata X</entry>
 <entry key="HighlightItemEffect.Title">Evidentiere efect item</entry>
+<entry key="ImportChapter.BadFile.Message">Fişierul selectat nu este un fisier de capitol e-Adventure XML.</entry>
 <entry key="LOMES.Date.Seconds">Secunda</entry>
 <entry key="MenuAdventure.Commentaries">Comentarii automate</entry>
 <entry key="ActionsList.UseAction">Foloseste</entry>
@@ -87,17 +89,21 @@
 <entry key="LOMES.LangString.Language">Limba</entry>
 <entry key="LOM.Duration.Minutes">Minute</entry>
 <entry key="ErrorSolving.Asset.Deleted.Message">Fisierul "{#0}" nu a fost gasit. Toate referintele la resursa au fost sterse.</entry>
+<entry key="MenuChapters.ImportChapter">Import capitol</entry>
 <entry key="Cursor.PreviewTitle">Previzualizare cursor</entry>
 <entry key="Action.OperationAddAction">Adaugare actiune</entry>
 <entry key="Resources.DescriptionCharacterAnimationWalkRight">Mers in dreapta</entry>
+<entry key="ImportChapter.ProblemsParsing.Title">Probleme de analiză capitol</entry>
 <entry key="Cursors.Select">Selectare...</entry>
 <entry key="HighlightItemEffect.Description">Selectati itemul pe care doriti sa-l evidentiati, tipul evidentierii si daca obiectul trebuie sa aiba efect de animatie.</entry>
 <entry key="Operation.IdErrorBlankSpaces">Identificatului nu trebuie sa contina spatii goale.</entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.title"> Ştergerea bloc de resurse </entry>
 <entry key="LOMES.Technical.Type">Tip</entry>
 <entry key="Scene.LookPanelTitle">Aparitie</entry>
 <entry key="AssetsChooser.Icon">Alege o imagine pentru pictograma</entry>
 <entry key="AdaptationRule.InitialState.InitialScene">Scena initiala (optional)</entry>
 <entry key="Resources.SpeakingAnimations">Animatii pentru discutii</entry>
+<entry key="ActionProperties.EnableClickEffects.ToolTip">Selectati si adaugati "efecte click". Efectele se vor declansa cand jucatorul selecteaza aceasta actiune in joc.</entry>
 <entry key="SmallAction.Appearence">Aparitie</entry>
 <entry key="CustomAction.PersonalizationTip">Panou pentru personalizarea butonului</entry>
 <entry key="Vars.DefaultVarName">Variabila noua</entry>
@@ -156,10 +162,11 @@
 <entry key="LOMES.LCContribute.DialogTitle">Creati o noua Contributie</entry>
 <entry key="Conversations.Listen">Ascultati</entry>
 <entry key="Tools.Redo">Refa</entry>
-<entry key="Conditions.Context.Sentence2b">va fi &lt;b&gt;intotdeauna activ&lt;/b&gt;, daca nu are conditie</entry>
-<entry key="Conditions.Context.Sentence2a">va fi activ cand urmatoarea conditie este satisfacuta</entry>
+<entry key="Conditions.Context.Sentence2b">va fi &lt;b&gt;intotdeauna activ&lt;/b&gt;, daca nu are nicio conditie</entry>
+<entry key="Conditions.Context.Sentence2a">va fi activ cand urmatoarea conditie este satisfacuta:</entry>
 <entry key="Timer.RunsInLoop">Ruleaza continuu</entry>
 <entry key="Cutscene.ReturnToLastScene">Intoarcere la ultima scena</entry>
+<entry key="DefaultClickAction.ShowDetails">Arata detalii</entry>
 <entry key="BookPages.DeletePage">Stergeti pagina selectata</entry>
 <entry key="TreeNode.AddElement39">Adauga regula de adaptare</entry>
 <entry key="TreeNode.AddElement38">Adauga regula evaluare</entry>
@@ -283,6 +290,7 @@
 <entry key="Search.LineName">Nume linie</entry>
 <entry key="HelpDialog.Title">Ajutor</entry>
 <entry key="BarriersList.Barrier">Bariera</entry>
+<entry key="DefaultClickAction.ShowActions">Afiseaza actiunile</entry>
 <entry key="NextScene.NoTransition">Fara tranzitie</entry>
 <entry key="Resources.DescriptionItemIcon">Pictograma inventar item</entry>
 <entry key="MenuChapters.MoveChapterDown">Muta capitolul in jos</entry>
@@ -325,6 +333,7 @@
 <entry key="ExitsList.DuplicateExit">Duplicati iesirea selectata</entry>
 <entry key="Operation.ExportProject.AsLO">Operatie: Exportare proiect ca obiect de invatare</entry>
 <entry key="Element.PostEffects">Post-efect</entry>
+<entry key="ResourceBlock.deleteOnlyOneBlock.message">Eşti sigur să ştergeţi blocul de resurse selectate? Condiţiile în blocul celelalte vor fi şterse. </entry>
 <entry key="Effect.MoveCharacterInfo">Muta personajul {#0} la x:{#1} y:{#2}</entry>
 <entry key="Action.ErrorNoItems">Nu sunt itemi definiti in capitol. Este imposibil sa adaugati o actiune de acest tip</entry>
 <entry key="Cutscene.App">Aparitie</entry>
@@ -336,6 +345,7 @@
 <entry key="Search.BriefDescription">Scurta descriere</entry>
 <entry key="MovePlayerEffect.Title">Efectul de mutare a jucatorului</entry>
 <entry key="MenuAdventure.DeleteUnusedAssets">Sterge resursele neutilizate</entry>
+<entry key="ConversationLine.Type">Tip linie</entry>
 <entry key="ExitLook.HelpText">Aici este permisa particularizarea aspectului cursorului afisat atunci cand mousul se afla deasupra iesirii ca si textul afisat. Initial este afisat cursorul implicit iar textul va afisat numele scenei ce urmeaza dupa aceasta iesire, asa ca nu este obigatorie specificarea acestor valori. Oricum, se pot particulariza atat cursorul cat si textul pentru iesire (cazul general) si pentru fiecare scena urmatoare. Textul sau cursorul editate pentru iesire vor fi folosite numai in cazul in care nu s-a facut nici o particularizare pentru scena urmatoare.</entry>
 <entry key="Effect.MoveObject">Muta obiect</entry>
 <entry key="Conversations.DeleteAudio">Stergere audio </entry>
@@ -382,6 +392,8 @@
 <entry key="Resources.DescriptionVideoscenes">Video pentru scena video</entry>
 <entry key="Resources.DescriptionButtonPressed">Imagine pentru buton apasat</entry>
 <entry key="Item.Preview">Previzualizare grafica item</entry>
+<entry key="SelectImageDialog.SaveButton">Salvati selectia</entry>
+<entry key="SelectImageDialog.Title">Mutati sau redimensionati zona de selectie pentru a personaliza fundalul scenei </entry>
 <entry key="Effect.MacroRefInfo">Lanseaza Macro {#0}</entry>
 <entry key="Resources.Button">Buton</entry>
 <entry key="NextScene.Effects">Efecte in noua scena</entry>
@@ -452,6 +464,7 @@
 <entry key="Operation.AdaptationPanel.DeleteButton">Stergere declaratie</entry>
 <entry key="VarDialog.Err.Title">Format text incorect</entry>
 <entry key="Operation.NewProject.FolderNotEmptyMessage">Directorul selectat nu este gol. Doriti sa stergeti continutul folderului? (Datele vor fi pierdute). Daca folderul nu este gol, verificati ca nu contine fisiere numite 'descriptor.xml' sau 'chapterXX.xml' unde  XX este numar.</entry>
+<entry key="ImportChapter.UnknowProblems.Message">Procesul de importare capitol a fost întrerupt.</entry>
 <entry key="MenuAdventure.CommentariesLabel">Verifica si foloseste comentariile automate</entry>
 <entry key="SPEP.YCoordinate">Coordonata Y</entry>
 <entry key="MenuAdventure.AdventureData">Editati datele</entry>
@@ -469,6 +482,7 @@
 <entry key="SPEP.ConvertToIrregularArea">Transforma intr-o zona neregulata</entry>
 <entry key="Button.talk.pressed.Description">Buton apasat de vorbit</entry>
 <entry key="Operation.ExportToLOM.OK">OK</entry>
+<entry key="ImportChapter.ProblemsParsing.Message">Procesul de importare capitol a fost întrerupt ca urmare a analizei problemelor capitolului.</entry>
 <entry key="HTMLEditor.QuitMessageTitle">Parasire editor</entry>
 <entry key="PlayAnimationEffect.Description">Selectati o animatie si un loc in care sa o rulati</entry>
 <entry key="Operation.ErrorLastScene">Nu se poate sterge ultima scena a capitolului. Toate capitolele trebuie sa aiba cel putin o scena sau secventa. </entry>
@@ -524,6 +538,7 @@
 <entry key="LOMES.Educational.CognitiveProcess24">Investigheaza</entry>
 <entry key="LOMES.Educational.CognitiveProcess23">Inoveaza</entry>
 <entry key="VarDialog.Title">Introduceti noua valoare</entry>
+<entry key="ImportChapter.UnknowProblems.Title">Probleme în timpul importarii</entry>
 <entry key="LOMES.Educational.CognitiveProcess22">Extrapoleaza</entry>
 <entry key="Buttons.Preview">Buton de vizualizare</entry>
 <entry key="MenuFile.ExportGame">Exporta ca si fisier EAD</entry>
@@ -555,6 +570,7 @@
 <entry key="Book.App">Aparitie</entry>
 <entry key="Conditions.Flag.Title">Campurile marcatorului</entry>
 <entry key="Search.LMSPropertyValue">LMS Property Value</entry>
+<entry key="Edition.UndoRedo.Name."/>
 <entry key="Resources.DescriptionActionAnimationLeft">Animatie pentru stanga cand actiunea este executata (optional) </entry>
 <entry key="Search.SMTPPort">Port SMTP </entry>
 <entry key="MenuEdit.Undo">Anuleaza</entry>
@@ -588,6 +604,7 @@
 <entry key="LOMES.Rights.CopyAndOthers0">Licenta</entry>
 <entry key="Operation.RenameConversationMessage">Scrieti un nou identificator pentru a redenumi conversatia</entry>
 <entry key="SwapPlayerMode.Message">Sunteti sigur ca doriti sa schimbati modul curent? Oricum, puteti reveni la modul vechi efectuand aceleasi operatii,  iar datele nu vor fi pierdute.</entry>
+<entry key="ImportChapter.BadFile.Title">Fişierul nu a fost valabil</entry>
 <entry key="Vars.ConfirmNewVar.Text">Numele tastat este foarte asemanator cu altul (altele). Doriti sa il creati? In caz contrar, puteti selecta unul din cele constatate similare din lista. </entry>
 <entry key="ResourcesList.DuplicateResourcesBlock">Duplicati blocul de resurse selectat</entry>
 <entry key="GraphicConfig.Title">Configurare grafica a aventurii</entry>
@@ -657,16 +674,16 @@
 <entry key="Conversation.ConfirmDeleteNode">Sunteti sigur ca doriti sa stergeti acest nod? Nodul va fi sters impreuna cu descendentii acestuia, daca nu exista nicio legatura cu conversatia. Datele sterse vor fi pierdute.</entry>
 <entry key="GUIStyles.Title">Stilul interfetei grafice a aventurii</entry>
 <entry key="Error.LoadData.SAX">A aparut o eroare la consistenta XML a datelor aventurii</entry>
-<entry key="AssessmentRule.CheckRule.Title">Prin schimbarea tipului de profil, exista parti ale ale modelului de date care nu se potrivesc. Jocul se poate exporta corect, dar comunicarea poate sa nu functioneze cum ar trebui.</entry>
+<entry key="AssessmentRule.CheckRule.Title">Prin schimbarea tipului de profil, exista parti ale ale modelului de date care nu se potrivesc. Jocul poate fi exportat corect, dar comunicarea poate sa nu functioneze cum ar trebui.</entry>
 <entry key="Conditions.Flag.Description">Aceasta este o lista a marcatorilor capitolului. Marcatorii pot fi activati sau dezactivati in orice moment in joc, asa cum semaforul poate fi verde sau rosu pentru a permite sau a interzice trecerea. In joc puteti defini conditii bazate pe stadiul in care se afla marcatorii. </entry>
 <entry key="ErrorSolving.Asset.Deleted.Title">Eoare: Referinta catre o resursa inexistenta</entry>
 <entry key="NextScene.DestinyPosition">Punctul de destinatie a jucatorului</entry>
 <entry key="Button.use-grab.Description">Butonul foloseste - apuca</entry>
 <entry key="Operation.SaveProject">Operatiune: Salvare proiect</entry>
 <entry key="Effect.TriggerScene">Deschide scena</entry>
-<entry key="Element.Name59">Stabileste itemi</entry>
+<entry key="Element.Name59">Set de itemi</entry>
 <entry key="Macro.Effects">Lista efectelor macro-urilor</entry>
-<entry key="Element.Name58">Stabileste itemi</entry>
+<entry key="Element.Name58">Set de itemi</entry>
 <entry key="Search.Number">Numar</entry>
 <entry key="LOMES.Date.Info">Data si Ora trebuie sa respecte modelul AAAA[-MM[-DD[Thh[:mm[:ss[.s[IZH]]]]]]] unde: AAAA=Anul, exprimat in 4 cifre (&gt;=0001) 		MM=Luna exprimata in 2 cifre (de la 01 la 12) 		DD=Ziua exprimata in 2 cifre (de la 01 la 31) 		hh=Ora exprimata in 2 cifre (de la 00 la 23)(am/pm nu sunt permise) 		mm=Minute exprimate in 2 cifre  (de la 00 la 59) 		ss=Secunde exprimate in 2 cifre  (de la 00 to 59) 		s= Una sau mai multe cifre pentru a zecimile de secunda  		identificatorul pentru fusul orar (“Z” pentru UTC sau +hh:mm sau –hh:mm) </entry>
 <entry key="Element.Name57">Macrouri</entry>
@@ -749,8 +766,8 @@
 <entry key="Element.Name25">Da </entry>
 <entry key="Element.Name24">Foloseste cu</entry>
 <entry key="TriggerCutsceneEffect.Description">Selectati secventa pe care doriti sa o deschideti</entry>
-<entry key="Element.Name23">Foloseste</entry>
 <entry key="LOMES.Rights.AccessDescription">Descriere acces</entry>
+<entry key="Element.Name23">Foloseste</entry>
 <entry key="Effect.SpeakPlayer">Jucator care vorbeste</entry>
 <entry key="Element.Name22">Apuca</entry>
 <entry key="Element.Name21">Examineaza</entry>
@@ -766,6 +783,7 @@
 <entry key="Element.Name19">Item</entry>
 <entry key="Synthesizer.Empty">Fara voce</entry>
 <entry key="Element.Name18">Itemi</entry>
+<entry key="SelectImageDialog.AutomaticButton">Potrivire automata</entry>
 <entry key="Effect.WaitTime">Timp de asteptare</entry>
 <entry key="Element.Name17">Imagine paragraf</entry>
 <entry key="GenerateObject.Title">Genereaza efectul obiectului</entry>
@@ -809,6 +827,7 @@
 <entry key="GraphicConfig.WindowedDescription">Avetura apare intr-o fereastra in partea de sus a ecranului.</entry>
 <entry key="Resources.ArrowLeftOver">Imagine pentru sageata  spre stanga</entry>
 <entry key="Error.EffectMovePlayerNotAllowed.Title">Operatie nepermisa</entry>
+<entry key="Perspective.Regular">Regular</entry>
 <entry key="BarriersList.AddBarrier">Adauga bariera noua</entry>
 <entry key="LOMES.Classification.TaxonPathTaxon">Taxon</entry>
 <entry key="ShowTextEffect.TextLabel">Introduceti text:</entry>
@@ -855,6 +874,7 @@
 <entry key="Inventory.Select">Selectare...</entry>
 <entry key="Resources.CreateIcon">Creaza pictograma din imagine</entry>
 <entry key="Operation.AdventureConsistencyErrorPlaySound">Efectul "Ruleaza sunet" nu are niciun clip audio atasat</entry>
+<entry key="ImportChapter.ProblemsCopying.Title">Fişier problemă</entry>
 <entry key="ActionsList.ExamineAction">Examinare</entry>
 <entry key="AdaptationRulesList.ColumnHeader3">Status initial marcatori</entry>
 <entry key="HighlightItemEffect.Red">Evidentiere rosu</entry>
@@ -925,6 +945,7 @@
 <entry key="LOMES.Date.Minutes">Minut</entry>
 <entry key="ActionsList.NotRelevant">Nu este relevant</entry>
 <entry key="Conditions.EditCondition">Editare conditie</entry>
+<entry key="SelectImageDialog.Message">Imaginea selectata este prea mare (mai mare de 800x600). Selectati sectiunea din imagine ce va fi folosita ca fundal. Pentru a face ajustari automate, faceti click pe butonul de mai jos. </entry>
 <entry key="Cursor.action.Tip">Numai pentru interfata grafica contextuala: Acest cursor va fi folosit atunci cand o actiune urmeaza a fi realizata.</entry>
 <entry key="StartDialog.Title">Bine ati venit la editorul &lt;e-Adventure&gt;</entry>
 <entry key="Flags.DefaultFlagName">Marcator nou</entry>
@@ -949,16 +970,19 @@
 <entry key="Effect.IncrementVarInfo">Incrementarea variabilei  "{#0}" in "{#1}" unitati</entry>
 <entry key="MenuConfiguration.AutoBackup">Backup automat la fiecare 15 minute</entry>
 <entry key="LOM.Educational.Difficulty">Dificultate</entry>
+<entry key="DefaultClickAction.Explanation">Actiune predefinita pentru click dreapta</entry>
 <entry key="MenuAdventure.ModePlayerTransparent">persoana I</entry>
 <entry key="Operation.AddMacroDefaultValue">IDMacro</entry>
 <entry key="Cursor.use.Tip">Numai pentru interfata grafica traditionala: Acest cursor va fi folosit pentru actiuni de tip “foloseste”</entry>
 <entry key="AnimationPanel.AnimationNotAvalaible">Animatie indisponibila</entry>
 <entry key="Operation.AdventureConsistentReport">Aventura este consecventa şi poate fi redata cu motorul  &lt;e-Adventure&gt;</entry>
+<entry key="SelectImageDialog.Description">Pentru a seta imaginea de fundal trebuie extinsa sau mutata zona evidentiata. </entry>
 <entry key="Book.Contents">Continuturi</entry>
 <entry key="Macro.Documentation">Documentatie (neutilizata in motorul jocului)</entry>
 <entry key="LOM.General.SetDefaults">Seteaza implicit</entry>
 <entry key="Animation.UseTransitions">Utilizeaza tranzitie</entry>
 <entry key="GraphicConfig.Fullscreen">Ruleaza pe tot ecranul (numai Windows)</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Title">Fişierele modificate în timpul procesului de importare</entry>
 <entry key="DrawPanel.ZoomSlider">Zoom actual al panoului</entry>
 <entry key="BookParagraphs.MoveParagraphDown">Mutati paragraful selectat o pozitie mai jos</entry>
 <entry key="LOMES.Value">Valoare</entry>
@@ -966,12 +990,14 @@
 <entry key="Conditions.Context.1.231">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va deveni executabila&lt;/b&gt; cand urmatoarea conditie este satisfacuta:</entry>
 <entry key="LOM.Educational.IntendedEndUserRole3">Manager</entry>
 <entry key="Conditions.Context.1.230">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va deveni executabila&lt;/b&gt; cand urmatoarea conditie este satisfacuta:</entry>
+<entry key="ImportChapter.ImportationOK.Title">Importare finalizata</entry>
 <entry key="LOM.Educational.IntendedEndUserRole2">Cursant</entry>
 <entry key="LOM.Educational.IntendedEndUserRole1">Autor</entry>
 <entry key="LOM.Educational.IntendedEndUserRole0">Profesor</entry>
 <entry key="Operation.AdaptationPanel.InsertButton">Insereaza declaratie</entry>
 <entry key="Error.CopyingFiles">A aparut o eroare la copierea fisierului {#0} in {#1}</entry>
 <entry key="LOMES.General.Identifier">Identificator</entry>
+<entry key="ConversationLine.Type.Thought">Gand</entry>
 <entry key="Error.LoadAdaptationData.SAX">A aparut o eroare la consistenta XML a dateloor de adaptare</entry>
 <entry key="LOMES.GeneralIdentifier.DialogTitle">Creati un nou identificator</entry>
 <entry key="SPEP.ShowTrajectory">Traiectorie jucator</entry>
@@ -987,6 +1013,7 @@
 <entry key="MacroReferenceEffect.Description">Seelectati macroul care va fi lansat in acest punct</entry>
 <entry key="GUIStyles.TraditionalDescription">Acest tip de interfata arata ca versiunile anterioare ale aventurilor lui LucasArt. Utilizatorul are un set de butoane pentru a realizarea actiunilor si un inventar in partea de jos a ecranului.  </entry>
 <entry key="ItemReferencesList.Title">Referinta</entry>
+<entry key="Perspective.Explanation">Perspectiva aplicata miscarii personajului si jucatorului </entry>
 <entry key="AssessmentRule.Effect.AddValueProperty">Adauga valoare proprietate</entry>
 <entry key="Search.EMail">e-mail</entry>
 <entry key="LOMES.Classification.TaxonId">Indentificator</entry>
@@ -994,7 +1021,7 @@
 <entry key="Effects.EffectNumberColumnTitle">#</entry>
 <entry key="BookPagesList.Content">Resursa</entry>
 <entry key="Inventory.Title">Inventar</entry>
-<entry key="Assessment.SMTPConfig.save">Salvare configurari</entry>
+<entry key="Assessment.SMTPConfig.save">Salvare configurare</entry>
 <entry key="LOMES.Educational.LearningResourceType29">Autoevaluare</entry>
 <entry key="Timer.EndConditions">Conditii de oprire a cronometrului</entry>
 <entry key="LOMES.Educational.LearningResourceType28">Examen</entry>
@@ -1028,7 +1055,7 @@
 <entry key="LOM.Educational.Context0">Scoala</entry>
 <entry key="BookPageType.Image">Imagine</entry>
 <entry key="Timer.LoopControl">Control repetitii</entry>
-<entry key="Assessment.SMTPConfig.InvalidData">Data invalida</entry>
+<entry key="Assessment.SMTPConfig.InvalidData">Date invalide</entry>
 <entry key="Cursor.action.Description">Cursor actiune</entry>
 <entry key="Ids.ErrorIdAlreadyExists">Exista deja un marcator sau variabila cu acelsi nume. Scrieti un alt nume.</entry>
 <entry key="LOMES.Educational.LearningResourceType19">Contextualizarea problematicii cazurilor</entry>
@@ -1068,6 +1095,7 @@
 <entry key="Resources.DescriptionCharacterAnimationStandUp">Priveste in sus </entry>
 <entry key="Operation.NewFileTitle">Proiect nou</entry>
 <entry key="IMS.Classification.Keyword">Cuvinte cheie</entry>
+<entry key="ImportChapter.Notice.Message">Deşi procesul de import se încheie cu succes, nu există nicio garanţie că acest capitol va rula. Doriţi să continuaţi?</entry>
 <entry key="Scene.UseTrajectory">Utilizati traiectorie</entry>
 <entry key="LOM.General.SetDefaultsTip">Daca apasati aici titlul si descrierea obiectului de invatare vor fi completate cu descrierea si titlul aventurii (utilizand bara de meniuri).</entry>
 <entry key="ActionsList.GiveToAction">Da {#0}</entry>
@@ -1139,6 +1167,7 @@
 <entry key="Operation.SaveChangesTitle">Salvati modificarile?</entry>
 <entry key="StartDialog.Recent.OpenedYesterday">Deschis ieri</entry>
 <entry key="Error.BadAudioFormat.Title">Fisier audio in format neacceptat</entry>
+<entry key="ActionProperties.EnableClickFailEffects.ToolTip">Selectati si adaugati "efecte click esuate". Efectele se vor declansa cand jucatorul nu atinga scopul actiunii</entry>
 <entry key="SceneLocation.YCoordinate">Coordonata Y</entry>
 <entry key="LOM.General.Description">Descriere</entry>
 <entry key="Button.talk.highlighted.Description">Buton evidentiat de vorbit</entry>
@@ -1159,7 +1188,7 @@
 <entry key="Button.talk.Description">Buton de vorbit</entry>
 <entry key="Cursor.talk.Tip">Numai pentru interfata grafica traditionala: Acest cursor va fi folosit pentru actiuni de tip “vorbeste”</entry>
 <entry key="Conditions.Or">Sau</entry>
-<entry key="AtrezzoList.Title">Stabileste itemi</entry>
+<entry key="AtrezzoList.Title">Set de itemi</entry>
 <entry key="Inventory.Information">Aici puteti particulariza aspectul sagetilor inventarului. Atunci cand nu sunt particularizate, in joc vor fi folosite sagetile implicite</entry>
 <entry key="SelectEffectDialog.AllEffects.ToolTipText">Afiseaza toate efectele</entry>
 <entry key="Operation.ImportJAR.InfoMessage">Retineti ca procesul de import va avea succes numai daca ati selectat un fisier .JAR ce contine un joc exportat cu editorul &lt;e-Adventure&gt;. \nAlte fisiere .JAR nu vor fi importate.</entry>
@@ -1228,8 +1257,6 @@
 <entry key="AssessmentProperties.DeleteProperty">Sterge proprietatea selectata</entry>
 <entry key="ActionsList.DragToAction">Trage catre: {#0}</entry>
 <entry key="ResourcesList.Conditions">Conditii</entry>
-<entry key="ResourceBlock.deleteOnlyOneBlock.message">Eşti sigur să ştergeţi blocul de resurse selectate? Condiţiile în blocul celelalte vor fi şterse. </entry>
-<entry key="ResourceBlock.deleteOnlyOneBlock.title"> Ştergerea bloc de resurse </entry>
 <entry key="AdaptationProfile.Empty">Nicio regula selectata.</entry>
 <entry key="Search.CustomizedText">Text particularizat</entry>
 <entry key="Operation.NewProjectTitle">Proiect nou: selectati folder</entry>
@@ -1237,6 +1264,7 @@
 <entry key="Operation.RenameGlobalStateMessage">Scrieti un nou identificator pentru a redenumi statusul global</entry>
 <entry key="LOMES.LifeCycle.Role">Rol</entry>
 <entry key="Operation.AddCutsceneDefaultValue">IDSecventa</entry>
+<entry key="ImportChapter.ModifyFilesMessage.Message">{#0} dosare a fost redenumit în timpul importului capitol din cauza conflictului de nume dintre sursă şi proiectul destinatie.</entry>
 <entry key="SelectEffectDialog.ByCategory">Pe categorie</entry>
 <entry key="Atrezzo.Name">Numele itemului stabilit</entry>
 <entry key="Error.Import.FileNotFound.Title">Fisierul nu a fost gasit</entry>
@@ -1257,7 +1285,7 @@
 <entry key="Search.AssetPath">Cale resursa</entry>
 <entry key="AdaptationRulesList.Normal">Profil Normal</entry>
 <entry key="PlaySoundEffect.Title">Rulati efectul de sunet</entry>
-<entry key="Button.talk.normal.Tip">Acesta este butonul normal de vorbit, cel care apare atunci cand mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
+<entry key="Button.talk.normal.Tip">Acesta este butonul de vorbit normal, cel care apare atunci cand mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
 <entry key="Operation.AdventureInconsistentReport">Aventura nu este consecventa şi nu va putea fi redata pana cand urmatoarele erori nu sunt rezolvate:</entry>
 <entry key="ExitsList.DeleteExit">Stergeti iesirea selectata</entry>
 <entry key="Operation.FileLoadedTitle">Proiect incarcat</entry>
@@ -1268,6 +1296,7 @@
 <entry key="LOM.Educational.LearningResourceType1">Simulare</entry>
 <entry key="LOM.Educational.LearningResourceType0">Exercitiu</entry>
 <entry key="NextScene.Title">Scena urmatoare</entry>
+<entry key="ActionProperties.EditComplexEffects">Editeaza efecte complexe</entry>
 <entry key="Operation.ExportToLOM.LOMName">Numele obiectului de invatare</entry>
 <entry key="ActionsList.GrabAction">Apuca</entry>
 <entry key="ShowTextEffect.Border">Previzualizare</entry>
@@ -1340,6 +1369,7 @@
 <entry key="Timer.MultipleStartsDesc">Setat-&gt;Daca cronometrul este oprit, va porni din nou odata ce conditiile pentru pornire sunt indeplinite.  Nu este setat -&gt;Odata ce cronometrul se opreste nu va porni din nou chiar daca conditiile pentru pornire sunt indeplinite.</entry>
 <entry key="RandomEffect.Probability.Description">Probabilitateaprimului efect (1-100):</entry>
 <entry key="LOMES.Date.TimeZone">Fus orar</entry>
+<entry key="LoadingScreen.ImportChapter.Message">Importare capitol</entry>
 <entry key="WaitTimeEffect.Title">Efect pentru a astepta un anumit timp</entry>
 <entry key="Operation.SaveProjectAs.TargetFolderInUse.Title">"Salvare proiect ca" nu poate fi realizat</entry>
 <entry key="LOMES.Rights.AccessType">Tip acces</entry>
@@ -1352,6 +1382,7 @@
 <entry key="Operation.AddNextSceneMessage">Selectati o scena pentru a o lega cu structura "Scena noua" </entry>
 <entry key="MacroReferenceEffect.Title">Lanseaza macro</entry>
 <entry key="Book.App.Tip">Utilizati acest panou pentru editarea imaginii de fundal a cartii</entry>
+<entry key="HelpDialog.FileNotFound">Nu a fost gasit</entry>
 <entry key="Operation.FileLoadedMessage">Proiectul a fost incarcat cu succes</entry>
 <entry key="Operation.AddBookDefaultValue">IDCarte</entry>
 <entry key="LOMES.ClassificationTaxonPath.DialogTitle">Adaugati o noua intrare pentru calea taxonului</entry>
@@ -1368,6 +1399,7 @@
 <entry key="IMS.LifeCycle.Status">Statusul sau conditia pe care aceasta resursa le are</entry>
 <entry key="MenuChapters.DeleteChapter">Sterge capitol</entry>
 <entry key="Effect.RedHighlightItemInfo">Evidentiaza {#0} in rosu</entry>
+<entry key="ConversationLine.Type.Whisper">Soapta</entry>
 <entry key="ActiveAreasList.EditActions">Editati actiuni</entry>
 <entry key="Operation.RenameAssessmentFile.Message">Sunteti sigur ca doriti sa redenumiti fisierul de evaluare?</entry>
 <entry key="AssetsChooser.Image">Alege o imagine</entry>
@@ -1414,6 +1446,7 @@
 <entry key="Button.use-grab.normal.Description">Buton normal de utilizeaza-apuca</entry>
 <entry key="CustomAction.GetNameTitle">Numele actiunii</entry>
 <entry key="Effect.DecrementVarInfo">Decrementarea variabilei  "{#0}" in "{#1}" unitati</entry>
+<entry key="ActionProperties.EnableClickEffects">Activare "efecte click"</entry>
 <entry key="Inventory.Tip">Particularizati elementele implicite ale inventarului</entry>
 <entry key="Operation.ExitMessage">Proiectul are modificari nesalvate. Salvati aceste modificari inainte de a iesi?</entry>
 <entry key="MenuFile.SaveAs">Salvare proiect ca..</entry>
@@ -1428,8 +1461,8 @@
 <entry key="Cursor.examine.Tip">Numai pentru interfata grafica traditionala: Acest cursor va fi folosit pentru actiuni de tip “examinare”</entry>
 <entry key="Error.NoVarsAvailable.Message">Nu sunt stabilite variabile in acest capitol. Pentru a crea una, completati casuta cu numele noilor variabile</entry>
 <entry key="LOMES.Educational.Context13">distanta</entry>
-<entry key="LOMES.Educational.Context12">Fata in fata</entry>
 <entry key="LOMES.LangString.Value">Valoare</entry>
+<entry key="LOMES.Educational.Context12">Fata in fata</entry>
 <entry key="LOMES.Educational.Context11">prezential</entry>
 <entry key="LOMES.Educational.Context10">mixt</entry>
 <entry key="AdaptationRule.InitialState.Title">Status initial</entry>
@@ -1525,6 +1558,7 @@
 <entry key="Operation.ExportToLOM.LOMAppletRunInsideBrowser">Apletul ruleaza in interiorul browserului</entry>
 <entry key="UOLProperties.DeleteProperty">Sterge proprietatile selectate</entry>
 <entry key="Effect.SetValueInfo">Stabileste variabila "{#0}" cu valoarea "{#1}"</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Message">Folderul cu imaginile pentru fişierul {#0} nu a fost găsit. Cu toate acestea, procesul de import va continua.</entry>
 <entry key="ErrorReport.Send">Trimite</entry>
 <entry key="TimedAssessmentRule.MaxTime">Timp maxim (s):</entry>
 <entry key="TimersList.Display">Afiseaza in joc</entry>
@@ -1554,6 +1588,7 @@
 <entry key="ScenesList.Title">Scene</entry>
 <entry key="Operation.ExportToLOM.AuthorName">Nume autor</entry>
 <entry key="MenuFile.LOMProperties">Proprietati obiect de invatare</entry>
+<entry key="ConversationLine.Type.Yell">Tipat</entry>
 <entry key="TriggerCutsceneEffect.Title">Deschideti efect secventa</entry>
 <entry key="Operation.FileLoadedWithErrorMessage">Proiect incarcat cu probleme. Este posibil sa nu se fi incarcat toate datele</entry>
 <entry key="Adventure.ModePlayerTransparent.Description">Cand acest mod este selectat, jucatorul nu este descris in joc, ca atunci cand utilizatorul ar fi fost inclus direct in joc. Acest mod este potrivit pentru producerea jocurilor de aventura de tip Myst-like.</entry>
@@ -1569,6 +1604,7 @@
 <entry key="Operation.AddGlobalStateTitle">Adauga status global</entry>
 <entry key="BarriersList.DeleteTool">Sterge unealta</entry>
 <entry key="Conversation.ConfirmationDeleteOption">Sunteti sigur ca doriti sa stergeti aceasta optiune? Toate nodurile fara nod parinte vor disparea. Datele sterse nu se pot recupera.</entry>
+<entry key="ImportChapter.ImportationOK.Message">Capitolul a fost importat corect.</entry>
 <entry key="Cursor.exit.Description">Cursor iesire</entry>
 <entry key="LOMES.Technical.Requirement">Cerinta</entry>
 <entry key="conditions.context.1.251">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va deveni executabila&lt;/b&gt; cand urmatoarea conditie este satisfacuta:</entry>
@@ -1576,7 +1612,7 @@
 <entry key="TimersList.AddTimer">Adauga un nou timp</entry>
 <entry key="RandomEffect.EditEffect">Editati acest efect</entry>
 <entry key="ErrorReport.ShortDescription">Faceti o mica descriere a ceea ce faceati</entry>
-<entry key="Cursor.give.Description">Cursor dat</entry>
+<entry key="Cursor.give.Description">Cursor "a da"</entry>
 <entry key="Error.LoadAdaptationData">A aparut o eroare la incarcarea fisierul de adaptare. Eroarea poate fi cauzata de formatul fisierului sau de lipsa fisierului \"adaptation.dtd\"</entry>
 <entry key="PlaySoundEffect.Description">Selectati un fisier audio care urmeaza a fi rulat</entry>
 <entry key="Resources.DescriptionButtonNormal">Imagine pentru buton in stare normala</entry>
@@ -1590,6 +1626,7 @@
 <entry key="Operation.AddReferenceErrorNoAtrezzo">Nu exista itemi in aventura</entry>
 <entry key="Operation.AddMacroMessage">Scrieti un identificator pentru noul macro</entry>
 <entry key="Effect.MacroReference">Lanseaza un Macro</entry>
+<entry key="ActionProperties.EnableClickFailEffects">Activare "efecte click esuate"</entry>
 <entry key="VarDialog.Err.Message">Pot fi introduse doar numere</entry>
 <entry key="Operation.AddAtrezzoReferenceMessage">Selectati itemul care va fi adaugat in urmatoarea scena</entry>
 <entry key="IMS.Rights.Cost">Pret</entry>
@@ -1658,12 +1695,13 @@
 <entry key="CustomAction.SelectTypeMessage">Selectati daca actiunea este asupra obiectului sau daca interactioneaza cu un altul</entry>
 <entry key="CustomAction.ConfigurationTitle">Configurare</entry>
 <entry key="EffectsGroup.Main">Toate efectele</entry>
+<entry key="ImportChapter.Notice.Title">Anunt importare</entry>
 <entry key="Effect.TriggerLastSceneInfo">Deschide scena anterioara</entry>
 <entry key="IMS.Classification.Tip">Clasificare date</entry>
 <entry key="GlobalStatesList.ID">ID Status global</entry>
 <entry key="Item.ReturnsWhenDragged">Obiectul se intoarce la pozitia initiala dupa ce a fost tras</entry>
 <entry key="AdaptationProfile.Duplicate">Duplicati regula</entry>
-<entry key="SmallAction.ActiveWhenConditionsArent">Activ cand nu sunt conditii</entry>
+<entry key="SmallAction.ActiveWhenConditionsArent">Activ cand conditiile nu sunt </entry>
 <entry key="Inventory.normalleft.Tip">Aceasta este sageata normala la stanga </entry>
 <entry key="NPCsList.Title">Personaje</entry>
 <entry key="Exit.EditEffects">Editare efecte</entry>
@@ -1703,6 +1741,7 @@
 <entry key="NextScene.AdvancedOptions">Optiuni avansate</entry>
 <entry key="Element.Name251">Trage catre</entry>
 <entry key="LOMES.Technical.Name12">Amaya</entry>
+<entry key="Animation.DuplicateFrame">Duplicare cadre selectate</entry>
 <entry key="Element.Name250">Interactiune particularizata</entry>
 <entry key="TreeNode.AddElement">Adauga element</entry>
 <entry key="LOMES.Technical.Name11">Opera</entry>
@@ -1747,15 +1786,18 @@
 <entry key="Operation.AssignAdaptationProfile">Nu exista fisier de adaptare pentru acest capitol</entry>
 <entry key="AssessmentRule.Importance.Low">Scazut</entry>
 <entry key="Effects.Title">Efecte</entry>
+<entry key="ImportChapter.NoFolderForHTMLImages.Title">Folderul nu a fost găsit</entry>
 <entry key="Action.Conditions">Conditiile actiunii</entry>
 <entry key="SetValueEffect.Description">Selectati variabila si valoarea</entry>
 <entry key="Operation.AssignAssessmentProfile">Nu exista niciun fisier de evaluare in acest capitol</entry>
 <entry key="MenuFile.ExportLOM">Exporta ca obiect de invatare</entry>
 <entry key="Element.Name231">Vorbeste cu....</entry>
 <entry key="Element.Name230">Particular</entry>
+<entry key="Perspective.Isometric">Izometric</entry>
 <entry key="Adventure.AdventureTitle">Titlul aventurii</entry>
 <entry key="Operation.ExportToLOM.DefaultValue">Obiect de invatare</entry>
 <entry key="AssessmentRule.CheckRule.Data2004">Nu este parte a  SCORM 2004 Data Model</entry>
+<entry key="ImportChapter.ProblemsCopying.Message">Fişierul {#0} nu poate fi copiat.</entry>
 <entry key="AssessmentRule.CheckRule.Property">Proprietatea</entry>
 <entry key="AssessmentProfile.Feedback.Title">Configurarea feedbackului studentului</entry>
 <entry key="Cutscene.CutsceneEnd">Secventa si configurare</entry>
@@ -1771,6 +1813,7 @@
 <entry key="IMS.Educational.SemanticDensity0">Foarte scazuta</entry>
 <entry key="Search.ActionOverGameState">Actiuni asupra statusului jocului</entry>
 <entry key="MenuAdventure.CheckConsistency">Verificati consecventa aventurii</entry>
+<entry key="ActionProperties.EditClickEffects">Editeaza "efectele click"</entry>
 <entry key="Effect.GenerateObject">Genereaza obiect</entry>
 <entry key="AssetsChooser.Audio">Alege un sunet</entry>
 <entry key="DrawPanel.ZoomOut">Micsorare</entry>
@@ -1794,6 +1837,7 @@
 <entry key="Error.LoadAssessmentData.IO">A aparut o eroare la citirea fisierului de evaluare</entry>
 <entry key="BookParagraphsList.NotApplicable">-Neaplicabil-</entry>
 <entry key="Cursors.Tip">Personalizare cursor pentru diferite cazuri</entry>
+<entry key="ActionProperties.EditClickFailEffects">Editeaza "efecte click esuate"</entry>
 <entry key="Search.AssessmentPath">Cale evaluare</entry>
 <entry key="StartDialog.Message">Pentru a utiliza editorul &lt;e-Adventure&gt;, trebuie sa alegeti intre crearea unei noi aventuri sau deschiderea uneia existente pentru a o edita.</entry>
 <entry key="HighlightItemEffect.Animated">Animat</entry>
@@ -1811,7 +1855,7 @@
 <entry key="Operation.SetAllAnimations.Message">Nu exista alte animatii stabilite pentru acest personaj. Doriti sa le stabiliti </entry>
 <entry key="Resources.DescriptionCharacterAnimationSpeakLeft">Vorbeste spre stanga</entry>
 <entry key="Vars.VarTip">Aceasta este lista variabilelor din capitol. Variabilele pot avea o valoare intreaga in orice moment al jocului. In joc, se pot defini conditii pe baza valorilor variabilelor.</entry>
-<entry key="Cursor.default.Tip">Acesta este cursorul principal. Cand nu este specificat un alt cursor, va fi utilizat cel implicit</entry>
+<entry key="Cursor.default.Tip">Acesta este cursorul principal. Cand nu este specificat un alt cursor, va fi utilizat cel implicit  </entry>
 <entry key="LOM.Educational.InteractivityLevel4">Foarte ridicat</entry>
 <entry key="LOM.Educational.InteractivityLevel3">Ridicat</entry>
 <entry key="LOM.Educational.InteractivityLevel2">Mediu</entry>
@@ -1819,6 +1863,7 @@
 <entry key="LOM.Educational.InteractivityLevel0">Foarte scazut</entry>
 <entry key="IMS.Classification.Tab">Clasificare</entry>
 <entry key="Operation.RenameBookMessage">Scrieti un nou identificator pentru a redenumi cartea</entry>
+<entry key="ConversationLine.Type.Normal">Normal</entry>
 <entry key="Scene.UseInitialPosition">Folositi pozitia initiala</entry>
 <entry key="Language.Name">Romana</entry>
 <entry key="Conditions.ConditionGroup.NotSatisfied">nu este satisfacut</entry>
@@ -1844,23 +1889,4 @@
 <entry key="TalkToAction.MessageSelectConversation">Selecteaza conversatie</entry>
 <entry key="BookPage.NotValidURL">Adresa furnizata nu este accesibila deci e posibil sa nu fie afisata in joc. Verificati daca ati scris corect adresa si daca functioneaza conexiunea la Internet.</entry>
 <entry key="LOMES.MetaMetaData.Language">Limba</entry>
-<entry key="LoadingScreen.ImportChapter.Message">Importul capitol</entry>
-<entry key="ImportChapter.ChapterDefault.Title">Importate Capitolul</entry>
-<entry key="ImportChapter.ModifyFilesMessage.Title">Fişierele modificate în timpul procesului de import</entry>
-<entry key="ImportChapter.ModifyFilesMessage.Message">{#0} dosare a fost redenumit în timpul importului capitol din cauza numelui coliziune între sursă şi proiecte destinty.</entry>
-<entry key="ImportChapter.ImportationOK.Title">Importul terminat</entry>
-<entry key="ImportChapter.ImportationOK.Message">Capitol a fost corect importate.</entry>
-<entry key="ImportChapter.BadFile.Title">Fişierul nu a fost valabil</entry>
-<entry key="ImportChapter.BadFile.Message">Fişierul selectat nu este un XML de e-Adventure fişier capitol.</entry>
-<entry key="ImportChapter.ProblemsParsing.Title">Probleme de analiză capitol</entry>
-<entry key="ImportChapter.ProblemsParsing.Message">Procesul de import capitol a fost întreruptă pentru probleme de analiză capitol.</entry>
-<entry key="ImportChapter.ProblemsCopying.Title">Fişier problemă</entry>
-<entry key="ImportChapter.ProblemsCopying.Message">Fişierul {#0} nu poate fi copiat.</entry>
-<entry key="ImportChapter.UnknowProblems.Title">Probleme în timpul importului</entry>
-<entry key="ImportChapter.UnknowProblems.Message">Procesul de import capitol a fost întrerupt.</entry>
-<entry key="ImportChapter.Notice.Title">Aviz de import</entry>
-<entry key="ImportChapter.Notice.Message">Deşi procesul de import se încheie cu succes, nu există nici o garanţie că va rula capitol. Doriţi să continuaţi?</entry>
-<entry key="MenuChapters.ImportChapter">Import capitol</entry>
-<entry key="ImportChapter.NoFolderForHTMLImages.Title">Dosar nu a fost găsit</entry>
-<entry key="ImportChapter.NoFolderForHTMLImages.Message">Folderul cu fişierele de imagine pentru {#0} fişier nu a fost găsit. Cu toate acestea, procesul de import va continua.</entry>
 </properties>

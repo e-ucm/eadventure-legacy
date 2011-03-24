@@ -56,7 +56,7 @@
 <entry key="GameText.TextGrabObjectInventory2">Il pot pune in meta-inventar?</entry>
 <entry key="DebugFrame.Changes">Modificari</entry>
 <entry key="Report.TextXMLReport">Raportul XML contine informatii care pot fi procesate in alte aplicatii</entry>
-<entry key="GameText.TextGrabObjectInventory1">Deja il/o am</entry>
+<entry key="GameText.TextGrabObjectInventory1">Deja  am</entry>
 <entry key="GameText.TextGrabCannot2">Greutate prea mare...</entry>
 <entry key="GameText.TextGrabCannot1">Nu pot apuca </entry>
 <entry key="GameText.Look">Priveste</entry>
@@ -71,7 +71,7 @@
 <entry key="ActionButton.UseGive">Foloseste cu..../Da.....</entry>
 <entry key="Report.Importance.High">Ridicata</entry>
 <entry key="ErrorMessage.Title">Fisierul nu este valid. Selectati un nou fisier</entry>
-<entry key="DebugFrame.GlobalStates">Statut global</entry>
+<entry key="DebugFrame.GlobalStates">Status global</entry>
 <entry key="ErrorReport.Send">Trimite</entry>
 <entry key="GameText.LoadingXML">Incarcare XML....</entry>
 <entry key="GameText.Grab">Apuca</entry>
@@ -132,7 +132,7 @@
 <entry key="GameText.TextGiveCannot2">Nu vreau sa fac asta</entry>
 <entry key="GameText.TextGrabNPC1">Nu intra in buzunar</entry>
 <entry key="GameText.TextGiveCannot1">Nu poate fi dat</entry>
-<entry key="DebugFrame.GlobalStatesTip">Acest tabel afiseaza toate situatiile globale si valorile acestora</entry>
+<entry key="DebugFrame.GlobalStatesTip">Acest tabel afiseaza toate statusurile globale si valorile acestora</entry>
 <entry key="SendMail.ErrorSendingEmail">Eroare la trimiterea e-mailului</entry>
 <entry key="GameText.More">Mai mult....</entry>
 <entry key="GameText.TextTalkCannot2">Nu este locul, nici momentul</entry>
