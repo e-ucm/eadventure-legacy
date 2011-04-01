@@ -47,11 +47,14 @@ import es.eucm.eadventure.engine.core.control.Game;
 public class FunctionalMacroReferenceEffect extends FunctionalEffect {
 
     private MacroReferenceEffect macroRefEffect;
+    
+    private boolean triggered;
 
     public FunctionalMacroReferenceEffect( MacroReferenceEffect effect ) {
 
         super( effect );
         macroRefEffect = effect;
+        triggered = false;
     }
 
     @Override
@@ -69,18 +72,21 @@ public class FunctionalMacroReferenceEffect extends FunctionalEffect {
     @Override
     public void triggerEffect( ) {
 
-        // Get the macro
-        Macro macro = Game.getInstance( ).getCurrentChapterData( ).getMacro( macroRefEffect.getTargetId( ) );
-
-        // Build list of functional effects
-        List<FunctionalEffect> fEffects = new ArrayList<FunctionalEffect>( );
-        for( AbstractEffect effect : macro.getEffects( ) ) {
-            fEffects.add( FunctionalEffect.buildFunctionalEffect( effect ) );
+        if (!triggered) {
+            // Get the macro
+            Macro macro = Game.getInstance( ).getCurrentChapterData( ).getMacro( macroRefEffect.getTargetId( ) );
+    
+            // Build list of functional effects
+            List<FunctionalEffect> fEffects = new ArrayList<FunctionalEffect>( );
+            for( AbstractEffect effect : macro.getEffects( ) ) {
+                fEffects.add( FunctionalEffect.buildFunctionalEffect( effect ) );
+            }
+    
+            // Add functional effects to the stack-queue. The GameStateEffects will trigger them normally
+            //Game.getInstance().addToTheStack( fEffects );
+            Game.getInstance( ).storeEffectsInQueue( fEffects, false );
+            triggered = true;
         }
-
-        // Add functional effects to the stack-queue. The GameStateEffects will trigger them normally
-        //Game.getInstance().addToTheStack( fEffects );
-        Game.getInstance( ).storeEffectsInQueue( fEffects, false );
     }
 
 }
