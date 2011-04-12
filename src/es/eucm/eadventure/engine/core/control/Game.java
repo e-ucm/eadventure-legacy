@@ -53,6 +53,7 @@ import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.comm.AdventureApplet;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
+import es.eucm.eadventure.comm.manager.commManager.CommManagerGAMETEL;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
@@ -873,6 +874,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                     Thread.sleep( 100 );
                 }
 
+                // FLush comm cache (if needed)
+                if (getComm( )!=null && getComm().getCommType( )==CommManagerApi.GAMETEL_TYPE)
+                    ((CommManagerGAMETEL)getComm()).flush();
                
                 if( currentChapter == gameDescriptor.getChapterSummaries( ).size( ) )
                     gameOver = true;
@@ -1861,20 +1865,17 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
     public void cycleCompleted( int timerId, long elapsedTime ) {
 
-        //System.out.println("Timer " + timerId + " expired, executing effects.");
         Timer timer = gameTimers.get( new Integer( timerId ) );
         FunctionalEffects.storeAllEffects( timer.getEffects( ) );
     }
 
     public void timerStarted( int timerId, long currentTime ) {
 
-        //System.out.println("Timer " + timerId + " starting");
         // Do nothing
     }
 
     public void timerStopped( int timerId, long currentTime ) {
 
-        //System.out.println("Timer " + timerId + " was stopped, executing effects");
         Timer timer = gameTimers.get( new Integer( timerId ) );
         FunctionalEffects.storeAllEffects( timer.getPostEffects( ) );
         //timerManager.deleteTimer( timerId );
