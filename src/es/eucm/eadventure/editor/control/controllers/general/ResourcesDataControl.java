@@ -531,7 +531,7 @@ public class ResourcesDataControl extends DataControl {
 
         return null;
     }
-
+    
     /**
      * This method creates the frames of the animation from the images belonging
      * to the previous animation format.
@@ -540,6 +540,20 @@ public class ResourcesDataControl extends DataControl {
      *            The path to the previous animation
      */
     public static void framesFromImages( Animation animation, String assetPath ) {
+        framesFromImages( animation, assetPath, false);
+        
+    }
+
+    /**
+     * This method creates the frames of the animation from the images belonging
+     * to the previous animation format. 
+     * 
+     * @param assetPath
+     *            The path to the previous animation
+     * @param changeFormat
+     *            Change the frame creation setting the time per frame and wait user interaction.
+     */
+    public static void framesFromImages( Animation animation, String assetPath, boolean changeFormat ) {
 
         animation.getFrames( ).clear( );
         animation.getTransitions( ).clear( );
@@ -559,8 +573,12 @@ public class ResourcesDataControl extends DataControl {
             }
             if( currentSlide == null )
                 end = true;
-            else
-                animation.addFrame( -1, new Frame( animation.getImageLoaderFactory( ), file ) );
+            else{
+               if (!changeFormat) 
+                   animation.addFrame( -1, new Frame( animation.getImageLoaderFactory( ), file ) );
+               else
+                   animation.addFrame( -1, new Frame( animation.getImageLoaderFactory( ), file, 100, true ) );
+            }
             i++;
         }
     }

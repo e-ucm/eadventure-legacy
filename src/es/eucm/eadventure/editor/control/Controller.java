@@ -2311,6 +2311,7 @@ public class Controller {
                                         catch( Exception e ) {
                                             this.showErrorDialog( TC.get( "Operation.ExportToLOM.LONameNotValid.Title" ), TC.get( "Operation.ExportToLOM.LONameNotValid.Title" ) );
                                             ReportDialog.GenerateErrorReport( e, true, TC.get( "Operation.ExportToLOM.LONameNotValid.Title" ) );
+                                            hideLoadingScreen();
                                         }
 
                                     }
@@ -2318,6 +2319,7 @@ public class Controller {
                                 else {
                                     // Show error: The target dir cannot be contained 
                                     mainWindow.showErrorDialog( TC.get( "Operation.ExportT.TargetInProjectDir.Title" ), TC.get( "Operation.ExportT.TargetInProjectDir.Message" ) );
+                                    hideLoadingScreen();
                                 }
 
                             }
@@ -3790,21 +3792,28 @@ public boolean isCharacterValid(String elementId){
      */
      public void changeAllAnimationFormats(){
          
-         //Get al de data controls that can have animations
+         //Get all cutsecene data controls 
          List<DataControlWithResources> dataControlList = new ArrayList<DataControlWithResources>();
          dataControlList.addAll(chaptersController.getSelectedChapterDataControl( ).getCutscenesList( ).getAllCutsceneDataControls( ));
+         // change formats seting the option "slides animation" in the new .eaa created animations
+         changeFormats(true,dataControlList);
+         dataControlList.clear( );
+
+         //Get all NPC and Player data controls 
          dataControlList.addAll(chaptersController.getSelectedChapterDataControl( ).getNPCsList( ).getAllNPCDataControls( ));
          dataControlList.add(chaptersController.getSelectedChapterDataControl( ).getPlayer( ));
+         // change formats seting the option "slides animation" in the new .eaa created animations
+         changeFormats(false,dataControlList);
          
          loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsLO" ) );
          loadingScreen.setVisible( true );
          
+     } // end changeAllAnimationFormats
+     
+     private void changeFormats(boolean isCutScene, List<DataControlWithResources> dataControlList){
          // Take the project folder to check if the .eaa animation has been previously created
          File projectFolder = new File( Controller.getInstance( ).getProjectFolder( ) );
-         
-         
          for (DataControlWithResources dc:dataControlList){
-             String filename = null;
              // iterate the whole list of resourceDataControls looking for all animations
              List<ResourcesDataControl> resourcesDataControl = dc.getResources( );
              for (ResourcesDataControl rdc :resourcesDataControl){
@@ -3819,41 +3828,31 @@ public boolean isCharacterValid(String elementId){
                         // String path;
                          String[] temp = assetPath.split( "/" );
                          String animationName = temp[temp.length - 1];
-                         if (!new File(projectFolder, assetPath + ".eaa").exists( )){
-                             filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
-                             if( filename != null ) {
-                                 File file = new File( filename );
-                                 file.create( );
-                                 Animation animation = new Animation( animationName, new EditorImageLoader(), 100 );
-                                 animation.setDocumentation( rdc.getAssetDescription( i ) );
-                                     // add the images of the old animation
-                                     ResourcesDataControl.framesFromImages( animation, assetPath);
-                                         AnimationWriter.writeAnimation( filename, animation );
-                                        // rdc.setAssetPath( filename, i );
-                                         // CAUTION!! adding resources without using tool
-                                         AssetsController.addSingleAsset( AssetsController.CATEGORY_ANIMATION , assetPath );
-                                         rdc.addAsset( rdc.getAssetName( i ) , assetPath );
-                             } 
-                         } else {
+                         File animationFile = new File(projectFolder, assetPath + ".eaa");
+                         if (!animationFile.exists( )){
+                            Animation animation = new Animation( animationName, new EditorImageLoader());
+                            // set the animation to cutsecene mode when was necessary
+                            animation.setSlides( isCutScene );
+                            animation.setDocumentation( rdc.getAssetDescription( i ) );
+                            // add the images of the old animation
+                            ResourcesDataControl.framesFromImages( animation, assetPath, true);
+                            AnimationWriter.writeAnimation( animationFile.getAbsolutePath( ), animation );
+                            // CAUTION!! adding resources without using tool
+                            rdc.addAsset( rdc.getAssetName( i ) , assetPath + ".eaa" );
+                          } else
+                              rdc.changeAssetPath( i , assetPath + ".eaa" );
+                      } else {
                              // if the eaa animation for this old animation was previously created, change only the path (without using Tools, cause this operation
                              // ask for user confirmation if animation path previously exist)
-                             rdc.changeAssetPath( i , rdc.getAssetPath( i ) + ".eaa");
+                             rdc.changeAssetPath( i , assetPath );
                          }
                      
                          }
                      }
-                 
-             
-                 }
-                 
-              
-             }
-             }
-         
- 
+                 }// end resources  for
+             }// end main for
      }
      
 
     
-
 }
