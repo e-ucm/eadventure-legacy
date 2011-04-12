@@ -132,12 +132,14 @@ public class FunctionalCustom extends FunctionalAction {
             animation[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), false, MultimediaManager.IMAGE_PLAYER );
         }
         else {
-            if( playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ) != null && !playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ) )
+            if( playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ) != null && !playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ) 
+                    && !playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION + ".eaa" ) )
                 animation[AnimationState.EAST] = multimedia.loadAnimation( playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 animation[AnimationState.EAST] = multimedia.loadAnimation( playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ), true, MultimediaManager.IMAGE_PLAYER );
             
-            if( playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ) != null && !playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ) )
+            if( playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ) != null && !playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION )
+                    && !playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION + ".eaa") )
                 animation[AnimationState.WEST] = multimedia.loadAnimation( playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 animation[AnimationState.WEST] = multimedia.loadAnimation( playerResources.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );

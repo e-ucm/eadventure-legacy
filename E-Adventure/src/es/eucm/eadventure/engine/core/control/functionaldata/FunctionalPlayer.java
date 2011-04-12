@@ -191,24 +191,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         actionPool = new ArrayList<FunctionalAction>( );
         animationPool = new ArrayList<Animation[]>( );
 
-        MultimediaManager multimedia = MultimediaManager.getInstance( );
-
-        Animation[] animations = new Animation[ 4 ];
-        
-        if( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ) )
-            animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-        else
-            animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), true, MultimediaManager.IMAGE_PLAYER );
-      
-        if( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ) )
-            animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
-        else
-            animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-       
-        animations[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
-        animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
-
-        animationPool.add( animations );
+        animationPool.add( loadPlayerAnimations() );
 
         textFrontColor = generateColor( player.getTextFrontColor( ) );
         textBorderColor = generateColor( player.getTextBorderColor( ) );
@@ -217,6 +200,31 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         keepShowingGlobal = Game.getInstance( ).getGameDescriptor( ).isKeepShowing( );
     }
 
+    
+    private Animation[] loadPlayerAnimations(){
+        
+        MultimediaManager multimedia = MultimediaManager.getInstance( );
+        
+        Animation[] animations = new Animation[ 4 ];
+        
+        if( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION )
+                && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION + ".eaa" ) )
+            animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+        else
+            animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), true, MultimediaManager.IMAGE_PLAYER );
+      
+        if( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION )
+                && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION + ".eaa" ))
+            animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
+        else
+            animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+       
+        animations[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
+        animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+        
+        return animations;
+    }
+    
     public boolean isAlwaysSynthesizer( ) {
 
         return player.isAlwaysSynthesizer( );
@@ -242,25 +250,8 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
 
             // Flush the past resources from the images cache
             MultimediaManager.getInstance( ).flushImagePool( MultimediaManager.IMAGE_PLAYER );
-
-            MultimediaManager multimedia = MultimediaManager.getInstance( );
-            Animation[] animations = new Animation[ 4 ];
-            
-            if( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ) )
-                animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-            else
-                animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), true, MultimediaManager.IMAGE_PLAYER );
-          
-            if( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION ) )
-                animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
-            else
-                animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-
-            animations[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
-            animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
-
             this.animationPool.clear( );
-            this.animationPool.add( animations );
+            this.animationPool.add( loadPlayerAnimations() );
         }
     }
 
