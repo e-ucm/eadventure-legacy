@@ -152,23 +152,7 @@ public class Animation implements Cloneable, Documented, HasId {
         slides = false;
     }
     
-    /**
-     * Same constructor, the only difference is that the time is defined as parameter
-     */
-    public Animation( String id, ImageLoaderFactory factory, int time ) {
-        this.factory = factory;
-
-        this.id = id;
-        resources = new ArrayList<Resources>( );
-        frames = new ArrayList<Frame>( );
-        transitions = new ArrayList<Transition>( );
-        frames.add( new Frame( factory, time ) );
-        transitions.add( new Transition( ) );
-        transitions.add( new Transition( ) );
-        skippedFrames = 0;
-        useTransitions = true;
-        slides = false;
-    }
+    
     /**
      * Creates a new Animation with a default Frame
      * 

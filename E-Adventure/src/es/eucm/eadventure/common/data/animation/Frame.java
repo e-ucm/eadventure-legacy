@@ -153,20 +153,20 @@ public class Frame implements Cloneable, Timed {
     }
 
     /**
-     * Creates a new frame with a image uri and a duration time
+     * Creates a new frame with a image uri, a duration time and the selection for user click waiting
      * 
      * @param uri
      *            The uri for the image
      * @param time
      *            The time (duration) of the frame
      */
-    public Frame( ImageLoaderFactory factory, long time ) {
-        this.uri = "";
+    public Frame( ImageLoaderFactory factory, String uri, long time, boolean waitForClick ) {
+        this.uri = uri;
         this.factory = factory;
         type = TYPE_IMAGE;
         this.time = time;
         image = null;
-        waitforclick = false;
+        waitforclick = waitForClick;
         resources = new ArrayList<Resources>( );
         soundUri = "";
         maxSoundTime = 1000;
