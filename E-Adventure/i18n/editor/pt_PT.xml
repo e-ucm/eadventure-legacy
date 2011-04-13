@@ -1863,4 +1863,5 @@
 <entry key="TalkToAction.MessageSelectConversation">Seleccione uma conversação</entry>
 <entry key="BookPage.NotValidURL">Não se pode aceder à URL indicada. Por favor, comprove o endereço e o  funcionamento da sua conexão à Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Língua</entry>
+<entry key="LOMES.Disabled">O editor LOM-ES e exportação Agrega só está disponível em espanhol.</entry>
 </properties>
