@@ -45,6 +45,8 @@ import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 
 public interface CommManagerApi {
 
+    
+    
     public static final int SCORMV12_TYPE = 0;
 
     public static final int SCORMV2004_TYPE = 1;

@@ -40,13 +40,10 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -55,7 +52,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -86,15 +82,6 @@ public class ExportToLOMDialog extends JDialog {
     private JCheckBox windowedCheckBox;
 
     private JComboBox typeComboBox;
-    
-    //4 field attributes FOR GAMETEL
-    private String testURI;
-    private JTextField testURITextField;
-    
-    private String testUserID;
-    private JTextField testUserIDTextField;
-    private JPanel gametelContainerPanel;
-    private JPanel gametelPanel;
 
     private boolean windowed = false;
 
@@ -105,33 +92,17 @@ public class ExportToLOMDialog extends JDialog {
 
         this.lomName = defaultLomName;
 
+        
         this.getContentPane( ).setLayout( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.insets = new Insets( 5, 5, 5, 5 );
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1;
 
+        
         JPanel typePanel = new JPanel( );
-        String[] options = { "IMS CP", "WebCT 4 CP", "SCORM", "SCORM2004", "AGREGA", "LAMS", "GAME·TEL-PC"};
+        String[] options = { "IMS CP", "WebCT 4 CP", "SCORM", "SCORM2004", "AGREGA", "LAMS"};
         typeComboBox = new JComboBox( options );
-        typeComboBox.addItemListener( new ItemListener(){
-
-            public void itemStateChanged( ItemEvent e ) {
-                System.out.println( "TYPE SELECTED"+typeComboBox.getSelectedIndex( ) );
-                if (typeComboBox.getSelectedIndex( )==6){
-                    if (!gametelContainerPanel.isAncestorOf( gametelPanel )){
-                        gametelContainerPanel.add( gametelPanel );
-                        ExportToLOMDialog.this.setSize( new Dimension( 400, 670 ) );
-                    }
-                } else {
-                    if (gametelContainerPanel.isAncestorOf( gametelPanel )){
-                        gametelContainerPanel.remove( gametelPanel );
-                        ExportToLOMDialog.this.setSize( new Dimension( 400, 600 ) );
-                    }
-                }
-            }
-            
-        });
         typePanel.add( typeComboBox );
         typePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Operation.ExportToLOM.LOMType" ) ) );
 
@@ -220,49 +191,6 @@ public class ExportToLOMDialog extends JDialog {
         c2.weightx = 1;
         lomAppletPanel.add( windowedCheckBox, c2 );
 
-        // FOR GAMETEL: Test fields
-        gametelContainerPanel = new JPanel();
-        gametelPanel = new JPanel();
-        gametelPanel.setLayout( new GridLayout(2,2) );
-        gametelPanel.add( new JLabel( TC.get( "Operation.ExportToLOM.GAMETEL.TestURI" ) ) );
-        testURITextField = new JTextField();
-        testURITextField.getDocument( ).addDocumentListener( new DocumentListener(){
-
-            public void changedUpdate( DocumentEvent e ) {
-                testURI = testURITextField.getText( );
-            }
-
-            public void insertUpdate( DocumentEvent e ) {
-                changedUpdate(e);
-            }
-
-            public void removeUpdate( DocumentEvent e ) {
-                changedUpdate(e);
-            }
-            
-        });
-        gametelPanel.add( testURITextField );
-        
-        gametelPanel.add( new JLabel( TC.get( "Operation.ExportToLOM.GAMETEL.TestUserID" ) ) );
-        testUserIDTextField = new JTextField();
-        testUserIDTextField.getDocument( ).addDocumentListener( new DocumentListener(){
-
-            public void changedUpdate( DocumentEvent e ) {
-                testUserID = testUserIDTextField.getText( );
-            }
-
-            public void insertUpdate( DocumentEvent e ) {
-                changedUpdate(e);
-            }
-
-            public void removeUpdate( DocumentEvent e ) {
-                changedUpdate(e);
-            }
-            
-        });
-        gametelPanel.add( testUserIDTextField );
-
-        
         //Button panel
         JPanel buttonPanel = new JPanel( );
         JButton okButton = new JButton( TC.get( "Operation.ExportToLOM.OK" ) );
@@ -277,7 +205,6 @@ public class ExportToLOMDialog extends JDialog {
         } );
         buttonPanel.add( okButton );
 
-        
         //Add all panels
         this.getContentPane( ).add( typePanel, c );
         c.gridy++;
@@ -287,9 +214,7 @@ public class ExportToLOMDialog extends JDialog {
         c.gridy++;
         this.getContentPane( ).add( lomAppletPanel, c );
         c.gridy++;
-        this.getContentPane( ).add( gametelContainerPanel, c  );
         c.anchor = GridBagConstraints.CENTER;
-        c.gridy++;
         this.getContentPane( ).add( buttonPanel, c );
 
         // Add window listener
@@ -400,18 +325,4 @@ public class ExportToLOMDialog extends JDialog {
 
         return windowed;
     }
-
-    
-    public String getTestUserID( ) {
-    
-        return testUserID;
-    }
-
-    
-    public String getTestReturnURI( ) {
-    
-        return this.testURI;
-    }
-    
-    
 }
