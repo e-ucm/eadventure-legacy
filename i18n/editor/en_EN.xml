@@ -2011,4 +2011,5 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="MenuChapters.ImportChapter">Import chapter</entry>
 <entry key="ImportChapter.NoFolderForHTMLImages.Title">Folder not found</entry>
 <entry key="ImportChapter.NoFolderForHTMLImages.Message">The folder with the image files for {#0} file has not been found. Nevertheless, the importation process will continue.</entry>
+<entry key="LOMES.Disabled">The LOM-ES editor and AGREGA exportation is only available in Spanish.</entry>
 </properties>

@@ -1889,4 +1889,5 @@
 <entry key="TalkToAction.MessageSelectConversation">Selecteaza conversatie</entry>
 <entry key="BookPage.NotValidURL">Adresa furnizata nu este accesibila deci e posibil sa nu fie afisata in joc. Verificati daca ati scris corect adresa si daca functioneaza conexiunea la Internet.</entry>
 <entry key="LOMES.MetaMetaData.Language">Limba</entry>
+<entry key="LOMES.Disabled">Editorul LOM-ES şi export AGREGA este disponibil doar în limba spaniolă.</entry>
 </properties>
