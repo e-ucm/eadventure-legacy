@@ -150,6 +150,7 @@ public class AdventureDataControl {
         adventureData.addChapter( new Chapter( chapterTitle, sceneId ) );
         lomController = new LOMDataControl( );
         imsController = new IMSDataControl( );
+        lomesController = new LOMESDataControl( );
     }
 
     public AdventureDataControl( String adventureTitle, String chapterTitle, String sceneId ) {

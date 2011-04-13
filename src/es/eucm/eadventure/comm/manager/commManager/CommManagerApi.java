@@ -52,6 +52,8 @@ public interface CommManagerApi {
     public static final int LD_ENVIROMENT_TYPE = 2;
     
     public static final int LAMS_TYPE = 3;
+    
+    public static final int GAMETEL_TYPE = 4;
 
     public boolean connect( HashMap<String, String> info ); //throws CommException;
 

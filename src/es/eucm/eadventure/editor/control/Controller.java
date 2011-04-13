@@ -2209,6 +2209,11 @@ public class Controller {
                 boolean windowed = dialog.getWindowed( );
                 int type = dialog.getType( );
 
+                // For GAMETEL
+                String testUserId = dialog.getTestUserID( );
+                String testReturnURI = dialog.getTestReturnURI( );
+
+                
                 boolean validated = dialog.isValidated( );
 
                 if( type == 2 && !hasScormProfiles( SCORM12 ) ) {
@@ -2298,6 +2303,9 @@ public class Controller {
                                                 mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
                                             else if( type == 5 && Writer.exportAsLAMSLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ){
+                                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
+                                            }
+                                            else if( type == 6 && Writer.exportAsGAMETELLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, testReturnURI, testUserId, adventureDataControl ) ){
                                                 mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
                                             else {

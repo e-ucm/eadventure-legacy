@@ -53,6 +53,7 @@ import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.comm.AdventureApplet;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
+import es.eucm.eadventure.comm.manager.commManager.CommManagerGAMETEL;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
@@ -880,6 +881,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 while( !assessmentEngine.isEndOfChapterFeedbackDone( ) ) {
                     Thread.sleep( 100 );
                 }
+                
+                
+                // FLush comm cache (if needed)
+                if (getComm( )!=null && getComm().getCommType( )==CommManagerApi.GAMETEL_TYPE)
+                    ((CommManagerGAMETEL)getComm()).flush();
 
                
                 if( currentChapter == gameDescriptor.getChapterSummaries( ).size( ) )

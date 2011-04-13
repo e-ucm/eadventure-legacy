@@ -460,7 +460,9 @@ public class MainWindow extends JFrame {
         //itLomProperties.addSeparator( );
 
         JMenuItem itLOMESProp = new JMenuItem( TC.get( "MenuFile.LOMESProperties" ) );
-        itLOMESProp.setEnabled( controller.isFolderLoaded( ) );
+        //This option will be enabled only for Spanish
+        itLOMESProp.setEnabled( controller.isFolderLoaded( )&&controller.getLanguage( ).toLowerCase( ).contains( "es" ) );
+        itLOMESProp.setToolTipText( controller.getLanguage( ).toLowerCase( ).contains( "es" )?"":TC.get( "LOMES.Disabled" ) );
         itLOMESProp.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
