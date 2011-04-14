@@ -65,7 +65,7 @@ public class CommManagerGAMETEL extends AdventureApplet{
      */
     private static final long serialVersionUID = -2898258306208612357L;
     
-    private HashMap<String, String> dataToSend;
+    private HashMap<String, GametelCommData> dataToSend;
     
     private String returnURI;
     
@@ -128,6 +128,7 @@ public class CommManagerGAMETEL extends AdventureApplet{
     
     /**
      * Makes a single post call to the back-end server, with all the data that has to be set.
+     * Only params starting with #global will be set multiple times.
      * Communication is asynchronous. Data is pushed immediately.
      * 
      *  The URL is formed following the pattern:
@@ -138,16 +139,25 @@ public class CommManagerGAMETEL extends AdventureApplet{
     private void sendStoredData( ){
         // First, update total time
         if (dataToSend==null)
-            dataToSend=new HashMap<String, String>();
-        dataToSend.put( "total-time", String.valueOf( Game.getInstance().getTime() ) );
+            dataToSend=new HashMap<String, GametelCommData>();
+        dataToSend.put( "total-time", new GametelCommData(String.valueOf( Game.getInstance().getTime() ), false) );
         
         // Build url
         String urlParameters="userid="+userId;
         for (String varName: dataToSend.keySet( )){
-            urlParameters+="&"+varName+"="+dataToSend.get( varName );
+            if (!dataToSend.get( varName ).isSent( ) || varName.toLowerCase( ).startsWith( "#global" )){
+                urlParameters+="&"+varName+"="+dataToSend.get( varName ).getValue( );
+            }
         }
     
         StringBuffer response = doPostCall(urlParameters);
+        // If response is not null, we can assume communication worked
+        if (response!=null){
+            for (String varName: dataToSend.keySet( )){
+                dataToSend.get( varName ).setSent( true );
+            }
+        }
+ 
         System.out.println("[GAMETEL] POST: "+returnURI+"?"+urlParameters+ (response!=null?(" RESPONSE RECEIVED: " +response):(" COMMUNICATION FAILED - NULL RESPONSE")));
     }
     
@@ -220,7 +230,7 @@ public class CommManagerGAMETEL extends AdventureApplet{
     public void notifyRelevantState( List<AssessmentProperty> list ) {
 
         if (dataToSend==null){
-            dataToSend=new HashMap<String, String>();
+            dataToSend=new HashMap<String, GametelCommData>();
         } 
         
         Iterator<AssessmentProperty> it = list.iterator( );
@@ -228,8 +238,14 @@ public class CommManagerGAMETEL extends AdventureApplet{
             AssessmentProperty assessProp = it.next( );
             String attribute = assessProp.getId( );
             String value = assessProp.getValue( ) ;
-            if (attribute!=null && value!=null)
-                dataToSend.put( attribute, value );
+            if (attribute!=null && value!=null){
+                // If the attribute is already in 
+                if (dataToSend.get( attribute )!=null){
+                    dataToSend.get( attribute ).setValue( value );
+                } else
+                    dataToSend.put( attribute, new GametelCommData(value,false) );
+            }
+                
         }
     }
 
@@ -258,4 +274,45 @@ public class CommManagerGAMETEL extends AdventureApplet{
 
     public void setAdaptationEngine( AdaptationEngine engine ) {}
 
+    
+    private class GametelCommData {
+        
+        private String value;
+        
+        private boolean sent;
+
+        
+        public GametelCommData( String value, boolean sent ) {
+
+            super( );
+            this.value = value;
+            this.sent = sent;
+        }
+
+
+        public String getValue( ) {
+        
+            return value;
+        }
+
+        
+        public void setValue( String value ) {
+        
+            this.value = value;
+        }
+
+        
+        public boolean isSent( ) {
+        
+            return sent;
+        }
+
+        
+        public void setSent( boolean sent ) {
+        
+            this.sent = sent;
+        }
+        
+    }
+    
 }
