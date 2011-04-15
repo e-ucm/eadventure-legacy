@@ -81,8 +81,7 @@
   <property name="sign.keypass" value="abcdtest" />
   <property name="sign.keystore" value="eAdventure.keystore" />
 	
-  <!-- variable for Manifest Libraries-->
-  <property name="lib.project.manifest.classpath" value="${lib}/activation.jar ${lib}/cmu_time_awb.jar ${lib}/cmu_us_kal.jar ${lib}/cmu_us_slt_arctic.jar ${lib}/cmudict04.jar ${lib}/cmulex.jar ${lib}/cmutimelex.jar jars/en_us.jar jars/freetts.jar jars/gnu-regexp-1.1.4.jar ${lib}/jffmpeg-1.1.0.jar jars/jl1.0.jar ${lib}/jmf.jar jars/kafenio-config.jar jars/kafenio-icons.jar ${lib}/kafenio.jar ${lib}/mailapi.jar jars/mp3spi1.9.4.jar ${lib}/plugin.jar ${lib}/smtp.jar ${lib}/tools.jar ${lib}/tritonus_share.jar ${lib}/truezip-6.jar"/>
+  
 
   <!--
       Setup and compile
@@ -96,12 +95,13 @@
     <pathelement location="${build.dir}"/>
     <pathelement location="${basedir}"/>
   </path>
-
+	
+	<!-- variable for Manifest Libraries-->
   <pathconvert property="manifest.path" pathsep=" ">
     <path refid="project.path" />
-    <map from="${basedir}\${lib.dir}\" to="${lib.dir}\" />
+  	<map from="${basedir}\" to=" " />
   </pathconvert>
-
+	
   <target name="init" description="Initialize the build">
     <tstamp/>
     <mkdir dir="${build.dir}"/>
@@ -543,7 +543,7 @@ Homepage: http://e-adventure.e-ucm.es/
       <manifest>
         <attribute name="Main-Class" value="${main.editor}" />
         <attribute name="Class-Path" 
-           value="${lib.project.manifest.classpath} ${lib}/eadventure-common.jar eadventure-engine.jar ${lib}/eadventure-comm-jar" />
+           value="${manifest.path} ${lib}/eadventure-common.jar eadventure-engine.jar ${lib}/eadventure-comm-jar" />
       </manifest>
     </jar>
   </target>
@@ -554,7 +554,7 @@ Homepage: http://e-adventure.e-ucm.es/
       <manifest>
         <attribute name="Main-Class" value="${main.engine}" />
         <attribute name="Class-Path" 
-           value="${lib.project.manifest.classpath} ${lib}/eadventure-common.jar ${lib}/eadventure-comm.jar" />
+           value="${manifest.path} ${lib}/eadventure-common.jar ${lib}/eadventure-comm.jar" />
       </manifest>
     </jar>
   </target>
