@@ -59,7 +59,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.auxiliar.File;
@@ -628,6 +631,16 @@ public class Controller {
      */
     public void init( String arg ) {
 
+        
+        if (!System.getProperty( "os.name" ).toLowerCase( ).contains( "win" ) && 
+                !System.getProperty( "os.name" ).toLowerCase( ).contains( "mac" ))
+            try {
+                UIManager.setLookAndFeel(new SynthLookAndFeel() );
+            }
+            catch( UnsupportedLookAndFeelException e ) {
+                mainWindow.showErrorDialog( "Error with look&feel", "Could not load L&F for neither windows nor Mac platform" );
+            }
+        
         // Load the configuration
         ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath( ) );
         ProjectConfigData.init( );
