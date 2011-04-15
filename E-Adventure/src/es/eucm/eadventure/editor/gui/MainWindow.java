@@ -142,12 +142,17 @@ public class MainWindow extends JFrame {
         controller = Controller.getInstance( );
 
         // Set the look and feel
-        try {
-            //UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
-            UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName( ) );
-        }
-        catch( Exception e ) {
-            //ErrorReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+        
+        if (System.getProperty( "os.name" ).toLowerCase( ).contains( "win" ) || 
+                System.getProperty( "os.name" ).toLowerCase( ).contains( "mac" )){
+           
+            try {
+                //UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
+                UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName( ) );
+            }
+            catch( Exception e ) {
+                //ErrorReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+            }
         }
 
         // Create the list of icons of the window
