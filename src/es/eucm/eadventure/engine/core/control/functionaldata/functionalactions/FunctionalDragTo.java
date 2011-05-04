@@ -119,7 +119,7 @@ public class FunctionalDragTo extends FunctionalAction {
 
         if( anotherElement != null ) {
             totalTime += elapsedTime;
-            if( totalTime > 1000 ) {
+            if( totalTime > 200 ) {
                 
                 if (element instanceof FunctionalItem)
                     spreadDrag((FunctionalItem) element);
