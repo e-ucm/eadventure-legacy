@@ -287,12 +287,25 @@ public abstract class ResourceHandler implements InputStreamCreator {
 
         if( path.startsWith( "/" ) )
             path = path.substring( 1 );
-
+        
         try {
             if( zipFile != null && zipFile.getEntry( path ) != null )
                 inputStream = zipFile.getInputStream( zipFile.getEntry( path ) );
-            else
-                inputStream = getResourceAsStream( path );
+            else {
+                String ext = getExtension (path);
+                String path2 = setExtension(path, ext.toLowerCase( ));
+                if( zipFile != null && zipFile.getEntry( path2 ) != null )
+                    inputStream = zipFile.getInputStream( zipFile.getEntry( path2 ) );
+                else {
+                    path2=setExtension(path, ext.toUpperCase( ));
+                    if( zipFile != null && zipFile.getEntry( path2 ) != null )
+                        inputStream = zipFile.getInputStream( zipFile.getEntry( path2 ) );
+                    else
+                        inputStream = getResourceAsStream( path );
+                }
+                
+            }
+                
         }
         catch( IOException e ) {
             e.printStackTrace( );
@@ -346,6 +359,14 @@ public abstract class ResourceHandler implements InputStreamCreator {
     public static String getExtension( String assetPath ) {
 
         return assetPath.substring( assetPath.lastIndexOf( '.' ) + 1, assetPath.length( ) );
+    }
+    
+    public static String setExtension( String assetPath, String extension ) {
+        if (assetPath.lastIndexOf( '.' )>=0)
+            assetPath=assetPath.substring( 0, assetPath.lastIndexOf( '.' ) + 1 )+extension;
+        else
+            assetPath+="."+extension;
+        return assetPath;
     }
 
     private static Random random = new Random( );
