@@ -218,6 +218,7 @@ public class GameLauncher extends JFrame implements Runnable {
     public void init( File file ) {
 
         // Create the list of icons of the window
+        //#JAVA6#
         List<Image> icons = new ArrayList<Image>( );
 
         icons.add( new ImageIcon( "gui/Icono-Motor-16x16.png" ).getImage( ) );
@@ -225,6 +226,7 @@ public class GameLauncher extends JFrame implements Runnable {
         icons.add( new ImageIcon( "gui/Icono-Motor-64x64.png" ).getImage( ) );
         icons.add( new ImageIcon( "gui/Icono-Motor-128x128.png" ).getImage( ) );
         this.setIconImages( icons );
+        //@JAVA6@
 
         initGameLoad = false;
         // Load the configuration
