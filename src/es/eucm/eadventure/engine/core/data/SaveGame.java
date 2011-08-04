@@ -46,11 +46,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
-import es.eucm.eadventure.engine.core.control.VarSummary;
 import es.eucm.eadventure.engine.core.control.TimerManager;
-import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.engine.core.control.VarSummary;
 
 /**
  * This class manages the saved games in eAdventure
@@ -160,8 +160,13 @@ public class SaveGame implements Serializable {
             while( !end ) {
                 line = file.readLine( ).trim( );
 
+                //#JAVA6#
                 if( !line.isEmpty( ) ) {
-
+                //@JAVA6@
+                /*#JAVA5#
+                if( !line.equals("" ) ) {
+                @JAVA5@*/
+                    
                     String[] spliter = line.split( "#" );
                     analyzeString( spliter );
                 }
