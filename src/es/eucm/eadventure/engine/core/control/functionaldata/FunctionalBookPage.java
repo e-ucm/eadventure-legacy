@@ -243,7 +243,6 @@ public class FunctionalBookPage extends JPanel {
             Game.getInstance( ).mouseClicked( nEvt );
         }
 
-        @Override
         public void mouseMoved( MouseEvent evt ) {
 
             MouseEvent nEvt = createMouseEvent( evt );
@@ -263,6 +262,8 @@ public class FunctionalBookPage extends JPanel {
             MouseEvent nEvt = new MouseEvent( (Component) evt.getSource( ), evt.getID( ), evt.getWhen( ), evt.getModifiers( ), x, y, evt.getClickCount( ), evt.isPopupTrigger( ), evt.getButton( ) );
             return nEvt;
         }
+
+        public void mouseDragged( MouseEvent e ) {}
 
     }
 

@@ -206,6 +206,7 @@ public class ActionButtons {
         String route = "gui/hud/traditional/";
         String dirButton = null;
 
+        //#JAVA6#
         if( Game.getInstance( ).isFromEditor( ) ) {
             dirButton = route + Controller.getInstance( ).getLanguage( ) + "/" + name + ".png";
             File fichero = new File( dirButton );
@@ -215,6 +216,7 @@ public class ActionButtons {
             }
         }
         else {
+        //@JAVA6@
             try{
                 dirButton = route + ConfigData.getLanguage( ) + "/" + name + ".png";
                 File fichero = new File( dirButton );
@@ -225,7 +227,9 @@ public class ActionButtons {
             }catch(NullPointerException e){
                 dirButton = route + TC.get( "Language.Internationalize" ) + "/" + name + ".png";
             }
+        //#JAVA6#            
         }
+        //@JAVA6@
         
         return dirButton;
     }

@@ -130,7 +130,9 @@ public class DebugValuesPanel extends JPanel {
         table.setDefaultRenderer( Object.class, dtm );
 
         JScrollPane scrollPane = new JScrollPane( table );
+        //#JAVA6#
         table.setFillsViewportHeight( true );
+        //@JAVA6@
 
         panel.addTab( TC.get( "DebugFrame.AllFlagsAndVars" ), null, scrollPane, TC.get( "DebugFrame.AllFlagsAndVarsTip" ) );
 
@@ -148,7 +150,9 @@ public class DebugValuesPanel extends JPanel {
         globalTable.setDefaultRenderer( Object.class, dtm );
 
         JScrollPane scrollPane3 = new JScrollPane( globalTable );
+        //#JAVA6#
         globalTable.setFillsViewportHeight( true );
+        //@JAVA6@
 
         panel.addTab( TC.get( "DebugFrame.GlobalStates" ), null, scrollPane3, TC.get( "DebugFrame.GlobalStatesTip" ) );
 
@@ -161,7 +165,9 @@ public class DebugValuesPanel extends JPanel {
         changeTable.setDefaultRenderer( Object.class, dtmChanges );
 
         JScrollPane scrollPane2 = new JScrollPane( changeTable );
+        //#JAVA6#
         changeTable.setFillsViewportHeight( true );
+        //@JAVA6@
 
         panel.addTab( TC.get( "DebugFrame.Changes" ), null, scrollPane2, TC.get( "DebugFrame.ChangesTip" ) );
 

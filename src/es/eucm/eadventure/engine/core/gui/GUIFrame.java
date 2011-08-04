@@ -136,12 +136,17 @@ public class GUIFrame extends GUI implements FocusListener {
 
         // Create the list of icons of the window
         try {
+            //#JAVA6#
             List<Image> icons = new ArrayList<Image>( );
             icons.add( new ImageIcon( "gui/Icono-Motor-16x16.png" ).getImage( ) );
             icons.add( new ImageIcon( "gui/Icono-Motor-32x32.png" ).getImage( ) );
             icons.add( new ImageIcon( "gui/Icono-Motor-64x64.png" ).getImage( ) );
             icons.add( new ImageIcon( "gui/Icono-Motor-128x128.png" ).getImage( ) );
             bkgFrame.setIconImages( icons );
+            //@JAVA6@
+            /*#JAVA5#
+            bkgFrame.setIconImage( new ImageIcon( "gui/Icono-Motor-32x32.png" ).getImage( ) );
+            @JAVA5@*/
         } catch (NoSuchMethodError e) {
             bkgFrame.setIconImage( new ImageIcon( "gui/Icono-Motor-32x32.png" ).getImage( ) );
         }
