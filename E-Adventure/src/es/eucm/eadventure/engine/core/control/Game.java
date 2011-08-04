@@ -1758,7 +1758,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         }
         else if( e.getID( ) == MouseEvent.MOUSE_RELEASED && state.equals( "PD" ) ) {
             // Pressed Dragged* Released sequence detected. Add artificial MouseClicked event
+            //#JAVA6#
             MouseEvent newClickEvent = new MouseEvent( lastPressedEvent.getComponent( ), MouseEvent.MOUSE_CLICKED, lastPressedEvent.getWhen( ), lastPressedEvent.getModifiers( ), lastPressedEvent.getX( ), lastPressedEvent.getY( ), lastPressedEvent.getXOnScreen( ), lastPressedEvent.getYOnScreen( ), 1, lastPressedEvent.isPopupTrigger( ), lastPressedEvent.getButton( ) );
+            //@JAVA6@
+            /*#JAVA5#
+            MouseEvent newClickEvent = new MouseEvent( lastPressedEvent.getComponent( ), MouseEvent.MOUSE_CLICKED, lastPressedEvent.getWhen( ), lastPressedEvent.getModifiers( ), lastPressedEvent.getX( ), lastPressedEvent.getY( ), 1, lastPressedEvent.isPopupTrigger( ), lastPressedEvent.getButton( ) );
+            @JAVA5@*/
             currentState.mouseClicked( newClickEvent );
 
             state = "";

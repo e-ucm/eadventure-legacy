@@ -538,7 +538,13 @@ public class ContextualHUD extends HUD {
                 pressedTime = Long.MAX_VALUE;
                 if (pressedTime >= 80 && pressedX != e.getX( ) && pressedY != e.getY( )) {
                     System.out.println( "Emulate left click" );
+                    //#JAVA6#
                     MouseEvent d = new MouseEvent( e.getComponent( ), e.getID( ), e.getWhen( ), e.getModifiers( ), pressedX, pressedY, e.getXOnScreen( ), e.getYOnScreen( ), 1, false, MouseEvent.BUTTON1 );
+                    //@JAVA6@
+                    /*#JAVA5#
+                    MouseEvent d = new MouseEvent( e.getComponent( ), e.getID( ), e.getWhen( ), e.getModifiers( ), pressedX, pressedY, 1, false, MouseEvent.BUTTON1 );
+                    @JAVA5@*/
+
                     return this.mouseClicked( d );
                 }
                 return true;

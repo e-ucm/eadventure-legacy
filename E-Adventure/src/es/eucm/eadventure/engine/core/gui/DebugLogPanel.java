@@ -133,7 +133,9 @@ public class DebugLogPanel extends JPanel {
             table.setModel( dtm );
             table.getColumnModel( ).getColumn( 0 ).setMaxWidth( 80 );
             scrollPane = new JScrollPane( table );
+            //#JAVA6#
             table.setFillsViewportHeight( true );
+            //@JAVA6@
         }
 
         public JScrollPane getScrollPane( ) {
