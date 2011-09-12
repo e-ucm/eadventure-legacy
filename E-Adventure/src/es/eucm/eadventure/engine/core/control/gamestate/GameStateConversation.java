@@ -278,20 +278,29 @@ public class GameStateConversation extends GameState {
     private void showPlayerQuestion( ) {
 
         if( ( (OptionConversationNode) currentNode ).isKeepShowing( ) ) {
-            FunctionalPlayer player = game.getFunctionalPlayer( );
+            TalkingElement talking = null;
             
+            if( lastConversationLine.isPlayerLine( ) )
+                talking = game.getFunctionalPlayer( );
+            else {
+                if( lastConversationLine.getName( ).equals( "NPC" ) )
+                    talking = game.getCurrentNPC( );
+                else
+                    talking = game.getFunctionalScene( ).getNPC( lastConversationLine.getName( ) );
+            }
             
             if (firstTime){
+
                 if( lastConversationLine.isValidAudio( ))
-                    player.speak( lastConversationLine.getText( ), lastConversationLine.getAudioPath( ), true );
-                else if( lastConversationLine.getSynthesizerVoice( ) || player.isAlwaysSynthesizer( ) )
-                    player.speakWithFreeTTS( lastConversationLine.getText( ), player.getPlayerVoice( ), true );
+                    talking.speak( lastConversationLine.getText( ), lastConversationLine.getAudioPath( ), true );
+                else if( lastConversationLine.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) )
+                    talking.speakWithFreeTTS( lastConversationLine.getText( ), talking.getPlayerVoice( ), true );
             
             }else
-                player.speak( lastConversationLine.getText( ), true );
+                talking.speak( lastConversationLine.getText( ), true );
             
             
-            game.setCharacterCurrentlyTalking( player );
+            game.setCharacterCurrentlyTalking( talking );
         }
 
     }
