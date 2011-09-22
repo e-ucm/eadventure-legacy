@@ -1903,4 +1903,8 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="TalkToAction.MessageSelectConversation">Wählen Sie ein Gespräch</entry>
 <entry key="BookPage.NotValidURL">Der Server konnte nicht gefunden werden. Bitte überprüfen Sie die Adresse und die Internetverbindung</entry>
 <entry key="LOMES.MetaMetaData.Language">Sprache</entry>
+<entry key="Conversation.AddNameTag">Namen hinzufügen</entry>
+<entry key="Conversation.AddNameTag.Tooltip">Fügen Sie ein Zeichen, um den Namen des Charakters (oder Spieler), die Linie, um alle Gespräche Linien sagt anzuzeigen.</entry>
+<entry key="Conversation.RemoveNameTag">Delete Names</entry>
+<entry key="Conversation.RemoveNameTag.Tooltip">Löschen Sie die Markierung auf den Namen des Charakters (oder Spieler), die Linie, um alle Gespräche Linien sagt anzuzeigen.</entry>
 </properties>

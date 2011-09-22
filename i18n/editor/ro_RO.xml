@@ -1890,4 +1890,8 @@
 <entry key="BookPage.NotValidURL">Adresa furnizata nu este accesibila deci e posibil sa nu fie afisata in joc. Verificati daca ati scris corect adresa si daca functioneaza conexiunea la Internet.</entry>
 <entry key="LOMES.MetaMetaData.Language">Limba</entry>
 <entry key="LOMES.Disabled">Editorul LOM-ES şi export AGREGA este disponibil doar în limba spaniolă.</entry>
+<entry key="Conversation.AddNameTag">Adauga Nume</entry>
+<entry key="Conversation.AddNameTag.Tooltip">Adaugă o marcă pentru a afişa numele caracterului (sau jucator), care spune line la toate liniile de conversaţie.</entry>
+<entry key="Conversation.RemoveNameTag">Nume Ştergere</entry>
+<entry key="Conversation.RemoveNameTag.Tooltip">Ştergeţi marca pentru a afişa numele caracterului (sau jucator), care spune line la toate liniile de conversaţie.</entry>
 </properties>

@@ -608,7 +608,8 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      * @see es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement#speak(java.lang.String)
      */
     public void speak( String text, boolean keepShowing ) {
-
+        
+        text = processName(text);
         if( text != null ) {
             DebugLog.player( "Player says " + text );
             FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text, keepShowing );
@@ -621,7 +622,9 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     }
 
     public void speak( String text, String audioPath, boolean keepShowing ) {
-
+        
+        
+        text = processName(text);
         DebugLog.player( "Player says " + text + " with audio" );
         FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text, audioPath, keepShowing );
         addAction( functionalSpeak );
@@ -636,6 +639,8 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      */
     public void speakWithFreeTTS( String text, String voice, boolean keepShowing ) {
 
+        text = processName(text);
+        
         if( text != null ) {
             DebugLog.player( "Player speaks with text-to-speech" );
             FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text, keepShowing );
@@ -654,6 +659,20 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      */
     public void speakWithFreeTTS( String text, String voice ) {
         speakWithFreeTTS( text, voice, false);
+    }
+    
+    /**
+     * Look for [] tag to add the name of the speaker
+     * 
+     * @param text
+     * @return
+     */
+    private String processName(String text){
+        
+        if (text!= null && text.startsWith( "[]" ))
+           text = text.replaceFirst( "\\[\\]", "[ " + GameText.TEXT_PLAYER + " ]");
+           
+        return text;
     }
 
     /*

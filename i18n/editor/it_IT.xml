@@ -1879,4 +1879,8 @@
 <entry key="ImportChapter.NoFolderForHTMLImages.Title">Cartella non trovata</entry>
 <entry key="ImportChapter.NoFolderForHTMLImages.Message">La cartella con i file di immagine per {#0} file non è stato trovato. Tuttavia, il processo di importazione continuerà.</entry>
 <entry key="LOMES.Disabled">L'editor LOM-ES e l'esportazione AGREGA è disponibile solo in spagnolo.</entry>
+<entry key="Conversation.AddNameTag">Aggiungi nomi</entry>
+<entry key="Conversation.AddNameTag.Tooltip">Aggiungere un segno per visualizzare il nome del personaggio (o giocatore) che dice che la linea a tutte le linee conversazione.</entry>
+<entry key="Conversation.RemoveNameTag">Cancellare nomi</entry>
+<entry key="Conversation.RemoveNameTag.Tooltip">Cancellare il simbolo per visualizzare il nome del personaggio (o giocatore) che dice che la linea a tutte le linee conversazione.</entry>
 </properties>
