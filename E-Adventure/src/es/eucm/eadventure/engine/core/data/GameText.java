@@ -57,6 +57,9 @@ public class GameText {
      */
     public static void reloadStrings( ) {
 
+        
+        TEXT_PLAYER = TC.get( "DebugFrameLog.Player" );
+        
         TEXT_PLEASE_WAIT = TC.get( "GameText.PleaseWait" );
 
         TEXT_LOADING_DATA = TC.get( "GameText.LoadingData" );
@@ -147,7 +150,12 @@ public class GameText {
      * Loading text for "Please wait"
      */
     public static String TEXT_PLEASE_WAIT = TC.get( "GameText.PleaseWait" );
-
+    
+    /**
+     * Loading text for "Player"
+     */
+    public static String TEXT_PLAYER = TC.get( "DebugFrameLog.Player" );
+    
     /**
      * Loading text for "Loading data"
      */

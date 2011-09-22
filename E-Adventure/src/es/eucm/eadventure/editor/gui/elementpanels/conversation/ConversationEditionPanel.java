@@ -40,6 +40,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -52,9 +53,12 @@ import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.SearchableNode;
+import es.eucm.eadventure.editor.control.tools.conversation.AddNamesTagInConversationLines;
+import es.eucm.eadventure.editor.control.tools.conversation.RemoveNamesTagInConversationLines;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.displaydialogs.ConversationDialog;
@@ -112,12 +116,39 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
      * @param conversationDataControl
      *            Controller of the conversation
      */
-    public ConversationEditionPanel( ConversationDataControl conversationDataControl ) {
+    public ConversationEditionPanel( ConversationDataControl cnvDataControl ) {
 
         selectedNode = null;
         selectedChild = null;
-        this.conversationDataControl = conversationDataControl;
+        this.conversationDataControl = cnvDataControl;
 
+        
+     // buttons to add and remove the name of character to all conversation lines
+        JPanel nameTagPanel = new JPanel(new GridLayout(2,1));
+        JButton addNames = new JButton(TC.get( "Conversation.AddNameTag" ));
+        addNames.setMaximumSize( new Dimension(10,10) );
+       addNames.setToolTipText( TC.get( "Conversation.AddNameTag.Tooltip" ) );
+        addNames.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e ) {
+                
+               Controller.getInstance().addTool( new AddNamesTagInConversationLines( conversationDataControl.getConversation( ).getAllNodes( )) );
+            }
+        });
+        
+        JButton removeNames = new JButton(TC.get( "Conversation.RemoveNameTag" ));
+        removeNames.setToolTipText( TC.get( "Conversation.RemoveNameTag.Tooltip" ) );
+        removeNames.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e ) {
+
+                Controller.getInstance().addTool( new RemoveNamesTagInConversationLines( conversationDataControl.getConversation( ).getAllNodes( )) );
+                
+            }
+        });
+        
+        nameTagPanel.add( addNames );
+        nameTagPanel.add( removeNames );        
+        
+        
         // Create the conversation and node panels
         representationPanel = new RepresentationPanel( this, conversationDataControl );
         linesPanel = new LinesPanel( this, conversationDataControl );
@@ -128,8 +159,11 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
         GridBagConstraints c = new GridBagConstraints( );
         c.gridx = 0;
         c.gridy = 0;
+        zoomPreviewPanel.add( nameTagPanel, c );
+        
+        c.gridx++;
         zoomPreviewPanel.add( zoomPanel, c );
-
+        
         JButton preview = new JButton( TC.get( "Conversation.OptionPreviewConversation" ) );
         preview.addActionListener( new PreviewConversationActionListener( true ) );
         previewFromNode = new JButton( TC.get( "Conversation.OptionPreviewPartialConversation" ) );

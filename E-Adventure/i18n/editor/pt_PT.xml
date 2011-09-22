@@ -1864,4 +1864,8 @@
 <entry key="BookPage.NotValidURL">Não se pode aceder à URL indicada. Por favor, comprove o endereço e o  funcionamento da sua conexão à Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Língua</entry>
 <entry key="LOMES.Disabled">O editor LOM-ES e exportação Agrega só está disponível em espanhol.</entry>
+<entry key="Conversation.AddNameTag">Adicionar Nomes</entry>
+<entry key="Conversation.AddNameTag.Tooltip">Adicionar uma marca para mostrar o nome do personagem (ou leitor) que diz que a linha para todas as linhas de conversa.</entry>
+<entry key="Conversation.RemoveNameTag">Excluir nomes</entry>
+<entry key="Conversation.RemoveNameTag.Tooltip">Excluir a marca para mostrar o nome do personagem (ou leitor) que diz que a linha para todas as linhas de conversa.</entry>
 </properties>

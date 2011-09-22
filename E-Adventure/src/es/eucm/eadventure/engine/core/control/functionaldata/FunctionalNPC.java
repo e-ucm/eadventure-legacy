@@ -466,6 +466,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      */
     public void speak( String text2, boolean keepShowing ) {
 
+        text2 = processName(text2);
         String text = Game.getInstance( ).processText( text2 );
 
         DebugLog.player( "NPC " + npc.getId( ) + " says " + text );
@@ -479,6 +480,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
 
     public void speak( String text2, String audioPath, boolean keepShowing ) {
 
+        text2 =  processName(text2);
         String text = Game.getInstance( ).processText( text2 );
 
         DebugLog.player( "NPC " + npc.getId( ) + " says " + text + " with audio" );
@@ -493,6 +495,8 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
 
     public void speakWithFreeTTS( String text2, String voice, boolean keepShowing ) {
 
+        
+        text2 =  processName(text2);
         String text = Game.getInstance( ).processText( text2 );
 
         DebugLog.player( "NPC " + npc.getId( ) + " speaks with text-to-speech" );
@@ -506,6 +510,20 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     public void speakWithFreeTTS( String text2, String voice){
         speakWithFreeTTS( text2, voice, false);
     }
+    
+    /**
+     * Look for [] tag to add the name of the speaker
+     * 
+     * @param text
+     * @return
+     */
+    private String  processName(String text){
+       
+       if (text!= null && text.startsWith( "[]" ))
+           text = text.replaceFirst( "\\[\\]",  "[ " + npc.getName( ) + " ]");
+       return text;
+    }
+
 
     public void stopTalking( ) {
 

@@ -616,9 +616,8 @@ public class GameStateConversation extends GameState {
             }
 
             if( talking != null ) {
-                boolean keepShowing = false;
-                if( generalKeepShowing || line.isKeepShowing( ) || ( (DialogueConversationNode) currentNode ).isKeepShowing( ) )
-                    keepShowing = true;
+                boolean keepShowing = generalKeepShowing ||  ( (DialogueConversationNode) currentNode ).isKeepShowing( ) || line.isKeepShowing( );
+                
                 if( line.isValidAudio( ) )
                     talking.speak( line.getText( ), line.getAudioPath( ), keepShowing );
                 else if( line.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) )
