@@ -394,17 +394,26 @@ public class SceneDOMWriter {
                     Node descriptionNode = doc.createElement( "description" );
 
                     // Create and append the name, brief description and detailed description
-                    Node aaNameNode = doc.createElement( "name" );
+                    Element aaNameNode = doc.createElement( "name" );
+                    if (activeArea.getNameSoundPath( )!=null && !activeArea.getNameSoundPath( ).equals( "" )){
+                        aaNameNode.setAttribute( "soundPath", activeArea.getNameSoundPath( ) );
+                    }
                     aaNameNode.appendChild( doc.createTextNode( activeArea.getName( ) ) );
                     descriptionNode.appendChild( aaNameNode );
 
-                    Node briefNode = doc.createElement( "brief" );
-                    briefNode.appendChild( doc.createTextNode( activeArea.getDescription( ) ) );
-                    descriptionNode.appendChild( briefNode );
+                    Element aaBriefNode = doc.createElement( "brief" );
+                    if (activeArea.getDescriptionSoundPath( )!=null && !activeArea.getDescriptionSoundPath( ).equals( "" )){
+                        aaBriefNode.setAttribute( "soundPath", activeArea.getDescriptionSoundPath( ) );
+                    }
+                    aaBriefNode.appendChild( doc.createTextNode( activeArea.getDescription( ) ) );
+                    descriptionNode.appendChild( aaBriefNode );
 
-                    Node detailedNode = doc.createElement( "detailed" );
-                    detailedNode.appendChild( doc.createTextNode( activeArea.getDetailedDescription( ) ) );
-                    descriptionNode.appendChild( detailedNode );
+                    Element aaDetailedNode = doc.createElement( "detailed" );
+                    if (activeArea.getDetailedDescriptionSoundPath( )!=null && !activeArea.getDetailedDescriptionSoundPath( ).equals( "" )){
+                        aaDetailedNode.setAttribute( "soundPath", activeArea.getDetailedDescriptionSoundPath( ) );
+                    }
+                    aaDetailedNode.appendChild( doc.createTextNode( activeArea.getDetailedDescription( ) ) );
+                    descriptionNode.appendChild( aaDetailedNode );
 
                     // Append the description
                     aaElement.appendChild( descriptionNode );

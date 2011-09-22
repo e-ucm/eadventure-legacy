@@ -90,6 +90,8 @@ public class FunctionalLook extends FunctionalAction {
         finished = true;
         if( functionalPlayer.isAlwaysSynthesizer( ) )
             functionalPlayer.speakWithFreeTTS( element.getElement( ).getDescription( ), functionalPlayer.getPlayerVoice( ) );
+        else if (element.getElement( ).getDescriptionSoundPath( ) != null && !element.getElement( ).getDescriptionSoundPath( ).equals( "" )) 
+            functionalPlayer.speak( element.getElement( ).getDescription( ), element.getElement( ).getDescriptionSoundPath( ) );
         else
             functionalPlayer.speak( element.getElement( ).getDescription( ), Game.getInstance().getGameDescriptor( ).isKeepShowing( ) );
 

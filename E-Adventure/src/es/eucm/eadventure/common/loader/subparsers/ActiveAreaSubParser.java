@@ -200,8 +200,51 @@ public class ActiveAreaSubParser extends SubParser {
                     Point point = new Point( x, y );
                     activeArea.addPoint( point );
                 }
+            }  
+         // If it is a name tag, store the name in the active area
+            else if( qName.equals( "name" ) ) {
+                String soundPath = "";
+                
+                // if name tag has soundPath attribute, add it to the active area data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                }
+                
+                activeArea.setName( currentString.toString( ).trim( ) );
+                activeArea.setNameSoundPath( soundPath );
+                
             }
 
+            // If it is a brief tag, store the brief description in the active area
+            else if( qName.equals( "brief" ) ) {
+                
+                String soundPath = "";
+                
+                // if brief tag has soundPath attribute, add it to the active area data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                }
+                activeArea.setDescription( currentString.toString( ).trim( ) );
+                activeArea.setDescriptionSoundPath( soundPath );
+            }
+
+            // If it is a detailed tag, store the detailed description in the active area
+            else if( qName.equals( "detailed" ) ) {
+                
+                String soundPath = "";
+                
+                // if detailed tag has soundPath attribute, add it to the active area data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                }
+                
+                activeArea.setDetailedDescription( currentString.toString( ).trim( ) );
+                activeArea.setDetailedDescriptionSoundPath( soundPath );
+            }
+            
             else if( qName.equals( "actions" ) ) {
                 subParser = new ActionsSubParser( chapter, activeArea );
                 subParsing = SUBPARSING_ACTIONS;
@@ -244,24 +287,9 @@ public class ActiveAreaSubParser extends SubParser {
                 scene.addActiveArea( activeArea );
             }
 
-            // If it is a name tag, store the name in the object
-            else if( qName.equals( "name" ) ) {
-                activeArea.setName( currentString.toString( ).trim( ) );
-            }
-
             // If it is a documentation tag, hold the documentation in the current element
             else if( qName.equals( "documentation" ) ) {
                 activeArea.setDocumentation( currentString.toString( ).trim( ) );
-            }
-
-            // If it is a brief tag, store the brief description in the object
-            else if( qName.equals( "brief" ) ) {
-                activeArea.setDescription( currentString.toString( ).trim( ) );
-            }
-
-            // If it is a detailed tag, store the detailed description in the object
-            else if( qName.equals( "detailed" ) ) {
-                activeArea.setDetailedDescription( currentString.toString( ).trim( ) );
             }
 
             // Reset the current string

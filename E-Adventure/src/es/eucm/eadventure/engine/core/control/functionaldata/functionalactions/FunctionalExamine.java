@@ -95,6 +95,8 @@ public class FunctionalExamine extends FunctionalAction {
         if( !element.examine( ) ) {
             if( functionalPlayer.isAlwaysSynthesizer( ) )
                 functionalPlayer.speakWithFreeTTS( element.getElement( ).getDetailedDescription( ), functionalPlayer.getPlayerVoice( ) );
+            else if (element.getElement( ).getDetailedDescriptionSoundPath( ) != null && !element.getElement( ).getDetailedDescriptionSoundPath( ).equals( "" )) 
+                functionalPlayer.speak( element.getElement( ).getDetailedDescription( ), element.getElement( ).getDetailedDescriptionSoundPath( ) );
             else
                 functionalPlayer.speak( element.getElement( ).getDetailedDescription( ), Game.getInstance().getGameDescriptor( ).isKeepShowing( ) );
         }

@@ -179,6 +179,11 @@ public class ContextualHUD extends HUD {
     private boolean pressed = false;
     
     /**
+     * Controls that the associated sound to a element name only be played once while the cursor is over the element 
+     */
+    private boolean playName = true;
+    
+    /**
      * This attribute is used to store the last action made to add the action text in interactions (give to, drag to, etc..)
      */
     private int lastSelectedAction=-1;
@@ -829,8 +834,10 @@ public class ContextualHUD extends HUD {
 
         //If there is no element selected
         if( elementInCursor == null ) {
+            
             //If there mouse is over an exit
             if( !actionManager.getExit( ).equals( "" ) ) {
+                this.playName = true;
                 //change the cursor for the exit one
                 if( actionManager.getExitCursor( ) != null )
                     gui.setCursor( actionManager.getExitCursor( ) );
@@ -846,12 +853,20 @@ public class ContextualHUD extends HUD {
                 //change the cursor for the over an element one
                 gui.setCursor( cursorOver );
                 //If there is a known mouse position to be used for the position of the text
-                if( lastMouseMoved != null )
+                if( lastMouseMoved != null ){
                     //draw the name of the element into the mouse in the last mouse position
                     GUI.drawStringOnto( g, new String[] { actionManager.getElementOver( ).getElement( ).getName( ) }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
+                    // if there are associated sound, play it
+                    if (actionManager.getElementOver( ).getElement( ).getNameSoundPath( ) != null && 
+                            !actionManager.getElementOver( ).getElement( ).getNameSoundPath( ).equals( "" )&& this.playName){
+                        Game.getInstance( ).getFunctionalPlayer( ).speak( "", actionManager.getElementOver( ).getElement( ).getNameSoundPath( ) );
+                        this.playName = false;
+                    }
+                }
             }
             //else (the mouse is over and action button or nothing
             else {
+                this.playName = true;
                 //If the action buttons are shown and the mouse is over one of them
                 if( showActionButtons && actionButtons.getButtonOver( ) != null )
                     //change the cursor for the action button cursor one
@@ -864,6 +879,7 @@ public class ContextualHUD extends HUD {
         }
         //else if there is element selected and the mouse is over an element
         else if( actionManager.getElementOver( ) != null ) {
+            this.playName = true;
             //If there is a known mouse position to be used for the position of the text
             if( lastMouseMoved != null ){
                 String name = "";

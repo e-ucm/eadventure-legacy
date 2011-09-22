@@ -180,6 +180,50 @@ public class ItemSubParser extends SubParser {
                 //				if( !AssetsController.isAssetSpecial( path ) )
                 currentResources.addAsset( type, path );
             }
+            
+            // If it is a name tag, store the name in the object
+            else if( qName.equals( "name" ) ) {
+                
+                String soundPath = "";
+                
+                // if name tag has soundPath attribute, add it to the object data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                    
+                }   
+                object.setName( currentString.toString( ).trim( ) );
+                object.setNameSoundPath( soundPath );
+                
+            }
+            // If it is a brief tag, store the brief description in the object
+            else if( qName.equals( "brief" ) ) {
+                String soundPath = "";
+                
+                // if brief tag has soundPath attribute, add it to the object data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                    
+                }
+                object.setDescription( currentString.toString( ).trim( ) );
+                object.setDescriptionSoundPath( soundPath );
+            }
+
+            // If it is a detailed tag, store the detailed description in the object
+            else if( qName.equals( "detailed" ) ) {
+                String soundPath = "";
+                
+                // if detailed tag has soundPath attribute, add it to the object data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                    
+                }
+                object.setDetailedDescription( currentString.toString( ).trim( ) );
+                object.setDetailedDescriptionSoundPath( soundPath );
+            }
+            
 
             else if( qName.equals( "actions" ) ) {
                 subParser = new ActionsSubParser( chapter, object );
@@ -229,10 +273,7 @@ public class ItemSubParser extends SubParser {
                 reading = READING_NONE;
             }
 
-            // If it is a name tag, store the name in the object
-            else if( qName.equals( "name" ) ) {
-                object.setName( currentString.toString( ).trim( ) );
-            }
+            
 
             // If it is a documentation tag, hold the documentation in the current element
             else if( qName.equals( "documentation" ) ) {
@@ -240,15 +281,7 @@ public class ItemSubParser extends SubParser {
                     object.setDocumentation( currentString.toString( ).trim( ) );
             }
 
-            // If it is a brief tag, store the brief description in the object
-            else if( qName.equals( "brief" ) ) {
-                object.setDescription( currentString.toString( ).trim( ) );
-            }
-
-            // If it is a detailed tag, store the detailed description in the object
-            else if( qName.equals( "detailed" ) ) {
-                object.setDetailedDescription( currentString.toString( ).trim( ) );
-            }
+            
 
             // Reset the current string
             currentString = new StringBuffer( );

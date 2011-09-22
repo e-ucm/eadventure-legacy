@@ -89,16 +89,25 @@ public class ItemDOMWriter {
             // Create the description
             Node descriptionNode = doc.createElement( "description" );
 
-            // Create and append the name, brief description and detailed description
-            Node nameNode = doc.createElement( "name" );
+            // Create and append the name, brief description and detailed description and its soundPaths
+            Element nameNode = doc.createElement( "name" );
+            if (item.getNameSoundPath( )!=null && !item.getNameSoundPath( ).equals( "" )){
+                nameNode.setAttribute( "soundPath", item.getNameSoundPath( ) );
+            }
             nameNode.appendChild( doc.createTextNode( item.getName( ) ) );
             descriptionNode.appendChild( nameNode );
 
-            Node briefNode = doc.createElement( "brief" );
+            Element briefNode = doc.createElement( "brief" );
+            if (item.getDescriptionSoundPath( )!=null && !item.getDescriptionSoundPath( ).equals( "" )){
+                briefNode.setAttribute( "soundPath", item.getDescriptionSoundPath( ) );
+            }
             briefNode.appendChild( doc.createTextNode( item.getDescription( ) ) );
             descriptionNode.appendChild( briefNode );
 
-            Node detailedNode = doc.createElement( "detailed" );
+            Element detailedNode = doc.createElement( "detailed" );
+            if (item.getDetailedDescriptionSoundPath( )!=null && !item.getDetailedDescriptionSoundPath( ).equals( "" )){
+                detailedNode.setAttribute( "soundPath", item.getDetailedDescriptionSoundPath( ) );
+            }
             detailedNode.appendChild( doc.createTextNode( item.getDetailedDescription( ) ) );
             descriptionNode.appendChild( detailedNode );
 

@@ -88,16 +88,25 @@ public class AtrezzoDOMWriter {
             // Create the description
             Node descriptionNode = doc.createElement( "description" );
 
-            // Create and append the name, brief description and detailed description
-            Node nameNode = doc.createElement( "name" );
+            // Create and append the name, brief description and detailed description and its soundPaths
+            Element nameNode = doc.createElement( "name" );
+            if (atrezzo.getNameSoundPath( )!=null && !atrezzo.getNameSoundPath( ).equals( "" )){
+                nameNode.setAttribute( "soundPath", atrezzo.getNameSoundPath( ) );
+            }
             nameNode.appendChild( doc.createTextNode( atrezzo.getName( ) ) );
             descriptionNode.appendChild( nameNode );
 
-            Node briefNode = doc.createElement( "brief" );
+            Element briefNode = doc.createElement( "brief" );
+            if (atrezzo.getDescriptionSoundPath( )!=null && !atrezzo.getDescriptionSoundPath( ).equals( "" )){
+                briefNode.setAttribute( "soundPath", atrezzo.getDescriptionSoundPath( ) );
+            }
             briefNode.appendChild( doc.createTextNode( atrezzo.getDescription( ) ) );
             descriptionNode.appendChild( briefNode );
 
-            Node detailedNode = doc.createElement( "detailed" );
+            Element detailedNode = doc.createElement( "detailed" );
+            if (atrezzo.getDetailedDescriptionSoundPath( )!=null && !atrezzo.getDetailedDescriptionSoundPath( ).equals( "" )){
+                detailedNode.setAttribute( "soundPath", atrezzo.getDetailedDescriptionSoundPath( ) );
+            }
             detailedNode.appendChild( doc.createTextNode( atrezzo.getDetailedDescription( ) ) );
             descriptionNode.appendChild( detailedNode );
 

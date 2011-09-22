@@ -254,6 +254,49 @@ public class CharacterSubParser extends SubParser {
                 subParser = new ActionsSubParser( chapter, npc );
                 subParsing = SUBPARSING_ACTIONS;
             }
+            
+         // If it is a name tag, store the name
+            else if( qName.equals( "name" ) ) {
+                String soundPath = "";
+                
+                // if name tag has soundPath attribute, add it to the npc data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                    
+                }
+                npc.setName( currentString.toString( ).trim( ) );
+                npc.setNameSoundPath( soundPath );
+            }
+
+            // If it is a brief tag, store the brief description
+            else if( qName.equals( "brief" ) ) {
+                String soundPath = "";
+                
+                // if brief tag has soundPath attribute, add it to the npc data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                    
+                }
+                npc.setDescription( currentString.toString( ).trim( ) );
+                npc.setDescriptionSoundPath( soundPath );
+            }
+
+            // If it is a detailed tag, store the detailed description
+            else if( qName.equals( "detailed" ) ) {
+                String soundPath = "";
+                
+                // if detailed tag has soundPath attribute, add it to the npc data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                    
+                }
+                
+                npc.setDetailedDescription( currentString.toString( ).trim( ) );
+                npc.setDetailedDescriptionSoundPath( soundPath );
+            }
         }
 
         // If a condition or action is being subparsed, spread the call
@@ -291,21 +334,6 @@ public class CharacterSubParser extends SubParser {
             else if( qName.equals( "resources" ) ) {
                 npc.addResources( currentResources );
                 reading = READING_NONE;
-            }
-
-            // If it is a name tag, store the name
-            else if( qName.equals( "name" ) ) {
-                npc.setName( currentString.toString( ).trim( ) );
-            }
-
-            // If it is a brief tag, store the brief description
-            else if( qName.equals( "brief" ) ) {
-                npc.setDescription( currentString.toString( ).trim( ) );
-            }
-
-            // If it is a detailed tag, store the detailed description
-            else if( qName.equals( "detailed" ) ) {
-                npc.setDetailedDescription( currentString.toString( ).trim( ) );
             }
 
             // If it is a conversation reference tag, add the reference to the character
