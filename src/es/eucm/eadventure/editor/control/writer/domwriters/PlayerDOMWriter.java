@@ -107,15 +107,24 @@ public class PlayerDOMWriter {
             Node descriptionNode = doc.createElement( "description" );
 
             // Create and append the name, brief description and detailed description
-            Node nameNode = doc.createElement( "name" );
+            Element nameNode = doc.createElement( "name" );
+            if (player.getNameSoundPath( )!=null && !player.getNameSoundPath( ).equals( "" )){
+                nameNode.setAttribute( "soundPath", player.getNameSoundPath( ) );
+            }
             nameNode.appendChild( doc.createTextNode( player.getName( ) ) );
             descriptionNode.appendChild( nameNode );
 
-            Node briefNode = doc.createElement( "brief" );
+            Element briefNode = doc.createElement( "brief" );
+            if (player.getDescriptionSoundPath( )!=null && !player.getDescriptionSoundPath( ).equals( "" )){
+                briefNode.setAttribute( "soundPath", player.getDescriptionSoundPath( ) );
+            }
             briefNode.appendChild( doc.createTextNode( player.getDescription( ) ) );
             descriptionNode.appendChild( briefNode );
 
-            Node detailedNode = doc.createElement( "detailed" );
+            Element detailedNode = doc.createElement( "detailed" );
+            if (player.getDetailedDescriptionSoundPath( )!=null && !player.getDetailedDescriptionSoundPath( ).equals( "" )){
+                detailedNode.setAttribute( "soundPath", player.getDetailedDescriptionSoundPath( ) );
+            }
             detailedNode.appendChild( doc.createTextNode( player.getDetailedDescription( ) ) );
             descriptionNode.appendChild( detailedNode );
 

@@ -198,6 +198,52 @@ public class PlayerSubParser extends SubParser {
                 player.setVoice( voice );
 
             }
+            
+            
+            // If it is a name tag, add the name to the player
+            else if( qName.equals( "name" ) ) {
+                String soundPath = "";
+                
+                // if name tag has soundPath attribute, add it to the player data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                }
+                
+                player.setName( currentString.toString( ).trim( ) );
+                player.setNameSoundPath( soundPath );
+            }
+
+            // If it is a brief tag, add the brief description to the player
+            else if( qName.equals( "brief" ) ) {
+                String soundPath = "";
+                
+                // if brief tag has soundPath attribute, add it to the active player model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                }
+                
+                player.setDescription( currentString.toString( ).trim( ) );
+                player.setDescriptionSoundPath( soundPath );
+            }
+
+            // If it is a detailed tag, add the detailed description to the player
+            else if( qName.equals( "detailed" ) ) {
+                String soundPath = "";
+                
+                // if detailed tag has soundPath attribute, add it to the player data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                }
+                
+                player.setDetailedDescription( currentString.toString( ).trim( ) );
+                player.setDetailedDescriptionSoundPath( soundPath );
+            }
+
+            
+            
         }
 
         // If a condition is being subparsed, spread the call
@@ -231,21 +277,6 @@ public class PlayerSubParser extends SubParser {
             // If it is a resources tag, add the resources to the player
             else if( qName.equals( "resources" ) ) {
                 player.addResources( currentResources );
-            }
-
-            // If it is a name tag, add the name to the player
-            else if( qName.equals( "name" ) ) {
-                player.setName( currentString.toString( ).trim( ) );
-            }
-
-            // If it is a brief tag, add the brief description to the player
-            else if( qName.equals( "brief" ) ) {
-                player.setDescription( currentString.toString( ).trim( ) );
-            }
-
-            // If it is a detailed tag, add the detailed description to the player
-            else if( qName.equals( "detailed" ) ) {
-                player.setDetailedDescription( currentString.toString( ).trim( ) );
             }
 
             // Reset the current string

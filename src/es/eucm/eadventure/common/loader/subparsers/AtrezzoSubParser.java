@@ -176,6 +176,54 @@ public class AtrezzoSubParser extends SubParser {
                 //				if( !AssetsController.isAssetSpecial( path ) )
                 currentResources.addAsset( type, path );
             }
+            
+            // If it is a name tag, store the name in the object
+            else if( qName.equals( "name" ) ) {
+                String soundPath = "";
+                
+                // if name tag has soundPath attribute, add it to the atrezzo data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                    
+                }
+                
+                atrezzo.setName( currentString.toString( ).trim( ) );
+                atrezzo.setNameSoundPath( soundPath );
+            }
+
+            // If it is a brief tag, store the brief description in the object
+            else if( qName.equals( "brief" ) ) {
+                String soundPath = "";
+                
+                // if brief tag has soundPath attribute, add it to the atrezzo data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                    
+                }
+                
+                atrezzo.setDescription( currentString.toString( ).trim( ) );
+                atrezzo.setDescriptionSoundPath( soundPath );
+            }
+
+            // If it is a detailed tag, store the detailed description in the object
+            else if( qName.equals( "detailed" ) ) {
+                
+                String soundPath = "";
+                
+                // if detailed tag has soundPath attribute, add it to the atrezzo data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                    
+                }
+                
+                atrezzo.setDetailedDescription( currentString.toString( ).trim( ) );
+                atrezzo.setDetailedDescriptionSoundPath( soundPath );
+            }
+            
+            
 
             // If it is a condition tag, create new conditions and switch the state
             else if( qName.equals( "condition" ) ) {
@@ -221,27 +269,13 @@ public class AtrezzoSubParser extends SubParser {
                 reading = READING_NONE;
             }
 
-            // If it is a name tag, store the name in the object
-            else if( qName.equals( "name" ) ) {
-                atrezzo.setName( currentString.toString( ).trim( ) );
-            }
-
             // If it is a documentation tag, hold the documentation in the current element
             else if( qName.equals( "documentation" ) ) {
                 if( reading == READING_NONE )
                     atrezzo.setDocumentation( currentString.toString( ).trim( ) );
 
             }
-
-            // If it is a brief tag, store the brief description in the object
-            else if( qName.equals( "brief" ) ) {
-                atrezzo.setDescription( currentString.toString( ).trim( ) );
-            }
-
-            // If it is a detailed tag, store the detailed description in the object
-            else if( qName.equals( "detailed" ) ) {
-                atrezzo.setDetailedDescription( currentString.toString( ).trim( ) );
-            }
+      
 
             // Reset the current string
             currentString = new StringBuffer( );

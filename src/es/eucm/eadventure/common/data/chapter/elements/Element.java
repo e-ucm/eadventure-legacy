@@ -42,6 +42,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.HasDescriptionSound;
 import es.eucm.eadventure.common.data.HasId;
 import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.Action;
@@ -51,7 +52,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Resources;
  * This class holds the common data for any element in eAdventure. Here, element
  * means item or character
  */
-public abstract class Element implements Cloneable, Named, HasId, Documented, Described, Detailed {
+public abstract class Element implements Cloneable, Named, HasId, Documented, Described, Detailed, HasDescriptionSound {
 
     /**
      * The element's id
@@ -67,6 +68,11 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
      * The element's name
      */
     protected String name;
+    
+    /**
+     * The path of the sound associated to element's name
+     */
+    protected String nameSoundPath;
 
     /**
      * The element's brief description
@@ -74,9 +80,19 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
     protected String description;
 
     /**
+     * The path of the sound associated to element's description
+     */
+    protected String descriptionSoundPath;
+
+    /**
      * The element's detailed description
      */
     protected String detailedDescription;
+    
+    /**
+     * The path of the sound associated to element's detailed description
+     */
+    protected String detailedDescriptionSoundPath;
 
     /**
      * The element's set of resources
@@ -347,10 +363,13 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
             }
         }
         e.description = ( description != null ? new String( description ) : null );
+        e.descriptionSoundPath = ( descriptionSoundPath != null ? new String( descriptionSoundPath ) : null );
         e.detailedDescription = ( detailedDescription != null ? new String( detailedDescription ) : null );
+        e.detailedDescriptionSoundPath = ( detailedDescriptionSoundPath != null ? new String( detailedDescriptionSoundPath ) : null );
         e.documentation = ( documentation != null ? new String( documentation ) : null );
         e.id = ( id != null ? new String( id ) : null );
         e.name = ( name != null ? new String( name ) : null );
+        e.nameSoundPath = ( nameSoundPath != null ? new String( nameSoundPath ) : null );
         e.returnsWhenDragged = returnsWhenDragged;
         if( resources != null ) {
             e.resources = new ArrayList<Resources>( );
@@ -359,6 +378,42 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
             }
         }
         return e;
+    }
+
+    
+    public String getNameSoundPath( ) {
+    
+        return nameSoundPath;
+    }
+
+    
+    public void setNameSoundPath( String nameSoundPath ) {
+    
+        this.nameSoundPath = nameSoundPath;
+    }
+
+    
+    public String getDescriptionSoundPath( ) {
+    
+        return descriptionSoundPath;
+    }
+
+    
+    public void setDescriptionSoundPath( String descriptionSoundPath ) {
+    
+        this.descriptionSoundPath = descriptionSoundPath;
+    }
+
+    
+    public String getDetailedDescriptionSoundPath( ) {
+    
+        return detailedDescriptionSoundPath;
+    }
+
+    
+    public void setDetailedDescriptionSoundPath( String detailedDescriptionSoundPath ) {
+    
+        this.detailedDescriptionSoundPath = detailedDescriptionSoundPath;
     }
 
 }
