@@ -390,9 +390,17 @@ public class ActionsListDataControl extends DataControl {
             return false;
 
         try {
-            Action newElement = (Action) ( ( (Action) ( dataControl.getContent( ) ) ).clone( ) );
+            Action newElement;
+            ActionDataControl adc;
+            if (( (Action) ( dataControl.getContent( ) ) ).getType( ) == Action.CUSTOM || ( (Action) ( dataControl.getContent( ) ) ).getType( ) == Action.CUSTOM_INTERACT ){
+                newElement = (CustomAction) ( ( (CustomAction) ( dataControl.getContent( ) ) ).clone( ) );
+                adc = new CustomActionDataControl( (CustomAction)newElement);
+            } else {
+                newElement = (Action) ( ( (Action) ( dataControl.getContent( ) ) ).clone( ) );
+                adc = new ActionDataControl( newElement );
+            }
             actionsList.add( newElement );
-            actionsDataControlList.add( new ActionDataControl( newElement ) );
+            actionsDataControlList.add( adc );
             return true;
         }
         catch( CloneNotSupportedException e ) {
