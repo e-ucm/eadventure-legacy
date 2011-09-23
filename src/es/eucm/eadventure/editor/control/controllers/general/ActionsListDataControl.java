@@ -236,11 +236,22 @@ public class ActionsListDataControl extends DataControl {
         else if( type == Controller.ACTION_CUSTOM_INTERACT ) {
             //FIX: 
             //String name = JOptionPane.showInputDialog( null, TC.get( "CustomAction.GetNameMessage" ), TC.get( "CustomAction.GetNameTitle" ), JOptionPane.QUESTION_MESSAGE );
+            
+            
             String name = controller.showInputDialog(  TC.get( "CustomAction.GetNameTitle" ), TC.get( "CustomAction.GetNameMessage"));
-            if( name == null || name.equals( "" ) ) {
+            // if user cancels the operation, finish the new action creation
+            /*if( name == null || name.equals( "" ) ) {
                 name = "NONAME_" + ( new Random( ) ).nextInt( 1000 );
-            }
-
+            }*/
+            
+            // if user do not cancel the operation
+            if( name != null  ) {
+                
+                // if user press "accept" without introduce any name
+                if ( name.equals( "" ) )
+                    name = "NONAME_" + ( new Random( ) ).nextInt( 1000 );
+                
+                
             String[] options = { TC.get( "Element.Action" ), TC.get( "Element.Interaction" )};
             int option = JOptionPane.showOptionDialog( null, TC.get( "CustomAction.SelectTypeMessage" ), TC.get( "CustomAction.SelectTypeTitle" ), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0 );
             if( option == 0 ) {
@@ -276,6 +287,7 @@ public class ActionsListDataControl extends DataControl {
                     controller.showErrorDialog( TC.get( "Action.OperationAddAction" ), TC.get( "Action.ErrorNoItems" ) );
 
             }
+            }// end if that controls if user
         }
         else if( type == Controller.ACTION_CUSTOM ) {
             String name = controller.showInputDialog(  TC.get( "CustomAction.GetNameMessage" ), TC.get( "CustomAction.GetNameTitle" ) );
