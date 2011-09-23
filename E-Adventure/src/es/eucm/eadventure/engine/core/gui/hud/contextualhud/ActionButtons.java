@@ -342,7 +342,7 @@ public class ActionButtons {
             if( useAction != null ) {
                 //if the conditions of useAction are not met and the conditions of grab action are met, the handButton
                 //name must be "grabAction"
-                if (grabAction != null && (useAction.isConditionsAreMeet( ) || !grabAction.isConditionsAreMeet( ) ) )
+                if ( (useAction.isConditionsAreMeet( ) || (grabAction != null && !grabAction.isConditionsAreMeet( )) ) )
                     handButton.setName( TC.get( "ActionButton.Use" ) );
                 addHandButton = true;
             }
