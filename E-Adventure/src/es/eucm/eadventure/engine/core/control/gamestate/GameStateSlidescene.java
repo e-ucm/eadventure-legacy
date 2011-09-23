@@ -75,6 +75,11 @@ public class GameStateSlidescene extends GameState {
      * Flag to control that we jump to the next chapter at most once
      */
     private boolean yetSkipped = false;
+    
+    /**
+     * Flag to stop updating the slides when they finished
+     */
+    private boolean finish = false;
 
    // private BufferedImage bkg = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR );
 
@@ -141,14 +146,15 @@ public class GameStateSlidescene extends GameState {
         //Graphics2D g = (Graphics2D) bkg.getGraphics( );
         //g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         slides.update( elapsedTime );
-        if( !slides.isPlayingForFirstTime( ) )
+        if( !slides.isPlayingForFirstTime( ) && !finish )
             finishedSlides( );
         //g.drawImage( slides.getImage( ), 0, 0, null );
         //g.dispose( );
-
-        GUI.getInstance( ).addBackgroundToDraw( slides.getImage( ), 0 );
-        GUI.getInstance( ).endDraw( );
-        GUI.getInstance( ).drawScene( GUI.getInstance( ).getGraphics( ), elapsedTime );
+        if (!finish){
+            GUI.getInstance( ).addBackgroundToDraw( slides.getImage( ), 0 );
+            GUI.getInstance( ).endDraw( );
+            GUI.getInstance( ).drawScene( GUI.getInstance( ).getGraphics( ), elapsedTime );
+        }
     }
 
     @Override
@@ -159,6 +165,7 @@ public class GameStateSlidescene extends GameState {
 
         // If the slides have ended
         if( endSlides ) {
+            finish = true;
             finishedSlides( );
         }
     }
@@ -167,10 +174,12 @@ public class GameStateSlidescene extends GameState {
 
         // If it is a endscene, go to the next chapter
         if( !yetSkipped && slidescene.getNext( ) == Cutscene.ENDCHAPTER ) {
+            slides.stopMusic();
             yetSkipped = true;
             game.goToNextChapter( );
         }
         else if( slidescene.getNext( ) == Cutscene.NEWSCENE ) {
+            slides.stopMusic();
             Exit exit = new Exit( slidescene.getTargetId( ) );
             exit.setDestinyX( slidescene.getPositionX( ) );
             exit.setDestinyY( slidescene.getPositionY( ) );

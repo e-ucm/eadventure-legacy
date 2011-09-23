@@ -90,6 +90,14 @@ public class FrameAnimation implements Animation {
             previousFrameSoundID = -1;
         return temp;
     }
+    
+    public void stopMusic(){
+        if (previousFrameSoundID!=-1){
+            MultimediaManager.getInstance( ).stopPlaying( previousFrameSoundID );
+            previousFrameSoundID = -1;
+        }
+        
+    }
 
     public boolean isPlayingForFirstTime( ) {
 

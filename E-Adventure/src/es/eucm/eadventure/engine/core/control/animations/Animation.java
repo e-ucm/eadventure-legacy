@@ -76,5 +76,12 @@ public interface Animation {
      * @return True if the animation has finished
      */
     public boolean nextImage( );
+    
+    
+    /**
+     * Stop the music for the current frame
+     * 
+     */
+    public void stopMusic();
 
 }

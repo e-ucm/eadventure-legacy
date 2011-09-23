@@ -127,4 +127,10 @@ public class ImageSet implements Animation {
         array[0] = MultimediaManager.getInstance( ).loadImage( ResourceHandler.DEFAULT_SLIDES, MultimediaManager.IMAGE_SCENE );
         return array;
     }
+
+    public void stopMusic( ) {
+
+        // TODO Auto-generated method stub
+        
+    }
 }
