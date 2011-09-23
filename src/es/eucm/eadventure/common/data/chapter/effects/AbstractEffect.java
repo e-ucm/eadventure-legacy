@@ -74,7 +74,9 @@ public abstract class AbstractEffect implements Effect {
     @Override
     public Object clone( ) throws CloneNotSupportedException {
 
-        return super.clone( );
+       AbstractEffect absEf = (AbstractEffect) super.clone( );
+       absEf.conditions = (Conditions) conditions.clone( );
+       return absEf;
     }
 
 }
