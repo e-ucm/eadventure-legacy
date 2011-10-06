@@ -654,73 +654,135 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
         MultimediaManager multimedia = MultimediaManager.getInstance( );
         for( Resources r : gameData.getPlayer( ).getResources( ) ) {
-            multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            
+            // pre load stand right resources. If doesn't exist or is empty, mirror the stand left animation
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) 
+                    && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION + ".eaa" ) )
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            else
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            
+            // pre load stand left resources. If doesn't exist or is empty, mirror the stand right animation
             if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( ASSET_EMPTY_ANIMATION ) 
                     && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION + ".eaa" ) )
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            // pre-load stand up and down
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
 
-            multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            
+            // pre load speak right resources. If doesn't exist or is empty, mirror the speak left animation
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION )
+                    && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION +".eaa"))
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            else
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ), true, MultimediaManager.IMAGE_PLAYER );
+            
+            // pre load speak left resources. If doesn't exist or is empty, mirror the speak right animation
             if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION )
                     && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION +".eaa"))
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            // pre-load speak up and down
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
-
-            multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            
+         // pre load use right resources. If doesn't exist or is empty, mirror the use left animation
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) 
+                    && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            else
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ), true, MultimediaManager.IMAGE_PLAYER );
+            
+            // pre load use left resources. If doesn't exist or is empty, mirror the use right animation
             if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION ) 
                     && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
 
-            multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            // pre load walk right resources. If doesn't exist or is empty, mirror the walk left animation
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION )
+                    && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            else
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ), true, MultimediaManager.IMAGE_PLAYER );
+            
+            // pre load walk left resources. If doesn't exist or is empty, mirror the walk right animation
             if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION )
                     && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+         // pre-load walk up and down
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
         }
         for( NPC npc : gameData.getCharacters( ) ) {
             for( Resources r : npc.getResources( ) ) {
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+               
+             // pre load stand right resources. If doesn't exist or is empty, mirror the stand left animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) 
+                        && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
+                    multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+                else
+                    multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), true, MultimediaManager.IMAGE_SCENE );
+             // pre load stand left resources. If doesn't exist or is empty, mirror the stand right animation
                 if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( ASSET_EMPTY_ANIMATION ) 
                         && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
+             // pre-load stand up and down
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_SCENE );
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_SCENE );
 
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+                
+             // pre load speak right resources. If doesn't exist or is empty, mirror the speak left animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION )
+                        && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION +".eaa"))
+                    multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+                else
+                    multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ), true, MultimediaManager.IMAGE_SCENE );
+             // pre load speak left resources. If doesn't exist or is empty, mirror the speak right animation
                 if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION )
                         && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION +".eaa"))
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
+             // pre-load speak up and down
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_SCENE );
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_SCENE );
 
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+             // pre load use right resources. If doesn't exist or is empty, mirror the use left animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION )
+                        && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+                    multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+                else
+                    multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ), true, MultimediaManager.IMAGE_SCENE );
+             // pre load use left resources. If doesn't exist or is empty, mirror the use right animation
                 if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION )
                         && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
 
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+             // pre load walk right resources. If doesn't exist or is empty, mirror the walk left animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION )
+                        && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+                    multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+                else
+                    multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ), true, MultimediaManager.IMAGE_SCENE );
+             // pre load walk left resources. If doesn't exist or is empty, mirror the walk right animation
                 if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION )
                         && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
+             // pre-load walk up and down
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_SCENE );
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_SCENE );
             }
