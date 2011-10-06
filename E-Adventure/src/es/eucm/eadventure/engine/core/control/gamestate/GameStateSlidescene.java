@@ -174,12 +174,12 @@ public class GameStateSlidescene extends GameState {
 
         // If it is a endscene, go to the next chapter
         if( !yetSkipped && slidescene.getNext( ) == Cutscene.ENDCHAPTER ) {
-            slides.stopMusic();
+            
             yetSkipped = true;
             game.goToNextChapter( );
         }
         else if( slidescene.getNext( ) == Cutscene.NEWSCENE ) {
-            slides.stopMusic();
+            
             Exit exit = new Exit( slidescene.getTargetId( ) );
             exit.setDestinyX( slidescene.getPositionX( ) );
             exit.setDestinyY( slidescene.getPositionY( ) );
@@ -195,6 +195,7 @@ public class GameStateSlidescene extends GameState {
                 yetSkipped = true;
                 game.goToNextChapter( );
             }
+            slides.stopMusic();
             FunctionalEffects.storeAllEffects( new Effects( ) );
         }
     }
