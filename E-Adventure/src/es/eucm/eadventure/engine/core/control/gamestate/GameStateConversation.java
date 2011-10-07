@@ -36,6 +36,7 @@
 package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -163,7 +164,33 @@ public class GameStateConversation extends GameState {
      * keep the last option which is being pre-hearing
      */
     private int linePreHearing;
-
+    
+    /**
+     * offset for text shifting in option lines which exceeds the size of the canvas
+     */
+    private int optionLineOffset;
+    
+    /**
+     * Time showing option lines
+     */
+    private long timeShowingOptions;
+    
+    /**
+     * Time that the option Continue shifting before reach the final of the string
+     */
+    private int msContinueSitfting;
+    
+    /**
+     * Number of option selected to shift
+     */
+    private int numberOfOptionLineToShift;
+    
+    /**
+     * Last index to stop skiping
+     */
+    // this allows to keep the string stopped certain time (200 ms) at certain position 
+    private int lastIndexToStopShifting;
+    
     /**
      * Creates a new GameStateConversation
      */
@@ -184,6 +211,11 @@ public class GameStateConversation extends GameState {
         generalKeepShowing = Game.getInstance( ).getGameDescriptor( ).isKeepShowing( );
         audioId = -1;
         linePreHearing = -1;
+        optionLineOffset=0;
+        timeShowingOptions=0;
+        numberOfOptionLineToShift = -1;
+        msContinueSitfting = 0;
+        
 
     }
 
@@ -195,7 +227,7 @@ public class GameStateConversation extends GameState {
         if( currentNode.getType( ) == ConversationNodeView.DIALOGUE )
             processDialogNode( );
         else if( currentNode.getType( ) == ConversationNodeView.OPTION )
-            processOptionNode( g );
+            processOptionNode( g, elapsedTime );
 
         GUI.getInstance( ).endDraw( );
         g.dispose( );
@@ -261,11 +293,11 @@ public class GameStateConversation extends GameState {
      * @param g
      *            The graphics in which to draw the options
      */
-    private void processOptionNode( Graphics2D g ) {
+    private void processOptionNode( Graphics2D g, long elapsedTime ) {
 
         if( !isOptionSelected ) {
             showPlayerQuestion( );
-            optionNodeNoOptionSelected( g );
+            optionNodeNoOptionSelected( g, elapsedTime );
             
         }
         else
@@ -312,11 +344,16 @@ public class GameStateConversation extends GameState {
      * @param g
      *            The graphics to draw the options in.
      */
-    private void optionNodeNoOptionSelected( Graphics2D g ) {
+    private void optionNodeNoOptionSelected( Graphics2D g, long elapsedTime ) {
 
         if( firstTime ) {
+            // modify the order of the options the first moment the loop entered in the options node 
+            // (this will be done each time the loop enter in option node whereas entered previously or not )
             ( (OptionConversationNode) currentNode ).doRandom( );
             firstTime = false;
+            // reset the timeShowingOptions and the number of chars to skip
+            timeShowingOptions=0;
+            msContinueSitfting=0;
         }
 
         numberDisplayedOptions = 0;
@@ -324,17 +361,17 @@ public class GameStateConversation extends GameState {
         storeOKConditionsConversationLines( );
         if( optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
             for( int i = 0; i < optionsToShow.size( ); i++ ) {
-                drawLine( g, optionsToShow.get( i ).getText( ), i, i );
+                drawLine( g, optionsToShow.get( i ).getText( ), i, i, elapsedTime );
                 numberDisplayedOptions++;
             }
         }
         else {
             int i, indexLastLine = Math.min( firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, optionsToShow.size( ) );
             for( i = firstLineDisplayed; i < indexLastLine; i++ ) {
-                drawLine( g, optionsToShow.get( i ).getText( ), ( i - firstLineDisplayed ), i );
+                drawLine( g, optionsToShow.get( i ).getText( ), ( i - firstLineDisplayed ), i, elapsedTime );
                 numberDisplayedOptions++;
             }
-            drawLine( g, TC.get( "GameText.More" ), ( i - firstLineDisplayed ), i );
+            drawLine( g, TC.get( "GameText.More" ), ( i - firstLineDisplayed ), i, elapsedTime );
         }
 
         // if there are not options to draw, finalize the conversation
@@ -372,7 +409,7 @@ public class GameStateConversation extends GameState {
      * @param optionIndex
      *            The index of the option
      */
-    private void drawLine( Graphics2D g, String text, int optionIndex, int lineIndex ) {
+    private void drawLine( Graphics2D g, String text, int optionIndex, int lineIndex, long elapsedTime ) {
 
         Color textColor = Game.getInstance( ).getFunctionalPlayer( ).getTextFrontColor( );
         if( optionIndex == optionHighlighted ) {
@@ -380,7 +417,7 @@ public class GameStateConversation extends GameState {
             int green = textColor.getGreen( );
             int blue = textColor.getBlue( );
             textColor = new Color( 255 - red, 255 - green, 255 - blue );
-
+            // pre-listen the option if it is set
             if( ( (OptionConversationNode) currentNode ).isPreListening( ) && linePreHearing != optionIndex + firstLineDisplayed ) {
 
                 if( this.optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
@@ -398,7 +435,54 @@ public class GameStateConversation extends GameState {
                     }
                 }
             }
-        }
+            
+            // if this is a new line to shift, restart the values
+            if (numberOfOptionLineToShift!=lineIndex){
+                
+                numberOfOptionLineToShift= lineIndex;
+                optionLineOffset=0;
+                timeShowingOptions=0;
+                msContinueSitfting = 0;
+                
+            }
+            //To know the width of one character
+            FontMetrics fontMetrics = g.getFontMetrics( );
+            double w = fontMetrics.stringWidth( new String( "A" ) );
+            int position = (int) ( GUI.getInstance( ).WINDOW_WIDTH / w ) + 20;
+            
+            // check if the text has to be shifted
+            if (position <= text.length( )){
+            // update the time while options are showed
+            timeShowingOptions += elapsedTime;
+            // calculate the number of characters to be shifted in the option
+            optionLineOffset = (int) timeShowingOptions / 200;
+                int numberOfCharShowed = text.substring( 0, position ).length( ) ;
+                // if the final of the string is not reached
+                if (optionLineOffset + numberOfCharShowed <= text.length( ) ){
+                    // shift the text the number of characters calculated in optionLineOffset  
+                     text = text.substring( optionLineOffset%text.length( ),  optionLineOffset%text.length( ) + numberOfCharShowed);
+
+                } else {
+                    // when the final of the string is reached, continue shifting 200 ms, and stop the string at this point 
+                    // the next 200ms before reseting
+                    if ( msContinueSitfting < 200)
+                        lastIndexToStopShifting = optionLineOffset%text.length( );
+                        
+                    else if ( msContinueSitfting > 400){
+                        optionLineOffset = 0;
+                        timeShowingOptions = 0;
+                        msContinueSitfting=0;
+                    }
+                    text = text.substring( lastIndexToStopShifting ,  text.length( ) );
+                    msContinueSitfting++;
+                
+                }
+                
+            }
+            
+        } 
+        
+        
         int y = GUI.getInstance( ).getResponseTextY( ) + optionIndex * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT;
         int x = GUI.getInstance( ).getResponseTextX( );
         
@@ -407,11 +491,10 @@ public class GameStateConversation extends GameState {
             if ( spaceIndex != -1 )
                 text = text.substring( spaceIndex + 1);
         }
-        
+         
         String fullText = ( lineIndex + 1 ) + ".- " + text;
-
-
-
+        
+       
         GUI.drawStringOnto( g, fullText, x, y, false, textColor, Game.getInstance( ).getFunctionalPlayer( ).getTextBorderColor( ), true );
     }
 
@@ -424,6 +507,15 @@ public class GameStateConversation extends GameState {
      */
     private void optionNodeWithOptionSelected( ) {
 
+        
+        // restart the values related to option shifting
+        if (numberOfOptionLineToShift == -1){
+            optionLineOffset=0;
+            timeShowingOptions=0;
+            numberOfOptionLineToShift = -1;
+            msContinueSitfting = 0;
+        }
+        
         if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) ) {
             if( mouseClickedButton == MouseEvent.BUTTON1 ) {
                 DebugLog.user( "Skipped line in conversation" );
@@ -472,6 +564,14 @@ public class GameStateConversation extends GameState {
      * If the user chooses a valid option, it is selected and its text show.
      */
     private void selectDisplayedOption( ) {
+        
+     // restart the values related to option shifting
+        if (numberOfOptionLineToShift == -1){
+            optionLineOffset=0;
+            timeShowingOptions=0;
+            numberOfOptionLineToShift = -1;
+            msContinueSitfting = 0;
+        }
 
         if( optionSelected >= 0 && optionSelected < optionsToShow.size( ) ) {
             if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
