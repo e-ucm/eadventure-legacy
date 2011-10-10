@@ -192,7 +192,7 @@ public class ItemSubParser extends SubParser {
                         soundPath = attrs.getValue( i );
                     
                 }   
-                object.setName( currentString.toString( ).trim( ) );
+               
                 object.setNameSoundPath( soundPath );
                 
             }
@@ -206,7 +206,7 @@ public class ItemSubParser extends SubParser {
                         soundPath = attrs.getValue( i );
                     
                 }
-                object.setDescription( currentString.toString( ).trim( ) );
+                
                 object.setDescriptionSoundPath( soundPath );
             }
 
@@ -220,7 +220,7 @@ public class ItemSubParser extends SubParser {
                         soundPath = attrs.getValue( i );
                     
                 }
-                object.setDetailedDescription( currentString.toString( ).trim( ) );
+               
                 object.setDetailedDescriptionSoundPath( soundPath );
             }
             
@@ -279,6 +279,19 @@ public class ItemSubParser extends SubParser {
             else if( qName.equals( "documentation" ) ) {
                 if( reading == READING_NONE )
                     object.setDocumentation( currentString.toString( ).trim( ) );
+            }
+            
+         // If it is a name tag, store the name in the active area
+            else if( qName.equals( "name" ) ) {
+                object.setName( currentString.toString( ).trim( ) );
+            }
+            // If it is a brief tag, store the brief description in the active area
+            else if( qName.equals( "brief" ) ) {
+                object.setDescription( currentString.toString( ).trim( ) );
+            }
+         // If it is a detailed tag, store the detailed description in the active area
+            else if( qName.equals( "detailed" ) ) {
+                object.setDetailedDescription( currentString.toString( ).trim( ) );
             }
 
             

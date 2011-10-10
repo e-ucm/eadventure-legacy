@@ -188,7 +188,6 @@ public class AtrezzoSubParser extends SubParser {
                     
                 }
                 
-                atrezzo.setName( currentString.toString( ).trim( ) );
                 atrezzo.setNameSoundPath( soundPath );
             }
 
@@ -203,7 +202,6 @@ public class AtrezzoSubParser extends SubParser {
                     
                 }
                 
-                atrezzo.setDescription( currentString.toString( ).trim( ) );
                 atrezzo.setDescriptionSoundPath( soundPath );
             }
 
@@ -219,7 +217,6 @@ public class AtrezzoSubParser extends SubParser {
                     
                 }
                 
-                atrezzo.setDetailedDescription( currentString.toString( ).trim( ) );
                 atrezzo.setDetailedDescriptionSoundPath( soundPath );
             }
             
@@ -274,6 +271,19 @@ public class AtrezzoSubParser extends SubParser {
                 if( reading == READING_NONE )
                     atrezzo.setDocumentation( currentString.toString( ).trim( ) );
 
+            }
+            
+            // If it is a name tag, store the name in the active area
+            else if( qName.equals( "name" ) ) {
+                atrezzo.setName( currentString.toString( ).trim( ) );
+            }
+            // If it is a brief tag, store the brief description in the active area
+            else if( qName.equals( "brief" ) ) {
+                atrezzo.setDescription( currentString.toString( ).trim( ) );
+            }
+         // If it is a detailed tag, store the detailed description in the active area
+            else if( qName.equals( "detailed" ) ) {
+                atrezzo.setDetailedDescription( currentString.toString( ).trim( ) );
             }
       
 
