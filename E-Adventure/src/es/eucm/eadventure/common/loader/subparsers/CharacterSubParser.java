@@ -265,7 +265,6 @@ public class CharacterSubParser extends SubParser {
                         soundPath = attrs.getValue( i );
                     
                 }
-                npc.setName( currentString.toString( ).trim( ) );
                 npc.setNameSoundPath( soundPath );
             }
 
@@ -279,7 +278,6 @@ public class CharacterSubParser extends SubParser {
                         soundPath = attrs.getValue( i );
                     
                 }
-                npc.setDescription( currentString.toString( ).trim( ) );
                 npc.setDescriptionSoundPath( soundPath );
             }
 
@@ -294,7 +292,6 @@ public class CharacterSubParser extends SubParser {
                     
                 }
                 
-                npc.setDetailedDescription( currentString.toString( ).trim( ) );
                 npc.setDetailedDescriptionSoundPath( soundPath );
             }
         }
@@ -328,6 +325,19 @@ public class CharacterSubParser extends SubParser {
                     npc.setDocumentation( currentString.toString( ).trim( ) );
                 else if( reading == READING_CONVERSATION_REFERENCE )
                     conversationReference.setDocumentation( currentString.toString( ).trim( ) );
+            }
+            
+         // If it is a name tag, store the name in the active area
+            else if( qName.equals( "name" ) ) {
+                npc.setName( currentString.toString( ).trim( ) );
+            }
+            // If it is a brief tag, store the brief description in the active area
+            else if( qName.equals( "brief" ) ) {
+                npc.setDescription( currentString.toString( ).trim( ) );
+            }
+         // If it is a detailed tag, store the detailed description in the active area
+            else if( qName.equals( "detailed" ) ) {
+                npc.setDetailedDescription( currentString.toString( ).trim( ) );
             }
 
             // If it is a resources tag, add the resources in the character

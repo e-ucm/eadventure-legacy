@@ -210,7 +210,6 @@ public class PlayerSubParser extends SubParser {
                         soundPath = attrs.getValue( i );
                 }
                 
-                player.setName( currentString.toString( ).trim( ) );
                 player.setNameSoundPath( soundPath );
             }
 
@@ -224,7 +223,7 @@ public class PlayerSubParser extends SubParser {
                         soundPath = attrs.getValue( i );
                 }
                 
-                player.setDescription( currentString.toString( ).trim( ) );
+               
                 player.setDescriptionSoundPath( soundPath );
             }
 
@@ -238,7 +237,7 @@ public class PlayerSubParser extends SubParser {
                         soundPath = attrs.getValue( i );
                 }
                 
-                player.setDetailedDescription( currentString.toString( ).trim( ) );
+               
                 player.setDetailedDescriptionSoundPath( soundPath );
             }
 
@@ -277,6 +276,20 @@ public class PlayerSubParser extends SubParser {
             // If it is a resources tag, add the resources to the player
             else if( qName.equals( "resources" ) ) {
                 player.addResources( currentResources );
+            }
+            
+            
+         // If it is a name tag, store the name in the active area
+            else if( qName.equals( "name" ) ) {
+                player.setName( currentString.toString( ).trim( ) );
+            }
+            // If it is a brief tag, store the brief description in the active area
+            else if( qName.equals( "brief" ) ) {
+                player.setDescription( currentString.toString( ).trim( ) );
+            }
+         // If it is a detailed tag, store the detailed description in the active area
+            else if( qName.equals( "detailed" ) ) {
+                player.setDetailedDescription( currentString.toString( ).trim( ) );
             }
 
             // Reset the current string
