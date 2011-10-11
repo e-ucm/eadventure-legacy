@@ -143,6 +143,17 @@ public class FunctionalScene implements Renderable {
     private boolean moveOffsetLeft = false;
 
     private boolean showsOffsetArrows = false;
+    
+    
+    /**
+     * Element references list for the scene. This element references list will keep the position of the items even they
+     * were being moved with drag&drop. They only will be changed when the scene is loaded again
+     */
+    //NOTE: the nextscene game state has been changed to avoid recharge the scene elements if the next scene will be the same as the
+    //previous scene
+    private List<ElementReference> itemReferences;
+    
+    private List<ElementReference> NPCReferences;
 
     /**
      * Creates a new FunctionalScene loading the background music.
@@ -179,6 +190,9 @@ public class FunctionalScene implements Renderable {
         areas = new ArrayList<FunctionalActiveArea>( );
         barriers = new ArrayList<FunctionalBarrier>( );
         trajectory = new FunctionalTrajectory( scene.getTrajectory( ), barriers );
+        
+        restartElementReferencesPositions();
+       
 
         // Pick the item summary
         Chapter gameData = Game.getInstance( ).getCurrentChapterData( );
@@ -287,8 +301,7 @@ public class FunctionalScene implements Renderable {
         Chapter gameData = Game.getInstance( ).getCurrentChapterData( );
 
         // Check the item references of the scene
-        for( ElementReference itemReference : scene.getItemReferences( ) ) {
-
+        for( ElementReference itemReference : itemReferences ) {
             // For every item that should be there
             if( new FunctionalConditions( itemReference.getConditions( ) ).allConditionsOk( ) ) {
                 boolean found = false;
@@ -319,13 +332,16 @@ public class FunctionalScene implements Renderable {
                     if( currentItem.getReference( ) == itemReference )
                         remove = currentItem;
                 }
-                if( remove != null )
+                if( remove != null ){
+                    itemReference.setPosition( (int) remove.getX( ), (int) remove.getY( ) );
                     items.remove( remove );
+                }
+                
             }
         }
 
         // Check the character references of the scene
-        for( ElementReference npcReference : scene.getCharacterReferences( ) ) {
+        for( ElementReference npcReference : NPCReferences ) {
             // For every item that should be there
             if( new FunctionalConditions( npcReference.getConditions( ) ).allConditionsOk( ) ) {
                 boolean found = false;
@@ -495,6 +511,27 @@ public class FunctionalScene implements Renderable {
             }
 
             playBackgroundMusic( );
+        }
+    }
+    
+    /**
+     * Reset the original positions of the element references
+     */
+    public void restartElementReferencesPositions(){
+        
+        itemReferences = new ArrayList<ElementReference>();
+        NPCReferences = new ArrayList<ElementReference>();
+        items = new ArrayList<FunctionalItem>();
+        npcs = new ArrayList<FunctionalNPC>();
+        try {
+        for (ElementReference element: scene.getItemReferences( ))
+          itemReferences.add( (ElementReference)element.clone() );
+            
+        for (ElementReference element: scene.getItemReferences( ))
+            NPCReferences.add( (ElementReference)element.clone() );
+        }
+        catch( CloneNotSupportedException e ) {
+            
         }
     }
 

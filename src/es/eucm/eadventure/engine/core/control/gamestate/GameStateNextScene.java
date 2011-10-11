@@ -70,6 +70,11 @@ public class GameStateNextScene extends GameState {
         // Depending on the type of the scene
         switch( generalScene.getType( ) ) {
             case GeneralScene.SCENE:
+                
+                
+                // If next scene is the same as current scene, do not change the scene, only execute the effects
+                if (game.getFunctionalScene( )==null || !game.getFunctionalScene( ).getScene( ).getId( ).equals( generalScene.getId( ) )){
+                    
                 GUI.getInstance( ).setTransition( nextScene.getTransitionTime( ), nextScene.getTransitionType( ), elapsedTime );
 
                 if( game.getFunctionalScene( ) != null && !GUI.getInstance( ).hasTransition( ) ) {
@@ -110,6 +115,8 @@ public class GameStateNextScene extends GameState {
                 game.setPlayerLayer( scene.getPlayerLayer( ) );
                 // Create the new functional scene
                 FunctionalScene newScene = new FunctionalScene( scene, game.getFunctionalPlayer( ), backgroundMusicId );
+                // restart the position of the elements in the previous scene
+                
                 game.setFunctionalScene( newScene );
 
                 // Set the player position
@@ -145,6 +152,8 @@ public class GameStateNextScene extends GameState {
                 game.getFunctionalPlayer( ).cancelAnimations( );
                 game.getActionManager( ).setActionSelected( ActionManager.ACTION_GOTO );
 
+                }
+                // Effects are always executed even the next scene will be the same as current scene
                 // Play the post effects only if we arrive to a playable scene
                 // this method also call to  game.setState( Game.STATE_RUN_EFFECTS );
                 FunctionalEffects.storeAllEffects( nextScene.getPostEffects( ) );
@@ -164,6 +173,8 @@ public class GameStateNextScene extends GameState {
                     GUI.getInstance( ).drawScene( null, elapsedTime );
                 GUI.getInstance( ).clearBackground( );
 
+                
+                game.getFunctionalScene( ).restartElementReferencesPositions( );
                 // If it is a slidescene, load the slidescene
                 game.setState( Game.STATE_SLIDE_SCENE );
                 break;
@@ -172,6 +183,8 @@ public class GameStateNextScene extends GameState {
                 // Stop the music
                 if( game.getFunctionalScene( ) != null )
                     game.getFunctionalScene( ).stopBackgroundMusic( );
+                
+                game.getFunctionalScene( ).restartElementReferencesPositions( );
 
                 // If it is a videoscene, load the videoscene
                 game.setState( Game.STATE_VIDEO_SCENE );
