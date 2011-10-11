@@ -161,13 +161,17 @@ public class FunctionalItem extends FunctionalElement {
             }
         }
         
-        // create a transparent (not translucent) image
-        image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( x2 - x1, y2 - y1, Transparency.TRANSLUCENT );
+        // create a transparent (not translucent) image 
+        //NEW! check the parameter is grater than 0, if not, pass the width of the image. This allow introduce completely transparent
+        //images
+        image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( x2-x1>0?x2-x1:x1, y2-y1>0?y2-y1:y1, Transparency.TRANSLUCENT );
 
         // draw the transformed image
         Graphics2D g = (Graphics2D) image.getGraphics( );
 
-        g.drawImage( tempimage, 0, 0, x2-x1, y2-y1, x1, y1, x2, y2, null);
+        //NEW! check the parameter is grater than 0, if not, pass the width of the image. This allow introduce completely transparent
+        //images
+        g.drawImage( tempimage, 0, 0, x2-x1>0?x2-x1:x1, y2-y1>0?y2-y1:y1, x1, y1, x2, y2, null);
 //        g.drawImage( image, transform, null );
         g.dispose( );
         
