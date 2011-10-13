@@ -43,6 +43,13 @@ import es.eucm.eadventure.common.data.HasTargetId;
  */
 public class SpeakCharEffect extends AbstractEffect implements HasTargetId {
 
+    
+    /**
+     * Path for the audio track where the line is recorded. Its use is optional.
+     */
+    private String audioPath;
+    
+    
     /**
      * Id of the character who will talk
      */
@@ -116,12 +123,25 @@ public class SpeakCharEffect extends AbstractEffect implements HasTargetId {
         this.line = line;
     }
 
+
+    public String getAudioPath( ) {
+    
+        return audioPath;
+    }
+
+    
+    public void setAudioPath( String audioPath ) {
+    
+        this.audioPath = audioPath;
+    }
+
     @Override
     public Object clone( ) throws CloneNotSupportedException {
 
         SpeakCharEffect sce = (SpeakCharEffect) super.clone( );
         sce.idTarget = ( idTarget != null ? new String( idTarget ) : null );
         sce.line = ( line != null ? new String( line ) : null );
+        sce.audioPath = ( audioPath != null ? new String( audioPath ) : null );
         return sce;
     }
 }

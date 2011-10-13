@@ -209,10 +209,10 @@ public abstract class EffectDialog extends ToolManagableDialog {
                 effectProperties = new HashMap<Integer, Object>( );
                 break;
             case Effect.SPEAK_PLAYER:
-                effectProperties = new SpeakPlayerEffectDialog( currentProperties ).getEffectProperties( );
+                effectProperties = new SpeakPlayerEffectDialog( effectsController, currentProperties ).getEffectProperties( );
                 break;
             case Effect.SPEAK_CHAR:
-                effectProperties = new SpeakCharacterEffectDialog( currentProperties ).getEffectProperties( );
+                effectProperties = new SpeakCharacterEffectDialog( effectsController, currentProperties ).getEffectProperties( );
                 break;
             case Effect.TRIGGER_BOOK:
                 effectProperties = new TriggerBookEffectDialog( currentProperties ).getEffectProperties( );

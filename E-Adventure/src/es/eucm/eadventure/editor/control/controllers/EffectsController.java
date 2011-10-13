@@ -624,9 +624,11 @@ public class EffectsController {
                 break;
             case Effect.SPEAK_PLAYER:
                 newEffect = new SpeakPlayerEffect( text );
+                ((SpeakPlayerEffect)newEffect).setAudioPath( path );
                 break;
             case Effect.SPEAK_CHAR:
                 newEffect = new SpeakCharEffect( target, text );
+                ((SpeakCharEffect)newEffect).setAudioPath( path );
                 break;
             case Effect.TRIGGER_BOOK:
                 newEffect = new TriggerBookEffect( target );
@@ -750,10 +752,12 @@ public class EffectsController {
                 break;
             case Effect.SPEAK_PLAYER:
                 SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
+                currentValues.put( EFFECT_PROPERTY_PATH, speakPlayerEffect.getAudioPath( ) );
                 currentValues.put( EFFECT_PROPERTY_TEXT, speakPlayerEffect.getLine( ) );
                 break;
             case Effect.SPEAK_CHAR:
                 SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
+                currentValues.put( EFFECT_PROPERTY_PATH, speakCharEffect.getAudioPath( ) );
                 currentValues.put( EFFECT_PROPERTY_TEXT, speakCharEffect.getLine( ) );
                 break;
             case Effect.PLAY_SOUND:
