@@ -41,6 +41,12 @@ package es.eucm.eadventure.common.data.chapter.effects;
  */
 public class SpeakPlayerEffect extends AbstractEffect {
 
+    
+    /**
+     * Path for the audio track where the line is recorded. Its use is optional.
+     */
+    private String audioPath;
+    
     /**
      * Text for the player to speak
      */
@@ -84,12 +90,24 @@ public class SpeakPlayerEffect extends AbstractEffect {
 
         this.line = line;
     }
+    
+    public String getAudioPath( ) {
+        
+        return audioPath;
+    }
+
+    
+    public void setAudioPath( String audioPath ) {
+    
+        this.audioPath = audioPath;
+    }
 
     @Override
     public Object clone( ) throws CloneNotSupportedException {
 
         SpeakPlayerEffect spe = (SpeakPlayerEffect) super.clone( );
         spe.line = ( line != null ? new String( line ) : null );
+        spe.audioPath = ( audioPath != null ? new String( audioPath ) : null );
         return spe;
     }
 }

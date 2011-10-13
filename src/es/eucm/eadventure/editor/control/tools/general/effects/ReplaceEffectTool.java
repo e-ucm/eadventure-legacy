@@ -181,11 +181,13 @@ public class ReplaceEffectTool extends Tool {
                 case Effect.SPEAK_PLAYER:
                     SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
                     speakPlayerEffect.setLine( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
+                    speakPlayerEffect.setAudioPath( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_PATH )  );
                     break;
                 case Effect.SPEAK_CHAR:
                     SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
                     speakCharEffect.setTargetId( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
                     speakCharEffect.setLine( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
+                    speakCharEffect.setAudioPath( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_PATH )  );
                     break;
                 case Effect.TRIGGER_BOOK:
                     TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;

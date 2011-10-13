@@ -142,6 +142,11 @@ public class EffectSubParser extends SubParser {
      * New effects
      */
     private AbstractEffect newEffect;
+    
+    /**
+     * Audio path for speak player and character
+     */
+    private String audioPath;
 
     /* Methods */
 
@@ -169,6 +174,7 @@ public class EffectSubParser extends SubParser {
     public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) {
 
         newEffect = null;
+        audioPath=new String();
 
         // If it is a cancel-action tag
         if( qName.equals( "cancel-action" ) ) {
@@ -489,6 +495,18 @@ public class EffectSubParser extends SubParser {
             }
             newEffect = new MoveObjectEffect(id, x, y, scale, animated, translateSpeed, scaleSpeed);
         }
+        
+        
+        else if( qName.equals( "speak-player" ) || qName.equals( "speak-character" )) {
+            audioPath = "";
+
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+
+                // If there is a "uri" attribute, store it as audio path
+                if( attrs.getQName( i ).equals( "uri" ) )
+                    audioPath = attrs.getValue( i );
+            }
+        }
         // If it is a condition tag, create new conditions and switch the state
         else if( qName.equals( "condition" ) ) {
             currentConditions = new Conditions( );
@@ -553,12 +571,14 @@ public class EffectSubParser extends SubParser {
             if( qName.equals( "speak-player" ) ) {
                 // Add the effect and clear the current string
                 newEffect = new SpeakPlayerEffect( currentString.toString( ).trim( ) );
+                ((SpeakPlayerEffect) newEffect).setAudioPath( audioPath );
             }
 
             // If it is a speak-char
             else if( qName.equals( "speak-char" ) ) {
                 // Add the effect and clear the current string
                 newEffect = new SpeakCharEffect( currentCharIdTarget, currentString.toString( ).trim( ) );
+                ((SpeakCharEffect) newEffect).setAudioPath( audioPath );
             }// If it is a show-text
             else if( qName.equals( "show-text" ) ) {
                 // Add the new ShowTextEffect
