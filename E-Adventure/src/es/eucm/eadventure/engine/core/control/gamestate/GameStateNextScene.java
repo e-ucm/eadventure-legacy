@@ -174,7 +174,8 @@ public class GameStateNextScene extends GameState {
                 GUI.getInstance( ).clearBackground( );
 
                 
-                game.getFunctionalScene( ).restartElementReferencesPositions( );
+                if (game.getFunctionalScene( )!= null)
+                    game.getFunctionalScene( ).restartElementReferencesPositions( );
                 // If it is a slidescene, load the slidescene
                 game.setState( Game.STATE_SLIDE_SCENE );
                 break;
