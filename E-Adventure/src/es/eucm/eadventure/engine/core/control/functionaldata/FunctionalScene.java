@@ -308,7 +308,7 @@ public class FunctionalScene implements Renderable {
 
                 // If the functional item is present, update its resources
                 for( FunctionalItem currentItem : items ) {
-                    if( itemReference == currentItem.getReference( ) ) {
+                   if( itemReference.getTargetId( ).equals( currentItem.getElement( ).getId( )  )) {
                         currentItem.updateResources( );
                         found = true;
                     }
@@ -348,7 +348,7 @@ public class FunctionalScene implements Renderable {
 
                 // If the functional character is present, update its resources
                 for( FunctionalNPC currentNPC : npcs ) {
-                    if( npcReference == currentNPC.getReference( ) ) {
+                    if( npcReference.getTargetId( ).equals( currentNPC.getElement( ).getId( ))  ) {
                         currentNPC.updateResources( );
                         found = true;
                     }
