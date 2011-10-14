@@ -1010,7 +1010,10 @@ public class EffectsController {
             int type = effect.getType( );
 
             // If the asset appears in an animation or sound, add it
-            if( ( type == Effect.PLAY_ANIMATION && ( (PlayAnimationEffect) effect ).getPath( ).equals( assetPath ) ) || ( type == Effect.PLAY_SOUND && ( (PlaySoundEffect) effect ).getPath( ).equals( assetPath ) ) )
+            if( ( type == Effect.PLAY_ANIMATION && ( (PlayAnimationEffect) effect ).getPath( ).equals( assetPath ) ) || 
+                    ( type == Effect.PLAY_SOUND && ( (PlaySoundEffect) effect ).getPath( ).equals( assetPath ) ) 
+                    || type == Effect.SPEAK_CHAR && ( (SpeakCharEffect) effect ).getAudioPath( ).equals( assetPath ) 
+                      || type == Effect.SPEAK_PLAYER && ( (SpeakPlayerEffect) effect ).getAudioPath( ).equals( assetPath )  )
                 count++;
 
             // If random effect
@@ -1060,6 +1063,18 @@ public class EffectsController {
             else if( type == Effect.PLAY_SOUND ) {
                 PlaySoundEffect soundEffect = (PlaySoundEffect) effect;
                 assetPath = soundEffect.getPath( );
+                assetType = AssetsConstants.CATEGORY_AUDIO;
+            }
+            
+            else if( type == Effect.SPEAK_CHAR ) {
+                SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
+                assetPath = speakCharEffect.getAudioPath( );
+                assetType = AssetsConstants.CATEGORY_AUDIO;
+            }
+            
+            else if( type == Effect.SPEAK_PLAYER ) {
+                SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
+                assetPath = speakPlayerEffect.getAudioPath( );
                 assetType = AssetsConstants.CATEGORY_AUDIO;
             }
 
@@ -1123,6 +1138,22 @@ public class EffectsController {
                 PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
                 if( playSoundEffect.getPath( ).equals( assetPath ) ) {
                     playSoundEffect.setPath( "" );
+                }
+            }
+            
+            else if( type == Effect.SPEAK_CHAR ) {
+                // If the asset is the same, delete it
+                SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
+                if( speakCharEffect.getAudioPath( ).equals( assetPath ) ) {
+                    speakCharEffect.setAudioPath( "" );
+                }
+            }
+            
+            else if( type == Effect.SPEAK_PLAYER ) {
+                // If the asset is the same, delete it
+                SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
+                if( speakPlayerEffect.getAudioPath( ).equals( assetPath ) ) {
+                    speakPlayerEffect.setAudioPath( "" );
                 }
             }
 
