@@ -527,7 +527,7 @@ public class FunctionalScene implements Renderable {
         for (ElementReference element: scene.getItemReferences( ))
           itemReferences.add( (ElementReference)element.clone() );
             
-        for (ElementReference element: scene.getItemReferences( ))
+        for (ElementReference element: scene.getCharacterReferences( ))
             NPCReferences.add( (ElementReference)element.clone() );
         }
         catch( CloneNotSupportedException e ) {
