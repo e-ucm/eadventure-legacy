@@ -320,17 +320,17 @@ public class GameStateConversation extends GameState {
                 else
                     talking = game.getFunctionalScene( ).getNPC( lastConversationLine.getName( ) );
             }
-            
+         // talking will be null when the conversation begins with an empty node followed by option node
+            if (talking!=null){
             if (firstTime){
-
                 if( lastConversationLine.isValidAudio( ))
                     talking.speak( lastConversationLine.getText( ), lastConversationLine.getAudioPath( ), true );
                 else if( lastConversationLine.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) )
                     talking.speakWithFreeTTS( lastConversationLine.getText( ), talking.getPlayerVoice( ), true );
-            
-            }else
+            } else
                 talking.speak( lastConversationLine.getText( ), true );
-            
+            } else  // if talking == null
+                talking = game.getFunctionalPlayer( );
             
             game.setCharacterCurrentlyTalking( talking );
         }
