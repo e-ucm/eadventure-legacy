@@ -494,8 +494,7 @@ public class GameStateConversation extends GameState {
          
         String fullText = ( lineIndex + 1 ) + ".- " + text;
         
-       
-        GUI.drawStringOnto( g, fullText, x, y, false, textColor, Game.getInstance( ).getFunctionalPlayer( ).getTextBorderColor( ), true );
+        GUI.drawStringOnto( g, fullText, x, y, false, textColor, Game.getInstance( ).getFunctionalPlayer( ).getTextBorderColor( ), true, Game.getInstance( ).getFunctionalPlayer( ).getShowsSpeechBubbles( ) );
     }
 
     /**

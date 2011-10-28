@@ -66,6 +66,7 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalhighlights.FunctionalHighlight;
@@ -443,8 +444,9 @@ public abstract class GUI implements FocusListener {
      *            Color of the border of the text
      * @param border
      *            whether to paint a border on the text
+     * @param showBuble 
      */
-    public static void drawStringOnto( Graphics2D g, String string, int x, int y, boolean centeredX, Color textColor, Color borderColor, boolean border ) {
+    public static void drawStringOnto( Graphics2D g, String string, int x, int y, boolean centeredX, Color textColor, Color borderColor, boolean border, boolean showBuble ) {
 
         //Get the current text font metrics (width and hegiht)
         FontMetrics fontMetrics = g.getFontMetrics( );
@@ -501,6 +503,20 @@ public abstract class GUI implements FocusListener {
             }
         }
         //If the text has border, draw it
+        if (showBuble) {
+            AlphaComposite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 0.8f );
+            Composite temp = g.getComposite( );
+            g.setComposite( alphaComposite );
+
+            int descent = fontMetrics.getDescent( );
+            g.setColor( Game.getInstance( ).getFunctionalPlayer( ).getBubbleBkgColor( ) );
+            g.fillRoundRect( realX - 4, realY - (int) (height) + 2, (int) width + 8, (int) height + descent - 2, 4, 4 );
+            g.setColor( Game.getInstance( ).getFunctionalPlayer( ).getBubbleBorderColor( ) );
+            g.drawRoundRect( realX - 4, realY - (int) (height) + 2, (int) width + 8, (int) height + descent -2 , 4, 4 );
+
+            g.setComposite( temp );
+
+        }
         if( border ) {
             g.setColor( borderColor );
             g.drawString( string, realX - 1, realY - 1 );
@@ -543,7 +559,7 @@ public abstract class GUI implements FocusListener {
 
         //Draw each line of the string array
         for( String line : strings ) {
-            drawStringOnto( g, line, x, realY, true, textColor, borderColor, true );
+            drawStringOnto( g, line, x, realY, true, textColor, borderColor, true, false);
             realY += fontMetrics.getHeight( );
         }
     }
