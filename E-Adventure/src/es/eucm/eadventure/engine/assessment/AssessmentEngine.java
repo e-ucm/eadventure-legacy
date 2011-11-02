@@ -77,6 +77,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerLAMS;
 import es.eucm.eadventure.common.auxiliar.SendMail;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
@@ -127,7 +128,7 @@ public class AssessmentEngine implements TimerEventListener {
 	private List<AssessmentRule> assessmentRules;
 	
 	/**
-	 * This list sto 
+	 * This list store the rules which can be executed again, and were executed once
 	 */
 	private List<AssessmentRule> repeatedRules;
 
@@ -214,7 +215,8 @@ public class AssessmentEngine implements TimerEventListener {
 		 // check if repeated rules have to be executed again 
 	        for (AssessmentRule repeatRule: repeatedRules){
 	            if (isActive(repeatRule)){
-	                triggerRule(repeatRule);
+	              //  AssessmentRule ruleToBeProcessed = (AssessmentRule) repeatRule.clone( );
+                    triggerRule((AssessmentRule) repeatRule.clone( ));
 	            }
 	        }
 	        
@@ -224,12 +226,15 @@ public class AssessmentEngine implements TimerEventListener {
 			// If it was activated, execute the rule
 			if (isActive(assessmentRules.get(i))) {
 				    AssessmentRule oldRule = (AssessmentRule) (assessmentRules.remove(i).clone( ));
+
+				    triggerRule((AssessmentRule) oldRule.clone( ));
 				    
 				    // first time that the repeatRule is executed
-				    if (oldRule.isRepeatRule( ))
+				    if (oldRule.isRepeatRule( )){
 				        repeatedRules.add( oldRule );
+				    }
 				    
-				    triggerRule(oldRule);
+				    
 			}
 
 			// Else, check the next rule
@@ -281,7 +286,12 @@ public class AssessmentEngine implements TimerEventListener {
 	                        
 	                         //special variable value: report
 	                        } else if (property.getVarName( ).equals( "report" )) {
-	                            property.setValue(  generateXMLReport() );
+	                            // Check the type of connection to send the assessment report properly
+	                            if (Game.getInstance( ).getComm( ).getCommType()==CommManagerApi.LAMS_TYPE)
+	                                property.setValue(getHTMLReportStringLAMS());
+	                            else if (Game.getInstance( ).getComm( ).getCommType()==CommManagerApi.SCORMV12_TYPE ||
+	                                    Game.getInstance( ).getComm( ).getCommType()==CommManagerApi.SCORMV2004_TYPE)
+	                                property.setValue(  generateXMLReport() );
 	                        }
 	                
 	    
