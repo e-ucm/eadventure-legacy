@@ -361,7 +361,7 @@ public class GameStateConversation extends GameState {
         storeOKConditionsConversationLines( );
         if( optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
             for( int i = 0; i < optionsToShow.size( ); i++ ) {
-                drawLine( g, optionsToShow.get( i ).getText( ), i, i, elapsedTime );
+                drawLine( g, game.getFunctionalPlayer( ).processName( optionsToShow.get( i ).getText( )), i, i, elapsedTime );
                 numberDisplayedOptions++;
             }
         }
