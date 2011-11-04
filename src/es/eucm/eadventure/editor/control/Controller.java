@@ -2497,11 +2497,11 @@ public class Controller {
     }
     
     /**
-     * Confirm user that the conditions associated to resource block will be deleted
+     * Confirm user that the conditions associated to description block will be deleted
      * @return
      */
-    public boolean askDeleteConditionsResourceBlock(){
-        int option = mainWindow.showConfirmDialog(TC.get( "ResourceBlock.deleteOnlyOneBlock.title") ,TC.get("ResourceBlock.deleteOnlyOneBlock.message"));
+    public boolean askDeleteConditionsDescriptionSet(){
+        int option = mainWindow.showConfirmDialog(TC.get( "DescriptionSet.deleteOnlyOneDescription.title") ,TC.get("DescriptionSet.deleteOnlyOneDescription.message"));
      
         if( option == JOptionPane.YES_OPTION )
             return true;
@@ -2513,6 +2513,26 @@ public class Controller {
 
     }
 
+    
+    /**
+     * Confirm user that the conditions associated to resource block will be deleted
+     * @return
+     */
+    public boolean askDeleteConditionsResourceBlock(){
+        
+        int option = mainWindow.showConfirmDialog(TC.get( "ResourceBlock.deleteOnlyOneBlock.title") ,TC.get("ResourceBlock.deleteOnlyOneBlock.message"));
+     
+        if( option == JOptionPane.YES_OPTION )
+            return true;
+
+        else if( option == JOptionPane.NO_OPTION || option == JOptionPane.CANCEL_OPTION )
+            return false;
+        
+        return false;
+
+    }
+    
+    
     /**
      * Exits from the aplication.
      */

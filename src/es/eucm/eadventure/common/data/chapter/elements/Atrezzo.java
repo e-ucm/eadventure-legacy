@@ -55,24 +55,17 @@ public class Atrezzo extends Element {
     public Atrezzo( String id ) {
 
         super( id );
+        descriptions.add( new Description()  );
 
     }
 
-    /**
-     * Convenient constructor for ActiveAreas
-     */
-    public Atrezzo( String id, String name, String description, String detailedDescription ) {
-
-        this( id );
-        this.name = name;
-        this.description = description;
-        this.detailedDescription = detailedDescription;
-    }
-
+ 
     @Override
     public Object clone( ) throws CloneNotSupportedException {
 
         Atrezzo a = (Atrezzo) super.clone( );
         return a;
     }
+
+
 }

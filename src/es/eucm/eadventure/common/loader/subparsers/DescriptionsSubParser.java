@@ -34,27 +34,28 @@
  *     You should have received a copy of the GNU Lesser General Public License
  *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
+
 package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapter.elements.Barrier;
-import es.eucm.eadventure.common.data.chapter.scenes.Scene;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
+
 
 /**
- * Class to subparse items.
+ * Class for subparsing set of descriptions, it means, parse all the set of name, description and detailed descriptions with their associated
+ * soundPaths and the conditions for each description.
+ * 
  */
-public class BarrierSubParser extends SubParser {
+public class DescriptionsSubParser extends SubParser {
 
-    /* Attributes */
-
-    /**
-     * Constant for reading nothing.
-     */
-    private static final int READING_NONE = 0;
-
+   
+    private Description description;
+    
+    private Conditions currentConditions;
+    
     /**
      * Constant for subparsing nothing.
      */
@@ -64,131 +65,123 @@ public class BarrierSubParser extends SubParser {
      * Constant for subparsing condition tag.
      */
     private static final int SUBPARSING_CONDITION = 1;
-
+    
     /**
-     * Store the current element being parsed.
+     * Subparser for  conditions.
      */
-    private int reading = READING_NONE;
-
+    private SubParser subParser;
+    
     /**
      * Stores the current element being subparsed.
      */
     private int subParsing = SUBPARSING_NONE;
-
+    
     /**
-     * Barrier being parsed.
-     */
-    private Barrier barrier;
-
-    /**
-     * Current conditions being parsed.
-     */
-    private Conditions currentConditions;
-
-    /**
-     * Subparser for effects and conditions.
-     */
-    private SubParser subParser;
-
-    /**
-     * Stores the scene where the area should be attached
-     */
-    private Scene scene;
-
-    private int nBarriers;
-
-    /* Methods */
-
-    /**
-     * Constructor.
+     * Constructor 
      * 
+     * @param description
+     *          the description to be parsed
      * @param chapter
-     *            Chapter data to store the read data
+     *          Chapter data to store the read data
      */
-    public BarrierSubParser( Chapter chapter, Scene scene, int nBarriers ) {
-
+    public DescriptionsSubParser(Description description, Chapter chapter){
         super( chapter );
-        this.nBarriers = nBarriers;
-        this.scene = scene;
+        this.description = description;
     }
-
-    private String generateId( ) {
-
-        return Integer.toString( nBarriers + 1 );
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see es.eucm.eadventure.engine.cargador.subparsers.SubParser#startElement(java.lang.String, java.lang.String,
-     *      java.lang.String, org.xml.sax.Attributes)
-     */
+    
+    
     @Override
     public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) {
-
-        // If no element is being subparsed
+        
+     // If no element is being subparsed
         if( subParsing == SUBPARSING_NONE ) {
-            // If it is a object tag, create the new object (with its id)
-            if( qName.equals( "barrier" ) ) {
-
-                int x = 0, y = 0, width = 0, height = 0;
-
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "x" ) )
-                        x = Integer.parseInt( attrs.getValue( i ) );
-                    if( attrs.getQName( i ).equals( "y" ) )
-                        y = Integer.parseInt( attrs.getValue( i ) );
-                    if( attrs.getQName( i ).equals( "width" ) )
-                        width = Integer.parseInt( attrs.getValue( i ) );
-                    if( attrs.getQName( i ).equals( "height" ) )
-                        height = Integer.parseInt( attrs.getValue( i ) );
+         
+            
+         // If it is a name tag, store the name 
+            if( qName.equals( "name" ) ) {
+                String soundPath = "";
+                
+                // if name tag has soundPath attribute, add it to the active area data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) { 
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
                 }
-
-                barrier = new Barrier( generateId( ), x, y, width, height );
+                
+                
+                description.setNameSoundPath( soundPath );
+                
+            }
+            
+         // If it is a brief tag, store the brief description 
+            else if( qName.equals( "brief" ) ) {
+                
+                String soundPath = "";
+                
+                // if brief tag has soundPath attribute, add it to the data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                }
+                
+                description.setDescriptionSoundPath( soundPath );
             }
 
+            // If it is a detailed tag, store the detailed description 
+            else if( qName.equals( "detailed" ) ) {
+                
+                String soundPath = "";
+                
+                // if detailed tag has soundPath attribute, add it to the data model
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
+                    if( attrs.getQName( i ).equals( "soundPath" ) )
+                        soundPath = attrs.getValue( i );
+                }
+                
+                description.setDetailedDescriptionSoundPath( soundPath );
+            }
+            
             // If it is a condition tag, create new conditions and switch the state
             else if( qName.equals( "condition" ) ) {
                 currentConditions = new Conditions( );
                 subParser = new ConditionSubParser( currentConditions, chapter );
                 subParsing = SUBPARSING_CONDITION;
             }
-
-        }
-
-        // If it is reading an effect or a condition, spread the call
+            
+        }// end if subparsing none
+            
+     // If it is reading an effect or a condition, spread the call
         if( subParsing != SUBPARSING_NONE ) {
             subParser.startElement( namespaceURI, sName, qName, attrs );
         }
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see es.eucm.eadventure.engine.cargador.subparsers.SubParser#endElement(java.lang.String, java.lang.String,
-     *      java.lang.String)
-     */
+    }
+    
+    
     @Override
     public void endElement( String namespaceURI, String sName, String qName ) {
 
         // If no element is being subparsed
         if( subParsing == SUBPARSING_NONE ) {
-
-            // If it is an object tag, store the object in the game data
-            if( qName.equals( "barrier" ) ) {
-                scene.addBarrier( barrier );
+            
+                    
+             // If it is a name tag, store the name in the active area
+            if( qName.equals( "name" ) ) {
+                description.setName( currentString.toString( ).trim( ) );
             }
-
-            // If it is a documentation tag, hold the documentation in the current element
-            else if( qName.equals( "documentation" ) ) {
-                if( reading == READING_NONE )
-                    barrier.setDocumentation( currentString.toString( ).trim( ) );
+            // If it is a brief tag, store the brief description in the active area
+            else if( qName.equals( "brief" ) ) {
+                description.setDescription( currentString.toString( ).trim( ) );
             }
-
+         // If it is a detailed tag, store the detailed description in the active area
+            else if( qName.equals( "detailed" ) ) {
+                description.setDetailedDescription( currentString.toString( ).trim( ) );
+            }
+    
             // Reset the current string
             currentString = new StringBuffer( );
-        }
-
+        
+        }// end if subparsing none
+        
         // If a condition is being subparsed
         else if( subParsing == SUBPARSING_CONDITION ) {
             // Spread the call
@@ -196,16 +189,15 @@ public class BarrierSubParser extends SubParser {
 
             // If the condition tag is being closed
             if( qName.equals( "condition" ) ) {
-                if( reading == READING_NONE ) {
-                    this.barrier.setConditions( currentConditions );
-                }
+                this.description.setConditions( currentConditions );
+              
                 // Switch state
                 subParsing = SUBPARSING_NONE;
             }
         }
-        
     }
 
+    
     /*
      * (non-Javadoc)
      * 
@@ -213,13 +205,16 @@ public class BarrierSubParser extends SubParser {
      */
     @Override
     public void characters( char[] buf, int offset, int len ) {
-
-        // If no element is being subparsed
+        
+     // If no element is being subparsed, read the characters
         if( subParsing == SUBPARSING_NONE )
             super.characters( buf, offset, len );
 
-        // If it is reading an effect or a condition, spread the call
-        else
+        // If a condition is being subparsed, spread the call
+        else if( subParsing == SUBPARSING_CONDITION )
             subParser.characters( buf, offset, len );
+        
     }
+    
+
 }

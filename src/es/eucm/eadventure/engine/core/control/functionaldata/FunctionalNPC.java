@@ -519,8 +519,9 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      */
     private String  processName(String text){
        
+        
        if (text!= null && text.startsWith( "[]" ))
-           text = text.replaceFirst( "\\[\\]",  "[ " + npc.getName( ) + " ]");
+           text = text.replaceFirst( "\\[\\]",  "[ " + npc.getId( ) + " ]");
        return text;
     }
 

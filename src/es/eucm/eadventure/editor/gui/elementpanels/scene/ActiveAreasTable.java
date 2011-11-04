@@ -153,7 +153,7 @@ public class ActiveAreasTable extends JTable {
             if( columnIndex == 1 )
                 return dataControl.getActiveAreas( ).get( rowIndex ).getConditions( );
             if( columnIndex == 3 )
-                return dataControl.getActiveAreas( ).get( rowIndex );
+                return dataControl.getActiveAreas( ).get( rowIndex ).getDescriptionsController( );
             return null;
         }
 

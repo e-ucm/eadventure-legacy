@@ -39,12 +39,8 @@ package es.eucm.eadventure.common.data.chapter.elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.Described;
-import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.common.data.Documented;
-import es.eucm.eadventure.common.data.HasDescriptionSound;
 import es.eucm.eadventure.common.data.HasId;
-import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
@@ -52,7 +48,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Resources;
  * This class holds the common data for any element in eAdventure. Here, element
  * means item or character
  */
-public abstract class Element implements Cloneable, Named, HasId, Documented, Described, Detailed, HasDescriptionSound {
+public abstract class Element implements Cloneable, HasId, Documented {
 
     /**
      * The element's id
@@ -63,37 +59,12 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
      * Documentation of the element.
      */
     private String documentation;
-
-    /**
-     * The element's name
-     */
-    protected String name;
     
     /**
-     * The path of the sound associated to element's name
+     * List of descriptions
      */
-    protected String nameSoundPath;
-
-    /**
-     * The element's brief description
-     */
-    protected String description;
-
-    /**
-     * The path of the sound associated to element's description
-     */
-    protected String descriptionSoundPath;
-
-    /**
-     * The element's detailed description
-     */
-    protected String detailedDescription;
+    protected List<Description> descriptions;
     
-    /**
-     * The path of the sound associated to element's detailed description
-     */
-    protected String detailedDescriptionSoundPath;
-
     /**
      * The element's set of resources
      */
@@ -118,12 +89,12 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
     public Element( String id ) {
 
         this.id = id;
-        this.name = "";
-        this.description = "";
-        this.detailedDescription = "";
+        
         this.returnsWhenDragged = true;
         resources = new ArrayList<Resources>( );
         actions = new ArrayList<Action>( );
+        descriptions = new ArrayList<Description>();
+       // descriptions.add( new Description() );
     }
 
     /**
@@ -146,36 +117,7 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
         return documentation;
     }
 
-    /**
-     * Returns the element's name
-     * 
-     * @return the element's name
-     */
-    public String getName( ) {
-
-        return name;
-    }
-
-    /**
-     * Returns the element's brief description
-     * 
-     * @return the element's brief description
-     */
-    public String getDescription( ) {
-
-        return description;
-    }
-
-    /**
-     * Returns the element's detailed description
-     * 
-     * @return the element's detailed description
-     */
-    public String getDetailedDescription( ) {
-
-        return detailedDescription;
-    }
-
+    
     /**
      * Returns the element's list of resources
      * 
@@ -208,38 +150,7 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
         this.documentation = documentation;
     }
 
-    /**
-     * Changes the element's name
-     * 
-     * @param name
-     *            the new name
-     */
-    public void setName( String name ) {
-
-        this.name = name;
-    }
-
-    /**
-     * Changes the element's brief description
-     * 
-     * @param description
-     *            the new brief description
-     */
-    public void setDescription( String description ) {
-
-        this.description = description;
-    }
-
-    /**
-     * Changes the element's detailed description
-     * 
-     * @param detailedDescription
-     *            the new detailed description
-     */
-    public void setDetailedDescription( String detailedDescription ) {
-
-        this.detailedDescription = detailedDescription;
-    }
+   
 
     /**
      * Adds some resources to the list of resources
@@ -338,20 +249,88 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
 
         StringBuffer sb = new StringBuffer( 40 );
 
+        //TODO ver que pasa ahora con  este toString!!!!
         sb.append( "Name: " );
-        sb.append( name );
+        //sb.append( name );
 
         sb.append( "\nDescription: " );
-        sb.append( description );
+        //sb.append( description );
 
         sb.append( "\nDetailed description:" );
-        sb.append( detailedDescription );
+        //sb.append( detailedDescription );
 
         sb.append( "\n" );
 
         return sb.toString( );
     }
+    
+    //TODO confirmar que se quita
+    /*public void setName( String name, int index ){
+        descriptions.get( index ).setName( name );
+    }
+    
+    public String getName( int index ){
+        return descriptions.get( index ).getName( );
+    }
+    
+    public String getDescription( int index ){
+        return descriptions.get( index ).getDescription( );
+    }
 
+    public void setDescription( String description, int index ){
+        descriptions.get( index ).setDescription( description );
+    }
+    
+    public void setDetailedDescription( String detailedDescription, int index ){
+        descriptions.get( index ).setDetailedDescription( detailedDescription );
+    }
+    
+    public String getDetailedDescription( int index ){
+        return descriptions.get( index ).getDetailedDescription( );
+    }
+    
+    public void setDescriptionSoundPath(String descriptionSoundPath, int index){
+        descriptions.get( index ).setDescriptionSoundPath( descriptionSoundPath );
+    }
+    
+    public String getDescriptionSoundPath(int index){
+        return descriptions.get( index ).getDescriptionSoundPath( );
+    }
+    
+    public String getDetailedDescriptionSoundPath(int index){
+        return descriptions.get( index ).getDetailedDescriptionSoundPath( );
+    }
+    
+    public void setDetailedDescriptionSoundPath( String detailedDescriptionSoundPath, int index ){
+        descriptions.get( index ).setDetailedDescriptionSoundPath( detailedDescriptionSoundPath );
+    }
+    
+    public String getNameSoundPath(int index){
+        return descriptions.get( index ).getNameSoundPath( );
+    }
+    
+    public void setNameSoundPath( String nameSoundPath, int index ){
+        descriptions.get( index ).setNameSoundPath( nameSoundPath );
+    }*/
+    
+    public List<Description> getDescriptions( ) {
+        
+        return descriptions;
+    }
+    
+    public Description getDescription(int index){
+        
+        return descriptions.get( index );
+        
+    }
+
+    
+    public void setDescriptions( List<Description> descriptions ) {
+    
+        this.descriptions = descriptions;
+    }
+
+    
     @Override
     public Object clone( ) throws CloneNotSupportedException {
 
@@ -362,14 +341,10 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
                 e.actions.add( (Action) action.clone( ) );
             }
         }
-        e.description = ( description != null ? new String( description ) : null );
-        e.descriptionSoundPath = ( descriptionSoundPath != null ? new String( descriptionSoundPath ) : null );
-        e.detailedDescription = ( detailedDescription != null ? new String( detailedDescription ) : null );
-        e.detailedDescriptionSoundPath = ( detailedDescriptionSoundPath != null ? new String( detailedDescriptionSoundPath ) : null );
+        
         e.documentation = ( documentation != null ? new String( documentation ) : null );
         e.id = ( id != null ? new String( id ) : null );
-        e.name = ( name != null ? new String( name ) : null );
-        e.nameSoundPath = ( nameSoundPath != null ? new String( nameSoundPath ) : null );
+        
         e.returnsWhenDragged = returnsWhenDragged;
         if( resources != null ) {
             e.resources = new ArrayList<Resources>( );
@@ -378,42 +353,6 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
             }
         }
         return e;
-    }
-
-    
-    public String getNameSoundPath( ) {
-    
-        return nameSoundPath;
-    }
-
-    
-    public void setNameSoundPath( String nameSoundPath ) {
-    
-        this.nameSoundPath = nameSoundPath;
-    }
-
-    
-    public String getDescriptionSoundPath( ) {
-    
-        return descriptionSoundPath;
-    }
-
-    
-    public void setDescriptionSoundPath( String descriptionSoundPath ) {
-    
-        this.descriptionSoundPath = descriptionSoundPath;
-    }
-
-    
-    public String getDetailedDescriptionSoundPath( ) {
-    
-        return detailedDescriptionSoundPath;
-    }
-
-    
-    public void setDetailedDescriptionSoundPath( String detailedDescriptionSoundPath ) {
-    
-        this.detailedDescriptionSoundPath = detailedDescriptionSoundPath;
     }
 
 }

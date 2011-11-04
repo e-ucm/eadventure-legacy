@@ -2022,4 +2022,8 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="Conversation.Options.PositionBottom">En la parte superior</entry>
 <entry key="Conversation.Options.PositionTop">En la parte inferior</entry>
 <entry key="Conversation.Options.PositionCombo.Border">Mostrar las opciones:</entry>
+<entry key="DescriptionList.Description">Descripción</entry>
+<entry key="DescriptionList.Descriptions">Descripciones</entry>
+<entry key="DescriptionSet.deleteOnlyOneDescription.title">Borrando descripción</entry>
+<entry key="DescriptionSet.deleteOnlyOneDescription.message">¿Está seguro que desea borrar la descripción? Las condiciones de la descripción que quedará activo para este elemento serán borradas.</entry>
 </properties>

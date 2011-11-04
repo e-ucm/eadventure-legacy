@@ -44,6 +44,7 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
@@ -71,6 +72,11 @@ public class BarrierDataControl extends DataControl {
      * Conditions controller.
      */
     private ConditionsController conditionsController;
+    
+    /**
+     * Controller for descriptions
+     */
+    private DescriptionsController descriptionController;
 
     /**
      * Constructor.
@@ -93,6 +99,11 @@ public class BarrierDataControl extends DataControl {
         context1.put( ConditionsController.CONDITION_OWNER, owner );
 
         conditionsController = new ConditionsController( barrier.getConditions( ), context1 );
+        
+        descriptionController = new DescriptionsController(barrier.getDescriptions( ));
+        
+        //Barriers can only have name, and only one description, so we set selectedDEscription to 0
+        descriptionController.setSelectedDescription( 0 );
 
     }
 
@@ -125,37 +136,7 @@ public class BarrierDataControl extends DataControl {
 
         return barrier.getDocumentation( );
     }
-
-    /**
-     * Returns the name of the item.
-     * 
-     * @return Item's name
-     */
-    public String getName( ) {
-
-        return barrier.getName( );
-    }
-
-    /**
-     * Returns the brief description of the item.
-     * 
-     * @return Item's description
-     */
-    public String getBriefDescription( ) {
-
-        return barrier.getDescription( );
-    }
-
-    /**
-     * Returns the detailed description of the item.
-     * 
-     * @return Item's detailed description
-     */
-    public String getDetailedDescription( ) {
-
-        return barrier.getDetailedDescription( );
-    }
-
+    
     /**
      * Sets the new documentation of the item.
      * 
@@ -175,7 +156,7 @@ public class BarrierDataControl extends DataControl {
      */
     public void setName( String name ) {
 
-        controller.addTool( new ChangeNameTool( barrier, name ) );
+        controller.addTool( new ChangeNameTool( descriptionController.getSelectedDescription( ), name ) );
     }
 
     /**
@@ -186,7 +167,7 @@ public class BarrierDataControl extends DataControl {
      */
     public void setBriefDescription( String description ) {
 
-        controller.addTool( new ChangeDescriptionTool( barrier, description ) );
+        controller.addTool( new ChangeDescriptionTool( descriptionController.getSelectedDescription( ), description ) );
     }
 
     /**
@@ -197,7 +178,7 @@ public class BarrierDataControl extends DataControl {
      */
     public void setDetailedDescription( String detailedDescription ) {
 
-        controller.addTool( new ChangeDetailedDescriptionTool( barrier, detailedDescription ) );
+        controller.addTool( new ChangeDetailedDescriptionTool( descriptionController.getSelectedDescription( ), detailedDescription ) );
     }
 
     /**
@@ -397,12 +378,15 @@ public class BarrierDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
+       // barriers have no brief descriptions
+        // check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
         check( this.getConditions( ), TC.get( "Search.Conditions" ) );
-        check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
+     // barriers have no detailed descriptions
+        //check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
         check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
-        check( this.getName( ), TC.get( "Search.Name" ) );
+        //Barriers have no name
+        //check( this.getName( ), TC.get( "Search.Name" ) );
     }
 
     @Override

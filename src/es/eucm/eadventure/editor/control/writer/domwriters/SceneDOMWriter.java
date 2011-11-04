@@ -54,6 +54,7 @@ import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 
@@ -390,33 +391,43 @@ public class SceneDOMWriter {
                         aaElement.appendChild( conditionsNode );
                     }
 
-                    // Create the description
-                    Node descriptionNode = doc.createElement( "description" );
+                   
+                    for (Description description: activeArea.getDescriptions( )){
+                        // Create the description
+                        Node descriptionNode = doc.createElement( "description" );
+                        
+                        // Append the conditions (if available)
+                        if( description.getConditions( )!=null && !description.getConditions( ).isEmpty( ) ) {
+                            Node conditionsNode = ConditionsDOMWriter.buildDOM( description.getConditions( ) );
+                            doc.adoptNode( conditionsNode );
+                            descriptionNode.appendChild( conditionsNode );
+                        }
 
-                    // Create and append the name, brief description and detailed description
-                    Element aaNameNode = doc.createElement( "name" );
-                    if (activeArea.getNameSoundPath( )!=null && !activeArea.getNameSoundPath( ).equals( "" )){
-                        aaNameNode.setAttribute( "soundPath", activeArea.getNameSoundPath( ) );
+                     // Create and append the name, brief description and detailed description
+                        Element aaNameNode = doc.createElement( "name" );
+                        if (description.getNameSoundPath( )!=null && !description.getNameSoundPath( ).equals( "" )){
+                            aaNameNode.setAttribute( "soundPath", description.getNameSoundPath( ) );
+                        }
+                        aaNameNode.appendChild( doc.createTextNode( description.getName( ) ) );
+                        descriptionNode.appendChild( aaNameNode );
+    
+                        Element aaBriefNode = doc.createElement( "brief" );
+                        if (description.getDescriptionSoundPath( )!=null && !description.getDescriptionSoundPath( ).equals( "" )){
+                            aaBriefNode.setAttribute( "soundPath", description.getDescriptionSoundPath( ) );
+                        }
+                        aaBriefNode.appendChild( doc.createTextNode( description.getDescription( ) ) );
+                        descriptionNode.appendChild( aaBriefNode );
+    
+                        Element aaDetailedNode = doc.createElement( "detailed" );
+                        if (description.getDetailedDescriptionSoundPath( )!=null && !description.getDetailedDescriptionSoundPath( ).equals( "" )){
+                            aaDetailedNode.setAttribute( "soundPath", description.getDetailedDescriptionSoundPath( ) );
+                        }
+                        aaDetailedNode.appendChild( doc.createTextNode( description.getDetailedDescription( ) ) );
+                        descriptionNode.appendChild( aaDetailedNode );
+    
+                        // Append the description
+                        aaElement.appendChild( descriptionNode );
                     }
-                    aaNameNode.appendChild( doc.createTextNode( activeArea.getName( ) ) );
-                    descriptionNode.appendChild( aaNameNode );
-
-                    Element aaBriefNode = doc.createElement( "brief" );
-                    if (activeArea.getDescriptionSoundPath( )!=null && !activeArea.getDescriptionSoundPath( ).equals( "" )){
-                        aaBriefNode.setAttribute( "soundPath", activeArea.getDescriptionSoundPath( ) );
-                    }
-                    aaBriefNode.appendChild( doc.createTextNode( activeArea.getDescription( ) ) );
-                    descriptionNode.appendChild( aaBriefNode );
-
-                    Element aaDetailedNode = doc.createElement( "detailed" );
-                    if (activeArea.getDetailedDescriptionSoundPath( )!=null && !activeArea.getDetailedDescriptionSoundPath( ).equals( "" )){
-                        aaDetailedNode.setAttribute( "soundPath", activeArea.getDetailedDescriptionSoundPath( ) );
-                    }
-                    aaDetailedNode.appendChild( doc.createTextNode( activeArea.getDetailedDescription( ) ) );
-                    descriptionNode.appendChild( aaDetailedNode );
-
-                    // Append the description
-                    aaElement.appendChild( descriptionNode );
 
                     // Append the actions (if there is at least one)
                     if( !activeArea.getActions( ).isEmpty( ) ) {
@@ -469,25 +480,6 @@ public class SceneDOMWriter {
                         doc.adoptNode( conditionsNode );
                         barrierElement.appendChild( conditionsNode );
                     }
-
-                    // Create the description
-                    Node descriptionNode = doc.createElement( "description" );
-
-                    // Create and append the name, brief description and detailed description
-                    Node aaNameNode = doc.createElement( "name" );
-                    aaNameNode.appendChild( doc.createTextNode( barrier.getName( ) ) );
-                    descriptionNode.appendChild( aaNameNode );
-
-                    Node briefNode = doc.createElement( "brief" );
-                    briefNode.appendChild( doc.createTextNode( barrier.getDescription( ) ) );
-                    descriptionNode.appendChild( briefNode );
-
-                    Node detailedNode = doc.createElement( "detailed" );
-                    detailedNode.appendChild( doc.createTextNode( barrier.getDetailedDescription( ) ) );
-                    descriptionNode.appendChild( detailedNode );
-
-                    // Append the description
-                    barrierElement.appendChild( descriptionNode );
 
                     // Append the barrier
                     barriersElement.appendChild( barrierElement );

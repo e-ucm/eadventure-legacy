@@ -45,6 +45,7 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
@@ -60,6 +61,11 @@ public class AtrezzoDataControl extends DataControlWithResources {
      * Contained atrezzo item.
      */
     private Atrezzo atrezzo;
+    
+    /**
+     * Controller for descriptions
+     */
+    private DescriptionsController descriptionController;
 
     /**
      * Constructor.
@@ -82,6 +88,8 @@ public class AtrezzoDataControl extends DataControlWithResources {
         resourcesDataControlList = new ArrayList<ResourcesDataControl>( );
         for( Resources resources : resourcesList )
             resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.ATREZZO ) );
+        
+        descriptionController = new DescriptionsController(atrezzo.getDescriptions( ));
 
     }
 
@@ -120,31 +128,13 @@ public class AtrezzoDataControl extends DataControlWithResources {
      * 
      * @return Atrezzo's name
      */
+    // Attrezzo elements only have name, and only can have one name because they are not interactive
     public String getName( ) {
 
-        return atrezzo.getName( );
+        return atrezzo.getDescription( 0 ).getName( );
     }
 
-    /**
-     * Returns the brief description of the atrezzo item.
-     * 
-     * @return Atrezzo's description
-     */
-    public String getBriefDescription( ) {
-
-        return atrezzo.getDescription( );
-    }
-
-    /**
-     * Returns the detailed description of the atrezzo item.
-     * 
-     * @return Atrezzo's detailed description
-     */
-    public String getDetailedDescription( ) {
-
-        return atrezzo.getDetailedDescription( );
-    }
-
+    
     /**
      * Sets the new documentation of the atrezzo item.
      * 
@@ -164,7 +154,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
      */
     public void setName( String name ) {
 
-        controller.addTool( new ChangeNameTool( atrezzo, name ) );
+        controller.addTool( new ChangeNameTool( descriptionController.getSelectedDescription(), name ) );
     }
 
     /**
@@ -175,7 +165,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
      */
     public void setBriefDescription( String description ) {
 
-        controller.addTool( new ChangeDescriptionTool( atrezzo, description ) );
+        controller.addTool( new ChangeDescriptionTool( descriptionController.getSelectedDescription(), description ) );
     }
 
     /**
@@ -186,7 +176,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
      */
     public void setDetailedDescription( String detailedDescription ) {
 
-        controller.addTool( new ChangeDetailedDescriptionTool( atrezzo, detailedDescription ) );
+        controller.addTool( new ChangeDetailedDescriptionTool( descriptionController.getSelectedDescription(), detailedDescription ) );
     }
 
     @Override
@@ -390,8 +380,9 @@ public class AtrezzoDataControl extends DataControlWithResources {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
-        check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
+        // atrezzo only has name
+       // check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
+       // check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
         check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
         check( this.getName( ), TC.get( "Search.Name" ) );

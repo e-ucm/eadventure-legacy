@@ -1910,4 +1910,8 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Conversation.Options.PositionBottom">Im oberen Teil</entry>
 <entry key="Conversation.Options.PositionTop">Am unteren Rand</entry>
 <entry key="Conversation.Options.PositionCombo.Border">Position die Optionen:</entry>
+<entry key="DescriptionList.Description">Beschreibung</entry>
+<entry key="DescriptionList.Descriptions">Beschreibungen</entry>
+<entry key="DescriptionSet.deleteOnlyOneDescription.title">Löschen Beschreibung</entry>
+<entry key="DescriptionSet.deleteOnlyOneDescription.message">Sind Sie sicher, dass die ausgewählten Beschreibung zu löschen? Die Bedingungen in den anderen Beschreibung wird gelöscht</entry>
 </properties>

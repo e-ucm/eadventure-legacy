@@ -36,11 +36,15 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.loader.subparsers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
@@ -77,6 +81,11 @@ public class ItemSubParser extends SubParser {
     private static final int SUBPARSING_EFFECT = 2;
 
     private static final int SUBPARSING_ACTIONS = 3;
+    
+    /**
+     * Constant for subparsing description tag.
+     */
+    private static final int SUBPARSING_DESCRIPTION = 4;
 
     /**
      * Store the current element being parsed.
@@ -112,6 +121,11 @@ public class ItemSubParser extends SubParser {
      * Subparser for effects and conditions.
      */
     private SubParser subParser;
+    
+    
+    private List<Description> descriptions;
+    
+    private Description description;
 
     /* Methods */
 
@@ -151,6 +165,9 @@ public class ItemSubParser extends SubParser {
 
                 object = new Item( objectId );
                 object.setReturnsWhenDragged( returnsWhenDragged );
+                
+                descriptions = new ArrayList<Description>();
+                object.setDescriptions( descriptions );
             }
 
             // If it is a resources tag, create the new resources and switch the state
@@ -181,47 +198,11 @@ public class ItemSubParser extends SubParser {
                 currentResources.addAsset( type, path );
             }
             
-            // If it is a name tag, store the name in the object
-            else if( qName.equals( "name" ) ) {
-                
-                String soundPath = "";
-                
-                // if name tag has soundPath attribute, add it to the object data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                    
-                }   
-               
-                object.setNameSoundPath( soundPath );
-                
-            }
-            // If it is a brief tag, store the brief description in the object
-            else if( qName.equals( "brief" ) ) {
-                String soundPath = "";
-                
-                // if brief tag has soundPath attribute, add it to the object data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                    
-                }
-                
-                object.setDescriptionSoundPath( soundPath );
-            }
-
-            // If it is a detailed tag, store the detailed description in the object
-            else if( qName.equals( "detailed" ) ) {
-                String soundPath = "";
-                
-                // if detailed tag has soundPath attribute, add it to the object data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                    
-                }
-               
-                object.setDetailedDescriptionSoundPath( soundPath );
+         // If it is a description tag, create the new description (with its id)
+            else if( qName.equals( "description" ) ) {
+                description = new Description();
+                subParser = new DescriptionsSubParser(description, chapter);
+                subParsing = SUBPARSING_DESCRIPTION; 
             }
             
 
@@ -281,21 +262,6 @@ public class ItemSubParser extends SubParser {
                     object.setDocumentation( currentString.toString( ).trim( ) );
             }
             
-         // If it is a name tag, store the name in the active area
-            else if( qName.equals( "name" ) ) {
-                object.setName( currentString.toString( ).trim( ) );
-            }
-            // If it is a brief tag, store the brief description in the active area
-            else if( qName.equals( "brief" ) ) {
-                object.setDescription( currentString.toString( ).trim( ) );
-            }
-         // If it is a detailed tag, store the detailed description in the active area
-            else if( qName.equals( "detailed" ) ) {
-                object.setDetailedDescription( currentString.toString( ).trim( ) );
-            }
-
-            
-
             // Reset the current string
             currentString = new StringBuffer( );
         }
@@ -330,6 +296,16 @@ public class ItemSubParser extends SubParser {
         else if( subParsing == SUBPARSING_ACTIONS ) {
             subParser.endElement( namespaceURI, sName, qName );
             if( qName.equals( "actions" ) ) {
+                subParsing = SUBPARSING_NONE;
+            }
+        }
+        
+        // If it is a description tag, create the new description (with its id)
+        else if( subParsing == SUBPARSING_DESCRIPTION ) {
+         // Spread the call
+            subParser.endElement( namespaceURI, sName, qName );
+            if( qName.equals( "description" ) ) {
+                this.descriptions.add( description );
                 subParsing = SUBPARSING_NONE;
             }
         }

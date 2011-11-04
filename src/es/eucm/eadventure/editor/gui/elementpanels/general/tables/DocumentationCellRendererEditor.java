@@ -50,14 +50,14 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
 import es.eucm.eadventure.editor.gui.editdialogs.DocumentationDialog;
 
 public class DocumentationCellRendererEditor extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
 
     private static final long serialVersionUID = 8128260157985286632L;
 
-    private DataControl value;
+    private DescriptionsController value;
 
     public Object getCellEditorValue( ) {
 
@@ -68,7 +68,7 @@ public class DocumentationCellRendererEditor extends AbstractCellEditor implemen
 
         if( value2 == null )
             return null;
-        this.value = (DataControl) value2;
+        this.value = (DescriptionsController) value2;
         return getComponent( isSelected, table );
     }
 
@@ -76,7 +76,7 @@ public class DocumentationCellRendererEditor extends AbstractCellEditor implemen
 
         if( value == null )
             return null;
-        this.value = (DataControl) value;
+        this.value = (DescriptionsController) value;
         return getComponent( isSelected, table );
     }
 

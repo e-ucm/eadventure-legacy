@@ -37,9 +37,11 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalDescriptions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 
@@ -91,14 +93,17 @@ public class FunctionalExamine extends FunctionalAction {
     @Override
     public void start( FunctionalPlayer functionalPlayer ) {
 
+        
+        Description description = new FunctionalDescriptions(element.getElement( ).getDescriptions( )).getDescription( );
+       
         this.functionalPlayer = functionalPlayer;
         if( !element.examine( ) ) {
             if( functionalPlayer.isAlwaysSynthesizer( ) )
-                functionalPlayer.speakWithFreeTTS( element.getElement( ).getDetailedDescription( ), functionalPlayer.getPlayerVoice( ) );
-            else if (element.getElement( ).getDetailedDescriptionSoundPath( ) != null && !element.getElement( ).getDetailedDescriptionSoundPath( ).equals( "" )) 
-                functionalPlayer.speak( element.getElement( ).getDetailedDescription( ), element.getElement( ).getDetailedDescriptionSoundPath( ) );
+                functionalPlayer.speakWithFreeTTS( description.getDetailedDescription( ), functionalPlayer.getPlayerVoice( ) );
+            else if (description.getDetailedDescriptionSoundPath( ) != null && !description.getDetailedDescriptionSoundPath( ).equals( "" )) 
+                functionalPlayer.speak( description.getDetailedDescription( ), description.getDetailedDescriptionSoundPath( ) );
             else
-                functionalPlayer.speak( element.getElement( ).getDetailedDescription( ), Game.getInstance().getGameDescriptor( ).isKeepShowing( ) );
+                functionalPlayer.speak( description.getDetailedDescription( ), Game.getInstance().getGameDescriptor( ).isKeepShowing( ) );
         }
         finished = true;
 

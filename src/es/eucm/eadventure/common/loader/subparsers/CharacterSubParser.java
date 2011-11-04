@@ -37,6 +37,9 @@
 package es.eucm.eadventure.common.loader.subparsers;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Action;
@@ -44,6 +47,7 @@ import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.ConversationReference;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
@@ -83,6 +87,11 @@ public class CharacterSubParser extends SubParser {
      * Constant for subparsing the actions tag
      */
     private static final int SUBPARSING_ACTIONS = 2;
+    
+    /**
+     * Constant for subparsing description tag.
+     */
+    private static final int SUBPARSING_DESCRIPTION = 3;
 
     /**
      * Stores the current element being parsed
@@ -118,6 +127,11 @@ public class CharacterSubParser extends SubParser {
      * Subparser for the conditions
      */
     private SubParser subParser;
+    
+    
+    private List<Description> descriptions;
+    
+    private Description description;
 
     /* Methods */
 
@@ -153,6 +167,9 @@ public class CharacterSubParser extends SubParser {
                         characterId = attrs.getValue( i );
 
                 npc = new NPC( characterId );
+                
+                descriptions = new ArrayList<Description>();
+                npc.setDescriptions( descriptions );
             }
 
             // If it is a resources tag, create the new resources, and switch the element being parsed
@@ -254,46 +271,14 @@ public class CharacterSubParser extends SubParser {
                 subParser = new ActionsSubParser( chapter, npc );
                 subParsing = SUBPARSING_ACTIONS;
             }
-            
-         // If it is a name tag, store the name
-            else if( qName.equals( "name" ) ) {
-                String soundPath = "";
-                
-                // if name tag has soundPath attribute, add it to the npc data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                    
-                }
-                npc.setNameSoundPath( soundPath );
-            }
-
-            // If it is a brief tag, store the brief description
-            else if( qName.equals( "brief" ) ) {
-                String soundPath = "";
-                
-                // if brief tag has soundPath attribute, add it to the npc data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                    
-                }
-                npc.setDescriptionSoundPath( soundPath );
-            }
-
-            // If it is a detailed tag, store the detailed description
-            else if( qName.equals( "detailed" ) ) {
-                String soundPath = "";
-                
-                // if detailed tag has soundPath attribute, add it to the npc data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                    
-                }
-                
-                npc.setDetailedDescriptionSoundPath( soundPath );
-            }
+         
+            // If it is a description tag, create the new description (with its id)
+            else if( qName.equals( "description" ) ) {
+                description = new Description();
+                subParser = new DescriptionsSubParser(description, chapter);
+                subParsing = SUBPARSING_DESCRIPTION; 
+            }   
+         
         }
 
         // If a condition or action is being subparsed, spread the call
@@ -327,19 +312,6 @@ public class CharacterSubParser extends SubParser {
                     conversationReference.setDocumentation( currentString.toString( ).trim( ) );
             }
             
-         // If it is a name tag, store the name in the active area
-            else if( qName.equals( "name" ) ) {
-                npc.setName( currentString.toString( ).trim( ) );
-            }
-            // If it is a brief tag, store the brief description in the active area
-            else if( qName.equals( "brief" ) ) {
-                npc.setDescription( currentString.toString( ).trim( ) );
-            }
-         // If it is a detailed tag, store the detailed description in the active area
-            else if( qName.equals( "detailed" ) ) {
-                npc.setDetailedDescription( currentString.toString( ).trim( ) );
-            }
-
             // If it is a resources tag, add the resources in the character
             else if( qName.equals( "resources" ) ) {
                 npc.addResources( currentResources );
@@ -389,6 +361,16 @@ public class CharacterSubParser extends SubParser {
                 subParsing = SUBPARSING_NONE;
             }
         }
+        
+        // If it is a description tag, create the new description (with its id)
+        else if( subParsing == SUBPARSING_DESCRIPTION ) {
+            // Spread the call
+            subParser.endElement( namespaceURI, sName, qName );
+            if( qName.equals( "description" ) ) {
+                this.descriptions.add( description );
+                subParsing = SUBPARSING_NONE;
+            }
+        }
     }
 
     /*
@@ -403,11 +385,8 @@ public class CharacterSubParser extends SubParser {
         if( subParsing == SUBPARSING_NONE )
             super.characters( buf, offset, len );
 
-        // If a condition is being subparsed, spread the call
-        else if( subParsing == SUBPARSING_CONDITION )
-            subParser.characters( buf, offset, len );
-
-        else if( subParsing == SUBPARSING_ACTIONS )
+        // If there are some kind of subparsing, spread the call
+        else 
             subParser.characters( buf, offset, len );
     }
 }

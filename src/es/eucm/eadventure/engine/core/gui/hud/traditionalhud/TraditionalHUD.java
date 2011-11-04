@@ -49,6 +49,7 @@ import java.awt.event.MouseEvent;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalDescriptions;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
@@ -615,8 +616,9 @@ public class TraditionalHUD extends HUD {
         switch( actionManager.getActionSelected( ) ) {
             case ActionManager.ACTION_GOTO:
                 textAction = GameText.TEXT_GO;
+               
                 if( actionManager.getElementOver( ) != null )
-                    textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                    textAction += " " + GameText.TEXT_TO + " " + new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                 else if( !actionManager.getExit( ).equals( "" ) ) {
                     textAction += " " + GameText.TEXT_TO + " " + actionManager.getExit( );
                     if( actionManager.getExitCursor( ) != null )
@@ -636,7 +638,7 @@ public class TraditionalHUD extends HUD {
                 //   textAction += " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
                 //else
                 if( actionManager.getElementOver( ) != null )
-                    textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
+                    textAction += " " + new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                 break;
             case ActionManager.ACTION_GRAB:
                 textAction = GameText.TEXT_GRAB;
@@ -644,7 +646,7 @@ public class TraditionalHUD extends HUD {
                 //   textAction += " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
                 //else
                 if( actionManager.getElementOver( ) != null )
-                    textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
+                    textAction += " " + new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                 break;
             case ActionManager.ACTION_TALK:
                 textAction = GameText.TEXT_TALK;
@@ -652,7 +654,7 @@ public class TraditionalHUD extends HUD {
                 //   textAction += " " + GameText.TEXT_TO + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
                 //else
                 if( actionManager.getElementOver( ) != null )
-                    textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                    textAction += " " + GameText.TEXT_TO + " " + new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                 break;
             case ActionManager.ACTION_GIVE:
                 textAction = GameText.TEXT_GIVE;
@@ -660,7 +662,7 @@ public class TraditionalHUD extends HUD {
                 //   textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
                 //else
                 if( actionManager.getElementOver( ) != null )
-                    textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
+                    textAction += " " + new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                 break;
             case ActionManager.ACTION_GIVE_TO:
                 textAction = GameText.TEXT_GIVE;
@@ -674,10 +676,12 @@ public class TraditionalHUD extends HUD {
                                 }
                                 
                 */
+                
                 if( game.getFunctionalPlayer( ).getCurrentAction( ).getAnotherElement( ) != null ) {
-                    textAction += " " + game.getFunctionalPlayer( ).getCurrentAction( ).getAnotherElement( ).getElement( ).getName( );
+                    
+                    textAction += " " + new FunctionalDescriptions(game.getFunctionalPlayer( ).getCurrentAction( ).getAnotherElement( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                     if( actionManager.getElementOver( ) != null )
-                        textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                        textAction += " " + GameText.TEXT_TO + " " + new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                 }
                 break;
             case ActionManager.ACTION_USE:
@@ -686,7 +690,7 @@ public class TraditionalHUD extends HUD {
                 //   textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
                 //else
                 if( actionManager.getElementOver( ) != null )
-                    textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
+                    textAction += " " + new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                 //break;
             case ActionManager.ACTION_USE_WITH:
                 textAction = GameText.TEXT_USE;
@@ -700,9 +704,9 @@ public class TraditionalHUD extends HUD {
                                 }
                  */
                 if( game.getFunctionalPlayer( ).getCurrentAction( ).getAnotherElement( ) != null ) {
-                    textAction += " " + game.getFunctionalPlayer( ).getCurrentAction( ).getAnotherElement( ).getElement( ).getName( );
+                    textAction += " " + new FunctionalDescriptions(game.getFunctionalPlayer( ).getCurrentAction( ).getAnotherElement( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                     if( actionManager.getElementOver( ) != null )
-                        textAction += " " + GameText.TEXT_WITH + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                        textAction += " " + GameText.TEXT_WITH + " " + new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                 }
                 break;
             case ActionManager.ACTION_LOOK:
@@ -711,7 +715,7 @@ public class TraditionalHUD extends HUD {
                 //   textAction += " " + GameText.TEXT_AT + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
                 //else
                 if( actionManager.getElementOver( ) != null )
-                    textAction += " " + GameText.TEXT_AT + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                    textAction += " " + GameText.TEXT_AT + " " + new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( ).getName( );
                 break;
         }
 

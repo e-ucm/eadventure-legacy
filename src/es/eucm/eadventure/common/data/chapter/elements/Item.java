@@ -64,17 +64,6 @@ public class Item extends Element {
         super( id );
     }
 
-    /**
-     * Convenient constructor for ActiveAreas
-     */
-    public Item( String id, String name, String description, String detailedDescription ) {
-
-        this( id );
-        this.name = name;
-        this.description = description;
-        this.detailedDescription = detailedDescription;
-    }
-
     /*
      *  (non-Javadoc)
      * @see java.lang.Object#toString()

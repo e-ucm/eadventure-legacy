@@ -34,63 +34,81 @@
  *     You should have received a copy of the GNU Lesser General Public License
  *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package es.eucm.eadventure.editor.gui.editdialogs;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+package es.eucm.eadventure.editor.control.tools.descriptions;
 
-import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.DescriptionController;
 import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
-import es.eucm.eadventure.editor.gui.elementpanels.description.DescriptionsPanel;
+import es.eucm.eadventure.editor.control.tools.Tool;
 
-/**
- * This class is the editing dialog for the effects. Here the user can add
- * effects to the events of the script.
- * 
- * @author Bruno Torijano Bueno
- */
-public class DocumentationDialog extends ToolManagableDialog {
 
-    /**
-     * Required.
-     */
-    private static final long serialVersionUID = 1L;
-
+public class AddDescriptionTool extends Tool {
+    
     private DescriptionsController descriptionsController;
     
-    private DescriptionsPanel dp;
-
-    /**
-     * Constructor.
-     * 
-     * @param effectsController
-     *            Controller for the conditions
-     */
-    public DocumentationDialog( DescriptionsController descriptionsController ) {
-
-        super( Controller.getInstance( ).peekWindow( ), TC.get( "ActiveAreasList.Documentation" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
+    private DescriptionController descriptionController;
+    
+    private Description description;
+    
+    
+    public AddDescriptionTool(DescriptionsController descriptionsController){
+    
         this.descriptionsController = descriptionsController;
-        
-        dp = new DescriptionsPanel(this.descriptionsController);
-        this.add( dp );
-        //setLayout( );
-        setResizable( false );
-        setSize( 600, 400 );
-        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-        setVisible( true );
+    
     }
     
     
-
     @Override
-    public boolean updateFields( ) {
-        
-        dp.updateFields( );
+    public boolean canRedo( ) {
 
         return true;
     }
-     
-    
+
+    @Override
+    public boolean canUndo( ) {
+
+        return true;
+    }
+
+    @Override
+    public boolean combine( Tool other ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean doTool( ) {
+
+        description = new Description();
+        descriptionsController.addDescription( description );
+        descriptionController = new DescriptionController(description);
+        descriptionsController.addDescriptionController( descriptionController );
+        
+        return true;
+    }
+
+    @Override
+    public boolean redoTool( ) {
+
+        descriptionsController.addDescription( description );
+        descriptionsController.addDescriptionController( descriptionController );
+        descriptionsController.setSelectedDescription( descriptionsController.getDescriptionCount( )-1 );
+        Controller.getInstance( ).updatePanel( );
+        return false;
+    }
+
+    @Override
+    public boolean undoTool( ) {
+
+        boolean undone = descriptionsController.removeDescription( description ) && descriptionsController.removeDescriptionController( descriptionController );
+        if (undone){
+            descriptionsController.setSelectedDescription( descriptionsController.getDescriptionCount( )-1);
+            Controller.getInstance( ).updatePanel( );
+            return true;
+        }
+        return false;
+    }
+
 }

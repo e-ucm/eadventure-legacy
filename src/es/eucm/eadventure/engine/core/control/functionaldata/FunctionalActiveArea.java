@@ -48,6 +48,7 @@ import java.awt.image.BufferedImage;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
+import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
@@ -61,7 +62,7 @@ public class FunctionalActiveArea extends FunctionalItem {
 
     private static Item buildItem( ActiveArea activeArea ) {
 
-        Item item = new Item( activeArea.getId( ), activeArea.getName( ), activeArea.getDescription( ), activeArea.getDetailedDescription( ) );
+        Item item = new Item( activeArea.getId( ));
         for( Action action : activeArea.getActions( ) ) {
             item.addAction( action );
         }
@@ -126,6 +127,13 @@ public class FunctionalActiveArea extends FunctionalItem {
         return activeArea;
     }
 
+    @Override
+    public Element getElement( ) {
+
+        return activeArea;
+    }
+    
+    
     @Override
     public boolean isPointInside( float x, float y ) {
 

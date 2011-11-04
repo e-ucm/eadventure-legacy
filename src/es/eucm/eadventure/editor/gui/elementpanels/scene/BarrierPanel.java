@@ -54,16 +54,21 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.Documented;
-import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
-import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
+
+
+/**
+ * 
+ *  THIS CLASS IS NOT INSTANCIATED !!!
+ *
+ */
 public class BarrierPanel extends JPanel {
 
     /**
@@ -134,11 +139,12 @@ public class BarrierPanel extends JPanel {
         cDoc.weighty = 0;
         JPanel namePanel = new JPanel( );
         namePanel.setLayout( new GridLayout( ) );
-        nameTextField = new JTextField( this.barrierDataControl.getName( ) );
-        nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) barrierDataControl.getContent( ) ) );
-        namePanel.add( nameTextField );
-        namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Barrier.Name" ) ) );
-        docPanel.add( namePanel, cDoc );
+        //barriers have no name
+        // nameTextField = new JTextField( this.barrierDataControl.getName( ) );
+       // nameTextField.getDocument( ).addDocumentListener( new NameChangeListener( nameTextField, (Named) barrierDataControl.getContent( ) ) );
+      //  namePanel.add( nameTextField );
+       // namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Barrier.Name" ) ) );
+        //docPanel.add( namePanel, cDoc );
 
         //cDoc.gridy = 4;
         cDoc.gridy = 2;

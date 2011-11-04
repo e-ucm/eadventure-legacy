@@ -1897,4 +1897,8 @@
 <entry key="Conversation.Options.PositionBottom">Partea de sus</entry>
 <entry key="Conversation.Options.PositionTop">Partea de jos</entry>
 <entry key="Conversation.Options.PositionCombo.Border">Poziţia a opţiunile:</entry>
+<entry key="DescriptionList.Description">Descriere</entry>
+<entry key="DescriptionList.Descriptions">Descrieri</entry>
+<entry key="DescriptionSet.deleteOnlyOneDescription.title">ştergerea descriere</entry>
+<entry key="DescriptionSet.deleteOnlyOneDescription.message">Sigur doriţi să ştergeţi descrierea selectate? Condiţiile în descrierea celelalte vor fi şterse</entry>
 </properties>

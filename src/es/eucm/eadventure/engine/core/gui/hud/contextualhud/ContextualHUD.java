@@ -52,12 +52,14 @@ import java.util.Hashtable;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalActiveArea;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalDescriptions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
@@ -578,6 +580,7 @@ public class ContextualHUD extends HUD {
         gui.setDefaultCursor( );
         pressedTime = Long.MAX_VALUE;
         clearDraggingElement();
+        game.getActionManager( ).setActionSelected( ActionManager.ACTION_GOTO );
         return true;
     }
 
@@ -854,12 +857,13 @@ public class ContextualHUD extends HUD {
                 gui.setCursor( cursorOver );
                 //If there is a known mouse position to be used for the position of the text
                 if( lastMouseMoved != null ){
+                    Description description = new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( );
                     //draw the name of the element into the mouse in the last mouse position
-                    GUI.drawStringOnto( g, new String[] { actionManager.getElementOver( ).getElement( ).getName( ) }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
+                    GUI.drawStringOnto( g, new String[] { description.getName( ) }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
                     // if there are associated sound, play it
-                    if (actionManager.getElementOver( ).getElement( ).getNameSoundPath( ) != null && 
-                            !actionManager.getElementOver( ).getElement( ).getNameSoundPath( ).equals( "" )&& this.playName){
-                        Game.getInstance( ).getFunctionalPlayer( ).speak( "", actionManager.getElementOver( ).getElement( ).getNameSoundPath( ) );
+                    if (description.getNameSoundPath( ) != null && 
+                            !description.getNameSoundPath( ).equals( "" )&& this.playName){
+                        Game.getInstance( ).getFunctionalPlayer( ).speak( "", description.getNameSoundPath( ) );
                         this.playName = false;
                     }
                 }
@@ -901,13 +905,15 @@ public class ContextualHUD extends HUD {
                     name = TC.get( "ActionButton.Drag" );
                     specialAction = true;
                 }
+                Description description = new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( );
+               
                 if (specialAction){
-                    if (actionManager.getElementOver( ).getElement( ).getName( ).equals( "" ))
+                    if (description.getName( ).equals( "" ))
                         name += " " + processElement();
                     else    
-                        name += " " + actionManager.getElementOver( ).getElement( ).getName( );
+                        name += " " + description.getName( );
                 }else
-                    name = actionManager.getElementOver( ).getElement( ).getName( );
+                    name = description.getName( );
                 
                 //draw the name of the element into the mouse in the last mouse position
                 GUI.drawStringOnto( g, new String[] { name }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
