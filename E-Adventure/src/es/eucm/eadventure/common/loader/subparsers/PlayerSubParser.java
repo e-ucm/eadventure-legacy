@@ -36,10 +36,14 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.loader.subparsers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
@@ -59,6 +63,11 @@ public class PlayerSubParser extends SubParser {
      * Constant for subparsing condition tag
      */
     private static final int SUBPARSING_CONDITION = 1;
+    
+    /**
+     * Constant for subparsing description tag.
+     */
+    private static final int SUBPARSING_DESCRIPTION = 2;
 
     /**
      * Stores the current element being subparsed
@@ -83,7 +92,12 @@ public class PlayerSubParser extends SubParser {
     /**
      * Subparser for conditions
      */
-    private SubParser conditionSubParser;
+    private SubParser subParser;
+    
+    
+    private List<Description> descriptions;
+    
+    private Description description;
 
     /* Methods */
 
@@ -96,6 +110,7 @@ public class PlayerSubParser extends SubParser {
     public PlayerSubParser( Chapter chapter ) {
 
         super( chapter );
+        descriptions = new ArrayList<Description>();
     }
 
     /*
@@ -113,6 +128,8 @@ public class PlayerSubParser extends SubParser {
             // If it is a player tag, create the player
             if( qName.equals( "player" ) ) {
                 player = new Player( );
+                descriptions = new ArrayList<Description>();
+                player.setDescriptions( descriptions );
             }
 
             // If it is a resources tag, create new resources
@@ -129,7 +146,7 @@ public class PlayerSubParser extends SubParser {
             // If it is a condition tag, create new conditions, new subparser and switch the state
             else if( qName.equals( "condition" ) ) {
                 currentConditions = new Conditions( );
-                conditionSubParser = new ConditionSubParser( currentConditions, chapter );
+                subParser = new ConditionSubParser( currentConditions, chapter );
                 subParsing = SUBPARSING_CONDITION;
             }
 
@@ -199,55 +216,18 @@ public class PlayerSubParser extends SubParser {
 
             }
             
-            
-            // If it is a name tag, add the name to the player
-            else if( qName.equals( "name" ) ) {
-                String soundPath = "";
-                
-                // if name tag has soundPath attribute, add it to the player data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                }
-                
-                player.setNameSoundPath( soundPath );
+         // If it is a description tag, create the new description (with its id)
+            else if( qName.equals( "description" ) ) {
+                description = new Description();
+                subParser = new DescriptionsSubParser(description, chapter);
+                subParsing = SUBPARSING_DESCRIPTION; 
             }
 
-            // If it is a brief tag, add the brief description to the player
-            else if( qName.equals( "brief" ) ) {
-                String soundPath = "";
-                
-                // if brief tag has soundPath attribute, add it to the active player model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                }
-                
-               
-                player.setDescriptionSoundPath( soundPath );
-            }
-
-            // If it is a detailed tag, add the detailed description to the player
-            else if( qName.equals( "detailed" ) ) {
-                String soundPath = "";
-                
-                // if detailed tag has soundPath attribute, add it to the player data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                }
-                
-               
-                player.setDetailedDescriptionSoundPath( soundPath );
-            }
-
-            
-            
         }
 
         // If a condition is being subparsed, spread the call
-        if( subParsing == SUBPARSING_CONDITION ) {
-            conditionSubParser.startElement( namespaceURI, sName, qName, attrs );
+        if( subParsing != SUBPARSING_NONE) {
+            subParser.startElement( namespaceURI, sName, qName, attrs );
         }
     }
 
@@ -277,21 +257,6 @@ public class PlayerSubParser extends SubParser {
             else if( qName.equals( "resources" ) ) {
                 player.addResources( currentResources );
             }
-            
-            
-         // If it is a name tag, store the name in the active area
-            else if( qName.equals( "name" ) ) {
-                player.setName( currentString.toString( ).trim( ) );
-            }
-            // If it is a brief tag, store the brief description in the active area
-            else if( qName.equals( "brief" ) ) {
-                player.setDescription( currentString.toString( ).trim( ) );
-            }
-         // If it is a detailed tag, store the detailed description in the active area
-            else if( qName.equals( "detailed" ) ) {
-                player.setDetailedDescription( currentString.toString( ).trim( ) );
-            }
-
             // Reset the current string
             currentString = new StringBuffer( );
         }
@@ -299,13 +264,24 @@ public class PlayerSubParser extends SubParser {
         // If a condition is being subparsed
         else if( subParsing == SUBPARSING_CONDITION ) {
             // Spread the call
-            conditionSubParser.endElement( namespaceURI, sName, qName );
+            subParser.endElement( namespaceURI, sName, qName );
 
             // If the condition tag is being closed, add the condition to the resources, and switch the state
             if( qName.equals( "condition" ) ) {
                 currentResources.setConditions( currentConditions );
                 subParsing = SUBPARSING_NONE;
             }
+        }
+        
+     // If it is a description tag, create the new description (with its id)
+        else if( subParsing == SUBPARSING_DESCRIPTION ) {
+            // Spread the call
+            subParser.endElement( namespaceURI, sName, qName );
+            if( qName.equals( "description" ) ) {
+                this.descriptions.add( description );
+                subParsing = SUBPARSING_NONE;
+            }
+            
         }
     }
 
@@ -321,8 +297,8 @@ public class PlayerSubParser extends SubParser {
         if( subParsing == SUBPARSING_NONE )
             super.characters( buf, offset, len );
 
-        // If a condition is being subparsed, spread the call
-        else if( subParsing == SUBPARSING_CONDITION )
-            conditionSubParser.characters( buf, offset, len );
+        /// If there are some kind of subparsing, spread the call
+        else 
+            subParser.characters( buf, offset, len );
     }
 }

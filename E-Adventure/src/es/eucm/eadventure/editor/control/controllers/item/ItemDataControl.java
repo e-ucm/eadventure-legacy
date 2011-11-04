@@ -45,6 +45,7 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
@@ -66,6 +67,11 @@ public class ItemDataControl extends DataControlWithResources {
      * Actions list controller.
      */
     private ActionsListDataControl actionsListDataControl;
+    
+    /**
+     * Controller for descriptions
+     */
+    private DescriptionsController descriptionController;
 
     /**
      * Constructor.
@@ -90,6 +96,8 @@ public class ItemDataControl extends DataControlWithResources {
             resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.ITEM ) );
 
         actionsListDataControl = new ActionsListDataControl( item.getActions( ), this );
+        
+        descriptionController = new DescriptionsController(item.getDescriptions( ));
     }
 
     /**
@@ -139,7 +147,8 @@ public class ItemDataControl extends DataControlWithResources {
      */
     public String getName( ) {
 
-        return item.getName( );
+       // return item.getName( );
+        return "";
     }
 
     /**
@@ -149,7 +158,8 @@ public class ItemDataControl extends DataControlWithResources {
      */
     public String getBriefDescription( ) {
 
-        return item.getDescription( );
+        //return item.getDescription( );
+        return "";
     }
 
     /**
@@ -159,7 +169,8 @@ public class ItemDataControl extends DataControlWithResources {
      */
     public String getDetailedDescription( ) {
 
-        return item.getDetailedDescription( );
+      //  return item.getDetailedDescription( );
+        return "";
     }
 
     /**
@@ -181,7 +192,7 @@ public class ItemDataControl extends DataControlWithResources {
      */
     public void setName( String name ) {
 
-        controller.addTool( new ChangeNameTool( item, name ) );
+        controller.addTool( new ChangeNameTool( descriptionController.getSelectedDescription(), name ) );
     }
 
     /**
@@ -192,7 +203,7 @@ public class ItemDataControl extends DataControlWithResources {
      */
     public void setBriefDescription( String description ) {
 
-        controller.addTool( new ChangeDescriptionTool( item, description ) );
+        controller.addTool( new ChangeDescriptionTool( descriptionController.getSelectedDescription(), description ) );
     }
 
     /**
@@ -203,7 +214,7 @@ public class ItemDataControl extends DataControlWithResources {
      */
     public void setDetailedDescription( String detailedDescription ) {
 
-        controller.addTool( new ChangeDetailedDescriptionTool( item, detailedDescription ) );
+        controller.addTool( new ChangeDetailedDescriptionTool( descriptionController.getSelectedDescription(), detailedDescription ) );
     }
     
     public void setReturnsWhenDragged(Boolean returnsWhenDragged) {
@@ -435,6 +446,12 @@ public class ItemDataControl extends DataControlWithResources {
             return path;
         path = getPathFromChild( dataControl, actionsListDataControl );
         return path;
+    }
+
+    
+    public DescriptionsController getDescriptionController( ) {
+    
+        return descriptionController;
     }
 
 }

@@ -37,6 +37,8 @@
 package es.eucm.eadventure.common.loader.subparsers;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.xml.sax.Attributes;
 
@@ -45,6 +47,7 @@ import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 
 /**
@@ -75,6 +78,8 @@ public class ActiveAreaSubParser extends SubParser {
     private static final int SUBPARSING_EFFECT = 2;
 
     private static final int SUBPARSING_ACTIONS = 3;
+    
+    private static final int SUBPARSING_DESCRIPTION = 4;
 
     /**
      * Store the current element being parsed.
@@ -112,6 +117,11 @@ public class ActiveAreaSubParser extends SubParser {
     private Scene scene;
 
     private int nAreas;
+    
+    
+    private List<Description> descriptions;
+    
+    private Description description;
 
     /* Methods */
 
@@ -126,6 +136,7 @@ public class ActiveAreaSubParser extends SubParser {
         super( chapter );
         this.nAreas = nAreas;
         this.scene = scene;
+        
     }
 
     private String generateId( ) {
@@ -184,6 +195,8 @@ public class ActiveAreaSubParser extends SubParser {
                     InfluenceArea influenceArea = new InfluenceArea( influenceX, influenceY, influenceWidth, influenceHeight );
                     activeArea.setInfluenceArea( influenceArea );
                 }
+                descriptions = new ArrayList<Description>();
+                activeArea.setDescriptions( descriptions );
             }
 
             else if( qName.equals( "point" ) ) {
@@ -201,50 +214,13 @@ public class ActiveAreaSubParser extends SubParser {
                     activeArea.addPoint( point );
                 }
             }  
-         // If it is a name tag, store the name in the active area
-            else if( qName.equals( "name" ) ) {
-                String soundPath = "";
-                
-                // if name tag has soundPath attribute, add it to the active area data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                }
-                
-                
-                activeArea.setNameSoundPath( soundPath );
-                
+         
+         // If it is a description tag, create the new description (with its id)
+            else if( qName.equals( "description" ) ) {
+                description = new Description();
+                subParser = new DescriptionsSubParser(description, chapter);
+                subParsing = SUBPARSING_DESCRIPTION; 
             }
-
-            // If it is a brief tag, store the brief description in the active area
-            else if( qName.equals( "brief" ) ) {
-                
-                String soundPath = "";
-                
-                // if brief tag has soundPath attribute, add it to the active area data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                }
-                
-                activeArea.setDescriptionSoundPath( soundPath );
-            }
-
-            // If it is a detailed tag, store the detailed description in the active area
-            else if( qName.equals( "detailed" ) ) {
-                
-                String soundPath = "";
-                
-                // if detailed tag has soundPath attribute, add it to the active area data model
-                for( int i = 0; i < attrs.getLength( ); i++ ) {
-                    if( attrs.getQName( i ).equals( "soundPath" ) )
-                        soundPath = attrs.getValue( i );
-                }
-                
-                
-                activeArea.setDetailedDescriptionSoundPath( soundPath );
-            }
-            
             else if( qName.equals( "actions" ) ) {
                 subParser = new ActionsSubParser( chapter, activeArea );
                 subParsing = SUBPARSING_ACTIONS;
@@ -292,19 +268,6 @@ public class ActiveAreaSubParser extends SubParser {
                 activeArea.setDocumentation( currentString.toString( ).trim( ) );
             }
             
-         // If it is a name tag, store the name in the active area
-            else if( qName.equals( "name" ) ) {
-                activeArea.setName( currentString.toString( ).trim( ) );
-            }
-            // If it is a brief tag, store the brief description in the active area
-            else if( qName.equals( "brief" ) ) {
-                activeArea.setDescription( currentString.toString( ).trim( ) );
-            }
-         // If it is a detailed tag, store the detailed description in the active area
-            else if( qName.equals( "detailed" ) ) {
-                activeArea.setDetailedDescription( currentString.toString( ).trim( ) );
-            }
-
             // Reset the current string
             currentString = new StringBuffer( );
         }
@@ -340,6 +303,17 @@ public class ActiveAreaSubParser extends SubParser {
             if( qName.equals( "actions" ) ) {
                 subParsing = SUBPARSING_NONE;
             }
+        }
+        
+        // If it is a description tag, create the new description (with its id)
+        else if( subParsing == SUBPARSING_DESCRIPTION ) {
+         // Spread the call
+            subParser.endElement( namespaceURI, sName, qName );
+            if( qName.equals( "description" ) ) {
+                this.descriptions.add( description );
+                subParsing = SUBPARSING_NONE;
+            }
+            
         }
     }
 

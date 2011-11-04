@@ -59,7 +59,7 @@ public class FunctionalExitArea extends FunctionalItem {
 
     private static Item buildItem( Exit exit ) {
 
-        Item item = new Item( "", "", "", "" );
+        Item item = new Item( "" );
 
         item.addResources( new Resources( ) );
         return item;

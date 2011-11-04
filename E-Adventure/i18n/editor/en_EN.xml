@@ -2019,4 +2019,8 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Conversation.Options.PositionBottom">At the bottom</entry>
 <entry key="Conversation.Options.PositionTop">At the top</entry>
 <entry key="Conversation.Options.PositionCombo.Border">Show the options: </entry>
+<entry key="DescriptionList.Description">Description</entry>
+<entry key="DescriptionList.Descriptions">Descriptions</entry>
+<entry key="DescriptionSet.deleteOnlyOneDescription.title">Deleting description</entry>
+<entry key="DescriptionSet.deleteOnlyOneDescription.message">Are you sure to delete the selected description? The conditions in the other description will be deleted</entry>
 </properties>

@@ -1871,4 +1871,8 @@
 <entry key="Conversation.Options.PositionBottom">No topo</entry>
 <entry key="Conversation.Options.PositionTop">Na parte inferior</entry>
 <entry key="Conversation.Options.PositionCombo.Border">Posição da as opções:</entry>
+<entry key="DescriptionList.Description">Descrição</entry>
+<entry key="DescriptionList.Descriptions">Descrições</entry>
+<entry key="DescriptionSet.deleteOnlyOneDescription.title">exclusão de descrição</entry>
+<entry key="DescriptionSet.deleteOnlyOneDescription.message">Tem certeza que deseja apagar a descrição selecionada? As condições na descrição do outro será excluído</entry>
 </properties>

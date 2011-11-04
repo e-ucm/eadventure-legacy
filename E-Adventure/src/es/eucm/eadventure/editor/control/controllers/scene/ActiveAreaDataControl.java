@@ -47,6 +47,7 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
@@ -83,6 +84,11 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
      * Conditions controller.
      */
     private ConditionsController conditionsController;
+    
+    /**
+     * Controller for descriptions
+     */
+    private DescriptionsController descriptionsController;
 
     private InfluenceAreaDataControl influenceAreaDataControl;
 
@@ -100,6 +106,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
         this.activeArea = activeArea;
         conditionsController = new ConditionsController( new Conditions( ) );
         this.influenceAreaDataControl = new InfluenceAreaDataControl( sceneDataControl, activeArea.getInfluenceArea( ), this );
+        descriptionsController = new DescriptionsController(activeArea.getDescriptions( ));
 
         // Create subcontrollers
         actionsListDataControl = new ActionsListDataControl( activeArea.getActions( ), this );
@@ -151,9 +158,12 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
      * 
      * @return Item's name
      */
+    //TODO!!!!!! related with searh
+    
     public String getName( ) {
 
-        return activeArea.getName( );
+        //return activeArea.getName( );
+        return "";
     }
 
     /**
@@ -163,7 +173,8 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
      */
     public String getBriefDescription( ) {
 
-        return activeArea.getDescription( );
+        //return activeArea.getDescription( );
+        return "";
     }
 
     /**
@@ -173,7 +184,8 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
      */
     public String getDetailedDescription( ) {
 
-        return activeArea.getDetailedDescription( );
+        //return activeArea.getDetailedDescription( );
+        return "";
     }
 
     /**
@@ -195,7 +207,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
      */
     public void setName( String name ) {
 
-        controller.addTool( new ChangeNameTool( activeArea, name ) );
+        controller.addTool( new ChangeNameTool( descriptionsController.getSelectedDescription(), name ) );
     }
 
     /**
@@ -206,7 +218,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
      */
     public void setBriefDescription( String description ) {
 
-        controller.addTool( new ChangeDescriptionTool( activeArea, description ) );
+        controller.addTool( new ChangeDescriptionTool( descriptionsController.getSelectedDescription(), description ) );
     }
 
     /**
@@ -217,7 +229,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
      */
     public void setDetailedDescription( String detailedDescription ) {
 
-        controller.addTool( new ChangeDetailedDescriptionTool( activeArea, detailedDescription ) );
+        controller.addTool( new ChangeDetailedDescriptionTool( descriptionsController.getSelectedDescription(), detailedDescription ) );
     }
 
     /**
@@ -522,6 +534,12 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
     public List<Searchable> getPathToDataControl( Searchable dataControl ) {
 
         return getPathFromChild( dataControl, actionsListDataControl );
+    }
+
+    
+    public DescriptionsController getDescriptionsController( ) {
+    
+        return descriptionsController;
     }
 
 }

@@ -85,33 +85,37 @@ public class AtrezzoDOMWriter {
                 atrezzoElement.appendChild( resourcesNode );
             }
 
-            // Create the description
-            Node descriptionNode = doc.createElement( "description" );
-
-            // Create and append the name, brief description and detailed description and its soundPaths
-            Element nameNode = doc.createElement( "name" );
-            if (atrezzo.getNameSoundPath( )!=null && !atrezzo.getNameSoundPath( ).equals( "" )){
-                nameNode.setAttribute( "soundPath", atrezzo.getNameSoundPath( ) );
-            }
-            nameNode.appendChild( doc.createTextNode( atrezzo.getName( ) ) );
-            descriptionNode.appendChild( nameNode );
-
-            Element briefNode = doc.createElement( "brief" );
-            if (atrezzo.getDescriptionSoundPath( )!=null && !atrezzo.getDescriptionSoundPath( ).equals( "" )){
-                briefNode.setAttribute( "soundPath", atrezzo.getDescriptionSoundPath( ) );
-            }
-            briefNode.appendChild( doc.createTextNode( atrezzo.getDescription( ) ) );
-            descriptionNode.appendChild( briefNode );
-
-            Element detailedNode = doc.createElement( "detailed" );
-            if (atrezzo.getDetailedDescriptionSoundPath( )!=null && !atrezzo.getDetailedDescriptionSoundPath( ).equals( "" )){
-                detailedNode.setAttribute( "soundPath", atrezzo.getDetailedDescriptionSoundPath( ) );
-            }
-            detailedNode.appendChild( doc.createTextNode( atrezzo.getDetailedDescription( ) ) );
-            descriptionNode.appendChild( detailedNode );
-
-            // Append the description
-            atrezzoElement.appendChild( descriptionNode );
+            // atrezzo only have name
+                // Create the description
+                Node descriptionNode = doc.createElement( "description" );
+    
+                // Create and append the name, brief description and detailed description and its soundPaths
+                Element nameNode = doc.createElement( "name" );
+                if (atrezzo.getDescription( 0 ).getNameSoundPath( )!=null && !atrezzo.getDescription( 0 ).getNameSoundPath( ).equals( "" )){
+                    nameNode.setAttribute( "soundPath", atrezzo.getDescription( 0 ).getNameSoundPath( ) );
+                }
+                nameNode.appendChild( doc.createTextNode( atrezzo.getDescription( 0 ).getName( ) ) );
+                descriptionNode.appendChild( nameNode );
+    
+                Element briefNode = doc.createElement( "brief" );
+               /* if (description.getDescriptionSoundPath( )!=null && !description.getDescriptionSoundPath( ).equals( "" )){
+                    briefNode.setAttribute( "soundPath", description.getDescriptionSoundPath( ) );
+                }
+                briefNode.appendChild( doc.createTextNode( description.getDescription( ) ) );*/
+                briefNode.appendChild( doc.createTextNode( "" ) );
+                descriptionNode.appendChild( briefNode );
+    
+                Element detailedNode = doc.createElement( "detailed" );
+               /* if (description.getDetailedDescriptionSoundPath( )!=null && !description.getDetailedDescriptionSoundPath( ).equals( "" )){
+                    detailedNode.setAttribute( "soundPath", description.getDetailedDescriptionSoundPath( ) );
+                }
+                detailedNode.appendChild( doc.createTextNode( description.getDetailedDescription( ) ) );*/
+                detailedNode.appendChild( doc.createTextNode( "" ) );
+                descriptionNode.appendChild( detailedNode );
+    
+                // Append the description
+                atrezzoElement.appendChild( descriptionNode );
+            
 
         }
         catch( ParserConfigurationException e ) {

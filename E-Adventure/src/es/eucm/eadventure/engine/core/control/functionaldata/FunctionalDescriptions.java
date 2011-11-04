@@ -34,63 +34,33 @@
  *     You should have received a copy of the GNU Lesser General Public License
  *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package es.eucm.eadventure.editor.gui.editdialogs;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+package es.eucm.eadventure.engine.core.control.functionaldata;
 
-import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
-import es.eucm.eadventure.editor.gui.elementpanels.description.DescriptionsPanel;
+import java.util.List;
 
-/**
- * This class is the editing dialog for the effects. Here the user can add
- * effects to the events of the script.
- * 
- * @author Bruno Torijano Bueno
- */
-public class DocumentationDialog extends ToolManagableDialog {
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 
-    /**
-     * Required.
-     */
-    private static final long serialVersionUID = 1L;
 
-    private DescriptionsController descriptionsController;
+public class FunctionalDescriptions {
     
-    private DescriptionsPanel dp;
-
-    /**
-     * Constructor.
-     * 
-     * @param effectsController
-     *            Controller for the conditions
-     */
-    public DocumentationDialog( DescriptionsController descriptionsController ) {
-
-        super( Controller.getInstance( ).peekWindow( ), TC.get( "ActiveAreasList.Documentation" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
-        this.descriptionsController = descriptionsController;
-        
-        dp = new DescriptionsPanel(this.descriptionsController);
-        this.add( dp );
-        //setLayout( );
-        setResizable( false );
-        setSize( 600, 400 );
-        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-        setVisible( true );
+    private List<Description> descriptions;
+    
+    public FunctionalDescriptions(List<Description> descriptions){
+        this.descriptions = descriptions;
     }
     
+   public Description getDescription(){
     
-
-    @Override
-    public boolean updateFields( ) {
-        
-        dp.updateFields( );
-
-        return true;
+       for (Description d: descriptions){
+           
+               
+           if (d.getConditions( )==null || new FunctionalConditions(d.getConditions( )).allConditionsOk( ))
+               return d;
+       }
+       
+       return new Description();
+       
     }
-     
-    
+
 }

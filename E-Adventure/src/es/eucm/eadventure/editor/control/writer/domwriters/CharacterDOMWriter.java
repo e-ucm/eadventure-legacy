@@ -45,6 +45,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
@@ -104,33 +105,43 @@ public class CharacterDOMWriter {
             // Append the textcolor
             characterElement.appendChild( textColorNode );
 
-            // Create the description
-            Node descriptionNode = doc.createElement( "description" );
-
-            // Create and append the name, brief description and detailed description and its soundPaths
-            Element nameNode = doc.createElement( "name" );
-            if (character.getNameSoundPath( )!=null && !character.getNameSoundPath( ).equals( "" )){
-                nameNode.setAttribute( "soundPath", character.getNameSoundPath( ) );
+            
+            for (Description description: character.getDescriptions( )){
+                // Create the description
+                Node descriptionNode = doc.createElement( "description" );
+                // Append the conditions (if available)
+                if( description.getConditions( )!=null && !description.getConditions( ).isEmpty( ) ) {
+                    Node conditionsNode = ConditionsDOMWriter.buildDOM( description.getConditions( ) );
+                    doc.adoptNode( conditionsNode );
+                    descriptionNode.appendChild( conditionsNode );
+                }
+    
+                // Create and append the name, brief description and detailed description and its soundPaths
+                Element nameNode = doc.createElement( "name" );
+                if (description.getNameSoundPath( )!=null && !description.getNameSoundPath( ).equals( "" )){
+                    nameNode.setAttribute( "soundPath", description.getNameSoundPath( ) );
+                }
+                nameNode.appendChild( doc.createTextNode( description.getName( ) ) );
+                descriptionNode.appendChild( nameNode );
+    
+                Element briefNode = doc.createElement( "brief" );
+                if (description.getDescriptionSoundPath( )!=null && !description.getDescriptionSoundPath( ).equals( "" )){
+                    briefNode.setAttribute( "soundPath", description.getDescriptionSoundPath( ) );
+                }
+                briefNode.appendChild( doc.createTextNode( description.getDescription( ) ) );
+                descriptionNode.appendChild( briefNode );
+    
+                Element detailedNode = doc.createElement( "detailed" );
+                if (description.getDetailedDescriptionSoundPath( )!=null && !description.getDetailedDescriptionSoundPath( ).equals( "" )){
+                    detailedNode.setAttribute( "soundPath", description.getDetailedDescriptionSoundPath( ) );
+                }
+                detailedNode.appendChild( doc.createTextNode( description.getDetailedDescription( ) ) );
+                descriptionNode.appendChild( detailedNode );
+    
+                // Append the description
+                characterElement.appendChild( descriptionNode );
+                
             }
-            nameNode.appendChild( doc.createTextNode( character.getName( ) ) );
-            descriptionNode.appendChild( nameNode );
-
-            Element briefNode = doc.createElement( "brief" );
-            if (character.getDescriptionSoundPath( )!=null && !character.getDescriptionSoundPath( ).equals( "" )){
-                briefNode.setAttribute( "soundPath", character.getDescriptionSoundPath( ) );
-            }
-            briefNode.appendChild( doc.createTextNode( character.getDescription( ) ) );
-            descriptionNode.appendChild( briefNode );
-
-            Element detailedNode = doc.createElement( "detailed" );
-            if (character.getDetailedDescriptionSoundPath( )!=null && !character.getDetailedDescriptionSoundPath( ).equals( "" )){
-                detailedNode.setAttribute( "soundPath", character.getDetailedDescriptionSoundPath( ) );
-            }
-            detailedNode.appendChild( doc.createTextNode( character.getDetailedDescription( ) ) );
-            descriptionNode.appendChild( detailedNode );
-
-            // Append the description
-            characterElement.appendChild( descriptionNode );
 
             // Create the voice tag
             Element voiceNode = doc.createElement( "voice" );

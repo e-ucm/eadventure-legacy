@@ -34,63 +34,76 @@
  *     You should have received a copy of the GNU Lesser General Public License
  *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package es.eucm.eadventure.editor.gui.editdialogs;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+package es.eucm.eadventure.editor.control.controllers;
 
-import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
-import es.eucm.eadventure.editor.gui.elementpanels.description.DescriptionsPanel;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 
-/**
- * This class is the editing dialog for the effects. Here the user can add
- * effects to the events of the script.
- * 
- * @author Bruno Torijano Bueno
- */
-public class DocumentationDialog extends ToolManagableDialog {
 
-    /**
-     * Required.
-     */
-    private static final long serialVersionUID = 1L;
-
-    private DescriptionsController descriptionsController;
+public class DescriptionController {
     
-    private DescriptionsPanel dp;
-
-    /**
-     * Constructor.
-     * 
-     * @param effectsController
-     *            Controller for the conditions
-     */
-    public DocumentationDialog( DescriptionsController descriptionsController ) {
-
-        super( Controller.getInstance( ).peekWindow( ), TC.get( "ActiveAreasList.Documentation" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
-        this.descriptionsController = descriptionsController;
+    private Description description;
+    
+    private ConditionsController conditionsController;
+    
+    public DescriptionController(Description description){
+        this.description = description; 
         
-        dp = new DescriptionsPanel(this.descriptionsController);
-        this.add( dp );
-        //setLayout( );
-        setResizable( false );
-        setSize( 600, 400 );
-        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-        setVisible( true );
+        if (description.getConditions( ) ==null){
+            description.setConditions( new Conditions() );
+        }
+        
+            
+        conditionsController = new ConditionsController(description.getConditions( ));
+        
     }
     
-    
-
-    @Override
-    public boolean updateFields( ) {
-        
-        dp.updateFields( );
-
-        return true;
+    public ConditionsController getConditionsController(){
+        return conditionsController;
     }
-     
     
+   public String getName(){
+       return description.getName( );
+       
+   }
+   
+   public String getBriefDescription(){
+       return description.getDescription( );
+       
+   }
+   
+   public String getDetailedDescription(){
+       return description.getDetailedDescription( );
+       
+   }
+
+   public String getNameSoundPath(){
+       return description.getNameSoundPath( );
+       
+   }
+   
+   public String getDescriptionSoundPath(){
+       return description.getDescriptionSoundPath( );
+       
+   }
+   
+   public String getDetailedDescriptionSoundPath(){
+       return description.getDetailedDescriptionSoundPath( );
+       
+   }
+
+
+   public void setDescriptionData( Description description ) {
+       this.description = description;
+   }
+    
+   
+   public Description getDescriptionData( ) {
+       return description;
+   }
+    
+    
+    
+
 }

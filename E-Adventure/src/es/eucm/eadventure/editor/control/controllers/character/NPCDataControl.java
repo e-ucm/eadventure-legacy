@@ -48,6 +48,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
 import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
@@ -74,6 +75,11 @@ public class NPCDataControl extends DataControlWithResources {
      * Actions list controller.
      */
     private ActionsListDataControl actionsListDataControl;
+    
+    /**
+     * Controller for descriptions
+     */
+    private DescriptionsController descriptionController;
 
     /**
      * Constructor
@@ -98,6 +104,9 @@ public class NPCDataControl extends DataControlWithResources {
             resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.NPC ) );
 
         actionsListDataControl = new ActionsListDataControl( npc.getActions( ), this );
+        
+        descriptionController = new DescriptionsController(npc.getDescriptions( ));
+        
     }
 
     /**
@@ -203,7 +212,8 @@ public class NPCDataControl extends DataControlWithResources {
      */
     public String getName( ) {
 
-        return npc.getName( );
+       // return npc.getName( );
+        return "";
     }
 
     /**
@@ -213,7 +223,8 @@ public class NPCDataControl extends DataControlWithResources {
      */
     public String getBriefDescription( ) {
 
-        return npc.getDescription( );
+        //return npc.getDescription( );
+        return "";
     }
 
     /**
@@ -223,7 +234,8 @@ public class NPCDataControl extends DataControlWithResources {
      */
     public String getDetailedDescription( ) {
 
-        return npc.getDetailedDescription( );
+        //return npc.getDetailedDescription( );
+        return "";
     }
 
     /**
@@ -611,6 +623,12 @@ public class NPCDataControl extends DataControlWithResources {
         if( path != null )
             return path;
         return getPathFromChild( dataControl, actionsListDataControl );
+    }
+
+    
+    public DescriptionsController getDescriptionController( ) {
+    
+        return descriptionController;
     }
 
 }

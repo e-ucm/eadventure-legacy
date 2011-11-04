@@ -45,6 +45,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
@@ -86,33 +87,45 @@ public class ItemDOMWriter {
                 itemElement.appendChild( resourcesNode );
             }
 
-            // Create the description
-            Node descriptionNode = doc.createElement( "description" );
-
-            // Create and append the name, brief description and detailed description and its soundPaths
-            Element nameNode = doc.createElement( "name" );
-            if (item.getNameSoundPath( )!=null && !item.getNameSoundPath( ).equals( "" )){
-                nameNode.setAttribute( "soundPath", item.getNameSoundPath( ) );
+            for (Description description: item.getDescriptions( )){
+            
+                // Create the description
+                Node descriptionNode = doc.createElement( "description" );
+                
+                // Append the conditions (if available)
+                if( description.getConditions( )!=null && !description.getConditions( ).isEmpty( ) ) {
+                    Node conditionsNode = ConditionsDOMWriter.buildDOM( description.getConditions( ) );
+                    doc.adoptNode( conditionsNode );
+                    descriptionNode.appendChild( conditionsNode );
+                }
+                
+                // Create and append the name, brief description and detailed description and its soundPaths
+                Element nameNode = doc.createElement( "name" );
+    
+                if (description.getNameSoundPath( )!=null && !description.getNameSoundPath( ).equals( "" )){
+                    nameNode.setAttribute( "soundPath", description.getNameSoundPath( ) );
+                }
+                nameNode.appendChild( doc.createTextNode( description.getName( ) ) );
+                descriptionNode.appendChild( nameNode );
+    
+                Element briefNode = doc.createElement( "brief" );
+                if (description.getDescriptionSoundPath( )!=null && !description.getDescriptionSoundPath( ).equals( "" )){
+                    briefNode.setAttribute( "soundPath", description.getDescriptionSoundPath( ) );
+                }
+                briefNode.appendChild( doc.createTextNode( description.getDescription( ) ) );
+                descriptionNode.appendChild( briefNode );
+    
+                Element detailedNode = doc.createElement( "detailed" );
+                if (description.getDetailedDescriptionSoundPath( )!=null && !description.getDetailedDescriptionSoundPath( ).equals( "" )){
+                    detailedNode.setAttribute( "soundPath", description.getDetailedDescriptionSoundPath( ) );
+                }
+                detailedNode.appendChild( doc.createTextNode( description.getDetailedDescription( ) ) );
+                descriptionNode.appendChild( detailedNode );
+    
+                // Append the description
+                itemElement.appendChild( descriptionNode );
+            
             }
-            nameNode.appendChild( doc.createTextNode( item.getName( ) ) );
-            descriptionNode.appendChild( nameNode );
-
-            Element briefNode = doc.createElement( "brief" );
-            if (item.getDescriptionSoundPath( )!=null && !item.getDescriptionSoundPath( ).equals( "" )){
-                briefNode.setAttribute( "soundPath", item.getDescriptionSoundPath( ) );
-            }
-            briefNode.appendChild( doc.createTextNode( item.getDescription( ) ) );
-            descriptionNode.appendChild( briefNode );
-
-            Element detailedNode = doc.createElement( "detailed" );
-            if (item.getDetailedDescriptionSoundPath( )!=null && !item.getDetailedDescriptionSoundPath( ).equals( "" )){
-                detailedNode.setAttribute( "soundPath", item.getDetailedDescriptionSoundPath( ) );
-            }
-            detailedNode.appendChild( doc.createTextNode( item.getDetailedDescription( ) ) );
-            descriptionNode.appendChild( detailedNode );
-
-            // Append the description
-            itemElement.appendChild( descriptionNode );
 
             // Append the actions (if there is at least one)
             if( !item.getActions( ).isEmpty( ) ) {
