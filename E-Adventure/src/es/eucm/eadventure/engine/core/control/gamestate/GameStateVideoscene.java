@@ -234,7 +234,8 @@ public class GameStateVideoscene extends GameState implements ControllerListener
 
     @Override
     public void mouseClicked( MouseEvent e ) {
-        stop = true;
+        //TODO quitado el parado del video con click, ahora hay que tragarselo.
+        //stop = true;
     }
 
     public synchronized void blockingPrefetch( ) {

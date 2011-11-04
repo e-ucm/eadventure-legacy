@@ -1907,4 +1907,7 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Conversation.AddNameTag.Tooltip">Fügen Sie ein Zeichen, um den Namen des Charakters (oder Spieler), die Linie, um alle Gespräche Linien sagt anzuzeigen.</entry>
 <entry key="Conversation.RemoveNameTag">Delete Names</entry>
 <entry key="Conversation.RemoveNameTag.Tooltip">Löschen Sie die Markierung auf den Namen des Charakters (oder Spieler), die Linie, um alle Gespräche Linien sagt anzuzeigen.</entry>
+<entry key="Conversation.Options.PositionBottom">Im oberen Teil</entry>
+<entry key="Conversation.Options.PositionTop">Am unteren Rand</entry>
+<entry key="Conversation.Options.PositionCombo.Border">Position die Optionen:</entry>
 </properties>

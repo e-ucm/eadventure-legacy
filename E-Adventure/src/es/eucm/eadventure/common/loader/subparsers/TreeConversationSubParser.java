@@ -143,6 +143,10 @@ public class TreeConversationSubParser extends SubParser {
      */
     private boolean preListening;
     
+    /**
+     * The position to be painted the option nodes
+     */
+    private int x,y;
 
     /**
      * Check if a conversation line must be synthesize
@@ -269,9 +273,18 @@ public class TreeConversationSubParser extends SubParser {
                         else
                             preListening = false;
                     }
+                    
+                  //If there is a "x" and "y" attributes with the position where the option node has to be painted,
+                    if( attrs.getQName( i ).equals( "x" ) ) {
+                        x = Integer.parseInt( attrs.getValue( i ));
+                    }
+                    
+                    if( attrs.getQName( i ).equals( "y" ) ) {
+                        y = Integer.parseInt( attrs.getValue( i ) );
+                    }
                 }
                 // Create a new OptionNode, and link it to the current node
-                ConversationNode nuevoNodoOpcion = new OptionConversationNode( random,keepShowing, showUserOption, preListening );
+                ConversationNode nuevoNodoOpcion = new OptionConversationNode( random,keepShowing, showUserOption, preListening, x , y );
                 currentNode.addChild( nuevoNodoOpcion );
 
                 // Change the actual node for the option node recently created

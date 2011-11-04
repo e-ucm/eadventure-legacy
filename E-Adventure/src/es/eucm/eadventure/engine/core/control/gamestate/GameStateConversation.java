@@ -483,8 +483,8 @@ public class GameStateConversation extends GameState {
         } 
         
         
-        int y = GUI.getInstance( ).getResponseTextY( ) + optionIndex * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT;
-        int x = GUI.getInstance( ).getResponseTextX( );
+        int y = ((OptionConversationNode)currentNode).getY( ) + optionIndex * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT;
+        int x = ((OptionConversationNode)currentNode).getX( );
         
         if( text.startsWith( ConversationLine.Type.THOUGHT.toString( ) ) || text.startsWith( ConversationLine.Type.YELL.toString( ) ) || text.startsWith( ConversationLine.Type.WHISPER.toString( ) ) ) {
             int spaceIndex = text.indexOf( ' ' );
@@ -622,16 +622,24 @@ public class GameStateConversation extends GameState {
     @Override
     public synchronized void mouseClicked( MouseEvent e ) {
 
-        if( currentNode.getType( ) == ConversationNodeView.OPTION && GUI.getInstance( ).getResponseTextY( ) <= e.getY( ) && GUI.getInstance( ).getResponseTextY( ) + currentNode.getLineCount( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) && !isOptionSelected ) {
-
+        if( currentNode.getType( ) == ConversationNodeView.OPTION ) {
+            
+         // get the Y position value for the current options conversation node
+            int yValue =  ((OptionConversationNode)currentNode).getY( );
+            
+            if (yValue <= e.getY( ) && 
+                    yValue + currentNode.getLineCount( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) 
+                    && !isOptionSelected){
+            
             if( MultimediaManager.getInstance( ).isPlaying( audioId ) )
                 MultimediaManager.getInstance( ).stopPlaying( audioId );
 
-            optionSelected = ( e.getY( ) - GUI.getInstance( ).getResponseTextY( ) ) / RESPONSE_TEXT_HEIGHT;
+            optionSelected = ( e.getY( ) - yValue ) / RESPONSE_TEXT_HEIGHT;
             if( optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES )
                 selectDisplayedOption( );
             else
                 selectNoAllDisplayedOption( );
+        }
 
         }
         else if( currentNode.getType( ) == ConversationNodeView.DIALOGUE || isOptionSelected ) {
@@ -665,10 +673,15 @@ public class GameStateConversation extends GameState {
     @Override
     public void mouseMoved( MouseEvent e ) {
 
-        if( GUI.getInstance( ).getResponseTextY( ) <= e.getY( ) )
-            optionHighlighted = ( e.getY( ) - GUI.getInstance( ).getResponseTextY( ) ) / RESPONSE_TEXT_HEIGHT;
+        if (currentNode.getType( ) == ConversationNodeView.OPTION ){
+            int yValue =  ((OptionConversationNode)currentNode).getY( );
+        if( yValue <= e.getY( ) )
+            optionHighlighted = ( e.getY( ) - yValue ) / RESPONSE_TEXT_HEIGHT;
         else
             optionHighlighted = -1;
+        
+        }
+        
     }
 
     /**

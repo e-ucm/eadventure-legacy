@@ -56,6 +56,7 @@ import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeLineTool;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeLinkTool;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeOptionTool;
 import es.eucm.eadventure.editor.control.tools.conversation.MoveNodeLineTool;
+import es.eucm.eadventure.editor.control.tools.conversation.OptionsPositionTool;
 import es.eucm.eadventure.editor.control.tools.conversation.SelectLineAudioPathTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
@@ -483,6 +484,18 @@ public abstract class ConversationDataControl extends DataControl {
 
         ConversationNode node = (ConversationNode) selectedNode;
         controller.addTool( new ChangeBooleanValueTool( node, !( (OptionConversationNode) node ).isKeepShowing( ), "isKeepShowing", "setKeepShowing" ) );
+    }
+    
+    /**
+     * Select the position of the options node (top or bottom)
+     * 
+     * @param selectedNode
+     * @param bottomPosition
+     *          if true, the option will appear at the bottom, if false, the options will appear at the top
+     */
+    public void setOptionPositions(ConversationNodeView selectedNode, boolean bottomPosition){
+        ConversationNode node = (ConversationNode) selectedNode;
+        controller.addTool(new OptionsPositionTool(( (OptionConversationNode) node ), bottomPosition) );
     }
     
     /**

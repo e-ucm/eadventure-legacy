@@ -48,6 +48,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -59,13 +61,16 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 
@@ -74,7 +79,7 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
  * operations, like adding and removing lines, editing end effects, remove links
  * and reposition lines and children
  */
-class LinesPanel extends JPanel implements DataControlsPanel {
+class LinesPanel extends JPanel implements DataControlsPanel, Updateable {
   
     /**
      * Required
@@ -132,6 +137,12 @@ class LinesPanel extends JPanel implements DataControlsPanel {
     private JButton deleteOptionButton;
 
     private JButton insertOptionButton;
+    
+    private JComboBox optionsPosition;
+    
+    private static final int BOTTOM_POSITION = 0;
+    
+    private static final int TOP_POSITION = 1;
 
     /**
      * Select the player or any exists character to speak selected conversation
@@ -324,11 +335,9 @@ class LinesPanel extends JPanel implements DataControlsPanel {
         } );  
          
         JPanel checkboxPanel = new JPanel();
-       // checkboxPanel.setLayout( new BorderLayout( ) );
         checkboxPanel.add( randomOrder);
         
         // add "keepshowing" option only if user doesn't select "keepShowing" option in adventure data panel
-        //if (!Controller.getInstance( ).isKeepShowing( )){
             JCheckBox keepQuestionShowing = new JCheckBox( TC.get( "Conversation.KeepShowing" ), conversationDataControl.isKeepShowingOptionsNodeActivate( conversationPanel.getSelectedNode( ) ) );
             keepQuestionShowing.addActionListener( new ActionListener( ) {
 
@@ -338,14 +347,42 @@ class LinesPanel extends JPanel implements DataControlsPanel {
                 }
             } );  
             checkboxPanel.add( keepQuestionShowing);
-        //}
 
         checkboxPanel.add( showUserResponse);
         checkboxPanel.add( preListening);
+        
+        String[] positions = {TC.get( "Conversation.Options.PositionBottom" ), TC.get( "Conversation.Options.PositionTop" )}; 
+        optionsPosition = new JComboBox( positions );
+        ConversationNode node = (ConversationNode) conversationPanel.getSelectedNode( );
+        optionsPosition.setSelectedIndex( ((OptionConversationNode)node).isBottomPosition( )? BOTTOM_POSITION: TOP_POSITION);
+        optionsPosition.addActionListener( new ActionListener(){
+
+            public void actionPerformed( ActionEvent e ) {
+                if (optionsPosition.getSelectedIndex( ) == LinesPanel.BOTTOM_POSITION)
+                    // set the options at bottom
+                    conversationDataControl.setOptionPositions(conversationPanel.getSelectedNode( ),  true); 
+                else 
+                    // set the options at top
+                    conversationDataControl.setOptionPositions(conversationPanel.getSelectedNode( ),  false);
+            }
+        }  );
+        
+        JPanel optionsPosPanel = new JPanel();
+      //  optionsPosPanel.setBorder( new TitledBorder(TC.get( "Conversation.Options.PositionCombo.Border" )) );
+        JLabel optionsInfo = new JLabel(TC.get( "Conversation.Options.PositionCombo.Border" ) );
+        optionsPosPanel.add( optionsInfo);
+        optionsPosPanel.add( optionsPosition);
+        
+        
+        JPanel allSettings = new JPanel();
+        allSettings.setLayout( new BorderLayout( ) );
+        allSettings.add( checkboxPanel, BorderLayout.NORTH );
+        allSettings.add( optionsPosPanel, BorderLayout.SOUTH );
+        
         setLayout( new BorderLayout( ) );
         add( buttonsPanel, BorderLayout.EAST );
         add( tableScrollPanel, BorderLayout.CENTER );
-        add( checkboxPanel, BorderLayout.NORTH );
+        add( allSettings, BorderLayout.NORTH );
     }
     
     public ConversationNodeView getSelectedNode(){
@@ -674,6 +711,12 @@ class LinesPanel extends JPanel implements DataControlsPanel {
     public LinesTable getLineTable( ) {
     
         return lineTable;
+    }
+
+    public boolean updateFields( ) {
+
+        // TODO Auto-generated method stub
+        return true;
     }
 
 }

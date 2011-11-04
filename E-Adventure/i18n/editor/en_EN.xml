@@ -2016,4 +2016,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Conversation.AddNameTag.Tooltip">Add a mark to display the name of the character (or player) who says the line to all conversation lines.</entry>
 <entry key="Conversation.RemoveNameTag">Delete Names</entry>
 <entry key="Conversation.RemoveNameTag.Tooltip">Delete the mark to display the name of the character (or player) who says the line to all conversation lines .</entry>
+<entry key="Conversation.Options.PositionBottom">At the bottom</entry>
+<entry key="Conversation.Options.PositionTop">At the top</entry>
+<entry key="Conversation.Options.PositionCombo.Border">Show the options: </entry>
 </properties>

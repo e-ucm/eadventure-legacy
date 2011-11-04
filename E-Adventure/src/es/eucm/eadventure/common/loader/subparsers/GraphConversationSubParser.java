@@ -148,6 +148,11 @@ public class GraphConversationSubParser extends SubParser {
      */
     private boolean preListening;
     
+    /**
+     * The position to be painted the option nodes
+     */
+    private int x,y;
+    
     
     /**
      * Check if each conversation line will wait until user interacts
@@ -231,31 +236,40 @@ public class GraphConversationSubParser extends SubParser {
                                 random = true;
                             else
                                 random = false;
-                        }
+                        } else
                       //If there is a "keepShowing" attribute, keep the previous conversation line showing
                         if( attrs.getQName( i ).equals( "keepShowing" ) ) {
                             if( attrs.getValue( i ).equals( "yes" ) )
                                 keepShowing = true;
                             else
                                 keepShowing = false;
-                        }
+                        } else
                       //If there is a "showUserOption" attribute, identify if show the user response at option node
                         if( attrs.getQName( i ).equals( "showUserOption" ) ) {
                             if( attrs.getValue( i ).equals( "yes" ) )
                                 showUserOption = true;
                             else
                                 showUserOption = false;
-                        }
+                        } else
                         //If there is a "showUserOption" attribute, identify if show the user response at option node
                         if( attrs.getQName( i ).equals( "preListening" ) ) {
                             if( attrs.getValue( i ).equals( "yes" ) )
                                 preListening = true;
                             else
                                 preListening = false;
+                        } else
+                        
+                      //If there is a "x" and "y" attributes with the position where the option node has to be painted,
+                        if( attrs.getQName( i ).equals( "x" ) ) {
+                            x = Integer.parseInt( attrs.getValue( i ));
+                        } else
+                        
+                        if( attrs.getQName( i ).equals( "y" ) ) {
+                            y = Integer.parseInt( attrs.getValue( i ) );
                         }
                     }
 
-                    currentNode = new OptionConversationNode( random,keepShowing, showUserOption, preListening );
+                    currentNode = new OptionConversationNode( random,keepShowing, showUserOption, preListening, x, y );
                 }
                 // Create a new vector for the links of the current node
                 currentLinks = new ArrayList<Integer>( );
