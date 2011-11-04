@@ -1883,4 +1883,7 @@
 <entry key="Conversation.AddNameTag.Tooltip">Aggiungere un segno per visualizzare il nome del personaggio (o giocatore) che dice che la linea a tutte le linee conversazione.</entry>
 <entry key="Conversation.RemoveNameTag">Cancellare nomi</entry>
 <entry key="Conversation.RemoveNameTag.Tooltip">Cancellare il simbolo per visualizzare il nome del personaggio (o giocatore) che dice che la linea a tutte le linee conversazione.</entry>
+<entry key="Conversation.Options.PositionBottom">Nella parte superiore</entry>
+<entry key="Conversation.Options.PositionTop">Nella parte inferiore</entry>
+<entry key="Conversation.Options.PositionCombo.Border">Posizione dello opzioni</entry>
 </properties>

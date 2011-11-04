@@ -92,6 +92,17 @@ public class OptionConversationNode extends ConversationNode {
      * Pre-listening the conversation line
      */
     private boolean preListening;
+    
+    /**
+     * The position to be painted the option nodes
+     */
+    private int x,y;
+    
+    private static final int DEFAULT_OPTION_NODE_POSITION_X = 10;
+    
+    private static final int DEFAULT_OPTION_NODE__UPPER_POSITION_Y = 10;
+    
+    private static final int DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y = 480;
 
     /* Methods */
 
@@ -108,7 +119,7 @@ public class OptionConversationNode extends ConversationNode {
     /**
      * Constructor
      */
-    public OptionConversationNode( boolean random, boolean keepShowing, boolean showUserOption, boolean preHearing) {
+    public OptionConversationNode( boolean random, boolean keepShowing, boolean showUserOption, boolean preHearing, int x, int y) {
 
         options = new ArrayList<ConversationLine>( );
         optionNodes = new ArrayList<ConversationNode>( );
@@ -116,6 +127,8 @@ public class OptionConversationNode extends ConversationNode {
         this.keepShowing = keepShowing;
         this.showUserOption = showUserOption;
         this.preListening = preHearing;
+        this.x = x;
+        this.y = y;
         effects = new Effects( );
     }
 
@@ -124,7 +137,7 @@ public class OptionConversationNode extends ConversationNode {
      */
     public OptionConversationNode( ) {
 
-        this( false, false, false, false );
+        this( false, false, false, false, DEFAULT_OPTION_NODE_POSITION_X, DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y);
     }
 
     /*
@@ -363,5 +376,33 @@ public class OptionConversationNode extends ConversationNode {
     public void setPreListening( Boolean preHearing ) {
     
         this.preListening = preHearing;
+    }
+    
+    public boolean isTopPosition(){
+        return y == DEFAULT_OPTION_NODE__UPPER_POSITION_Y;
+    }
+    
+    public boolean isBottomPosition(){
+        return y == DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y;
+    }
+    
+    public void setTopPosition(){
+        y = DEFAULT_OPTION_NODE__UPPER_POSITION_Y;
+    }
+    
+    public void setBottomPosition(){
+        y = DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y;
+    }
+
+    
+    public int getX( ) {
+    
+        return x;
+    }
+
+    
+    public int getY( ) {
+    
+        return y;
     }
 }

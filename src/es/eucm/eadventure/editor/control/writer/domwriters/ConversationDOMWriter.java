@@ -380,7 +380,10 @@ public class ConversationDOMWriter {
                     // Adds a random attribute if "preListening" is activate in conversation node data
                     if( ( (OptionConversationNode) node ).isPreListening( ) )
                         nodeElement.setAttribute( "preListening", "yes" );
-                    
+                    // Adds the x position of the options conversations node
+                    nodeElement.setAttribute( "x", String.valueOf( ((OptionConversationNode)node).getX( )) );
+                    // Adds a random attribute if "preListening" is activate in conversation node data
+                    nodeElement.setAttribute( "y", String.valueOf( ((OptionConversationNode)node).getY( )) );
 
                     // For each line of the node
                     for( int j = 0; j < node.getLineCount( ); j++ ) {
