@@ -329,7 +329,7 @@ public class FunctionalScene implements Renderable {
             else {
                 FunctionalItem remove = null;
                 for( FunctionalItem currentItem : items ) {
-                    if( currentItem.getReference( ) == itemReference )
+                    if( currentItem.getItem( ).getId( ).equals( itemReference.getTargetId( ) ) )
                         remove = currentItem;
                 }
                 if( remove != null ){
@@ -367,7 +367,7 @@ public class FunctionalScene implements Renderable {
             else {
                 FunctionalNPC remove = null;
                 for( FunctionalNPC currentNPC : npcs ) {
-                    if( currentNPC.getReference( ) == npcReference )
+                    if( currentNPC.getElement( ).getId( ).equals( npcReference.getTargetId( ) ))
                         remove = currentNPC;
                 }
                 if( remove != null )
