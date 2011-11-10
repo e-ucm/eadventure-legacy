@@ -1068,14 +1068,18 @@ public class EffectsController {
             
             else if( type == Effect.SPEAK_CHAR ) {
                 SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-                assetPath = speakCharEffect.getAudioPath( );
-                assetType = AssetsConstants.CATEGORY_AUDIO;
+                if (speakCharEffect.getAudioPath( )!= null && !speakCharEffect.getAudioPath( ).equals( "" )){
+                    assetPath = speakCharEffect.getAudioPath( );
+                    assetType = AssetsConstants.CATEGORY_AUDIO;
+                }
             }
             
             else if( type == Effect.SPEAK_PLAYER ) {
                 SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
-                assetPath = speakPlayerEffect.getAudioPath( );
-                assetType = AssetsConstants.CATEGORY_AUDIO;
+                if (speakPlayerEffect.getAudioPath( )!= null && !speakPlayerEffect.getAudioPath( ).equals( "" )){
+                    assetPath = speakPlayerEffect.getAudioPath( );
+                    assetType = AssetsConstants.CATEGORY_AUDIO;
+                }
             }
 
             // If random effect
