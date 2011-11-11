@@ -245,12 +245,16 @@ public class EffectsDOMWriter {
             case Effect.SPEAK_PLAYER:
                 SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
                 effectElement = doc.createElement( "speak-player" );
+                if (speakPlayerEffect.getAudioPath( )!=null && !speakPlayerEffect.getAudioPath( ).equals( "" ))
+                    effectElement.setAttribute( "uri", speakPlayerEffect.getAudioPath( ) );
                 effectElement.appendChild( doc.createTextNode( speakPlayerEffect.getLine( ) ) );
                 break;
             case Effect.SPEAK_CHAR:
                 SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
                 effectElement = doc.createElement( "speak-char" );
                 effectElement.setAttribute( "idTarget", speakCharEffect.getTargetId( ) );
+                if (speakCharEffect.getAudioPath( )!=null && !speakCharEffect.getAudioPath( ).equals( "" ))
+                    effectElement.setAttribute( "uri", speakCharEffect.getAudioPath( ) );
                 effectElement.appendChild( doc.createTextNode( speakCharEffect.getLine( ) ) );
                 break;
             case Effect.TRIGGER_BOOK:
