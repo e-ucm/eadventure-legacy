@@ -296,7 +296,11 @@ public class ActionManager {
         }
         
         if( exit == null && elementInside != null ) {
-            setElementOver( elementInside );
+            if (elementInside.getElement( ).getActionsCount( ) != 0
+                    || elementInside.getElement( ).getDescriptions( ).size() > 1
+                    || (elementInside.getElement( ).getDescription( 0 ).getDetailedDescription( ) != null
+                        && !elementInside.getElement( ).getDescription( 0 ).getDetailedDescription( ).equals( "" )))
+                setElementOver( elementInside );
         }
         else if( exit != null && actionSelected == ACTION_GOTO ) {
             boolean isCursorSet = getCursorPath( exit ) != null && !getCursorPath( exit ).equals( "" );
