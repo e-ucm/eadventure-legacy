@@ -314,9 +314,13 @@ public class ActionButtons {
      * @param functionalNPC
      */
     private void addDefaultCharacterButtons( FunctionalNPC functionalNPC ) {
-
-        buttons.add( eyeButton );
-        buttons.add( mouthButton );
+        if (functionalNPC.getFirstValidAction( Action.EXAMINE ) != null
+                || functionalNPC.getElement( ).getDescriptions( ).size() > 1
+                || (functionalNPC.getElement( ).getDescription( 0 ).getDetailedDescription( ) != null
+                    && !functionalNPC.getElement( ).getDescription( 0 ).getDetailedDescription( ).equals( "" )))
+             buttons.add( eyeButton );
+        if (functionalNPC.getFirstValidAction( Action.TALK_TO ) != null)
+            buttons.add( mouthButton );
         boolean use = functionalNPC.getFirstValidAction( Action.USE ) != null;
         if( use ) {
             handButton.setName( TC.get( "ActionButton.Use" ) );
@@ -328,8 +332,11 @@ public class ActionButtons {
      * Adds the default buttons for non-character elements
      */
     private void addDefaultObjectButtons( FunctionalItem item ) {
-
-        buttons.add( eyeButton );
+        if (item.getFirstValidAction( Action.EXAMINE ) != null
+                || item.getElement( ).getDescriptions( ).size() > 1
+                || (item.getElement( ).getDescription( 0 ).getDetailedDescription( ) != null
+                    && !item.getElement( ).getDescription( 0 ).getDetailedDescription( ).equals( "" )))
+            buttons.add( eyeButton );
 
         boolean addHandButton = false;
         
