@@ -59,6 +59,7 @@ import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.DragBehaviour;
 import es.eucm.eadventure.common.data.adventure.DescriptorData.Perspective;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
@@ -1992,6 +1993,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     
     public boolean isIsometric() {
         return gameDescriptor.getPerspective( ) == Perspective.ISOMETRIC;
+    }
+    
+    public boolean isIgnoreNonTargets() {
+        return gameDescriptor.getDragBehaviour( ) == DragBehaviour.IGNORE_NON_TARGETS;
     }
 
 }

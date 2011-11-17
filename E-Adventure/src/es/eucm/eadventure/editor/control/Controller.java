@@ -69,6 +69,7 @@ import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData.DefaultClickAction;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.DragBehaviour;
 import es.eucm.eadventure.common.data.adventure.DescriptorData.Perspective;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
@@ -3813,6 +3814,14 @@ public boolean isCharacterValid(String elementId){
     
     public void setPerspective( Perspective perspective ) {
         this.adventureDataControl.setPerspective( perspective );
+    }
+    
+    public DragBehaviour getDragBehaviour() {
+        return this.adventureDataControl.getDragBehaviour() ;
+    }
+    
+    public void setDragBehaviour( DragBehaviour dragBehaviour ) {
+        this.adventureDataControl.setDragBehaviour( dragBehaviour );
     }
     
     /**

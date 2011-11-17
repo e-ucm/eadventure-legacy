@@ -103,6 +103,10 @@ public class DescriptorData implements Cloneable, Described, Titled {
     public static enum Perspective {
         REGULAR, ISOMETRIC
     }
+    
+    public static enum DragBehaviour {
+        IGNORE_NON_TARGETS, CONSIDER_NON_TARGETS
+    }
 
     public static String getCursorTypeString( int index ) {
 
@@ -311,6 +315,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
 
     protected Perspective perspective;
     
+    protected DragBehaviour dragBehaviour;
+    
     /**
      * Constant for identify when a game is executed from engine
      */
@@ -330,6 +336,7 @@ public class DescriptorData implements Cloneable, Described, Titled {
         guiType = -1;
         defaultClickAction = DefaultClickAction.SHOW_DETAILS;
         perspective = Perspective.REGULAR;
+        dragBehaviour = DragBehaviour.CONSIDER_NON_TARGETS;
         playerMode = MODE_PLAYER_1STPERSON;
         graphicConfig = GRAPHICS_WINDOWED;
         projectName = ENGINE_EXECUTION;
@@ -783,4 +790,17 @@ public class DescriptorData implements Cloneable, Described, Titled {
         return perspective;
     }
 
+    
+    public DragBehaviour getDragBehaviour( ) {
+    
+        return dragBehaviour;
+    }
+
+    
+    public void setDragBehaviour( DragBehaviour dragBehaviour ) {
+    
+        this.dragBehaviour = dragBehaviour;
+    }
+
+    
 }

@@ -45,6 +45,7 @@ import es.eucm.eadventure.common.data.adventure.CustomButton;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData.DefaultClickAction;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.DragBehaviour;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSDataControl;
@@ -558,6 +559,14 @@ public class AdventureDataControl {
     
     public void setPerspective( DescriptorData.Perspective perspective ) {
         adventureData.setPerspective(  perspective );
+    }
+    
+    public void setDragBehaviour( DescriptorData.DragBehaviour dragBehaviour ) {
+        adventureData.setDragBehaviour( dragBehaviour );
+    }
+
+    public DragBehaviour getDragBehaviour( ) {
+        return adventureData.getDragBehaviour( );
     }
 
 }

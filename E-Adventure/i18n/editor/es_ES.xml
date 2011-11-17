@@ -1077,6 +1077,9 @@ Dicha operación no se completó.</entry>
 <entry key="GUIStyles.TraditionalDescription">Este tipo de interfaz presenta un gran parecido con las primeras aventuras gráficas de LucasArts. El usuario dispone de una serie de botones para efectuar acciones y un inventario en la parte inferior de la pantalla</entry>
 <entry key="ItemReferencesList.Title">Referencias a elementos</entry>
 <entry key="Perspective.Explanation">Perspectiva aplicada el movimiento de personajes y jugador</entry>
+<entry key="DragBehaviour.Explanation">Comportamiento de los elementos como zona objetivo durante el arrastrado</entry>
+<entry key="DragBehaviour.IgnoreNonTrargets">Ignorar elementos no objetivo de accion</entry>
+<entry key="DragBehaviour.ConsiderNonTargets">Considerar todos los elementos</entry>
 <entry key="AssessmentRule.Effect.AddValueProperty">Añadir propiedad value</entry>
 <entry key="Search.EMail">e-mail</entry>
 <entry key="LOMES.Classification.TaxonId">Identificador</entry>

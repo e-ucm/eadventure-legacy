@@ -46,6 +46,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.DragBehaviour;
 import es.eucm.eadventure.common.data.adventure.DescriptorData.Perspective;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 
@@ -141,6 +142,12 @@ public class DescriptorHandler extends DefaultHandler {
                         gameDescriptor.setPerspective( Perspective.REGULAR );
                     if (attrs.getValue( i ).equals( "isometric" ))
                         gameDescriptor.setPerspective( Perspective.ISOMETRIC );
+                }
+                if (attrs.getQName( i ).equals("dragBehaviour")) {
+                    if (attrs.getValue( i ).equals( "considerNonTargets" ))
+                        gameDescriptor.setDragBehaviour( DragBehaviour.CONSIDER_NON_TARGETS );
+                    if (attrs.getValue( i ).equals( "ignoreNonTargets" ))
+                        gameDescriptor.setDragBehaviour( DragBehaviour.IGNORE_NON_TARGETS );
                 }
             }
         }
