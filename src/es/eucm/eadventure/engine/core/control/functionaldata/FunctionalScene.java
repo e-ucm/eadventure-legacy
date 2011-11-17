@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
@@ -719,20 +720,19 @@ public class FunctionalScene implements Renderable {
         if( isInsideOffsetArrow( x, y ) )
             return null;
 
-           
            List<FunctionalElement> er = GUI.getInstance( ).getElementsToInteract( ); 
            int i=er.size( )-1; 
            while( i>=0 && element == null ) {
             FunctionalElement currentElement = er.get( i );
             i--;
-            if( currentElement != exclude && currentElement.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
+            if( !isExclude(currentElement, exclude) && currentElement.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
                 element = currentElement;
         }
 
         Iterator<FunctionalActiveArea> ita = areas.iterator( );
         while( ita.hasNext( ) && element == null ) {
             FunctionalActiveArea currentActiveArea = ita.next( );
-            if( currentActiveArea != exclude && currentActiveArea.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
+            if( !isExclude(currentActiveArea, exclude) && currentActiveArea.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
                 element = currentActiveArea;
         }
 
@@ -745,7 +745,25 @@ public class FunctionalScene implements Renderable {
         
         return element;
     }
-
+    
+    public boolean isExclude(FunctionalElement element, FunctionalElement exclude ) {
+        if (exclude == null)
+            return false;
+        if (element == exclude)
+            return true;
+        if (Game.getInstance( ).isIgnoreNonTargets( )) {
+            for (Action a : exclude.getElement( ).getActions( )) {
+                if ((a.getType( ) == Action.DRAG_TO
+                        || a.getType( ) == Action.CUSTOM_INTERACT
+                        || a.getType( ) == Action.USE_WITH) &&
+                    a.getTargetId( ).equals( element.getElement( ).getId( ) ) )
+                    return false;
+            }
+            return true;
+        } else
+            return false;
+    }
+    
     public boolean isInsideOffsetArrow( int x, int y ) {
 
         moveOffsetRight = false;

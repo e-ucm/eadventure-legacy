@@ -46,9 +46,6 @@ import es.eucm.eadventure.engine.core.data.GameText;
 
 /**
  * A custom action defined by the user that needs to objects to be performed.
- * 
- * @author Eugenio Marchiori
- * 
  */
 public class FunctionalDragTo extends FunctionalAction {
 

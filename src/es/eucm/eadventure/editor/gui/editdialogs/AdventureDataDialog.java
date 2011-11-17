@@ -283,6 +283,36 @@ public class AdventureDataDialog extends ToolManagableDialog {
         c.gridy++;
         guiStylesPanel.add( panel2, c);
 
+        
+        panel2 = new JPanel();
+        panel2.setLayout( new GridLayout(0,1) );
+        panel2.add( new JLabel( TC.get( "DragBehaviour.Explanation" )) );
+        String[] values3 = { TC.get( "DragBehaviour.IgnoreNonTrargets" ),
+                TC.get( "DragBehaviour.ConsiderNonTargets" )};
+        final JComboBox comboBox3 = new JComboBox(values3);
+        switch (controller.getDragBehaviour( )) {
+            case IGNORE_NON_TARGETS:
+                comboBox3.setSelectedIndex( 0 );
+                break;
+            case CONSIDER_NON_TARGETS:
+                comboBox3.setSelectedIndex( 1 );
+                break;
+        }
+        comboBox3.addActionListener( new ActionListener() {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+                controller.setDragBehaviour((comboBox3.getSelectedIndex( ) == 0 ?
+                        DescriptorData.DragBehaviour.IGNORE_NON_TARGETS :
+                            DescriptorData.DragBehaviour.CONSIDER_NON_TARGETS));
+            }
+            
+        });
+        panel2.add( comboBox3 );
+        
+        c.gridy++;
+        guiStylesPanel.add( panel2, c);
+
+        
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
         JButton btnExit = new JButton( TC.get( "GeneralText.Close" ) );

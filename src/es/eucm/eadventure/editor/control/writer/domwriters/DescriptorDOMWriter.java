@@ -127,6 +127,15 @@ public class DescriptorDOMWriter {
                     break;
             }
 
+            switch (adventureData.getDragBehaviour( )) {
+                case IGNORE_NON_TARGETS:
+                    ((Element)configurationNode).setAttribute( "dragBehaviour", "ignoreNonTargets" );
+                    break;
+                case CONSIDER_NON_TARGETS:
+                    ((Element)configurationNode).setAttribute( "dragBehaviour", "considerNonTargets" );
+                    break;
+            }
+
             //GUI Element
             Element guiElement = doc.createElement( "gui" );
             if( adventureData.getGUIType( ) == DescriptorData.GUI_TRADITIONAL )

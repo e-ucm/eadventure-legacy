@@ -54,6 +54,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.DragBehaviour;
+import es.eucm.eadventure.common.data.adventure.DescriptorData.Perspective;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.gui.TC;
@@ -273,6 +275,18 @@ public class AdventureHandler extends DefaultHandler {
                         adventureData.setDeafultClickAction(DescriptorData.DefaultClickAction.SHOW_DETAILS);
                     if (attrs.getValue( i ).equals( "showActions" ))
                         adventureData.setDeafultClickAction(DescriptorData.DefaultClickAction.SHOW_ACTIONS);
+                }
+                if ( attrs.getQName( i ).equals( "perspective" )) {
+                    if (attrs.getValue( i ).equals( "regular" ))
+                        adventureData.setPerspective( Perspective.REGULAR );
+                    if (attrs.getValue( i ).equals( "isometric" ))
+                        adventureData.setPerspective( Perspective.ISOMETRIC );
+                }
+                if (attrs.getQName( i ).equals("dragBehaviour")) {
+                    if (attrs.getValue( i ).equals( "considerNonTargets" ))
+                        adventureData.setDragBehaviour( DragBehaviour.CONSIDER_NON_TARGETS );
+                    if (attrs.getValue( i ).equals( "ignoreNonTargets" ))
+                        adventureData.setDragBehaviour( DragBehaviour.IGNORE_NON_TARGETS );
                 }
 
 	            }

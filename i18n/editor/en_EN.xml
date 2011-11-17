@@ -2023,4 +2023,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="DescriptionList.Descriptions">Descriptions</entry>
 <entry key="DescriptionSet.deleteOnlyOneDescription.title">Deleting description</entry>
 <entry key="DescriptionSet.deleteOnlyOneDescription.message">Are you sure to delete the selected description? The conditions in the other description will be deleted</entry>
+<entry key="DragBehaviour.Explanation">Behaviour of elements as targets during drag&drop actions</entry>
+<entry key="DragBehaviour.IgnoreNonTrargets">Ignore elements that are not target of actions</entry>
+<entry key="DragBehaviour.ConsiderNonTargets">Consider all elements as targets</entry>
 </properties>
