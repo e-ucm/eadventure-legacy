@@ -192,13 +192,6 @@ public class FunctionalScene implements Renderable {
         barriers = new ArrayList<FunctionalBarrier>( );
         trajectory = new FunctionalTrajectory( scene.getTrajectory( ), barriers );
         
-        restartElementReferencesPositions();
-       
-
-        // Pick the item summary
-        Chapter gameData = Game.getInstance( ).getCurrentChapterData( );
-        ItemSummary itemSummary = Game.getInstance( ).getItemSummary( );
-
         // Select the resources
         resources = createResourcesBlock( );
 
@@ -235,23 +228,9 @@ public class FunctionalScene implements Renderable {
         if( backgroundMusicId == -1 )
             playBackgroundMusic( );
 
-        // Add the functional items
-        for( ElementReference itemReference : scene.getItemReferences( ) )
-            if( new FunctionalConditions( itemReference.getConditions( ) ).allConditionsOk( ) )
-                if( itemSummary.isItemNormal( itemReference.getTargetId( ) ) )
-                    for( Item currentItem : gameData.getItems( ) )
-                        if( itemReference.getTargetId( ).equals( currentItem.getId( ) ) ) {
-                            FunctionalItem fitem = new FunctionalItem( currentItem, itemReference );
-                            items.add( fitem );
-                        }
-        // Add the functional characters
-        for( ElementReference npcReference : scene.getCharacterReferences( ) )
-            if( new FunctionalConditions( npcReference.getConditions( ) ).allConditionsOk( ) )
-                for( NPC currentNPC : gameData.getCharacters( ) )
-                    if( npcReference.getTargetId( ).equals( currentNPC.getId( ) ) ) {
-                        FunctionalNPC fnpc = new FunctionalNPC( currentNPC, npcReference );
-                        npcs.add( fnpc );
-                    }
+        // The addition of every element with images (items, npc and atrezzo) is made now in next method
+        restartElementReferencesPositions();
+        
         // Add the functional active areas
         for( ActiveArea activeArea : scene.getActiveAreas( ) )
             if( new FunctionalConditions( activeArea.getConditions( ) ).allConditionsOk( ) )
@@ -262,15 +241,16 @@ public class FunctionalScene implements Renderable {
             if( new FunctionalConditions( barrier.getConditions( ) ).allConditionsOk( ) )
                 this.barriers.add( new FunctionalBarrier( barrier ) );
 
+        
         // Add the functional atrezzo items
         for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) )
             if( new FunctionalConditions( atrezzoReference.getConditions( ) ).allConditionsOk( ) )
-                for( Atrezzo currentAtrezzo : gameData.getAtrezzo( ) )
+                for( Atrezzo currentAtrezzo : Game.getInstance( ).getCurrentChapterData( ).getAtrezzo( ) )
                     if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getId( ) ) ) {
                         FunctionalAtrezzo fatrezzo = new FunctionalAtrezzo( currentAtrezzo, atrezzoReference );
                         atrezzo.add( fatrezzo );
                     }
-
+        
         updateOffset( );
     }
 
@@ -330,7 +310,7 @@ public class FunctionalScene implements Renderable {
             else {
                 FunctionalItem remove = null;
                 for( FunctionalItem currentItem : items ) {
-                    if( currentItem.getItem( ).getId( ).equals( itemReference.getTargetId( ) ) )
+                    if( currentItem.getReference( ) == itemReference )
                         remove = currentItem;
                 }
                 if( remove != null ){
@@ -368,7 +348,7 @@ public class FunctionalScene implements Renderable {
             else {
                 FunctionalNPC remove = null;
                 for( FunctionalNPC currentNPC : npcs ) {
-                    if( currentNPC.getElement( ).getId( ).equals( npcReference.getTargetId( ) ))
+                    if( currentNPC.getReference( ) == npcReference)
                         remove = currentNPC;
                 }
                 if( remove != null )
@@ -416,7 +396,7 @@ public class FunctionalScene implements Renderable {
 
                 // If the functional atrezzo item is present, update its resources
                 for( FunctionalAtrezzo currentAtrezzo : atrezzo ) {
-                    if( atrezzoReference == currentAtrezzo.getReference( ) ) {
+                    if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getElement( ).getId( ) ) ) {
                         currentAtrezzo.updateResources( );
                         found = true;
                     }
@@ -516,22 +496,46 @@ public class FunctionalScene implements Renderable {
     }
     
     /**
-     * Reset the original positions of the element references
+     * Reset the original positions of the element references that can be moved 
      */
     public void restartElementReferencesPositions(){
+        
+     // Pick the item summary
+        Chapter gameData = Game.getInstance( ).getCurrentChapterData( );
+        ItemSummary itemSummary = Game.getInstance( ).getItemSummary( );
         
         itemReferences = new ArrayList<ElementReference>();
         NPCReferences = new ArrayList<ElementReference>();
         items = new ArrayList<FunctionalItem>();
         npcs = new ArrayList<FunctionalNPC>();
+        
+        
         try {
         for (ElementReference element: scene.getItemReferences( ))
           itemReferences.add( (ElementReference)element.clone() );
             
         for (ElementReference element: scene.getCharacterReferences( ))
             NPCReferences.add( (ElementReference)element.clone() );
-        }
-        catch( CloneNotSupportedException e ) {
+        
+     // Add the functional items
+        for( ElementReference itemReference : scene.getItemReferences( ) )
+            if( new FunctionalConditions( itemReference.getConditions( ) ).allConditionsOk( ) )
+                if( itemSummary.isItemNormal( itemReference.getTargetId( ) ) )
+                    for( Item currentItem : gameData.getItems( ) )
+                        if( itemReference.getTargetId( ).equals( currentItem.getId( ) ) ) {
+                            FunctionalItem fitem = new FunctionalItem( currentItem, itemReference );
+                            items.add( fitem );
+                        }
+        // Add the functional characters
+        for( ElementReference npcReference : scene.getCharacterReferences( ) )
+            if( new FunctionalConditions( npcReference.getConditions( ) ).allConditionsOk( ) )
+                for( NPC currentNPC : gameData.getCharacters( ) )
+                    if( npcReference.getTargetId( ).equals( currentNPC.getId( ) ) ) {
+                        FunctionalNPC fnpc = new FunctionalNPC( currentNPC, npcReference );
+                        npcs.add( fnpc );
+                    }
+        
+    }catch( CloneNotSupportedException e ) {
             
         }
     }
