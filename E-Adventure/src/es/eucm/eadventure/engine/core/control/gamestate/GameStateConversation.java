@@ -622,7 +622,7 @@ public class GameStateConversation extends GameState {
     @Override
     public synchronized void mouseClicked( MouseEvent e ) {
 
-        if( currentNode.getType( ) == ConversationNodeView.OPTION ) {
+        if( currentNode.getType( ) == ConversationNodeView.OPTION && !isOptionSelected ) {
             
          // get the Y position value for the current options conversation node
             int yValue =  ((OptionConversationNode)currentNode).getY( );
