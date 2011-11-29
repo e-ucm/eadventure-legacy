@@ -511,29 +511,30 @@ public class FunctionalScene implements Renderable {
         
         
         try {
-        for (ElementReference element: scene.getItemReferences( ))
-          itemReferences.add( (ElementReference)element.clone() );
-            
-        for (ElementReference element: scene.getCharacterReferences( ))
-            NPCReferences.add( (ElementReference)element.clone() );
-        
+                
      // Add the functional items
-        for( ElementReference itemReference : scene.getItemReferences( ) )
+        for( ElementReference itemReference : scene.getItemReferences( ) ){
+           ElementReference clonedItem = (ElementReference)itemReference.clone();
+           itemReferences.add(clonedItem);
             if( new FunctionalConditions( itemReference.getConditions( ) ).allConditionsOk( ) )
                 if( itemSummary.isItemNormal( itemReference.getTargetId( ) ) )
                     for( Item currentItem : gameData.getItems( ) )
                         if( itemReference.getTargetId( ).equals( currentItem.getId( ) ) ) {
-                            FunctionalItem fitem = new FunctionalItem( currentItem, itemReference );
+                            FunctionalItem fitem = new FunctionalItem( currentItem, clonedItem );
                             items.add( fitem );
                         }
+        }
         // Add the functional characters
-        for( ElementReference npcReference : scene.getCharacterReferences( ) )
+        for( ElementReference npcReference : scene.getCharacterReferences( ) ){
+            ElementReference clonedNPC = (ElementReference)npcReference.clone();
+            NPCReferences.add( clonedNPC );
             if( new FunctionalConditions( npcReference.getConditions( ) ).allConditionsOk( ) )
                 for( NPC currentNPC : gameData.getCharacters( ) )
                     if( npcReference.getTargetId( ).equals( currentNPC.getId( ) ) ) {
-                        FunctionalNPC fnpc = new FunctionalNPC( currentNPC, npcReference );
+                        FunctionalNPC fnpc = new FunctionalNPC( currentNPC, clonedNPC );
                         npcs.add( fnpc );
                     }
+        }
         
     }catch( CloneNotSupportedException e ) {
             
