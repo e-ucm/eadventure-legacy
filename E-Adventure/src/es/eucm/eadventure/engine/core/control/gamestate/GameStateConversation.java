@@ -351,6 +351,7 @@ public class GameStateConversation extends GameState {
             // (this will be done each time the loop enter in option node whereas entered previously or not )
             ( (OptionConversationNode) currentNode ).doRandom( );
             firstTime = false;
+            firstLineDisplayed = 0;
             // reset the timeShowingOptions and the number of chars to skip
             timeShowingOptions=0;
             msContinueSitfting=0;
@@ -608,11 +609,11 @@ public class GameStateConversation extends GameState {
         if( !keyPressed )
             optionSelected += firstLineDisplayed;
 
-        int indexLastLine = Math.min( firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, currentNode.getLineCount( ) );
+        int indexLastLine = Math.min( firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, optionsToShow.size( ));
 
         if( optionSelected == indexLastLine ) {
             firstLineDisplayed += RESPONSE_TEXT_NUMBER_LINES - 1;
-            if( firstLineDisplayed >= currentNode.getLineCount( ) )
+            if( firstLineDisplayed >= optionsToShow.size( ) )
                 firstLineDisplayed = 0;
         }
         else
@@ -628,7 +629,7 @@ public class GameStateConversation extends GameState {
             int yValue =  ((OptionConversationNode)currentNode).getY( );
             
             if (yValue <= e.getY( ) && 
-                    yValue + currentNode.getLineCount( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) 
+                    yValue + optionsToShow.size( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) 
                     && !isOptionSelected){
             
             if( MultimediaManager.getInstance( ).isPlaying( audioId ) )
