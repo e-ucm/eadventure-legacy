@@ -166,18 +166,22 @@ public class GameStateRunEffects extends GameState {
             // by ( mouseClickedButton == MouseEvent.BUTTON1
             //      || mouseClickedButton == MouseEvent.BUTTON3 )
             // Therefore you can skip effects with left button
+            boolean isRandomEffect = currentExecutingEffect instanceof FunctionalRandomEffect;
             if ( (mouseClickedButton == MouseEvent.BUTTON1 || mouseClickedButton == MouseEvent.BUTTON3) && currentExecutingEffect.canSkip())  {
                 System.out.println( "!!!!! SKIPPING :"+currentExecutingEffect.getClass( ).getName( ) );
-                currentExecutingEffect.skip();
+                if (isRandomEffect)
+                    currentExecutingEffect.getTriggerEffect( ).skip();
+                else
+                    currentExecutingEffect.skip();
                 
             }
-            if (currentExecutingEffect instanceof FunctionalRandomEffect){
+            if (isRandomEffect){
                 if (currentExecutingEffect.getTriggerEffect( ) instanceof FunctionalPlayAnimationEffect){
                     
                     ( (FunctionalPlayAnimationEffect) currentExecutingEffect.getTriggerEffect( ) ).draw( g);
                     ( (FunctionalPlayAnimationEffect) currentExecutingEffect.getTriggerEffect( ) ).update( elapsedTime );
                     }
-                }
+               }
             if( currentExecutingEffect instanceof FunctionalPlayAnimationEffect ) {
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).draw( g );
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).update( elapsedTime );

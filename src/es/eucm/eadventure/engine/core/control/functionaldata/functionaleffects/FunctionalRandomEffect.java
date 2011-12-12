@@ -119,6 +119,11 @@ public class FunctionalRandomEffect extends FunctionalEffect {
         
       return  effectTriggered;
     }
+    
+    @Override
+    public boolean canSkip( ) {
+        return effectTriggered.canSkip( );
+    } 
 
     
 
