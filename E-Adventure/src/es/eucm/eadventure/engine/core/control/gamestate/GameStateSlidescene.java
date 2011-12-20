@@ -172,6 +172,7 @@ public class GameStateSlidescene extends GameState {
 
     private void finishedSlides( ) {
 
+        finish = true;
         // If it is a endscene, go to the next chapter
         if( !yetSkipped && slidescene.getNext( ) == Cutscene.ENDCHAPTER ) {
             
