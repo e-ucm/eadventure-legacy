@@ -497,7 +497,7 @@ public class EffectSubParser extends SubParser {
         }
         
         
-        else if( qName.equals( "speak-player" ) || qName.equals( "speak-character" )) {
+        else if( qName.equals( "speak-player" ) || qName.equals( "speak-char" )) {
             audioPath = "";
 
             for( int i = 0; i < attrs.getLength( ); i++ ) {
