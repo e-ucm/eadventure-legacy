@@ -283,12 +283,18 @@ public class EffectSubParser extends SubParser {
         // If it is a speak-char tag
         else if( qName.equals( "speak-char" ) ) {
 
+            audioPath = "";
             // Store the idTarget, to store the effect when the tag is closed
             currentCharIdTarget = null;
 
-            for( int i = 0; i < attrs.getLength( ); i++ )
+            for( int i = 0; i < attrs.getLength( ); i++ ){
                 if( attrs.getQName( i ).equals( "idTarget" ) )
                     currentCharIdTarget = attrs.getValue( i );
+                // If there is a "uri" attribute, store it as audio path
+                if( attrs.getQName( i ).equals( "uri" ) )
+                    audioPath = attrs.getValue( i );
+            }
+            
         }
 
         // If it is a trigger-book tag
@@ -497,7 +503,7 @@ public class EffectSubParser extends SubParser {
         }
         
         
-        else if( qName.equals( "speak-player" ) || qName.equals( "speak-char" )) {
+        else if( qName.equals( "speak-player" )) {
             audioPath = "";
 
             for( int i = 0; i < attrs.getLength( ); i++ ) {
