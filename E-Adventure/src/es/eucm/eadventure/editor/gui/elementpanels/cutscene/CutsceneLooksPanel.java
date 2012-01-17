@@ -39,12 +39,20 @@ package es.eucm.eadventure.editor.gui.elementpanels.cutscene;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
@@ -57,6 +65,10 @@ public class CutsceneLooksPanel extends LooksPanel implements Updateable {
     private static final long serialVersionUID = 1L;
 
     private ImagePanel imagePanel;
+    
+    private JCheckBox canSkip;
+    
+    
 
     /**
      * Constructor.
@@ -71,7 +83,6 @@ public class CutsceneLooksPanel extends LooksPanel implements Updateable {
 
     @Override
     protected void createPreview( ) {
-
         String imagePath = ( (CutsceneDataControl) dataControl ).getPreviewImage( );
         if( imagePath == null )
             imagePath = "";
@@ -82,11 +93,39 @@ public class CutsceneLooksPanel extends LooksPanel implements Updateable {
         previewPanel.add( imagePanel, BorderLayout.CENTER );
         lookPanel.add( previewPanel, cLook );
         lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
+        
+        if (((CutsceneDataControl) dataControl).isVideoscene( )){
+            canSkip = new JCheckBox ();
+            canSkip.setSelected( ((CutsceneDataControl) dataControl).getCanSkip() );
+            canSkip.addActionListener( new ActionListener( ) {
+                public void actionPerformed( ActionEvent e ) {
+                    Controller.getInstance( ).addTool( new ChangeBooleanValueTool( CutsceneLooksPanel.this.dataControl, ( (JCheckBox) e.getSource( ) ).isSelected( ),"getCanSkip"  , "setCanSkip") );
+                }
+            } );
+            
+            JLabel label = new JLabel(TC.get( "Videoscene.Skip.label" ));
+            
+            JPanel skipPanel = new JPanel(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.weightx = 0;
+            gbc.weighty = 1;
+            skipPanel.add( canSkip, gbc );
+            gbc.gridx = 1;
+            skipPanel.add( label, gbc );
+            skipPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Videoscene.Skip.border" ) ) );
+            add( skipPanel, cPanel );
+            
+        }
+        
+        
     }
 
     @Override
     public void updatePreview( ) {
 
+        if (((CutsceneDataControl) dataControl).isVideoscene( ))
+            canSkip.setSelected( ((CutsceneDataControl) dataControl).getCanSkip() );
+        
         String imagePath = ( (CutsceneDataControl) dataControl ).getPreviewImage( );
         if( imagePath == null )
             imagePath = "";

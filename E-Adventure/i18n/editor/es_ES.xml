@@ -2029,4 +2029,6 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="DescriptionList.Descriptions">Descripciones</entry>
 <entry key="DescriptionSet.deleteOnlyOneDescription.title">Borrando descripción</entry>
 <entry key="DescriptionSet.deleteOnlyOneDescription.message">¿Está seguro que desea borrar la descripción? Las condiciones de la descripción que quedará activo para este elemento serán borradas.</entry>
+<entry key="Videoscene.Skip.label">El usuario puede pasar el vídeo con un click de ratón</entry>
+<entry key="Videoscene.Skip.border">Saltar el video</entry>
 </properties>

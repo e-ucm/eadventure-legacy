@@ -45,6 +45,11 @@ public class Videoscene extends Cutscene {
      * The tag for the video
      */
     public static final String RESOURCE_TYPE_VIDEO = "video";
+    
+    /**
+     * Set if the video can be skipped 
+     */
+    public boolean canSkip = false;
 
     /**
      * Creates a new Videoscene
@@ -57,10 +62,24 @@ public class Videoscene extends Cutscene {
         super( GeneralScene.VIDEOSCENE, id );
     }
 
+    public boolean isCanSkip( ) {
+        
+        return canSkip;
+    }
+
+    
+    public void setCanSkip( boolean canSkip ) {
+    
+        this.canSkip = canSkip;
+    }
+
+    
+    
     @Override
     public Object clone( ) throws CloneNotSupportedException {
 
         Videoscene v = (Videoscene) super.clone( );
+        v.canSkip = canSkip;
         return v;
     }
 }

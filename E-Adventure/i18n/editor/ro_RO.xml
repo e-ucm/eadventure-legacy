@@ -1901,4 +1901,6 @@
 <entry key="DescriptionList.Descriptions">Descrieri</entry>
 <entry key="DescriptionSet.deleteOnlyOneDescription.title">ştergerea descriere</entry>
 <entry key="DescriptionSet.deleteOnlyOneDescription.message">Sigur doriţi să ştergeţi descrierea selectate? Condiţiile în descrierea celelalte vor fi şterse</entry>
+<entry key="Videoscene.Skip.label">Utilizatorii pot trece peste video cu un clic de mouse</entry>
+<entry key="Videoscene.Skip.border">Video sărind peste</entry>
 </properties>

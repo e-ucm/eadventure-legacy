@@ -1875,4 +1875,6 @@
 <entry key="DescriptionList.Descriptions">Descrições</entry>
 <entry key="DescriptionSet.deleteOnlyOneDescription.title">exclusão de descrição</entry>
 <entry key="DescriptionSet.deleteOnlyOneDescription.message">Tem certeza que deseja apagar a descrição selecionada? As condições na descrição do outro será excluído</entry>
+<entry key="Videoscene.Skip.label">Os usuários podem pular o vídeo com um clique do mouse</entry>
+<entry key="Videoscene.Skip.border">Vídeo pular</entry>
 </properties>

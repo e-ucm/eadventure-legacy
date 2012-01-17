@@ -2026,5 +2026,6 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="DragBehaviour.Explanation">Behaviour of elements as targets during drag&amp;drop actions</entry>
 <entry key="DragBehaviour.IgnoreNonTrargets">Ignore elements that are not target of actions</entry>
 <entry key="DragBehaviour.ConsiderNonTargets">Consider all elements as targets</entry>
-
+<entry key="Videoscene.Skip.label">Users can skip the video with a mouse click</entry>
+<entry key="Videoscene.Skip.border">Video skipping</entry>
 </properties>
