@@ -75,6 +75,11 @@ public abstract class LooksPanel extends JPanel implements Updateable {
     protected JPanel lookPanel;
 
     protected GridBagConstraints cLook;
+    
+    /**
+     * GridBagConstraints for the whole panel
+     */
+    protected GridBagConstraints cPanel;
 
     /**
      * Combo box for the selected resources block.
@@ -200,7 +205,7 @@ public abstract class LooksPanel extends JPanel implements Updateable {
         cLook.weighty = 1;
         cLook.weightx = 1;
         cLook.gridwidth = 2;
-        createPreview( );
+        
 
         JSplitPane tableWithSplit = new JSplitPane( JSplitPane.VERTICAL_SPLIT, blockControls, lookPanel );
         tableWithSplit.setOneTouchExpandable( true );
@@ -212,9 +217,21 @@ public abstract class LooksPanel extends JPanel implements Updateable {
         if( resourcesTable.getRowCount( ) == 1 )
             tableWithSplit.setDividerLocation( 0 );
 
-        setLayout( new BorderLayout( ) );
-        add( tableWithSplit, BorderLayout.CENTER );
+        cPanel = new GridBagConstraints();
+        cPanel.fill = GridBagConstraints.BOTH;
+        cPanel.weighty = 1;
+        cPanel.weightx = 1;
+        cPanel.gridy=0;
+        
+        //cPanel.anchor = GridBagConstraints.LINE_START;
+        setLayout( new GridBagLayout( ) );
+        add( tableWithSplit, cPanel );
+        cPanel.gridy++;
 
+           // now, createPreview is done after adding the preview panel allowing to add new components down in the panel
+        createPreview( );
+        
+        
         resourcesTable.setSelectedIndex( dataControl.getSelectedResources( ) );
     }
 

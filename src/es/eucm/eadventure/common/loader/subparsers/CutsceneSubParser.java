@@ -158,6 +158,7 @@ public class CutsceneSubParser extends SubParser {
                 int x = Integer.MIN_VALUE, y = Integer.MIN_VALUE;
                 int transitionType = 0, transitionTime = 0;
                 String next = "go-back";
+                boolean canSkip = true;
 
                 for( int i = 0; i < attrs.getLength( ); i++ ) {
                     if( attrs.getQName( i ).equals( "id" ) )
@@ -176,6 +177,8 @@ public class CutsceneSubParser extends SubParser {
                         transitionTime = Integer.parseInt( attrs.getValue( i ) );
                     if( attrs.getQName( i ).equals( "next" ) )
                         next = attrs.getValue( i );
+                    if (attrs.getQName( i ).equals( "canSkip" ))
+                        canSkip = attrs.getValue( i ).equals( "yes" );
                 }
 
                 if( qName.equals( "slidescene" ) )
@@ -184,11 +187,15 @@ public class CutsceneSubParser extends SubParser {
                     cutscene = new Videoscene( slidesceneId );
                 if( initialScene )
                     chapter.setTargetId( slidesceneId );
+                
                 cutscene.setTargetId( idTarget );
                 cutscene.setPositionX( x );
                 cutscene.setPositionY( y );
                 cutscene.setTransitionType( transitionType );
                 cutscene.setTransitionTime( transitionTime );
+                if (cutscene instanceof Videoscene)
+                    ((Videoscene)cutscene).setCanSkip( canSkip );
+                    
                 if( next.equals( "go-back" ) ) {
                     cutscene.setNext( Cutscene.GOBACK );
                 }

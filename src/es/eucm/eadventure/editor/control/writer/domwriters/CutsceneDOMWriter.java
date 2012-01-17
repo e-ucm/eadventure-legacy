@@ -48,6 +48,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
+import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 
 public class CutsceneDOMWriter {
 
@@ -71,8 +72,13 @@ public class CutsceneDOMWriter {
             // Create the root node
             if( cutscene.getType( ) == GeneralScene.SLIDESCENE )
                 cutsceneElement = doc.createElement( "slidescene" );
-            else if( cutscene.getType( ) == GeneralScene.VIDEOSCENE )
+            else if( cutscene.getType( ) == GeneralScene.VIDEOSCENE ){
                 cutsceneElement = doc.createElement( "videoscene" );
+                if (((Videoscene)cutscene).isCanSkip( ))
+                    cutsceneElement.setAttribute( "canSkip", "yes" );
+                else
+                    cutsceneElement.setAttribute( "canSkip", "no" );
+            }
 
             // Set the attributes
             cutsceneElement.setAttribute( "id", cutscene.getId( ) );

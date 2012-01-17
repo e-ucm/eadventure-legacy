@@ -43,6 +43,7 @@ import es.eucm.eadventure.common.auxiliar.AssetsImageDimensions;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
+import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
@@ -543,6 +544,28 @@ public class CutsceneDataControl extends DataControlWithResources {
     public EffectsController getEffects( ) {
 
         return new EffectsController( cutscene.getEffects( ) );
+    }
+    
+    public boolean isVideoscene(){
+        return (cutscene instanceof Videoscene); 
+    } 
+    
+    /**
+     * Identify if the videoscene can be skiped. IMPORTANT!! this method only will check if can be skipped if the cutscene is a video scene, if not, 
+     * it always return false
+     * 
+     * @return
+     */
+    public Boolean getCanSkip(){
+        if (isVideoscene())
+            return ((Videoscene)cutscene).isCanSkip( );
+        else
+            return false;
+    }
+    
+    public void setCanSkip(Boolean canSkip){
+        if (isVideoscene())
+            ((Videoscene)cutscene).setCanSkip( canSkip );
     }
 
 }
