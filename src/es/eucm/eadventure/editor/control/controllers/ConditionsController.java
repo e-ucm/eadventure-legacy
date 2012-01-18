@@ -108,7 +108,7 @@ public class ConditionsController {
     /**
      * String values for the states of a condition
      */
-    public static final String[] STATE_VALUES = { "Active", "Inactive", ">", ">=", "<", "<=", "=" };
+    public static final String[] STATE_VALUES = { "Active", "Inactive", ">", ">=", "<", "<=", "=", "!=" };
 
     /**
      * String values for the states of a flag condition
@@ -118,7 +118,7 @@ public class ConditionsController {
     /**
      * String values for the states of a varcondition
      */
-    public static final String[] STATE_VALUES_VARS = { ">", ">=", "<", "<=", "=" };
+    public static final String[] STATE_VALUES_VARS = { ">", ">=", "<", "<=", "=", "!=" };
 
     /**
      * Returns the int value of the string state given.
@@ -151,6 +151,10 @@ public class ConditionsController {
 
         else if( stringState.equals( STATE_VALUES[6] ) )
             state = VarCondition.VAR_EQUALS;
+        
+        else if( stringState.equals( STATE_VALUES[7] ) )
+            state = VarCondition.VAR_NOT_EQUALS;
+
         return state;
     }
 
@@ -738,6 +742,8 @@ public class ConditionsController {
                 return STATE_VALUES[5];
             case VarCondition.VAR_EQUALS:
                 return STATE_VALUES[6];
+            case VarCondition.VAR_NOT_EQUALS:
+                return STATE_VALUES[7];                
             default:
                 return STATE_VALUES[2];
         }

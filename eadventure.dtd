@@ -414,7 +414,7 @@
 <!ELEMENT end-conversation (effect?)>
 <!ENTITY % basic-condition "(active|inactive| 
 							greater-than| greater-equals-than | equals| less-equals-than | less-than |
-							global-state-ref )?">
+							global-state-ref | not-equals )?">
 <!ENTITY % general-condition "(%basic-condition; | either)+">
 <!ELEMENT condition %general-condition;>
 <!ELEMENT init-condition %general-condition;>
@@ -443,6 +443,13 @@
 	var NMTOKEN #REQUIRED
 	value NMTOKEN #REQUIRED
 >
+
+<!ELEMENT not-equals EMPTY>
+<!ATTLIST not-equals
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+
 <!ELEMENT less-than EMPTY>
 <!ATTLIST less-than
 	var NMTOKEN #REQUIRED
