@@ -151,6 +151,11 @@ public class AtomicConditionPanel extends EditablePanel {
             if( state.equals( Integer.toString( VarCondition.VAR_EQUALS ) ) ) {
                 return new JLabel( "=" );
             }
+
+            else if( state.equals( Integer.toString( VarCondition.VAR_NOT_EQUALS ) ) ) {
+                return new JLabel( "!=" );
+            }
+
             else if( state.equals( Integer.toString( VarCondition.VAR_GREATER_EQUALS_THAN ) ) ) {
                 return new JLabel( ">=" );
             }

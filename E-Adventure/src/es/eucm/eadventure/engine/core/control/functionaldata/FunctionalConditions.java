@@ -116,7 +116,7 @@ public class FunctionalConditions {
      * evaluation), value of comparison, and the actual value of the var
      * 
      * @param state >,
-     *            >=, =, < or <=
+     *            >=, =, !=, < or <=
      * @param value
      *            The value to compare with
      * @param actualValue
@@ -128,6 +128,10 @@ public class FunctionalConditions {
         if( state == VarCondition.VAR_EQUALS ) {
             return actualValue == value;
         }
+        else if( state == VarCondition.VAR_NOT_EQUALS ) {
+            return actualValue != value;
+        }
+        
         else if( state == VarCondition.VAR_GREATER_EQUALS_THAN ) {
             return actualValue >= value;
         }

@@ -68,6 +68,11 @@ public class VarCondition extends Condition {
      * Constant for less-than var.
      */
     public static final int VAR_LESS_THAN = 6;
+    
+    /**
+     * Constant for not-equals var.
+     */
+    public static final int VAR_NOT_EQUALS = 7;
 
     /**
      * MIN VALUE

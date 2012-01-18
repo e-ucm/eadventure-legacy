@@ -86,7 +86,7 @@ public abstract class Condition implements Cloneable, HasId {
      *            Flag/Var of the condition
      * @param state
      *            Determines the state: {@link #FLAG_ACTIVE}
-     *            {@link #FLAG_INACTIVE} {@link #NO_STATE} {@link #VAR_EQUALS}
+     *            {@link #FLAG_INACTIVE} {@link #NO_STATE} {@link #VAR_EQUALS} {@link #VAR_NOT_EQUALS}
      *            {@link #VAR_GREATER_EQUALS_THAN} {@link #VAR_GREATER_THAN}
      *            {@link #VAR_LESS_EQUALS_THAN} {@link #VAR_LESS_THAN}
      */
@@ -112,7 +112,7 @@ public abstract class Condition implements Cloneable, HasId {
      * condition to be satisfied
      * 
      * @return the state {@link #FLAG_ACTIVE} {@link #FLAG_INACTIVE}
-     *         {@link #NO_STATE} {@link #VAR_EQUALS}
+     *         {@link #NO_STATE} {@link #VAR_EQUALS} {@link #VAR_NOT_EQUALS}
      *         {@link #VAR_GREATER_EQUALS_THAN} {@link #VAR_GREATER_THAN}
      *         {@link #VAR_LESS_EQUALS_THAN} {@link #VAR_LESS_THAN}
      */
@@ -137,7 +137,7 @@ public abstract class Condition implements Cloneable, HasId {
      * 
      * @param state
      *            New state {@link #FLAG_ACTIVE} {@link #FLAG_INACTIVE}
-     *            {@link #NO_STATE} {@link #VAR_EQUALS}
+     *            {@link #NO_STATE} {@link #VAR_EQUALS} {@link #VAR_NOT_EQUALS}
      *            {@link #VAR_GREATER_EQUALS_THAN} {@link #VAR_GREATER_THAN}
      *            {@link #VAR_LESS_EQUALS_THAN} {@link #VAR_LESS_THAN}
      */

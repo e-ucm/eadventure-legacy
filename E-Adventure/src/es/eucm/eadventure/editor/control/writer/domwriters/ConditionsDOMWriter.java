@@ -251,6 +251,8 @@ public class ConditionsDOMWriter {
             // Create the tag
             if( varCondition.getState( ) == VarCondition.VAR_EQUALS )
                 conditionElement = doc.createElement( "equals" );
+            else if( varCondition.getState( ) == VarCondition.VAR_NOT_EQUALS )
+                conditionElement = doc.createElement( "not-equals" );
             else if( condition.getState( ) == VarCondition.VAR_GREATER_EQUALS_THAN )
                 conditionElement = doc.createElement( "greater-equals-than" );
             else if( condition.getState( ) == VarCondition.VAR_GREATER_THAN )

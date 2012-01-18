@@ -414,6 +414,30 @@ public class AssessmentHandler extends DefaultHandler {
                 currentEitherCondition.add( new VarCondition( var, VarCondition.VAR_EQUALS, value ) );
             addVar( var );
         }
+        
+        // If it is a not-equals-than tag
+        else if( qName.equals( "not-equals" ) ) {
+            // The var
+            String var = null;
+            // The value
+            int value = 0;
+
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                    var = attrs.getValue( i );
+                }
+                else if( attrs.getQName( i ).equals( "value" ) ) {
+                    value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                currentConditions.add( new VarCondition( var, VarCondition.VAR_NOT_EQUALS, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.add( new VarCondition( var, VarCondition.VAR_NOT_EQUALS, value ) );
+            addVar( var );
+        }
+
 
         // If it is a global-state-reference tag
         else if( qName.equals( "global-state-ref" ) ) {
