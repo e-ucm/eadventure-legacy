@@ -177,6 +177,7 @@
 	destinyY NMTOKEN "300"
 	transitionTime CDATA "0"
 	transitionType CDATA "0"
+	canSkip (yes | no) "yes"
 >
 
 <!ELEMENT slidescene (documentation?, effect?,resources+, name, ( end-game? | next-scene* ))>
