@@ -981,7 +981,7 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="Effect.IncrementVarInfo">Variabel "{#0}" um "{#1}" Einheiten erhöhen</entry>
 <entry key="MenuConfiguration.AutoBackup">Automatisches Backup alle 15 Minuten</entry>
 <entry key="LOM.Educational.Difficulty">Schwierigkeitsgrad</entry>
-<entry key="DefaultClickAction.Explanation"></entry>
+<entry key="DefaultClickAction.Explanation">Standardmaßnahme für Links-Klick</entry>
 <entry key="MenuAdventure.ModePlayerTransparent">First-Person Ansicht</entry>
 <entry key="Operation.AddMacroDefaultValue">IdMacro</entry>
 <entry key="Cursor.use.Tip">Nur für kontextuellen GUI: Dieser Mauszeiger wird für "nutzen" Aktionen nutzen</entry>
