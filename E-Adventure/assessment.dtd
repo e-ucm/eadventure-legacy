@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------
+<!--################################################################################ 
 # <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
 #          research group.
 #   
@@ -33,7 +33,7 @@
 #  
 #      You should have received a copy of the GNU Lesser General Public License
 #      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
-#-------------------------------------------------------------------------------
+################################################################################ -->
 <!ELEMENT assessment-rules (smtp-config?, (assessment-rule | timed-assessment-rule)*)>
 <!ATTLIST assessment-rules
 	show-report-at-end ( yes | no ) "no"
