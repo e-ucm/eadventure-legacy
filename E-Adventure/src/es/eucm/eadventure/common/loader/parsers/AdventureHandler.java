@@ -326,6 +326,10 @@ public class AdventureHandler extends DefaultHandler {
 						adventureData.setInventoryPosition(DescriptorData.INVENTORY_TOP);
 					else if (attrs.getValue(i).equals("bottom"))
 						adventureData.setInventoryPosition(DescriptorData.INVENTORY_BOTTOM);
+                    else if (attrs.getValue(i).equals("fixed_top"))
+                        adventureData.setInventoryPosition(DescriptorData.INVENTORY_FIXED_TOP);
+                    else if (attrs.getValue(i).equals("fixed_bottom"))
+                        adventureData.setInventoryPosition(DescriptorData.INVENTORY_FIXED_BOTTOM);
 				}
 			}
 		}

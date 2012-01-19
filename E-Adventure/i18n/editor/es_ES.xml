@@ -141,6 +141,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="TreeNode.AddElement50">Añadir zonas activas</entry>
 <entry key="Book.Contents.Tip">Panel para editar los contenidos del libro</entry>
 <entry key="Inventory.OnlyBottom">Solo abajo</entry>
+<entry key="Inventory.FixedBottom">Solo abajo (siempre visible)</entry>
 <entry key="IMS.Classification.Purpose8">Competency</entry>
 <entry key="IMS.Classification.Purpose7">Security Level</entry>
 <entry key="Inventory.highlightedright.Description">Flecha derecha resaltada</entry>
@@ -659,6 +660,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="BarrierList.MoveDown">Bajar la referencia en la tabla</entry>
 <entry key="Operation.AddItemTitle">Añadir nuevo objeto</entry>
 <entry key="Inventory.OnlyTop">Solo arriba</entry>
+<entry key="Inventory.FixedTop">Solo arriba (fijo)</entry>
 <entry key="NextScene.TransitionTime">Time de transicion</entry>
 <entry key="LOM.General.Title">Title</entry>
 <entry key="Inventory.Preview">Ver la flecha</entry>

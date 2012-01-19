@@ -140,6 +140,7 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="TreeNode.AddElement50">Aktive Areale hinzufügen</entry>
 <entry key="Book.Contents.Tip">Paneel zur Ausgabe der Inhalte des Buches</entry>
 <entry key="Inventory.OnlyBottom">Nur Oben Taste</entry>
+<entry key="Inventory.FixedBottom">Nur Oben Taste (immer sichtbar)</entry>
 <entry key="IMS.Classification.Purpose8">Kompetenz</entry>
 <entry key="IMS.Classification.Purpose7">Security Level</entry>
 <entry key="Inventory.highlightedright.Description">Hervorgehobener Pfeil nach rechts</entry>
@@ -640,6 +641,7 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="BarrierList.MoveDown">Referenz nach unter bewegen</entry>
 <entry key="Operation.AddItemTitle">Neues Objekt hinzufügen</entry>
 <entry key="Inventory.OnlyTop">Nur Oben</entry>
+<entry key="Inventory.FixedTop">Nur Oben (immer sichtbar)</entry>
 <entry key="NextScene.TransitionTime">Übergangszeit</entry>
 <entry key="LOM.General.Title">Titel</entry>
 <entry key="Inventory.Preview">Pfeil sehen</entry>

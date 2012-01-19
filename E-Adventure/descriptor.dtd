@@ -54,7 +54,7 @@
 <!ELEMENT gui (cursors?, buttons?, arrows?)>
 <!ATTLIST gui
 	type (traditional | contextual) "traditional"
-	inventoryPosition (none | top_bottom | top | bottom) "top_bottom"
+	inventoryPosition (none | top_bottom | top | bottom | fixed_top | fixed_bottom) "top_bottom"
 	customized (yes | no) "no"
 >
 <!ELEMENT cursors (cursor+)>

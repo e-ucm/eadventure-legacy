@@ -156,6 +156,13 @@ public class DescriptorDOMWriter {
                 case DescriptorData.INVENTORY_BOTTOM:
                     guiElement.setAttribute( "inventoryPosition", "bottom" );
                     break;
+                case DescriptorData.INVENTORY_FIXED_TOP:
+                    guiElement.setAttribute( "inventoryPosition", "fixed_top" );
+                    break;
+                case DescriptorData.INVENTORY_FIXED_BOTTOM:
+                    guiElement.setAttribute( "inventoryPosition", "fixed_bottom" );
+                    break;
+                    
             }
 
             if( adventureData.getCursors( ).size( ) > 0 ) {
