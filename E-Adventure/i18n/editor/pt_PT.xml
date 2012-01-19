@@ -2,6 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>comment</comment>
+<entry key="DefaultClickAction.Explanation">Ação padrão para botão esquerdo do mouse</entry>
 <entry key="ImageAssets.Preview">Pré-visualização da imagem</entry>
 <entry key="GeneralText.EditEffects">Editar efeitos</entry>
 <entry key="UOLProperties.InsertProperty">Inserir nova propriedade</entry>

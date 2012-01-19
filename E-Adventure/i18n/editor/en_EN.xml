@@ -1986,7 +1986,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TalkToAction.MessageSelectConversation">Select a conversation</entry>
 <entry key="BookPage.NotValidURL">The URL provided is not accessible, so it is not guaranteed it will be shown in the game. Please, check you typed correctly the URL and your Internet connection is working properly.</entry>
 <entry key="LOMES.MetaMetaData.Language">Language</entry>
-<entry key="DefaultClickAction.Explanation">Default action for right-click</entry>
+<entry key="DefaultClickAction.Explanation">Default action for left-click</entry>
 <entry key="DefaultClickAction.ShowDetails">Show details</entry>
 <entry key="DefaultClickAction.ShowActions">Show actions</entry>
 <entry key="Perspective.Explanation">Perspective applied to character and player movement</entry>

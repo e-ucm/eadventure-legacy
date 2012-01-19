@@ -1856,7 +1856,7 @@
 <entry key="TalkToAction.MessageSelectConversation">Seleziona una conversazione </entry>
 <entry key="BookPage.NotValidURL">Non è possibile accedere all'URL specificato. Si prega di verificare l'indirizzo e il funzionamento della sua connessione a Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Lingua</entry>
-<entry key="DefaultClickAction.Explanation">Azione di default del tasto destro</entry>
+<entry key="DefaultClickAction.Explanation">Azione predefinita per sinistro del mouse</entry>
 <entry key="DefaultClickAction.ShowDetails">Mostra i dettagli</entry>
 <entry key="DefaultClickAction.ShowActions">Mostra azioni</entry>
 <entry key="LoadingScreen.ImportChapter.Message">Importazione capitolo</entry>

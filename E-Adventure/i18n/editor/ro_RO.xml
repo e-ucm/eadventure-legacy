@@ -970,7 +970,7 @@
 <entry key="Effect.IncrementVarInfo">Incrementarea variabilei  "{#0}" in "{#1}" unitati</entry>
 <entry key="MenuConfiguration.AutoBackup">Backup automat la fiecare 15 minute</entry>
 <entry key="LOM.Educational.Difficulty">Dificultate</entry>
-<entry key="DefaultClickAction.Explanation">Actiune predefinita pentru click dreapta</entry>
+<entry key="DefaultClickAction.Explanation">Acţiune implicită pentru click-stânga</entry>
 <entry key="MenuAdventure.ModePlayerTransparent">persoana I</entry>
 <entry key="Operation.AddMacroDefaultValue">IDMacro</entry>
 <entry key="Cursor.use.Tip">Numai pentru interfata grafica traditionala: Acest cursor va fi folosit pentru actiuni de tip “foloseste”</entry>

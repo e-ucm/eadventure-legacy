@@ -1033,7 +1033,7 @@ Dicha operación no se completó.</entry>
 <entry key="Effect.IncrementVarInfo">Incrementar la variable "{#0}" en "{#1}" unidades</entry>
 <entry key="MenuConfiguration.AutoBackup">Copia de seguridad automática cada 15 minutos</entry>
 <entry key="LOM.Educational.Difficulty">Difficulty</entry>
-<entry key="DefaultClickAction.Explanation">Acción por defecto para click derecho</entry>
+<entry key="DefaultClickAction.Explanation">Acción por defecto para click izquierdo</entry>
 <entry key="MenuAdventure.ModePlayerTransparent">Modo primera persona</entry>
 <entry key="Operation.AddMacroDefaultValue">IdMacro</entry>
 <entry key="Cursor.use.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "usar" (sólo interfaz tradicional)</entry>
