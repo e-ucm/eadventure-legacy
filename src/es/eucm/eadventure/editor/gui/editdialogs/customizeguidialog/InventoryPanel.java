@@ -43,6 +43,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -90,6 +91,9 @@ public class InventoryPanel extends JScrollPane implements Updateable {
      */
     private JButton[] viewButtons;
 
+    /**
+     * Option for "inventoryPosition" attribute in "gui" element (descriptor.xml)
+     */
     private JComboBox whereInventory;
 
     /**
@@ -203,11 +207,13 @@ public class InventoryPanel extends JScrollPane implements Updateable {
         inventoryPosition.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Inventory.Position" ) ) );
         inventoryPosition.setLayout( new BorderLayout( ) );
 
-        String[] options = new String[ 4 ];
+        String[] options = new String[ 6 ];
         options[0] = TC.get( "Inventory.NoInventory" );
         options[1] = TC.get( "Inventory.TopAndBottom" );
         options[2] = TC.get( "Inventory.OnlyTop" );
         options[3] = TC.get( "Inventory.OnlyBottom" );
+        options[4] = TC.get( "Inventory.FixedTop" );
+        options[5] = TC.get( "Inventory.FixedBottom" );        
         whereInventory = new JComboBox( options );
         whereInventory.setSelectedIndex( adventureData.getInventoryPosition( ) );
         whereInventory.addActionListener( new ComboBoxActionListener( ) );

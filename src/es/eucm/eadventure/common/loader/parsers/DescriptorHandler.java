@@ -180,6 +180,10 @@ public class DescriptorHandler extends DefaultHandler {
                         inventoryPosition = DescriptorData.INVENTORY_TOP;
                     else if( attrs.getValue( i ).equals( "bottom" ) )
                         inventoryPosition = DescriptorData.INVENTORY_BOTTOM;
+                    else if (attrs.getValue(i).equals("fixed_top"))
+                        inventoryPosition = DescriptorData.INVENTORY_FIXED_TOP;
+                    else if (attrs.getValue(i).equals("fixed_bottom"))
+                        inventoryPosition = DescriptorData.INVENTORY_FIXED_BOTTOM;
                 }
 
             }

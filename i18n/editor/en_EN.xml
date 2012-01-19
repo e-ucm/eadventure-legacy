@@ -142,6 +142,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TreeNode.AddElement50">Add active areas</entry>
 <entry key="Book.Contents.Tip">Use this panel for the edition of the contents of the book</entry>
 <entry key="Inventory.OnlyBottom">Only bottom</entry>
+<entry key="Inventory.FixedBottom">Only bottom (fixed on screen)</entry>
 <entry key="IMS.Classification.Purpose8">Competency</entry>
 <entry key="IMS.Classification.Purpose7">Security Level</entry>
 <entry key="Inventory.highlightedright.Description">Highlighted right arrow</entry>
@@ -654,6 +655,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 <entry key="BarrierList.MoveDown">Move down current reference</entry>
 <entry key="Operation.AddItemTitle">Add item</entry>
 <entry key="Inventory.OnlyTop">Only top</entry>
+<entry key="Inventory.FixedTop">Only top (fixed on screen)</entry>
 <entry key="NextScene.TransitionTime">Transition time</entry>
 <entry key="LOM.General.Title">Title</entry>
 <entry key="Inventory.Preview">View arrow</entry>

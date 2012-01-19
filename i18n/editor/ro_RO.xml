@@ -134,6 +134,7 @@
 <entry key="TreeNode.AddElement50">Adauga zone active</entry>
 <entry key="Book.Contents.Tip">Utilizati acest panou pentru editarea continuturilor cartii</entry>
 <entry key="Inventory.OnlyBottom">Numai jos</entry>
+<entry key="Inventory.FixedBottom">Numai jos (întotdeauna vizibile)</entry>
 <entry key="IMS.Classification.Purpose8">Competenta</entry>
 <entry key="IMS.Classification.Purpose7">Nivel securitate</entry>
 <entry key="Inventory.highlightedright.Description">Evidentiere sageata dreapta</entry>
@@ -629,6 +630,7 @@
 <entry key="BarrierList.MoveDown">Coborati referinta cu un nivel</entry>
 <entry key="Operation.AddItemTitle">Adauga item</entry>
 <entry key="Inventory.OnlyTop">Numai sus</entry>
+<entry key="Inventory.FixedTop">Numai sus (întotdeauna vizibile)</entry>
 <entry key="NextScene.TransitionTime">Timp de tranzitie</entry>
 <entry key="LOM.General.Title">Titlu</entry>
 <entry key="Inventory.Preview">Vezi sageata</entry>

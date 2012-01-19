@@ -96,6 +96,11 @@ public class DescriptorData implements Cloneable, Described, Titled {
 
     public static final int INVENTORY_BOTTOM = 3;
     
+    public static final int INVENTORY_FIXED_TOP = 4;
+
+    public static final int INVENTORY_FIXED_BOTTOM = 5;
+
+    
     public static enum DefaultClickAction {
         SHOW_DETAILS, SHOW_ACTIONS
     }

@@ -944,6 +944,15 @@ public class ContextualHUD extends HUD {
     @Override
     public void update( long elapsedTime ) {
 
+        // If inventory must be fixed on screen, force it happen
+        if (Game.getInstance( ).isInventoryFixed( )){
+            showInventory=true;
+            if (Game.getInstance( ).showBottomInventory( ))
+                inventory.setUpperInventory( false );
+            else if (Game.getInstance( ).showTopInventory( ))
+                inventory.setUpperInventory( true );
+        }
+        
         //update the inventory
         inventory.update( elapsedTime );
         //If the hud is shown and the inventory must show

@@ -128,6 +128,7 @@
 <entry key="TreeNode.AddElement50">Aggiungere zone attive </entry>
 <entry key="Book.Contents.Tip">Pannello per modificare il contenuto del libro </entry>
 <entry key="Inventory.OnlyBottom">Appena al di sotto </entry>
+<entry key="Inventory.FixedBottom">Appena al di sotto (sempre visibile)</entry>
 <entry key="IMS.Classification.Purpose8">Competenza </entry>
 <entry key="IMS.Classification.Purpose7">Livello di sicurezza </entry>
 <entry key="Inventory.highlightedright.Description">Freccia destra premuta </entry>
@@ -615,6 +616,7 @@
 <entry key="BarrierList.MoveDown">Abbassare il riferimento nella tabella </entry>
 <entry key="Operation.AddItemTitle">Aggiungere nuovo oggetto </entry>
 <entry key="Inventory.OnlyTop">Appena sopra </entry>
+<entry key="Inventory.FixedTop">Appena sopra (sempre visibile)</entry>
 <entry key="NextScene.TransitionTime">Tempo di transizione </entry>
 <entry key="LOM.General.Title">Titolo </entry>
 <entry key="Inventory.Preview">Vedere la freccia </entry>

@@ -134,6 +134,7 @@
 <entry key="TreeNode.AddElement50">Agregar  zonas activas</entry>
 <entry key="Book.Contents.Tip">Painel para editar os conteúdos do livro</entry>
 <entry key="Inventory.OnlyBottom">Só abaixo</entry>
+<entry key="Inventory.FixedBottom">Só abaixo (sempre visível)</entry>
 <entry key="IMS.Classification.Purpose8">Competência</entry>
 <entry key="IMS.Classification.Purpose7">Nivel de Segurança</entry>
 <entry key="Inventory.highlightedright.Description">Seta dereita resaltada</entry>
@@ -623,6 +624,7 @@
 <entry key="BarrierList.MoveDown">Baixar a referência na tabela</entry>
 <entry key="Operation.AddItemTitle">Agregar novo objecto</entry>
 <entry key="Inventory.OnlyTop">Só acima</entry>
+<entry key="Inventory.FixedTop">Só acima (sempre visível)</entry>
 <entry key="NextScene.TransitionTime">Tempo de transição</entry>
 <entry key="LOM.General.Title">Titulo</entry>
 <entry key="Inventory.Preview">Ver a seta</entry>
