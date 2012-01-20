@@ -37,6 +37,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;

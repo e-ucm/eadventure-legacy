@@ -986,6 +986,10 @@ public class ScenePreviewEditionPanel extends JPanel {
             }
         }
     }
+    
+    public void clearZumbableElementMHDeskizedTour(){
+        selectedElement=null;
+    }
 
     /**
      * Changes the current selectedElement created from a
