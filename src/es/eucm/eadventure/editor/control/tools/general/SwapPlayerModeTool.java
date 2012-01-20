@@ -122,7 +122,7 @@ public class SwapPlayerModeTool extends Tool {
                 chapterDataControlList.getSelectedChapterDataControl( ).getScenesList( ).getScenes( ).get( i ).insertPlayer( );
             }
             // set if the player is not allowed in the scene
-            scene.setAllowPlayerLayer( oldPlayerLayer.get( i ) != Scene.PLAYER_NO_ALLOWED );
+            //scene.setAllowPlayerLayer( oldPlayerLayer.get( i ) != Scene.PLAYER_NO_ALLOWED );
         }
         controller.reloadData( );
 

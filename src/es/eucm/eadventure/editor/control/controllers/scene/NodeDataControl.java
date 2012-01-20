@@ -263,6 +263,10 @@ public class NodeDataControl extends DataControl {
 
         return controller.getPlayerImagePath( );
     }
+    
+    public int getPlayerLayer(){
+        return sceneDataControl.getPlayerLayer( );
+    }
 
     public void setInitial( boolean b ) {
 

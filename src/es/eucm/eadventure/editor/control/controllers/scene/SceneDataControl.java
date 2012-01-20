@@ -49,7 +49,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.control.tools.general.ChangeAllowPlayerInSceneTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeForcePlayerInSceneTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangePositionTool;
 import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
@@ -57,7 +57,6 @@ import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocument
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.control.tools.scene.ChangePlayerScaleTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class SceneDataControl extends DataControlWithResources {
 
@@ -532,10 +531,10 @@ public class SceneDataControl extends DataControlWithResources {
         return scene.getPlayerLayer( );
     }
 
-    public void setAllowPlayerLayer( boolean allow ) {
+ /*   public void setAllowPlayerLayer( boolean allow ) {
 
         scene.setAllowPlayerLayer( allow );
-    }
+    }*/
 
     public boolean isAllowPlayer( ) {
 
@@ -553,9 +552,9 @@ public class SceneDataControl extends DataControlWithResources {
 
     }
 
-    public void changeAllowPlayerLayer( boolean isAllowPlayerLayer, ScenePreviewEditionPanel scenePreviewEditionPanel ) {
+    public void changeAllowPlayerLayer( boolean isAllowPlayerLayer /*, ScenePreviewEditionPanel scenePreviewEditionPanel^*/ ) {
 
-        Controller.getInstance( ).addTool( new ChangeAllowPlayerInSceneTool( isAllowPlayerLayer, scenePreviewEditionPanel, this ) );
+        Controller.getInstance( ).addTool( new ChangeForcePlayerInSceneTool( isAllowPlayerLayer, /*scenePreviewEditionPanel,*/ this ) );
     }
 
     // this method is only used in SwapPlayerModeTool

@@ -114,7 +114,7 @@ public class ImageElementNode extends ImageElement {
     @Override
     public int getLayer( ) {
 
-        return 0;
+        return nodeDataControl.getPlayerLayer( );
     }
 
     @Override

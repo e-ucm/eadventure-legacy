@@ -101,7 +101,7 @@ public class Scene extends GeneralScene implements Positioned {
      * Set if it is allow to use the player layer or not. Its default value it
      * is true.
      */
-    private boolean allowPlayerLayer;
+   // private boolean allowPlayerLayer;
 
     /**
      * List of exits
@@ -158,7 +158,7 @@ public class Scene extends GeneralScene implements Positioned {
         activeAreas = new ArrayList<ActiveArea>( );
         barriers = new ArrayList<Barrier>( );
         playerLayer = PLAYER_WITHOUT_LAYER;
-        allowPlayerLayer = false;
+        //allowPlayerLayer = true;
         playerScale = 1.0f;
     }
 
@@ -348,22 +348,22 @@ public class Scene extends GeneralScene implements Positioned {
 
     public boolean isAllowPlayerLayer( ) {
 
-        return allowPlayerLayer;
+        return playerLayer != PLAYER_NO_ALLOWED;
     }
 
     /**
      * Change if player layer can be used. If it can not, change the player
-     * layer value to -1
+     * layer value to PLAYER_NO_ALLOWED
      * 
      * @param allowPlayerLayer
      * 
      */
-    public void setAllowPlayerLayer( boolean allowPlayerLayer ) {
+ /*   public void setAllowPlayerLayer( boolean allowPlayerLayer ) {
 
         this.allowPlayerLayer = allowPlayerLayer;
         if( !allowPlayerLayer )
             playerLayer = PLAYER_NO_ALLOWED;
-    }
+    }*/
 
     /**
      * Returns the player layer
@@ -384,8 +384,8 @@ public class Scene extends GeneralScene implements Positioned {
     public void setPlayerLayer( int playerLayer ) {
 
         this.playerLayer = playerLayer;
-        if( playerLayer == PLAYER_NO_ALLOWED )
-            allowPlayerLayer = false;
+      //  if( playerLayer == PLAYER_NO_ALLOWED )
+        //    allowPlayerLayer = false;
 
     }
 
@@ -408,7 +408,7 @@ public class Scene extends GeneralScene implements Positioned {
             for( ActiveArea aa : activeAreas )
                 s.activeAreas.add( (ActiveArea) aa.clone( ) );
         }
-        s.allowPlayerLayer = allowPlayerLayer;
+        //s.allowPlayerLayer = allowPlayerLayer;
         if( atrezzoReferences != null ) {
             s.atrezzoReferences = new ArrayList<ElementReference>( );
             for( ElementReference er : atrezzoReferences )

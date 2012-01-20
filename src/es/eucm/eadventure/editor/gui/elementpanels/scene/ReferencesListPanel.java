@@ -110,7 +110,13 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
 
     private ReferencesListDataControl referencesListDataControl;
 
-    private JCheckBox isAllowPlayerLayer;
+    /**
+     * The layer is set by game developer at eAd editor, instead of be calculated automatically by the game engine
+     *  @see {@link #es.eucm.eadventure.common.data.chapter.scenes.Scene.PLAYER_WITHOUT_LAYER }
+     *  @see {@link #es.eucm.eadventure.common.data.chapter.scenes.Scene.PLAYER_NO_ALLOWED }
+     *  
+     */
+    private JCheckBox isForcePlayerLayer;
 
     /**
      * Constructor.
@@ -145,10 +151,10 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
                     spep.addNode( nodeDataControl );
                 spep.setShowInfluenceArea( true );
             }
-            else
+           // else
 
-            if( !Controller.getInstance( ).isPlayTransparent( )/*&& referencesListDataControl.getSceneDataControl().isAllowPlayer()*/)
-                spep.addPlayer( referencesListDataControl.getSceneDataControl( ), referencesListDataControl.getPlayerImage( ) );
+           // if( !Controller.getInstance( ).isPlayTransparent( )/*&& referencesListDataControl.getSceneDataControl().isAllowPlayer()*/)
+             //   spep.addPlayer( referencesListDataControl.getSceneDataControl( ), referencesListDataControl.getPlayerImage( ) );
         }
 
         // Add the table which contains the elements in the scene (items, atrezzo and npc) with its layer position
@@ -199,11 +205,16 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
 
             int selectedReference = table.getSelectedRow( );
             ElementContainer elementContainer = referencesListDataControl.getAllReferencesDataControl( ).get( selectedReference );
+          
             if( elementContainer.isPlayer( ) && !referencesListDataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ) || !elementContainer.isPlayer( ) ) {
                 referencesListDataControl.setLastElementContainer( elementContainer );
                 spep.setSelectedElement( elementContainer.getErdc( ), elementContainer.getImage( ), referencesListDataControl.getSceneDataControl( ) );
                 //spep.repaint();
                 // Enable delete button
+            } else{
+                spep.clearZumbableElementMHDeskizedTour();
+            }
+            
                 if( elementContainer.isPlayer( ) )
                     deleteButton.setEnabled( false );
                 else
@@ -211,7 +222,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
                 //Enable moveUp and moveDown buttons when there is more than one element
                 moveUpButton.setEnabled( referencesListDataControl.getAllReferencesDataControl( ).size( ) > 1 && selectedReference > 0 );
                 moveDownButton.setEnabled( referencesListDataControl.getAllReferencesDataControl( ).size( ) > 1 && selectedReference < table.getRowCount( ) - 1 );
-            }
+            
         }
         updateUI( );
 
@@ -223,20 +234,20 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         // Create the main panel
         tablePanel = new JPanel( new BorderLayout( ) );
 
-        isAllowPlayerLayer = new JCheckBox( TC.get( "Scene.AllowPlayer" ), referencesListDataControl.getSceneDataControl( ).isAllowPlayer( ) );
+        isForcePlayerLayer = new JCheckBox( TC.get( "Scene.AllowPlayer" ), referencesListDataControl.getSceneDataControl( ).isAllowPlayer( ) );
         //isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl().isAllowPlayer() );
-        isAllowPlayerLayer.addActionListener( new ActionListener( ) {
+        isForcePlayerLayer.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent arg0 ) {
 
-                referencesListDataControl.getSceneDataControl( ).changeAllowPlayerLayer( ( (JCheckBox) arg0.getSource( ) ).isSelected( ), spep );
+                referencesListDataControl.getSceneDataControl( ).changeAllowPlayerLayer( ( (JCheckBox) arg0.getSource( ) ).isSelected( ) /*, spep */);
                 //spep.setDisplayCategory(int, true);
                 //spep.repaint();
             }
         } );
 
         if( !Controller.getInstance( ).isPlayTransparent( ) )
-            tablePanel.add( isAllowPlayerLayer, BorderLayout.SOUTH );
+            tablePanel.add( isForcePlayerLayer, BorderLayout.SOUTH );
 
         // Create the table (CENTER)
         table = new ElementReferencesTable( referencesListDataControl, spep );
@@ -501,8 +512,8 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         int items = table.getRowCount( );
         ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
 
-        if( isAllowPlayerLayer != null )
-            isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl( ).isAllowPlayer( ) );
+        if( isForcePlayerLayer != null )
+            isForcePlayerLayer.setSelected( referencesListDataControl.getSceneDataControl( ).isAllowPlayer( ) );
 
         if( items == table.getRowCount( ) ) {
             if( selected != -1 ) {
