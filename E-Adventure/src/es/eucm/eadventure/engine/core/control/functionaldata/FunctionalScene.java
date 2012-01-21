@@ -64,6 +64,8 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.F
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.gametel.eadventure.engine.GridFactory;
+import es.eucm.gametel.eadventure.engine.GridPosition;
 
 /**
  * A scene in the game
@@ -669,6 +671,8 @@ public class FunctionalScene implements Renderable {
                 offsetX = 0;
         }
 
+        //updateGrid();
+        
         return updated;
     }
 
@@ -685,6 +689,8 @@ public class FunctionalScene implements Renderable {
             if( offsetX < 0 )
                 offsetX = 0;
         }
+        
+        //updateGrid();
     }
 
     /*
@@ -957,4 +963,33 @@ public class FunctionalScene implements Renderable {
         this.items = null;
         this.npcs = null;
     }
+    
+    public ArrayList<FunctionalAtrezzo> getAtrezzos( ) {
+        
+        return atrezzo;
+    }
+    
+    ///////////////////// GAMETEL ////////////////////////////////////7
+    private List<GridPosition> grid;
+    
+    public void updateGrid(){
+        // GAMETEL Update grid
+        this.grid = GridFactory.buildSceneGrid( );
+    }
+    public List<GridPosition> getGrid(){
+        //if (grid==null)
+            updateGrid();
+        return grid;
+    }
+    
+    public int getBackgroundWidth( ) {
+        return background.getWidth( null );
+    }
+
+    
+    public boolean isShowsOffsetArrows( ) {
+    
+        return showsOffsetArrows;
+    }
+
 }

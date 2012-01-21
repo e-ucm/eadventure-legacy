@@ -322,6 +322,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
     
     protected DragBehaviour dragBehaviour;
     
+    protected boolean keyboardNavigationEnabled;
+    
     /**
      * Constant for identify when a game is executed from engine
      */
@@ -346,6 +348,7 @@ public class DescriptorData implements Cloneable, Described, Titled {
         graphicConfig = GRAPHICS_WINDOWED;
         projectName = ENGINE_EXECUTION;
         versionNumber = "0";
+        keyboardNavigationEnabled=false;
     }
 
     /**
@@ -805,6 +808,18 @@ public class DescriptorData implements Cloneable, Described, Titled {
     public void setDragBehaviour( DragBehaviour dragBehaviour ) {
     
         this.dragBehaviour = dragBehaviour;
+    }
+
+    
+    public Boolean isKeyboardNavigationEnabled( ) {
+    
+        return keyboardNavigationEnabled;
+    }
+
+    
+    public void setKeyboardNavigation( Boolean keyboardNavigation ) {
+    
+        this.keyboardNavigationEnabled = keyboardNavigation;
     }
 
     

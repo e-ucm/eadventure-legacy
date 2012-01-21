@@ -107,16 +107,6 @@ public class AdventureDataControl {
 
         this( );
         adventureData = data;
-
-        // add profiles subcontrollers
-        /*for ( AssessmentProfile profile: data.getAssessmentProfiles() ){
-        	assessmentProfilesDataControl.getProfiles().add(new AssessmentProfileDataControl(profile))	;
-        }
-        
-        for ( AdaptationProfile profile: data.getAdaptationProfiles() ){
-        	adaptationProfilesDataControl.getProfiles().add(new AdaptationProfileDataControl(profile))	;
-        }*/
-
     }
 
     /**
@@ -234,6 +224,22 @@ public class AdventureDataControl {
 
         return adventureData.getChapters( );
     }
+    
+    /**
+     * Returns settings for keyboard navigation
+     * @return true if keyboard navigation (using arrows) is enabled, false if it is disabled (default behaviour)
+     */
+    public boolean isKeyboardNavigationEnabled(){
+        return adventureData.isKeyboardNavigationEnabled( );
+    }
+    
+    /**
+     * Enables/Disables keyboard navigation - by default is set to false
+     * @param enabled
+     */
+    public boolean setKeyboardNavigation ( boolean enabled ){
+        return Controller.getInstance( ).addTool( new ChangeBooleanValueTool(adventureData, enabled, "isKeyboardNavigationEnabled", "setKeyboardNavigation") );
+    }
 
     /**
      * Sets the title of the adventure.
@@ -265,14 +271,7 @@ public class AdventureDataControl {
     public void showGUIStylesDialog( ) {
 
         // Show the dialog
-      //  GUIStylesDialog guiStylesDialog = new GUIStylesDialog( adventureData.getGUIType( ) );
         new GUIStylesDialog( adventureData.getGUIType( ) );
-        // If the new GUI style is different from the current, and valid, change the value
-      /*  int optionSelected = guiStylesDialog.getOptionSelected( );
-        if( optionSelected != -1 ) {
-            Tool tool = new ChangeIntegerValueTool( adventureData, optionSelected, "getGUIType", "setGUIType" );
-            Controller.getInstance( ).addTool( tool );
-        }*/
     }
 
     /**

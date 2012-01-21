@@ -38,6 +38,7 @@ package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
@@ -104,26 +105,16 @@ public class GameStateBook extends GameState {
         // Left click changes the page
         if( e.getButton( ) == MouseEvent.BUTTON1 ) {
             if( book.isInPreviousPage( e.getX( ), e.getY( ) ) )
-                book.previousPage( );
+                browsePreviousPage();
 
             else if( book.isInNextPage( e.getX( ), e.getY( ) ) ) {
-
-                if( book.isInLastPage( ) ) {
-                    GUI.getInstance( ).restoreFrame( );
-                    // this method also change the state to run effects
-                    FunctionalEffects.storeAllEffects( new Effects( ) );
-                    //game.setState( Game.STATE_RUN_EFFECTS );
-                }
-                else
-                    book.nextPage( );
+                browseNextPage();
             }
         }
 
         // Right click ends the book
         else if( e.getButton( ) == MouseEvent.BUTTON3 ) {
-            GUI.getInstance( ).restoreFrame( );
-            FunctionalEffects.storeAllEffects( new Effects( ) );
-            //game.setState( Game.STATE_RUN_EFFECTS );
+            closeBook();
         }
     }
     
@@ -135,5 +126,40 @@ public class GameStateBook extends GameState {
         boolean mouseOverNextPage = book.isInNextPage( e.getX( ), e.getY( ) );
         book.mouseOverNextPage( mouseOverNextPage );
     }
+ 
     
+    private void browseNextPage(){
+        if( book.isInLastPage( ) ) {
+            closeBook();
+        } else 
+            book.nextPage( );
+    }
+    
+    private void browsePreviousPage(){
+        book.previousPage( );
+    }
+    
+    private void closeBook(){
+        GUI.getInstance( ).restoreFrame( );
+        // this method also change the state to run effects
+        FunctionalEffects.storeAllEffects( new Effects( ) );
+        //game.setState( Game.STATE_RUN_EFFECTS );
+    }
+    
+    @Override
+    public void keyPressed( KeyEvent e ) {
+        switch ( e.getKeyCode( )){
+            case KeyEvent.VK_LEFT:
+                browsePreviousPage();
+                break;
+            case KeyEvent.VK_RIGHT:
+                browseNextPage();
+                break;
+            case KeyEvent.VK_ENTER:
+            case KeyEvent.VK_ESCAPE:
+                closeBook();
+                break;
+        }
+    }
+
 }

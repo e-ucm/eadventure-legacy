@@ -37,6 +37,7 @@
 package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
@@ -206,4 +207,11 @@ public class GameStateRunEffects extends GameState {
             mouseClickedButton = MouseEvent.BUTTON3;
     }
 
+    
+    //Iria Gradiant - Capturar eventos teclado
+    @Override
+    public void keyPressed( KeyEvent e ) {
+        mouseClickedButton = MouseEvent.BUTTON3;
+    }
+    //Fin Iria Gradiant    
 }

@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.gamestate;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
@@ -160,14 +161,7 @@ public class GameStateSlidescene extends GameState {
     @Override
     public void mouseClicked( MouseEvent e ) {
 
-        // Display the next slide 
-        boolean endSlides = slides.nextImage( );
-
-        // If the slides have ended
-        if( endSlides ) {
-            finish = true;
-            finishedSlides( );
-        }
+       nextSlides();
     }
 
     private void finishedSlides( ) {
@@ -218,5 +212,25 @@ public class GameStateSlidescene extends GameState {
             newResources.addAsset( new Asset( Slidescene.RESOURCE_TYPE_SLIDES, ResourceHandler.DEFAULT_SLIDES ) );
         }
         return newResources;
+    }
+    
+    @Override
+    public void keyPressed( KeyEvent e ) {
+        if (!keyPressed){
+            keyPressed=true;
+            System.out.println("Pulsada tecla (SlideScene)");               
+            nextSlides( );
+        }
+    }
+    
+    private boolean keyPressed=false;
+    
+    private void nextSlides( ) {
+        boolean endSlides = slides.nextImage( );
+        keyPressed=false;
+        // If the slides have ended
+        if( endSlides ) {
+            finishedSlides( );
+        }
     }
 }

@@ -37,6 +37,7 @@
 package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
@@ -51,6 +52,8 @@ import java.awt.image.ColorConvertOp;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.CreateImage;
 import es.eucm.eadventure.common.gui.TC;
@@ -64,6 +67,8 @@ import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.gametel.eadventure.engine.GridPosition;
+import es.eucm.gametel.eadventure.engine.MouseUtils;
 
 public class GameStateOptions extends GameState {
 
@@ -241,6 +246,21 @@ public class GameStateOptions extends GameState {
      * If there is a mouseDragged event
      */
     private boolean mouseDragged;
+    
+    /**
+     * Pedro
+     */
+    private List<GridPosition> points = new ArrayList<GridPosition>( );
+    private GridPosition point;
+    private int index =0, type=1;
+    
+    boolean first=true;
+    
+    private Dimension d;
+    
+    /**
+     * Fin - Pedro
+     */
 
     /**
      * Default constructor
@@ -560,6 +580,28 @@ public class GameStateOptions extends GameState {
 
         if( loadGame )
             loadGame( slotGame );
+        
+        /**
+         * PEDRO - Gradiant
+         */
+        
+        if (first){
+           for( int i = 0; i < NUMBER_OPTIONS_OF_PANEL[currentPanel]; i++ ){
+                point = new GridPosition("",0,0,"","");     
+                point.setIdScene("ESCAPE");
+                point.setType("Button");
+                point.setX( panelPosition.x + FIRST_BUTTON_OFFSET_X,BUTTON_WIDTH);
+                point.setY( panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i,BUTTON_HEIGHT);
+                points.add( i, point ); 
+                //System.out.println( i + " Botón en la posicion " + points.get( i).getX( ) + "  " + points.get( i).getY( ));    
+            }
+            first=false;
+            loadCursor(points.get( index ));
+        }
+        
+        /**
+         * Fin PEDRO - Gradiant
+         */        
     }
 
     private boolean isValidSlotGame( int i ) {
@@ -759,14 +801,51 @@ public class GameStateOptions extends GameState {
     @Override
     public void keyPressed( KeyEvent e ) {
 
-        if( e.getKeyCode( ) == KeyEvent.VK_ESCAPE ) {
-            if( currentPanel == OPTIONS_PANEL )
-                backToGame( );
-            else if( currentPanel == SAVE_PANEL || currentPanel == LOAD_PANEL )
-                changePanel( SAVELOAD_PANEL );
-            else
-                changePanel( OPTIONS_PANEL );
-        }
+        switch( e.getKeyCode( ) ) {
+            case KeyEvent.VK_ESCAPE:
+                if( currentPanel == OPTIONS_PANEL )
+                    backToGame( );
+                else if( currentPanel == SAVE_PANEL || currentPanel == LOAD_PANEL )
+                    changePanel( SAVELOAD_PANEL );
+                else
+                    changePanel( OPTIONS_PANEL );
+                break;
+            case KeyEvent.VK_LEFT:                
+            case KeyEvent.VK_UP:                 
+                index--;
+                if (index<0)
+                    index = points.size( ) - 1;                
+               
+                System.out.println("Subimos en menu " + index);
+
+                loadCursor(points.get( index ));
+           
+                break;
+
+            case KeyEvent.VK_RIGHT:
+             case KeyEvent.VK_DOWN:
+                 index++;
+                 if (index>=points.size())
+                     index = 0;
+               
+                 System.out.println("Bajamos en menu " + index);
+                 
+                 loadCursor(points.get( index ));
+                
+                 break;
+             case KeyEvent.VK_ENTER:
+                 
+                 System.out.println("Pulsada tecla ENTER (simula click)");
+                 if (type == 1) { 
+                     pressCursor( ); 
+                    // pressCursor( ); //Esto para que se recalcule todo correctamente
+                     type = 0;
+                 }
+                
+                 break;
+         }
+         points.clear( );
+         first=true;                
     }
 
     /**
@@ -810,21 +889,22 @@ public class GameStateOptions extends GameState {
     }
 
     private Image createImage( int width, int height, String text ) {
-
         return CreateImage.createImage( width, height, text, optionsFont );
-        /*BufferedImage im = new BufferedImage ( width, height, BufferedImage.TYPE_INT_RGB);
-        
-        Graphics2D gr = (Graphics2D)im.getGraphics();
-        gr.setColor(Color.black);
-        gr.fillRect(0, 0, width, height);
-        gr.setColor(Color.LIGHT_GRAY);
-        for (int i=0; i<5; i++)
-        	gr.drawRect(i, i, width-i, height-i);
-        gr.setColor(Color.white);
-        gr.setFont( optionsFont );
-        gr.drawString(text, 5, 25);
-        gr.dispose();
-        
-        return im;*/
     }
+    
+    private void moved (int x, int y){
+        MouseUtils.move( x,y );
+    }
+    
+    private void loadCursor(GridPosition point){
+        MouseUtils.move( point.getX( ), point.getY( ), MouseEvent.BUTTON1, true,false );
+        type=1;
+    }
+    
+    private void pressCursor ( ){
+        MouseUtils.click( MouseEvent.BUTTON1_MASK );
+        type=0;
+    }
+    
+    //Fin Pedro - Gradiant
 }

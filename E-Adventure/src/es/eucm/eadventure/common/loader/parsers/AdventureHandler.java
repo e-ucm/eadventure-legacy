@@ -270,6 +270,9 @@ public class AdventureHandler extends DefaultHandler {
 	        
 	            if( attrs.getQName( i ).equals( "keepShowing" ) )
 	                adventureData.setKeepShowing( attrs.getValue( i ).equals( "yes" ) );
+                if( attrs.getQName( i ).equals( "keyboard-navigation" ) )
+                    adventureData.setKeyboardNavigation( attrs.getValue( i ).equals( "enabled" ) );
+	            
                 if( attrs.getQName( i ).equals( "defaultClickAction" ) ) {
                     if (attrs.getValue( i ).equals( "showDetails" ))
                         adventureData.setDeafultClickAction(DescriptorData.DefaultClickAction.SHOW_DETAILS);

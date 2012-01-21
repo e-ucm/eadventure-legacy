@@ -48,6 +48,7 @@ import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.gametel.eadventure.engine.GridManager;
 
 /**
  * A game main loop during the normal game
@@ -58,13 +59,20 @@ public class GameStatePlaying extends GameState {
      * List of mouse events.
      */
     private Queue<MouseEvent> vMouse;
-
+    
+    private GridManager gridManager;
+    
     /**
      * Constructor.
      */
     public GameStatePlaying( ) {
         super( );
         vMouse = new ConcurrentLinkedQueue<MouseEvent>( );
+        if (Game.getInstance( ).getGameDescriptor( ).isKeyboardNavigationEnabled( )){
+            gridManager = new GridManager();
+        } else
+            gridManager= null;
+        
     }
 
     /*
@@ -73,8 +81,6 @@ public class GameStatePlaying extends GameState {
      */
     @Override
     public synchronized void mainLoop( long elapsedTime, int fps ) {
- 
-
         // Process the mouse events
         MouseEvent e;
         while( (e = vMouse.poll( )) != null ) {
@@ -176,6 +182,7 @@ public class GameStatePlaying extends GameState {
         // Ends the draw process
         GUI.getInstance( ).endDraw( );
         g.dispose( );
+        
     }
 
     @Override
@@ -244,12 +251,13 @@ public class GameStatePlaying extends GameState {
 
     @Override
     public void keyPressed( KeyEvent e ) {
-
-        switch( e.getKeyCode( ) ) {
-            case KeyEvent.VK_ESCAPE:
+        if (gridManager==null){
+            if (e.getKeyCode( )==KeyEvent.VK_ESCAPE){
                 if( !GUI.getInstance( ).keyInHud( e ) )
                     game.setState( Game.STATE_OPTIONS );
-                break;
+            }
+        } else {
+            gridManager.handleKeyEvent( e );
         }
     }
 }

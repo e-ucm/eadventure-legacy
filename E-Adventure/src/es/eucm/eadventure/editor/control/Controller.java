@@ -2934,6 +2934,16 @@ public class Controller {
             adventureDataControl.setDescription( description );
         }
     }
+    
+    public void setKeyboardNavigation ( boolean enabled ){
+        if (enabled!=adventureDataControl.isKeyboardNavigationEnabled( )){
+            adventureDataControl.setKeyboardNavigation( enabled );
+        }
+    }
+    
+    public boolean isKeyboardNavigationEnabled(){
+        return adventureDataControl.isKeyboardNavigationEnabled( );
+    }
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -383,4 +383,13 @@ public class ActionButton {
 
         return over;
     }
+    
+    // For Gametel
+    public int getButtonWidth( ) {
+    
+        return button_width;
+    }
+    public int getButtonHeight( ){
+        return button_height;
+    }    
 }

@@ -1880,4 +1880,7 @@
 <entry key="DescriptionSet.deleteOnlyOneDescription.message">Tem certeza que deseja apagar a descrição selecionada? As condições na descrição do outro será excluído</entry>
 <entry key="Videoscene.Skip.label">Os usuários podem pular o vídeo com um clique do mouse</entry>
 <entry key="Videoscene.Skip.border">Vídeo pular</entry>
+<entry key="MenuAdventure.KeyboardNavigationEnabled">Navegação pelo teclado</entry>
+<entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Enable (habilitado jogo com setas e intro)</entry>
+
 </properties>

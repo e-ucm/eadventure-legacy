@@ -341,4 +341,44 @@ public class FunctionalAtrezzo extends FunctionalElement {
 
         return reference;
     }
+    
+    /**
+     * Returns the X coordinate of the left-top vertex of this item.
+     * It takes into account scene offset, transparent parts, and scale.  
+     * @return The Current Absolute X position of the let-top vertex of the item 
+     */
+    @Override
+    public int getXImage(){
+        return Math.round( (x + x1 * scale) - ( getWidth( ) * scale / 2 ) ) ;
+    }
+
+    /**
+     * Returns the Y coordinate of the left-top vertex of this item.
+     * It takes into account transparent parts, and scale.  
+     * @return The Current Absolute Y position of the let-top vertex of the item 
+     */
+    @Override
+    public int getYImage(){
+        return  Math.round( (y + y1 * scale) - getHeight( ) * scale );
+    }
+    
+    /**
+     * Returns the current height of this item.
+     * It takes into account transparent parts, and scale.  
+     * @return The Current height of the item 
+     */
+    @Override
+    public int getHImage(){
+        return  Math.round( (y2-y1)*scale );//Math.round( scale*getHeight());
+    }
+    
+    /**
+     * Returns the current width of this item.
+     * It takes into account scene offset, transparent parts, and scale.  
+     * @return The Current width of the item 
+     */
+    @Override
+    public int getWImage(){
+        return  Math.round( (x2-x1)*scale );//Math.round( scale*getWidth());
+    }
 }

@@ -1894,4 +1894,7 @@
 <entry key="DescriptionSet.deleteOnlyOneDescription.message">Sei sicuro di voler eliminare la descrizione selezionata? Le condizioni nella descrizione di altri verranno cancellati</entry>
 <entry key="Videoscene.Skip.label">Gli utenti possono saltare il video con un clic del mouse</entry>
 <entry key="Videoscene.Skip.border">Video saltare</entry>
+<entry key="MenuAdventure.KeyboardNavigationEnabled">Navigazione da tastiera</entry>
+<entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Abilita (gioco abilitato con le frecce e intro)</entry>
+
 </properties>

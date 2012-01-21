@@ -1918,4 +1918,7 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="DescriptionSet.deleteOnlyOneDescription.message">Sind Sie sicher, dass die ausgewählten Beschreibung zu löschen? Die Bedingungen in den anderen Beschreibung wird gelöscht</entry>
 <entry key="Videoscene.Skip.label">Benutzer können überspringen das Video mit einem Mausklick</entry>
 <entry key="Videoscene.Skip.border">Video-Skipping</entry>
+<entry key="MenuAdventure.KeyboardNavigationEnabled">Navigation mit der Tastatur</entry>
+<entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Enable (aktiviert Spiel mit Pfeilen und intro)</entry>
+
 </properties>

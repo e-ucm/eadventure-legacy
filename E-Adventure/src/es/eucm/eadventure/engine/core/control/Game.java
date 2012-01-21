@@ -37,6 +37,8 @@
 package es.eucm.eadventure.engine.core.control;
 
 import java.awt.Graphics2D;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -367,6 +369,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     private DebugValuesPanel debugChangesPanel;
 
     private DebugLogPanel debugLogPanel;
+    
+    /**
+     * Boolean value used to determine if a special keyboard events dispatcher should be used to dispatch events to Game class.
+     * This is important to ensure that keyboard events are handled when swing components are displayed (videos, html).
+     */
+    private boolean dispatchEvents;
 
     /**
      * Returns the instance of Game
@@ -849,11 +857,37 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
             GUI.getInstance( ).initGUI( gameDescriptor.getGUIType( ), gameDescriptor.isGUICustomized( ) );
 
+            /*
+             * Set up special keyevent dispatcher to ensure Game gets the events when components are shown (video, html) 
+             */
+            dispatchEvents = true;
             if( GUI.getInstance( ).getFrame( ) != null ) {
-                GUI.getInstance( ).getFrame( ).addKeyListener( this );
+                KeyboardFocusManager.getCurrentKeyboardFocusManager( ).addKeyEventDispatcher( new KeyEventDispatcher(){
+
+                    public boolean dispatchKeyEvent( KeyEvent e ) {
+                        if (dispatchEvents){
+                            if (e.getID( ) == KeyEvent.KEY_TYPED)
+                                Game.getInstance( ).keyTyped( e );
+                            else if (e.getID( ) == KeyEvent.KEY_PRESSED)
+                                Game.getInstance( ).keyPressed( e );
+                            if (e.getID( ) == KeyEvent.KEY_RELEASED)
+                                Game.getInstance( ).keyReleased( e );
+                            return true;
+                        } else
+                            return false;
+                    }
+                    
+                });
                 GUI.getInstance( ).getFrame( ).addMouseListener( this );
                 GUI.getInstance( ).getFrame( ).addMouseMotionListener( this );
             }
+            
+            
+            /*if( GUI.getInstance( ).getFrame( ) != null ) {
+                GUI.getInstance( ).getFrame( ).addKeyListener( this );
+                GUI.getInstance( ).getFrame( ).addMouseListener( this );
+                GUI.getInstance( ).getFrame( ).addMouseMotionListener( this );
+            }*/
 
             Graphics2D g = GUI.getInstance( ).getGraphics( );
 
@@ -973,6 +1007,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     private void stop( ) {
 
+        //Stop handling keyboard events
+        this.dispatchEvents=false;
+        
         //Stop the music (if it is playing) and the adaptation clock
         if( functionalScene != null )
             functionalScene.stopBackgroundMusic( );
@@ -1932,7 +1969,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @return MouseEvent the last MouseEvent
      */
     public MouseEvent getLastMouseEvent( ) {
-
+        if (lastMouseEvent==null)
+            lastMouseEvent = new MouseEvent(GUI.getInstance( ).getFrame( ), MouseEvent.MOUSE_MOVED, 0, 0, MouseEvent.ALT_MASK, 0, 0, false);
         return lastMouseEvent;
     }
 
@@ -2003,4 +2041,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         return gameDescriptor.getDragBehaviour( ) == DragBehaviour.IGNORE_NON_TARGETS;
     }
 
+    public GameState getCurrentState( ) {
+        return currentState;
+    }
 }
