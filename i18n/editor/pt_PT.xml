@@ -1883,4 +1883,9 @@
 <entry key="MenuAdventure.KeyboardNavigationEnabled">Navegação pelo teclado</entry>
 <entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Enable (habilitado jogo com setas e intro)</entry>
 
+<entry key="MenuConfiguration.DebugOptions">Opções de depuração</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintGrid">Pintar a grade, o deslocamento da cena e as áreas delimitadora dos botões</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Desenhe pontos importantes para a interação de teclado</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Desenhar áreas delimitadora de elementos interativos e áreas de cena</entry>
+
 </properties>

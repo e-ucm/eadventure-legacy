@@ -2036,4 +2036,9 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="MenuAdventure.KeyboardNavigationEnabled">Navegación por teclado</entry>
 <entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Activar (habilita juego con flechas e intro)</entry>
 
+<entry key="MenuConfiguration.DebugOptions">Opciones de depuración</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintGrid">Pintar cuadrícula, desplazamiento de escena y contorno de botones</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Pintar puntos de interacción para teclado</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Pintar contorno de elementos y zonas interactivas</entry>
+
 </properties>

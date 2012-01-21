@@ -56,6 +56,7 @@ import javax.swing.JOptionPane;
 import es.eucm.eadventure.comm.AdventureApplet;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerGAMETEL;
+import es.eucm.eadventure.common.auxiliar.DebugOptions;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
@@ -363,6 +364,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     private String state = "";
 
     private boolean debug = false;
+    private DebugOptions debugOptions;
 
     private boolean fromEditor = false;
 
@@ -391,11 +393,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         instance = new Game( );
     }
 
-    public static void create( boolean fromEditor, boolean debug ) {
+    public static void create( boolean fromEditor, DebugOptions debugOptions ) {
 
         instance = new Game( );
         instance.fromEditor = fromEditor;
-        instance.debug = debug;
+        instance.debugOptions = debugOptions;
+        instance.debug = debugOptions!=null;
     }
 
     public static void delete( ) {
@@ -2003,6 +2006,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public boolean isDebug( ) {
 
         return debug;
+    }
+    
+    public DebugOptions getDebugOptions(){
+        return debugOptions;
     }
 
     public boolean isFromEditor( ) {

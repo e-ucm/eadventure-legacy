@@ -1907,4 +1907,10 @@
 <entry key="Videoscene.Skip.border">Video sărind peste</entry>
 <entry key="MenuAdventure.KeyboardNavigationEnabled">Tastatura de navigare</entry>
 <entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Activează (joc activat cu săgeţi şi intro)</entry>
+
+<entry key="MenuConfiguration.DebugOptions">Opţiuni de depanare</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintGrid">Paint grila, de compensare a scenei şi zonele de încadrare a butoanelor</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Desenaţi puncte importante pentru interacţiune tastatură</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Egal zone de încadrare pentru elemente interactive si zonele de scena</entry>
+
 </properties>

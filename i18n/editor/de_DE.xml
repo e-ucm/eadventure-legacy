@@ -1921,4 +1921,9 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="MenuAdventure.KeyboardNavigationEnabled">Navigation mit der Tastatur</entry>
 <entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Enable (aktiviert Spiel mit Pfeilen und intro)</entry>
 
+<entry key="MenuConfiguration.DebugOptions">Debugging-Optionen</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintGrid">Malen Sie das Raster, die Versetzung der Szene und der umgebenden Bereiche der Tasten</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Zeichnen Sie wichtige Punkte für die Tastatur-Interaktion</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Draw begrenzenden Flächen für interaktive Elemente und Szenen Bereichen</entry>
+
 </properties>

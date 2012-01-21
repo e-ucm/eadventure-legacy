@@ -1897,4 +1897,9 @@
 <entry key="MenuAdventure.KeyboardNavigationEnabled">Navigazione da tastiera</entry>
 <entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Abilita (gioco abilitato con le frecce e intro)</entry>
 
+<entry key="MenuConfiguration.DebugOptions">Opzioni di debug</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintGrid">Dipingi la griglia, l'offset della scena e le aree di delimitazione dei pulsanti</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Disegna punti importanti per l'interazione della tastiera</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Disegnare aree di delimitazione per elementi interattivi e aree scena</entry>
+
 </properties>

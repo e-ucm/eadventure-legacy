@@ -2426,7 +2426,7 @@ public class Controller {
                     if( canBeRun( ) ) {
                         mainWindow.setNormalRunAvailable( false );
                         chaptersController.updateVarsFlagsForRunning( );
-                        EAdventureDebug.debug( Controller.getInstance( ).adventureDataControl.getAdventureData( ), AssetsController.getInputStreamCreator( ) );
+                        EAdventureDebug.debug( Controller.getInstance( ).adventureDataControl.getAdventureData( ), AssetsController.getInputStreamCreator( ), ConfigData.getDebugOptions( ) );
                         Controller.getInstance( ).startAutoSave( 15 );
                         mainWindow.setNormalRunAvailable( true );
                     }
