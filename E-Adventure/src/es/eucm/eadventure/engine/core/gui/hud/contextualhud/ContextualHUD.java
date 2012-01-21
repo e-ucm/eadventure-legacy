@@ -49,6 +49,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.util.Hashtable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Action;
@@ -862,9 +864,16 @@ public class ContextualHUD extends HUD {
                     GUI.drawStringOnto( g, new String[] { description.getName( ) }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
                     // if there are associated sound, play it
                     if (description.getNameSoundPath( ) != null && 
-                            !description.getNameSoundPath( ).equals( "" )&& this.playName){
-                        Game.getInstance( ).getFunctionalPlayer( ).speak( "", description.getNameSoundPath( ) );
-                        this.playName = false;
+                            !description.getNameSoundPath( ).equals( lastAudioPlayed )/*&& this.playName*/){
+                        //Game.getInstance( ).getFunctionalPlayer( ).stopTalking( );
+                        /*if (Game.getInstance( ).getFunctionalPlayer( ).isTalking( ))
+                            Game.getInstance( ).getFunctionalPlayer( ).stopTalking( );
+                        
+                        Game.getInstance( ).getFunctionalPlayer( ).speak( "", description.getNameSoundPath( ) );*/
+                        Timer timer = new Timer ();
+                        timer.schedule( new ScheduledSoundPlay(description.getNameSoundPath( )), 1 );
+                        lastAudioPlayed=description.getNameSoundPath( );
+                        //this.playName = false;
                     }
                 }
             }
@@ -1016,4 +1025,24 @@ public class ContextualHUD extends HUD {
             return actionButtons.getButtonHeight( index );
         else return -1;
     }
+    
+    private class   ScheduledSoundPlay  extends TimerTask {
+        private String path;
+
+        public ScheduledSoundPlay( String path ) {
+
+            super( );
+            this.path = path;
+        }
+
+        @Override
+        public void run( ) {
+            MultimediaManager.getInstance( ).stopAllSounds( );
+            MultimediaManager.getInstance( ).startPlaying( MultimediaManager.getInstance( ).loadSound( path, false ) );
+        }
+        
+    };
+
+    
+    private String lastAudioPlayed="";
 }
