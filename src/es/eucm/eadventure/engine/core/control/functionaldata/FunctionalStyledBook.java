@@ -67,7 +67,9 @@ public class FunctionalStyledBook extends FunctionalBook {
         //ADD the functional pages: only those valid are used 
         for( BookPage pageURL : book.getPageURLs( ) ) {
             FunctionalBookPage newFPage = new FunctionalBookPage( pageURL, this, background, arrowLeftNormal, arrowRightNormal, previousPage, nextPage, false );
-
+            //newFPage.addKeyListener( Game.getInstance( ) );
+            
+            
             if( newFPage.isValid( ) ) {
                 functionalPages.add( newFPage );
                 //System.out.println( "[LOG] FunctionalStyledBook - Constructor - Page added" );

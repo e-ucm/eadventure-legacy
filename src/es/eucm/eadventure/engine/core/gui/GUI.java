@@ -48,6 +48,7 @@ import java.awt.Frame;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
@@ -73,6 +74,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalhighlights.FunctionalHighlight;
 import es.eucm.eadventure.engine.core.gui.ballonfactory.BallonFactory;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
+import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
@@ -854,8 +856,177 @@ public abstract class GUI implements FocusListener {
             text.draw( g );
         textToDraw.clear( );
 
+        ////////////////// GAMETEL /////////////////////
+
+        /*if (Game.getInstance( ).isDebug( ) && 
+                Game.getInstance( ).getCurrentState( ) instanceof GameStatePlaying &&
+                Game.getInstance( ).getFunctionalScene( )!=null){
+            
+            // Draw grid lines
+            for (int i=0; i<16; i++){
+                g.setStroke( new BasicStroke(i%2==0?2.0F:1.0F) );
+                g.setColor(Color.DARK_GRAY);
+                g.drawLine( 50*i, 0, 50*i, GUI.WINDOW_HEIGHT );
+            }
+            for (int j=0; j<12; j++){
+                g.setStroke( new BasicStroke(j%2==0?2.0F:1.0F) );
+                g.setColor(Color.DARK_GRAY);
+                g.drawLine( 0, j*50, GUI.WINDOW_WIDTH, j*50 );
+            }
+            
+            // Draw grid
+            List<GridPosition> pos = Game.getInstance( ).getFunctionalScene( ).getGrid( ); 
+                //GridFactory.buildSceneGrid( Game.getInstance( ).getFunctionalScene( ).getScene( ).getId( ) );
+            for (GridPosition p:pos){
+                if (p.getType( ).equals( "Exit" )) g.setColor( Color.red );
+                else if (p.getType( ).equals( "ActiveArea" )) g.setColor( Color.green );
+                else if (p.getType( ).equals( "ItemReferences" )) g.setColor( Color.yellow );
+                else if (p.getType( ).equals( "AtrezzoReferences" )) g.setColor( Color.darkGray );
+                else if (p.getType( ).equals( "CharacterReferences" )) g.setColor( Color.blue );
+                
+                g.fillOval( p.getX( )-5, p.getY( )-5, 10, 10 );
+            }
+            
+            
+            
+            // Draw exits & active areas
+            DrawUtils.drawRectangleCollection( Game.getInstance( ).getCurrentChapterData( ).getScene( Game.getInstance( ).getFunctionalScene( ).getScene( ).getId( ) ).getActiveAreas( ), Color.green, g );
+            DrawUtils.drawRectangleCollection( Game.getInstance( ).getCurrentChapterData( ).getScene( Game.getInstance( ).getFunctionalScene( ).getScene( ).getId( ) ).getExits( ), Color.red, g );
+            
+            // Draw Functional Elements
+            DrawUtils.drawElementCollectionBoundingVolumes( Game.getInstance( ).getFunctionalScene( ).getItems( ), 
+                    Color.yellow, g );
+            DrawUtils.drawElementCollectionBoundingVolumes( Game.getInstance( ).getFunctionalScene( ).getAtrezzos( ), 
+                    Color.darkGray, g );
+            DrawUtils.drawElementCollectionBoundingVolumes( Game.getInstance( ).getFunctionalScene( ).getNPCs( ), 
+                    Color.blue, g );
+            
+            // Draw offset
+            g.setColor( Color.BLACK );
+            g.drawString( "OffsetX:"+Integer.toString( Game.getInstance().getFunctionalScene( ).getOffsetX() ), GUI.WINDOW_WIDTH-150, 50 );
+            
+            DrawUtils.drawActionButtonsBoundingVolumes( Color.pink, g );
+            
+        }*/
+        
+        
+        ////////////////// GAMETEL //////////////////////
+
+        
     }
 
+    /////////////// GAMETEL ////////////////////
+    
+    // GAMETEL
+    /**
+     * Returns the number of action buttons in the contextual hud.
+     * Developers can use this method to iterate through action buttons and retrieve
+     * their (X,Y) coordinates, width and height.
+     * 
+     * If HUD is not contextual, this method returns Integer.MAX_VALUE
+     * 
+     * @see {@link #getButtonX(int)}
+     * @see {@link #getButtonY(int)}
+     * @see {@link #getButtonWidth(int)}
+     * @see {@link #getButtonHeight(int)}
+     */
+    public int getButtonCount () {
+        if (hud instanceof ContextualHUD)
+            return ( (ContextualHUD) hud ).getButtonCount( );
+        else
+            return Integer.MAX_VALUE;
+    }
+    
+    /**
+     * Returns the X coordinate of center of button with given index.
+     * @param index     Button's index. Should be a value between 0 and getButtonCount
+     * @return          The x coordinate on the screen of the center of button with given index (in pixels).
+     *                  Some exceptions may apply:
+     *                  If index is not between 0 and getButtonCount(), Integer.MIN_VALUE is returned.
+     *                  If Hud is not contextual (but traditional), Integer.MAX_VALUE is returned
+     * 
+     * @see {@link #getButtonCount()}
+     * @see {@link #getButtonY(int)}
+     * @see {@link #getButtonWidth(int)}
+     * @see {@link #getButtonHeight(int)}
+     */
+    public int getButtonX( int index ){
+        if (hud instanceof ContextualHUD)
+            return ( (ContextualHUD) hud ).getButtonX( index );
+        else
+            return Integer.MAX_VALUE;
+    }
+
+    /**
+     * Returns the Y coordinate of center of button with given index.
+     * @param index     Button's index. Should be a value between 0 and getButtonCount
+     * @return          The y coordinate on the screen of the center of button with given index (in pixels).
+     *                  Some exceptions may apply:
+     *                  If index is not between 0 and getButtonCount(), Integer.MIN_VALUE is returned.
+     *                  If Hud is not contextual (but traditional), Integer.MAX_VALUE is returned
+     * 
+     * @see {@link #getButtonCount()}
+     * @see {@link #getButtonX(int)}
+     * @see {@link #getButtonWidth(int)}
+     * @see {@link #getButtonHeight(int)}
+     */
+    public int getButtonY( int index ){
+        if (hud instanceof ContextualHUD)
+            return ( (ContextualHUD) hud ).getButtonY( index );
+        else
+            return Integer.MAX_VALUE;
+    }
+    
+    /**
+     * Returns the Width of action button with given index.
+     * @param index     Button's index. Should be a value between 0 and getButtonCount
+     * @return          The width of button with given index as shown in the screen (in pixels).
+     *                  Some exceptions may apply:
+     *                  If index is not between 0 and getButtonCount(), Integer.MIN_VALUE is returned.
+     *                  If Hud is not contextual (but traditional), Integer.MAX_VALUE is returned
+     * 
+     * @see {@link #getButtonCount()}
+     * @see {@link #getButtonX(int)}
+     * @see {@link #getButtonY(int)}
+     * @see {@link #getButtonHeight(int)}
+     */
+    public int getButtonWidth( int index ){
+        if (hud instanceof ContextualHUD)
+            return ( (ContextualHUD) hud ).getButtonWidth( index );
+        else
+            return Integer.MAX_VALUE;
+    }
+
+    /**
+     * Returns the Height of action button with given index.
+     * @param index     Button's index. Should be a value between 0 and getButtonCount
+     * @return          The height of button with given index as shown in the screen (in pixels).
+     *                  Some exceptions may apply:
+     *                  If index is not between 0 and getButtonCount(), Integer.MIN_VALUE is returned.
+     *                  If Hud is not contextual (but traditional), Integer.MAX_VALUE is returned
+     * 
+     * @see {@link #getButtonCount()}
+     * @see {@link #getButtonX(int)}
+     * @see {@link #getButtonY(int)}
+     * @see {@link #getButtonWidth(int)}
+     */
+    public int getButtonHeight( int index ){
+        if (hud instanceof ContextualHUD)
+            return ( (ContextualHUD) hud ).getButtonHeight( index );
+        else
+            return Integer.MAX_VALUE;
+    }
+    
+    public Point getLeftOffsetArrowCenter (){
+        return new Point(10, GUI.WINDOW_HEIGHT / 2);
+    }
+    
+    public Point getRightOffsetArrowCenter (){
+        return new Point(GUI.WINDOW_WIDTH-10, GUI.WINDOW_HEIGHT / 2);
+    }
+    /////////////// GAMETEL ////////////////////
+    
+    
     public void clearBackground( ) {
 
         this.background = null;

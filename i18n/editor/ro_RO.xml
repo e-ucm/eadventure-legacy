@@ -1905,4 +1905,6 @@
 <entry key="DescriptionSet.deleteOnlyOneDescription.message">Sigur doriţi să ştergeţi descrierea selectate? Condiţiile în descrierea celelalte vor fi şterse</entry>
 <entry key="Videoscene.Skip.label">Utilizatorii pot trece peste video cu un clic de mouse</entry>
 <entry key="Videoscene.Skip.border">Video sărind peste</entry>
+<entry key="MenuAdventure.KeyboardNavigationEnabled">Tastatura de navigare</entry>
+<entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Activează (joc activat cu săgeţi şi intro)</entry>
 </properties>

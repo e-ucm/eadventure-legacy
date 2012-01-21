@@ -176,6 +176,34 @@ public abstract class FunctionalElement implements Renderable {
     public abstract boolean canPerform( int action );
 
     /**
+     * Returns the X coordinate of the left-top vertex of this element, just as it is drawn on the scene.
+     * It takes into account scene offset, transparent parts, and scale.  
+     * @return The Current Absolute X position of the let-top vertex of the element 
+     */
+    public abstract int getXImage();
+
+    /**
+     * Returns the Y coordinate of the left-top vertex of this element, just as it is drawn on the scene.
+     * It takes into account transparent parts, and scale.  
+     * @return The Current Absolute Y position of the let-top vertex of the element 
+     */
+    public abstract int getYImage();
+    
+    /**
+     * Returns the current height of this element, just as it is drawn on the scene.
+     * It takes into account transparent parts, and scale.  
+     * @return The Current height of the element 
+     */
+    public abstract int getHImage();
+    
+    /**
+     * Returns the current width of this element, just as it is drawn on the scene.
+     * It takes into account scene offset, transparent parts, and scale.  
+     * @return The Current width of the element 
+     */
+    public abstract int getWImage();
+    
+    /**
      * Returns if the element can be used alone, without any other element
      * 
      * @return True if the element can be used, false otherwise

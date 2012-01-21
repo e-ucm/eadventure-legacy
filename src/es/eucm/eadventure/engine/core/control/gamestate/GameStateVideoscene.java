@@ -38,6 +38,7 @@ package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.Component;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import javax.media.ControllerEvent;
@@ -165,6 +166,7 @@ public class GameStateVideoscene extends GameState implements ControllerListener
 
                 stop = false;
                 mediaPlayer.start( );
+                video.requestFocus( );
             }
         }
         catch( Exception e ) {
@@ -237,6 +239,11 @@ public class GameStateVideoscene extends GameState implements ControllerListener
         // Check if the video scene can be skipped before skip it
         if (videoscene.isCanSkip( ))
             stop = true;
+    }
+    
+    @Override
+    public void keyPressed( KeyEvent e ) {
+        mouseClicked(null);
     }
 
     public synchronized void blockingPrefetch( ) {

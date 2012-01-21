@@ -534,4 +534,33 @@ public class ActionButtons {
         return null;
     }
 
+    // GAMETEL
+    public int getButtonCount () {
+        return buttons.size( );
+    }
+    
+    public int getButtonX( int index ){
+        if (index<0 || index>=buttons.size( ))
+            return Integer.MIN_VALUE;
+        return buttons.get( index ).getPosX( );
+    }
+    
+    public int getButtonY( int index ){
+        if (index<0 || index>=buttons.size( ))
+            return Integer.MIN_VALUE;
+        return buttons.get( index ).getPosY( );
+    }
+    
+    public int getButtonWidth( int index ){
+        if (index<0 || index>=buttons.size( ))
+            return Integer.MIN_VALUE;
+        return buttons.get( index ).getButtonWidth( );
+    }
+
+    public int getButtonHeight( int index ){
+        if (index<0 || index>=buttons.size( ))
+            return Integer.MIN_VALUE;
+        return buttons.get( index ).getButtonHeight( );
+    }
+
 }

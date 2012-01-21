@@ -98,6 +98,8 @@ public class AdventureDataDialog extends ToolManagableDialog {
     private DocumentListener documentListener;
     
     private JCheckBox waitUserInteraction;
+    
+    private JCheckBox keyboardNavigationEnabled;
 
     /**
      * Constructor.
@@ -312,6 +314,23 @@ public class AdventureDataDialog extends ToolManagableDialog {
         c.gridy++;
         guiStylesPanel.add( panel2, c);
 
+        keyboardNavigationEnabled = new JCheckBox( TC.get( "MenuAdventure.KeyboardNavigationEnabled.Checkbox" ), controller.isKeyboardNavigationEnabled( ) );
+        keyboardNavigationEnabled.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                controller.setKeyboardNavigation( keyboardNavigationEnabled.isSelected( ) );
+            }
+        } );
+        keyboardNavigationEnabled.setSelected( controller.isKeyboardNavigationEnabled( ) );
+        
+        JPanel keyboardNavigationPanel = new JPanel(new BorderLayout());
+        keyboardNavigationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "MenuAdventure.KeyboardNavigationEnabled" ) ) );
+        keyboardNavigationPanel.add( keyboardNavigationEnabled, BorderLayout.WEST );
+        
+        c.gridy++;
+        guiStylesPanel.add(keyboardNavigationPanel, c);
+
         
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
@@ -331,8 +350,8 @@ public class AdventureDataDialog extends ToolManagableDialog {
         add( buttonsPanel, BorderLayout.SOUTH );
 
         // Set size and position and show the dialog
-        setSize( new Dimension( 450, 600 ) );
-        setMinimumSize( new Dimension( 450, 600 ) );
+        setSize( new Dimension( 450, 700 ) );
+        setMinimumSize( new Dimension( 450, 700 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
         setVisible( true );

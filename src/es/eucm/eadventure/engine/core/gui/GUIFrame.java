@@ -312,6 +312,8 @@ public class GUIFrame extends GUI implements FocusListener {
         component.repaint( );
         //System.out.println("IS DISPLAYABLE: " + component.isDisplayable() + "\n");
 
+        component.requestFocus( );
+        
         return bkgFrame;
     }
 

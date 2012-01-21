@@ -670,6 +670,18 @@ public class GameStateConversation extends GameState {
             else if( optionSelected >= firstLineDisplayed && optionSelected <= numberDisplayedOptions + firstLineDisplayed )
                 selectNoAllDisplayedOption( );
         }
+        
+        // Line skipping controls (only dialogues)
+        else if ( currentNode.getType( ) == ConversationNodeView.DIALOGUE ){
+            // If  VK right is pressed, one line is advanced (like left click)
+            if (e.getKeyCode( ) == KeyEvent.VK_RIGHT){
+                mouseClickedButton = MouseEvent.BUTTON1;
+            }
+            // IF Av page or esc is pressed, all conv/node skipped (like right click)
+            else if (e.getKeyCode( ) == KeyEvent.VK_PAGE_DOWN || e.getKeyCode( ) == KeyEvent.VK_ESCAPE){
+                mouseClickedButton = MouseEvent.BUTTON3;
+            }
+        }
     }
 
     @Override

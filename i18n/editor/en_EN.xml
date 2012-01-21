@@ -2030,4 +2030,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="DragBehaviour.ConsiderNonTargets">Consider all elements as targets</entry>
 <entry key="Videoscene.Skip.label">Users can skip the video with a mouse click</entry>
 <entry key="Videoscene.Skip.border">Video skipping</entry>
+<entry key="MenuAdventure.KeyboardNavigationEnabled">Keyboard navigation</entry>
+<entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Activate (enable play mode with arrow keys and enter)</entry>
+
 </properties>

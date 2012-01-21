@@ -906,4 +906,44 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         return player.getShowsSpeechBubbles( );
     }
 
+    /**
+     * Returns the X coordinate of the left-top vertex of this item.
+     * It takes into account scene offset, transparent parts, and scale.  
+     * @return The Current Absolute X position of the let-top vertex of the item 
+     */
+    @Override
+    public int getXImage(){
+        return Math.round( getX( )-Game.getInstance( ).getFunctionalScene( ).getOffsetX( )-getWImage( )/2 );
+    }
+
+    /**
+     * Returns the Y coordinate of the left-top vertex of this item.
+     * It takes into account transparent parts, and scale.  
+     * @return The Current Absolute Y position of the let-top vertex of the item 
+     */
+    @Override
+    public int getYImage(){
+        return  Math.round( getY( )-getHImage( ) );
+    }
+    
+    /**
+     * Returns the current height of this item.
+     * It takes into account transparent parts, and scale.  
+     * @return The Current height of the item 
+     */
+    @Override
+    public int getHImage(){
+        return Math.round( getHeight()*scale );
+    }
+    
+    /**
+     * Returns the current width of this item.
+     * It takes into account scene offset, transparent parts, and scale.  
+     * @return The Current width of the item 
+     */
+    @Override
+    public int getWImage(){
+        return Math.round(getWidth()*scale);
+    }
+    
 }

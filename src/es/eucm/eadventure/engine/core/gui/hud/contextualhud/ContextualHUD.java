@@ -924,7 +924,6 @@ public class ContextualHUD extends HUD {
 
     }
 
-    
     private String processElement(){
         FunctionalElement element = game.getActionManager( ).getElementOver( );
         if (element instanceof FunctionalNPC)
@@ -985,4 +984,36 @@ public class ContextualHUD extends HUD {
         this.lastMouseMoved = e;
     }
     
+    // GAMETEL
+    public int getButtonCount () {
+        if (showActionButtons)
+            return actionButtons.getButtonCount( );
+        else
+            return 0;
+    }
+    
+    
+    public int getButtonX( int index ){
+        if (showActionButtons)
+            return actionButtons.getButtonX( index );
+        else return -1;
+    }
+    
+    public int getButtonY( int index ){
+        if (showActionButtons)
+            return actionButtons.getButtonY( index );
+        else return -1;
+    }
+    
+    public int getButtonWidth( int index ){
+        if (showActionButtons)
+            return actionButtons.getButtonWidth( index );
+        else return -1;
+    }
+
+    public int getButtonHeight( int index ){
+        if (showActionButtons)
+            return actionButtons.getButtonHeight( index );
+        else return -1;
+    }
 }

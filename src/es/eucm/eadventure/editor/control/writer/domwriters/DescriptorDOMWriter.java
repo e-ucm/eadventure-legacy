@@ -109,6 +109,12 @@ public class DescriptorDOMWriter {
             else 
                 ((Element)configurationNode).setAttribute( "keepShowing", "no" );
 
+            if (adventureData.isKeyboardNavigationEnabled( ))
+                ((Element)configurationNode).setAttribute( "keyboard-navigation", "enabled" );
+            else 
+                ((Element)configurationNode).setAttribute( "keyboard-navigation", "disabled" );
+
+            
             switch (adventureData.getDefaultClickAction()) {
                 case SHOW_DETAILS:
                     ((Element)configurationNode).setAttribute( "defaultClickAction", "showDetails" );
