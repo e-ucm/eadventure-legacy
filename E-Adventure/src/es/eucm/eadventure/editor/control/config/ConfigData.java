@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import es.eucm.eadventure.common.auxiliar.DebugOptions;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.editor.control.Controller;
 
@@ -93,6 +94,11 @@ public class ConfigData {
     private String projectsPath;
 
     private int effectSelectorTab;
+    
+    
+    /////// Added to control preferences on support display options for debugging
+    private DebugOptions debugOptions;
+    //////
 
     public static boolean showNPCReferences( ) {
 
@@ -122,6 +128,10 @@ public class ConfigData {
     public static String getLoadingImage( ) {
 
         return instance.loadingImage;
+    }
+    
+    public static DebugOptions getDebugOptions(){
+        return instance.debugOptions;
     }
 
     public static boolean showStartDialog( ) {
@@ -175,6 +185,10 @@ public class ConfigData {
 
         // Load the current configuration
         Properties configuration = new Properties( );
+        configuration.setProperty( "PaintGrid", String.valueOf( instance.debugOptions.isPaintGrid( ) ) );
+        configuration.setProperty( "PaintHotSpots", String.valueOf( instance.debugOptions.isPaintHotSpots( ) ) );
+        configuration.setProperty( "PaintBoundingAreas", String.valueOf( instance.debugOptions.isPaintBoundingAreas( ) ) );
+        
         configuration.setProperty( "ShowItemReferences", String.valueOf( instance.showItemReferences ) );
         configuration.setProperty( "ShowNPCReferences", String.valueOf( instance.showNPCReferences ) );
         configuration.setProperty( "ShowAtrezzoReferences", String.valueOf( instance.showAtrezzoReferences ) );
@@ -218,6 +232,14 @@ public class ConfigData {
             showNPCReferences = Boolean.parseBoolean( configuration.getProperty( "ShowNPCReferences" ) );
             showStartDialog = Boolean.parseBoolean( configuration.getProperty( "ShowStartDialog" ) );
 
+            debugOptions = new DebugOptions();
+            if (configuration.containsKey( "PaintBoundingAreas" ))
+                debugOptions.setPaintBoundingAreas( Boolean.parseBoolean( configuration.getProperty( "PaintBoundingAreas" ) ));
+            if (configuration.containsKey( "PaintGrid" ))    
+                debugOptions.setPaintGrid( Boolean.parseBoolean( configuration.getProperty( "PaintGrid" ) ));
+            if (configuration.containsKey( "PaintHotSpots" ))    
+                debugOptions.setPaintHotSpots( Boolean.parseBoolean( configuration.getProperty( "PaintHotSpots" ) ));
+            
             exportsPath = configuration.getProperty( "ExportsDirectory" );
             if( exportsPath != null )
                 ReleaseFolders.setExportsPath( exportsPath );
@@ -253,6 +275,9 @@ public class ConfigData {
 
     private void checkConsistency( ) {
 
+        if (debugOptions == null)
+            debugOptions = new DebugOptions();
+        
         if( languageFile == null ) {
             languageFile = ReleaseFolders.getLanguageFilePath( ReleaseFolders.LANGUAGE_ENGLISH );
         }

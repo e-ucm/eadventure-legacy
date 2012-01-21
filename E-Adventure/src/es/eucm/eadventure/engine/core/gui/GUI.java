@@ -72,10 +72,13 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalhighlights.FunctionalHighlight;
+import es.eucm.eadventure.engine.core.control.gamestate.GameStatePlaying;
 import es.eucm.eadventure.engine.core.gui.ballonfactory.BallonFactory;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+import es.eucm.gametel.eadventure.engine.DrawUtils;
+import es.eucm.gametel.eadventure.engine.GridPosition;
 
 /**
  * This is the main class related with the graphics in eAdventure, including the
@@ -858,56 +861,65 @@ public abstract class GUI implements FocusListener {
 
         ////////////////// GAMETEL /////////////////////
 
-        /*if (Game.getInstance( ).isDebug( ) && 
+        if (Game.getInstance( ).isDebug( ) && 
                 Game.getInstance( ).getCurrentState( ) instanceof GameStatePlaying &&
                 Game.getInstance( ).getFunctionalScene( )!=null){
             
             // Draw grid lines
-            for (int i=0; i<16; i++){
-                g.setStroke( new BasicStroke(i%2==0?2.0F:1.0F) );
-                g.setColor(Color.DARK_GRAY);
-                g.drawLine( 50*i, 0, 50*i, GUI.WINDOW_HEIGHT );
+            if (Game.getInstance( ).getDebugOptions( ).isPaintGrid( )){
+                for (int i=0; i<16; i++){
+                    g.setStroke( new BasicStroke(i%2==0?2.0F:1.0F) );
+                    g.setColor(Color.LIGHT_GRAY);
+                    g.drawLine( 50*i, 0, 50*i, GUI.WINDOW_HEIGHT );
+                }
+                for (int j=0; j<12; j++){
+                    g.setStroke( new BasicStroke(j%2==0?2.0F:1.0F) );
+                    g.setColor(Color.LIGHT_GRAY);
+                    g.drawLine( 0, j*50, GUI.WINDOW_WIDTH, j*50 );
+                }
             }
-            for (int j=0; j<12; j++){
-                g.setStroke( new BasicStroke(j%2==0?2.0F:1.0F) );
-                g.setColor(Color.DARK_GRAY);
-                g.drawLine( 0, j*50, GUI.WINDOW_WIDTH, j*50 );
+
+            // Draw hot spots
+            if (Game.getInstance( ).getDebugOptions( ).isPaintHotSpots( )){
+                List<GridPosition> pos = Game.getInstance( ).getFunctionalScene( ).getGrid( ); 
+                    //GridFactory.buildSceneGrid( Game.getInstance( ).getFunctionalScene( ).getScene( ).getId( ) );
+                for (GridPosition p:pos){
+                    if (p.getType( ).equals( "Exit" )) g.setColor( Color.red );
+                    else if (p.getType( ).equals( "ActiveArea" )) g.setColor( Color.green );
+                    else if (p.getType( ).equals( "ItemReferences" )) g.setColor( Color.yellow );
+                    else if (p.getType( ).equals( "AtrezzoReferences" )) g.setColor( Color.darkGray );
+                    else if (p.getType( ).equals( "CharacterReferences" )) g.setColor( Color.blue );
+                    
+                    g.fillOval( p.getX( )-5, p.getY( )-5, 10, 10 );
+                }
             }
+
+            if (Game.getInstance( ).getDebugOptions( ).isPaintBoundingAreas( )){
             
-            // Draw grid
-            List<GridPosition> pos = Game.getInstance( ).getFunctionalScene( ).getGrid( ); 
-                //GridFactory.buildSceneGrid( Game.getInstance( ).getFunctionalScene( ).getScene( ).getId( ) );
-            for (GridPosition p:pos){
-                if (p.getType( ).equals( "Exit" )) g.setColor( Color.red );
-                else if (p.getType( ).equals( "ActiveArea" )) g.setColor( Color.green );
-                else if (p.getType( ).equals( "ItemReferences" )) g.setColor( Color.yellow );
-                else if (p.getType( ).equals( "AtrezzoReferences" )) g.setColor( Color.darkGray );
-                else if (p.getType( ).equals( "CharacterReferences" )) g.setColor( Color.blue );
+                // Draw exits & active areas
+                DrawUtils.drawRectangleCollection( Game.getInstance( ).getCurrentChapterData( ).getScene( Game.getInstance( ).getFunctionalScene( ).getScene( ).getId( ) ).getActiveAreas( ), Color.green, g );
+                DrawUtils.drawRectangleCollection( Game.getInstance( ).getCurrentChapterData( ).getScene( Game.getInstance( ).getFunctionalScene( ).getScene( ).getId( ) ).getExits( ), Color.red, g );
                 
-                g.fillOval( p.getX( )-5, p.getY( )-5, 10, 10 );
+                // Draw Functional Elements
+                DrawUtils.drawElementCollectionBoundingVolumes( Game.getInstance( ).getFunctionalScene( ).getItems( ), 
+                        Color.yellow, g );
+                DrawUtils.drawElementCollectionBoundingVolumes( Game.getInstance( ).getFunctionalScene( ).getAtrezzos( ), 
+                        Color.black, g );
+                DrawUtils.drawElementCollectionBoundingVolumes( Game.getInstance( ).getFunctionalScene( ).getNPCs( ), 
+                        Color.blue, g );
             }
-            
-            
-            
-            // Draw exits & active areas
-            DrawUtils.drawRectangleCollection( Game.getInstance( ).getCurrentChapterData( ).getScene( Game.getInstance( ).getFunctionalScene( ).getScene( ).getId( ) ).getActiveAreas( ), Color.green, g );
-            DrawUtils.drawRectangleCollection( Game.getInstance( ).getCurrentChapterData( ).getScene( Game.getInstance( ).getFunctionalScene( ).getScene( ).getId( ) ).getExits( ), Color.red, g );
-            
-            // Draw Functional Elements
-            DrawUtils.drawElementCollectionBoundingVolumes( Game.getInstance( ).getFunctionalScene( ).getItems( ), 
-                    Color.yellow, g );
-            DrawUtils.drawElementCollectionBoundingVolumes( Game.getInstance( ).getFunctionalScene( ).getAtrezzos( ), 
-                    Color.darkGray, g );
-            DrawUtils.drawElementCollectionBoundingVolumes( Game.getInstance( ).getFunctionalScene( ).getNPCs( ), 
-                    Color.blue, g );
             
             // Draw offset
-            g.setColor( Color.BLACK );
-            g.drawString( "OffsetX:"+Integer.toString( Game.getInstance().getFunctionalScene( ).getOffsetX() ), GUI.WINDOW_WIDTH-150, 50 );
+            // Draw grid lines
+            if (Game.getInstance( ).getDebugOptions( ).isPaintGrid( )){
             
-            DrawUtils.drawActionButtonsBoundingVolumes( Color.pink, g );
+                g.setColor( Color.BLACK );
+                g.drawString( "OffsetX:"+Integer.toString( Game.getInstance().getFunctionalScene( ).getOffsetX() ), GUI.WINDOW_WIDTH-150, 50 );
+                
+                DrawUtils.drawActionButtonsBoundingVolumes( Color.pink, g );
+            }
             
-        }*/
+        }
         
         
         ////////////////// GAMETEL //////////////////////

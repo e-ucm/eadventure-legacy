@@ -82,6 +82,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericFileChooserDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericOptionPaneDialog;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
@@ -91,8 +92,6 @@ import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
  * This class represents the main frame of the application. It has all the
  * elements of the view part of the application, as well as the responsible
  * functions for showing and requesting data.
- * 
- * @author Bruno Torijano Bueno
  */
 public class MainWindow extends JFrame {
 
@@ -132,6 +131,11 @@ public class MainWindow extends JFrame {
     private JMenu configurationMenu;
 
     private JMenu runMenu;
+    
+    
+    private JCheckBoxMenuItem paintGridMenuItem;
+    private JCheckBoxMenuItem paintHotSpotsMenuItem;
+    private JCheckBoxMenuItem paintBoundingAreasMenuItem;
 
     /**
      * Constructor. Creates the general layout.
@@ -782,6 +786,40 @@ public class MainWindow extends JFrame {
             languageMenu.add( itEnglish );
         }
         configurationMenu.add( languageMenu );
+        
+        JMenu debugOptionsMenu = new JMenu( TC.get( "MenuConfiguration.DebugOptions" ) );
+        paintGridMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintGrid" ), ConfigData.getDebugOptions( ).isPaintGrid( ) );
+        paintHotSpotsMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintHotSpots" ), ConfigData.getDebugOptions( ).isPaintHotSpots( ) );
+        paintBoundingAreasMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintBoundingAreas" ), ConfigData.getDebugOptions( ).isPaintBoundingAreas( ) );
+        paintGridMenuItem.addActionListener( new ActionListener(){
+
+            public void actionPerformed( ActionEvent e ) {
+                ConfigData.getDebugOptions( ).setPaintGrid( paintGridMenuItem.isSelected( ) );
+            }
+            
+        });
+        debugOptionsMenu.add( paintGridMenuItem );
+        
+        paintHotSpotsMenuItem.addActionListener( new ActionListener(){
+
+            public void actionPerformed( ActionEvent e ) {
+                ConfigData.getDebugOptions( ).setPaintHotSpots( paintHotSpotsMenuItem.isSelected( ) );
+            }
+            
+        });
+        debugOptionsMenu.add( paintHotSpotsMenuItem );
+        
+        paintBoundingAreasMenuItem.addActionListener( new ActionListener(){
+
+            public void actionPerformed( ActionEvent e ) {
+                ConfigData.getDebugOptions( ).setPaintBoundingAreas( paintBoundingAreasMenuItem.isSelected( ) );
+            }
+            
+        });
+        debugOptionsMenu.add( paintBoundingAreasMenuItem );
+        
+        configurationMenu.add( debugOptionsMenu );
+
 
         return windowMenu;
     }

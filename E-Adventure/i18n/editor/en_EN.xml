@@ -2032,5 +2032,9 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Videoscene.Skip.border">Video skipping</entry>
 <entry key="MenuAdventure.KeyboardNavigationEnabled">Keyboard navigation</entry>
 <entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Activate (enable play mode with arrow keys and enter)</entry>
+<entry key="MenuConfiguration.DebugOptions">Debugging Options</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintGrid">Paint grid, scene offset and buttons' bounding area</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Paint hot spots for keyboard interaction</entry>
+<entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Paint elements' and areas' bounding areas</entry>
 
 </properties>
