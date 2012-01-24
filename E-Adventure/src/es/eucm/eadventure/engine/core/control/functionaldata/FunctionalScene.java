@@ -61,11 +61,11 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalExit;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalGoTo;
+import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridFactory;
+import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridPosition;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.gametel.eadventure.engine.GridFactory;
-import es.eucm.gametel.eadventure.engine.GridPosition;
 
 /**
  * A scene in the game

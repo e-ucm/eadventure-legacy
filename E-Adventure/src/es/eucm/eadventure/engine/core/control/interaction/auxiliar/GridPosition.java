@@ -3,7 +3,7 @@
  * PEDRO - GRADIANT
  ************************************************/
 
-package es.eucm.gametel.eadventure.engine;
+package es.eucm.eadventure.engine.core.control.interaction.auxiliar;
 
 
 public class GridPosition {

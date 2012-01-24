@@ -73,12 +73,11 @@ import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalhighlights.FunctionalHighlight;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStatePlaying;
+import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridPosition;
 import es.eucm.eadventure.engine.core.gui.ballonfactory.BallonFactory;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
-import es.eucm.gametel.eadventure.engine.DrawUtils;
-import es.eucm.gametel.eadventure.engine.GridPosition;
 
 /**
  * This is the main class related with the graphics in eAdventure, including the
