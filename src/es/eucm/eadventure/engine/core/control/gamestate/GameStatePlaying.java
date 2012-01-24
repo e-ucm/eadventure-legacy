@@ -47,8 +47,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridManager;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.gametel.eadventure.engine.GridManager;
 
 /**
  * A game main loop during the normal game

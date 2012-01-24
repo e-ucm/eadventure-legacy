@@ -35,7 +35,7 @@
  *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.gametel.eadventure.engine;
+package es.eucm.eadventure.engine.core.control.interaction.auxiliar;
 
 import java.awt.Point;
 import java.awt.Polygon;

@@ -35,7 +35,7 @@
  *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.gametel.eadventure.engine;
+package es.eucm.eadventure.engine.core.gui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -45,7 +45,6 @@ import java.util.List;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
-import es.eucm.eadventure.engine.core.gui.GUI;
 
 
 public class DrawUtils {
