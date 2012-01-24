@@ -151,7 +151,7 @@ public class ReferencesListDataControl extends DataControl {
 
         // insert player
         // by default, if player don´t have layer, we give it to him.
-        if( playerImagePath != null && ( !Controller.getInstance( ).isPlayTransparent( ) ) && sceneDataControl.isAllowPlayer( ) ) {
+        if( playerImagePath != null && ( !Controller.getInstance( ).isPlayTransparent( ) ) && sceneDataControl.isForcedPlayerLayer() ) {
             int layer;
             if( sceneDataControl.getPlayerLayer( ) == Scene.PLAYER_WITHOUT_LAYER )
                 layer = 0;
@@ -796,7 +796,7 @@ public class ReferencesListDataControl extends DataControl {
 
     public void addPlayer( ) {
 
-        if( sceneDataControl.isAllowPlayer( ) ) {
+        if( sceneDataControl.isForcedPlayerLayer() ) {
             playerImagePath = Controller.getInstance( ).getPlayerImagePath( );
             ElementContainer ec = new ElementContainer( null, 0, AssetsController.getImage( this.playerImagePath ) );
             int layer = insertInOrder( ec, true );

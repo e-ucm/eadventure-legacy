@@ -346,6 +346,10 @@ public class Scene extends GeneralScene implements Positioned {
         return barriers;
     }
 
+    public boolean isForcedPlayerLayer(){
+        return playerLayer > PLAYER_WITHOUT_LAYER;
+    }
+    
     public boolean isAllowPlayerLayer( ) {
 
         return playerLayer != PLAYER_NO_ALLOWED;

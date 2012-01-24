@@ -151,10 +151,10 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
                     spep.addNode( nodeDataControl );
                 spep.setShowInfluenceArea( true );
             }
-           // else
+            else
 
-           // if( !Controller.getInstance( ).isPlayTransparent( )/*&& referencesListDataControl.getSceneDataControl().isAllowPlayer()*/)
-             //   spep.addPlayer( referencesListDataControl.getSceneDataControl( ), referencesListDataControl.getPlayerImage( ) );
+            if( !Controller.getInstance( ).isPlayTransparent( )/*&& referencesListDataControl.getSceneDataControl().isAllowPlayer()*/)
+               spep.addPlayer( referencesListDataControl.getSceneDataControl( ), referencesListDataControl.getPlayerImage( ) );
         }
 
         // Add the table which contains the elements in the scene (items, atrezzo and npc) with its layer position
@@ -234,7 +234,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         // Create the main panel
         tablePanel = new JPanel( new BorderLayout( ) );
 
-        isForcePlayerLayer = new JCheckBox( TC.get( "Scene.AllowPlayer" ), referencesListDataControl.getSceneDataControl( ).isAllowPlayer( ) );
+        isForcePlayerLayer = new JCheckBox( TC.get( "Scene.AllowPlayer" ), referencesListDataControl.getSceneDataControl( ).isForcedPlayerLayer() );
         //isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl().isAllowPlayer() );
         isForcePlayerLayer.addActionListener( new ActionListener( ) {
 
@@ -513,7 +513,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         ( (AbstractTableModel) table.getModel( ) ).fireTableDataChanged( );
 
         if( isForcePlayerLayer != null )
-            isForcePlayerLayer.setSelected( referencesListDataControl.getSceneDataControl( ).isAllowPlayer( ) );
+            isForcePlayerLayer.setSelected( referencesListDataControl.getSceneDataControl( ).isForcedPlayerLayer( ));
 
         if( items == table.getRowCount( ) ) {
             if( selected != -1 ) {

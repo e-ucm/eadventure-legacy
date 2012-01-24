@@ -535,6 +535,12 @@ public class SceneDataControl extends DataControlWithResources {
 
         scene.setAllowPlayerLayer( allow );
     }*/
+    
+    public boolean isForcedPlayerLayer( ){
+        
+        return scene.isForcedPlayerLayer( );
+    
+    }
 
     public boolean isAllowPlayer( ) {
 
