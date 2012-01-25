@@ -42,11 +42,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 /**
  * This class stores the state of the flags in the game
  */
-public class FlagSummary implements Serializable {
+public class FlagSummary implements Serializable, Cloneable {
 
     /**
      * Required
@@ -194,7 +195,7 @@ public class FlagSummary implements Serializable {
     /**
      * Private class, contains a single flag
      */
-    private class Flag {
+    private class Flag implements Cloneable{
 
         /**
          * Name of the flag
@@ -263,6 +264,17 @@ public class FlagSummary implements Serializable {
 
             return external;
         }
+        
+        @Override
+        public Object clone( ) throws CloneNotSupportedException {
+            Flag f = (Flag) super.clone( );
+            f.active = active;
+            f.external = external;
+            f.name = new String(name);
+            
+            return f;
+        }
+        
     }
 
     public Map<String, Flag> getFlags( ) {
@@ -346,4 +358,57 @@ public class FlagSummary implements Serializable {
             return "(" + expression + ")";
     }
 
+    /**
+     * Copy the value for those Flags which exist in externalFs parameter
+     * 
+     * @param externalFs
+     */
+    public void copyValuesOfExistingsKeys(FlagSummary externalFs){
+        
+       try{ 
+        Set<Entry<String,Flag>> set1 = flags.entrySet();
+        for(Entry<String,Flag> entry:set1){
+            Flag currentFlag = externalFs.getFlagFromKey( entry.getKey( ) );
+            // current flag is null if the key doesn'r exists
+            if ( currentFlag != null)
+                entry.setValue( (Flag)currentFlag.clone( ));
+        }
+    }
+    catch( CloneNotSupportedException e ) {
+        e.printStackTrace();
+    }
+        
+    }
+    
+    
+    private Flag getFlagFromKey(String key){
+        return flags.get( key );
+    }
+    
+    @Override
+    public Object clone( ) throws CloneNotSupportedException {
+        FlagSummary fs = (FlagSummary)super.clone( );
+        
+        if( changes != null ) {
+            fs.changes = new ArrayList<String>( );
+            for( String aa : changes)
+                fs.changes.add( new String(aa) );
+        }
+        
+        if (flags!=null){
+            fs.flags = new HashMap<String, Flag>( );
+            
+            Set<Entry<String,Flag>> set1 = flags.entrySet();
+            for(Entry<String,Flag> entry:set1)
+                fs.flags.put( new String(entry.getKey()) , (Flag)entry.getValue().clone());
+            
+            
+        }
+        
+        fs.debug = debug;
+        
+        return fs;
+        
+
+    }
 }
