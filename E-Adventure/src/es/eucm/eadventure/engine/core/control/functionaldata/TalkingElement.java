@@ -89,4 +89,8 @@ public interface TalkingElement {
     public Color getBubbleBkgColor( );
 
     public Color getBubbleBorderColor( );
+    
+    public void setDirection( int direction );
+    
+    
 }
