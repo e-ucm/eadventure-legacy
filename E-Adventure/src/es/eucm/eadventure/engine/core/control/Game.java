@@ -925,7 +925,24 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             
             while( !gameOver ) {
                 int timeBarrier = 60;
+               
+                // store the values from flags and vars in the previous chapter
+                FlagSummary previousFlags = null;
+                if (flags!=null)
+                    previousFlags = (FlagSummary) flags.clone( );
+
+                
+               VarSummary previousVars = null;
+               if (vars!=null)
+                   previousVars = (VarSummary) vars.clone();
+               
                 loadCurrentChapter( g );
+                
+                // copy the values for flags and vars that share name between chapters
+                if (previousFlags!=null)
+                    flags.copyValuesOfExistingsKeys( previousFlags );
+                if (previousVars!=null)
+                    vars.copyValuesOfExistingsKeys( previousVars );
                 
                 GUI.getInstance( ).loading( 100 );
 
@@ -1004,7 +1021,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
         }
     }
-
+    
     /**
      * Stops all sounds and music, the adaptation engine, the gui, etc
      */

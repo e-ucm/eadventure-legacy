@@ -41,11 +41,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 /**
  * This class stores the state of the vars in the game
  */
-public class VarSummary implements Serializable {
+public class VarSummary implements Serializable, Cloneable {
 
     /**
      * Required
@@ -198,7 +200,7 @@ public class VarSummary implements Serializable {
     /**
      * Private class, contains a single var
      */
-    private class Var {
+    private class Var implements Cloneable {
 
         /**
          * Name of the var
@@ -275,7 +277,45 @@ public class VarSummary implements Serializable {
 
             return external;
         }
+        
+        @Override
+        public Object clone( ) throws CloneNotSupportedException {
+            Var v = (Var) super.clone( );
+            v.value = value;
+            v.external = external;
+            v.name = new String(name);
+            
+            return v;
+        }
     }
+    
+    /**
+     * Copy the value for those Flags which exist in externalFs parameter
+     * 
+     * @param externalFs
+     */
+    public void copyValuesOfExistingsKeys(VarSummary externalVs){
+        try {
+        Set<Entry<String,Var>> set1 = vars.entrySet();
+        for(Entry<String,Var> entry:set1){
+            Var currentVar= externalVs.getVarFromKey( entry.getKey( ) );
+            // current flag is null if the key doesn't exists
+            if ( currentVar != null)
+                
+                    entry.setValue( (Var)currentVar.clone( ) );
+                }
+                
+        }
+        catch( CloneNotSupportedException e ) {
+            e.printStackTrace();
+        }
+        
+    }
+    
+    private Var getVarFromKey(String key){
+        return vars.get( key );
+    }
+    
 
     public Map<String, Var> getVars( ) {
 
@@ -428,6 +468,32 @@ public class VarSummary implements Serializable {
                 return "" + var.getValue( );
             return "(" + expression + ")";
         }
+    }
+    
+    
+    @Override
+    public Object clone( ) throws CloneNotSupportedException {
+        VarSummary vs = (VarSummary)super.clone( );
+        
+        if( changes != null ) {
+            vs.changes = new ArrayList<String>( );
+            for( String aa : changes)
+                vs.changes.add( new String(aa) );
+        }
+        
+        if (vars !=null){
+            vs.vars = new HashMap<String, Var>( );
+            
+            Set<Entry<String,Var>> set1 = vars.entrySet();
+            for(Entry<String,Var> entry:set1)
+                vs.vars.put( new String(entry.getKey()) , (Var)entry.getValue().clone());
+            
+            
+        }
+        
+        vs.debug = debug;
+        
+        return vs;
     }
 
 }
