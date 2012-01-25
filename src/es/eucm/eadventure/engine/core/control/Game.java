@@ -482,11 +482,39 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         GUI.getInstance( ).loading( 60 );
         
         preLoadAnimations( );
+        
+        try {
+           // store the values from flags and vars in the previous chapter
+        FlagSummary previousFlags = null;
+        if (flags!=null)
+           previousFlags = (FlagSummary) flags.clone( );
+            
+       VarSummary previousVars = null;
+       if (vars!=null)
+           previousVars = (VarSummary) vars.clone();
+       
+       
 
-        // Create the flags & vars summaries and the assessment engine
+        // Create the flags & vars summaries 
         flags = new FlagSummary( gameData.getFlags( ), debug );
         vars = new VarSummary( gameData.getVars( ), debug );
 
+        
+        
+        // copy the values for flags and vars that share name between chapters
+        // before the adaptation task. Adaptation changes have priority and are set
+        // after this global values copy
+        if (previousFlags!=null)
+            flags.copyValuesOfExistingsKeys( previousFlags );
+        if (previousVars!=null)
+            vars.copyValuesOfExistingsKeys( previousVars );
+      
+        
+        }
+        catch( CloneNotSupportedException e ) {
+            e.printStackTrace();
+        }
+        
         // Init the time manager
         timerManager = TimerManager.getInstance( );
         timerManager.reset( );
@@ -568,6 +596,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         nextChapter = false;
 
         DebugLog.general( "Chapter loaded" );
+        
+        
     }
 
     /**
@@ -925,24 +955,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             
             while( !gameOver ) {
                 int timeBarrier = 60;
-               
-                // store the values from flags and vars in the previous chapter
-                FlagSummary previousFlags = null;
-                if (flags!=null)
-                    previousFlags = (FlagSummary) flags.clone( );
 
-                
-               VarSummary previousVars = null;
-               if (vars!=null)
-                   previousVars = (VarSummary) vars.clone();
-               
                 loadCurrentChapter( g );
-                
-                // copy the values for flags and vars that share name between chapters
-                if (previousFlags!=null)
-                    flags.copyValuesOfExistingsKeys( previousFlags );
-                if (previousVars!=null)
-                    vars.copyValuesOfExistingsKeys( previousVars );
                 
                 GUI.getInstance( ).loading( 100 );
 
