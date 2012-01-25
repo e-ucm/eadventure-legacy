@@ -739,7 +739,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     }
 
     /**
-     * Return the las direction set
+     * Return the last direction set
      */
     public int getDirection( ) {
 
