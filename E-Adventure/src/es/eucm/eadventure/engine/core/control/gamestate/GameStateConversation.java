@@ -42,6 +42,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
@@ -51,7 +52,9 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversati
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
@@ -187,6 +190,15 @@ public class GameStateConversation extends GameState {
     private int numberOfOptionLineToShift;
     
     /**
+     * The first two appearances of talkers in the conversation to ensure that they are always
+     * looking each others. 
+     */
+    private FunctionalElement oneTalker;
+    
+    private FunctionalElement otherTalker;
+    
+    
+    /**
      * Last index to stop skiping
      */
     // this allows to keep the string stopped certain time (200 ms) at certain position 
@@ -216,6 +228,9 @@ public class GameStateConversation extends GameState {
         timeShowingOptions=0;
         numberOfOptionLineToShift = -1;
         msContinueSitfting = 0;
+        
+        lookForTalkers();
+        ensureLookEachOther();
         
 
     }
@@ -763,6 +778,8 @@ public class GameStateConversation extends GameState {
      */
     private void skipToNextNode( ) {
 
+        ensureLookEachOther();
+        
         if( currentLine != 0 )
             lastConversationLine = currentNode.getConversationLine( currentLine - 1 );
         else
@@ -824,4 +841,70 @@ public class GameStateConversation extends GameState {
 
         return convID;
     }
+    
+    
+    /**
+     * 
+     */
+    private void lookForTalkers(){
+        
+        boolean bothAssigned = false;
+        boolean endGraph = false;
+        List<ConversationNode> nodeList = game.getConversation( ).getAllNodes( );
+        
+        
+        for (ConversationNode convNode: nodeList){
+            for (int i =0; i<convNode.getLineCount( ); i++){
+                ConversationLine line = convNode.getConversationLine( i );
+                FunctionalElement currentLineFunctionalElement = null;
+                
+                if( line.isPlayerLine( ) )
+                    currentLineFunctionalElement = game.getFunctionalPlayer( );
+                else {
+                    if( line.getName( ).equals( "NPC" ) )
+                        currentLineFunctionalElement = game.getCurrentNPC( );
+                    else
+                        currentLineFunctionalElement = game.getFunctionalScene( ).getNPC( line.getName( ) );
+                }
+                
+                
+                if (oneTalker==null)
+                    oneTalker = currentLineFunctionalElement;
+                
+                else if (otherTalker == null ){
+                        // check if is not the same
+                        if( !oneTalker.getElement( ).getId( ).equals( currentLineFunctionalElement.getElement( ).getId( )) )   
+                                otherTalker = currentLineFunctionalElement;
+                } 
+                // oneTalker != null and otherTalker!= null
+                else {
+                    break;
+                }
+        
+                
+                
+            }
+        }
+        
+        
+        
+    }
+    
+    private void ensureLookEachOther(){
+        // check that there are at least two NPCs/player in this conversation
+        if( oneTalker != null && otherTalker != null ) {
+            if( oneTalker.getX( ) > otherTalker.getX( ) ){
+                ((TalkingElement)otherTalker).setDirection( AnimationState.EAST );
+                ((TalkingElement)oneTalker).setDirection( AnimationState.WEST);
+            }
+            else{
+                ((TalkingElement)otherTalker).setDirection( AnimationState.WEST );
+                ((TalkingElement)oneTalker).setDirection( AnimationState.EAST);
+            }
+                
+        }
+    }
+    
+    
+    
 }
