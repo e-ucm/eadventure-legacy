@@ -42,21 +42,15 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
@@ -3477,47 +3471,6 @@ public boolean isCharacterValid(String elementId){
                 
             }
             
-            JPanel version = new JPanel();
-            version.setLayout( new BorderLayout() );
-            JButton checkVersion = new JButton(TC.get( "About.CheckNewVersion" ));
-            version.add(checkVersion, BorderLayout. CENTER);
-            final JLabel label = new JLabel("");
-            version.add(label, BorderLayout.SOUTH);
-            checkVersion.addActionListener( new ActionListener() {
-                public void actionPerformed( ActionEvent e ) {
-                    java.io.BufferedInputStream in = null;
-                    try {
-                        in = new java.io.BufferedInputStream(new java.net.URL("http://e-adventure.e-ucm.es/files/version").openStream());
-                        
-                        byte data[] = new byte[1024];
-                        int bytes = 0;
-                        String a = null;
-                            while((bytes = in.read(data,0,1024)) >= 0)
-                            {
-                                a = new String(data, 0, bytes);
-                            }
-                            a = a.substring( 0, a.length( ) - 1 );
-                            System.out.println(getCurrentVersion().split( "-" )[0] + " " + a);
-                            if (getCurrentVersion().split( "-" )[0].equals( a )) {
-                                label.setText(TC.get( "About.LatestRelease" ));
-                            } else {
-                                label.setText( TC.get("About.NewReleaseAvailable"));
-                            }
-                            label.updateUI( );
-
-                         in.close();
-
-                    }
-                    catch( IOException e1 ) {
-                        label.setText( TC.get( "About.LatestRelease" ) );
-                        label.updateUI( );
-                    }
-
-
-                }
-            });
-            panel.add( version, BorderLayout.NORTH );
-
             dialog.getContentPane( ).add( panel, BorderLayout.CENTER );
 
             dialog.setSize( 275, 560 );
@@ -3533,31 +3486,6 @@ public boolean isCharacterValid(String elementId){
     }
     
     
-    private String getCurrentVersion() {
-        File moreinfo = new File( "RELEASE" );
-        String release = null;
-        if( moreinfo.exists( ) ) {
-            try {
-                FileInputStream fis = new FileInputStream( moreinfo );
-                BufferedInputStream bis = new BufferedInputStream( fis );
-                int nextChar = -1;
-                while( ( nextChar = bis.read( ) ) != -1 ) {
-                    if( release == null )
-                        release = "" + (char) nextChar;
-                    else
-                        release += (char) nextChar;
-                }
-
-                if( release != null ) {
-                    return release;
-                }
-            }
-            catch( Exception ex ) {
-            }
-        }
-            return "NOVERSION";
-    }
-
     public AssessmentProfilesDataControl getAssessmentController( ) {
 
         return this.chaptersController.getSelectedChapterDataControl( ).getAssessmentProfilesDataControl( );
