@@ -2024,8 +2024,8 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="Conversation.AddNameTag.Tooltip">Añade una marca a todas las líneas de conversación para que aparezca el nombre del personaje (o jugador) que dice la línea.</entry>
 <entry key="Conversation.RemoveNameTag">Borrar Nombres</entry>
 <entry key="Conversation.RemoveNameTag.Tooltip">Borra una marca a todas las líneas de conversación para que aparezca el nombre del personaje (o jugador) que dice la línea.</entry>
-<entry key="Conversation.Options.PositionBottom">En la parte superior</entry>
-<entry key="Conversation.Options.PositionTop">En la parte inferior</entry>
+<entry key="Conversation.Options.PositionBottom">En la parte inferior</entry>
+<entry key="Conversation.Options.PositionTop">En la parte superior</entry>
 <entry key="Conversation.Options.PositionCombo.Border">Mostrar las opciones:</entry>
 <entry key="DescriptionList.Description">Descripción</entry>
 <entry key="DescriptionList.Descriptions">Descripciones</entry>

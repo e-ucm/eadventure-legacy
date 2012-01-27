@@ -1871,8 +1871,8 @@
 <entry key="Conversation.AddNameTag.Tooltip">Adicionar uma marca para mostrar o nome do personagem (ou leitor) que diz que a linha para todas as linhas de conversa.</entry>
 <entry key="Conversation.RemoveNameTag">Excluir nomes</entry>
 <entry key="Conversation.RemoveNameTag.Tooltip">Excluir a marca para mostrar o nome do personagem (ou leitor) que diz que a linha para todas as linhas de conversa.</entry>
-<entry key="Conversation.Options.PositionBottom">No topo</entry>
-<entry key="Conversation.Options.PositionTop">Na parte inferior</entry>
+<entry key="Conversation.Options.PositionBottom">No inferior</entry>
+<entry key="Conversation.Options.PositionTop">Na parte topo</entry>
 <entry key="Conversation.Options.PositionCombo.Border">Posição da as opções:</entry>
 <entry key="DescriptionList.Description">Descrição</entry>
 <entry key="DescriptionList.Descriptions">Descrições</entry>
