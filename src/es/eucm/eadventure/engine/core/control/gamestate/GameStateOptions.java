@@ -186,6 +186,11 @@ public class GameStateOptions extends GameState {
      * Font for displaying the savegames info
      */
     private Font savegameFont;
+    
+    /**
+     * Default font
+     */
+    private Font defaultFont;
 
     /**
      * Set of options of the game
@@ -282,6 +287,8 @@ public class GameStateOptions extends GameState {
         GAME_AREA_WIDTH = GUI.getInstance( ).getGameAreaWidth( );
         GAME_AREA_HEIGHT = GUI.getInstance( ).getGameAreaHeight( );
 
+        defaultFont = GUI.getInstance( ).getGraphics( ).getFont( );
+        
         try {
             // Load the original font
             InputStream is = ResourceHandler.getInstance( ).getResourceAsStream( "gui/options/optionsFont.ttf" );
@@ -506,7 +513,6 @@ public class GameStateOptions extends GameState {
         if( currentPanel == SAVE_PANEL || currentPanel == LOAD_PANEL ) {
             int i;
             // For every savegame slot
-            g.setFont( savegameFont );
             for( i = 0; i < MAX_NUM_SAVEGAME_SLOTS; i++ ) {
                 boolean isValidSlot = isValidSlotGame( i );
                 // Draw the button
@@ -522,17 +528,22 @@ public class GameStateOptions extends GameState {
                         title[0] = TC.get( "Options.versionError1" );
                         title[1] = TC.get( "Options.versionError2" );
                     }
-
+                    if ( canDisplayUpTo(title, SAVE) )
+                        g.setFont( savegameFont );
+                    else
+                        g.setFont( defaultFont );
                     GUI.drawString( g, title, GUI.WINDOW_WIDTH / 2, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT / 2 + BUTTON_HEIGHT * i );
                 }
 
                 // If it doesn't exist, show an empty message
-                else
+                else{
+                    setFont ( GameText.TEXT_EMPTY, g, SAVE);
                     GUI.drawString( g, GameText.TEXT_EMPTY, GUI.WINDOW_WIDTH / 2, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT / 2 + BUTTON_HEIGHT * i );
+                }
             }
 
             // Draw the "Back" button
-            g.setFont( optionsFont );
+            setFont (GameText.TEXT_BACK, g, OPTIONS);
 
             g.drawImage( ( highlightedOption == i && mouseButtonPressed ) ? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
             g.setColor( highlightedOption == i ? HIGHLIGHTED_COLOR : NORMAL_COLOR );
@@ -560,7 +571,7 @@ public class GameStateOptions extends GameState {
             }
 
             // Paint the options
-            g.setFont( optionsFont );
+            //g.setFont( optionsFont );
             for( int i = 0; i < NUMBER_OPTIONS_OF_PANEL[currentPanel]; i++ ) {
                 if( Game.getInstance( ).isAppletMode( ) && ( i == 0 || i == 3 ) ) {
                     g.drawImage( imgPressedButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
@@ -570,8 +581,10 @@ public class GameStateOptions extends GameState {
                     g.drawImage( ( highlightedOption == i && mouseButtonPressed ) ? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
                     g.setColor( highlightedOption == i ? HIGHLIGHTED_COLOR : NORMAL_COLOR );
                 }
-                if( panelOptionsText.length > i )
+                if( panelOptionsText.length > i ){
+                    setFont (panelOptionsText[i], g, OPTIONS);
                     GUI.drawString( g, panelOptionsText[i], GUI.WINDOW_WIDTH / 2, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT / 2 + BUTTON_HEIGHT * i );
+                }
             }
         }
 
@@ -907,4 +920,33 @@ public class GameStateOptions extends GameState {
     }
     
     //Fin Pedro - Gradiant
+    
+    private static final int OPTIONS=0;
+    private static final int SAVE=1;
+    private static final int NONE=2;
+    
+    private boolean canDisplayUpTo ( String[] texts, int type ){
+        boolean canDisplay = true;
+        for (String text: texts){
+            canDisplay &= type==OPTIONS?(optionsFont.canDisplayUpTo( text )==-1):(savegameFont.canDisplayUpTo( text )==-1);
+            if (!canDisplay) break;
+        }
+        return canDisplay;
+    }
+    
+    private void setFont ( String text, Graphics2D g, int type ){
+        if (type==OPTIONS){
+            if (optionsFont.canDisplayUpTo( text )==-1)
+                g.setFont( optionsFont );
+            else
+                g.setFont( defaultFont );
+        } else if (type==SAVE){ 
+            if (savegameFont.canDisplayUpTo( text )==-1)
+                g.setFont( savegameFont );
+            else
+                g.setFont( defaultFont );
+        } else { 
+            g.setFont( defaultFont );
+        }
+    }
 }
