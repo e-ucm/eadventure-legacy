@@ -376,6 +376,15 @@ public class GameStateConversation extends GameState {
         numberDisplayedOptions = 0;
 
         storeOKConditionsConversationLines( );
+        
+        if (this.optionHighlighted==-1){
+            numberOfOptionLineToShift= -1;
+            optionLineOffset=0;
+            timeShowingOptions=0;
+            msContinueSitfting = 0;
+        }
+        
+        
         if( optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
             for( int i = 0; i < optionsToShow.size( ); i++ ) {
                 drawLine( g, game.getFunctionalPlayer( ).processName( optionsToShow.get( i ).getText( )), i, i, elapsedTime );
@@ -463,12 +472,14 @@ public class GameStateConversation extends GameState {
                 
             }
             //To know the width of one character
+            
             FontMetrics fontMetrics = g.getFontMetrics( );
-            double w = fontMetrics.stringWidth( new String( "A" ) );
-            int position = (int) ( GUI.getInstance( ).WINDOW_WIDTH / w ) + 20;
+            double w = fontMetrics.getStringBounds( text, g ).getWidth( );
+            double stimatedPosition = fontMetrics.stringWidth( new String( "A" ) );
+            int position = (int) ( GUI.getInstance( ).WINDOW_WIDTH / stimatedPosition ) + 20;
             
             // check if the text has to be shifted
-            if (position <= text.length( )){
+            if (w >= GUI.getInstance( ).WINDOW_WIDTH ){
             // update the time while options are showed
             timeShowingOptions += elapsedTime;
             // calculate the number of characters to be shifted in the option
@@ -528,7 +539,7 @@ public class GameStateConversation extends GameState {
         if (numberOfOptionLineToShift == -1){
             optionLineOffset=0;
             timeShowingOptions=0;
-            numberOfOptionLineToShift = -1;
+           // numberOfOptionLineToShift = -1;
             msContinueSitfting = 0;
         }
         
@@ -704,9 +715,9 @@ public class GameStateConversation extends GameState {
 
         if (currentNode.getType( ) == ConversationNodeView.OPTION ){
             int yValue =  ((OptionConversationNode)currentNode).getY( );
-        if( yValue <= e.getY( ) )
+        if( yValue <= e.getY( ) && e.getY( ) < yValue + ((OptionConversationNode)currentNode).getLineCount( )*RESPONSE_TEXT_HEIGHT  )
             optionHighlighted = ( e.getY( ) - yValue ) / RESPONSE_TEXT_HEIGHT;
-        else
+        else 
             optionHighlighted = -1;
         
         }

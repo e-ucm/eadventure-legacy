@@ -495,6 +495,8 @@ public abstract class GUI implements FocusListener {
                 //To know the width of one character
                 double w = fontMetrics.stringWidth( new String( "A" ) );
                 int position = (int) ( WINDOW_WIDTH / w ) + 18;
+                if (position > string.length( ))
+                    position = string.length( );
                 string = string.substring( 0, position );
                 string = string + "...";
             }

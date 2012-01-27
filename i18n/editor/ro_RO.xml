@@ -1896,8 +1896,8 @@
 <entry key="Conversation.AddNameTag.Tooltip">Adaugă o marcă pentru a afişa numele caracterului (sau jucator), care spune line la toate liniile de conversaţie.</entry>
 <entry key="Conversation.RemoveNameTag">Nume Ştergere</entry>
 <entry key="Conversation.RemoveNameTag.Tooltip">Ştergeţi marca pentru a afişa numele caracterului (sau jucator), care spune line la toate liniile de conversaţie.</entry>
-<entry key="Conversation.Options.PositionBottom">Partea de sus</entry>
-<entry key="Conversation.Options.PositionTop">Partea de jos</entry>
+<entry key="Conversation.Options.PositionBottom">Partea de jos</entry>
+<entry key="Conversation.Options.PositionTop">Partea de sus</entry>
 <entry key="Conversation.Options.PositionCombo.Border">Poziţia a opţiunile:</entry>
 <entry key="DescriptionList.Description">Descriere</entry>
 <entry key="DescriptionList.Descriptions">Descrieri</entry>
