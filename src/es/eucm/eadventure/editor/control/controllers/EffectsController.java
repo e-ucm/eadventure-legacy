@@ -299,10 +299,16 @@ public class EffectsController {
                     icon = new ImageIcon( "img/icons/effects/16x16/cancel-action.png" );
                     break;
                 case Effect.SPEAK_PLAYER:
-                    icon = new ImageIcon( "img/icons/effects/16x16/speak-player.png" );
+                    if (((SpeakPlayerEffect)effect).getAudioPath( )!=null && !((SpeakPlayerEffect)effect).getAudioPath( ).equals( "" ))
+                        icon = new ImageIcon( "img/icons/effects/16x16/speak-player-withsound.png" );
+                    else
+                        icon = new ImageIcon( "img/icons/effects/16x16/speak-player.png" );
                     break;
                 case Effect.SPEAK_CHAR:
-                    icon = new ImageIcon( "img/icons/effects/16x16/speak-npc.png" );
+                    if (((SpeakCharEffect)effect).getAudioPath( )!=null && !((SpeakCharEffect)effect).getAudioPath( ).equals( "" ))
+                        icon = new ImageIcon( "img/icons/effects/16x16/speak-npc-withsound.png" );
+                    else
+                        icon = new ImageIcon( "img/icons/effects/16x16/speak-npc.png" );
                     break;
                 case Effect.TRIGGER_BOOK:
                     icon = new ImageIcon( "img/icons/effects/16x16/trigger-book.png" );
@@ -338,7 +344,11 @@ public class EffectsController {
                     icon = new ImageIcon( "img/icons/effects/16x16/wait.png" );
                     break;
                 case Effect.SHOW_TEXT:
-                    icon = new ImageIcon( "img/icons/effects/16x16/show-text.png" );
+                    //TODO Uncomment when audio is implemented for show texts
+                    /*if (((ShowTextEffect)effect).getAudioPath( )!=null && !((ShowTextEffect)effect).getAudioPath( ).equals( "" ))
+                        icon = new ImageIcon( "img/icons/effects/16x16/show-text-withsound.png" );
+                    else*/
+                        icon = new ImageIcon( "img/icons/effects/16x16/show-text.png" );
                     break;
                 case Effect.HIGHLIGHT_ITEM:
                     icon = new ImageIcon( "img/icons/effects/16x16/highlight-item.png");
