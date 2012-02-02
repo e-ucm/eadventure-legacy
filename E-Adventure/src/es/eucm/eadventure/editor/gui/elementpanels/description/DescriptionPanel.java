@@ -61,6 +61,12 @@ import es.eucm.eadventure.editor.control.tools.listeners.SelectDescriptionSoundL
 public class DescriptionPanel extends JPanel {
 
     
+    
+    /**
+     * Max of characters to be shown in the label with the path of the audio path
+     */
+    private static final int PATH_MAX_LONG_TO_SHOW = 20;
+    
     /**
      * Text field for the name.
      */
@@ -131,6 +137,9 @@ public class DescriptionPanel extends JPanel {
         cDoc.weighty = 0;
         JPanel namePanel = new JPanel( );
         namePanel.setLayout( new GridBagLayout( ) );
+
+
+        
         nameTextField = new JTextField( descriptionController.getName( ) );
         nameChangeListener = new NameChangeListener( nameTextField, descriptionController.getDescriptionData( )) ;
         nameTextField.getDocument( ).addDocumentListener(nameChangeListener );
@@ -139,6 +148,7 @@ public class DescriptionPanel extends JPanel {
         
         // add sound panel 
         String soundPath = ((HasDescriptionSound)descriptionController.getDescriptionData( )).getNameSoundPath( );
+        
         JPanel soundpanel = createSoundPanel( descriptionController.getDescriptionData( ) , soundPath , HasDescriptionSound.NAME_PATH );
         c.gridwidth = 1;
         c.gridx = 2;
@@ -209,6 +219,21 @@ public class DescriptionPanel extends JPanel {
         
     }
     
+    
+    private String cutLongAudioPath(String audioPath){
+        
+        String cutAudioPath = new String();
+        
+        if (audioPath!=null){
+            if (audioPath.length( ) < PATH_MAX_LONG_TO_SHOW )
+                return audioPath;
+            else 
+                return "..." +  audioPath.substring( audioPath.length( ) - PATH_MAX_LONG_TO_SHOW, audioPath.length( ));
+        }
+        
+        return cutAudioPath;
+    }
+    
 public JPanel createSoundPanel( HasDescriptionSound descriptionSound, String soundPath, int type){
         
         JPanel soundpanel = new JPanel( );        
@@ -228,7 +253,7 @@ public JPanel createSoundPanel( HasDescriptionSound descriptionSound, String sou
         if (soundPath!=null && !soundPath.equals( "" )){
             ImageIcon icon = new ImageIcon( "img/icons/audio.png" );
             String[] temp = soundPath.split( "/" );
-            label = new JLabel( temp[temp.length - 1], icon, SwingConstants.LEFT );
+            label = new JLabel( cutLongAudioPath( temp[temp.length - 1]), icon, SwingConstants.LEFT );
         }
         else {
             ImageIcon icon = new ImageIcon( "img/icons/noAudio.png" );
