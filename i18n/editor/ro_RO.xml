@@ -17,7 +17,7 @@
 <entry key="SmallAction.NeedsGetTo">Nevoie sa ajunga</entry>
 <entry key="MoveObjectEffect.Animated">Animeaza</entry>
 <entry key="LOMES.LifeCycle.Role9">Validator tehnic</entry>
-<entry key="Item.Description">Scurta descriere itemi</entry>
+<entry key="Item.Description">Descriere </entry>
 <entry key="ActiveAreasList.AddActiveArea">Adaugati o noua zona activa</entry>
 <entry key="LOMES.LifeCycle.Role8">Furnizor de continut</entry>
 <entry key="BarriersList.EditSides">Editare laturi</entry>
@@ -234,7 +234,7 @@
 <entry key="conditions.context.2.251">Actiunea  {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va fi intotdeauna disponibila&lt;/b&gt;, deoarece nu are nicio conditie:</entry>
 <entry key="Resources.ArrowRightNormal">Imagine pentru sageata normala dreapta</entry>
 <entry key="FormattedTextAssets.NotAvailable">Indisponibil</entry>
-<entry key="Item.Name">Nume item</entry>
+<entry key="Item.Name">Nume</entry>
 <entry key="Conversation.OperationLinkNode">Leaga nod</entry>
 <entry key="Vars.Var">Variabila</entry>
 <entry key="LinesPanel.NoNodeSelected">Niciun nod selectat</entry>

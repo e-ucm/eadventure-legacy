@@ -17,7 +17,7 @@
 <entry key="SmallAction.NeedsGetTo">Voraussetzungen um dies zu erreichen</entry>
 <entry key="MoveObjectEffect.Animated">Animieren</entry>
 <entry key="LOMES.LifeCycle.Role9">Technischer Validator</entry>
-<entry key="Item.Description">Kurze Beschreibung des Objekts</entry>
+<entry key="Item.Description">Kurze Beschreibung</entry>
 <entry key="ActiveAreasList.AddActiveArea">Neues aktives Areal hinzufügen</entry>
 <entry key="LOMES.LifeCycle.Role8">Content-Provider</entry>
 <entry key="BarriersList.EditSides">Seiten bearbeiten</entry>
@@ -242,7 +242,7 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="conditions.context.2.251">Die Aktion {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;wird immer verfügbar sein&lt;/b&gt;,da keine Bedingung deklariert:</entry>
 <entry key="Resources.ArrowRightNormal">Bild für den Pfeil nach rechts</entry>
 <entry key="FormattedTextAssets.NotAvailable">Nicht verfügbar</entry>
-<entry key="Item.Name">Objekt Name</entry>
+<entry key="Item.Name">Name</entry>
 <entry key="Conversation.OperationLinkNode">Knoten verlinken</entry>
 <entry key="Vars.Var">Variable</entry>
 <entry key="LinesPanel.NoNodeSelected">Kein Knoten ausgewählt</entry>
@@ -1635,7 +1635,7 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Conditions.Type">Typ</entry>
 <entry key="ExitLook.CustomizeText">Benutzerdefiniert label</entry>
 <entry key="ErrorReport.Email">E-mail (optional):</entry>
-<entry key="Item.DetailedDescription">Detaillierte Beschreibung des Objekts (dargestellt durch die Untersuchung des Objekts)</entry>
+<entry key="Item.DetailedDescription">Detaillierte Beschreibung (dargestellt durch die Untersuchung)</entry>
 <entry key="Chapter.Title">Kapiten</entry>
 <entry key="MenuAdventure.Title">Abenteuers</entry>
 <entry key="NextScene.RightToLeft">Von Recht nacht Links</entry>

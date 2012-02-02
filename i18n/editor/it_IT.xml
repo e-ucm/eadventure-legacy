@@ -15,7 +15,7 @@
 <entry key="AssessmentProperties.MoveDown">Spostare giù la proprietà selezionata </entry>
 <entry key="SmallAction.NeedsGetTo">Necessità di raggiungere </entry>
 <entry key="MoveObjectEffect.Animated">Animare </entry>
-<entry key="Item.Description">Breve descrizione dell'oggetto (appare esaminando l'oggetto) </entry>
+<entry key="Item.Description">Breve descrizione (appare esaminando) </entry>
 <entry key="LOMES.LifeCycle.Role9">Technical Validator </entry>
 <entry key="ActiveAreasList.AddActiveArea">Aggiungere nuova zona attiva </entry>
 <entry key="LOMES.LifeCycle.Role8">Content provider </entry>
@@ -227,7 +227,7 @@
 <entry key="conditions.context.2.251">L'azione {#ELEMENT_TYPE$} {#ELEMENT_ID$}  potrà avvenire sempra dato che non è stata definita nessuna condizione: </entry>
 <entry key="Resources.ArrowRightNormal">Immagine normale per la freccia a destra </entry>
 <entry key="FormattedTextAssets.NotAvailable">Non disponibile </entry>
-<entry key="Item.Name">Nome oggetto </entry>
+<entry key="Item.Name">Nome</entry>
 <entry key="Conversation.OperationLinkNode">Link nodo </entry>
 <entry key="Vars.Var">Variabile </entry>
 <entry key="LinesPanel.NoNodeSelected">Nessun nodo speciale selezionato </entry>
@@ -1595,7 +1595,7 @@
 <entry key="Conditions.Type">Tipo</entry>
 <entry key="ExitLook.CustomizeText">Etichetta personalizzata</entry>
 <entry key="ErrorReport.Email">E-mail (facoltativo):</entry>
-<entry key="Item.DetailedDescription">Descrizione dettagliata dell'oggetto (indicato esaminando l'oggetto)</entry>
+<entry key="Item.DetailedDescription">Descrizione dettagliata (indicato esaminando)</entry>
 <entry key="Chapter.Title">Capitolo</entry>
 <entry key="MenuAdventure.Title">Avventura</entry>
 <entry key="NextScene.RightToLeft">Da destra a sinistra</entry>
