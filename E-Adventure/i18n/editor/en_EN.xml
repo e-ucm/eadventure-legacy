@@ -15,7 +15,7 @@
 <entry key="AssessmentProperties.MoveDown">Move selected property down</entry>
 <entry key="SmallAction.NeedsGetTo">Needs get to</entry>
 <entry key="MoveObjectEffect.Animated">Animate</entry>
-<entry key="Item.Description">Brief description of the item</entry>
+<entry key="Item.Description">Brief description</entry>
 <entry key="LOMES.LifeCycle.Role9">Technical validator</entry>
 <entry key="ActiveAreasList.AddActiveArea">Add new active area</entry>
 <entry key="LOMES.LifeCycle.Role8">Content provider</entry>
@@ -243,7 +243,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="conditions.context.2.251">The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will always be available&lt;/b&gt;, as it has no conditions:</entry>
 <entry key="Resources.ArrowRightNormal">Image for right normal arrow</entry>
 <entry key="FormattedTextAssets.NotAvailable">Not available</entry>
-<entry key="Item.Name">Name of the item</entry>
+<entry key="Item.Name">Name</entry>
 <entry key="Conversation.OperationLinkNode">Link node</entry>
 <entry key="Vars.Var">Variable</entry>
 <entry key="LinesPanel.NoNodeSelected">No node selected</entry>
@@ -1717,7 +1717,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Conditions.Type">Type</entry>
 <entry key="ExitLook.CustomizeText">Customized text</entry>
 <entry key="ErrorReport.Email">E-mail (optional):</entry>
-<entry key="Item.DetailedDescription">Detailed description of the item</entry>
+<entry key="Item.DetailedDescription">Detailed description</entry>
 <entry key="Chapter.Title">Chapter</entry>
 <entry key="MenuAdventure.Title">Adventure</entry>
 <entry key="NextScene.RightToLeft">Right to left</entry>

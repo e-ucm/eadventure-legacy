@@ -15,7 +15,7 @@
 <entry key="CustomAction.SelectTypeTitle">选择定制动作的类型</entry>
 <entry key="AssessmentProperties.MoveDown">将选中的资产向下移动</entry>
 <entry key="SmallAction.NeedsGetTo">需得到</entry>
-<entry key="Item.Description">物品简洁描述</entry>
+<entry key="Item.Description">说明</entry>
 <entry key="LOMES.LifeCycle.Role9">技术检验</entry>
 <entry key="ActiveAreasList.AddActiveArea">添加新活动区域</entry>
 <entry key="MoveObjectEffect.Animated">动画</entry>
@@ -233,7 +233,7 @@
 <entry key="conditions.context.2.251">它没有条件时,动作{#ElEMENT_TYPE$}{#ELEMENT_ID$}&lt;b&gt;总是可用&lt;/b&gt;:</entry>
 <entry key="Resources.ArrowRightNormal">普通右箭头的图像</entry>
 <entry key="FormattedTextAssets.NotAvailable">不可用</entry>
-<entry key="Item.Name">物品名称</entry>
+<entry key="Item.Name">姓名</entry>
 <entry key="Conversation.OperationLinkNode">链接节点</entry>
 <entry key="Vars.Var">变量</entry>
 <entry key="LinesPanel.NoNodeSelected">没选中节点</entry>
@@ -1619,7 +1619,7 @@
 <entry key="ExitLook.CustomizeText">定制文本</entry>
 <entry key="Conditions.Type">类型</entry>
 <entry key="ErrorReport.Email">E-mail(可选)</entry>
-<entry key="Item.DetailedDescription">物品的详细描述</entry>
+<entry key="Item.DetailedDescription">详细说明</entry>
 <entry key="Chapter.Title">章节</entry>
 <entry key="MenuAdventure.Title">体验</entry>
 <entry key="NextScene.RightToLeft">从右到左</entry>

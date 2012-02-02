@@ -17,7 +17,7 @@
 <entry key="SmallAction.NeedsGetTo">Necesita alcanzar</entry>
 <entry key="MoveObjectEffect.Animated">Animar</entry>
 <entry key="LOMES.LifeCycle.Role9">Technical validator</entry>
-<entry key="Item.Description">Descripción breve del objeto (se muestra al mirar el objeto)</entry>
+<entry key="Item.Description">Descripción breve (se muestra al mirar)</entry>
 <entry key="ActiveAreasList.AddActiveArea">Añadir nueva zona activa</entry>
 <entry key="LOMES.LifeCycle.Role8">Content provider</entry>
 <entry key="BarriersList.EditSides">Editar lados</entry>
@@ -243,7 +243,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="conditions.context.2.251">La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
 <entry key="Resources.ArrowRightNormal">Imagen normal para la flecha derecha</entry>
 <entry key="FormattedTextAssets.NotAvailable">No disponible</entry>
-<entry key="Item.Name">Nombre del objeto</entry>
+<entry key="Item.Name">Nombre</entry>
 <entry key="Conversation.OperationLinkNode">Enlazar nodo</entry>
 <entry key="Vars.Var">Variable</entry>
 <entry key="LinesPanel.NoNodeSelected">Ningún nodo seleccionado</entry>
@@ -1743,7 +1743,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="Conditions.Type">Tipo</entry>
 <entry key="ExitLook.CustomizeText">Etiqueta personalizada</entry>
 <entry key="ErrorReport.Email">E-mail (opcional):</entry>
-<entry key="Item.DetailedDescription">Descripción detallada del objeto (se muestra al examinar el objeto)</entry>
+<entry key="Item.DetailedDescription">Descripción detallada (se muestra al examinar)</entry>
 <entry key="Chapter.Title">Capítulo</entry>
 <entry key="MenuAdventure.Title">Aventura</entry>
 <entry key="NextScene.RightToLeft">De derecha a izquierda</entry>

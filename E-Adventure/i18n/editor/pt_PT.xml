@@ -18,7 +18,7 @@
 <entry key="SmallAction.NeedsGetTo">Necessita alcançar</entry>
 <entry key="MoveObjectEffect.Animated">Animar</entry>
 <entry key="LOMES.LifeCycle.Role9">Validador tecnico</entry>
-<entry key="Item.Description">Descrição breve do objecto (mostra-se ao olhar o objecto)</entry>
+<entry key="Item.Description">Descrição breve (mostra-se ao olhar)</entry>
 <entry key="ActiveAreasList.AddActiveArea">Agregar nova zona activa</entry>
 <entry key="LOMES.LifeCycle.Role8">Provedor de conteúdo</entry>
 <entry key="BarriersList.EditSides">Editar lados</entry>
@@ -233,7 +233,7 @@
 <entry key="conditions.context.2.251">A acção {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se poderá levar a cabo sempre&lt;/b&gt;, ja que não se há estabelecido nenhuma condicão</entry>
 <entry key="Resources.ArrowRightNormal">Imagem normal da seta direita</entry>
 <entry key="FormattedTextAssets.NotAvailable">Não disponivel</entry>
-<entry key="Item.Name">Nome do objecto</entry>
+<entry key="Item.Name">Nome</entry>
 <entry key="Conversation.OperationLinkNode">Ligar nó</entry>
 <entry key="Vars.Var">Variável</entry>
 <entry key="LinesPanel.NoNodeSelected">Nenhum nó seleccionado</entry>
@@ -1602,7 +1602,7 @@
 <entry key="Conditions.Type">Tipo</entry>
 <entry key="ExitLook.CustomizeText">Etiqueta personalizada</entry>
 <entry key="ErrorReport.Email">E-mail (opcional):</entry>
-<entry key="Item.DetailedDescription">Descrição detalhada do objecto (mostra-se ao examinar o objecto)</entry>
+<entry key="Item.DetailedDescription">Descrição detalhada (mostra-se ao examinar)</entry>
 <entry key="Chapter.Title">Capítulo</entry>
 <entry key="MenuAdventure.Title">Aventura</entry>
 <entry key="NextScene.RightToLeft">Da direita para a esquerda</entry>
