@@ -55,14 +55,11 @@ import javax.swing.SwingConstants;
 
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.HasDescriptionSound;
-import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
-import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.SelectDescriptionSoundListener;
 import es.eucm.eadventure.editor.gui.Updateable;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
 public class AtrezzoDocPanel extends JPanel implements Updateable {
 
@@ -110,9 +107,10 @@ public class AtrezzoDocPanel extends JPanel implements Updateable {
         cDoc.insets = new Insets( 5, 5, 5, 5 );
 
         // Create the text area for the documentation
-        cDoc.fill = GridBagConstraints.HORIZONTAL;
+        cDoc.fill = GridBagConstraints.BOTH;
         cDoc.weightx = 1;
-        cDoc.weighty = 0.3;
+        cDoc.weighty = 1;
+        cDoc.gridheight = 6;
         JPanel documentationPanel = new JPanel( );
         documentationPanel.setLayout( new GridLayout( ) );
         documentationTextArea = new JTextArea( atrezzoDataControl.getDocumentation( ), 4, 0 );
@@ -124,6 +122,10 @@ public class AtrezzoDocPanel extends JPanel implements Updateable {
         add( documentationPanel, cDoc );
 
      // gridbagconstraints for panel which contains textfield and button
+     
+        // Atrezzo hasn't name, because no text is shown in the engine when the mouse is over an atrezzo element
+        // Nonetheless, all the platform is ready to include it, just de-comment the following code
+       /*
         GridBagConstraints c = new GridBagConstraints( );
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 2;
@@ -159,73 +161,73 @@ public class AtrezzoDocPanel extends JPanel implements Updateable {
         cDoc.fill = GridBagConstraints.BOTH;
         cDoc.weightx = 1;
         cDoc.weighty = 0.5;
-        add( new JFiller( ), cDoc );
+        add( new JFiller( ), cDoc );*/
 
     }
     
 public JPanel createSoundPanel( HasDescriptionSound descriptionSound, String soundPath, int type){
         
-        soundpanel = new JPanel( );        
-        
-        soundpanel.setLayout( new GridBagLayout( )  );
-        GridBagConstraints cPanel = new GridBagConstraints( );
-        cPanel.gridx = 0;
-        cPanel.gridy = 0;
-        cPanel.ipadx = 10;
-        cPanel.weightx = 0;
-        
-        label = new JLabel();
-        label.setPreferredSize( new Dimension(1,1) );
-        
-     
-        // prepare the label for the sound panel
-        if (soundPath!=null && !soundPath.equals( "" )){
-            ImageIcon icon = new ImageIcon( "img/icons/audio.png" );
-            String[] temp = soundPath.split( "/" );
-            label = new JLabel( temp[temp.length - 1], icon, SwingConstants.LEFT );
-        }
-        else {
-            ImageIcon icon = new ImageIcon( "img/icons/noAudio.png" );
-            label = new JLabel( TC.get( "Conversations.NoAudio" ), icon, SwingConstants.LEFT );
-        }   
+    JPanel soundpanel = new JPanel( );        
+    soundpanel.setLayout( new GridBagLayout( )  );
+    GridBagConstraints cPanel = new GridBagConstraints( );
+    cPanel.gridx = 0;
+    cPanel.gridy = 0;
+    cPanel.ipadx = 10;
+    cPanel.weightx = 0;
+    
+    JLabel label = new JLabel();
+    label.setPreferredSize( new Dimension(1,1) );
+    
+ 
+    // prepare the label for the sound panel
+    if (soundPath!=null && !soundPath.equals( "" )){
+        ImageIcon icon = new ImageIcon( "img/icons/audio.png" );
+        String[] temp = soundPath.split( "/" );
+        label = new JLabel( temp[temp.length - 1], icon, SwingConstants.LEFT );
+    }
+    else {
+        ImageIcon icon = new ImageIcon( "img/icons/noAudio.png" );
+        label = new JLabel( TC.get( "Conversations.NoAudio" ), icon, SwingConstants.LEFT );
+    }   
+    
+    
+    label.setOpaque( false );
+    soundpanel.add( label, cPanel );
+    
+    JPanel buttonPanel = new JPanel( );
+    buttonPanel.setLayout( new GridBagLayout( ) );
+    GridBagConstraints cButtons = new GridBagConstraints( );
+    cButtons.gridx = 0;
+    cButtons.gridy = 0;
+    //cButtons.anchor = GridBagConstraints.NONE; 
+    
+    
+    // prepare the buttons
+    JButton selectButton = new JButton( TC.get( "Conversations.Select" ) );
+    selectButton.setFocusable( false );
+    selectButton.setEnabled( true );
+    selectButton.addActionListener(new SelectDescriptionSoundListener(descriptionSound, type, false)  );
+    selectButton.setOpaque( false );
+    buttonPanel.add( selectButton, cButtons );
 
-        label.setOpaque( false );
-        soundpanel.add( label, cPanel );
-        
-        JPanel buttonPanel = new JPanel( );
-        buttonPanel.setLayout( new GridBagLayout( ) );
-        GridBagConstraints cButtons = new GridBagConstraints( );
-        cButtons.gridx = 0;
-        cButtons.gridy = 0;
-        //cButtons.anchor = GridBagConstraints.NONE; 
-        
-        
-        // prepare the buttons
-        JButton selectButton = new JButton( TC.get( "Conversations.Select" ) );
-        selectButton.setFocusable( false );
-        selectButton.setEnabled( true );
-        selectButton.addActionListener(new SelectDescriptionSoundListener(descriptionSound, type, false)  );
-        selectButton.setOpaque( false );
-        buttonPanel.add( selectButton, cButtons );
-
-        cButtons.gridx = 1;
-        deleteButton = new JButton( new ImageIcon( "img/icons/deleteContent.png" ) );
-        deleteButton.setToolTipText( TC.get( "Conversations.DeleteAudio" ) );
-        deleteButton.setContentAreaFilled( false );
-        deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
-        deleteButton.setFocusable( false );
-        deleteButton.setEnabled( soundPath != null &&  !soundPath.equals( "" ));
-        deleteButton.addActionListener( new SelectDescriptionSoundListener(descriptionSound,type, true)  );
-        deleteButton.setOpaque( false );
-        buttonPanel.add( deleteButton, cButtons );
-        buttonPanel.setOpaque( false );
-        
-        
-        cPanel.gridx = 1;
-        cPanel.anchor = GridBagConstraints.EAST;
-        soundpanel.add( buttonPanel, cPanel );
-        
-        return soundpanel;
+    cButtons.gridx = 1;
+    JButton deleteButton = new JButton( new ImageIcon( "img/icons/deleteContent.png" ) );
+    deleteButton.setToolTipText( TC.get( "Conversations.DeleteAudio" ) );
+    deleteButton.setContentAreaFilled( false );
+    deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+    deleteButton.setFocusable( false );
+    deleteButton.setEnabled( soundPath != null &&  !soundPath.equals( "" ));
+    deleteButton.addActionListener( new SelectDescriptionSoundListener(descriptionSound,type, true)  );
+    deleteButton.setOpaque( false );
+    buttonPanel.add( deleteButton, cButtons );
+    buttonPanel.setOpaque( false );
+    
+    
+    cPanel.gridx = 1;
+    cPanel.anchor = GridBagConstraints.EAST;
+    soundpanel.add( buttonPanel, cPanel );
+    
+    return soundpanel;
     }
 
     public boolean updateFields( ) {
