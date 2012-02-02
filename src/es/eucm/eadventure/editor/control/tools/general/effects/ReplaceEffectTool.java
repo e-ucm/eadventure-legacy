@@ -241,6 +241,7 @@ public class ReplaceEffectTool extends Tool {
                     showTextEffect.setTextPosition( Integer.parseInt( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_X ) ), Integer.parseInt( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_Y ) ) );
                     showTextEffect.setRgbFrontColor( Integer.parseInt( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_FRONT_COLOR ) ) );
                     showTextEffect.setRgbBorderColor( Integer.parseInt( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_BORDER_COLOR ) ) );
+                    showTextEffect.setAudioPath( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) );
                     break;
                 case Effect.HIGHLIGHT_ITEM:
                     HighlightItemEffect highlightItemEffect = (HighlightItemEffect) effect;

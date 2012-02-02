@@ -48,6 +48,7 @@ import es.eucm.eadventure.common.data.chapter.effects.ShowTextEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
  * An effect that shows the given text in current scene.
@@ -80,6 +81,12 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
     private boolean skipByUser;
 
     /**
+     * The id of the spoken audio
+     */
+    private long audioId = -1;
+    
+    
+    /**
      * Constructor
      * 
      * @param effect
@@ -104,6 +111,7 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
 
         this.isStillRunning = false;
         skipByUser = false;
+        
     }
 
     @Override
@@ -115,12 +123,14 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
     @Override
     public boolean isStillRunning( ) {
 
-        return isStillRunning;
+        return isStillRunning || !( audioId == -1 || !MultimediaManager.getInstance( ).isPlaying( audioId ) );
     }
 
     @Override
     public void triggerEffect( ) {
 
+        
+        
         // FIXME: Convendría cambiar esto para que no se use un timer
         timer = new Timer( timeShown * 2, new ActionListener( ) {
 
@@ -133,6 +143,9 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
             }
         } );
         isStillRunning = true;
+        String audioPath = ((ShowTextEffect)effect).getAudioPath( ) ;
+        if (audioPath!=null && !audioPath.equals( "" ) )
+            setAudio( ((ShowTextEffect)effect).getAudioPath( ) );
         timer.start( );
 
     }
@@ -163,7 +176,63 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
 
     @Override
     public void skip( ) {
+        
+        if( audioId != -1 ) 
+            MultimediaManager.getInstance( ).stopPlayingInmediately( audioId );
        skipByUser = true;
        finish();
     }
+    
+    /**
+     * Set the audio used by the action
+     * 
+     * @param audioPath
+     *            The path of the audio
+     */
+    public void setAudio( String audioPath ) {
+
+        if( audioPath == null ) {
+            if( audioId != -1 ) {
+                MultimediaManager.getInstance( ).stopPlayingInmediately( audioId );
+                while( MultimediaManager.getInstance( ).isPlaying( audioId ) ) {
+                    try {
+                        Thread.sleep( 1 );
+                    }
+                    catch( InterruptedException e ) {
+                    }
+                }
+                audioId = -1;
+            }
+        }
+        else {
+            if( audioId != -1 ) {
+                MultimediaManager.getInstance( ).stopPlayingInmediately( audioId );
+                while( MultimediaManager.getInstance( ).isPlaying( audioId ) ) {
+                    try {
+                        Thread.sleep( 1 );
+                    }
+                    catch( InterruptedException e ) {
+                    }
+                }
+            }
+
+            //Gap between audios: 0.5s
+            try {
+                Thread.sleep( 500 );
+            }
+            catch( InterruptedException e ) {
+            }
+
+            audioId = MultimediaManager.getInstance( ).loadSound( audioPath, false );
+            MultimediaManager.getInstance( ).startPlaying( audioId );
+            while( !MultimediaManager.getInstance( ).isPlaying( audioId ) ) {
+                try {
+                    Thread.sleep( 1 );
+                }
+                catch( InterruptedException e ) {
+                }
+            }
+        }
+    }
+
 }

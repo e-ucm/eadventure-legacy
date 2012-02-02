@@ -321,6 +321,7 @@ public class EffectsDOMWriter {
                 effectElement.setAttribute( "y", String.valueOf( showTextEffect.getY( ) ) );
                 effectElement.setAttribute( "frontColor", String.valueOf( showTextEffect.getRgbFrontColor( ) ) );
                 effectElement.setAttribute( "borderColor", String.valueOf( showTextEffect.getRgbBorderColor( ) ) );
+                effectElement.setAttribute( "uri", showTextEffect.getAudioPath( ));
                 effectElement.appendChild( doc.createTextNode( showTextEffect.getText( ) ) );
                 break;
             case Effect.MOVE_OBJECT:
