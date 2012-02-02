@@ -36,10 +36,13 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.data.chapter.elements;
 
+import es.eucm.eadventure.common.data.HasDescriptionSound;
+import es.eucm.eadventure.common.data.Named;
+
 /**
  * This class holds the data of an item in eAdventure
  */
-public class Atrezzo extends Element {
+public class Atrezzo extends Element implements Named, HasDescriptionSound {
 
     /**
      * The tag of the item's image
@@ -65,6 +68,61 @@ public class Atrezzo extends Element {
 
         Atrezzo a = (Atrezzo) super.clone( );
         return a;
+    }
+
+
+    public String getName( ) {
+
+        return this.descriptions.get( 0 ).getName( );
+        
+    }
+
+
+    public void setName( String name ) {
+
+       this.descriptions.get( 0 ).setName( name );
+        
+    }
+
+
+    public String getDescriptionSoundPath( ) {
+
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    public String getDetailedDescriptionSoundPath( ) {
+
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    public String getNameSoundPath( ) {
+
+        return this.descriptions.get( 0 ).getNameSoundPath( );
+    }
+
+
+    public void setDescriptionSoundPath( String descriptionSoundPath ) {
+
+       
+        
+    }
+
+
+    public void setDetailedDescriptionSoundPath( String detailedDescriptionSoundPath ) {
+
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    public void setNameSoundPath( String nameSoundPath ) {
+
+        this.descriptions.get( 0 ).setNameSoundPath( nameSoundPath );
+        
     }
 
 
