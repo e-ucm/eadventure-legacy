@@ -41,6 +41,12 @@ package es.eucm.eadventure.common.data.chapter.effects;
  */
 public class ShowTextEffect extends AbstractEffect {
 
+    
+    /**
+     * Path for the audio track where the line is recorded. Its use is optional.
+     */
+    private String audioPath;
+    
     /**
      * The text which will be showed
      */
@@ -150,6 +156,7 @@ public class ShowTextEffect extends AbstractEffect {
         ste.y = y;
         ste.rgbBorderColor = rgbBorderColor;
         ste.rgbFrontColor = rgbFrontColor;
+        ste.audioPath = ( audioPath != null ? new String( audioPath ) : null );
         return ste;
     }
 
@@ -185,5 +192,17 @@ public class ShowTextEffect extends AbstractEffect {
     public void setRgbBorderColor( int rgbBorderColor ) {
 
         this.rgbBorderColor = rgbBorderColor;
+    }
+
+    
+    public String getAudioPath( ) {
+    
+        return audioPath;
+    }
+
+    
+    public void setAudioPath( String audioPath ) {
+    
+        this.audioPath = audioPath;
     }
 }

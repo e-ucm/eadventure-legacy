@@ -344,10 +344,9 @@ public class EffectsController {
                     icon = new ImageIcon( "img/icons/effects/16x16/wait.png" );
                     break;
                 case Effect.SHOW_TEXT:
-                    //TODO Uncomment when audio is implemented for show texts
-                    /*if (((ShowTextEffect)effect).getAudioPath( )!=null && !((ShowTextEffect)effect).getAudioPath( ).equals( "" ))
+                    if (((ShowTextEffect)effect).getAudioPath( )!=null && !((ShowTextEffect)effect).getAudioPath( ).equals( "" ))
                         icon = new ImageIcon( "img/icons/effects/16x16/show-text-withsound.png" );
-                    else*/
+                    else
                         icon = new ImageIcon( "img/icons/effects/16x16/show-text.png" );
                     break;
                 case Effect.HIGHLIGHT_ITEM:
@@ -669,6 +668,7 @@ public class EffectsController {
                 break;
             case Effect.SHOW_TEXT:
                 newEffect = new ShowTextEffect( text, x, y, frontColor, borderColor );
+                ((ShowTextEffect)newEffect).setAudioPath( path );
                 break;
             case Effect.HIGHLIGHT_ITEM:
                 newEffect = new HighlightItemEffect( target, type, animated);
@@ -807,6 +807,7 @@ public class EffectsController {
                 currentValues.put( EFFECT_PROPERTY_Y, Integer.toString( showTextEffect.getY( ) ) );
                 currentValues.put( EFFECT_PROPERTY_FRONT_COLOR, Integer.toString( showTextEffect.getRgbFrontColor( ) ) );
                 currentValues.put( EFFECT_PROPERTY_BORDER_COLOR, Integer.toString( showTextEffect.getRgbBorderColor( ) ) );
+                currentValues.put( EFFECT_PROPERTY_PATH, showTextEffect.getAudioPath( ) );
                 break;
             case Effect.HIGHLIGHT_ITEM:
                 HighlightItemEffect highlightItem = (HighlightItemEffect) effect;

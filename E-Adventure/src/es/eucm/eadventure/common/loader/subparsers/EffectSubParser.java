@@ -438,6 +438,8 @@ public class EffectSubParser extends SubParser {
             y = 0;
             frontColor = 0;
             borderColor = 0;
+            audioPath = "";
+            
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "x" ) )
                     x = Integer.parseInt( attrs.getValue( i ) );
@@ -447,8 +449,11 @@ public class EffectSubParser extends SubParser {
                     frontColor = Integer.parseInt( attrs.getValue( i ) );
                 else if( attrs.getQName( i ).equals( "borderColor" ) )
                     borderColor = Integer.parseInt( attrs.getValue( i ) );
+                // If there is a "uri" attribute, store it as audio path
+                else if( attrs.getQName( i ).equals( "uri" ) )
+                    audioPath = attrs.getValue( i );
             }
-
+            
         }
         
         else if (qName.equals( "highlight-item" )) {
@@ -589,6 +594,7 @@ public class EffectSubParser extends SubParser {
             else if( qName.equals( "show-text" ) ) {
                 // Add the new ShowTextEffect
                 newEffect = new ShowTextEffect( currentString.toString( ).trim( ), x, y, frontColor, borderColor );
+                ((ShowTextEffect) newEffect).setAudioPath( audioPath );
             }
 
             // Not reading Random effect: Add the new Effect if not null

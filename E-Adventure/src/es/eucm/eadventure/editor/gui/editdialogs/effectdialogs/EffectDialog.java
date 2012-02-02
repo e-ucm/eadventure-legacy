@@ -242,7 +242,7 @@ public abstract class EffectDialog extends ToolManagableDialog {
                 effectProperties = new WaitTimeEffectDialog( currentProperties ).getEffectProperties( );
                 break;
             case Effect.SHOW_TEXT:
-                effectProperties = new ShowTextEffectDialog( currentProperties ).getEffectProperties( );
+                effectProperties = new ShowTextEffectDialog( effectsController, currentProperties ).getEffectProperties( );
                 break;
             case Effect.HIGHLIGHT_ITEM:
                 effectProperties = new HighlightItemEffectDialog( HighlightItemEffectDialog.HIGHLIGHT, currentProperties ).getEffectProperties( );

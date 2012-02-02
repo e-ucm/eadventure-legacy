@@ -53,6 +53,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
@@ -67,6 +69,7 @@ import javax.swing.event.ChangeListener;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.auxiliar.components.TextPreviewPanel;
+import es.eucm.eadventure.editor.gui.displaydialogs.AudioDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ToolManagableDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.TextImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
@@ -83,6 +86,12 @@ public class ShowTextEffectDialog extends EffectDialog {
      * 
      */
     private static final long serialVersionUID = -7405590437950803927L;
+    
+    
+    /**
+     * Max of characters to be shown in the label with the path of the audio path
+     */
+    private static final int PATH_MAX_LONG_TO_SHOW = 66;
 
     /**
      * Combo box with the scenes.
@@ -118,6 +127,27 @@ public class ShowTextEffectDialog extends EffectDialog {
      * The text border color
      */
     private Color borderColor;
+    
+    /**
+     * The complete audioPath String
+     */
+    // we cut the full string when it is too large because of layout problems
+    private String completeAudiopath;
+    
+    /**
+     * Text field containing the path.
+     */
+    private JTextField pathTextField;
+    
+    /**
+     * Button to display the actual asset.
+     */
+    private JButton viewButton;
+    
+    /**
+     * Controller of the effects.
+     */
+    private EffectsController effectsController;
 
     /**
      * Constructor.
@@ -125,11 +155,14 @@ public class ShowTextEffectDialog extends EffectDialog {
      * @param currentProperties
      *            Set of initial values
      */
-    public ShowTextEffectDialog( HashMap<Integer, Object> currentProperties ) {
+    public ShowTextEffectDialog( EffectsController effectsController, HashMap<Integer, Object> currentProperties ) {
 
         // Call the super method
         super( TC.get( "ShowTextEffect.Title" ), true );
 
+        
+        this.effectsController = effectsController;
+        
         // Create the main panel
         JPanel mainPanel = new JPanel( );
         mainPanel.setLayout( new GridBagLayout( ) );
@@ -146,6 +179,58 @@ public class ShowTextEffectDialog extends EffectDialog {
         JPanel previewTextCont = createTextColorPanel( );
         mainPanel.add( previewTextCont, c );
 
+        
+        
+     // create the components for audio
+        // Create the delete content button
+        // Load the image for the delete content button
+           
+        JPanel soundPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints cSound = new GridBagConstraints( );
+        soundPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssetsChooser.Audio" ) ) ) );
+        
+           Icon deleteContentIcon = new ImageIcon( "img/icons/deleteContent.png" );
+           JButton deleteContentButton = new JButton( deleteContentIcon );
+           deleteContentButton.addActionListener( new DeleteContentButtonActionListener( ) );
+           deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
+           deleteContentButton.setToolTipText( TC.get( "Resources.DeleteAsset" ) );
+           
+           cSound.insets = new Insets( 4, 4, 4, 4 );
+           cSound.gridy=0;
+           cSound.gridx = 0;           
+           cSound.gridwidth = 1;
+           cSound.gridheight = 1;
+           cSound.fill = GridBagConstraints.NONE;
+           cSound.weightx = 0;
+           cSound.weighty = 0;
+           soundPanel.add( deleteContentButton, cSound );
+        
+           pathTextField = new JTextField( );
+           pathTextField.setEditable( false );
+           cSound.gridx = 1;
+           cSound.fill = GridBagConstraints.HORIZONTAL;
+           cSound.weightx = 0.5;
+           soundPanel.add( pathTextField, cSound );
+
+           // Create the "Select" button and insert it
+           JButton selectButton = new JButton( TC.get( "Resources.Select" ) );
+           selectButton.addActionListener( new ExamineButtonActionListener( ) );
+           cSound.gridx = 2;
+           cSound.fill = GridBagConstraints.NONE;
+           cSound.weightx = 0;
+           soundPanel.add( selectButton, cSound );
+
+           // Create the "View" button and insert it
+           viewButton = new JButton( TC.get( "Resources.PlayAsset" ) );
+           viewButton.setEnabled( false );
+           viewButton.addActionListener( new ViewButtonActionListener( ) );
+           cSound.gridx = 3;
+           soundPanel.add( viewButton, cSound );
+           
+       c.gridx =0;  
+       c.gridy++;  
+       mainPanel.add( soundPanel, c )    ;
+        
         c.gridy++;
         c.gridwidth = 1;
         // Create and add a description for the scenes
@@ -231,6 +316,21 @@ public class ShowTextEffectDialog extends EffectDialog {
             if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_BORDER_COLOR ) )
                 rgbBorder = Integer.parseInt( (String) currentProperties.get( EffectsController.EFFECT_PROPERTY_BORDER_COLOR ) );
 
+            if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_PATH ) ) {
+                completeAudiopath =  (String) currentProperties.get( EffectsController.EFFECT_PROPERTY_PATH );
+                
+                if (completeAudiopath!=null){
+                    if (completeAudiopath.length( ) < PATH_MAX_LONG_TO_SHOW )
+                        pathTextField.setText( completeAudiopath );
+                    else 
+                        pathTextField.setText( "..." +  completeAudiopath.substring( completeAudiopath.length( ) - PATH_MAX_LONG_TO_SHOW, completeAudiopath.length( )) );
+                }
+                
+               
+                viewButton.setEnabled( completeAudiopath != null && !completeAudiopath.equals( "" ) );
+            }
+            
+            
             //create front and border colors
             frontColor = new Color( rgbFront );
             borderColor = new Color( rgbBorder );
@@ -248,7 +348,6 @@ public class ShowTextEffectDialog extends EffectDialog {
                 y = 5000;
             if( y < -2000 )
                 y = -2000;
-
             textPositionPanel = new PositionPanel( imagePanel, x, y );
 
         }
@@ -261,6 +360,7 @@ public class ShowTextEffectDialog extends EffectDialog {
             textPositionPanel = new PositionPanel( imagePanel, 400, 500 );
         }
         mainPanel.add( textPositionPanel, c );
+        
         imagePanel.repaint( );
         // Add the panel to the center
         add( mainPanel, BorderLayout.CENTER );
@@ -338,7 +438,73 @@ public class ShowTextEffectDialog extends EffectDialog {
         properties.put( EffectsController.EFFECT_PROPERTY_Y, String.valueOf( textPositionPanel.getPositionY( ) ) );
         properties.put( EffectsController.EFFECT_PROPERTY_FRONT_COLOR, String.valueOf( frontColor.getRGB( ) ) );
         properties.put( EffectsController.EFFECT_PROPERTY_BORDER_COLOR, String.valueOf( borderColor.getRGB( ) ) );
+        properties.put( EffectsController.EFFECT_PROPERTY_PATH, completeAudiopath );
 
+    }
+    
+    /**
+     * Listener for the examine button.
+     */
+    private class ExamineButtonActionListener implements ActionListener {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
+        public void actionPerformed( ActionEvent e ) {
+
+            // Ask the user for an animation
+            String newPath = effectsController.selectAsset( EffectsController.ASSET_SOUND );
+
+            // If a new value was selected, set it and enable the view button
+            if( newPath != null ) {
+                completeAudiopath = newPath;
+                if (completeAudiopath.length( ) < PATH_MAX_LONG_TO_SHOW )
+                    pathTextField.setText( completeAudiopath );
+                else {
+                 
+                  pathTextField.setText( "..." + completeAudiopath.substring(  completeAudiopath.length( ) - PATH_MAX_LONG_TO_SHOW, completeAudiopath.length( )) );
+                }
+                
+                viewButton.setEnabled( true );
+            }
+        }
+    }
+
+    /**
+     * Listener for the view button.
+     */
+    private class ViewButtonActionListener implements ActionListener {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
+        public void actionPerformed( ActionEvent e ) {
+
+            new AudioDialog( completeAudiopath );
+        }
+    }
+    
+    /**
+     * Listener for the delete content button.
+     */
+    private class DeleteContentButtonActionListener implements ActionListener {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
+        public void actionPerformed( ActionEvent e ) {
+
+            // Delete the current path and disable the view button
+            pathTextField.setText( null );
+            completeAudiopath = null;
+            viewButton.setEnabled( false );
+        }
     }
 
     private class EffectColorChooser extends ToolManagableDialog {

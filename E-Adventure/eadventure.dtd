@@ -593,6 +593,7 @@
 	y NMTOKEN #REQUIRED
 	frontColor NMTOKEN #REQUIRED
 	borderColor NMTOKEN #REQUIRED
+	uri CDATA #IMPLIED
 >
 
 <!-- #############################Adaptation info ##################################################################-->
