@@ -1422,10 +1422,35 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      *            New next scene structure
      */
     public void setNextScene( Exit nextScene ) {
-
-        this.lastNextScene = this.nextScene;
+        
+        // only actualize the lastScene attribute when there is a change to a scene, not cutscene
+        if (!isCutscene(nextScene.getNextSceneId( )) && this.getFunctionalScene( ) != null){
+            this.lastNextScene = new Exit(this.getFunctionalScene( ).getScene( ).getId( ));
+            this.lastNextScene.setDestinyX( this.getFunctionalScene( ).getScene( ).getPositionX( ) );
+            this.lastNextScene.setDestinyY( this.getFunctionalScene( ).getScene( ).getPositionY( ) );
+        }
         this.nextScene = nextScene;
     }
+    
+    
+    private boolean isCutscene(String id){
+        
+        
+        return this.gameData.getCutscene( id )!= null;
+        
+    }
+    
+    
+    /**
+     * Set the last scene taking the current functional scene
+     */
+    // this method is needed to set correctly the last scene attribute used in LAST SCENE effect in those
+    // cutscene set to return to the previous scene
+   /* public void setLastSceneFromCurrentFunctionalScene(){
+        lastNextScene = new Exit (this.functionalScene.getScene( ).getId( ) );
+        lastNextScene.setDestinyX( this.functionalScene.getScene( ).getPositionX( ) );
+        lastNextScene.setDestinyY( this.functionalScene.getScene( ).getPositionY( ) );
+    }*/
 
     /**
      * Returns the current next scene

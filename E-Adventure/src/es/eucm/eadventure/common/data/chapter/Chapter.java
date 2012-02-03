@@ -461,8 +461,10 @@ public class Chapter extends ChapterSummary implements HasTargetId {
         Cutscene selectedScene = null;
 
         for( Cutscene scene : cutscenes )
-            if( scene.getId( ).equals( sceneId ) )
+            if( scene.getId( ).equals( sceneId ) ){
                 selectedScene = scene;
+                break;
+            }
 
         return selectedScene;
     }
