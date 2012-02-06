@@ -324,11 +324,11 @@ public JPanel createSoundPanel( HasDescriptionSound descriptionSound, String sou
                for (int i=0;i< SOUND_ELEMENTS ; i++){ 
                   String soundName=null; 
                    switch (i){
-                       case HasDescriptionSound.NAME_PATH: soundName = descriptionController.getNameSoundPath( );
+                       case HasDescriptionSound.NAME_PATH: soundName = cutLongAudioPath(descriptionController.getNameSoundPath( ));
                                break;
-                       case HasDescriptionSound.DESCRIPTION_PATH: soundName = descriptionController.getDescriptionSoundPath( );
+                       case HasDescriptionSound.DESCRIPTION_PATH: soundName = cutLongAudioPath(descriptionController.getDescriptionSoundPath( ));
                                break;
-                       case HasDescriptionSound.DETAILED_DESCRIPTION_PATH: soundName = descriptionController.getDetailedDescriptionSoundPath( );
+                       case HasDescriptionSound.DETAILED_DESCRIPTION_PATH: soundName = cutLongAudioPath(descriptionController.getDetailedDescriptionSoundPath( ));
                                break;
                    }  
                    
