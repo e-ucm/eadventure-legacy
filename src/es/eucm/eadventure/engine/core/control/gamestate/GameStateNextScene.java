@@ -182,11 +182,10 @@ public class GameStateNextScene extends GameState {
 
             case GeneralScene.VIDEOSCENE:
                 // Stop the music
-                if( game.getFunctionalScene( ) != null )
+                if( game.getFunctionalScene( ) != null ){
                     game.getFunctionalScene( ).stopBackgroundMusic( );
-                
-                game.getFunctionalScene( ).restartElementReferencesPositions( );
-
+                    game.getFunctionalScene( ).restartElementReferencesPositions( );
+                }
                 // If it is a videoscene, load the videoscene
                 game.setState( Game.STATE_VIDEO_SCENE );
                 break;
