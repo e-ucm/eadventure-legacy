@@ -666,6 +666,6 @@
 <!ELEMENT set-property EMPTY>
 <!ATTLIST set-property
 	id NMTOKEN #REQUIRED
-	value NMTOKEN #REQUIRED
+	value CDATA #REQUIRED
 	varName NMTOKEN #IMPLIED
 >
