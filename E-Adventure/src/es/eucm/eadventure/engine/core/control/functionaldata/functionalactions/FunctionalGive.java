@@ -199,4 +199,10 @@ public class FunctionalGive extends FunctionalAction {
         return anotherElement;
     }
 
+    
+    public FunctionalElement getElement( ) {
+    
+        return element;
+    }
+
 }

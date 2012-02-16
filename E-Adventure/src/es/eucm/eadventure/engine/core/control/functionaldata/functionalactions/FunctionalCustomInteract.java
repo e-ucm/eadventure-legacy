@@ -151,4 +151,8 @@ public class FunctionalCustomInteract extends FunctionalAction {
         }
     }
 
+    public FunctionalElement getElement( ) {
+        return element;
+    }
+
 }

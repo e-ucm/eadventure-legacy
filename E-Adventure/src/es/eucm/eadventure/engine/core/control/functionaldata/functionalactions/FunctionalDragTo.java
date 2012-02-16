@@ -174,4 +174,8 @@ public class FunctionalDragTo extends FunctionalAction {
         }
     }
 
+public FunctionalElement getElement( ) {
+    return this.element;
+}
+
 }
