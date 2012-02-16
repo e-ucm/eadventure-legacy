@@ -64,13 +64,14 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.F
 import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridFactory;
 import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridPosition;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
  * A scene in the game
  */
-public class FunctionalScene implements Renderable {
+public class FunctionalScene implements Renderable, HighLevelEvents {
 
     /**
      * Margins of the scene (for use in the scroll)
@@ -836,10 +837,13 @@ public class FunctionalScene implements Renderable {
         // FIXME Francis: Aclarar el uso del offset, ya que se añade en sitios que no deberia y viceversa
         if( isInsideOffsetArrow( x, y ) ) {
             System.out.println( "Is inside offset arrow" );
-            if( moveOffsetRight )
+            if( moveOffsetRight ){
+                Game.getInstance( ).getGameLog( ).highLevelEvent( OFFSET_ARROW_RIGHT );
                 updateOffset( true );
-            if( moveOffsetLeft )
+            }if( moveOffsetLeft ){
+                Game.getInstance( ).getGameLog( ).highLevelEvent( OFFSET_ARROW_LEFT );
                 updateOffset( false );
+            }
         }
 
         FunctionalElement element = getElementInside( x + offsetX, y , null);
@@ -850,6 +854,8 @@ public class FunctionalScene implements Renderable {
             int finalX = functionalGoTo.getPosX( );
             int finalY = functionalGoTo.getPosY( );
             Exit exit = getExitInside( finalX - offsetX, finalY );
+            if (exit!=null)
+                Game.getInstance( ).getGameLog( ).highLevelEvent( EXIT_CLICK, exit.getNextSceneId( ) );
             player.cancelActions( );
             if( exit == null && !player.isTransparent( ) ) {
                 player.addAction( functionalGoTo );

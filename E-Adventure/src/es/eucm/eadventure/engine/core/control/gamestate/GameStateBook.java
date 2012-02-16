@@ -48,16 +48,20 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalStyledBoo
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalTextBook;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
+import es.eucm.eadventure.engine.gamelog._GameLog;
 
 /**
  * A game main loop when a "bookscene" is being displayed
  */
-public class GameStateBook extends GameState {
+public class GameStateBook extends GameState implements HighLevelEvents {
 
     /**
      * Functional book to be displayed
      */
     private FunctionalBook book;
+    
+    private _GameLog gameLog;
 
     /**
      * Creates a new GameStateBook
@@ -65,6 +69,7 @@ public class GameStateBook extends GameState {
     public GameStateBook( ) {
 
         super( );
+        gameLog.highLevelEvent( BOOK_ENTER, game.getBook( ).getId( ) );
         if( game.getBook( ).getType( ) == Book.TYPE_PARAGRAPHS ) {
             //System.out.println( "[LOG] GameStateBook - Constructor - Paragraphs Book" );
             book = new FunctionalTextBook( game.getBook( ) );
@@ -73,7 +78,7 @@ public class GameStateBook extends GameState {
             //System.out.println( "[LOG] GameStateBook - Constructor - Pages Book" );
             book = new FunctionalStyledBook( game.getBook( ) );
         }
-        
+        this.gameLog=game.getGameLog( );
     }
 
     /*
@@ -131,15 +136,19 @@ public class GameStateBook extends GameState {
     private void browseNextPage(){
         if( book.isInLastPage( ) ) {
             closeBook();
-        } else 
+        } else{
+            gameLog.highLevelEvent( BOOK_BROWSE_NEXTPAGE, book.getBook( ).getId( ) );
             book.nextPage( );
+        }
     }
     
     private void browsePreviousPage(){
+        gameLog.highLevelEvent( BOOK_BROWSE_PREVPAGE, book.getBook( ).getId( ) );
         book.previousPage( );
     }
     
     private void closeBook(){
+        gameLog.highLevelEvent( BOOK_EXIT, book.getBook( ).getId( ) );
         GUI.getInstance( ).restoreFrame( );
         // this method also change the state to run effects
         FunctionalEffects.storeAllEffects( new Effects( ) );

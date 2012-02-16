@@ -76,13 +76,14 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.F
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalUseWith;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
  * The player
  */
-public class FunctionalPlayer extends FunctionalElement implements TalkingElement {
+public class FunctionalPlayer extends FunctionalElement implements TalkingElement, HighLevelEvents {
 
     /**
      * Default speed of the player.
@@ -373,6 +374,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         Game game = Game.getInstance( );
         int actionSelected = Game.getInstance( ).getActionManager( ).getActionSelected( );
         if( actionSelected == ActionManager.ACTION_LOOK ) {
+            game.getGameLog( ).highLevelEvent( LOOK, element.getElement( ).getId( ) );
             addAction( new FunctionalLook( element ) );
             return;
         } 
@@ -381,9 +383,11 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         switch( actionSelected ) {
             case ActionManager.ACTION_EXAMINE:
                 cancelActions( );
+                game.getGameLog( ).highLevelEvent( EXAMINE, element.getElement( ).getId( ) );
                 nextAction = new FunctionalExamine( null, element );
                 break;
             case ActionManager.ACTION_GIVE:
+                game.getGameLog( ).highLevelEvent( START_GIVE_TO, element.getElement( ).getId( ) );
                 if( element.canPerform( actionSelected ) ) {
                     if( element.isInInventory( ) ) {
                         cancelActions( );
@@ -405,6 +409,8 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 }
                 break;
             case ActionManager.ACTION_GIVE_TO:
+                game.getGameLog( ).highLevelEvent( END_GIVE_TO, ( (FunctionalGive) getCurrentAction() ).getElement( ).getElement( ).getId( ),
+                        element.getElement( ).getId( ) );
                 if( element.canPerform( actionSelected ) ) {
                     if( getCurrentAction( ).getType( ) == ActionManager.ACTION_GIVE ) {
                         nextAction = getCurrentAction( );
@@ -419,6 +425,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 break;
             case ActionManager.ACTION_GRAB:
                 cancelActions( );
+                game.getGameLog( ).highLevelEvent( GRAB, element.getElement( ).getId( ) );
                 if( element.canPerform( actionSelected ) ) {
                     if( !element.isInInventory( ) ) {
                         nextAction = new FunctionalGrab( null, element );
@@ -430,6 +437,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                     speak( GameText.getTextGrabNPC( ), keepShowingGlobal );
                 break;
             case ActionManager.ACTION_TALK:
+                game.getGameLog( ).highLevelEvent( TALK, element.getElement( ).getId( ) );
                 cancelActions( );
                 if( element.canPerform( actionSelected ) ) {
                     nextAction = new FunctionalTalk( null, element );
@@ -438,24 +446,30 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                     speak( GameText.getTextTalkObject( ), keepShowingGlobal );
                 break;
             case ActionManager.ACTION_USE:
+                
                 if( element.canPerform( actionSelected ) ) {
                     if( element.canBeUsedAlone( ) ) {
+                        game.getGameLog( ).highLevelEvent( USE, element.getElement( ).getId( ) );
                         cancelActions( );
                         nextAction = new FunctionalUse( element );
                     }
                     else {
+                        game.getGameLog( ).highLevelEvent( START_USE_WITH, element.getElement( ).getId( ) );
                         cancelActions( );
                         nextAction = new FunctionalUseWith( null, element );
                         game.getActionManager( ).setActionSelected( ActionManager.ACTION_USE_WITH );
                     }
                 }
                 else {
+                    game.getGameLog( ).highLevelEvent( USE, element.getElement( ).getId( ) );
                     popAction( );
                     speak( GameText.getTextUseNPC( ), keepShowingGlobal );
                 }
                 break;
             case ActionManager.ACTION_DRAG_TO:
                 if (getCurrentAction().getType( ) == Action.DRAG_TO) {
+                    game.getGameLog( ).highLevelEvent( END_DRAG_TO, ( (FunctionalDragTo) getCurrentAction() ).getElement( ).getElement( ).getId( ),
+                            element.getElement( ).getId( ) );
                     nextAction = getCurrentAction();
                     popAction();
                     if (nextAction != null && element != null && nextAction instanceof FunctionalDragTo) {
@@ -463,15 +477,20 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                     }
                 }
                 else {
+                    game.getGameLog( ).highLevelEvent( START_DRAG_TO, element.getElement( ).getId( ) );
                     nextAction = new FunctionalDragTo( element );
                     game.getActionManager( ).setActionSelected( ActionManager.ACTION_DRAG_TO );
                 }
                 break;
             case ActionManager.ACTION_CUSTOM:
+                game.getGameLog( ).highLevelEvent( CUSTOM+":"+game.getActionManager( ).getCustomActionName( ), element.getElement( ).getId( ) );
                 nextAction = new FunctionalCustom( element, Game.getInstance( ).getActionManager( ).getCustomActionName( ) );
                 break;
             case ActionManager.ACTION_CUSTOM_INTERACT:
                 if( getCurrentAction( ).getType( ) == Action.CUSTOM_INTERACT ) {
+                    game.getGameLog( ).highLevelEvent( END_CUSTOM_INTERACTION+": "+game.getActionManager( ).getCustomActionName( ),
+                            ( (FunctionalCustomInteract) getCurrentAction() ).getElement( ).getElement( ).getId( ),
+                            element.getElement( ).getId( ) );
                     nextAction = getCurrentAction( );
                     popAction( );
                     if( nextAction != null && element != null && nextAction instanceof FunctionalCustomInteract ) {
@@ -479,12 +498,18 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                     }
                 }
                 else {
+                    game.getGameLog( ).highLevelEvent( START_CUSTOM_INTERACTION+": "+game.getActionManager( ).getCustomActionName( ), element.getElement( ).getId( ) );
                     nextAction = new FunctionalCustomInteract( element, Game.getInstance( ).getActionManager( ).getCustomActionName( ) );
                 }
                 break;
             case ActionManager.ACTION_USE_WITH:
                 if( element.canPerform( actionSelected ) ) {
+                    game.getGameLog( ).highLevelEvent( END_USE_WITH+": "+game.getActionManager( ).getCustomActionName( ),
+                            ( (FunctionalUseWith) getCurrentAction() ).getElement( ).getElement( ).getId( ),
+                            element.getElement( ).getId( ) );
+                    
                     if( getCurrentAction( ).getType( ) == ActionManager.ACTION_USE_WITH ) {
+                        
                         nextAction = getCurrentAction( );
                         popAction( );
                         ( (FunctionalUseWith) nextAction ).setAnotherElement( element );

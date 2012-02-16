@@ -44,6 +44,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -105,6 +107,9 @@ import es.eucm.eadventure.engine.core.data.SaveTimer;
 import es.eucm.eadventure.engine.core.gui.DebugLogPanel;
 import es.eucm.eadventure.engine.core.gui.DebugValuesPanel;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.gamelog.GameLog;
+import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
+import es.eucm.eadventure.engine.gamelog._GameLog;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -116,7 +121,7 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  * Updated by Javier Torrente. 
  * New functionalities: Load effects wherever in a conversation
  */
-public class Game implements KeyListener, MouseListener, MouseMotionListener, Runnable, TimerEventListener, SpecialAssetPaths {
+public class Game implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Runnable, TimerEventListener, SpecialAssetPaths, HighLevelEvents {
 
     /**
      * Constant for loading state
@@ -377,6 +382,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * This is important to ensure that keyboard events are handled when swing components are displayed (videos, html).
      */
     private boolean dispatchEvents;
+    
+    /**
+     * Game Log for storing interaction info. Added in version v1.4.
+     */
+    private _GameLog gameLog;
 
     /**
      * Returns the instance of Game
@@ -391,6 +401,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public static void create( ) {
 
         instance = new Game( );
+        instance.gameLog = new GameLog(true);
     }
 
     public static void create( boolean fromEditor, DebugOptions debugOptions ) {
@@ -399,10 +410,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         instance.fromEditor = fromEditor;
         instance.debugOptions = debugOptions;
         instance.debug = debugOptions!=null;
+        instance.gameLog = new GameLog(true);
     }
 
     public static void delete( ) {
-
+      //Force gamelog dump
+        instance.gameLog.forceDump( );
         staticStop( );
         if( instance.debugChangesPanel != null )
             instance.debugChangesPanel.close( );
@@ -954,6 +967,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             GUI.getInstance( ).loading( 10 );
             
             while( !gameOver ) {
+                gameLog.scheduledDump( );
                 int timeBarrier = 60;
 
                 loadCurrentChapter( g );
@@ -990,6 +1004,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                     }
 
                     currentState.mainLoop( elapsedTime, oldFps );
+                    gameLog.scheduledDump( );
                     
                     MultimediaManager.getInstance( ).update( );
                     // sent time to LAMS each 1 minute
@@ -1022,7 +1037,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 if( currentChapter == gameDescriptor.getChapterSummaries( ).size( ) )
                     gameOver = true;
             }
-
+            gameLog.scheduledDump( );
         }
         catch( Exception e ) {
             ReportDialog.GenerateErrorReport( e, Game.getInstance( ).isFromEditor( ), "FATAL ERROR. This should not happen." );
@@ -1059,6 +1074,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             comm.disconnect( null );
             
         }
+        //Force gamelog dump
+        gameLog.forceDump( );
+        
         staticStop( );
     }
 
@@ -1066,7 +1084,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Stops all sounds and music, the gui, etc
      */
     private static void staticStop( ) {
-
         //Delete all sounds
         if( MultimediaManager.getInstance( ) != null )
             MultimediaManager.getInstance( ).deleteSounds( );
@@ -1354,7 +1371,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Sets game over to true
      */
     public void setGameOver( ) {
-
+        gameLog.highLevelEvent( EXIT_GAME );
         gameOver = true;
     }
 
@@ -1873,7 +1890,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
      */
     public void keyTyped( KeyEvent arg0 ) {
-
+        gameLog.lowLevelEvent( arg0 );
     }
 
     /**
@@ -1943,7 +1960,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
      */
     public void keyPressed( KeyEvent e ) {
-
+        gameLog.lowLevelEvent( e );
         currentState.keyPressed( e );
     }
 
@@ -1952,7 +1969,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
      */
     public void keyReleased( KeyEvent arg0 ) {
-
+        gameLog.lowLevelEvent( arg0 );
     }
 
     /*
@@ -1960,7 +1977,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
      */
     public void mouseClicked( MouseEvent e ) {
-
+        gameLog.lowLevelEvent( e );
         currentState.mouseClicked( e );
         removeFakeDrags( e );
     }
@@ -1970,7 +1987,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
      */
     public void mouseMoved( MouseEvent e ) {
-
+        gameLog.lowLevelEvent( e );
         currentState.mouseMoved( e );
         lastMouseEvent = e;
         removeFakeDrags( e );
@@ -1981,7 +1998,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
      */
     public void mousePressed( MouseEvent e ) {
-
+        gameLog.lowLevelEvent( e );
         currentState.mousePressed( e );
         removeFakeDrags( e );
     }
@@ -1991,7 +2008,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
      */
     public void mouseReleased( MouseEvent e ) {
-
+        gameLog.lowLevelEvent( e );
         currentState.mouseReleased( e );
         removeFakeDrags( e );
     }
@@ -2001,7 +2018,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
      */
     public void mouseEntered( MouseEvent e ) {
-
+        gameLog.lowLevelEvent( e );
     }
 
     /*
@@ -2009,7 +2026,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
      */
     public void mouseExited( MouseEvent e ) {
-
+        gameLog.lowLevelEvent( e );
     }
 
     /*
@@ -2017,9 +2034,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
      */
     public void mouseDragged( MouseEvent e ) {
+        gameLog.lowLevelEvent( e );
         currentState.mouseDragged( e );
         lastMouseEvent = e;
         removeFakeDrags( e );
+    }
+
+    public void mouseWheelMoved( MouseWheelEvent e ) {
+        gameLog.lowLevelEvent( e );
     }
 
     /**
@@ -2107,4 +2129,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public GameState getCurrentState( ) {
         return currentState;
     }
+
+    
+    public _GameLog getGameLog( ) {
+    
+        return gameLog;
+    }
+    
 }
