@@ -225,6 +225,12 @@ public class MainWindow extends JFrame {
 
                 controller.exit( );
             }
+            
+            @Override
+            public void windowClosed( WindowEvent arg0 ) {
+
+                controller.exit( );
+            }
         } );
 
         // Create the windows stack
