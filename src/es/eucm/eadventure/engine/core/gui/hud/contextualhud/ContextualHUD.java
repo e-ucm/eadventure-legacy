@@ -69,9 +69,10 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
+import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
-public class ContextualHUD extends HUD {
+public class ContextualHUD extends HUD implements HighLevelEvents{
 
     /**
      * Width of the playable area of the screen
@@ -779,6 +780,7 @@ public class ContextualHUD extends HUD {
         if( elementOver != null ) {
             elementAction = elementOver;
             actionButtons.recreate( e.getX( ), e.getY( ), elementAction );
+            Game.getInstance( ).getGameLog( ).highLevelEvent( SHOW_ACTIONS, elementOver.getElement( ).getId() );
             showActionButtons = true;
             return true;
         }

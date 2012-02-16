@@ -45,12 +45,13 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalCondition
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
  * A game main loop while a next scene is being processed
  */
-public class GameStateNextScene extends GameState {
+public class GameStateNextScene extends GameState implements HighLevelEvents {
 
     /*
      * (non-Javadoc)
@@ -67,6 +68,9 @@ public class GameStateNextScene extends GameState {
         Exit nextScene = game.getNextScene( );
         GeneralScene generalScene = game.getCurrentChapterData( ).getGeneralScene( nextScene.getNextSceneId( ) );
 
+        //Log
+        game.getGameLog( ).highLevelEvent( NEW_SCENE, generalScene.getId( ) );
+        
         // Depending on the type of the scene
         switch( generalScene.getType( ) ) {
             case GeneralScene.SCENE:

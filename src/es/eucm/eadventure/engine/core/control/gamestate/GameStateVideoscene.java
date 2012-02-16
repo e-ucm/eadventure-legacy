@@ -62,11 +62,12 @@ import es.eucm.eadventure.engine.core.control.InputStreamDataSource;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 
 /**
  * A game main loop while a "videoscene" is being displayed
  */
-public class GameStateVideoscene extends GameState implements ControllerListener {
+public class GameStateVideoscene extends GameState implements ControllerListener, HighLevelEvents {
 
     /**
      * Videoscene being played
@@ -176,6 +177,8 @@ public class GameStateVideoscene extends GameState implements ControllerListener
             loadNextScene( );
         }
 
+        game.getGameLog( ).highLevelEvent( VIDEOSCENE_ENTER, videoscene.getId( ) );
+        
     }
 
     private void loadNextScene( ) {
@@ -221,6 +224,7 @@ public class GameStateVideoscene extends GameState implements ControllerListener
             }
             FunctionalEffects.storeAllEffects( new Effects( ) );
         }
+        game.getGameLog( ).highLevelEvent( VIDEOSCENE_EXIT, videoscene.getId( ) );
     }
 
     /*
@@ -236,6 +240,7 @@ public class GameStateVideoscene extends GameState implements ControllerListener
 
     @Override
     public void mouseClicked( MouseEvent e ) {
+        game.getGameLog( ).highLevelEvent( VIDEOSCENE_SKIP, videoscene.getId( ) );
         // Check if the video scene can be skipped before skip it
         if (videoscene.isCanSkip( ))
             stop = true;

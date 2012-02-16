@@ -54,13 +54,14 @@ import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
  * A game main loop while a "slidescene" is being displayed
  */
-public class GameStateSlidescene extends GameState {
+public class GameStateSlidescene extends GameState implements HighLevelEvents{
 
     /**
      * Animation of the slidescene
@@ -135,6 +136,7 @@ public class GameStateSlidescene extends GameState {
         // Create the set of slides and start it
         slides = MultimediaManager.getInstance( ).loadSlides( resources.getAssetPath( Slidescene.RESOURCE_TYPE_SLIDES ), MultimediaManager.IMAGE_SCENE );
         slides.start( );
+        game.getGameLog( ).highLevelEvent( SLIDESCENE_ENTER, this.slidescene.getId( ) );
     }
 
     /*
@@ -165,7 +167,8 @@ public class GameStateSlidescene extends GameState {
     }
 
     private void finishedSlides( ) {
-
+        game.getGameLog( ).highLevelEvent( SLIDESCENE_EXIT, this.slidescene.getId( ) );
+        
         finish = true;
         // If it is a endscene, go to the next chapter
         if( !yetSkipped && slidescene.getNext( ) == Cutscene.ENDCHAPTER ) {
@@ -227,6 +230,7 @@ public class GameStateSlidescene extends GameState {
     
     private void nextSlides( ) {
         boolean endSlides = slides.nextImage( );
+        game.getGameLog( ).highLevelEvent( SLIDESCENE_NEXT, this.slidescene.getId( ) );
         keyPressed=false;
         // If the slides have ended
         if( endSlides ) {

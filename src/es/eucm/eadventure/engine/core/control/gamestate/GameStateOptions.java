@@ -67,10 +67,11 @@ import es.eucm.eadventure.engine.core.control.interaction.auxiliar.MouseUtils;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
-public class GameStateOptions extends GameState {
+public class GameStateOptions extends GameState implements HighLevelEvents{
 
     /**
      * Width of the playable area of the screen
@@ -344,6 +345,7 @@ public class GameStateOptions extends GameState {
             saveGames[i] = new SaveGame( );
             existsSaveGame[i] = saveGames[i].existSaveFile( game.getAdventureName( ) + "_" + i + ".txt" );
         }
+        game.getGameLog( ).highLevelEvent( MENU_OPEN );
     }
 
     private String LoadButton( String name ) {
@@ -470,6 +472,7 @@ public class GameStateOptions extends GameState {
         if( !options.isEffectsActive( ) )
             MultimediaManager.getInstance( ).stopAllSounds( );
 
+        game.getGameLog( ).highLevelEvent( MENU_CLOSE );
         game.setState( Game.STATE_PLAYING );
     }
 
@@ -678,12 +681,15 @@ public class GameStateOptions extends GameState {
 
         switch( highlightedOption ) {
             case 0:
+                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "saveload" );
                 changePanel( SAVELOAD_PANEL );
                 break;
             case 1:
+                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "config" );
                 changePanel( CONFIGURATION_PANEL );
                 break;
             case 2:
+                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "report" );
                 new ReportDialog( GUI.getInstance( ).getJFrame( ), game.getAssessmentEngine( ), game.getAdventureName( ) );
                 break;
             case 3:
@@ -705,12 +711,15 @@ public class GameStateOptions extends GameState {
 
         switch( highlightedOption ) {
             case 0:
+                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "save" );
                 changePanel( SAVE_PANEL );
                 break;
             case 1:
+                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "load" );
                 changePanel( LOAD_PANEL );
                 break;
             case 2:
+                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "back2options" );
                 changePanel( OPTIONS_PANEL );
                 break;
         }
@@ -725,12 +734,15 @@ public class GameStateOptions extends GameState {
     private void mouseReleasedSave( MouseEvent e ) {
 
         if( highlightedOption == 4 ) {
+            game.getGameLog( ).highLevelEvent( MENU_BROWSE, "back2saveload" );
             changePanel( SAVELOAD_PANEL );
         }
         else {
             for( int i = 0; i < MAX_NUM_SAVEGAME_SLOTS; i++ ) {
-                if( i == highlightedOption )
+                if( i == highlightedOption ){
+                    game.getGameLog( ).highLevelEvent( MENU_BROWSE, "savegame"+i );
                     saveGame( i );
+                }
             }
         }
     }
@@ -744,12 +756,14 @@ public class GameStateOptions extends GameState {
     private void mouseReleasedLoad( MouseEvent e ) {
 
         if( highlightedOption == 4 ) {
+            game.getGameLog( ).highLevelEvent( MENU_BROWSE, "back2saveload" );
             changePanel( SAVELOAD_PANEL );
         }
         else {
             for( int i = 0; i < MAX_NUM_SAVEGAME_SLOTS; i++ ) {
                 if( i == highlightedOption && isValidSlotGame( i ) ) {
                     loadGame = true;
+                    game.getGameLog( ).highLevelEvent( MENU_BROWSE, "loadgame"+i );
                     slotGame = i;
                 }
             }
@@ -766,15 +780,19 @@ public class GameStateOptions extends GameState {
 
         switch( highlightedOption ) {
             case 0:
+                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "switchmusic" );
                 switchMusic( );
                 break;
             case 1:
+                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "switeffects" );
                 switchEffects( );
                 break;
             case 2:
+                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "changetextspeed" );
                 changeTextSpeed( );
                 break;
             case 3:
+                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "back2options" );
                 changePanel( OPTIONS_PANEL );
                 break;
         }
