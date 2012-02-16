@@ -34,32 +34,52 @@
  *      You should have received a copy of the GNU Lesser General Public License
  *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
+
 package es.eucm.eadventure.engine.gamelog;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
-public interface _GameLog {
+import es.eucm.eadventure.engine.core.control.Game;
 
-	public void lowLevelEvent ( MouseEvent e );
-	
-	public void lowLevelEvent ( KeyEvent k );
-	
-	public void lowLevelEvent ( MouseWheelEvent e );
-	
-	public void lowLevelEvent ( FocusEvent f );
 
-	public void highLevelEvent(String action);
-	
-	public void highLevelEvent ( String action, String object );
-	
-	public void highLevelEvent ( String action, String object, String target );
+public class GameLogConsumerLocal extends GameLogConsumer{
 
-    public List<GameLogEntry> getAllEntries( );
-    
-    public List<GameLogEntry> getNewEntries( );
-	
+    private int randomId;
+    private int seq;
+
+    public GameLogConsumerLocal( List<GameLogEntry> q, long timestamp, int randomId ) {
+        super( q, timestamp );
+        this.updateFreq = 20000;
+        this.randomId = randomId;
+        seq=1;
+    }
+
+    @Override
+    protected void consumerCode( ) {
+        GameLogWriter.writeToFile( startTime, this.q, getFile() );
+    }
+
+    private File getFile(){
+        String seqStr =""+seq;
+        while (seqStr.length( )<4)seqStr="0"+seqStr;
+        String prefix= "eadgamelog-"+Game.getInstance( ).getAdventureName( )+"-"+randomId+"-"+seqStr+"-";
+        String suffix= ".xml";
+        File file;
+        try {
+            file = File.createTempFile( prefix, suffix );
+            seq++;
+        }
+        catch( IOException e ) {
+            file = new File (prefix+suffix);
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    @Override
+    protected void consumerClose( ) {
+        consumerCode();
+    }
 }

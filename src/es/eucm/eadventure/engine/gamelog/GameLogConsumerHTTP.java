@@ -34,32 +34,27 @@
  *      You should have received a copy of the GNU Lesser General Public License
  *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
+
 package es.eucm.eadventure.engine.gamelog;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.util.List;
 
-public interface _GameLog {
 
-	public void lowLevelEvent ( MouseEvent e );
-	
-	public void lowLevelEvent ( KeyEvent k );
-	
-	public void lowLevelEvent ( MouseWheelEvent e );
-	
-	public void lowLevelEvent ( FocusEvent f );
+public class GameLogConsumerHTTP extends GameLogConsumer{
 
-	public void highLevelEvent(String action);
-	
-	public void highLevelEvent ( String action, String object );
-	
-	public void highLevelEvent ( String action, String object, String target );
+    public GameLogConsumerHTTP( List<GameLogEntry> q, long timestamp ) {
+        super( q, timestamp );
+    }
 
-    public List<GameLogEntry> getAllEntries( );
-    
-    public List<GameLogEntry> getNewEntries( );
-	
+    @Override
+    protected void consumerCode( ) {
+        if (GameLogPoster.sendChunk( q ))
+            q.clear( );
+    }
+
+    @Override
+    protected void consumerClose( ) {
+        consumerCode();
+    }
+
 }

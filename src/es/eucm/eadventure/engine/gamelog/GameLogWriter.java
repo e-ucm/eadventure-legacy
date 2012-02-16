@@ -36,12 +36,14 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.gamelog;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -61,8 +63,7 @@ import org.w3c.dom.NodeList;
 
 public class GameLogWriter {
 
-	
-	public static synchronized void writeToFile ( _GameLog log, String fileName ){
+	public static void writeToFile ( long startTimeStamp, List<GameLogEntry> logEntries, File file ){
 	    try {	
 	    	// Create the necessary elements for building the DOM
 	    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
@@ -73,15 +74,13 @@ public class GameLogWriter {
 			OutputStream fout = null;
 			OutputStreamWriter writeFile = null;
 	
-			Element logElement = doc.createElement( "log" );
-            logElement.setAttribute( "timestamp", Long.toString(log.getStartTimeStamp()) );
-			
-            for (GameLogEntry entry:log.getLog()){
+			Element main = doc.createElement( "log" );
+            for (GameLogEntry entry:logEntries){
             	Element entryElement = doc.createElement(entry.getElementName());
             	for (int i=0; i<entry.getAttributeCount(); i++){
             		entryElement.setAttribute(entry.getAttributeName(i), entry.getAttributeValue(i));
             	}
-            	logElement.appendChild(entryElement);
+            	main.appendChild(entryElement);
             }
             
             
@@ -89,9 +88,9 @@ public class GameLogWriter {
 	
 		    // Create the output buffer, write the DOM and close it
 		    //fout = new FileOutputStream( zipFilename + "/imsmanifest.xml" );
-			indentDOM(logElement, 0);
-			doc.appendChild(logElement);
-		    fout = new FileOutputStream( fileName );
+			indentDOM(main, 0);
+			doc.appendChild( main );
+		    fout = new FileOutputStream( file );
 		    writeFile = new OutputStreamWriter( fout, "UTF-8" );
 		    transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
 		    writeFile.close( );

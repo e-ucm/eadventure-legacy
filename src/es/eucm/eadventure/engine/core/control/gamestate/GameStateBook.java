@@ -43,6 +43,7 @@ import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalBook;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalStyledBook;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalTextBook;
@@ -69,6 +70,7 @@ public class GameStateBook extends GameState implements HighLevelEvents {
     public GameStateBook( ) {
 
         super( );
+        gameLog = Game.getInstance( ).getGameLog( );
         gameLog.highLevelEvent( BOOK_ENTER, game.getBook( ).getId( ) );
         if( game.getBook( ).getType( ) == Book.TYPE_PARAGRAPHS ) {
             //System.out.println( "[LOG] GameStateBook - Constructor - Paragraphs Book" );

@@ -40,46 +40,43 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import es.eucm.eadventure.engine.core.control.Game;
 
 public class GameLog implements _GameLog{
 
 	public static final int THRESHOLD=1000;
 	
-	public static final long DUMP_FREQ=15000;
-	
-	private List<GameLogEntry> log;
-	
-	private long lastDump;
-	
-	private int randomId;
-	
-	public List<GameLogEntry> getLog() {
-		return log;
-	}
-
-	public long getStartTimeStamp() {
-		return startTimeStamp;
-	}
-
+	private List<GameLogEntry> allEntries;
+	private List<GameLogEntry> newEntries;
 	private long startTimeStamp;
 	private long lastLowLevelUpdate;
 	private boolean logging;
-	
-	public GameLog ( boolean logging ){
-		log = new ArrayList<GameLogEntry>();
-		startTimeStamp = System.currentTimeMillis();
-		this.logging=logging; 
-		Random r = new Random();
-		randomId = r.nextInt( 1000000 );
+	 
+	public List<GameLogEntry> getAllEntries() {
+		return allEntries;
 	}
 
+    public List<GameLogEntry> getNewEntries( ) {
+        return newEntries;
+    }
+
+	public GameLog ( boolean logging, long startTimeStamp ){
+		newEntries = new ArrayList<GameLogEntry>();
+		allEntries = new ArrayList<GameLogEntry>();
+		this.logging=logging; 
+		this.startTimeStamp = startTimeStamp;
+		addStartTimeEntry();
+	}
+
+	private void addStartTimeEntry(){
+	    GameLogEntry newEntry = new GameLogEntry(startTimeStamp, "start", new String[]{"timestampms="+startTimeStamp, "timestamp="+DateFormat.getDateTimeInstance( ).format( new Date(startTimeStamp) )});
+        addNewEntry(newEntry);
+        addEntry(newEntry);
+	}
+	
 	private String idToStr(int id){
 	    String str="";
 	    if (id==MouseEvent.MOUSE_CLICKED)
@@ -112,25 +109,30 @@ public class GameLog implements _GameLog{
 		long currentTime=System.currentTimeMillis();
 		if (currentTime-lastLowLevelUpdate>=THRESHOLD || e.getID( )== MouseEvent.MOUSE_CLICKED || 
 		        e.getID( ) == MouseEvent.MOUSE_PRESSED || e.getID( ) == MouseEvent.MOUSE_RELEASED){
-			log.add(new GameLogEntry(startTimeStamp,"l", new String[]{"t=m", "i="+idToStr(e.getID()), "x="+e.getX(), "y="+e.getY(), "b="+e.getButton(),
-				"c="+e.getClickCount(), "m="+e.getModifiersEx()}));
+		    GameLogEntry newEntry = new GameLogEntry(startTimeStamp,"l", new String[]{"t=m", "i="+idToStr(e.getID()), "x="+e.getX(), "y="+e.getY(), "b="+e.getButton(),
+	                "c="+e.getClickCount(), "m="+e.getModifiersEx()});
+	        addNewEntry(newEntry);
+	        addEntry(newEntry);
 			lastLowLevelUpdate = currentTime; 
 		}
 	}
 
 	public void lowLevelEvent(KeyEvent k) {
 	    if(!logging)return;
-		log.add(new GameLogEntry(startTimeStamp,"l", new String[]{"t=k", "i="+idToStr(k.getID()),"c="+k.getKeyCode(), "l="+k.getKeyLocation(),
-				"m="+k.getModifiersEx()}));
-
+	    GameLogEntry newEntry = new GameLogEntry(startTimeStamp,"l", new String[]{"t=k", "i="+idToStr(k.getID()),"c="+k.getKeyCode(), "l="+k.getKeyLocation(),
+                "m="+k.getModifiersEx()});
+        addNewEntry(newEntry);
+        addEntry(newEntry);
 	}
 
 	public void lowLevelEvent(MouseWheelEvent e) {
 	    if(!logging)return;
 		long currentTime=System.currentTimeMillis();
 		if (currentTime-lastLowLevelUpdate>=THRESHOLD){
-			log.add(new GameLogEntry(startTimeStamp,"l", new String[]{"t=w", "i="+idToStr(e.getID()),"x="+e.getX(), "y="+e.getY(), "s="+e.getScrollAmount(),
-					"r="+e.getWheelRotation(), "m="+e.getModifiersEx()}));
+		    GameLogEntry newEntry = new GameLogEntry(startTimeStamp,"l", new String[]{"t=w", "i="+idToStr(e.getID()),"x="+e.getX(), "y="+e.getY(), "s="+e.getScrollAmount(),
+                    "r="+e.getWheelRotation(), "m="+e.getModifiersEx()});
+	        addNewEntry(newEntry);
+	        addEntry(newEntry);
 			lastLowLevelUpdate = currentTime; 
 		}
 			
@@ -138,47 +140,42 @@ public class GameLog implements _GameLog{
 
 	public void lowLevelEvent(FocusEvent f) {
 	    if(!logging)return;
-	    log.add(new GameLogEntry(startTimeStamp,"l", new String[]{"t=f", "i="+idToStr(f.getID())}));
+	    GameLogEntry newEntry = new GameLogEntry(startTimeStamp,"l", new String[]{"t=f", "i="+idToStr(f.getID())});
+        addNewEntry(newEntry);
+        addEntry(newEntry);
 	}
 
 	public void highLevelEvent(String action ) {
 	    if(!logging)return;
-		log.add(new GameLogEntry(startTimeStamp,"h", new String[]{"a="+action}));		
+	    GameLogEntry newEntry = new GameLogEntry(startTimeStamp,"h", new String[]{"a="+action});
+        addNewEntry(newEntry);
+        addEntry(newEntry);
 	}
 	
 	public void highLevelEvent(String action, String object) {
 	    if(!logging)return;
-		log.add(new GameLogEntry(startTimeStamp,"h", new String[]{"a="+action, "o="+object}));		
+	    GameLogEntry newEntry = new GameLogEntry(startTimeStamp,"h", new String[]{"a="+action, "o="+object});
+        addNewEntry(newEntry);
+        addEntry(newEntry);
 	}
 
 	public void highLevelEvent(String action, String object, String target) {
 	    if(!logging)return;
-		log.add(new GameLogEntry(startTimeStamp,"h", new String[]{"a="+action, "o="+object, "t="+target}));
+	    GameLogEntry newEntry = new GameLogEntry(startTimeStamp,"h", new String[]{"a="+action, "o="+object, "t="+target});
+	    addNewEntry(newEntry);
+	    addEntry(newEntry);
 	}
-
-    public void scheduledDump( ) {
-        if(!logging)return;
-        
-        if ( System.currentTimeMillis( )-lastDump>DUMP_FREQ ){
-            this.lastDump = System.currentTimeMillis( );
-            forceDump();
+    
+	private void addNewEntry(GameLogEntry newEntry){
+	    synchronized(newEntries){
+	        newEntries.add(newEntry); 
+	    }
+	}
+    private void addEntry(GameLogEntry entry){
+        synchronized(allEntries){
+            allEntries.add(entry); 
         }
-        
-    }
-
-    public void forceDump( ) {
-        if(!logging)return;
-        TimerTask task=new TimerTask(){
-            @Override
-            public void run( ) {
-                GameLogWriter.writeToFile( GameLog.this, getFileName() );                
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule( task, 1 );
     }
 	
-	private String getFileName(){
-	    return "gamelog-"+Game.getInstance( ).getAdventureName( )+"-"+randomId+".xml";
-	}
+	
 }

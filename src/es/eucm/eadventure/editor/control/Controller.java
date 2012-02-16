@@ -2202,7 +2202,7 @@ public class Controller {
                 String authorName = dialog.getAuthorName( );
                 String organization = dialog.getOrganizationName( );
                 boolean windowed = dialog.getWindowed( );
-                int type = dialog.getType( );
+                int type = dialog.getType1( );
 
                 // For GAMETEL
                 String testUserId = dialog.getTestUserID( );

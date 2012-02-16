@@ -115,7 +115,6 @@ public class GameStatePlaying extends GameState {
         game.getFunctionalScene( ).draw( );
         
         GUI.getInstance( ).drawScene( g, elapsedTime );
-        
 
         GUI.getInstance( ).drawHUD( g );
 

@@ -34,32 +34,65 @@
  *      You should have received a copy of the GNU Lesser General Public License
  *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
+
 package es.eucm.eadventure.engine.gamelog;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.util.List;
 
-public interface _GameLog {
 
-	public void lowLevelEvent ( MouseEvent e );
-	
-	public void lowLevelEvent ( KeyEvent k );
-	
-	public void lowLevelEvent ( MouseWheelEvent e );
-	
-	public void lowLevelEvent ( FocusEvent f );
-
-	public void highLevelEvent(String action);
-	
-	public void highLevelEvent ( String action, String object );
-	
-	public void highLevelEvent ( String action, String object, String target );
-
-    public List<GameLogEntry> getAllEntries( );
+public abstract class GameLogConsumer extends Thread{
+    public static final long DEFAULT_FREQ = 10000;
     
-    public List<GameLogEntry> getNewEntries( );
-	
+    protected List<GameLogEntry> q;
+    
+    private boolean terminate;
+    
+    protected long startTime;
+    
+    protected long updateFreq;
+    
+    public synchronized void setTerminate (boolean interrupt){
+        this.terminate = interrupt;
+    }
+    
+    public synchronized boolean terminate(){
+        return terminate;
+    }
+    
+    public GameLogConsumer(List<GameLogEntry> q, long startTime){
+        this.q = q;
+        setTerminate(false);
+        updateFreq=DEFAULT_FREQ;
+        this.startTime = startTime;
+    }
+    
+    @Override
+    public void run(){
+        while (!terminate()){
+            try {
+                consumeGameLog();
+                Thread.sleep( DEFAULT_FREQ );
+            }
+            catch( InterruptedException e ) {
+            }
+        }
+        synchronized(q){
+            consumerClose();
+        }
+    }
+
+    private void consumeGameLog( ) {
+        synchronized(q){
+            if (q.size( )>0){
+                System.out.println( "["+this.getClass( ).getName( )+" :"+((System.currentTimeMillis()-startTime)/1000)+"] "+ q.size() );
+                consumerCode();
+            }else
+                System.out.println( "["+this.getClass( ).getName( )+" :"+((System.currentTimeMillis()-startTime)/1000)+"] Q is empty");
+            
+        }
+    }
+    
+    protected abstract void consumerCode();
+
+    protected abstract void consumerClose();
 }
