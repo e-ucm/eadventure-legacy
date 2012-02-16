@@ -91,6 +91,16 @@ public class GameLogEntry {
 		return timeStamp;
 	}
 
+	@Override
+    public String toString(){
+	    String str="<"+this.elementName+" ";
+	    for (GameLogEntryAttribute at:attributes){
+	        str+=at.attributeName+"=\""+at.attributeValue+"\"";
+	    }
+	    str+="/>";
+	    return str;
+	}
+	
 	private class GameLogEntryAttribute {
 		private String attributeName;
 		private String attributeValue;
@@ -108,4 +118,5 @@ public class GameLogEntry {
 		}
 		
 	}
+	
 }

@@ -372,7 +372,7 @@ public class ExportToLOMDialog extends JDialog {
         return organizationName;
     }
 
-    public int getType( ) {
+    public int getType1( ) {
 
         return typeComboBox.getSelectedIndex( );
     }

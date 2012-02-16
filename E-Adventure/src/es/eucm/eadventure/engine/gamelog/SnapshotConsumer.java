@@ -34,32 +34,67 @@
  *      You should have received a copy of the GNU Lesser General Public License
  *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
+
 package es.eucm.eadventure.engine.gamelog;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
+import java.io.File;
 import java.util.List;
 
-public interface _GameLog {
 
-	public void lowLevelEvent ( MouseEvent e );
-	
-	public void lowLevelEvent ( KeyEvent k );
-	
-	public void lowLevelEvent ( MouseWheelEvent e );
-	
-	public void lowLevelEvent ( FocusEvent f );
-
-	public void highLevelEvent(String action);
-	
-	public void highLevelEvent ( String action, String object );
-	
-	public void highLevelEvent ( String action, String object, String target );
-
-    public List<GameLogEntry> getAllEntries( );
+public class SnapshotConsumer extends Thread{
+    public static final long FREQ = 1;
     
-    public List<GameLogEntry> getNewEntries( );
-	
+    private List<File> q;
+    
+    private boolean terminate;
+    
+    private long startTime;
+    
+    public synchronized void setTerminate (boolean interrupt){
+        this.terminate = interrupt;
+    }
+    
+    public synchronized boolean terminate(){
+        return terminate;
+    }
+    
+    public SnapshotConsumer(List<File> q, long startTime){
+        this.q = q;
+        setTerminate(false);
+        this.startTime = startTime;
+    }
+    
+    @Override
+    public void run(){
+        while (!terminate()){
+            try {
+                sendSnapshot();
+                Thread.sleep( FREQ );
+            }
+            catch( InterruptedException e ) {
+            }
+        }
+        sendAllPendingSnapshots();
+    }
+
+    private void sendSnapshot( ) {
+        synchronized(q){
+            while (q.size( )>0){
+                System.out.println( "[SN_CONSUMER:"+((System.currentTimeMillis()-startTime)/1000)+"] "+ q.get( 0 ).getAbsolutePath( ) );
+                GameLogPoster.sendSnapshot( q.remove( 0 ) );
+            }if (q.size( )==0)
+                System.out.println( "[SN_CONSUMER:"+((System.currentTimeMillis()-startTime)/1000)+"] Q is empty");
+            
+        }
+    }
+    
+    private void sendAllPendingSnapshots(){
+        synchronized(q){
+            for (File f:q){
+                GameLogPoster.sendSnapshot( f );
+                q.clear( );
+            }
+        }
+    }
+
 }
