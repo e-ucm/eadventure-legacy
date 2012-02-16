@@ -179,4 +179,8 @@ public class FunctionalUseWith extends FunctionalAction {
         return anotherElement;
     }
 
+    public FunctionalElement getElement( ) {
+        return element;
+    }
+
 }
