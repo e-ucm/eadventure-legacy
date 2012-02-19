@@ -551,9 +551,10 @@ public class Writer {
         File.addJarContentsToZip( "jars/mailapi.jar", os );
         File.addJarContentsToZip( "jars/smtp.jar", os);
         File.addJarContentsToZip( "jars/activation.jar", os );
-        File.addJarContentsToZip( "jars/httpclient-4.1.3.jar", os );
-        File.addJarContentsToZip( "jars/httpcore-4.1.4.jar", os );
-        File.addJarContentsToZip( "jars/commons-logging-1.1.1.jar", os );
+        //XXX Uncomment these three lines to activate the game log
+        //File.addJarContentsToZip( "jars/httpclient-4.1.3.jar", os );
+        //File.addJarContentsToZip( "jars/httpcore-4.1.4.jar", os );
+        //File.addJarContentsToZip( "jars/commons-logging-1.1.1.jar", os );
 
         boolean needsFreeTts = false;
 
