@@ -61,17 +61,16 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 
 public class GameLogPoster {
-    private static String HOST="backend-ea.e-ucm.es";
+    private static String HOST="";
     
     private static String baseURL=null;
     
-    // post /sessions
     public static String openSession(){
         if (baseURL!=null) return baseURL;
         
         try {
             HttpClient httpclient = new DefaultHttpClient();
-            URI uri = URIUtils.createURI("http", HOST, -1, "/sessions/", null, null);
+            URI uri = URIUtils.createURI("http", HOST, -1, "", null, null);
             HttpPost httppost = new HttpPost(uri);
             HttpResponse response;
         
@@ -111,13 +110,12 @@ public class GameLogPoster {
         return baseURL;
     }
     
-    //put /session/%id%/chunks
     public static boolean sendChunk(List<GameLogEntry> entries){
         if (baseURL==null) return false; 
         boolean sent=false;
         try {
             HttpClient httpclient = new DefaultHttpClient();
-            String url = baseURL.endsWith( "/" )?baseURL+"chunks":baseURL+"/chunks";
+            String url = "";
             
             String chunk="";
             for (GameLogEntry entry:entries){
@@ -144,13 +142,12 @@ public class GameLogPoster {
         return sent;
     }
 
-    //put /session/%id%/snapshot
     public static boolean sendSnapshot( File file ){
         if (baseURL==null) return false; 
         boolean sent=false;
         try {
             HttpClient httpclient = new DefaultHttpClient();
-            String url = baseURL.endsWith( "/" )?baseURL+"snapshots":baseURL+"/snapshots";
+            String url = "";
             
             HttpPost httpput = new HttpPost(url);
             FileEntity myEntity = new FileEntity(file, "image/jpeg");

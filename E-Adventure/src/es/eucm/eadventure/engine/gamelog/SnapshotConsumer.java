@@ -80,10 +80,10 @@ public class SnapshotConsumer extends Thread{
     private void sendSnapshot( ) {
         synchronized(q){
             while (q.size( )>0){
-                System.out.println( "[SN_CONSUMER:"+((System.currentTimeMillis()-startTime)/1000)+"] "+ q.get( 0 ).getAbsolutePath( ) );
+                //System.out.println( "[SN_CONSUMER:"+((System.currentTimeMillis()-startTime)/1000)+"] "+ q.get( 0 ).getAbsolutePath( ) );
                 GameLogPoster.sendSnapshot( q.remove( 0 ) );
-            }if (q.size( )==0)
-                System.out.println( "[SN_CONSUMER:"+((System.currentTimeMillis()-startTime)/1000)+"] Q is empty");
+            }//if (q.size( )==0)
+                //System.out.println( "[SN_CONSUMER:"+((System.currentTimeMillis()-startTime)/1000)+"] Q is empty");
             
         }
     }

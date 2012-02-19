@@ -39,8 +39,8 @@ package es.eucm.eadventure.engine.gamelog;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Robot;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -48,8 +48,12 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.gamestate.GameStateBook;
+import es.eucm.eadventure.engine.core.control.gamestate.GameStateVideoscene;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 
 public class SnapshotProducer extends Thread{
@@ -65,8 +69,8 @@ public class SnapshotProducer extends Thread{
     private int randomId;
     private int seq;
     
-    private int x;
-    private int y;
+    private int appletX;
+    private int appletY;
     
     public synchronized void setTerminate (boolean interrupt){
         this.terminate = interrupt;
@@ -82,10 +86,10 @@ public class SnapshotProducer extends Thread{
         this.startTime = startTime;
         seq=1;
         this.randomId=randomId;
-        x=0;y=0;
+        appletX=0;appletY=0;
     }
     
-    private void makeSnapshot(){
+    /*private void makeSnapshot(){
         Robot robot;
         try {
             if (GUI.getInstance( )!=null && GUI.getInstance( ).getFrame( )!=null && GUI.getInstance( ).getFrame( ).isVisible( )){
@@ -114,8 +118,69 @@ public class SnapshotProducer extends Thread{
         catch( Exception e ) {
             e.printStackTrace();
         }
+    }*/
+
+    private BufferedImage cursor;
+    
+    private void updateAppletLocation(){
+        if (GUI.getInstance( )!=null && GUI.getInstance( ).getFrame( )!=null && GUI.getInstance( ).getFrame( ).isVisible( )){
+            appletX=GUI.getInstance( ).getFrame( ).getLocationOnScreen( ).x;
+            appletY=GUI.getInstance( ).getFrame( ).getLocationOnScreen( ).y;
+        }
+    }
+    
+    private void makeSnapshot(){
+        try {
+            updateAppletLocation();
+            
+            BufferedImage buffImage = new BufferedImage(800, 600, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g = buffImage.createGraphics( );
+            
+            if ( Game.getInstance( ).getCurrentState() instanceof GameStateVideoscene ||
+                    (Game.getInstance( ).getCurrentState() instanceof GameStateBook && Game.getInstance( ).getBook( ).getType( ) == Book.TYPE_PAGES)
+                    ){
+                
+            }
+            
+            GUI.getInstance( ).drawToGraphics( g );
+            g.setColor( Color.white );
+            g.drawString( Long.toString( System.currentTimeMillis( )-startTime ), 5, 10 );
+            g.setColor( Color.black );
+            g.drawString( Long.toString( System.currentTimeMillis( )-startTime ), 5, 550 );
+            
+            // Paint mouse location
+            if ( cursor==null )
+                cursor = (BufferedImage)MultimediaManager.getInstance( ).loadImage( "gui/cursors/debug.png", MultimediaManager.IMAGE_SCENE );
+            Point p = MouseInfo.getPointerInfo().getLocation();
+            
+            int cursorX = p.x-appletX; int cursorY = p.y-appletY;
+            
+            if (cursor!=null)
+                g.drawImage( cursor, cursorX, cursorY, null );
+            else{
+                g.drawLine( cursorX-5, cursorY-5, cursorX+5, cursorY+5 );
+                g.drawLine( cursorX-6, cursorY-5, cursorX+4, cursorY+5 );
+                g.drawLine( cursorX-5, cursorY+5, cursorX+5, cursorY-5 );
+                g.drawLine( cursorX-6, cursorY+5, cursorX+4, cursorY-5 );
+            }
+            g.dispose( );
+            File tempFile = getFile();
+            boolean succeeded = ImageIO.write( buffImage, "jpeg", tempFile );
+            if (succeeded){
+                synchronized(q){
+                    System.out.println( "[SN_PRODUCER:"+((System.currentTimeMillis()-startTime)/1000)+"] "+ tempFile.getAbsolutePath( ) );
+                    q.add( tempFile );
+                    seq++;
+                }
+            }
+        }
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
     }
 
+    
+    
     @Override
     public void run(){
         while (!terminate()){
