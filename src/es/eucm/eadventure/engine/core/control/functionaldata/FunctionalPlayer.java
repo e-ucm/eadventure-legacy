@@ -76,14 +76,14 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.F
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalUseWith;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
 
 /**
  * The player
  */
-public class FunctionalPlayer extends FunctionalElement implements TalkingElement, HighLevelEvents {
+public class FunctionalPlayer extends FunctionalElement implements TalkingElement, _HighLevelEvents {
 
     /**
      * Default speed of the player.

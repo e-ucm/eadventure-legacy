@@ -45,13 +45,13 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalCondition
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
 
 /**
  * A game main loop while a next scene is being processed
  */
-public class GameStateNextScene extends GameState implements HighLevelEvents {
+public class GameStateNextScene extends GameState implements _HighLevelEvents {
 
     /*
      * (non-Javadoc)

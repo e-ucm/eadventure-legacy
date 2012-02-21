@@ -64,14 +64,14 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.F
 import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridFactory;
 import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridPosition;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
 
 /**
  * A scene in the game
  */
-public class FunctionalScene implements Renderable, HighLevelEvents {
+public class FunctionalScene implements Renderable, _HighLevelEvents {
 
     /**
      * Margins of the scene (for use in the scroll)

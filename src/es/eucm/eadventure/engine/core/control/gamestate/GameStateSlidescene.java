@@ -54,14 +54,14 @@ import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
 
 /**
  * A game main loop while a "slidescene" is being displayed
  */
-public class GameStateSlidescene extends GameState implements HighLevelEvents{
+public class GameStateSlidescene extends GameState implements _HighLevelEvents{
 
     /**
      * Animation of the slidescene

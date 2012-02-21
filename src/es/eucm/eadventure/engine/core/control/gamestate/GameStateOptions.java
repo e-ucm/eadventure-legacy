@@ -67,11 +67,11 @@ import es.eucm.eadventure.engine.core.control.interaction.auxiliar.MouseUtils;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
 
-public class GameStateOptions extends GameState implements HighLevelEvents{
+public class GameStateOptions extends GameState implements _HighLevelEvents{
 
     /**
      * Width of the playable area of the screen
