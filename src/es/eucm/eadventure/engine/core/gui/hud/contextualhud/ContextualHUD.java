@@ -69,10 +69,10 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
-import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
 
-public class ContextualHUD extends HUD implements HighLevelEvents{
+public class ContextualHUD extends HUD implements _HighLevelEvents{
 
     /**
      * Width of the playable area of the screen
