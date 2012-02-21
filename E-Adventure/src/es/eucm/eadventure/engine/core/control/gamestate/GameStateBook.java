@@ -49,13 +49,13 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalStyledBoo
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalTextBook;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
-import es.eucm.eadventure.engine.gamelog._GameLog;
+import es.eucm.eadventure.gamelog.pub._GameLog;
+import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
 
 /**
  * A game main loop when a "bookscene" is being displayed
  */
-public class GameStateBook extends GameState implements HighLevelEvents {
+public class GameStateBook extends GameState implements _HighLevelEvents {
 
     /**
      * Functional book to be displayed

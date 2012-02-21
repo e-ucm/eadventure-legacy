@@ -107,11 +107,11 @@ import es.eucm.eadventure.engine.core.data.SaveTimer;
 import es.eucm.eadventure.engine.core.gui.DebugLogPanel;
 import es.eucm.eadventure.engine.core.gui.DebugValuesPanel;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.gamelog.GameLogController;
-import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
-import es.eucm.eadventure.engine.gamelog._GameLog;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.eadventure.gamelog.pub.GameLogProxy;
+import es.eucm.eadventure.gamelog.pub._GameLog;
+import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
 
 /**
  * This class contains all the elements and data necessary to run an e-Adventure
@@ -121,7 +121,7 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  * Updated by Javier Torrente. 
  * New functionalities: Load effects wherever in a conversation
  */
-public class Game implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Runnable, TimerEventListener, SpecialAssetPaths, HighLevelEvents {
+public class Game implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Runnable, TimerEventListener, SpecialAssetPaths, _HighLevelEvents {
 
     /**
      * Constant for loading state
@@ -386,7 +386,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     /**
      * Game Log for storing interaction info. Added in version v1.4.
      */
-    private GameLogController gameLog;
+    private GameLogProxy gameLog;
 
     /**
      * Returns the instance of Game
@@ -401,7 +401,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     public static void create( ) {
 
         instance = new Game( );
-        instance.gameLog = new GameLogController(true);
+        instance.gameLog = new GameLogProxy();
     }
 
     public static void create( boolean fromEditor, DebugOptions debugOptions ) {
@@ -410,7 +410,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         instance.fromEditor = fromEditor;
         instance.debugOptions = debugOptions;
         instance.debug = debugOptions!=null;
-        instance.gameLog = new GameLogController(true);
+        // Set logging=true to enable gamelog        
+        instance.gameLog = new GameLogProxy();
     }
 
     public static void delete( ) {

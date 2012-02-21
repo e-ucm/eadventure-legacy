@@ -59,13 +59,13 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.gamelog.HighLevelEvents;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
 
 /**
  * A game main loop during a conversation
  */
-public class GameStateConversation extends GameState implements HighLevelEvents{
+public class GameStateConversation extends GameState implements _HighLevelEvents{
 
     /**
      * Number of response lines to display
