@@ -225,6 +225,8 @@ public class GameLauncher extends JFrame implements Runnable {
         icons.add( new ImageIcon( "gui/Icono-Motor-32x32.png" ).getImage( ) );
         icons.add( new ImageIcon( "gui/Icono-Motor-64x64.png" ).getImage( ) );
         icons.add( new ImageIcon( "gui/Icono-Motor-128x128.png" ).getImage( ) );
+        icons.add( new ImageIcon( "gui/Icono-Motor-256x256.png" ).getImage( ) );
+        icons.add( new ImageIcon( "gui/Icono-Motor-512x512.png" ).getImage( ) );
         this.setIconImages( icons );
         //@JAVA6@
 

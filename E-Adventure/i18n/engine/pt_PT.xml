@@ -9,7 +9,7 @@
 <entry key="DebugFrameLog.User">Utilizador</entry>
 <entry key="MainWindow.buttonLoad">Carregar</entry>
 <entry key="MainWindow.buttonRefresh">Actualizar</entry>
-<entry key="DesignError.Message">Erro de design: não se pode  regressar a uma cena que não existe</entry>
+<entry key="DesignError.Message">Error de design: não se pode regressar a uma cena que não existe</entry>
 <entry key="GUI.NoFullscreenTitle">Problema ao mostrar o modo ecrã completa</entry>
 <entry key="ErrorReport.TitleComments">Enviar comentarios e sugestões</entry>
 <entry key="Language.Name">Português</entry>
@@ -41,7 +41,7 @@
 <entry key="MainWindow.buttonCancel">Cancelar</entry>
 <entry key="Reports.InputReportName">Escreva o nome que aparecerá no relatório</entry>
 <entry key="Report.Cancel">Cancelar</entry>
-<entry key="GameText.TextSpeed">Velocidade do Texto</entry>
+<entry key="GameText.TextSpeed">Vel. do Texto</entry>
 <entry key="Language.Internationalize">pt_PT</entry>
 <entry key="GameText.TextGiveNPC2">Não vou fazer isso</entry>
 <entry key="MainWindow.GameDescriptionText">Esta é a descrição do jogo actualmente seleccionado</entry>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>comment</comment>
@@ -9,8 +9,8 @@
 <entry key="DebugFrameLog.User">Utente</entry>
 <entry key="MainWindow.buttonLoad">Carica</entry>
 <entry key="MainWindow.buttonRefresh">Aggiornamento</entry>
-<entry key="DesignError.Message">errore di progettazione: non si pu� tornare ad una scena in cui non c�� nessuna scena a cui tornare</entry>
-<entry key="GUI.NoFullscreenTitle">Problema nella visualizzazione della modalit� a schermo intero</entry>
+<entry key="DesignError.Message">errore di progettazione: non si può tornare ad una scena in cui non c'è nessuna scena a cui tornare</entry>
+<entry key="GUI.NoFullscreenTitle">Problema nella visualizzazione della modalità a schermo intero</entry>
 <entry key="ErrorReport.TitleComments">Inviare commenti e suggerimenti</entry>
 <entry key="Language.Name">Italiano</entry>
 <entry key="GameText.At">In</entry>
@@ -18,10 +18,10 @@
 <entry key="DebugFrameLog.Time">Tempo</entry>
 <entry key="DebugFrameLog.UserTip">Mostra il log di interazione con l'utente</entry>
 <entry key="GameText.TextUseCannot2">Ok ... NO</entry>
-<entry key="GameText.TextUseCannot1">Non penso che questo funzioner�</entry>
+<entry key="GameText.TextUseCannot1">Non penso che questo funzionerà</entry>
 <entry key="ErrorMessage.Content">Errore di file</entry>
 <entry key="GameText.Music">Musica</entry>
-<entry key="SendMail.UnableToSendEmail">Il sistema non � in grado di inviare l'e-mail</entry>
+<entry key="SendMail.UnableToSendEmail">Il sistema non è in grado di inviare l'e-mail</entry>
 <entry key="Report.XMLReport">Report XML</entry>
 <entry key="GameText.Save/Load">Salvare / Caricare</entry>
 <entry key="GameText.Go">Andare</entry>
@@ -39,12 +39,12 @@
 <entry key="ActionButton.Drag">Trascinare.</entry>
 <entry key="Report.GenerateHTMLReport">Genera report HTML</entry>
 <entry key="MainWindow.buttonCancel">Annulla</entry>
-<entry key="Reports.InputReportName">Digitare il nome che apparir� nella relazione</entry>
+<entry key="Reports.InputReportName">Digitare il nome che apparirà nella relazione</entry>
 <entry key="Report.Cancel">Annulla</entry>
-<entry key="GameText.TextSpeed">Velocit� del testo</entry>
+<entry key="GameText.TextSpeed">Velocità del testo</entry>
 <entry key="Language.Internationalize">it_IT</entry>
-<entry key="GameText.TextGiveNPC2">Io non lo far�</entry>
-<entry key="MainWindow.GameDescriptionText">Questa � la descrizione per il gioco selezionato</entry>
+<entry key="GameText.TextGiveNPC2">Io non lo farò</entry>
+<entry key="MainWindow.GameDescriptionText">Questa è la descrizione per il gioco selezionato</entry>
 <entry key="GameText.TextGiveNPC1">Cosa??</entry>
 <entry key="Report.Importance.Normal">Normale</entry>
 <entry key="GameText.Give">Dare</entry>
@@ -70,14 +70,14 @@
 <entry key="ErrorReport.Comments">Si prega di utilizzare questo spazio per scrivere i vostri commenti e suggerimenti</entry>
 <entry key="ActionButton.UseGive">Usare con .. / Dare a </entry>
 <entry key="Report.Importance.High">Alto</entry>
-<entry key="ErrorMessage.Title">Il file non � valido. Selezionare un altro ancora</entry>
+<entry key="ErrorMessage.Title">Il file non è valido. Selezionare un altro ancora</entry>
 <entry key="DebugFrame.GlobalStates">Stati Globali</entry>
 <entry key="ErrorReport.Send">Inviare</entry>
 <entry key="GameText.LoadingXML">Caricando XML ...</entry>
 <entry key="GameText.Grab">Afferrare</entry>
 <entry key="GameText.Back">Ritornare</entry>
-<entry key="GameText.TextGiveObjectNotInventory2">Ho bisogno dell�oggetto per poterlo dare</entry>
-<entry key="GameText.TextGiveObjectNotInventory1">Non ce l�ho ancora</entry>
+<entry key="GameText.TextGiveObjectNotInventory2">Ho bisogno dell'oggetto per poterlo dare</entry>
+<entry key="GameText.TextGiveObjectNotInventory1">Non ce l'ho ancora</entry>
 <entry key="GameText.Talk">Parlare</entry>
 <entry key="GameText.TextUseNPC2">Ehhh ... NO?</entry>
 <entry key="GameText.TextUseNPC1">Non si usa? E come si fa?</entry>
@@ -111,15 +111,15 @@
 <entry key="DebugFrame.AllFlagsAndVars">Tutte le flag e le variabili</entry>
 <entry key="DebugFrameLog.General">Generale</entry>
 <entry key="Report.Importance.VeryHigh">Molto alto</entry>
-<entry key="Conversation.WaitUserInteraction">Mantenere il testo durante l� interazione con l'utente</entry>
+<entry key="Conversation.WaitUserInteraction">Mantenere il testo durante là interazione con l'utente</entry>
 <entry key="MainWindow.buttonExamine">Sfoglia ...</entry>
 <entry key="MainWindow.SelectGameText">[Selezionare un gioco per vedere la descrizione ..]</entry>
 <entry key="GameText.On">Acceso</entry>
 <entry key="MainWindow.FolderText">Selezionare la directory in cui salvare i file eAdventure</entry>
 <entry key="DebugFrameLog.AllTip">Mostra tutti i log</entry>
-<entry key="GameText.TextTalkObject2">Io non lo far�</entry>
+<entry key="GameText.TextTalkObject2">Io non lo farò</entry>
 <entry key="ErrorReport.FoundException">Nessuna eccezione trovata:</entry>
-<entry key="GameText.TextTalkObject1">Questo � sciocco</entry>
+<entry key="GameText.TextTalkObject1">Questo è sciocco</entry>
 <entry key="Report.BtnExamine">Esaminare ...</entry>
 <entry key="GameText.Save">Salvare</entry>
 <entry key="GameText.Off">Disattivare</entry>
@@ -128,15 +128,15 @@
 <entry key="Report.Importance.Low">Sotto</entry>
 <entry key="DebugFrame.AllFlagsAndVarsTip">Questa tabella mostra tutte le flag e le variabili del gioco con i rispettivi valori</entry>
 <entry key="Report.Name">Nome:</entry>
-<entry key="GameText.TextGrabNPC2">Questo � impossibile!</entry>
+<entry key="GameText.TextGrabNPC2">Questo è impossibile!</entry>
 <entry key="GameText.TextGiveCannot2">Mi rifiuto di farlo</entry>
 <entry key="GameText.TextGrabNPC1">Non centra nella mia tasca</entry>
 <entry key="GameText.TextGiveCannot1">Non posso darlo via</entry>
 <entry key="DebugFrame.GlobalStatesTip">Questa tabella mostra tutti gli stati globali del gioco con i loro rispettivi valori</entry>
 <entry key="SendMail.ErrorSendingEmail">Errore durante l'invio di e-mail</entry>
-<entry key="GameText.More">Pi�. ..</entry>
-<entry key="GameText.TextTalkCannot2">Non � il momento n� il luogo</entry>
-<entry key="Options.versionError2">Il gioco � salvato un'altra versione diversa da quella in corso</entry>
+<entry key="GameText.More">Più. ..</entry>
+<entry key="GameText.TextTalkCannot2">Non è il momento né il luogo</entry>
+<entry key="Options.versionError2">Il gioco ha salvato un'altra versione diversa da quella in corso</entry>
 <entry key="GameText.TextTalkCannot1">Non posso parlare con lui</entry>
 <entry key="GameText.LoadingFinished">Caricamento completo</entry>
 <entry key="Options.versionError1">Nessun errore di versione</entry>

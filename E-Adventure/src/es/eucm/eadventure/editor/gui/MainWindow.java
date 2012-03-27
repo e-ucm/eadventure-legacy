@@ -170,6 +170,8 @@ public class MainWindow extends JFrame {
         icons.add( new ImageIcon( "img/Icono-Editor-32x32.png" ).getImage( ) );
         icons.add( new ImageIcon( "img/Icono-Editor-64x64.png" ).getImage( ) );
         icons.add( new ImageIcon( "img/Icono-Editor-128x128.png" ).getImage( ) );
+        icons.add( new ImageIcon( "img/Icono-Editor-256x256.png" ).getImage( ) );
+        icons.add( new ImageIcon( "img/Icono-Editor-512x512.png" ).getImage( ) );
         this.setIconImages( icons );
 
         // First of all, create the bar
