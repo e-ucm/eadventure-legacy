@@ -63,8 +63,6 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
@@ -77,7 +75,8 @@ import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridPosition;
 import es.eucm.eadventure.engine.core.gui.ballonfactory.BallonFactory;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
-import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+import es.eucm.eadventure.engine.core.gui.splashscreen.SplashScreen;
+import es.eucm.eadventure.engine.core.gui.splashscreen.SplashScreenImpl1_4;
 
 /**
  * This is the main class related with the graphics in eAdventure, including the
@@ -191,13 +190,10 @@ public abstract class GUI implements FocusListener {
      */
     private List<FunctionalElement> elementsToInteract = null;
 
-    private Image loadingImage;
-
-    private int loading;
-
-    private Timer loadingTimer;
-
-    private TimerTask loadingTask;
+    /**
+     * Splash screen used while loading (for example, transitions between states)
+     */
+    protected SplashScreen splashScreen;
 
     /**
      * Return the GUI instance. GUI is a singleton class.
@@ -1808,75 +1804,13 @@ public abstract class GUI implements FocusListener {
 
     public void loading( int percent ) {
 
-        if( percent == 0 ) {
-
-            // FIXME Chapucilla que huele a pipi
-            //this.loadingImage =  new ImageIcon("gui/loading.jpg").getImage();
-            this.loadingImage = MultimediaManager.getInstance( ).loadImage( "gui/loading.jpg", MultimediaManager.IMAGE_MENU );
-            if( this.loadingImage == null ) {
-                this.loadingImage = MultimediaManager.getInstance( ).loadImageFromZip( "gui/loading.jpg", MultimediaManager.IMAGE_MENU );
-            }
-            this.loading = percent;
-            loadingTimer = new Timer( );
-            loadingTask = new TimerTask( ) {
-
-                private int cont = 20;
-
-                private boolean contracting = false;
-
-                @Override
-                public void run( ) {
-
-                    Graphics2D g = GUI.this.getGraphics( );
-                    g.drawImage( loadingImage, 0, 0, null );
-
-                    g.setColor( new Color( 250, 173, 6 ) );
-                    g.fillRoundRect( 200, 300, loading * 4, 50, 10, 10 );
-                    //                    g.setColor( Color.BLUE );
-                    //                    g.fillArc( 350, 250, 50, 50, cont, 20 );
-
-                    g.setStroke( new BasicStroke( 4.0f ) );
-                    g.setColor( new Color( 90, 32, 2 ) );
-                    g.drawRoundRect( 200, 300, 400, 50, 10, 10 );
-
-                    g.setColor( new Color( 247, 215, 105 ) );
-                    g.fillOval( 400 - cont / 2, 100 - cont / 2, cont, cont );
-
-                    //                    g.setColor( Color.BLACK );
-                    //                    g.drawOval( 350, 250, 50, 50 );
-
-                    if( !contracting ) {
-                        cont += 1;
-                        if( cont > 60 )
-                            contracting = true;
-                    }
-                    else {
-                        cont -= 1;
-                        if( cont < 10 )
-                            contracting = false;
-                    }
-
-                    GUI.this.endDraw( );
-                }
-            };
-            loadingTimer.scheduleAtFixedRate( loadingTask, 20, 20 );
-        }
-        if( percent == 100 ) {
-            loadingTimer.cancel( );
-        }
-        this.loading = percent;
-
-        Graphics2D g = this.getGraphics( );
-        g.drawImage( loadingImage, 0, 0, null );
-
-        g.setColor( new Color( 250, 173, 6 ) );
-        g.fillRoundRect( 200, 300, loading * 4, 50, 10, 10 );
-
-        g.setStroke( new BasicStroke( 4.0f ) );
-        g.setColor( new Color( 90, 32, 2 ) );
-        g.drawRoundRect( 200, 300, 400, 50, 10, 10 );
-
-        this.endDraw( );
+        if( splashScreen == null )
+            setSplashScreen( new SplashScreenImpl1_4( ) );
+        splashScreen.loading( getGraphics( ), percent );
     }
 
+    public void setSplashScreen( SplashScreen _splashScreen ) {
+
+        this.splashScreen = _splashScreen;
+    }
 }
