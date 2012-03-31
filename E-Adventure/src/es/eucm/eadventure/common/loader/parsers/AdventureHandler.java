@@ -145,12 +145,6 @@ public class AdventureHandler extends DefaultHandler {
 	 */
 	private List<String> adaptationPaths;
 	
-	/**
-	 * To validate or not the XML with DTD
-	 * 
-	 */
-	private boolean validate;
-	
 	private static void getXMLFilePaths (InputStreamCreator isCreator,List<String> assessmentPaths, List<String> adaptationPaths){
 
 		// Assessment
@@ -175,7 +169,7 @@ public class AdventureHandler extends DefaultHandler {
 	 * @param zipFile
 	 *            Path to the zip file which helds the chapter files
 	 */
-	public AdventureHandler(  InputStreamCreator isCreator, List<Incidence> incidences, boolean validate ) {
+	public AdventureHandler(  InputStreamCreator isCreator, List<Incidence> incidences ) {
 		this.isCreator = isCreator;
 		assessmentPaths = new ArrayList<String>();
 		adaptationPaths = new ArrayList<String>();
@@ -184,11 +178,6 @@ public class AdventureHandler extends DefaultHandler {
 		adventureData = new AdventureData( );
 		this.incidences = incidences;
 		chapters = new ArrayList<Chapter>( );
-		this.validate = validate;
-		//this.assessmentController = adventureData.getAssessmentProfiles();
-		//this.adaptationController = adventureData.getAdaptationProfiles();
-		
-		
 	}
 	
 	/**
