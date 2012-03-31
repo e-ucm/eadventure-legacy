@@ -98,13 +98,13 @@ public class Loader {
      *            Path to the zip file which holds the adventure
      * @return The adventure data, null if there was an error
      */
-    public static AdventureData loadAdventureData( InputStreamCreator isCreator, List<Incidence> incidences, boolean validate ) {
+    public static AdventureData loadAdventureData( InputStreamCreator isCreator, List<Incidence> incidences ) {
 
         AdventureData adventureData = null;
         try {
             // Set the adventure handler
-            AdventureHandler adventureParser = new AdventureHandler( isCreator, incidences, validate );
-            factory.setValidating( true );
+            AdventureHandler adventureParser = new AdventureHandler( isCreator, incidences );
+            factory.setValidating( false );
             SAXParser saxParser = factory.newSAXParser( );
 
             // Read and close the input stream
@@ -189,7 +189,7 @@ public class Loader {
      *            distinguish between if the load is made in editor or engine
      * @return The script stored as game data
      */
-    public static Chapter loadChapterData( InputStreamCreator isCreator, String fileName, List<Incidence> incidences, boolean validate ) {
+    public static Chapter loadChapterData( InputStreamCreator isCreator, String fileName, List<Incidence> incidences ) {
 
         // Create the chapter
         Chapter currentChapter = new Chapter( );
@@ -239,7 +239,7 @@ public class Loader {
                     // Set the chapter handler
                     ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter );
 
-                   factory.setValidating( validate );
+                   factory.setValidating( false );
                     
                     SAXParser saxParser = factory.newSAXParser( );
 
@@ -400,14 +400,6 @@ public class Loader {
             }
         }
         return newProfile;
-    }
-
-    /**
-     * @return the adventureData
-     */
-    public static AdventureData getAdventureData( ) {
-
-        return adventureData;
     }
 
     /**

@@ -1279,7 +1279,7 @@ public class Controller {
                             String absolutePath = xmlChooser.getSelectedFile( ).getAbsolutePath( );
                             // Try to load chapter with it
                             List<Incidence> newChapterIncidences = new ArrayList<Incidence>( );
-                            Chapter chapter = Loader.loadChapterData( AssetsController.getInputStreamCreator( ), absolutePath, incidences, true );
+                            Chapter chapter = Loader.loadChapterData( AssetsController.getInputStreamCreator( ), absolutePath, incidences );
                             // IF no incidences occurred
                             if( chapter != null && newChapterIncidences.size( ) == 0 ) {
                                 // Try comparing names
@@ -1513,7 +1513,7 @@ public class Controller {
                 		AssetsController.getCategoryFolder(AssetsController.CATEGORY_ASSESSMENT),
                 		AssetsController.getCategoryFolder(AssetsController.CATEGORY_ADAPTATION),incidences );
                  */
-                AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator( completeFilePath ), incidences, true );
+                AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator( completeFilePath ), incidences );
 
                 //mainWindow.setNormalState( );
 
@@ -3014,8 +3014,9 @@ public boolean isCharacterValid(String elementId){
     int i=1;
     while (i < elementId.length( ) && isValid) {  
       chId = elementId.charAt( i );
-      if (chId =='&'   || chId == '"'  || chId == '\''  || chId == '<'   ||  chId =='>'  )
-                          isValid = false;
+      if (!Character.isLetterOrDigit( chId ) && chId!='-' && chId!='_'&& chId!=':'&& chId!='.'){
+          isValid = false;
+      }
       i++;
     }
    
