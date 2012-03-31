@@ -61,7 +61,7 @@ public class FunctionalSetValueEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(),"t="+( (SetValueEffect) effect ).getTargetId( ), "v="+( (SetValueEffect) effect ).getValue( ) );
         Game.getInstance( ).getVars( ).setVarValue( ( (SetValueEffect) effect ).getTargetId( ), ( (SetValueEffect) effect ).getValue( ) );
         Game.getInstance( ).updateDataPendingFromState( false );
     }

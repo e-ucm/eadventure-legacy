@@ -44,7 +44,7 @@
 	usetransitions (yes | no) "yes"
 >
 
-<!ELEMENT frame (resources?)>
+<!ELEMENT frame (documentation?, resources?)>
 <!ATTLIST frame
 	uri CDATA #REQUIRED
 	type (image | video) "image"

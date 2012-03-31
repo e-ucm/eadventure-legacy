@@ -56,7 +56,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.F
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * A game main loop while a "slidescene" is being displayed
@@ -236,5 +236,10 @@ public class GameStateSlidescene extends GameState implements _HighLevelEvents{
         if( endSlides ) {
             finishedSlides( );
         }
+    }
+    
+    public Animation getSlides( ) {
+    
+        return slides;
     }
 }

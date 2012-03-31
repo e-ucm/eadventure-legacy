@@ -61,7 +61,7 @@ public class FunctionalIncrementVarEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(), "t="+( (IncrementVarEffect) effect ).getTargetId( ), "v="+ ( (IncrementVarEffect) effect ).getIncrement( ) );
         Game.getInstance( ).getVars( ).incrementVar( ( (IncrementVarEffect) effect ).getTargetId( ), ( (IncrementVarEffect) effect ).getIncrement( ) );
         Game.getInstance( ).updateDataPendingFromState( false );
     }

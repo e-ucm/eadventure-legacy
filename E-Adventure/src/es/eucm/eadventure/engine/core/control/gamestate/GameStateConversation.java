@@ -60,7 +60,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
-import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * A game main loop during a conversation
@@ -236,7 +236,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
         lookForTalkers();
         ensureLookEachOther();
         
-        game.getGameLog( ).highLevelEvent( CONV_ENTER, originalConvID );
+        gameLog.highLevelEvent( CONV_ENTER, originalConvID );
     }
 
     @Override
@@ -583,7 +583,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
      * Finalize the conversation
      */
     private void endConversation( ) {
-        game.getGameLog( ).highLevelEvent( CONV_EXIT, originalConvID );
+        gameLog.highLevelEvent( CONV_EXIT, originalConvID );
         for( ConversationNode node : game.getConversation( ).getAllNodes( ) ) {
             node.resetEffect( );
         }
@@ -605,7 +605,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
         }
 
         if( optionSelected >= 0 && optionSelected < optionsToShow.size( ) ) {
-            game.getGameLog( ).highLevelEvent( CONV_SELECT_OPTION, originalConvID, Integer.toString( optionSelected ) );
+            gameLog.highLevelEvent( CONV_SELECT_OPTION, originalConvID, Integer.toString( optionSelected ) );
             if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
                 game.getCharacterCurrentlyTalking( ).stopTalking( );
 
@@ -734,7 +734,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
      * end the conversation and trigger the efects or jump to the next node
      */
     private void playNextLine( ) {
-        game.getGameLog( ).highLevelEvent( CONV_SKIP_LINE, originalConvID, Integer.toString( currentLine ) );
+        gameLog.highLevelEvent( CONV_SKIP_LINE, originalConvID, Integer.toString( currentLine ) );
         if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
             game.getCharacterCurrentlyTalking( ).stopTalking( );
 
@@ -811,7 +811,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
         else if( !currentNode.isTerminal( ) ) {
             currentNode.resetEffect( );
             currentNode = currentNode.getChild( 0 );
-            game.getGameLog( ).highLevelEvent( CONV_SKIP_NODE, originalConvID);
+            gameLog.highLevelEvent( CONV_SKIP_NODE, originalConvID);
             firstLineDisplayed = 0;
             currentLine = 0;
         }

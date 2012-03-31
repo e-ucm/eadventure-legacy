@@ -107,6 +107,7 @@ public class AdventureDataControl {
 
         this( );
         adventureData = data;
+        checkContextualButtons();
     }
 
     /**
@@ -568,4 +569,55 @@ public class AdventureDataControl {
         return adventureData.getDragBehaviour( );
     }
 
+    /**
+     * Checks if the user-grab button was defined, which is deprecated. In this case, buttons "use", "use-with", "grab", and "give-to" are set
+     * using the same configuration.
+     * 
+     * This method should be invoked when the AdventureDataControl is set with a given adventureData
+     * 
+     * This method was added in version 1.4
+     */
+    private void checkContextualButtons(){
+        checkContextualButtons(DescriptorData.USE_BUTTON);
+        checkContextualButtons(DescriptorData.GRAB_BUTTON);
+        checkContextualButtons(DescriptorData.GIVETO_BUTTON);
+        checkContextualButtons(DescriptorData.USEWITH_BUTTON);
+        String useGrabPath=adventureData.getButtonPathFromEditor( DescriptorData.USE_GRAB_BUTTON, DescriptorData.NORMAL_BUTTON );
+        if (useGrabPath!=null && !useGrabPath.equals( "" )){
+            for (CustomButton button:adventureData.getButtons( )){
+                if (button.getAction( ).equals( DescriptorData.USE_GRAB_BUTTON ) &&
+                        button.getType( ).equals( DescriptorData.NORMAL_BUTTON )){
+                    adventureData.getButtons( ).remove( button );
+                    break;
+                }
+            }
+        }
+        
+        useGrabPath=adventureData.getButtonPathFromEditor( DescriptorData.USE_GRAB_BUTTON, DescriptorData.HIGHLIGHTED_BUTTON );
+        if (useGrabPath!=null && !useGrabPath.equals( "" )){
+            for (CustomButton button:adventureData.getButtons( )){
+                if (button.getAction( ).equals( DescriptorData.USE_GRAB_BUTTON ) &&
+                        button.getType( ).equals( DescriptorData.HIGHLIGHTED_BUTTON )){
+                    adventureData.getButtons( ).remove( button );
+                    break;
+                }
+            }
+        }
+
+    }
+    
+    private void checkContextualButtons(String action){
+        checkContextualButtons(action, DescriptorData.NORMAL_BUTTON);
+        checkContextualButtons(action, DescriptorData.HIGHLIGHTED_BUTTON);
+    }
+    
+    private void checkContextualButtons(String action, String type){
+        String useGrabPath=adventureData.getButtonPathFromEditor( DescriptorData.USE_GRAB_BUTTON, type );
+        if (useGrabPath!=null && !useGrabPath.equals( "" )){
+            if (adventureData.getButtonPathFromEditor( action, type )==null || adventureData.getButtonPathFromEditor( action, type ).equals( "" )){
+                adventureData.addButton( action, type, useGrabPath );
+            }
+        }
+    }
+    
 }

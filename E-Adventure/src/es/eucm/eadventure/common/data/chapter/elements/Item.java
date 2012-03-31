@@ -52,7 +52,38 @@ public class Item extends Element {
      * The tag of the item's icon
      */
     public static final String RESOURCE_TYPE_ICON = "icon";
+    
+    
+    /**
+     * The tag of the item's over image (added v1.4)
+     */
+    public static final String RESOURCE_TYPE_IMAGEOVER = "imageover";
 
+    /**
+     * Behaviour: Added in 1.4. An item now can behave as:
+     *      NORMAL: reacts to mouse overs by changing mouse cursor and text. Displays action buttons on click
+     *      FIRST_ACTION: devised to simulate buttons. On click, triggers the first valid action defined (no buttons are displayed)
+     *      ATREZZO: reacts to nothing. Useful to simulate atrezzos. NOTE: THIS OPTION WILL NOT BE PRESENT IN PUBLIC RELEASE
+     * @author Javier Torrente
+     *
+     */
+    public enum BehaviourType {
+        NORMAL, FIRST_ACTION, ATREZZO;
+    }
+
+
+    /**
+     * Item's Behaviour (see {@link BehaviourTYpe}
+     */
+    private BehaviourType behaviour;
+    
+    /**
+     * Feature added to release v1.4. When an item's appearance changes, it is possible to define a fade-in-out.
+     * Very useful if combined with behaviours. Allows full implementation of buttons.
+     */
+    private long resourcesTransitionTime=0; //By default transitions are instantaneous
+
+    
     /**
      * Creates a new Item
      * 
@@ -62,6 +93,7 @@ public class Item extends Element {
     public Item( String id ) {
 
         super( id );
+        this.behaviour=BehaviourType.NORMAL;
     }
 
     /*
@@ -89,4 +121,37 @@ public class Item extends Element {
         Item i = (Item) super.clone( );
         return i;
     }
+    
+    /**
+     * Returns this item's behaviour. 
+     * @return Behaviour
+     * see {@link BehaviourType for more info}
+     */
+    public BehaviourType getBehaviour( ) {
+    
+        return behaviour;
+    }
+
+    
+    public void setBehaviour( BehaviourType behaviour ) {
+    
+        this.behaviour = behaviour;
+    }
+    
+    /**
+     * Returns the transition time between changes of appearances. 
+     * If it's 0, new appearance replaces the old one instantly.
+     * If it's>0, a fade-in-out is performed to render this item for X miliseconds.
+     * @return  X miliseconds for transition between changes of appearances.
+     */
+    public long getResourcesTransitionTime( ) {
+    
+        return resourcesTransitionTime;
+    }
+
+    public void setResourcesTransitionTime( long resourcesTransitionTime ) {
+    
+        this.resourcesTransitionTime = resourcesTransitionTime;
+    }
+
 }

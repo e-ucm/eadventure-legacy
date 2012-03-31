@@ -66,7 +66,7 @@ import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridPosition;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * A scene in the game

@@ -62,6 +62,7 @@ public class FunctionalActivateEffect extends FunctionalEffect {
     @Override
     public void triggerEffect( ) {
 
+        gameLog.effectEvent( getCode(), "t="+( (ActivateEffect) effect ).getTargetId( ) );
         Game.getInstance( ).getFlags( ).activateFlag( ( (ActivateEffect) effect ).getTargetId( ) );
         Game.getInstance( ).updateDataPendingFromState( false );
     }

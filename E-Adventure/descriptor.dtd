@@ -68,7 +68,7 @@
 <!ELEMENT buttons (button+)>
 <!ELEMENT button EMPTY>
 <!ATTLIST button
-	action (talk | use-grab | examine ) "use-grab"
+	action (talk | use-grab | examine | grab | use | use-with | give-to | drag-to ) "use-grab"
 	type (highlighted | normal | pressed ) "normal"
 	uri CDATA #REQUIRED
 >

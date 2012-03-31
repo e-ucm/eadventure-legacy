@@ -73,6 +73,7 @@ public class FunctionalMacroReferenceEffect extends FunctionalEffect {
     public void triggerEffect( ) {
 
         if (!triggered) {
+            gameLog.effectEvent( getCode(), "t="+macroRefEffect.getTargetId( ));
             // Get the macro
             Macro macro = Game.getInstance( ).getCurrentChapterData( ).getMacro( macroRefEffect.getTargetId( ) );
     

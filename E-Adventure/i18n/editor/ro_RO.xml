@@ -35,6 +35,49 @@
 <entry key="BookParagraphsList.WordCount">{#0} cuvinte</entry>
 <entry key="Operation.LoadFileTitle">Incarcare fisier</entry>
 <entry key="Button.use-grab.normal.Tip">Acesta este butonul normal foloseste-apuca, cel care apare atunci cand mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
+<entry key="Button.use-grab.highlighted.Tip">Acesta este butonul evidentiat foloseste-apuca, cel care apare cand mouseul este deasupra dar nu se da click</entry>
+<entry key="Button.use-grab.Description">Butonul foloseste - apuca</entry>
+<entry key="Button.use-grab.pressed.Description">Buton apasat de utilizeaza-apuca</entry>
+<entry key="Button.use-grab.highlighted.Description">Buton evidentiat de utilizeaza-apuca</entry>
+<entry key="Button.use-grab.normal.Description">Buton normal de utilizeaza-apuca</entry>
+<entry key="Button.use-grab.pressed.Tip">Acesta este butonul apasat foloseste-apuca, cel care apare cand mouse-ul  este apasat in interiorul butonului.</entry>
+
+<entry key="Button.talk.Description">Imagini Butonul pentru tipul de acţiune: "Vorbeste cu"</entry>
+<entry key="Button.talk.normal.Description">Imagine pentru butonul în modul normal</entry>
+<entry key="Button.talk.normal.Tip">Această imagine este utilizat atunci când mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
+<entry key="Button.talk.highlighted.Description">Imagine pentru butonul în modul evidentiat</entry>
+<entry key="Button.talk.highlighted.Tip">Această imagine este utilizat atunci când mouseul este deasupra dar nu se da click</entry>
+<entry key="Button.examine.Description">Imagini Butonul pentru tipul de acţiune: "Examinare"</entry>
+<entry key="Button.examine.normal.Description">Imagine pentru butonul în modul normal</entry>
+<entry key="Button.examine.normal.Tip">Această imagine este utilizat atunci când mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
+<entry key="Button.examine.highlighted.Description">Imagine pentru butonul în modul evidentiat</entry>
+<entry key="Button.examine.highlighted.Tip">Această imagine este utilizat atunci când mouseul este deasupra dar nu se da click</entry>
+<entry key="Button.use.Description">Imagini Butonul pentru tipul de acţiune: "Foloseste"</entry>
+<entry key="Button.use.normal.Description">Imagine pentru butonul în modul normal</entry>
+<entry key="Button.use.normal.Tip">Această imagine este utilizat atunci când mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
+<entry key="Button.use.highlighted.Description">Imagine pentru butonul în modul evidentiat</entry>
+<entry key="Button.use.highlighted.Tip">Această imagine este utilizat atunci când mouseul este deasupra dar nu se da click</entry>
+<entry key="Button.grab.Description">Imagini Butonul pentru tipul de acţiune: "Apuca"</entry>
+<entry key="Button.grab.normal.Description">Imagine pentru butonul în modul normal</entry>
+<entry key="Button.grab.normal.Tip">Această imagine este utilizat atunci când mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
+<entry key="Button.grab.highlighted.Description">Imagine pentru butonul în modul evidentiat</entry>
+<entry key="Button.grab.highlighted.Tip">Această imagine este utilizat atunci când mouseul este deasupra dar nu se da click</entry>
+<entry key="Button.use-with.Description">Imagini Butonul pentru tipul de acţiune: "Foloseste cu"</entry>
+<entry key="Button.use-with.normal.Description">Imagine pentru butonul în modul normal</entry>
+<entry key="Button.use-with.normal.Tip">Această imagine este utilizat atunci când mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
+<entry key="Button.use-with.highlighted.Description">Imagine pentru butonul în modul evidentiat</entry>
+<entry key="Button.use-with.highlighted.Tip">Această imagine este utilizat atunci când mouseul este deasupra dar nu se da click</entry>
+<entry key="Button.give-to.Description">Imagini Butonul pentru tipul de acţiune: "Da"</entry>
+<entry key="Button.give-to.normal.Description">Imagine pentru butonul în modul normal</entry>
+<entry key="Button.give-to.normal.Tip">Această imagine este utilizat atunci când mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
+<entry key="Button.give-to.highlighted.Description">Imagine pentru butonul în modul evidentiat</entry>
+<entry key="Button.give-to.highlighted.Tip">Această imagine este utilizat atunci când mouseul este deasupra dar nu se da click</entry>
+<entry key="Button.drag-to.Description">Imagini Butonul pentru tipul de acţiune: "Trage catre"</entry>
+<entry key="Button.drag-to.normal.Description">Imagine pentru butonul în modul normal</entry>
+<entry key="Button.drag-to.normal.Tip">Această imagine este utilizat atunci când mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
+<entry key="Button.drag-to.highlighted.Description">Imagine pentru butonul în modul evidentiat</entry>
+<entry key="Button.drag-to.highlighted.Tip">Această imagine este utilizat atunci când mouseul este deasupra dar nu se da click</entry>
+
 <entry key="LOM.General.Language.English">Romana</entry>
 <entry key="MoveNPCEffect.ErrorNoCharacters">Pentru a adauga acest tip de efect, trebuie sa existe cel putin un personaj in capitol</entry>
 <entry key="AssessmentRule.Importance.VeryLow">Foarte scazut</entry>
@@ -63,7 +106,6 @@
 <entry key="IMS.Educational.Contex4">Universitate - Ciclul II</entry>
 <entry key="IMS.Educational.Contex3">Universitate-Ciclul I</entry>
 <entry key="CustomAction.ConfigurationTip">Panou pentru configurarea conditiilor si efectelor butonului</entry>
-<entry key="Button.examine.pressed.Description">Buton de examinare apasat</entry>
 <entry key="IMS.Educational.Contex2">Invatamant superior</entry>
 <entry key="IMS.Educational.Contex1">Educatie secundara</entry>
 <entry key="IMS.Educational.Contex0">Educatie primara</entry>
@@ -79,7 +121,6 @@
 <entry key="MenuAdventure.Commentaries">Comentarii automate</entry>
 <entry key="ActionsList.UseAction">Foloseste</entry>
 <entry key="Animation.AskFilenameTitle">Animatie noua</entry>
-<entry key="Button.use-grab.highlighted.Tip">Acesta este butonul evidentiat foloseste-apuca, cel care apare cand mouseul este deasupra dar nu se da click</entry>
 <entry key="StartDialog.Recent">Recent</entry>
 <entry key="LOMES.LifeCycle.Role13">Expert disciplina</entry>
 <entry key="LOMES.LifeCycle.Role12">Designerul instruirii</entry>
@@ -111,7 +152,6 @@
 <entry key="TreeNode.AddElement60">Adauga referinta set item</entry>
 <entry key="SPEP.ShowExits">Iesiri</entry>
 <entry key="Conditions.Var.Description">Aceasta este lista variabilelor din capitol. Variabilele pot da o valoare integrala in orice moment al jocului. In joc se pot defini conditii bazate pe valorile variabilelor. </entry>
-<entry key="Button.examine.Description">Buton de examinare</entry>
 <entry key="ActionsList.CustomInteractAction">Particularizare actiune cu {#0}</entry>
 <entry key="ActionsList.Conditions">Conditii</entry>
 <entry key="Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title">Eroare: Credentialele furnizate nu sunt valide</entry>
@@ -461,7 +501,6 @@
 <entry key="ErrorSolving.AdaptationReferenced.Deleted.Message">Nu existe referinte la urmatorul profil de adaptare : "{#0}", deoarece acsta nu exista. Toate referintele la acest profil au fost sterse.</entry>
 <entry key="Operation.AdventureConsistencyTitle">Consecventa aventurii</entry>
 <entry key="NPC.Documentation">Descriere completa a personajului</entry>
-<entry key="Button.examine.pressed.Tip">Acesta este butonul apasat de examinare, cel care apare atunci cand mouse-ul este apasat in interiorul butonului. </entry>
 <entry key="Operation.AdaptationPanel.DeleteButton">Stergere declaratie</entry>
 <entry key="VarDialog.Err.Title">Format text incorect</entry>
 <entry key="Operation.NewProject.FolderNotEmptyMessage">Directorul selectat nu este gol. Doriti sa stergeti continutul folderului? (Datele vor fi pierdute). Daca folderul nu este gol, verificati ca nu contine fisiere numite 'descriptor.xml' sau 'chapterXX.xml' unde  XX este numar.</entry>
@@ -481,7 +520,6 @@
 <entry key="Animation.Timeline">Cronologie</entry>
 <entry key="GlobalStatesList.AddGlobalState">Adauga un nou status global</entry>
 <entry key="SPEP.ConvertToIrregularArea">Transforma intr-o zona neregulata</entry>
-<entry key="Button.talk.pressed.Description">Buton apasat de vorbit</entry>
 <entry key="Operation.ExportToLOM.OK">OK</entry>
 <entry key="ImportChapter.ProblemsParsing.Message">Procesul de importare capitol a fost întrerupt ca urmare a analizei problemelor capitolului.</entry>
 <entry key="HTMLEditor.QuitMessageTitle">Parasire editor</entry>
@@ -680,7 +718,6 @@
 <entry key="Conditions.Flag.Description">Aceasta este o lista a marcatorilor capitolului. Marcatorii pot fi activati sau dezactivati in orice moment in joc, asa cum semaforul poate fi verde sau rosu pentru a permite sau a interzice trecerea. In joc puteti defini conditii bazate pe stadiul in care se afla marcatorii. </entry>
 <entry key="ErrorSolving.Asset.Deleted.Title">Eoare: Referinta catre o resursa inexistenta</entry>
 <entry key="NextScene.DestinyPosition">Punctul de destinatie a jucatorului</entry>
-<entry key="Button.use-grab.Description">Butonul foloseste - apuca</entry>
 <entry key="Operation.SaveProject">Operatiune: Salvare proiect</entry>
 <entry key="Effect.TriggerScene">Deschide scena</entry>
 <entry key="Element.Name59">Set de itemi</entry>
@@ -755,7 +792,6 @@
 <entry key="GeneralText.EditEndConditions">Editare conditii de sfarsit</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Title">Noul nume deja exista</entry>
 <entry key="BookPage.NotValidImage">Exista probleme cu formatul imaginii</entry>
-<entry key="Button.examine.normal.Tip">Acesta este butonul normal pentru examinare, cel care apare atunci cand mouse-ul nu se afla deasupra sau cand se face click pe o actiune</entry>
 <entry key="ActivateEffect.Description">Selectati marcatorul pentru a-l activa</entry>
 <entry key="DeleteUnusedAssets.NoUnsuedAssetsFound">Nu a fost gasita nicio resursa neutilizata</entry>
 <entry key="MacrosList.Title">Macrouri</entry>
@@ -817,7 +853,6 @@
 <entry key="SlidesDialog.Title">Previzualizare folii - {#0}</entry>
 <entry key="LOMES.MetaMetaData.ContributeInfo">To make correct LOMES Contribute's entry follow next indications:  	When "Contribute Type" is “Creator”, the next value must appear in "Contribute Entity":  		BEGIN:VCARD VERSION 3.0 FN: EMAIL;TYPE=INTERNET:ORG: "Company name" END:VCARD 		Note: "Company name" must be a non empty value, representing the name of company which privides this educational content. 		 	When "Contribute Type" is “Validator”, the next value must appear in "Contribute Entity": 		BEGIN:VCARD VERSION 3.0 FN:Contenido digital educativo creado, catalogado y financiado con fondos FEDER dentro del expediente 714/07-LoteX EMAIL;TYPE=INTERNET:sugerencias@red.es ORG:RED.ES END:VCARD</entry>
 <entry key="GeneralText.ReportError">Raport eroare</entry>
-<entry key="Button.examine.highlighted.Description">Evidentiaza butonul de examinare</entry>
 <entry key="Cursor.use.Description">Cursor utilizeaza</entry>
 <entry key="Resources.ResourcesGroup">Grupul resurselor</entry>
 <entry key="GeneralText.Select">Selectare</entry>
@@ -842,7 +877,6 @@
 <entry key="Conditions.Context.2.66">{#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va fi intotdeauna executat&lt;/b&gt;, daca nicio conditie nu a fost definita:</entry>
 <entry key="Timer.Time">Timp</entry>
 <entry key="ResourcesList.AddResourcesBlock">Adauga un nou bloc de  resurse</entry>
-<entry key="Button.use-grab.pressed.Description">Buton apasat de utilizeaza-apuca</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.Message">Scrieti numele noului profil de adaptare</entry>
 <entry key="SceneLinksPanel.SceneID">ID Scena</entry>
 <entry key="GeneralText.EmptyTable">Nu exista elemente in acest tabel </entry>
@@ -861,7 +895,6 @@
 <entry key="Effect.BorderHighlightItemInfo">Evidentiaza borduri ale {#0}</entry>
 <entry key="Conditions.Context.1A.44">{#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va incepe&lt;/b&gt; cand urmatoarea conditie este satisfacuta:</entry>
 <entry key="Conditions.Group.Id">ID Conditii globale</entry>
-<entry key="Button.talk.normal.Description">Buton de vorbit normal</entry>
 <entry key="IconAssets.Title">Resurse pictograma</entry>
 <entry key="Search.CaseSensitive">Diferenta intre litere mari si litere mici</entry>
 <entry key="Error.DTD.NotFound.Message">Fisierul "{#0}" nu a fost gasit. Acest lucru poate determina erori la executarea sau incarcarea jocului. </entry>
@@ -1031,7 +1064,6 @@
 <entry key="Search.Description">Descriere</entry>
 <entry key="LOMES.Educational.LearningResourceType26">Simulare</entry>
 <entry key="GraphicConfig.FullscreenDescription">Aventura utlizeaza toata suprafata ecranului</entry>
-<entry key="Button.talk.highlighted.Tip">Acesta este butonul evidentiat de vorbit, cel care apare cand mouseul este deasupra dar nu se da click</entry>
 <entry key="LOMES.Educational.LearningResourceType25">Proiect real</entry>
 <entry key="LOMES.Educational.LearningResourceType24">Experiment</entry>
 <entry key="LOMES.Educational.LearningResourceType23">Webquest</entry>
@@ -1172,7 +1204,6 @@
 <entry key="ActionProperties.EnableClickFailEffects.ToolTip">Selectati si adaugati "efecte click esuate". Efectele se vor declansa cand jucatorul nu atinga scopul actiunii</entry>
 <entry key="SceneLocation.YCoordinate">Coordonata Y</entry>
 <entry key="LOM.General.Description">Descriere</entry>
-<entry key="Button.talk.highlighted.Description">Buton evidentiat de vorbit</entry>
 <entry key="LOMES.Technical.Type1">Browser</entry>
 <entry key="LOMES.Technical.Type0">Sistem de operare</entry>
 <entry key="LOM.Technical.Tab">Tehnic</entry>
@@ -1187,7 +1218,6 @@
 <entry key="CutscenesList.Videoscene">Scena video</entry>
 <entry key="Conditions.ConditionGroup">Referitor la status global</entry>
 <entry key="Element.Action">Actiune</entry>
-<entry key="Button.talk.Description">Buton de vorbit</entry>
 <entry key="Cursor.talk.Tip">Numai pentru interfata grafica traditionala: Acest cursor va fi folosit pentru actiuni de tip “vorbeste”</entry>
 <entry key="Conditions.Or">Sau</entry>
 <entry key="AtrezzoList.Title">Set de itemi</entry>
@@ -1287,7 +1317,6 @@
 <entry key="Search.AssetPath">Cale resursa</entry>
 <entry key="AdaptationRulesList.Normal">Profil Normal</entry>
 <entry key="PlaySoundEffect.Title">Rulati efectul de sunet</entry>
-<entry key="Button.talk.normal.Tip">Acesta este butonul de vorbit normal, cel care apare atunci cand mouse-ul nu este deasupra sau cand se face click pe o actiune</entry>
 <entry key="Operation.AdventureInconsistentReport">Aventura nu este consecventa şi nu va putea fi redata pana cand urmatoarele erori nu sunt rezolvate:</entry>
 <entry key="ExitsList.DeleteExit">Stergeti iesirea selectata</entry>
 <entry key="Operation.FileLoadedTitle">Proiect incarcat</entry>
@@ -1317,7 +1346,6 @@
 <entry key="Operation.NewProject.ForbiddenParent.Message">Ne pare rau dar folderul proiectului nu poate fi stocat in directorul „web”.</entry>
 <entry key="SpeakPlayerEffect.Title">Efect de vorbire pentru jucator</entry>
 <entry key="Operation.ImportProject">Operatiune: Importare proiect</entry>
-<entry key="Button.use-grab.highlighted.Description">Buton evidentiat de utilizeaza-apuca</entry>
 <entry key="LOMES.Classification.TaxonEntry">Intrare</entry>
 <entry key="Search.PropertyID">ID Proprietate</entry>
 <entry key="Operation.ExportToLOM.Title">Selectati numele obiectului de invatare</entry>
@@ -1341,7 +1369,6 @@
 <entry key="Resources.DescriptionCharacterAnimationUseLeft">Obiect in stanga</entry>
 <entry key="Operation.AddItemReferenceErrorNoItems">Trebuie sa aveti cel putin un capitol pentru a face referinta</entry>
 <entry key="GeneralText.Abort">Abandonare</entry>
-<entry key="Button.examine.highlighted.Tip">Acesta este butonul evidentiat de examinare, cel care arata cand mouseul este deasupra fara a face click</entry>
 <entry key="SmallActionList.Action">Action</entry>
 <entry key="VideoDialog.Title">Previzualizare video</entry>
 <entry key="Player.Title">Jucator</entry>
@@ -1445,7 +1472,6 @@
 <entry key="Element.Name1">Scene</entry>
 <entry key="Element.Name0">Capitol</entry>
 <entry key="Operation.ImportLO.FileNotLoadedMessage">Fisierul .ZIP ales nu este un obiect de invatare exportat cu &lt;e-Adventure&gt;.</entry>
-<entry key="Button.use-grab.normal.Description">Buton normal de utilizeaza-apuca</entry>
 <entry key="CustomAction.GetNameTitle">Numele actiunii</entry>
 <entry key="Effect.DecrementVarInfo">Decrementarea variabilei  "{#0}" in "{#1}" unitati</entry>
 <entry key="ActionProperties.EnableClickEffects">Activare "efecte click"</entry>
@@ -1573,7 +1599,6 @@
 <entry key="Operation.AddAtrezzoDefaultValue">ID Atrezzo</entry>
 <entry key="MenuAdventure.CustomizeGUI">Personalizeaza elementele interfetei grafice</entry>
 <entry key="LOMES.Requirement.Title">Creati o noua cerinta</entry>
-<entry key="Button.talk.pressed.Tip">Acesta este butonul apasat pentru vorbit, cel care apare cand mouse-ul  este apasat in interiorul butonului.</entry>
 <entry key="LOMES.LifeCyle.Date">Data</entry>
 <entry key="ErrorReport.Title">Raportati eroarea</entry>
 <entry key="IMS.Meta.Tip">Meta meta data</entry>
@@ -1666,7 +1691,6 @@
 <entry key="Operation.RenameElementWarning">Elementul "{#0}" are {#1} referinte in capitol. Sunteti sigur ca doriti sa-l redenumiti?</entry>
 <entry key="Error.DTD.NotCopied.Title">Fisier important nu a fost copiat</entry>
 <entry key="Cursor.default.Description">Cursor prestabilit</entry>
-<entry key="Button.use-grab.pressed.Tip">Acesta este butonul apasat foloseste-apuca, cel care apare cand mouse-ul  este apasat in interiorul butonului.</entry>
 <entry key="ActiveAreasList.Actions">Actiuni</entry>
 <entry key="Operation.AddConversationDefaultValue">IDConversatie</entry>
 <entry key="GeneralText.NotSelected">&lt;Neselectat&gt;</entry>
@@ -1719,7 +1743,6 @@
 <entry key="AssessmentRule.InvalidPropertyID">Valoare invalida</entry>
 <entry key="MainWindow.Title">Editor aventura - {#0}</entry>
 <entry key="AdaptationProfile.DeleteRule">Sterge regula</entry>
-<entry key="Button.examine.normal.Description">Buton de examinare normala</entry>
 <entry key="Operation.LoadFileMessage">Fisierul contine date care nu au fost salvate. Doriti sa salvati aceste modificari inainte de a incarca noile date?</entry>
 <entry key="LOMES.General.AggregationLevel">Nivel de agregare</entry>
 <entry key="Search.DetailedDescription">Descriere detaliata</entry>

@@ -129,7 +129,7 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
     @Override
     public void triggerEffect( ) {
 
-        
+        gameLog.effectEvent( getCode(), "l="+(text.length( )>5?text.substring( 0, 5 ):text));
         
         // FIXME: Convendría cambiar esto para que no se use un timer
         timer = new Timer( timeShown * 2, new ActionListener( ) {

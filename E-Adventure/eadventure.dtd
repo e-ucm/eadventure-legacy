@@ -230,6 +230,8 @@
 <!ATTLIST object
 	id ID #IMPLIED
 	returnsWhenDragged ( yes | no) "yes"
+	behaviour (normal | atrezzo | first-action) "normal"
+	resources-transition-time CDATA "0"
 >
 <!ELEMENT instance EMPTY>
 <!ATTLIST instance

@@ -84,6 +84,8 @@ public class FunctionalMoveObjectEffect extends FunctionalEffect {
                 object = item;
         }
         if (object != null) {
+            gameLog.effectEvent( getCode(), "t="+moveObjectEffect.getTargetId( ), "ix="+object.getX( ), "iy="+object.getY( ),
+                    "dx="+moveObjectEffect.getX( ), "dy="+moveObjectEffect.getY( ));
             if (moveObjectEffect.isAnimated( )) {
                 time = System.currentTimeMillis( );
                 initialX = (int) object.getX( );

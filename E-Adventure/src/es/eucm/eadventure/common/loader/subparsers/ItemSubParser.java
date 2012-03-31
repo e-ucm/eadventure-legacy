@@ -46,6 +46,7 @@ import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.data.chapter.elements.Item.BehaviourType;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 /**
@@ -156,15 +157,33 @@ public class ItemSubParser extends SubParser {
                 String objectId = "";
                 boolean returnsWhenDragged = true;
                 
+                BehaviourType behaviour = BehaviourType.NORMAL;
+                long resourceTransition=0;
+                
                 for( int i = 0; i < attrs.getLength( ); i++ ) {
                     if( attrs.getQName( i ).equals( "id" ) )
                         objectId = attrs.getValue( i );
                     if( attrs.getQName( i ).equals( "returnsWhenDragged" ))
                         returnsWhenDragged = (attrs.getValue( i ).equals( "yes" ) ? true : false);
+                    if( attrs.getQName( i ).equals( "behaviour" )){
+                        if ( attrs.getValue( i ).equals( "normal" ) ){
+                            behaviour = BehaviourType.NORMAL;
+                        } else if ( attrs.getValue( i ).equals( "atrezzo" ) ){
+                            behaviour = BehaviourType.ATREZZO;
+                        } else if ( attrs.getValue( i ).equals( "first-action" ) ){
+                            behaviour = BehaviourType.FIRST_ACTION;
+                        }
+                    }
+                    if( attrs.getQName( i ).equals( "resources-transition-time" ))
+                        resourceTransition = Long.parseLong( attrs.getValue( i ) );
+                    
                 }
-
+                
                 object = new Item( objectId );
                 object.setReturnsWhenDragged( returnsWhenDragged );
+                
+                object.setResourcesTransitionTime( resourceTransition );
+                object.setBehaviour( behaviour );
                 
                 descriptions = new ArrayList<Description>();
                 object.setDescriptions( descriptions );

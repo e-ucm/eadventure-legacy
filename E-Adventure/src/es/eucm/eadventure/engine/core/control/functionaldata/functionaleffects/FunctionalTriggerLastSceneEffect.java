@@ -79,7 +79,7 @@ public class FunctionalTriggerLastSceneEffect extends FunctionalTriggerSceneEffe
 
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(), "t="+getLastSceneId( ), "x="+ getLastSceneX( ), "y="+ getLastSceneY( ));
         effect = new TriggerSceneEffect( getLastSceneId( ), getLastSceneX( ), getLastSceneY( ) );
         super.triggerEffect( );
     }

@@ -61,7 +61,7 @@ public class FunctionalDecrementVarEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(), "t="+( (DecrementVarEffect) effect ).getTargetId( ), "v="+ ( (DecrementVarEffect) effect ).getDecrement( ));
         Game.getInstance( ).getVars( ).decrementVar( ( (DecrementVarEffect) effect ).getTargetId( ), ( (DecrementVarEffect) effect ).getDecrement( ) );
         Game.getInstance( ).updateDataPendingFromState( false );
     }

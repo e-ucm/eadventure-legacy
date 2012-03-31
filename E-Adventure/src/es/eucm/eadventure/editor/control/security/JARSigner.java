@@ -158,8 +158,11 @@ public class JARSigner {
         }
         return alias;
     }
-
-    public static boolean signJar( String completeName, String organization, String originJarPath, String signedJarPath ) {
+    public static boolean signJar( String completeName, String organization, String originJarPath, String signedJarPath) {
+        return signJar(completeName, organization, originJarPath, signedJarPath, null, null);
+    }
+    
+    public static boolean signJar( String completeName, String organization, String originJarPath, String signedJarPath,  String originJarPath2, String signedJarPath2) {
 
         boolean created = false;
         boolean initiated = init( );
@@ -182,8 +185,16 @@ public class JARSigner {
                 KeyTool.main( new String[] { "-genkeypair", "-alias", alias, "-dname", dName, "-keypass", password, "-validity", "1000", "-keystore", KEY_STORE_NAME, "-storepass", KEY_STORE_PASSWORD } );
 
                 //Sign the jar
-                es.eucm.eadventure.editor.control.security.jarsigner.Main.main( new String[] { "-keystore", KEY_STORE_NAME, "-storepass", KEY_STORE_PASSWORD, "-keypass", password, "-signedjar", new File( signedJarPath ).getAbsolutePath( ), "-sigfile", new File( originJarPath ).getAbsolutePath( ), alias } );
+                
+                if (new File(originJarPath2).exists()){
+                    if (new File(originJarPath2).isFile( ))
+                        System.out.println( "MIERDA PUTA DEL TO" );
+                }
+                
+                if (signedJarPath2!=null && originJarPath2!=null )
+                    es.eucm.eadventure.editor.control.security.jarsigner.Main.main( new String[] { "-keystore", KEY_STORE_NAME, "-storepass", KEY_STORE_PASSWORD, "-keypass", password, "-signedjar", new File( signedJarPath2 ).getAbsolutePath( ), "-sigfile", new File( originJarPath2 ).getAbsolutePath( ), alias } );
 
+                es.eucm.eadventure.editor.control.security.jarsigner.Main.main( new String[] { "-keystore", KEY_STORE_NAME, "-storepass", KEY_STORE_PASSWORD, "-keypass", password, "-signedjar", new File( signedJarPath ).getAbsolutePath( ), "-sigfile", new File( originJarPath ).getAbsolutePath( ), alias } );
                 //Verify it has been successfully signed
                 JarFile signedJar = new JarFile( signedJarPath, true );
                 Manifest manifest = signedJar.getManifest( );

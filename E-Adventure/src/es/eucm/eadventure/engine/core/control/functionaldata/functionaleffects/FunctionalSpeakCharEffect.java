@@ -67,6 +67,9 @@ public class FunctionalSpeakCharEffect extends FunctionalEffect {
 
         FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ( (SpeakCharEffect) effect ).getTargetId( ) );
         if( npc != null ) {
+            String line = ((SpeakCharEffect) effect ).getLine( );
+            gameLog.effectEvent( getCode(), "t="+( (SpeakCharEffect) effect ).getTargetId( ),
+                    "l="+(line.length( )>5?line.substring( 0,5 ):line));
             String audioPath = ((SpeakCharEffect)effect).getAudioPath( );
             if( npc.isAlwaysSynthesizer( ) )
                 npc.speakWithFreeTTS( ( (SpeakCharEffect) effect ).getLine( ), npc.getPlayerVoice( ), Game.getInstance( ).getGameDescriptor( ).isKeepShowing( ) );

@@ -36,7 +36,7 @@
 <entry key="ErrorReport.ShortDescription">Si prega di scrivere una breve descrizione di quello che stava facendo</entry>
 <entry key="DebugFrameLog.PlayerTip">Mostra il log delle azioni per il giocatore e il NPC</entry>
 <entry key="Report.Importance.VeryLow">Molto basso</entry>
-<entry key="ActionButton.Drag">Trascinare.</entry>
+<entry key="ActionButton.Drag">Trascinare</entry>
 <entry key="Report.GenerateHTMLReport">Genera report HTML</entry>
 <entry key="MainWindow.buttonCancel">Annulla</entry>
 <entry key="Reports.InputReportName">Digitare il nome che apparirà nella relazione</entry>

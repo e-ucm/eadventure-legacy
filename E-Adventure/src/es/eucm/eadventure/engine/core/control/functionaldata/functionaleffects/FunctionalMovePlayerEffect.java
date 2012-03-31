@@ -65,10 +65,10 @@ public class FunctionalMovePlayerEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
         FunctionalPlayer player = Game.getInstance( ).getFunctionalPlayer( );
         int destX = ( (MovePlayerEffect) effect ).getX( );
         int destY = ( (MovePlayerEffect) effect ).getY( );
+        gameLog.effectEvent( getCode(), "ix="+player.getX( ), "iy="+player.getY( ), "dx="+destX, "dy="+destY);
         player.addAction( new FunctionalGoTo( null, destX, destY ) );
     }
 

@@ -58,7 +58,7 @@ public class FunctionalGenerateObjectEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(),"t="+( (GenerateObjectEffect) effect ).getTargetId( )  );
         Game.getInstance( ).generateItem( ( (GenerateObjectEffect) effect ).getTargetId( ) );
     }
 

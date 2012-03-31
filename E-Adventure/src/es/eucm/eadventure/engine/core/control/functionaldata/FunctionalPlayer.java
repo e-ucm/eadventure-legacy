@@ -78,7 +78,7 @@ import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * The player
@@ -483,7 +483,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 }
                 break;
             case ActionManager.ACTION_CUSTOM:
-                game.getGameLog( ).highLevelEvent( CUSTOM+":"+game.getActionManager( ).getCustomActionName( ), element.getElement( ).getId( ) );
+                game.getGameLog( ).highLevelEvent( CUSTOM+": "+game.getActionManager( ).getCustomActionName( ), element.getElement( ).getId( ) );
                 nextAction = new FunctionalCustom( element, Game.getInstance( ).getActionManager( ).getCustomActionName( ) );
                 break;
             case ActionManager.ACTION_CUSTOM_INTERACT:

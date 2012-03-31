@@ -52,6 +52,7 @@ import javax.swing.ImageIcon;
 
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -62,7 +63,7 @@ import es.eucm.eadventure.engine.core.gui.GUI;
  * @author Eugenio Marchiori
  * 
  */
-public class Frame implements Cloneable, Timed {
+public class Frame implements Cloneable, Timed, Documented {
 
     /**
      * The xml tag for the sound of the frame
@@ -123,15 +124,7 @@ public class Frame implements Cloneable, Timed {
      * Creates a new empty frame
      */
     public Frame( ImageLoaderFactory factory ) {
-        this.factory = factory;
-        uri = "";
-        type = TYPE_IMAGE;
-        time = DEFAULT_TIME;
-        image = null;
-        waitforclick = false;
-        resources = new ArrayList<Resources>( );
-        soundUri = "";
-        maxSoundTime = 1000;
+        this(factory, "", DEFAULT_TIME, false);
     }
 
     /**
@@ -141,16 +134,19 @@ public class Frame implements Cloneable, Timed {
      *            the uri for the image
      */
     public Frame( ImageLoaderFactory factory, String uri ) {
-        this.uri = uri;
-        this.factory = factory;
-        type = TYPE_IMAGE;
-        time = DEFAULT_TIME;
-        image = null;
-        waitforclick = false;
-        resources = new ArrayList<Resources>( );
-        soundUri = "";
-        maxSoundTime = 1000;
+        this(factory, uri, DEFAULT_TIME, false);
     }
+    
+    /**
+     * Creates a new frame with the given duration
+     * 
+     * @param time
+     *            integer with the duration of the frame
+     */
+    public Frame( ImageLoaderFactory factory, int time ) {
+        this(factory, "", time, false);
+    }
+
 
     /**
      * Creates a new frame with a image uri, a duration time and the selection for user click waiting
@@ -166,7 +162,7 @@ public class Frame implements Cloneable, Timed {
         type = TYPE_IMAGE;
         this.time = time;
         image = null;
-        waitforclick = waitForClick;
+        this.waitforclick = waitForClick;
         resources = new ArrayList<Resources>( );
         soundUri = "";
         maxSoundTime = 1000;
@@ -482,4 +478,18 @@ public class Frame implements Cloneable, Timed {
 
         return filename;
     }
+    
+    /***************************************************************/
+    // Added for accessibility purposes
+    /****************************************************************/
+    
+    private String documentation = "";
+    public String getDocumentation( ) {
+        return documentation;
+    }
+
+    public void setDocumentation( String documentation ) {
+        this.documentation = documentation;
+    }
+
 }

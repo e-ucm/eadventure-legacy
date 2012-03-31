@@ -63,11 +63,12 @@ public class FunctionalSpeakPlayerEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
         FunctionalConditions cond = new FunctionalConditions( effect.getConditions( ) );
         String audioPath = ((SpeakPlayerEffect)effect).getAudioPath( );
         if( cond.allConditionsOk( ) ) {
             FunctionalPlayer player = Game.getInstance( ).getFunctionalPlayer( );
+            String line=( (SpeakPlayerEffect) effect ).getLine( );
+            gameLog.effectEvent( getCode(), "l="+(line.length( )>5?line.substring( 0,5 ):line));
             if( player.isAlwaysSynthesizer( ) )
                 player.speakWithFreeTTS( ( (SpeakPlayerEffect) effect ).getLine( ), player.getPlayerVoice( ), Game.getInstance( ).getGameDescriptor( ).isKeepShowing( )  );
             else if (audioPath!=null && !audioPath.equals( "" )) 

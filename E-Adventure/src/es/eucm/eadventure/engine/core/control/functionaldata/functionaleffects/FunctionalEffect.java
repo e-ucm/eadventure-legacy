@@ -61,18 +61,26 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.WaitTimeEffect;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
+import es.eucm.eadventure.tracking.pub._GameLog;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * This abstract class defines how a certain effect must be triggered in the
  * game engine.
  */
-public abstract class FunctionalEffect {
+public abstract class FunctionalEffect implements _HighLevelEvents{
 
     /**
      * The effect to be ruled
      */
     protected AbstractEffect effect;
+    
+    /**
+     * The gamelog for tracking when effects are triggered
+     */
+    protected _GameLog gameLog;
 
     /**
      * Constructor
@@ -80,6 +88,7 @@ public abstract class FunctionalEffect {
     public FunctionalEffect( AbstractEffect effect ) {
 
         this.effect = effect;
+        this.gameLog = Game.getInstance( ).getGameLog( );
     }
 
     /**
@@ -210,4 +219,91 @@ public abstract class FunctionalEffect {
         return null;
         }
 
+    /**
+     * Returns the three letter code used for logging events with the tracking system
+     * @return
+     */
+    public String getCode(){
+        String str="unk";
+        if (effect!=null){
+            switch( effect.getType( ) ) {
+                case Effect.ACTIVATE:
+                    str= ACTIVATE;
+                    break;
+                case Effect.DEACTIVATE:
+                    str= DEACTIVATE;
+                    break;
+                case Effect.SET_VALUE:
+                    str= SET_VALUE;
+                    break;
+                case Effect.INCREMENT_VAR:
+                    str = INCREMENT_VAR;
+                    break;
+                case Effect.DECREMENT_VAR:
+                    str = DECREMENT_VAR;
+                    break;
+                case Effect.MACRO_REF:
+                    str = MACRO_REF;
+                    break;
+                case Effect.CANCEL_ACTION:
+                    str = CANCEL_ACTION;
+                    break;
+                case Effect.CONSUME_OBJECT:
+                    str = CONSUME_OBJECT;
+                    break;
+                case Effect.GENERATE_OBJECT:
+                    str = GENERATE_OBJECT;
+                    break;
+                case Effect.MOVE_NPC:
+                    str = MOVE_NPC;
+                    break;
+                case Effect.MOVE_PLAYER:
+                    str = MOVE_PLAYER;
+                    break;
+                case Effect.PLAY_ANIMATION:
+                    str = PLAY_ANIMATION;
+                    break;
+                case Effect.PLAY_SOUND:
+                    str = PLAY_SOUND;
+                    break;
+                case Effect.RANDOM_EFFECT:
+                    str = RANDOM_EFFECT;
+                    break;
+                case Effect.SPEAK_CHAR:
+                    str = SPEAK_CHAR;
+                    break;
+                case Effect.SPEAK_PLAYER:
+                    str = SPEAK_PLAYER;
+                    break;
+                case Effect.TRIGGER_BOOK:
+                    str = TRIGGER_BOOK;
+                    break;
+                case Effect.TRIGGER_CONVERSATION:
+                    str = TRIGGER_CONVERSATION;
+                    break;
+                case Effect.TRIGGER_CUTSCENE:
+                    str = TRIGGER_CUTSCENE;
+                    break;
+                case Effect.TRIGGER_LAST_SCENE:
+                    str = TRIGGER_LAST_SCENE;
+                    break;
+                case Effect.TRIGGER_SCENE:
+                    str = TRIGGER_SCENE;
+                    break;
+                case Effect.SHOW_TEXT:
+                    str = SHOW_TEXT;
+                    break;
+                case Effect.WAIT_TIME:
+                    str = WAIT_TIME;
+                    break;
+                case Effect.HIGHLIGHT_ITEM:
+                    str = HIGHLIGHT_ITEM;
+                    break;
+                case Effect.MOVE_OBJECT:
+                    str = MOVE_OBJECT;
+                    break;
+            }
+        }
+        return str;
+    }
 }

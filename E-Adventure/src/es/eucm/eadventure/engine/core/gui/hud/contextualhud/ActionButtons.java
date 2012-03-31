@@ -48,7 +48,6 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
-import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
@@ -58,31 +57,6 @@ import es.eucm.eadventure.engine.core.gui.GUI;
  * This class contains all the graphical information about the action buttons
  */
 public class ActionButtons {
-
-    /**
-     * Hand index action button
-     */
-    public static final int ACTIONBUTTON_HAND = 0;
-
-    /**
-     * Eye index action button
-     */
-    public static final int ACTIONBUTTON_EYE = 1;
-
-    /**
-     * Mouth index action button
-     */
-    public static final int ACTIONBUTTON_MOUTH = 2;
-
-    /**
-     * Drag index action button
-     */
-    public static final int ACTIONBUTTON_DRAG = 3;
-
-    /**
-     * Custom index action button
-     */
-    public static final int ACTIONBUTTON_CUSTOM = 4;
 
     public static final int MAX_BUTTON_WIDTH = 50;
 
@@ -145,9 +119,9 @@ public class ActionButtons {
         buttonOver = null;
         buttonPressed = null;
 
-        handButton = new ActionButton( ActionButton.HAND_BUTTON );
-        mouthButton = new ActionButton( ActionButton.MOUTH_BUTTON );
-        eyeButton = new ActionButton( ActionButton.EYE_BUTTON );
+        handButton = new ActionButton( ActionButton.USE_BUTTON );
+        mouthButton = new ActionButton( ActionButton.TALK_BUTTON );
+        eyeButton = new ActionButton( ActionButton.EXAMINE_BUTTON );
     }
 
     /**
@@ -230,7 +204,7 @@ public class ActionButtons {
     private void clearButtons( ) {
 
         for( ActionButton ab : buttons ) {
-            ab.setPressed( false );
+            //ab.setPressed( false );
             ab.setOver( false );
         }
         buttonOver = null;
@@ -323,9 +297,9 @@ public class ActionButtons {
             buttons.add( mouthButton );
         boolean use = functionalNPC.getFirstValidAction( Action.USE ) != null;
         if( use ) {
-            handButton.setName( TC.get( "ActionButton.Use" ) );
+            handButton.reload( ActionButton.USE_BUTTON );
             buttons.add( handButton );
-        }
+        } 
     }
 
     /**
@@ -341,7 +315,7 @@ public class ActionButtons {
         boolean addHandButton = false;
         
         if( !item.isInInventory( ) ) {
-            handButton.setName( TC.get( "ActionButton.Grab" ) );
+            handButton.reload( ActionButton.GRAB_BUTTON );
             Action grabAction = item.getFirstValidAction( Action.GRAB );
             Action useAction = item.getFirstValidAction( Action.USE );
             if ( grabAction != null)
@@ -350,7 +324,7 @@ public class ActionButtons {
                 //if the conditions of useAction are not met and the conditions of grab action are met, the handButton
                 //name must be "grabAction"
                 if ( (useAction.isConditionsAreMeet( ) || (grabAction != null && !grabAction.isConditionsAreMeet( )) ) )
-                    handButton.setName( TC.get( "ActionButton.Use" ) );
+                    handButton.reload( ActionButton.USE_BUTTON );
                 addHandButton = true;
             }
         }
@@ -393,19 +367,19 @@ public class ActionButtons {
             boolean useWith = item.getFirstValidAction( Action.USE_WITH ) != null;
             addHandButton = useAlone || giveTo || useWith; 
             if( useAlone && !giveTo && !useWith ) {
-                handButton.setName( TC.get( "ActionButton.Use" ) );
+                handButton.reload( ActionButton.USE_BUTTON );
             }
             else if( !useAlone && giveTo && !useWith ) {
-                handButton.setName( TC.get( "ActionButton.GiveTo" ) );
+                handButton.reload( ActionButton.GIVETO_BUTTON );
             }
             else if( !useAlone && !giveTo && useWith ) {
-                handButton.setName( TC.get( "ActionButton.UseWith" ) );
+                handButton.reload( ActionButton.USE_WITH_BUTTON );
             }
             else if( !useAlone && giveTo && useWith ) {
-                handButton.setName( TC.get( "ActionButton.UseGive" ) );
+                handButton.reload( ActionButton.USEWITHGIVETO_BUTTON );
             }
             else {
-                handButton.setName( TC.get( "ActionButton.Use" ) );
+                handButton.reload( ActionButton.USE_BUTTON );
             }
         }
         if (addHandButton)
@@ -446,7 +420,7 @@ public class ActionButtons {
         if( e != null ) {
             ActionButton ab = getButton( e.getX( ), e.getY( ) );
             if( ab != null ) {
-                ab.setPressed( true );
+                //ab.setPressed( true );
                 buttonPressed = ab;
             }
         }

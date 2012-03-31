@@ -69,7 +69,7 @@ public class FunctionalPlaySoundEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(),"t="+( (PlaySoundEffect) effect ).getPath( ) );
         if( Game.getInstance( ).getOptions( ).isEffectsActive( ) ) {
             soundID = MultimediaManager.getInstance( ).loadSound( ( (PlaySoundEffect) effect ).getPath( ), false );
             MultimediaManager.getInstance( ).startPlaying( soundID );
