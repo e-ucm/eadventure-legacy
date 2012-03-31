@@ -62,7 +62,7 @@ public class FunctionalTriggerCutsceneEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(), "t="+( (TriggerCutsceneEffect) effect ).getTargetId( ));
         if( Game.getInstance( ).getCurrentChapterData( ).isCutscene( ( (TriggerCutsceneEffect) effect ).getTargetId( ) ) ) {
             Game.getInstance( ).setNextScene( new Exit( ( (TriggerCutsceneEffect) effect ).getTargetId( ) ) );
             Game.getInstance( ).setState( Game.STATE_NEXT_SCENE );

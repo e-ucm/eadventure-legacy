@@ -69,6 +69,8 @@ public class FunctionalMoveNPCEffect extends FunctionalEffect {
 
         FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ( (MoveNPCEffect) effect ).getTargetId( ) );
         if( npc != null ) {
+            gameLog.effectEvent( getCode(), "t="+( (MoveNPCEffect) effect ).getTargetId( ), "ix="+npc.getX( ), "iy="+npc.getY( ),
+                    "dx="+( (MoveNPCEffect) effect ).getX( ), "dy="+( (MoveNPCEffect) effect ).getY( ));
             npc.setDestiny( ( (MoveNPCEffect) effect ).getX( ), ( (MoveNPCEffect) effect ).getY( ) );
             npc.setState( FunctionalNPC.WALK );
         }

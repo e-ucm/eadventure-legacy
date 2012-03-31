@@ -699,8 +699,6 @@ public class Writer {
             os.closeEntry( );
             os.flush( );
             
-
-            
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
             File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
             addNeededLibrariesToJar(os, Controller.getInstance( ));
@@ -711,7 +709,48 @@ public class Writer {
 
             // Integrate game and jar into a new jar File
 
-            dataSaved = JARSigner.signJar( authorName, organization, tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar", tempDir.getAbsolutePath( ) + "/" + loName + ".jar" );
+            File sourceMierdaFile = new File("web/ead_applet_loader_temp.jar");
+            
+            
+            
+            
+            
+         // Merge project & e-Adventure jar into file eAdventure_temp.jar
+            // Destiny file
+            File jarUnsigned2 = new File( tempDir.getAbsolutePath( ) + "/eAdventure2.zip" );
+
+            // Create output stream     
+            FileOutputStream mergedFile2 = new FileOutputStream( jarUnsigned2 );
+
+            // Create zipoutput stream
+            ZipOutputStream os2 = new ZipOutputStream( mergedFile2 );
+
+            // Create and copy the manifest into the output stream
+            String manifestText2 = Writer.defaultManifestFile( "es.eucm.eadventure.appletloader.EADAppletLoadProgress" );
+            ZipEntry manifestEntryB = new ZipEntry( "META-INF/MANIFEST.MF" );
+            os2.putNextEntry( manifestEntryB );
+            os2.write( manifestText2.getBytes( ) );
+            os2.closeEntry( );
+            os2.flush( );
+            
+            // Merge projectDirectory and web/eAdventure_temp.jar into output stream
+            File newDir=new File("web/cagoento/");
+            newDir.mkdir( );
+            File.mergeZipAndDirToJar( "web/ead_applet_loader_temp.jar", newDir.getAbsolutePath( ), os2 );
+
+            os2.close( );
+
+            dataSaved &= jarUnsigned2.renameTo( new File(tempDir.getAbsolutePath( ) + "/" + "ead_applet_loader_unsigned.jar" ) );
+
+            
+            
+            
+            
+            
+            
+            
+            dataSaved = JARSigner.signJar( authorName, organization, tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar", tempDir.getAbsolutePath( ) + "/" + loName + ".jar",
+                    new File(tempDir.getAbsolutePath( ) + "/" + "ead_applet_loader_unsigned.jar" ).getAbsolutePath( ), tempDir.getAbsolutePath( ) + "/ead_applet_loader_signed.jar");
 
             new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ).delete( );
 
@@ -815,6 +854,8 @@ public class Writer {
             }
             splashScreen.copyTo( new File( tempDir.getAbsolutePath( ) + "/splashScreen.gif" ) );
             
+            new File("web/temp/ead_applet_loader_signed.jar" ).copyTo( new File( tempDir.getAbsolutePath( ) + "/eadAppletLoader.jar" ));
+            
             /** ******** END WRITING THE MANIFEST ********** */
 
             /** COPY EVERYTHING TO THE ZIP */
@@ -908,8 +949,7 @@ public class Writer {
             dataSaved &= jarUnsigned.renameTo( new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ) );
 
             // Integrate game and jar into a new jar File
-
-            dataSaved = JARSigner.signJar( authorName, organization, tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar", tempDir.getAbsolutePath( ) + "/" + loName + ".jar" );
+            dataSaved = JARSigner.signJar( authorName, organization, tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar", tempDir.getAbsolutePath( ) + "/" + loName + ".jar");
 
             new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ).delete( );
 

@@ -69,6 +69,7 @@ public class FunctionalHighlightItemEffect extends FunctionalEffect {
         HighlightItemEffect temp = (HighlightItemEffect) effect;
         for (FunctionalItem item : Game.getInstance( ).getFunctionalScene( ).getItems( )) {
             if (item.getItem( ).getId( ).equals( temp.getTargetId( ) )) {
+                gameLog.effectEvent( getCode(), "t="+temp.getTargetId( ));
                 if (temp.getHighlightType( ) == HighlightItemEffect.NO_HIGHLIGHT)
                     item.setHighlight( null );
                 else if (temp.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_BLUE)

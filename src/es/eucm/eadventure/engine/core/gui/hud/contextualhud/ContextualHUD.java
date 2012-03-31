@@ -70,7 +70,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
-import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 public class ContextualHUD extends HUD implements _HighLevelEvents{
 
@@ -690,20 +690,25 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
     private boolean processButtonPressed( ActionManager actionManager, MouseEvent e ) {
         lastSelectedAction=-1;
         switch( actionButtons.getButtonPressed( ).getType( ) ) {
-            case ActionButton.HAND_BUTTON:
+            case ActionButton.USE_WITH_BUTTON:
+            case ActionButton.GIVETO_BUTTON:
+            case ActionButton.GRAB_BUTTON:
+            case ActionButton.USE_BUTTON:
                 elementInCursor = null;
                 gui.setDefaultCursor( );
-                if( elementAction.canBeUsedAlone( ) ) {
+                //if( elementAction.canBeUsedAlone( ) ) {
+                if( actionButtons.getButtonPressed( ).getType( ) == ActionButton.USE_BUTTON ) {
                     actionManager.setActionSelected( ActionManager.ACTION_USE );
                     game.getFunctionalPlayer( ).performActionInElement( elementAction );
                 }
                 else {
-                    if( !elementAction.isInInventory( ) ) {
+                    if( actionButtons.getButtonPressed( ).getType( ) == ActionButton.GRAB_BUTTON &&
+                            !elementAction.isInInventory( ) ) {
                         actionManager.setActionSelected( ActionManager.ACTION_GRAB );
                         game.getFunctionalPlayer( ).performActionInElement( elementAction );
                     }
                     else {
-                        if (actionButtons.getButtonPressed( ).getName( ).equals( TC.get( "ActionButton.GiveTo" ) ))
+                        if (actionButtons.getButtonPressed( ).getType( ) == ActionButton.GIVETO_BUTTON)
                             lastSelectedAction = ActionManager.ACTION_GIVE_TO;
                         else
                             lastSelectedAction = ActionManager.ACTION_USE_WITH;
@@ -718,11 +723,11 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
                     }
                 }
                 break;
-            case ActionButton.EYE_BUTTON:
+            case ActionButton.EXAMINE_BUTTON:
                 actionManager.setActionSelected( ActionManager.ACTION_EXAMINE );
                 game.getFunctionalPlayer( ).performActionInElement( elementAction );
                 break;
-            case ActionButton.MOUTH_BUTTON:
+            case ActionButton.TALK_BUTTON:
                 actionManager.setActionSelected( ActionManager.ACTION_TALK );
                 game.getFunctionalPlayer( ).performActionInElement( elementAction );
                 lastSelectedAction = ActionManager.ACTION_TALK;

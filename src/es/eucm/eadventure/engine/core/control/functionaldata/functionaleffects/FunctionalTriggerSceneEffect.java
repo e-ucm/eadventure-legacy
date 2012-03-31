@@ -37,6 +37,7 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 
@@ -64,6 +65,9 @@ public class FunctionalTriggerSceneEffect extends FunctionalEffect {
     public void triggerEffect( ) {
 
         if( ( (TriggerSceneEffect) effect ).getTargetId( ) != null && !Game.getInstance( ).getCurrentChapterData( ).isCutscene( ( (TriggerSceneEffect) effect ).getTargetId( ) ) ) {
+            if (effect.getType( )!=Effect.TRIGGER_LAST_SCENE){
+                gameLog.effectEvent( getCode(), "t="+( (TriggerSceneEffect) effect ).getTargetId( ));
+            }
             Exit exit = new Exit( ( (TriggerSceneEffect) effect ).getTargetId( ) );
             exit.setDestinyX( ( (TriggerSceneEffect) effect ).getX( ) );
             exit.setDestinyY( ( (TriggerSceneEffect) effect ).getY( ) );

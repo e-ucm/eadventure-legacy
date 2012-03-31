@@ -107,7 +107,7 @@ public class FunctionalRandomEffect extends FunctionalEffect {
 
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode());
         effectTriggered = getEffectToBeTriggered( );
         if( effectTriggered != null ) {
             if( effectTriggered.isAllConditionsOK( ) )

@@ -40,6 +40,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.tracking.pub._GameLog;
 
 /**
  * A state of the game main loop
@@ -50,13 +51,18 @@ public abstract class GameState {
      * Instance of game
      */
     protected Game game;
+    
+    /**
+     * Instance of gameLog for tracking user's interaction. 
+     */
+    protected _GameLog gameLog;
 
     /**
      * Creates a new GameState
      */
     public GameState( ) {
-
         this.game = Game.getInstance( );
+        this.gameLog = game.getGameLog( );
     }
 
     /**

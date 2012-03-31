@@ -128,23 +128,25 @@ public class Animation implements Cloneable, Documented, HasId {
     private int temp_h;
     
     /**
-     * Creates a new Animation. It can be created without any frames (empty =
-     * true) or with the minimum number of frames and transitions (empty =
-     * false)
+     * Creates a new Animation. By default, adds the given frame to the timeline, along with
+     * two blank tranisitions.
      * 
      * @param id
      *            the id of the animation
-     * @param empty
-     *            boolean indicating where the animation should be empty or not
+     * @param frame
+     *              The frame to add to the timeline            
+     * @param factory
+     *              Object used to create the images for the frames
+     *     
      */
-    public Animation( String id, ImageLoaderFactory factory ) {
+    public Animation( String id, Frame frame, ImageLoaderFactory factory) {
         this.factory = factory;
 
         this.id = id;
         resources = new ArrayList<Resources>( );
         frames = new ArrayList<Frame>( );
         transitions = new ArrayList<Transition>( );
-        frames.add( new Frame( factory ) );
+        frames.add( frame );
         transitions.add( new Transition( ) );
         transitions.add( new Transition( ) );
         skippedFrames = 0;
@@ -154,18 +156,33 @@ public class Animation implements Cloneable, Documented, HasId {
     
     
     /**
-     * Creates a new Animation with a default Frame
+     * Creates a new Animation with a blank frame.
+     * Equivalent to Animation (id, new Frame(factory), factory).
      * 
      * @param id
      *            the id of the animation
-     * @param frame
-     *            the default frame of the animation
+     * @param factory
+     *              Object used to create the images for the frames
      */
-    public Animation( String id, Frame frame, ImageLoaderFactory factory ) {
+    public Animation( String id, ImageLoaderFactory factory ) {
 
-        this( id , factory);
-        frames.clear( );
-        frames.add( frame );
+        this( id , new Frame( factory ), factory);
+    }
+    
+    /**
+     * Creates a new Animation with a blank frame with a specific duration.
+     * Equivalent to Animation (id, new Frame(factory, time), factory).
+     * 
+     * @param id
+     *            the id of the animation
+     * @param time
+     *              The duration of the frame to be created.
+     * @param factory
+     *              Object used to create the images for the frames
+     */
+    public Animation( String id, int time, ImageLoaderFactory factory ) {
+
+        this( id , new Frame( factory, time ), factory);
     }
 
     /**
@@ -648,4 +665,53 @@ public class Animation implements Cloneable, Documented, HasId {
         return factory;
     }
 
+    /***************************************************************/
+    // Added for accessibility purposes
+    /****************************************************************/    
+    /**
+     * Returns the image in a given moment, or null if the animation has
+     * finished.
+     * 
+     * @param elapsedTime
+     *            Time elapsed since the animation began
+     * @return The image to draw, in a loop
+     */
+    public String getDocumentation( long elapsedTime, int where ) {
+
+        int temp = skippedFrames;
+
+        // check to see if the all the waiting frames have been
+        // skipped
+        int temp2 = 0;
+        for( int i = 0; i < frames.size( ); i++ ) {
+            if( frames.get( i ).isWaitforclick( ) )
+                temp2++;
+        }
+        if( !slides || temp2 <= skippedFrames )
+            elapsedTime = elapsedTime % getTotalTime( );
+
+        for( int i = 0; i < frames.size( ); i++ ) {
+            if( frames.get( i ).isWaitforclick( ) )
+                temp--;
+            if( frames.get( i ).getTime( ) > elapsedTime || ( frames.get( i ).isWaitforclick( ) && temp < 0 && slides ) ) {
+                if( lastSoundFrame != i ) {
+                    newSound = frames.get( i ).getSoundUri( );
+                    soundMaxTime = frames.get( i ).getMaxSoundTime( );
+                    lastSoundFrame = i;
+                }
+                return frames.get( i ).getDocumentation( );
+            }
+            if( i == frames.size( ) - 1 )
+                return null;
+            elapsedTime -= frames.get( i ).getTime( );
+            if( transitions.get( i + 1 ).getTime( ) > elapsedTime && useTransitions ) {
+                return null;
+            }
+            if( useTransitions )
+                elapsedTime -= transitions.get( i + 1 ).getTime( );
+        }
+        return null;
+    }
+
+    
 }

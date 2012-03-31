@@ -72,6 +72,19 @@ public class DescriptorData implements Cloneable, Described, Titled {
 
     public static final String USE_GRAB_BUTTON = "use-grab";
 
+    // Specific buttons for grab, use, use-with and give-to were added in eAd1.4
+    // Before that, a use-grab generic button was used. It is kept for backwards compatibility
+    public static final String GRAB_BUTTON = "grab";
+    
+    public static final String USE_BUTTON = "use";
+    
+    public static final String USEWITH_BUTTON = "use-with";
+    
+    public static final String GIVETO_BUTTON = "give-to";
+    
+    public static final String DRAGTO_BUTTON = "drag-to";
+    // 
+    
     public static final String EXAMINE_BUTTON = "examine";
 
     public static final String HIGHLIGHTED_BUTTON = "highlighted";
@@ -186,7 +199,11 @@ public class DescriptorData implements Cloneable, Described, Titled {
         return cursorTypes;
     }
 
-    private static final String[] actionTypes = { TALK_BUTTON, USE_GRAB_BUTTON, EXAMINE_BUTTON };
+    /*
+     * Action types, buttonTypes & arrowTypes are only used in the editor, to create the gui customization dialog 
+     * automatically. So: order matters!
+     */
+    private static final String[] actionTypes = { EXAMINE_BUTTON, TALK_BUTTON, /*USE_GRAB_BUTTON, */USE_BUTTON, GRAB_BUTTON, USEWITH_BUTTON, GIVETO_BUTTON, DRAGTO_BUTTON };
 
     public static String[] getActionTypes( ) {
 
@@ -518,12 +535,26 @@ public class DescriptorData implements Cloneable, Described, Titled {
         addButton( new CustomButton( action, type, path ) );
     }
 
-    public String getButtonPath( String action, String type ) {
+    public String getButtonPathFromEditor( String action, String type) {
+        return getButtonPath( action, type, false );
+    }
+    
+    public String getButtonPathFromEngine( String action, String type ) {
+        return getButtonPath( action, type, true );
+    }
+    
+    private String getButtonPath( String action, String type, boolean checkLegacyButtons ) {
 
         for( CustomButton button : buttons ) {
             if( button.getType( ).equals( type ) && button.getAction( ).equals( action ) ) {
                 return button.getPath( );
             }
+        }
+        
+        // ADDED IN eAd1.4: different types of buttons for use, use-with, grab and give-to. If the specific button is not found, a generic "use-grab" button is
+        // searched
+        if (checkLegacyButtons && action!=null && (action.equals( USEWITH_BUTTON ) || action.equals( USE_BUTTON ) || action.equals( GRAB_BUTTON ) || action.equals( GIVETO_BUTTON ))){
+            return getButtonPath ( USE_GRAB_BUTTON, type, false);
         }
         return null;
     }

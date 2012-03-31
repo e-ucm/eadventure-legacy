@@ -61,7 +61,7 @@ public class FunctionalTriggerConversationEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(), "t="+( (TriggerConversationEffect) effect ).getTargetId( ) );
         Game.getInstance( ).setConversation( ( (TriggerConversationEffect) effect ).getTargetId( ) );
         Game.getInstance( ).setState( Game.STATE_CONVERSATION );
     }

@@ -70,7 +70,7 @@ public class FunctionalPlayAnimationEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(), "t="+( (PlayAnimationEffect) effect ).getPath( ));
         animation = MultimediaManager.getInstance( ).loadAnimation( ( (PlayAnimationEffect) effect ).getPath( ), false, MultimediaManager.IMAGE_SCENE );
         animation.start( );
     }

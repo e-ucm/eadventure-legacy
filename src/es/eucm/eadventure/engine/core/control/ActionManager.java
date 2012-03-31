@@ -281,7 +281,6 @@ public class ActionManager {
      *            Mouse event
      */
     public void mouseMoved( MouseEvent e ) {
-
         Game game = Game.getInstance( );
         FunctionalScene functionalScene = game.getFunctionalScene( );
         if( functionalScene == null )

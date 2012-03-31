@@ -34,7 +34,49 @@
 <entry key="LOMES.LifeCycle.Role0">Author</entry>
 <entry key="BookParagraphsList.WordCount">{#0} Worte</entry>
 <entry key="Operation.LoadFileTitle">Datei öffnen</entry>
+
+<entry key="Button.use-grab.Description">Nutzen-Nehmen Taste</entry>
+<entry key="Button.use-grab.normal.Description">Normal nutzen-nehmen Taste</entry>
+
 <entry key="Button.use-grab.normal.Tip">Das ist die normal Benutzen/Nehmen Taste, die gezeigt wird wird, wenn sich die Maus nicht über einer Aktion befindet oder diese angewählt wird</entry>
+<entry key="Button.examine.normal.Tip">Das ist die Normal Untersuchen Taste</entry>
+<entry key="Button.talk.normal.Tip">Das ist die normal sprechen Taste</entry>
+
+<entry key="Button.use-grab.highlighted.Tip">Das ist das hervorgehobene Benutzen/Nehmen Feld, welches beim Überfahren des Mauscursors gezeigt wird (ohne Aktivierung)</entry>
+<entry key="Button.examine.highlighted.Tip">Das ist die hervorgehobene untersuchen Taste</entry>
+<entry key="Button.talk.highlighted.Tip">Das ist die hervorgehobene sprechen Taste</entry>
+
+<entry key="Button.use-grab.pressed.Description">Gedrückt nutzen-nehmen Taste</entry>
+<entry key="Button.examine.pressed.Description">Untersuchen Taste (gedrückt)</entry>
+<entry key="Button.talk.pressed.Description">Gedrückt sprechen Taste</entry>
+
+<entry key="Button.use-grab.pressed.Tip">Das ist die gedrückt nutzen-nehmen Taste</entry>
+<entry key="Button.examine.pressed.Tip">Das ist die gedrückt untersuchen Taste, wenn die Maus ist gedrückt</entry>
+<entry key="Button.talk.pressed.Tip">Das ist die gedrückt sprechen taste</entry>
+
+
+<entry key="Button.talk.Description">Sprechen Taste</entry>
+<entry key="Button.talk.normal.Description">Normal sprechen Taste</entry>
+<entry key="Button.talk.highlighted.Description">Hervorgehobene sprechen Taste</entry>
+<entry key="Button.examine.Description">Untersuchen Taste</entry>
+<entry key="Button.examine.normal.Description">Normal untersuchen Taste</entry>
+<entry key="Button.examine.highlighted.Description">Hervorgehobene untersuchen Taste</entry>
+<entry key="Button.use.Description">Benutzen Taste</entry>
+<entry key="Button.use.normal.Description">Normal benutzen Taste</entry>
+<entry key="Button.use.highlighted.Description">Hervorgehobene benutzen Taste</entry>
+<entry key="Button.grab.Description">Nehmen Taste</entry>
+<entry key="Button.grab.normal.Description">Normal nehmen Taste</entry>
+<entry key="Button.grab.highlighted.Description">Hervorgehobene nehmen Taste</entry>
+<entry key="Button.use-with.Description">Benutzen mit Taste</entry>
+<entry key="Button.use-with.normal.Description">Normal benutzen mit Taste</entry>
+<entry key="Button.use-with.highlighted.Description">Hervorgehobene benutzen mit Taste</entry>
+<entry key="Button.give-to.Description">Geben zu Taste</entry>
+<entry key="Button.give-to.normal.Description">Normal geben zu Taste</entry>
+<entry key="Button.give-to.highlighted.Description">Hervorgehobene geben zu Taste</entry>
+<entry key="Button.drag-to.Description">Ziehen nach Taste</entry>
+<entry key="Button.drag-to.normal.Description">Normal ziehen nach Taste</entry>
+<entry key="Button.drag-to.highlighted.Description">Hervorgehobene ziehen nach Taste</entry>
+
 <entry key="LOM.General.Language.English">Englisch</entry>
 <entry key="MoveNPCEffect.ErrorNoCharacters">Um diesen Effekt hinzuzufügen, muss mindestens ein Spieler im Kapitel sein</entry>
 <entry key="AssessmentRule.Importance.VeryLow">Sehr niedrig</entry>
@@ -63,7 +105,6 @@
 <entry key="IMS.Educational.Contex4">University Second Cycle</entry>
 <entry key="IMS.Educational.Contex3">University First Cycle</entry>
 <entry key="CustomAction.ConfigurationTip">Paneel für die Konfiguration der Bedingungen und Wirkungen Des Schalters</entry>
-<entry key="Button.examine.pressed.Description">Untersuchen Taste (gedrückt)</entry>
 <entry key="IMS.Educational.Contex2">Higher Education</entry>
 <entry key="IMS.Educational.Contex1">Secondary Education</entry>
 <entry key="IMS.Educational.Contex0">Primary Education</entry>
@@ -80,7 +121,6 @@
 <entry key="MenuAdventure.Commentaries">Automatische Kommentare</entry>
 <entry key="ActionsList.UseAction">Nutzen</entry>
 <entry key="Animation.AskFilenameTitle">Neue Animation</entry>
-<entry key="Button.use-grab.highlighted.Tip">Das ist das hervorgehobene Benutzen/Nehmen Feld, welches beim Überfahren des Mauscursors gezeigt wird (ohne Aktivierung)</entry>
 <entry key="StartDialog.Recent">Zuletzt</entry>
 <entry key="LOMES.LifeCycle.Role13">Subject matter expert</entry>
 <entry key="LOMES.LifeCycle.Role12">Instructional designer</entry>
@@ -116,7 +156,6 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="Conditions.Var.Description">Hier ist die Liste der Variablen des Kapitels. 
 	Ein Integer Wert kann den Variablen zu jeder Zeit im Spiel zugewiesen werden. 
 	Auf diese Weise können im Spiel die Bedingungen, basierend auf dem Wert einer Variablen, definiert werden.</entry>
-<entry key="Button.examine.Description">Untersuchen Taste</entry>
 <entry key="ActionsList.CustomInteractAction">Modifizierte Interaktion mit {#0}</entry>
 <entry key="ActionsList.Conditions">Konditionen</entry>
 <entry key="Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title">Fehler: Die Anmeldeinformationen sind ungültig</entry>
@@ -472,7 +511,6 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="ErrorSolving.AdaptationReferenced.Deleted.Message">Das referenzierte Anpassungsprofil wird nicht gefunden "{#0}". Referenzen werden gelöscht</entry>
 <entry key="Operation.AdventureConsistencyTitle">Gültigkeit des Abenteuers</entry>
 <entry key="NPC.Documentation">Charakter Dokumentation (nicht benutzt im Engine)</entry>
-<entry key="Button.examine.pressed.Tip">Das ist die gedrückt untersuchen Taste, wenn die Maus ist gedrückt</entry>
 <entry key="Operation.AdaptationPanel.DeleteButton">Löschen</entry>
 <entry key="VarDialog.Err.Title">Falsch Input-Format</entry>
 <entry key="Operation.NewProject.FolderNotEmptyMessage">Der ausgewählte Ordner ist nicht leer. Wollten Sie der Inhalt löschen? (Daten wird verloren). Wenn der Projekt Ordner nicht leer ist, überprüfen Sie bitte, dass gibt es keinen Datei mit dem Namen 'descriptor.xml "oder" chapterXX.xml " wobei XX für eine beliebige Zahl.</entry>
@@ -492,7 +530,6 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="Animation.Timeline">Zeit Linie</entry>
 <entry key="GlobalStatesList.AddGlobalState">Neues Global Zustand hinzufügen</entry>
 <entry key="SPEP.ConvertToIrregularArea">Unregelmäßige Bereich konvertieren</entry>
-<entry key="Button.talk.pressed.Description">Gedrückt sprechen Taste</entry>
 <entry key="Operation.ExportToLOM.OK">Akzeptieren</entry>
 <entry key="ImportChapter.ProblemsParsing.Message">Das Kapitel Einfuhr Prozess hat für Probleme Parsen der Kapitel unterbrochen worden.</entry>
 <entry key="HTMLEditor.QuitMessageTitle">Beenden des Editors</entry>
@@ -691,7 +728,6 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="Conditions.Flag.Description">Dies ist die Liste der Flaggs der Kapitel. Flags kann aktiv oder inaktiv sein zu jedem Zeitpunkt im Spiel, wie Ampeln kann grün oder rot sein zu erlauben oder zu verbieten. Im Spiel kannst du Bedingungen festlegen auf den Zustand der Flags.</entry>
 <entry key="ErrorSolving.Asset.Deleted.Title">Fehler: Referenz auf Ressource nicht gefunden</entry>
 <entry key="NextScene.DestinyPosition">Ziel Position für Spieler</entry>
-<entry key="Button.use-grab.Description">Nutzen-Nehmen Taste</entry>
 <entry key="Operation.SaveProject">Operation: Projekt wird gespeichert...</entry>
 <entry key="Effect.TriggerScene">Szene starten</entry>
 <entry key="Element.Name59">Werkzeuge Objekt</entry>
@@ -766,7 +802,6 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="GeneralText.EditEndConditions">Bearbeiten von endgültigen Bedingungen</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Title">Der Name existiert schon.</entry>
 <entry key="BookPage.NotValidImage">Wir haben Probleme mit der Bild-Format</entry>
-<entry key="Button.examine.normal.Tip">Das ist die Normal Untersuchen Taste</entry>
 <entry key="ActivateEffect.Description">Wählen Sie das Flag, die es aktiviert:</entry>
 <entry key="DeleteUnusedAssets.NoUnsuedAssetsFound">Es gab keine ungenutzten Ressourcen</entry>
 <entry key="MacrosList.Title">Makros</entry>
@@ -828,7 +863,6 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="SlidesDialog.Title">Slide Vorschau - {#0}</entry>
 <entry key="LOMES.MetaMetaData.ContributeInfo">To make correct LOMES Contribute's entry follow next indications:  	Cuando el "Tipo de contribución" es “Creator”, debe rellenarse la entrada "Contribut Entity" así: 	BEGIN:VCARD VERSION 3.0 FN: EMAIL;TYPE=INTERNET:ORG: "Nombre de la empresa" END:VCARD	Nota: El "Nombre de la empresa" no debe ser vacío. 	Cuando el "Tipo de contribución" es “Validator”, debe rellenarse la entrada "Contribut Entity" así: 	BEGIN:VCARD VERSION 3.0 FN:Contenido digital educativo creado, catalogado y financiado con fondos FEDER dentro del expediente 714/07-LoteX EMAIL;TYPE=INTERNET:sugerencias@red.es ORG:RED.ES END:VCARD</entry>
 <entry key="GeneralText.ReportError">Fehler melden</entry>
-<entry key="Button.examine.highlighted.Description">Hervorgehobene untersuchen Taste</entry>
 <entry key="Cursor.use.Description">Nutzen Mauszeiger</entry>
 <entry key="Resources.ResourcesGroup">Ressource Gruppe</entry>
 <entry key="GeneralText.Select">Auswählen</entry>
@@ -853,7 +887,6 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="Conditions.Context.2.66"> Die Aktion {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;wird immer ausführbare werden&lt;/b&gt;, da keine Bedingung definiert wurde:</entry>
 <entry key="Timer.Time">Zeit</entry>
 <entry key="ResourcesList.AddResourcesBlock">Neue Ressource Block hinzufügen</entry>
-<entry key="Button.use-grab.pressed.Description">Gedrückt nutzen-nehmen Taste</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.Message">Geben Sie den Namen des Anpassungsprofils ein</entry>
 <entry key="SceneLinksPanel.SceneID">Szene ID</entry>
 <entry key="GeneralText.EmptyTable">Keine Elemente in diese Tabelle</entry>
@@ -872,7 +905,6 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="Effect.BorderHighlightItemInfo">Kanten markieren {#0} </entry>
 <entry key="Conditions.Context.1A.44"> Der {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;wird aktiviert&lt;/b&gt; wenn die folgende Bedingung erfüllt ist:</entry>
 <entry key="Conditions.Group.Id">Global Zustand ID</entry>
-<entry key="Button.talk.normal.Description">Normal sprechen Taste</entry>
 <entry key="IconAssets.Title">Icon Ressourcen</entry>
 <entry key="Search.CaseSensitive">Dif. may. y min.</entry>
 <entry key="Error.DTD.NotFound.Message">Datei "{#0}" nicht gefunden. Dies kann zu Fehlern führen beim Laden der Abenteuer.</entry>
@@ -1042,7 +1074,6 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="Search.Description">Beschreibung</entry>
 <entry key="LOMES.Educational.LearningResourceType26">Simulation</entry>
 <entry key="GraphicConfig.FullscreenDescription">Das Spiel wird alle die verfügbar Bildschirm nutzen</entry>
-<entry key="Button.talk.highlighted.Tip">Das ist die hervorgehobene sprechen Taste</entry>
 <entry key="LOMES.Educational.LearningResourceType25">Real project</entry>
 <entry key="LOMES.Educational.LearningResourceType24">Experiment</entry>
 <entry key="LOMES.Educational.LearningResourceType23">Webquest</entry>
@@ -1186,7 +1217,6 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der maßnahme betroffen sein.</entry>
 <entry key="SceneLocation.YCoordinate">Koordinate Y</entry>
 <entry key="LOM.General.Description">Beschreibung</entry>
-<entry key="Button.talk.highlighted.Description">Hervorgehobene sprechen Taste</entry>
 <entry key="LOMES.Technical.Type1">Browser</entry>
 <entry key="LOMES.Technical.Type0">Operating system</entry>
 <entry key="LOM.Technical.Tab">Technical</entry>
@@ -1201,7 +1231,6 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="CutscenesList.Videoscene">Video Szene</entry>
 <entry key="Conditions.ConditionGroup">Global Zustand Referenz</entry>
 <entry key="Element.Action">Aktion</entry>
-<entry key="Button.talk.Description">Sprechen Taste</entry>
 <entry key="Cursor.talk.Tip">Nur für kontextuellen GUI: Dieser Mauszeiger wird für "sprechen" Aktionen nutzen</entry>
 <entry key="Conditions.Or">Oder</entry>
 <entry key="AtrezzoList.Title">Atrezzo Objekte</entry>
@@ -1301,7 +1330,6 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Search.AssetPath">Standort der Ressourcen</entry>
 <entry key="AdaptationRulesList.Normal">Normal Profil</entry>
 <entry key="PlaySoundEffect.Title">Effekte Ton spielen</entry>
-<entry key="Button.talk.normal.Tip">Das ist die normal sprechen Taste</entry>
 <entry key="Operation.AdventureInconsistentReport">Das Abenteuer ist ungültig und konnte nicht ausführen, bis die folgenden Fehler nicht gelöst sind:</entry>
 <entry key="ExitsList.DeleteExit">Ausgewählte Ausgang löschen</entry>
 <entry key="Operation.FileLoadedTitle">Projekt richtig geladen</entry>
@@ -1331,7 +1359,6 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Operation.NewProject.ForbiddenParent.Message">Sorry, aber kein Projekt-Ordner kann in der eingeschränkten "web" Verzeichnis enthalten sein.</entry>
 <entry key="SpeakPlayerEffect.Title">Effekte Spieler sagt</entry>
 <entry key="Operation.ImportProject">Operation: Projekt importieren</entry>
-<entry key="Button.use-grab.highlighted.Description">Hervorgehobene nutzen-nehmen Taste</entry>
 <entry key="LOMES.Classification.TaxonEntry">Eingang</entry>
 <entry key="Search.PropertyID">Eigenschaft ID</entry>
 <entry key="Operation.ExportToLOM.Title">Wählen Sie den Namen des Learning Object</entry>
@@ -1355,7 +1382,6 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Resources.DescriptionCharacterAnimationUseLeft">Objekt auf der linken Seite</entry>
 <entry key="Operation.AddItemReferenceErrorNoItems">Es muss mindestens ein Objekt in dem Kapitel über dem Hinzufügen eines Referenz</entry>
 <entry key="GeneralText.Abort">Abbrechen</entry>
-<entry key="Button.examine.highlighted.Tip">Das ist die hervorgehobene untersuchen Taste</entry>
 <entry key="SmallActionList.Action">Aktion</entry>
 <entry key="VideoDialog.Title">Video Vorschau</entry>
 <entry key="Player.Title">Spieler</entry>
@@ -1459,7 +1485,6 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Element.Name1">Szenen</entry>
 <entry key="Element.Name0">Kapitel</entry>
 <entry key="Operation.ImportLO.FileNotLoadedMessage">Die gewählte ,ZIP ist kein Learning Objekt aus &lt;e-Adventure&gt; exportiert</entry>
-<entry key="Button.use-grab.normal.Description">Normal nutzen-nehmen Taste</entry>
 <entry key="CustomAction.GetNameTitle">Aktionsname</entry>
 <entry key="Effect.DecrementVarInfo">Variable "{#0}" "{#1}" einheiten dekrementiert</entry>
 <entry key="ActionProperties.EnableClickEffects">Aktivieren sie "klick-effekte"</entry>
@@ -1587,7 +1612,6 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Operation.AddAtrezzoDefaultValue">IdAtrezzo</entry>
 <entry key="MenuAdventure.CustomizeGUI">GUI Elemente personalisierung</entry>
 <entry key="LOMES.Requirement.Title">Neue Anforderung erstellen</entry>
-<entry key="Button.talk.pressed.Tip">Das ist die gedrückt sprechen taste</entry>
 <entry key="LOMES.LifeCyle.Date">Datum</entry>
 <entry key="ErrorReport.Title">Fehler Bericht</entry>
 <entry key="IMS.Meta.Tip">Meta meta data</entry>
@@ -1680,7 +1704,6 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Operation.RenameElementWarning">Das Element "{0} #" ist {# 1} Referenz in diesem Kapitel. Sie sind sicher, dass Sie es umbenennen?</entry>
 <entry key="Error.DTD.NotCopied.Title">Wichtig Date nicht kopiert</entry>
 <entry key="Cursor.default.Description">Default Mauszeiger</entry>
-<entry key="Button.use-grab.pressed.Tip">Das ist die gedrückt nutzen-nehmen Taste</entry>
 <entry key="ActiveAreasList.Actions">Aktionen</entry>
 <entry key="Operation.AddConversationDefaultValue">UnterhaltungId</entry>
 <entry key="GeneralText.NotSelected">&lt; Nicht ausgewählt &gt;</entry>
@@ -1733,7 +1756,6 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="AssessmentRule.InvalidPropertyID">Wert nicht gültig</entry>
 <entry key="MainWindow.Title">Abenteuers Editor - {#0}</entry>
 <entry key="AdaptationProfile.DeleteRule">Regeln löschen</entry>
-<entry key="Button.examine.normal.Description">Normal untersuchen Taste</entry>
 <entry key="Operation.LoadFileMessage">Die aktuelle Datei enthält ungespeicherte Änderungen. Wollen Sie Änderungen vor dem Öffnen einer anderen Datei zu speichern?</entry>
 <entry key="LOMES.General.AggregationLevel">Aggregationsebene</entry>
 <entry key="Search.DetailedDescription">Detaillierte Beschreibung</entry>

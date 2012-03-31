@@ -37,7 +37,6 @@
 package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
@@ -47,12 +46,14 @@ import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.CreateImage;
@@ -69,7 +70,7 @@ import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 public class GameStateOptions extends GameState implements _HighLevelEvents{
 
@@ -96,17 +97,17 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
     /**
      * X offset of the first options button of a panel
      */
-    private static final int FIRST_BUTTON_OFFSET_X = 5;
+    private static final int FIRST_BUTTON_OFFSET_X = 0;//5;
 
     /**
      * Y offset of the first options button of a panel
      */
-    private static final int FIRST_BUTTON_OFFSET_Y = 55;
+    private static final int FIRST_BUTTON_OFFSET_Y = 40;//55;
 
     /**
      * Width of the options button
      */
-    private static final int BUTTON_WIDTH = 190;
+    private static final int BUTTON_WIDTH = 250;//190;
 
     /**
      * Height of the options button
@@ -156,7 +157,12 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
     /**
      * Color for the normal option text
      */
-    private static final Color NORMAL_COLOR = new Color( 157, 157, 157 );
+    private static final Color NORMAL_COLOR = new Color( 130, 130, 130 );
+    
+    /**
+     * Color for the disabled option text
+     */
+    private static final Color DISABLED_COLOR = new Color( 220, 220, 220 );
 
     /**
      * Color for the highlighted option text
@@ -174,9 +180,9 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
     private Image imgButton;
 
     /**
-     * Image of the options pressed button
+     * Image of the options over button
      */
-    private Image imgPressedButton;
+    private Image imgOverButton;
 
     /**
      * Font for the options
@@ -252,6 +258,13 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
      * If there is a mouseDragged event
      */
     private boolean mouseDragged;
+
+    /**
+     * Difference between the vertical space each button is assigned (BUTTON_HEIGHT), which basically depends on the total height of the panel, and the actual height of 
+     * the images used to render the button. While BUTTON_HEIGHT is always used to calculate the vertical position of the text of each button, buttonOffset is taken into
+     * account to adjust the position of the image so it is always vertically centered. 
+     */
+    private int buttonOffset;
     
     /**
      * Pedro
@@ -261,12 +274,6 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
     private int index =0, type=1;
     
     boolean first=true;
-    
-    private Dimension d;
-    
-    /**
-     * Fin - Pedro
-     */
 
     /**
      * Default constructor
@@ -292,8 +299,11 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
         
         try {
             // Load the original font
-            InputStream is = ResourceHandler.getInstance( ).getResourceAsStream( "gui/options/optionsFont.ttf" );
+            InputStream is = ResourceHandler.getInstance( ).getResourceAsStream( "gui/options/quicksand_bold.ttf" );
             Font originalFont = Font.createFont( Font.TRUETYPE_FONT, is );
+            HashMap<TextAttribute, Number> attributes = new HashMap<TextAttribute, Number>();
+            attributes.put( TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_CONDENSED );
+            originalFont = originalFont.deriveFont( attributes );
 
             // Create the neccessary fonts
             optionsFont = originalFont.deriveFont( Font.BOLD, FONT_SIZE );
@@ -312,10 +322,12 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
         imgButton = MultimediaManager.getInstance( ).loadImage( "gui/options/Button.png", MultimediaManager.IMAGE_MENU );
         if( imgButton == null )
             imgButton = createImage( 190, 48, "" );
-        imgPressedButton = MultimediaManager.getInstance( ).loadImage( "gui/options/PressedButton.png", MultimediaManager.IMAGE_MENU );
-        if( imgPressedButton == null )
-            imgPressedButton = createImage( 190, 48, "" );
+        imgOverButton = MultimediaManager.getInstance( ).loadImage( "gui/options/PressedButton.png", MultimediaManager.IMAGE_MENU );
+        if( imgOverButton == null )
+            imgOverButton = createImage( 190, 48, "" );
 
+        buttonOffset = Math.max( imgOverButton.getHeight( null ), imgButton.getHeight( null ) )-BUTTON_HEIGHT;
+        
         imgPanel = new Image[ NUMBER_OF_PANELS ];
         imgPanel[OPTIONS_PANEL] = MultimediaManager.getInstance( ).loadImage( LoadButton( "OptionsPanel" ), MultimediaManager.IMAGE_MENU );
         if( imgPanel[OPTIONS_PANEL] == null )
@@ -345,7 +357,7 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
             saveGames[i] = new SaveGame( );
             existsSaveGame[i] = saveGames[i].existSaveFile( game.getAdventureName( ) + "_" + i + ".txt" );
         }
-        game.getGameLog( ).highLevelEvent( MENU_OPEN );
+        gameLog.highLevelEvent( MENU_OPEN );
     }
 
     private String LoadButton( String name ) {
@@ -472,7 +484,7 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
         if( !options.isEffectsActive( ) )
             MultimediaManager.getInstance( ).stopAllSounds( );
 
-        game.getGameLog( ).highLevelEvent( MENU_CLOSE );
+        gameLog.highLevelEvent( MENU_CLOSE );
         game.setState( Game.STATE_PLAYING );
     }
 
@@ -519,7 +531,7 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
             for( i = 0; i < MAX_NUM_SAVEGAME_SLOTS; i++ ) {
                 boolean isValidSlot = isValidSlotGame( i );
                 // Draw the button
-                g.drawImage( ( highlightedOption == i && mouseButtonPressed && isValidSlot ) ? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
+                g.drawImage( ( highlightedOption == i && /*mouseButtonPressed &&*/ isValidSlot ) ? imgOverButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i-buttonOffset/2, null );
 
                 // Set the color of the text
                 g.setColor( ( highlightedOption == i && isValidSlot ) ? HIGHLIGHTED_COLOR : NORMAL_COLOR );
@@ -548,7 +560,7 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
             // Draw the "Back" button
             setFont (GameText.TEXT_BACK, g, OPTIONS);
 
-            g.drawImage( ( highlightedOption == i && mouseButtonPressed ) ? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
+            g.drawImage( ( highlightedOption == i /*&& mouseButtonPressed*/ ) ? imgOverButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i-buttonOffset/2, null );
             g.setColor( highlightedOption == i ? HIGHLIGHTED_COLOR : NORMAL_COLOR );
             GUI.drawString( g, GameText.TEXT_BACK, GUI.WINDOW_WIDTH / 2, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT / 2 + BUTTON_HEIGHT * i );
         }
@@ -576,12 +588,12 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
             // Paint the options
             //g.setFont( optionsFont );
             for( int i = 0; i < NUMBER_OPTIONS_OF_PANEL[currentPanel]; i++ ) {
-                if( Game.getInstance( ).isAppletMode( ) && ( i == 0 || i == 3 ) ) {
-                    g.drawImage( imgPressedButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
-                    g.setColor( NORMAL_COLOR );
+                if( Game.getInstance( ).isAppletMode( ) && currentPanel == OPTIONS_PANEL && ( i == 0 || i == 3 ) ) {
+                    //g.drawImage( imgOverButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
+                    g.setColor( DISABLED_COLOR );
                 }
                 else {
-                    g.drawImage( ( highlightedOption == i && mouseButtonPressed ) ? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
+                    g.drawImage( ( highlightedOption == i /*&& mouseButtonPressed*/ ) ? imgOverButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i-buttonOffset/2, null );
                     g.setColor( highlightedOption == i ? HIGHLIGHTED_COLOR : NORMAL_COLOR );
                 }
                 if( panelOptionsText.length > i ){
@@ -681,15 +693,15 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
 
         switch( highlightedOption ) {
             case 0:
-                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "saveload" );
+                gameLog.highLevelEvent( MENU_BROWSE, "saveload" );
                 changePanel( SAVELOAD_PANEL );
                 break;
             case 1:
-                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "config" );
+                gameLog.highLevelEvent( MENU_BROWSE, "config" );
                 changePanel( CONFIGURATION_PANEL );
                 break;
             case 2:
-                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "report" );
+                gameLog.highLevelEvent( MENU_BROWSE, "report" );
                 new ReportDialog( GUI.getInstance( ).getJFrame( ), game.getAssessmentEngine( ), game.getAdventureName( ) );
                 break;
             case 3:
@@ -711,15 +723,15 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
 
         switch( highlightedOption ) {
             case 0:
-                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "save" );
+                gameLog.highLevelEvent( MENU_BROWSE, "save" );
                 changePanel( SAVE_PANEL );
                 break;
             case 1:
-                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "load" );
+                gameLog.highLevelEvent( MENU_BROWSE, "load" );
                 changePanel( LOAD_PANEL );
                 break;
             case 2:
-                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "back2options" );
+                gameLog.highLevelEvent( MENU_BROWSE, "back2options" );
                 changePanel( OPTIONS_PANEL );
                 break;
         }
@@ -734,13 +746,13 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
     private void mouseReleasedSave( MouseEvent e ) {
 
         if( highlightedOption == 4 ) {
-            game.getGameLog( ).highLevelEvent( MENU_BROWSE, "back2saveload" );
+            gameLog.highLevelEvent( MENU_BROWSE, "back2saveload" );
             changePanel( SAVELOAD_PANEL );
         }
         else {
             for( int i = 0; i < MAX_NUM_SAVEGAME_SLOTS; i++ ) {
                 if( i == highlightedOption ){
-                    game.getGameLog( ).highLevelEvent( MENU_BROWSE, "savegame"+i );
+                    gameLog.highLevelEvent( MENU_BROWSE, "savegame"+i );
                     saveGame( i );
                 }
             }
@@ -756,14 +768,14 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
     private void mouseReleasedLoad( MouseEvent e ) {
 
         if( highlightedOption == 4 ) {
-            game.getGameLog( ).highLevelEvent( MENU_BROWSE, "back2saveload" );
+            gameLog.highLevelEvent( MENU_BROWSE, "back2saveload" );
             changePanel( SAVELOAD_PANEL );
         }
         else {
             for( int i = 0; i < MAX_NUM_SAVEGAME_SLOTS; i++ ) {
                 if( i == highlightedOption && isValidSlotGame( i ) ) {
                     loadGame = true;
-                    game.getGameLog( ).highLevelEvent( MENU_BROWSE, "loadgame"+i );
+                    gameLog.highLevelEvent( MENU_BROWSE, "loadgame"+i );
                     slotGame = i;
                 }
             }
@@ -780,19 +792,19 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
 
         switch( highlightedOption ) {
             case 0:
-                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "switchmusic" );
+                gameLog.highLevelEvent( MENU_BROWSE, "switchmusic" );
                 switchMusic( );
                 break;
             case 1:
-                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "switeffects" );
+                gameLog.highLevelEvent( MENU_BROWSE, "switeffects" );
                 switchEffects( );
                 break;
             case 2:
-                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "changetextspeed" );
+                gameLog.highLevelEvent( MENU_BROWSE, "changetextspeed" );
                 changeTextSpeed( );
                 break;
             case 3:
-                game.getGameLog( ).highLevelEvent( MENU_BROWSE, "back2options" );
+                gameLog.highLevelEvent( MENU_BROWSE, "back2options" );
                 changePanel( OPTIONS_PANEL );
                 break;
         }
@@ -923,13 +935,13 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
         return CreateImage.createImage( width, height, text, optionsFont );
     }
     
-    private void moved (int x, int y){
-        MouseUtils.move( x,y );
-    }
-    
     private void loadCursor(GridPosition point){
-        MouseUtils.move( point.getX( ), point.getY( ), MouseEvent.BUTTON1, true,false );
-        type=1;
+        try {
+            MouseUtils.move( point.getX( ), point.getY( ), MouseEvent.BUTTON1, true,false );
+            type=1;
+        } catch (java.awt.IllegalComponentStateException e){
+            
+        }
     }
     
     private void pressCursor ( ){
@@ -941,7 +953,6 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
     
     private static final int OPTIONS=0;
     private static final int SAVE=1;
-    private static final int NONE=2;
     
     private boolean canDisplayUpTo ( String[] texts, int type ){
         boolean canDisplay = true;

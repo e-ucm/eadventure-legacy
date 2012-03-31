@@ -46,11 +46,12 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.F
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalRandomEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalShowTextEffect;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * A game main loop while the effects of an action are being performed
  */
-public class GameStateRunEffects extends GameState {
+public class GameStateRunEffects extends GameState implements _HighLevelEvents{
 
     /**
      * The current effect being executed
@@ -73,6 +74,7 @@ public class GameStateRunEffects extends GameState {
     public GameStateRunEffects( boolean fromConversation ) {
 
         super( );
+        gameLog.highLevelEvent( RUNEFFECTS_ENTER );
         currentExecutingEffect = null;
         this.fromConversation = fromConversation;
     }
@@ -144,24 +146,26 @@ public class GameStateRunEffects extends GameState {
                     System.gc( );
                     GUI.getInstance( ).toggleHud( true );
                     stop = true;
-                    // Look if there are some stored conversation state, and change to correct one.               
+                    // Look if there are some stored conversation state, and change to correct one.
+                    gameLog.highLevelEvent( RUNEFFECTS_EXIT );
                     game.evaluateState( );
 
                 }
                 else {
                     // Check if all conditions associated to effect are OK
                     if( currentEffect.isAllConditionsOK( ) ) {
+                        // Each effect logs in highLevelEvent
                         currentEffect.triggerEffect( );
                         stop = !currentEffect.isInstantaneous( );
-                        if( stop )
+                        if( stop ){
                             currentExecutingEffect = currentEffect;
+                        }
                     }
                 }
             }
         }
 
         // Special conditions for the play animation effect
-        // FIXME Edu: ¿Mover esto de aqui?
         else if( currentExecutingEffect != null && currentExecutingEffect.isStillRunning( ) ) {
             // I've modified this (JAvier): I've replaced mouseClickedButton==MouseEvent.BUTTON3 
             // by ( mouseClickedButton == MouseEvent.BUTTON1
@@ -169,12 +173,13 @@ public class GameStateRunEffects extends GameState {
             // Therefore you can skip effects with left button
             boolean isRandomEffect = currentExecutingEffect instanceof FunctionalRandomEffect;
             if ( (mouseClickedButton == MouseEvent.BUTTON1 || mouseClickedButton == MouseEvent.BUTTON3) && currentExecutingEffect.canSkip())  {
-                System.out.println( "!!!!! SKIPPING :"+currentExecutingEffect.getClass( ).getName( ) );
-                if (isRandomEffect)
+                if (isRandomEffect){
+                    gameLog.highLevelEvent( RUNEFFECTS_EFFECT_SKIPPED, currentExecutingEffect.getTriggerEffect().getCode( ) );
                     currentExecutingEffect.getTriggerEffect( ).skip();
-                else
+                }else{
+                    gameLog.highLevelEvent( RUNEFFECTS_EFFECT_SKIPPED, currentExecutingEffect.getCode( ) );
                     currentExecutingEffect.skip();
-                
+                }
             }
             if (isRandomEffect){
                 if (currentExecutingEffect.getTriggerEffect( ) instanceof FunctionalPlayAnimationEffect){

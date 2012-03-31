@@ -43,14 +43,12 @@ import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
-import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalBook;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalStyledBook;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalTextBook;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.gamelog.pub._GameLog;
-import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * A game main loop when a "bookscene" is being displayed
@@ -62,15 +60,12 @@ public class GameStateBook extends GameState implements _HighLevelEvents {
      */
     private FunctionalBook book;
     
-    private _GameLog gameLog;
-
     /**
      * Creates a new GameStateBook
      */
     public GameStateBook( ) {
 
         super( );
-        gameLog = Game.getInstance( ).getGameLog( );
         gameLog.highLevelEvent( BOOK_ENTER, game.getBook( ).getId( ) );
         if( game.getBook( ).getType( ) == Book.TYPE_PARAGRAPHS ) {
             //System.out.println( "[LOG] GameStateBook - Constructor - Paragraphs Book" );
@@ -80,7 +75,6 @@ public class GameStateBook extends GameState implements _HighLevelEvents {
             //System.out.println( "[LOG] GameStateBook - Constructor - Pages Book" );
             book = new FunctionalStyledBook( game.getBook( ) );
         }
-        this.gameLog=game.getGameLog( );
     }
 
     /*

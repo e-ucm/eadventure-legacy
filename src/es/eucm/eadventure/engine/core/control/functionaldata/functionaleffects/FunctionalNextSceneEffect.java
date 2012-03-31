@@ -36,8 +36,8 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
-import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.engine.core.control.Game;
 
 /**
  * An effect that takes the player to a new scene.
@@ -67,7 +67,7 @@ public class FunctionalNextSceneEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(), "t="+exit.getNextSceneId( ));
         Game.getInstance( ).setNextScene( exit );
         Game.getInstance( ).setState( Game.STATE_NEXT_SCENE );
     }

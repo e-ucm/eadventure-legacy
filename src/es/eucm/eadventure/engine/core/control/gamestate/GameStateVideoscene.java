@@ -62,7 +62,7 @@ import es.eucm.eadventure.engine.core.control.InputStreamDataSource;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * A game main loop while a "videoscene" is being displayed
@@ -116,7 +116,7 @@ public class GameStateVideoscene extends GameState implements ControllerListener
             if (Runtime.getRuntime( ).freeMemory( ) < 20000000) {
                 Graphics2D g = GUI.getInstance( ).getGraphics( );
                 g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
-                GUI.drawString( g, "Appology from <e-Adventure>", 400, 280 );
+                GUI.drawString( g, "Appologies from <e-Adventure>", 400, 280 );
                 GUI.drawString( g, "Sorry, there is not enough memory to show the video", 400, 300 );
                 GUI.getInstance( ).endDraw( );
                 g.dispose( );

@@ -109,9 +109,9 @@ import es.eucm.eadventure.engine.core.gui.DebugValuesPanel;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.gamelog.pub.GameLogProxy;
-import es.eucm.eadventure.gamelog.pub._GameLog;
-import es.eucm.eadventure.gamelog.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub.GameLogProxy;
+import es.eucm.eadventure.tracking.pub._GameLog;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * This class contains all the elements and data necessary to run an e-Adventure
@@ -490,7 +490,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
 
         // Load the script data
-        gameData = Loader.loadChapterData( ResourceHandler.getInstance( ), chapter.getChapterPath( ), new ArrayList<Incidence>( ), true );
+        gameData = Loader.loadChapterData( ResourceHandler.getInstance( ), chapter.getChapterPath( ), new ArrayList<Incidence>( ) );
 
         
         GUI.getInstance( ).loading( 60 );
@@ -1793,7 +1793,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
 
                     if( gameDescriptor.getChapterSummaries( ).get( currentChapter ) != null ) {
                         ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
-                        gameData = Loader.loadChapterData( ResourceHandler.getInstance( ), chapter.getChapterPath( ), new ArrayList<Incidence>( ), true );
+                        gameData = Loader.loadChapterData( ResourceHandler.getInstance( ), chapter.getChapterPath( ), new ArrayList<Incidence>( ) );
                     }
                     totalTime = saveGame.getTotalTime( );
                     if( saveGame.getFlags( ) != null )

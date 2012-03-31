@@ -34,6 +34,49 @@
 <entry key="BookParagraphsList.WordCount"> {#0} parole  </entry>
 <entry key="Operation.LoadFileTitle">Aprire archivio </entry>
 <entry key="Button.use-grab.normal.Tip">Questo è il pulsante per usurare-afferrare normale, che si usa quando il mouse non è puntato su di lui </entry>
+<entry key="Button.use-grab.Description">Pulsante per usare-afferrare </entry>
+<entry key="Button.use-grab.highlighted.Tip">Questo è il pulsante usare-afferrare, che si attiva quando il mouse ci si trova sopra senza che sia premuto</entry>
+<entry key="Button.use-grab.pressed.Description">Usa button-down per afferrare</entry>
+<entry key="Button.use-grab.highlighted.Description">Button-get evidenziati con</entry>
+<entry key="Button.use-grab.normal.Description">Button-get con normali</entry>
+<entry key="Button.use-grab.pressed.Tip">Questo è il pulsante del mouse da usare, smontare, che ESEA ± a quando il mouse viene cliccato su un © l</entry>
+
+<entry key="Button.talk.Description">Le immagini dei pulsanti per il tipo di azione: "parlare"</entry>
+<entry key="Button.talk.normal.Description">Immagine per il pulsante in modalità normale</entry>
+<entry key="Button.talk.normal.Tip">Questa immagine viene utilizzata quando il cursore del mouse non è sopra il pulsante</entry>
+<entry key="Button.talk.highlighted.Description">Immagine per il pulsante in modo evidenziato</entry>
+<entry key="Button.talk.highlighted.Tip">Questa immagine viene utilizzata quando il cursore del mouse si trova sopra il pulsante</entry>
+<entry key="Button.examine.Description">Le immagini dei pulsanti per il tipo di azione: "esaminare"</entry>
+<entry key="Button.examine.normal.Description">Immagine per il pulsante in modalità normale</entry>
+<entry key="Button.examine.normal.Tip">Questa immagine viene utilizzata quando il cursore del mouse non è sopra il pulsante</entry>
+<entry key="Button.examine.highlighted.Description">Immagine per il pulsante in modo evidenziato</entry>
+<entry key="Button.examine.highlighted.Tip">Questa immagine viene utilizzata quando il cursore del mouse si trova sopra il pulsante</entry>
+<entry key="Button.use.Description">Le immagini dei pulsanti per il tipo di azione: "usare"</entry>
+<entry key="Button.use.normal.Description">Immagine per il pulsante in modalità normale</entry>
+<entry key="Button.use.normal.Tip">Questa immagine viene utilizzata quando il cursore del mouse non è sopra il pulsante</entry>
+<entry key="Button.use.highlighted.Description">Immagine per il pulsante in modo evidenziato</entry>
+<entry key="Button.use.highlighted.Tip">Questa immagine viene utilizzata quando il cursore del mouse si trova sopra il pulsante</entry>
+<entry key="Button.grab.Description">Le immagini dei pulsanti per il tipo di azione: "afferrare"</entry>
+<entry key="Button.grab.normal.Description">Immagine per il pulsante in modalità normale</entry>
+<entry key="Button.grab.normal.Tip">Questa immagine viene utilizzata quando il cursore del mouse non è sopra il pulsante</entry>
+<entry key="Button.grab.highlighted.Description">Immagine per il pulsante in modo evidenziato</entry>
+<entry key="Button.grab.highlighted.Tip">Questa immagine viene utilizzata quando il cursore del mouse si trova sopra il pulsante</entry>
+<entry key="Button.use-with.Description">Le immagini dei pulsanti per il tipo di azione: "usare con"</entry>
+<entry key="Button.use-with.normal.Description">Immagine per il pulsante in modalità normale</entry>
+<entry key="Button.use-with.normal.Tip">Questa immagine viene utilizzata quando il cursore del mouse non è sopra il pulsante</entry>
+<entry key="Button.use-with.highlighted.Description">Immagine per il pulsante in modo evidenziato</entry>
+<entry key="Button.use-with.highlighted.Tip">Questa immagine viene utilizzata quando il cursore del mouse si trova sopra il pulsante</entry>
+<entry key="Button.give-to.Description">Le immagini dei pulsanti per il tipo di azione: "dare a"</entry>
+<entry key="Button.give-to.normal.Description">Immagine per il pulsante in modalità normale</entry>
+<entry key="Button.give-to.normal.Tip">Questa immagine viene utilizzata quando il cursore del mouse non è sopra il pulsante</entry>
+<entry key="Button.give-to.highlighted.Description">Immagine per il pulsante in modo evidenziato</entry>
+<entry key="Button.give-to.highlighted.Tip">Questa immagine viene utilizzata quando il cursore del mouse si trova sopra il pulsante</entry>
+<entry key="Button.drag-to.Description">Le immagini dei pulsanti per il tipo di azione: "trascinare a"</entry>
+<entry key="Button.drag-to.normal.Description">Immagine per il pulsante in modalità normale</entry>
+<entry key="Button.drag-to.normal.Tip">Questa immagine viene utilizzata quando il cursore del mouse non è sopra il pulsante</entry>
+<entry key="Button.drag-to.highlighted.Description">Immagine per il pulsante in modo evidenziato</entry>
+<entry key="Button.drag-to.highlighted.Tip">Questa immagine viene utilizzata quando il cursore del mouse si trova sopra il pulsante</entry>
+
 <entry key="LOM.General.Language.English">Inglese </entry>
 <entry key="MoveNPCEffect.ErrorNoCharacters">Per aggiungere questo tipo di effetto, ci deve essere almeno un personaggio nel capitolo </entry>
 <entry key="AssessmentRule.Importance.VeryLow">Molto bassa </entry>
@@ -62,7 +105,6 @@
 <entry key="IMS.Educational.Contex4">Università Secondo Ciclo </entry>
 <entry key="IMS.Educational.Contex3">Università Primo Ciclo </entry>
 <entry key="CustomAction.ConfigurationTip">Pannello per la configurazione delle condizioni e degli effetti dell'azione </entry>
-<entry key="Button.examine.pressed.Description">Pulsante Esamina selezionato </entry>
 <entry key="IMS.Educational.Contex2">Istruzione superiore </entry>
 <entry key="IMS.Educational.Contex1">Formazione secondaria </entry>
 <entry key="IMS.Educational.Contex0">Formazione primaria </entry>
@@ -77,7 +119,6 @@
 <entry key="MenuAdventure.Commentaries">Commenti Automatici </entry>
 <entry key="ActionsList.UseAction">Usare </entry>
 <entry key="Animation.AskFilenameTitle">Nuova Animazione </entry>
-<entry key="Button.use-grab.highlighted.Tip">Questo è il pulsante usare-afferrare, che si attiva quando il mouse ci si trova sopra senza che sia premuto</entry>
 <entry key="StartDialog.Recent">Recenti </entry>
 <entry key="LOMES.LifeCycle.Role13">Subject Matter Expert </entry>
 <entry key="LOMES.LifeCycle.Role12">instructional designer </entry>
@@ -105,7 +146,6 @@
 <entry key="TreeNode.AddElement60">Aggiungere il riferimento a oggetti di scena </entry>
 <entry key="SPEP.ShowExits">Uscite </entry>
 <entry key="Conditions.Var.Description">Questo è l'elenco delle variabili del capitolo. Alla variabile può essere assegnato un valore intero in qualsiasi punto del gioco. In questo modo quindi è possibile definire le condizioni in funzione del valore di una variabile. </entry>
-<entry key="Button.examine.Description">Pulsante Esaminare</entry>
 <entry key="ActionsList.CustomInteractAction">Interazione personalizzata con  {#0} </entry>
 <entry key="ActionsList.Conditions">Condizioni </entry>
 <entry key="Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title">Errore: le credenziali inserite non sono valide </entry>
@@ -452,7 +492,6 @@
 <entry key="ErrorSolving.AdaptationReferenced.Deleted.Message">Non è stato trovato il profilo di adattamento di riferimento " {#0}." Sono stati eliminati i riferimenti a tale profilo. </entry>
 <entry key="Operation.AdventureConsistencyTitle">Validità dell’avventura </entry>
 <entry key="NPC.Documentation">Documentazione per il personaggio (non utilizzata nel motore) </entry>
-<entry key="Button.examine.pressed.Tip">Questo è il pulsante revisione attivato, che si attiva quando si fa clic con il mouse su di esso </entry>
 <entry key="Operation.AdaptationPanel.DeleteButton">Cancella </entry>
 <entry key="VarDialog.Err.Title">Formato di accesso errato </entry>
 <entry key="Operation.NewProject.FolderNotEmptyMessage">La directory selezionata non è vuota. Vuoi cancellare il suo contenuto? (I dati saranno persi). Se la cartella del progetto non è vuota, verificare che non contiene nessun file pubblico con il nome 'descriptor.xml' o 'chapterXX.xml', dove XX è un numero qualsiasi. </entry>
@@ -471,7 +510,6 @@
 <entry key="Animation.Timeline">Linea del tempo </entry>
 <entry key="GlobalStatesList.AddGlobalState">Aggiungere nuovo stato globale </entry>
 <entry key="SPEP.ConvertToIrregularArea">Conversione area irregolare </entry>
-<entry key="Button.talk.pressed.Description">tasto premuto Parla </entry>
 <entry key="Operation.ExportToLOM.OK">Accettare </entry>
 <entry key="HTMLEditor.QuitMessageTitle">Uscita dall’editor</entry>
 <entry key="PlayAnimationEffect.Description">Selezionare un'animazione e una posizione target per giocare: </entry>
@@ -666,7 +704,6 @@
 <entry key="Conditions.Flag.Description">Questa è la lista delle flag del capitolo. Le flag possono essere attive o inattive, in qualsiasi momento, come una barriera che può essere alzata o abbassata, bloccando o sbloccando il percorso. Nel gioco è possibile impostare le condizioni in funzione di questi stati</entry>
 <entry key="ErrorSolving.Asset.Deleted.Title">Errore: Riferimento alla risorsa non trovato </entry>
 <entry key="NextScene.DestinyPosition">Posizione per il protagonista </entry>
-<entry key="Button.use-grab.Description">Pulsante per usare-afferrare </entry>
 <entry key="Operation.SaveProject">Operazione: Salvataggio del Progetto </entry>
 <entry key="Effect.TriggerScene">Lancio scena </entry>
 <entry key="Element.Name59">Oggetti di scena </entry>
@@ -741,7 +778,6 @@
 <entry key="GeneralText.EditEndConditions">Modifica delle condizioni finali </entry>
 <entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Title">Il nome esiste. </entry>
 <entry key="BookPage.NotValidImage">Abbiamo trovato dei problemi con il formato di immagine </entry>
-<entry key="Button.examine.normal.Tip">Questo è il pulsante per esaminare normale, che si attiva quando il mouse non si trova su di esso </entry>
 <entry key="ActivateEffect.Description">Seleziona una flag che deve essere attivata: </entry>
 <entry key="DeleteUnusedAssets.NoUnsuedAssetsFound">Non c'erano risorse non utilizzate </entry>
 <entry key="MacrosList.Title">Macro </entry>
@@ -803,7 +839,6 @@
 <entry key="SlidesDialog.Title">Previsualizzazione Slide - {#0} </entry>
 <entry key="LOMES.MetaMetaData.ContributeInfo">Per effettuare il corretto inserimento del LOMES contribute seguire le indicazioni accanto: Quando il tipo di contributo è discosta â € œCreatorâ €, Vi preghiamo di compilare la voce" Contribuisci Entity "così: BEGIN: VCARD VERSION 3.0 FN: EMAIL; TYPE = INTERNET: ORG: Nome società "END: VCARD Nota:" Nome società "non deve essere vuoto. Quando il "? Tipo di contributo è discosta œValidatorâ â € €, Vi preghiamo di compilare la voce" Contribuisci Entity "così: BEGIN: VCARD VERSION 3.0 FN: contenuti educativi digitali creati, catalogati e finanziati dal FESR nel record 714/07-LoteX EMAIL; TYPE = INTERNET: sugerencias@red.es ORG: RED.ES END: VCARD </entry>
 <entry key="GeneralText.ReportError">Comunica un errore </entry>
-<entry key="Button.examine.highlighted.Description">Sfoglia pulsante evidenziato </entry>
 <entry key="Cursor.use.Description">Cursore per "usare" </entry>
 <entry key="Resources.ResourcesGroup">Gruppo di risorse </entry>
 <entry key="GeneralText.Select">Seleziona </entry>
@@ -827,7 +862,6 @@
 <entry key="Conditions.Context.2.66"> Il  {#ELEMENT_TYPE$} {#ELEMENT_ID$} verrà eseguito ogni volta visto che non è stata stabilita nessuna condizione: </entry>
 <entry key="Timer.Time">Tempo </entry>
 <entry key="ResourcesList.AddResourcesBlock">Aggiungere il nuovo blocco di risorse </entry>
-<entry key="Button.use-grab.pressed.Description">Usa button-down per afferrare</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.Message">Digitare il nome del profilo di adattamento </entry>
 <entry key="SceneLinksPanel.SceneID">Scene ID </entry>
 <entry key="GeneralText.EmptyTable">Non ci sono elementi in questa tabella </entry>
@@ -846,7 +880,6 @@
 <entry key="Effect.BorderHighlightItemInfo">Risaltare bordi di {#0} </entry>
 <entry key="Conditions.Context.1A.44"> Il {#ELEMENT_TYPE$} {#ELEMENT_ID$} si attiverà (inizio conteggio) quando sono soddisfatti i seguenti requisiti: </entry>
 <entry key="Conditions.Group.Id">Global stato ID </entry>
-<entry key="Button.talk.normal.Description">pulsante conversazione normale </entry>
 <entry key="IconAssets.Title">Icona risorse  </entry>
 <entry key="Search.CaseSensitive">Diff maggiore e minore</entry>
 <entry key="Error.DTD.NotFound.Message">Impossibile trovare il file " {#0}." Questo può causare errori durante il caricamento delle avventure.  </entry>
@@ -1011,7 +1044,6 @@
 <entry key="Search.Description">Descrizione</entry>
 <entry key="LOMES.Educational.LearningResourceType26">Simulazione</entry>
 <entry key="GraphicConfig.FullscreenDescription">L'avventura utilizza tutto lo schermo disponibili</entry>
-<entry key="Button.talk.highlighted.Tip">Questo è il tasto TALK è evidenziato, che ESEA ± una sfida quando la scrivania è l Ã © ma non verso il basso</entry>
 <entry key="LOMES.Educational.LearningResourceType25">progetto Real</entry>
 <entry key="LOMES.Educational.LearningResourceType24">Esperimento</entry>
 <entry key="LOMES.Educational.LearningResourceType23">Webquest</entry>
@@ -1150,7 +1182,6 @@
 <entry key="Error.BadAudioFormat.Title">formato video non supportato.</entry>
 <entry key="SceneLocation.YCoordinate">Coordinata Y</entry>
 <entry key="LOM.General.Description">Descrizione</entry>
-<entry key="Button.talk.highlighted.Description">Parla pulsante evidenziato</entry>
 <entry key="LOMES.Technical.Type1">Browser</entry>
 <entry key="LOMES.Technical.Type0">Sistema operativo</entry>
 <entry key="LOM.Technical.Tab">Tecnico</entry>
@@ -1165,7 +1196,6 @@
 <entry key="CutscenesList.Videoscene">scena video</entry>
 <entry key="Conditions.ConditionGroup">Rif. uno stato globale</entry>
 <entry key="Element.Action">Azione</entry>
-<entry key="Button.talk.Description">Tasto Parla</entry>
 <entry key="Cursor.talk.Tip">Questo cursore viene utilizzato per selezionare la destinazione di una n azione "parlare" (solo l'interfaccia tradizionale)</entry>
 <entry key="Conditions.Or">O</entry>
 <entry key="AtrezzoList.Title">Oggetti di scena</entry>
@@ -1266,7 +1296,6 @@
 <entry key="Search.AssetPath">Resource Location</entry>
 <entry key="AdaptationRulesList.Normal">Normale profilo</entry>
 <entry key="PlaySoundEffect.Title">Ascolta effetto sonoro</entry>
-<entry key="Button.talk.normal.Tip">Questo è il tasto TALK normale, che si attiva quando il mouse non è su di esso</entry>
 <entry key="Operation.AdventureInconsistentReport">L'avventura non è valida e non può essere eseguita fino a quando i seguenti bug non sono stati risolti:</entry>
 <entry key="ExitsList.DeleteExit">Eliminare l'uscita selezionata</entry>
 <entry key="Operation.FileLoadedTitle">Progetto caricato correttamente</entry>
@@ -1295,7 +1324,6 @@
 <entry key="Operation.NewProject.ForbiddenParent.Message">Ci dispiace, ma nessuna cartella di progetto può essere contenuto nella directory limitato "Web".</entry>
 <entry key="SpeakPlayerEffect.Title">protagonista effetto dice</entry>
 <entry key="Operation.ImportProject">Operazione ³ n: Importazione di progetto</entry>
-<entry key="Button.use-grab.highlighted.Description">Button-get evidenziati con</entry>
 <entry key="LOMES.Classification.TaxonEntry">Entrata</entry>
 <entry key="Search.PropertyID">ID della proprietà</entry>
 <entry key="Operation.ExportToLOM.Title">Selezionare il nome di Learning Object</entry>
@@ -1319,7 +1347,6 @@
 <entry key="Resources.DescriptionCharacterAnimationUseLeft">Soggetto a sinistra </entry>
 <entry key="Operation.AddItemReferenceErrorNoItems">Deve essere almeno un oggetto nel capitolo per aggiungere un riferimento</entry>
 <entry key="GeneralText.Abort">Abortire</entry>
-<entry key="Button.examine.highlighted.Tip">Questo è il pulsante del mouse per esaminare evidenziato, che si attiva quando il mouse si trova sopra ma non verso il basso</entry>
 <entry key="SmallActionList.Action">Azione</entry>
 <entry key="VideoDialog.Title">Previsualizzaizone video</entry>
 <entry key="Player.Title">Protagonista</entry>
@@ -1422,7 +1449,6 @@
 <entry key="Element.Name1">Scene</entry>
 <entry key="Element.Name0">Capitolo</entry>
 <entry key="Operation.ImportLO.FileNotLoadedMessage">L'. ZIP scelto è un Learning Object &lt;e-Adventure&gt; esportato.</entry>
-<entry key="Button.use-grab.normal.Description">Button-get con normali</entry>
 <entry key="CustomAction.GetNameTitle">Nome del ³ n azione</entry>
 <entry key="Effect.DecrementVarInfo">Decrementa la variabile "{#0}" "{#1}" unità</entry>
 <entry key="Inventory.Tip">Personalizzazione di articoli di magazzino</entry>
@@ -1548,7 +1574,6 @@
 <entry key="Operation.AddAtrezzoDefaultValue">IdAtrezzo</entry>
 <entry key="MenuAdventure.CustomizeGUI">Personalizzare l'interfaccia elementi ...</entry>
 <entry key="LOMES.Requirement.Title">Crea nuovo requisito</entry>
-<entry key="Button.talk.pressed.Tip">Questo è premuto il tasto TALK, che si attiva quando il mouse si fa clic sopra</entry>
 <entry key="LOMES.LifeCyle.Date">Date</entry>
 <entry key="ErrorReport.Title">Segnala errore</entry>
 <entry key="IMS.Meta.Tip">Meta meta-dati</entry>
@@ -1639,7 +1664,6 @@
 <entry key="Operation.RenameElementWarning">L'elemento "# {0}" è {#1} riferimenti nel capitolo. A sei sicuro di voler rinominare?</entry>
 <entry key="Error.DTD.NotCopied.Title">Importante file non copiati</entry>
 <entry key="Cursor.default.Description">Default cursore</entry>
-<entry key="Button.use-grab.pressed.Tip">Questo è il pulsante del mouse da usare, smontare, che ESEA ± a quando il mouse viene cliccato su un © l</entry>
 <entry key="ActiveAreasList.Actions">Azioni</entry>
 <entry key="Operation.AddConversationDefaultValue">Conversazione</entry>
 <entry key="GeneralText.NotSelected">-Non Selected-</entry>
@@ -1691,7 +1715,6 @@
 <entry key="AssessmentRule.InvalidPropertyID">Il valore non sta andando lido</entry>
 <entry key="MainWindow.Title">Editor's Adventures - {#0}</entry>
 <entry key="AdaptationProfile.DeleteRule">Elimina regola</entry>
-<entry key="Button.examine.normal.Description">Normale revisione pulsante</entry>
 <entry key="Operation.LoadFileMessage">Il file corrente contiene modifiche non salvate. Volete salvare le modifiche prima di aprire un altro file?</entry>
 <entry key="LOMES.General.AggregationLevel">Livello di aggregazione ³ n</entry>
 <entry key="Search.DetailedDescription">Descrizione dettagliata</entry>

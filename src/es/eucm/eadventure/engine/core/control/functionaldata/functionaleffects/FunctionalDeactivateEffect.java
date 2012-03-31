@@ -58,7 +58,7 @@ public class FunctionalDeactivateEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(),"t="+( (DeactivateEffect) effect ).getTargetId( ) );
         Game.getInstance( ).getFlags( ).deactivateFlag( ( (DeactivateEffect) effect ).getTargetId( ) );
         Game.getInstance( ).updateDataPendingFromState( false );
     }

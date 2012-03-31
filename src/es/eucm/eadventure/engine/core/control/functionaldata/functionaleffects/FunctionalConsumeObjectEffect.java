@@ -61,7 +61,7 @@ public class FunctionalConsumeObjectEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(),"t="+( (ConsumeObjectEffect) effect ).getTargetId( ) );
         Game.getInstance( ).consumeItem( ( (ConsumeObjectEffect) effect ).getTargetId( ) );
     }
 

@@ -61,7 +61,7 @@ public class FunctionalTriggerBookEffect extends FunctionalEffect {
      */
     @Override
     public void triggerEffect( ) {
-
+        gameLog.effectEvent( getCode(), "t="+( (TriggerBookEffect) effect ).getTargetId( ));
         Game.getInstance( ).setBook( ( (TriggerBookEffect) effect ).getTargetId( ) );
         Game.getInstance( ).setState( Game.STATE_BOOK );
     }

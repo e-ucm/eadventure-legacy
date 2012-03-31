@@ -34,7 +34,54 @@
 <entry key="LOMES.LifeCycle.Role0">作者</entry>
 <entry key="BookParagraphsList.WordCount">{#0}-单词</entry>
 <entry key="Operation.LoadFileTitle">加载文件</entry>
+
 <entry key="Button.use-grab.normal.Tip">这是普通用-获取按钮,当鼠标不在其上或单击此动作时显示</entry>
+<entry key="Button.use-grab.Description">用-获取按钮</entry>
+<entry key="Button.use-grab.pressed.Description">按下的用-获取按钮</entry>
+<entry key="Button.examine.pressed.Description">按下的检查按钮</entry>
+<entry key="Button.talk.pressed.Description">按下的交谈按钮</entry>
+<entry key="Button.use-grab.highlighted.Description">高亮用-获取按钮</entry>
+<entry key="Button.use-grab.normal.Description">普通用-获取按钮</entry>
+<entry key="Button.use-grab.pressed.Tip">这是按下的用-获取按钮,当鼠标在按钮上按下时显示</entry>
+<entry key="Button.examine.pressed.Tip">这是按下的检查按钮,当鼠标在按钮上按下时显示</entry>
+<entry key="Button.talk.pressed.Tip">这是按下的交谈按钮,当鼠标在按钮上按下时显示</entry>
+
+<entry key="Button.talk.Description">交谈按钮</entry>
+<entry key="Button.talk.normal.Description">普通交谈按钮</entry>
+<entry key="Button.talk.normal.Tip">这是普通交谈按钮,当鼠标不在其上或单击此动作时显示</entry>
+<entry key="Button.talk.highlighted.Description">高亮交谈按钮</entry>
+<entry key="Button.talk.highlighted.Tip">这是高亮交谈按钮,当鼠标在其上悬停或没有单击时显示</entry>
+<entry key="Button.examine.Description">检查按钮</entry>
+<entry key="Button.examine.normal.Description">普通检查按钮</entry>
+<entry key="Button.examine.normal.Tip">这是普通检查按钮,当鼠标不在其上或单击此动作时显示</entry>
+<entry key="Button.examine.highlighted.Description">高亮检查按钮</entry>
+<entry key="Button.examine.highlighted.Tip">这是高亮检查按钮,当鼠标悬停其上但未单击时显示</entry>
+<entry key="Button.use.Description">用按钮</entry>
+<entry key="Button.use.normal.Description">普通用按钮</entry>
+<entry key="Button.use.normal.Tip">这是普通用按钮,当鼠标不在其上或单击此动作时显示</entry>
+<entry key="Button.use.highlighted.Description">高亮用按钮</entry>
+<entry key="Button.use.highlighted.Tip">这是高亮用按钮,当鼠标悬停其上并未单击时显示</entry>
+<entry key="Button.grab.Description">获取按钮</entry>
+<entry key="Button.grab.normal.Description">普通获取按钮</entry>
+<entry key="Button.grab.normal.Tip">这是普通获取按钮,当鼠标不在其上或单击此动作时显示</entry>
+<entry key="Button.grab.highlighted.Description">高亮获取按钮</entry>
+<entry key="Button.grab.highlighted.Tip">这是高亮获取按钮,当鼠标悬停其上并未单击时显示</entry>
+<entry key="Button.use-with.Description">使用按钮</entry>
+<entry key="Button.use-with.normal.Description">普通使用按钮</entry>
+<entry key="Button.use-with.normal.Tip">这是普通使用按钮,当鼠标不在其上或单击此动作时显示</entry>
+<entry key="Button.use-with.highlighted.Description">高亮使用按钮</entry>
+<entry key="Button.use-with.highlighted.Tip">这是高亮使用按钮,当鼠标悬停其上并未单击时显示</entry>
+<entry key="Button.give-to.Description">提供给按钮</entry>
+<entry key="Button.give-to.normal.Description">普通提供给按钮</entry>
+<entry key="Button.give-to.normal.Tip">这是普通提供给按钮,当鼠标不在其上或单击此动作时显示</entry>
+<entry key="Button.give-to.highlighted.Description">高亮提供给按钮</entry>
+<entry key="Button.give-to.highlighted.Tip">这是高亮提供给按钮,当鼠标悬停其上并未单击时显示</entry>
+<entry key="Button.drag-to.Description">拖动到按钮</entry>
+<entry key="Button.drag-to.normal.Description">普通拖动到按钮</entry>
+<entry key="Button.drag-to.normal.Tip">这是普通拖动到按钮,当鼠标不在其上或单击此动作时显示</entry>
+<entry key="Button.drag-to.highlighted.Description">高亮拖动到按钮</entry>
+<entry key="Button.drag-to.highlighted.Tip">这是高亮拖动到按钮,当鼠标悬停其上并未单击时显示</entry>
+
 <entry key="LOM.General.Language.English">Chinese</entry>
 <entry key="MoveNPCEffect.ErrorNoCharacters">在章节中至少含有一个角色，才能添加此类效果</entry>
 <entry key="AssessmentRule.Importance.VeryLow">非常低</entry>
@@ -63,7 +110,6 @@
 <entry key="IMS.Educational.Contex4">大学第二周期</entry>
 <entry key="IMS.Educational.Contex3">大学第一周期</entry>
 <entry key="CustomAction.ConfigurationTip">条件配置面板和按钮效果</entry>
-<entry key="Button.examine.pressed.Description">按下的检查按钮</entry>
 <entry key="IMS.Educational.Contex2">高等教育</entry>
 <entry key="IMS.Educational.Contex1">中等教育</entry>
 <entry key="IMS.Educational.Contex0">基础教育</entry>
@@ -79,7 +125,6 @@
 <entry key="MenuAdventure.Commentaries">自动评注</entry>
 <entry key="ActionsList.UseAction">用</entry>
 <entry key="Animation.AskFilenameTitle">新动画</entry>
-<entry key="Button.use-grab.highlighted.Tip">这是高亮用-获取按钮,当鼠标悬停其上并未单击时显示</entry>
 <entry key="LOMES.LifeCycle.Role13">学科问题专家</entry>
 <entry key="StartDialog.Recent">最近</entry>
 <entry key="LOMES.LifeCycle.Role12">教学设计者</entry>
@@ -111,7 +156,6 @@
 <entry key="TreeNode.AddElement60">添加物品集引用</entry>
 <entry key="SPEP.ShowExits">离开</entry>
 <entry key="Conditions.Var.Description">这是本章节变量列表.在游戏中变量在任何时候可被赋予整数值.游戏中可定义基于变量值的条件.</entry>
-<entry key="Button.examine.Description">检查按钮</entry>
 <entry key="ActionsList.CustomInteractAction">定制与{#0}交互</entry>
 <entry key="ActionsList.Conditions">条件</entry>
 <entry key="Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title">错误:提供的身份无效</entry>
@@ -460,7 +504,6 @@
 <entry key="ErrorSolving.AdaptationReferenced.Deleted.Message">下一个适应资料的引用:"{#0}"不存在.此资料的所有引用已删除</entry>
 <entry key="Operation.AdventureConsistencyTitle">体验游戏的一致性</entry>
 <entry key="NPC.Documentation">角色完整描述</entry>
-<entry key="Button.examine.pressed.Tip">这是按下的检查按钮,当鼠标在按钮上按下时显示</entry>
 <entry key="Operation.AdaptationPanel.DeleteButton">删除声明</entry>
 <entry key="VarDialog.Err.Title">不好的字符串格式</entry>
 <entry key="Operation.NewProject.FolderNotEmptyMessage">选中的文件夹不为空.删除文件夹中的内容吗?(数据将丢失).如果文件夹不为空,请检查文件夹是否包含任何名为'descriptor.xml' 或者 'chapterXX.xml'的文件,这里XX是数字. </entry>
@@ -480,7 +523,6 @@
 <entry key="Animation.Timeline">时间线</entry>
 <entry key="GlobalStatesList.AddGlobalState">添加新全局状态</entry>
 <entry key="SPEP.ConvertToIrregularArea">转换到不规则区域</entry>
-<entry key="Button.talk.pressed.Description">按下的交谈按钮</entry>
 <entry key="ImportChapter.ProblemsParsing.Message">由于问题导致章节瘫痪,章节导入过程中断</entry>
 <entry key="Operation.ExportToLOM.OK">OK</entry>
 <entry key="HTMLEditor.QuitMessageTitle">离开编辑器</entry>
@@ -677,7 +719,6 @@
 <entry key="Conditions.Flag.Description">这是本章节的标志列表.在游戏中标志可在任何时候被激活,作为信号灯可以是绿色的或红色的,允许或禁止通行.在游戏中可以定义基于标志状态的条件.</entry>
 <entry key="ErrorSolving.Asset.Deleted.Title">错误:不存在引用的资料</entry>
 <entry key="NextScene.DestinyPosition">游戏者的目标位置</entry>
-<entry key="Button.use-grab.Description">用-获取按钮</entry>
 <entry key="Operation.SaveProject">操作:保存项目</entry>
 <entry key="Effect.TriggerScene">触发场景</entry>
 <entry key="Element.Name59">物品集</entry>
@@ -752,7 +793,6 @@
 <entry key="GeneralText.EditEndConditions">编辑结束条件</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Title">新名称已存在.</entry>
 <entry key="BookPage.NotValidImage">图像格式有问题</entry>
-<entry key="Button.examine.normal.Tip">这是普通检查按钮,当鼠标不在其上或单击此动作时显示</entry>
 <entry key="ActivateEffect.Description">选择激活标志</entry>
 <entry key="DeleteUnusedAssets.NoUnsuedAssetsFound">未发现闲置资产</entry>
 <entry key="MacrosList.Title">宏</entry>
@@ -814,7 +854,6 @@
 <entry key="SlidesDialog.Title">滑动预览-{#0}</entry>
 <entry key="LOMES.MetaMetaData.ContributeInfo">为了修正LOms贡献者条目遵循下列指示:When "Contribute Type" is “Creator”, the next value must appear in "Contribute Entity":  		BEGIN:VCARD VERSION 3.0 FN: EMAIL;TYPE=INTERNET:ORG: "Company name" END:VCARD 		Note: "Company name" must be a non empty value, representing the name of company which privides this educational content. 		 	When "Contribute Type" is “Validator”, the next value must appear in "Contribute Entity": 		BEGIN:VCARD VERSION 3.0 FN:Contenido digital educativo creado, catalogado y financiado con fondos FEDER dentro del expediente 714/07-LoteX EMAIL;TYPE=INTERNET:sugerencias@red.es ORG:RED.ES END:VCARD	</entry>
 <entry key="GeneralText.ReportError">报告错误</entry>
-<entry key="Button.examine.highlighted.Description">高亮检查按钮</entry>
 <entry key="Cursor.use.Description">用户光标</entry>
 <entry key="Resources.ResourcesGroup">资源组</entry>
 <entry key="GeneralText.Select">选择</entry>
@@ -837,7 +876,6 @@
 <entry key="Operation.ExportSCORM2004.BadProfiles.Title">不正确的资料</entry>
 <entry key="Operation.AddConversationMessage">输入新会话标识符</entry>
 <entry key="Conditions.Context.2.66">当没定义条件时, {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;将总被执行:&lt;/b&gt;</entry>
-<entry key="Button.use-grab.pressed.Description">按下的用-获取按钮</entry>
 <entry key="Timer.Time">计时器</entry>
 <entry key="ResourcesList.AddResourcesBlock">添加新资源区</entry>
 <entry key="Operation.CreateAdaptationFile.FileName.Message">输入新适应资料名称</entry>
@@ -858,7 +896,6 @@
 <entry key="Effect.BorderHighlightItemInfo">高亮{#0}的边缘</entry>
 <entry key="Conditions.Context.1A.44">当下一个条件满足时,{#ELEMENT_TYPE$} {#ELEMENT_ID$}  &lt;b&gt;将开始&lt;/b&gt; :</entry>
 <entry key="Conditions.Group.Id">全局状态编号</entry>
-<entry key="Button.talk.normal.Description">普通交谈按钮</entry>
 <entry key="IconAssets.Title">图标资料</entry>
 <entry key="Search.CaseSensitive">区分大小写</entry>
 <entry key="Error.DTD.NotFound.Message">未发现"{#0}"文件.当抽取或加载体验游戏时其将引起错误.</entry>
@@ -1028,7 +1065,6 @@
 <entry key="Search.Description">描述</entry>
 <entry key="LOMES.Educational.LearningResourceType26">模拟</entry>
 <entry key="GraphicConfig.FullscreenDescription">体验游戏使用系统的真实状态下的所有屏幕</entry>
-<entry key="Button.talk.highlighted.Tip">这是高亮交谈按钮,当鼠标在其上悬停或没有单击时显示</entry>
 <entry key="LOMES.Educational.LearningResourceType25">真实项目</entry>
 <entry key="LOMES.Educational.LearningResourceType24">实验</entry>
 <entry key="LOMES.Educational.LearningResourceType23">网络探究</entry>
@@ -1168,7 +1204,6 @@
 <entry key="Error.BadAudioFormat.Title">不支持的音频格式</entry>
 <entry key="ActionProperties.EnableClickFailEffects.ToolTip">选择添加"单击失败效果".当游戏者没有击中动作目标时触发这类效果.</entry>
 <entry key="SceneLocation.YCoordinate">Y坐标</entry>
-<entry key="Button.talk.highlighted.Description">高亮交谈按钮</entry>
 <entry key="LOM.General.Description">描述</entry>
 <entry key="LOMES.Technical.Type1">浏览器</entry>
 <entry key="LOMES.Technical.Type0">操作系统</entry>
@@ -1185,7 +1220,6 @@
 <entry key="Conditions.ConditionGroup">引用全局状态</entry>
 <entry key="Element.Action">动作</entry>
 <entry key="Cursor.talk.Tip">仅传统的图形用户界面:此光标用于"交谈"动作</entry>
-<entry key="Button.talk.Description">交谈按钮</entry>
 <entry key="Conditions.Or">或</entry>
 <entry key="AtrezzoList.Title">物品集</entry>
 <entry key="Inventory.Information">可以定制物品清单箭头的外观.不定制,游戏将使用默认箭头</entry>
@@ -1284,7 +1318,6 @@
 <entry key="Adaptation.ErrorNoFlags.Title">没有创建标志</entry>
 <entry key="Search.AssetPath">资产路径</entry>
 <entry key="AdaptationRulesList.Normal">普通资料</entry>
-<entry key="Button.talk.normal.Tip">这是普通交谈按钮,当鼠标不在其上或单击此动作时显示</entry>
 <entry key="PlaySoundEffect.Title">运行音频效果</entry>
 <entry key="ExitsList.DeleteExit">删除选中的离开</entry>
 <entry key="Operation.AdventureInconsistentReport">体验游戏不一致和不可玩,直到下列错误被解决前</entry>
@@ -1315,7 +1348,6 @@
 <entry key="Operation.NewProject.ForbiddenParent.Message">对不起,项目文件夹不能被包含到有限制的"web"文件夹中</entry>
 <entry key="SpeakPlayerEffect.Title">游戏者讲话效果</entry>
 <entry key="Operation.ImportProject">操作:导入项目</entry>
-<entry key="Button.use-grab.highlighted.Description">高亮用-获取按钮</entry>
 <entry key="LOMES.Classification.TaxonEntry">入口</entry>
 <entry key="Operation.ExportToLOM.Title">选择学习对象名称</entry>
 <entry key="Search.PropertyID">属性编号</entry>
@@ -1339,7 +1371,6 @@
 <entry key="Resources.DescriptionCharacterAnimationUseLeft">对象左边</entry>
 <entry key="GeneralText.Abort">关于</entry>
 <entry key="Operation.AddItemReferenceErrorNoItems">在章节中至少放置一个物品引用</entry>
-<entry key="Button.examine.highlighted.Tip">这是高亮检查按钮,当鼠标悬停其上但未单击时显示</entry>
 <entry key="SmallActionList.Action">动作</entry>
 <entry key="VideoDialog.Title">视频预览</entry>
 <entry key="Effect.MoveCharacter">移动角色</entry>
@@ -1443,7 +1474,6 @@
 <entry key="Element.Name1">场景</entry>
 <entry key="Element.Name0">章节</entry>
 <entry key="Operation.ImportLO.FileNotLoadedMessage">选中的.ZIP文件不包含用&lt;e-Adventure&gt;输出的学习对象</entry>
-<entry key="Button.use-grab.normal.Description">普通用-获取按钮</entry>
 <entry key="CustomAction.GetNameTitle">动作名称</entry>
 <entry key="Effect.DecrementVarInfo">"{#1}"单元中的"{#0}"递减变量</entry>
 <entry key="ActionProperties.EnableClickEffects">激活"单击效果"</entry>
@@ -1570,7 +1600,6 @@
 <entry key="Timer.DisplayName">显示名称</entry>
 <entry key="Operation.AddAtrezzoDefaultValue">AtrezzoId</entry>
 <entry key="MenuAdventure.CustomizeGUI">定制图形界面元素...</entry>
-<entry key="Button.talk.pressed.Tip">这是按下的交谈按钮,当鼠标在按钮上按下时显示</entry>
 <entry key="LOMES.Requirement.Title">创建新需求</entry>
 <entry key="LOMES.LifeCyle.Date">日期</entry>
 <entry key="ErrorReport.Title">错误报告</entry>
@@ -1664,7 +1693,6 @@
 <entry key="Operation.RenameElementWarning">在本章节中元素"{#0}"有{#1}个引用.确定重命名它吗?</entry>
 <entry key="Error.DTD.NotCopied.Title">不能复制重要文件</entry>
 <entry key="Cursor.default.Description">默认光标</entry>
-<entry key="Button.use-grab.pressed.Tip">这是按下的用-获取按钮,当鼠标在按钮上按下时显示</entry>
 <entry key="ActiveAreasList.Actions">动作</entry>
 <entry key="GeneralText.NotSelected">&lt;未被选中&gt;</entry>
 <entry key="Operation.AddConversationDefaultValue">会话编号</entry>
@@ -1717,7 +1745,6 @@
 <entry key="AssessmentRule.InvalidPropertyID">无效的值</entry>
 <entry key="AdaptationProfile.DeleteRule">删除规则</entry>
 <entry key="MainWindow.Title">体验编辑器-{#0}</entry>
-<entry key="Button.examine.normal.Description">普通检查按钮</entry>
 <entry key="Operation.LoadFileMessage">此文件不能保存修变.在加载新数据前保存这些修变吗？</entry>
 <entry key="LOMES.General.AggregationLevel">聚集层次</entry>
 <entry key="Search.DetailedDescription">详细描述</entry>
