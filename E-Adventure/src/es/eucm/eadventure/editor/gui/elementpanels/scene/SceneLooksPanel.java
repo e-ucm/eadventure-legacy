@@ -97,7 +97,7 @@ public class SceneLooksPanel extends LooksPanel {
         for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getAtrezzoReferences( ) ) {
             scenePreviewEditionPanel.addElement( ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference );
         }
-        if( sceneDataControl.getTrajectory( ).hasTrajectory( ) ) {
+        if( !Controller.getInstance( ).isPlayTransparent( ) && sceneDataControl.getTrajectory( ).hasTrajectory( ) ) {
             scenePreviewEditionPanel.setTrajectory( (Trajectory) sceneDataControl.getTrajectory( ).getContent( ) );
             for( NodeDataControl nodeDataControl : sceneDataControl.getTrajectory( ).getNodes( ) )
                 scenePreviewEditionPanel.addNode( nodeDataControl );

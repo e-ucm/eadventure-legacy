@@ -145,7 +145,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
                 spep.addElement( ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference );
             }
             // Deleted the checking if player has layer
-            if( referencesListDataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ) ) {
+            if( !Controller.getInstance( ).isPlayTransparent( ) && referencesListDataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ) ) {
                 spep.setTrajectory( (Trajectory) referencesListDataControl.getSceneDataControl( ).getTrajectory( ).getContent( ) );
                 for( NodeDataControl nodeDataControl : referencesListDataControl.getSceneDataControl( ).getTrajectory( ).getNodes( ) )
                     spep.addNode( nodeDataControl );
@@ -164,7 +164,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
         spep.setElementReferenceSelectionListener( table );
         spep.setShowTextEdition( true );
 
-        if( referencesListDataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ) ) {
+        if( !Controller.getInstance( ).isPlayTransparent( ) && referencesListDataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ) ) {
             spep.setTrajectory( (Trajectory) referencesListDataControl.getSceneDataControl( ).getTrajectory( ).getContent( ) );
             for( NodeDataControl nodeDataControl : referencesListDataControl.getSceneDataControl( ).getTrajectory( ).getNodes( ) )
                 spep.addNode( nodeDataControl );
