@@ -95,6 +95,13 @@ import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
  */
 public class MainWindow extends JFrame {
 
+
+    private static final int EDITOR_CONTAINER_WIDTH = 400;
+    private static final int EDITOR_CONTAINER_MINHEIGHT = 0;
+    private static final int STRUCTURE_PANEL_WIDTH = 250;
+    private static final int STRUCTURE_PANEL_MINHEIGHT = 0;
+    private static final int STRUCTURE_PANEL_MAXHEIGHT = Integer.MAX_VALUE;
+    
     /**
      * Required.
      */
@@ -185,20 +192,20 @@ public class MainWindow extends JFrame {
                 return super.add(c);
             }
         };
-        editorContainer.setMinimumSize( new Dimension( 400, 0 ) );
+        editorContainer.setMinimumSize( new Dimension( EDITOR_CONTAINER_WIDTH, EDITOR_CONTAINER_MINHEIGHT ) );
         editorContainer.setLayout( new BorderLayout( ) );
-
+        
         structurePanel = new StructurePanel( editorContainer );
         structurePanel.recreateElements( );
-        structurePanel.setMinimumSize( new Dimension( 210, 0 ) );
-        structurePanel.setMaximumSize( new Dimension( 210, Integer.MAX_VALUE ) );
-        structurePanel.setPreferredSize( new Dimension( 210, 0 ) );
+        structurePanel.setMinimumSize( new Dimension( STRUCTURE_PANEL_WIDTH, STRUCTURE_PANEL_MINHEIGHT ) );
+        structurePanel.setMaximumSize( new Dimension( STRUCTURE_PANEL_WIDTH, STRUCTURE_PANEL_MAXHEIGHT ) );
+        structurePanel.setPreferredSize( new Dimension( STRUCTURE_PANEL_WIDTH, STRUCTURE_PANEL_MINHEIGHT ) );
         StructureControl.getInstance( ).setStructurePanel( structurePanel );
 
         JPanel structureToolsPanel = new JPanel( );
         structureToolsPanel.setLayout( new BorderLayout( ) );
-        structureToolsPanel.setMinimumSize( new Dimension( 210, 0 ) );
-        structureToolsPanel.setMaximumSize( new Dimension( 210, Integer.MAX_VALUE ) );
+        structureToolsPanel.setMinimumSize( new Dimension( STRUCTURE_PANEL_WIDTH, STRUCTURE_PANEL_MINHEIGHT ) );
+        structureToolsPanel.setMaximumSize( new Dimension( STRUCTURE_PANEL_WIDTH, STRUCTURE_PANEL_MAXHEIGHT ) );
 
         structureToolsPanel.add( structurePanel, BorderLayout.CENTER );
 
@@ -241,12 +248,12 @@ public class MainWindow extends JFrame {
         // Set size and position
         setMinimumSize( new Dimension( 640, 400 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        int width = (int) Math.min( 960, screenSize.getWidth( ) );
+        /*int width = (int) Math.min( 960, screenSize.getWidth( ) );
         int height = (int) Math.min( 720, screenSize.getHeight( ) );
         setSize( width, height );
-        setLocation( Math.max( ( screenSize.width - width ) / 2, 0 ), Math.max(( screenSize.height - height ) / 2, 0) );
+        setLocation( Math.max( ( screenSize.width - width ) / 2, 0 ), Math.max(( screenSize.height - height ) / 2, 0) );*/
 
-        //		setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
         // Set title and properties

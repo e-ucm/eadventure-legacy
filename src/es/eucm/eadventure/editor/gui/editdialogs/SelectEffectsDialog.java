@@ -183,15 +183,15 @@ public class SelectEffectsDialog extends ToolManagableDialog {
             createInfoPlusButtons( allEffectsStructurePanel.getInfoPanel( ) );
 
         JSplitPane container = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, leftPanel, infoPlusButtons );
-        leftPanel.setMaximumSize( new Dimension( 225, 0 ) );
-        leftPanel.setMinimumSize( new Dimension( 200, 0 ) );
-        container.setDividerLocation( 200 );
+        leftPanel.setMaximumSize( new Dimension( 300, 0 ) );
+        leftPanel.setMinimumSize( new Dimension( 250, 0 ) );
+        //container.setDividerLocation( 200 );
 
         add( container );
 
-        setResizable( false );
+        //setResizable( false );
         //pack( );
-        this.setSize( new Dimension( 600, 400 ) );
+        this.setSize( new Dimension( 800, 600 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
         this.setVisible( true );

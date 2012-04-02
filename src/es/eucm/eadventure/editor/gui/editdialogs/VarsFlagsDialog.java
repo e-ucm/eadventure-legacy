@@ -64,7 +64,6 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
-import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanel;
 
 /**
  * This class is the editing dialog of the flags. Here the user can add new
@@ -246,7 +245,7 @@ public class VarsFlagsDialog extends JDialog {
         flagsTabComponent.add( new JLabel( flagsIcon ), c1 );
         c1.gridx++;
         flagsTabComponent.add( flagsTitle, c1 );
-        flagsTabComponent.setBackground( ConditionsPanel.FLAG_COLOR );
+        //flagsTabComponent.setBackground( ConditionsPanel.FLAG_COLOR );
         mainPanel.setTabComponentAt( 0, flagsTabComponent );
 
         // button for html help for flags
@@ -265,7 +264,7 @@ public class VarsFlagsDialog extends JDialog {
         flagsTabComponent.add( flagsInfoButton, c1 );
 
         JPanel varsTabComponent = new JPanel( );
-        varsTabComponent.setLayout( new GridBagLayout( ) );
+        //varsTabComponent.setLayout( new GridBagLayout( ) );
         GridBagConstraints c2 = new GridBagConstraints( );
         c2.fill = GridBagConstraints.BOTH;
         c2.weightx = 1;
@@ -278,7 +277,7 @@ public class VarsFlagsDialog extends JDialog {
         varsTabComponent.add( new JLabel( varsIcon ), c2 );
         c2.gridx++;
         varsTabComponent.add( varsTitle, c2 );
-        varsTabComponent.setBackground( ConditionsPanel.VAR_COLOR );
+        //varsTabComponent.setBackground( ConditionsPanel.VAR_COLOR );
         mainPanel.setTabComponentAt( 1, varsTabComponent );
 
         // button for html help for vars
@@ -306,7 +305,7 @@ public class VarsFlagsDialog extends JDialog {
         add( mainPanel, c );
 
         // Set the size, position and properties of the dialog
-        setResizable( false );
+        //setResizable( false );
         setSize( 500, 400 );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );

@@ -375,9 +375,18 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 
         final JPanel temp = new JPanel( );
         temp.setLayout( new StructureListElementLayout( ) );
-        button = new JButton( element.getName( ), element.getIcon( ) );
+        button = new JButton( element.getName( ), element.getIcon( ) ){
+            @Override
+            public void paint (Graphics g){
+                //g.setColor( new Color (239, 138, 8) );
+                g.setColor( new Color (26, 23, 27) );
+                g.fillRect( 0, 0, this.getWidth( ), this.getHeight( ) );
+                super.paint( g );
+            }
+        };
+        button.setForeground( Color.WHITE );
         button.setHorizontalAlignment( SwingConstants.LEFT );
-        Border b1 = BorderFactory.createLineBorder( Color.GRAY, 3 );
+        Border b1 = BorderFactory.createLineBorder( Color.DARK_GRAY, 3 );
         Border b2 = BorderFactory.createEmptyBorder( 5, 5, 5, 5 );
         button.setBorder( BorderFactory.createCompoundBorder( b1, b2 ) );
         button.setContentAreaFilled( false );
