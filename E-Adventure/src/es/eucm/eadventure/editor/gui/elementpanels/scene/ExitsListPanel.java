@@ -128,7 +128,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
         iaep = new IrregularAreaEditionPanel( scenePath, null, dataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ), Color.RED );
         ScenePreviewEditionPanel spep = iaep.getScenePreviewEditionPanel( );
 
-        if( dataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ) ) {
+        if( !Controller.getInstance( ).isPlayTransparent( ) && dataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ) ) {
             spep.setTrajectory( (Trajectory) dataControl.getSceneDataControl( ).getTrajectory( ).getContent( ) );
             for( NodeDataControl nodeDataControl : dataControl.getSceneDataControl( ).getTrajectory( ).getNodes( ) )
                 spep.addNode( nodeDataControl );

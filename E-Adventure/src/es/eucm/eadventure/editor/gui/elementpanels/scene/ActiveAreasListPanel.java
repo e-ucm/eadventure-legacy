@@ -126,7 +126,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
         String scenePath = Controller.getInstance( ).getSceneImagePath( activeAreasListDataControl.getParentSceneId( ) );
         iaep = new IrregularAreaEditionPanel( scenePath, null, activeAreasListDataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ), Color.GREEN );
         ScenePreviewEditionPanel spep = iaep.getScenePreviewEditionPanel( );
-        if( activeAreasListDataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ) ) {
+        if( !Controller.getInstance( ).isPlayTransparent( ) && activeAreasListDataControl.getSceneDataControl( ).getTrajectory( ).hasTrajectory( ) ) {
             spep.setTrajectory( (Trajectory) activeAreasListDataControl.getSceneDataControl( ).getTrajectory( ).getContent( ) );
             for( NodeDataControl nodeDataControl : activeAreasListDataControl.getSceneDataControl( ).getTrajectory( ).getNodes( ) )
                 spep.addNode( nodeDataControl );
