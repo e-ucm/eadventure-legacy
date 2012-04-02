@@ -282,16 +282,21 @@ public class ConditionSubParser extends SubParser {
         else if( qName.equals( "global-state-ref" ) ) {
             // Id
             String id = null;
+            // VALUE WAS ADDED IN EAD1.4 - It allows negating a global state
+            boolean value = true;
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "id" ) ) {
                     id = attrs.getValue( i );
                 }
+                if( attrs.getQName( i ).equals( "value" ) ) {
+                    value = attrs.getValue( i ).toLowerCase().equals( "true" );
+                }
             }
             // Store the inactive flag in the conditions or either conditions
             if( reading == READING_NONE )
-                conditions.add( new GlobalStateCondition( id ) );
+                conditions.add( new GlobalStateCondition( id, value?GlobalStateCondition.GS_SATISFIED:GlobalStateCondition.GS_NOT_SATISFIED ) );
             if( reading == READING_EITHER )
-                currentEitherCondition.add( new GlobalStateCondition( id ) );
+                currentEitherCondition.add( new GlobalStateCondition( id, value?GlobalStateCondition.GS_SATISFIED:GlobalStateCondition.GS_NOT_SATISFIED ) );
         }
 
     }

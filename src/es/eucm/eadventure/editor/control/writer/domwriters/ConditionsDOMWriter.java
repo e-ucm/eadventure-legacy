@@ -273,6 +273,8 @@ public class ConditionsDOMWriter {
 
             // Set the target flag and append it
             conditionElement.setAttribute( "id", globalStateCondition.getId( ) );
+            
+            conditionElement.setAttribute( "value", globalStateCondition.getState( ) == GlobalStateCondition.GS_SATISFIED?"true":"false" );
         }
 
         return conditionElement;

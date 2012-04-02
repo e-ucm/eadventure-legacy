@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.control.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -43,6 +44,8 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
@@ -109,7 +112,7 @@ public class ConditionsController {
     /**
      * String values for the states of a condition
      */
-    public static final String[] STATE_VALUES = { "Active", "Inactive", ">", ">=", "<", "<=", "=", "!=" };
+    public static final String[] STATE_VALUES = { "Active", "Inactive", ">", ">=", "<", "<=", "=", "!=", "Met", "Not met" };
 
     /**
      * String values for the states of a flag condition
@@ -120,6 +123,11 @@ public class ConditionsController {
      * String values for the states of a varcondition
      */
     public static final String[] STATE_VALUES_VARS = { ">", ">=", "<", "<=", "=", "!=" };
+    
+    /**
+     * String values for the states of a gs condition
+     */
+    public static final String[] STATE_VALUES_GLOBALSTATE = { "Met", "Not met" };
 
     /**
      * Returns the int value of the string state given.
@@ -155,7 +163,12 @@ public class ConditionsController {
         
         else if( stringState.equals( STATE_VALUES[7] ) )
             state = VarCondition.VAR_NOT_EQUALS;
-
+        
+        else if( stringState.equals( STATE_VALUES[8] ) )
+            state = GlobalStateCondition.GS_SATISFIED;
+        
+        else if( stringState.equals( STATE_VALUES[9] ) )
+            state = GlobalStateCondition.GS_NOT_SATISFIED;
         return state;
     }
 
@@ -291,15 +304,30 @@ public class ConditionsController {
 
         this.conditions = conditions;
         this.context = context;
-        if( context.containsKey( CONDITION_OWNER ) ) {
-            ConditionOwner owner = (ConditionOwner) context.get( CONDITION_OWNER );
-            if( owner.getOwnerType( ) == Controller.GLOBAL_STATE ) {
-                ConditionRestrictions restrictions = new ConditionRestrictions( new String[] { owner.getOwnerName( ) } );
-                this.context.put( CONDITION_RESTRICTIONS, restrictions );
-            }
-        }
     }
 
+    
+    private static String[] exceptions(String firstId){
+        List<String> pending=new ArrayList<String>();
+        List<String> exceptions=new ArrayList<String>();
+        pending.add( firstId );
+        while (!pending.isEmpty( )){
+            String id = pending.remove( 0 );
+            exceptions.add( id );
+            String[] gsIds = Controller.getInstance( ).getIdentifierSummary( ).getGlobalStatesIds( exceptions.toArray( new String[]{} ) );
+            for (String gsId: gsIds){
+                for (GlobalState gs:Controller.getInstance( ).getSelectedChapterDataControl( ).getGlobalStatesListDataControl( ).getGlobalStatesList( )){
+                    if (gs.getId( ).equals( gsId )){
+                        if (gs.getGloblaStateIds( ).contains( id )){
+                            pending.add( gsId );
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return exceptions.toArray( new String[]{} );
+    }
     /**
      * Returns the number of blocks of the condition group. Simple conditions
      * and either groups are considered as blocks.
@@ -558,8 +586,23 @@ public class ConditionsController {
      * The HashMap of the context
      */
     public HashMap<String, ConditionContextProperty> getContext( ) {
+        HashMap<String, ConditionContextProperty> currentContext = new HashMap<String, ConditionContextProperty>();
+        for (String key:context.keySet( )){
+            currentContext.put( key, context.get( key ) );
+        }
+        
+        if( currentContext.containsKey( CONDITION_OWNER ) ) {
+            ConditionOwner owner = (ConditionOwner) currentContext.get( CONDITION_OWNER );
+            if( owner.getOwnerType( ) == Controller.GLOBAL_STATE ) {
+                String ownerId = owner.getOwnerName( );
+                
+                //ConditionRestrictions restrictions = new ConditionRestrictions( new String[] { ownerId } );
+                ConditionRestrictions restrictions = new ConditionRestrictions( exceptions( ownerId)  );
+                currentContext.put( CONDITION_RESTRICTIONS, restrictions );
+            }
+        }
 
-        return context;
+        return currentContext;
     }
 
     public static abstract class ConditionContextProperty {
@@ -722,7 +765,7 @@ public class ConditionsController {
 
     }
 
-    public static String getOperatorFromString( String s ) {
+    public static String getVarOperatorFromString( String s ) {
 
         int op = 0;
         try {
@@ -744,9 +787,30 @@ public class ConditionsController {
             case VarCondition.VAR_EQUALS:
                 return STATE_VALUES[6];
             case VarCondition.VAR_NOT_EQUALS:
-                return STATE_VALUES[7];                
+                return STATE_VALUES[7];
             default:
                 return STATE_VALUES[2];
+        }
+
+    }
+    
+    public static String getGSOperatorFromString( String s ) {
+
+        int op = 0;
+        try {
+            op = Integer.parseInt( s );
+        }
+        catch( Exception e ) {
+
+        }
+
+        switch( op ) {
+            case GlobalStateCondition.GS_SATISFIED:
+                return STATE_VALUES[8];
+            case GlobalStateCondition.GS_NOT_SATISFIED:
+                return STATE_VALUES[9];                
+            default:
+                return STATE_VALUES[8];
         }
 
     }

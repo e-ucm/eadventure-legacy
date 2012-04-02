@@ -44,10 +44,10 @@ package es.eucm.eadventure.common.data.chapter.conditions;
  */
 public class GlobalStateCondition extends Condition {
 
-    public static final int GS_SATISFIED = 7;
+    public static final int GS_SATISFIED = 8;
 
-    public static final int GS_NOT_SATISFIED = 8;
-
+    public static final int GS_NOT_SATISFIED = 9;
+    
     /**
      * Constructor
      * 
@@ -56,7 +56,7 @@ public class GlobalStateCondition extends Condition {
      */
     public GlobalStateCondition( String id ) {
 
-        super( Condition.GLOBAL_STATE_CONDITION, id, Condition.NO_STATE );
+        super( Condition.GLOBAL_STATE_CONDITION, id, GS_SATISFIED );
     }
 
     /**

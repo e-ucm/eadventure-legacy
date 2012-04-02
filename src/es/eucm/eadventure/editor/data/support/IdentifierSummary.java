@@ -398,9 +398,15 @@ public class IdentifierSummary {
 
         List<String> globalStateIds = new ArrayList<String>( );
         for( String id : this.globalStateIdentifiers ) {
-            for( String exception : exceptions ) {
-                if( !id.equals( exception ) )
-                    globalStateIds.add( id );
+            boolean found = false;
+            for (String exception:exceptions){
+                found|=exception.equals( id );
+                if (found){
+                    break;
+                }
+            }
+            if (!found){
+                globalStateIds.add( id );
             }
         }
         return globalStateIds.toArray( new String[] {} );
