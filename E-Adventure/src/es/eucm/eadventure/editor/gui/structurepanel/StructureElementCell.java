@@ -169,7 +169,7 @@ public class StructureElementCell extends JPanel {
 
             label.setFont( label.getFont( ).deriveFont( Font.BOLD ) );
             add( label );
-            setBorder( BorderFactory.createLineBorder( Color.blue, 2 ) );
+            setBorder( BorderFactory.createLineBorder( new Color (26, 23, 27) , 2 ) );
 
             boolean hasOptions = false;
             JPanel optionsPanel = new JPanel( );
@@ -217,7 +217,7 @@ public class StructureElementCell extends JPanel {
             } );
             add( name );
             name.requestFocusInWindow( );
-            setBorder( BorderFactory.createLineBorder( Color.blue, 2 ) );
+            setBorder( BorderFactory.createLineBorder(  new Color (26, 23, 27) , 2 ) );
 
             JPanel optionsPanel = createOKCancelButtons( );
             add( optionsPanel );
