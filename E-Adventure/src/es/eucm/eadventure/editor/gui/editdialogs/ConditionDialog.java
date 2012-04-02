@@ -60,13 +60,15 @@ import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
+import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
-import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionRestrictions;
+import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 
 /**
@@ -160,9 +162,9 @@ public class ConditionDialog extends ToolManagableDialog {
      * @param title
      *            Title of the dialog
      */
-    public ConditionDialog( String title ) {
+    public ConditionDialog( String title, HashMap<String, ConditionContextProperty> context ) {
 
-        this( ConditionsController.CONDITION_TYPE_FLAG, title, null, null, null, null, null, new HashMap<String, ConditionContextProperty>( ) );
+        this( ConditionsController.CONDITION_TYPE_FLAG, title, null, null, null, null, null, context );
     }
 
     /**
@@ -257,7 +259,15 @@ public class ConditionDialog extends ToolManagableDialog {
         button1.addActionListener( new ConditionModeButtonListener( Condition.FLAG_CONDITION ) );
         button2.addActionListener( new ConditionModeButtonListener( Condition.VAR_CONDITION ) );
         button3.addActionListener( new ConditionModeButtonListener( Condition.GLOBAL_STATE_CONDITION ) );
-        button3.setEnabled( Controller.getInstance( ).getIdentifierSummary( ).getGlobalStatesIds( ).length > 0 );
+        String[] globalStateIds=null;
+        if( context.containsKey( ConditionsController.CONDITION_RESTRICTIONS ) ) {
+            ConditionRestrictions restrictions = (ConditionRestrictions) context.get( ConditionsController.CONDITION_RESTRICTIONS );
+            globalStateIds = Controller.getInstance( ).getIdentifierSummary( ).getGlobalStatesIds( restrictions.getForbiddenIds( ) );
+        }
+        else
+            globalStateIds = Controller.getInstance( ).getIdentifierSummary( ).getGlobalStatesIds( );
+
+        button3.setEnabled( globalStateIds!=null && globalStateIds.length > 0 );
         panel.add( button1 );
         panel.add( button2 );
         panel.add( button3 );
@@ -284,10 +294,20 @@ public class ConditionDialog extends ToolManagableDialog {
      */
     public String getSelectedState( ) {
 
-        if( stateComboBox != null && stateComboBox.getSelectedItem( ) != null )
-            return stateComboBox.getSelectedItem( ).toString( );
-        else
+        if( stateComboBox != null && stateComboBox.getSelectedItem( ) != null ){
+            switch (selectedMode){
+                case Condition.VAR_CONDITION:
+                    return stateComboBox.getSelectedItem( ).toString( );
+                case Condition.FLAG_CONDITION:
+                    return ConditionsController.STATE_VALUES_FLAGS[stateComboBox.getSelectedIndex( )];
+                case Condition.GLOBAL_STATE_CONDITION:
+                    return ConditionsController.STATE_VALUES_GLOBALSTATE[stateComboBox.getSelectedIndex( )];
+                default:
+                    return null;
+            }
+        }else{
             return null;
+        }
     }
 
     /**
@@ -357,7 +377,8 @@ public class ConditionDialog extends ToolManagableDialog {
 
             c.gridx = 1;
             c.weightx = 0.2;
-            stateComboBox = new JComboBox( ConditionsController.STATE_VALUES_FLAGS );
+            stateComboBox = new JComboBox( new String[]{TC.get( "Conditions.Flag.Active" ), 
+                    TC.get( "Conditions.Flag.Inactive" )} );
             if( defaultState != null ) {
                 int ind = 0;
                 try {
@@ -366,7 +387,13 @@ public class ConditionDialog extends ToolManagableDialog {
                 catch( Exception e ) {
                     // Do nothing
                 }
-                stateComboBox.setSelectedItem( ConditionsController.STATE_VALUES_FLAGS[ind] );
+                if (ind>=0 && ind<ConditionsController.STATE_VALUES_FLAGS.length){
+                    //stateComboBox.setSelectedItem( ConditionsController.STATE_VALUES_FLAGS[ind] );
+                    stateComboBox.setSelectedIndex( ind );
+                } else {
+                    //stateComboBox.setSelectedItem( ConditionsController.STATE_VALUES_FLAGS[FlagCondition.FLAG_ACTIVE] );
+                    stateComboBox.setSelectedIndex( FlagCondition.FLAG_ACTIVE );
+                }
             }
             featuresPanel.add( stateComboBox, c );
 
@@ -407,8 +434,9 @@ public class ConditionDialog extends ToolManagableDialog {
             c.weightx = 0.2;
             stateComboBox = new JComboBox( ConditionsController.STATE_VALUES_VARS );
             if( defaultState != null ) {
-                String s = ConditionsController.getOperatorFromString( defaultState );
+                String s = ConditionsController.getVarOperatorFromString( defaultState );
                 stateComboBox.setSelectedItem( s );
+                //stateComboBox.setSelectedItem( ConditionsController.getStateFromString( defaultState )-VarCondition.VAR_GREATER_THAN );
             }
             featuresPanel.add( stateComboBox, c );
 
@@ -437,6 +465,12 @@ public class ConditionDialog extends ToolManagableDialog {
             c.gridwidth = 1;
             c.weightx = 1;
             featuresPanel.add( new JLabel( TC.get( "Conditions.Group.Id" ) ), c );
+            
+            c.gridx = 1;
+            c.weightx = 0.5;
+            String label = TC.get( "Conditions.ConditionGroup.Satisfied" )+" / "+
+            TC.get( "Conditions.ConditionGroup.NotSatisfied" );
+            featuresPanel.add( new JLabel( label ), c );
 
             c.gridx = 0;
             c.gridy = 1;
@@ -446,19 +480,22 @@ public class ConditionDialog extends ToolManagableDialog {
             if( defaultId != null )
                 idsComboBox.setSelectedItem( defaultId );
             featuresPanel.add( idsComboBox, c );
-
-            // here stateComboBox has a default value, but is necessary because the conditions are generic
-            stateComboBox = new JComboBox( ConditionsController.STATE_VALUES_FLAGS );
+            
+            c.gridx = 1;
+            c.weightx = 0.5;
+            stateComboBox = new JComboBox( new String[]{TC.get( "Conditions.ConditionGroup.Satisfied" ),
+                    TC.get( "Conditions.ConditionGroup.NotSatisfied" )} );
             if( defaultState != null ) {
-                int ind = 0;
-                try {
-                    ind = Integer.parseInt( defaultState );
+                //String s = ConditionsController.getGSOperatorFromString( defaultState );
+                int index=Integer.parseInt( defaultState )-GlobalStateCondition.GS_SATISFIED;
+                if ( index>=0 && index<2){
+                    stateComboBox.setSelectedIndex( index );
+                } else {
+                    stateComboBox.setSelectedIndex( 0 );
                 }
-                catch( Exception e ) {
-                    // Do nothing
-                }
-                stateComboBox.setSelectedItem( ConditionsController.STATE_VALUES_FLAGS[ind] );
             }
+            featuresPanel.add( stateComboBox, c );
+
 
             featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Conditions.Group.Title" ) ) );
         }

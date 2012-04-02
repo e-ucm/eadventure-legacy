@@ -324,7 +324,7 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
     public void addCondition( int index1, int index2 ) {
 
         // Display the dialog to add a new condition
-        ConditionDialog conditionDialog = new ConditionDialog( TC.get( "Conditions.AddCondition" ) );
+        ConditionDialog conditionDialog = new ConditionDialog( TC.get( "Conditions.AddCondition" ), conditionsController.getContext( ) );
 
         // If the data was approved
         if( conditionDialog.wasPressedOKButton( ) ) {
