@@ -1,47 +1,49 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
- *          research group.
- *   
- *    Copyright 2005-2012 <e-UCM> research group.
- *  
- *     <e-UCM> is a research group of the Department of Software Engineering
- *          and Artificial Intelligence at the Complutense University of Madrid
- *          (School of Computer Science).
- *  
- *          C Profesor Jose Garcia Santesmases sn,
- *          28040 Madrid (Madrid), Spain.
- *  
- *          For more info please visit:  <http://e-adventure.e-ucm.es> or
- *          <http://www.e-ucm.es>
- *  
- *  ****************************************************************************
+ * research group.
+ * 
+ * Copyright 2005-2012 <e-UCM> research group.
+ * 
+ * <e-UCM> is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
+ * 
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
+ * 
+ * ****************************************************************************
  * This file is part of <e-Adventure>, version 1.4.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
- *          http://e-adventure.e-ucm.es/contributors
- *  
- *  ****************************************************************************
- *       <e-Adventure> is free software: you can redistribute it and/or modify
- *      it under the terms of the GNU Lesser General Public License as published by
- *      the Free Software Foundation, either version 3 of the License, or
- *      (at your option) any later version.
- *  
- *      <e-Adventure> is distributed in the hope that it will be useful,
- *      but WITHOUT ANY WARRANTY; without even the implied warranty of
- *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *      GNU Lesser General Public License for more details.
- *  
- *      You should have received a copy of the GNU Lesser General Public License
- *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ * You can access a list of all the contributors to <e-Adventure> at:
+ * http://e-adventure.e-ucm.es/contributors
+ * 
+ * ****************************************************************************
+ * <e-Adventure> is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.common.loader;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -78,7 +80,7 @@ public class Loader {
      * execution)
      */
     private static AdventureData adventureData;
-    
+
     /**
      * Cache the SaxParserFactory
      */
@@ -239,8 +241,8 @@ public class Loader {
                     // Set the chapter handler
                     ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter );
 
-                   factory.setValidating( false );
-                    
+                    factory.setValidating( false );
+
                     SAXParser saxParser = factory.newSAXParser( );
 
                     // Parse the data and close the data
@@ -419,6 +421,7 @@ public class Loader {
      * @return the loaded Animation
      */
     public static Animation loadAnimation( InputStreamCreator isCreator, String filename, ImageLoaderFactory imageloader ) {
+
         AnimationHandler animationHandler = new AnimationHandler( isCreator, imageloader );
 
         // Create a new factory
@@ -464,12 +467,59 @@ public class Loader {
         if( animationHandler.getAnimation( ) != null )
             return animationHandler.getAnimation( );
         else
-            return new Animation( "anim" + ( new Random( ) ).nextInt( 1000 ) , imageloader);
+            return new Animation( "anim" + ( new Random( ) ).nextInt( 1000 ), imageloader );
     }
 
-    
     public static SAXParserFactory getFactory( ) {
-    
+
         return factory;
+    }
+
+    /**
+     * Returns true if the given file contains an eAdventure game from a newer
+     * version. Essentially, it looks for the "ead.properties" file in the new
+     * eAdventure games. If it's found, then returns true
+     * 
+     * @param f
+     *            the file to check
+     * @return if the game requires a newer version
+     */
+    public static boolean requiresNewVersion( java.io.File f ) {
+        boolean isOldProject = true;
+        FileInputStream in = null;
+        ZipInputStream zipIn = null;
+        try {
+            in = new FileInputStream( f );
+            zipIn = new ZipInputStream( in );
+            ZipEntry zipEntry = null;
+            while( ( zipEntry = zipIn.getNextEntry( ) ) != null ) {
+                if( zipEntry.getName( ).endsWith( "ead.properties" ) ) {
+                    isOldProject = false;
+                }
+            }
+            zipIn.close( );
+        }
+        catch( IOException e ) {
+
+        }
+        finally {
+            if( in != null ) {
+                try {
+                    in.close( );
+                }
+                catch( IOException e ) {
+
+                }
+            }
+
+            if( zipIn != null ) {
+                try {
+                    zipIn.close( );
+                }
+                catch( IOException e ) {
+                }
+            }
+        }
+        return !isOldProject;
     }
 }
