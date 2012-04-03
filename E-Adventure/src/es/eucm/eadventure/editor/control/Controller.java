@@ -1,38 +1,37 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
- *          research group.
- *   
- *    Copyright 2005-2012 <e-UCM> research group.
- *  
- *     <e-UCM> is a research group of the Department of Software Engineering
- *          and Artificial Intelligence at the Complutense University of Madrid
- *          (School of Computer Science).
- *  
- *          C Profesor Jose Garcia Santesmases sn,
- *          28040 Madrid (Madrid), Spain.
- *  
- *          For more info please visit:  <http://e-adventure.e-ucm.es> or
- *          <http://www.e-ucm.es>
- *  
- *  ****************************************************************************
+ * research group.
+ * 
+ * Copyright 2005-2012 <e-UCM> research group.
+ * 
+ * <e-UCM> is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
+ * 
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
+ * 
+ * ****************************************************************************
  * This file is part of <e-Adventure>, version 1.4.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
- *          http://e-adventure.e-ucm.es/contributors
- *  
- *  ****************************************************************************
- *       <e-Adventure> is free software: you can redistribute it and/or modify
- *      it under the terms of the GNU Lesser General Public License as published by
- *      the Free Software Foundation, either version 3 of the License, or
- *      (at your option) any later version.
- *  
- *      <e-Adventure> is distributed in the hope that it will be useful,
- *      but WITHOUT ANY WARRANTY; without even the implied warranty of
- *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *      GNU Lesser General Public License for more details.
- *  
- *      You should have received a copy of the GNU Lesser General Public License
- *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ * You can access a list of all the contributors to <e-Adventure> at:
+ * http://e-adventure.e-ucm.es/contributors
+ * 
+ * ****************************************************************************
+ * <e-Adventure> is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.editor.control;
 
@@ -562,7 +561,6 @@ public class Controller {
 
     private boolean isLomEs = false;
 
-
     /**
      * Store all effects selection. Connects the type of effect with the number
      * of times that has been used
@@ -594,7 +592,7 @@ public class Controller {
     public String getLastDirectory( ) {
 
         if( lastDialogDirectory != null ) {
-            return lastDialogDirectory; 
+            return lastDialogDirectory;
         }
         else
             return ReleaseFolders.projectsFolder( ).getAbsolutePath( );
@@ -665,15 +663,15 @@ public class Controller {
 
         //Create main window and hide it
         mainWindow = new MainWindow( );
-        
-       // mainWindow.setExtendedState(JFrame.ICONIFIED | mainWindow.getExtendedState());
+
+        // mainWindow.setExtendedState(JFrame.ICONIFIED | mainWindow.getExtendedState());
         mainWindow.setVisible( false );
 
         // Prompt the user to create a new adventure or to load one
         //while( currentZipFile == null ) {
         // Load the options and show the dialog
         //StartDialog start = new StartDialog( );
-        FrameForInitialDialogs start = new FrameForInitialDialogs(true);
+        FrameForInitialDialogs start = new FrameForInitialDialogs( true );
         if( arg != null ) {
             File projectFile = new File( arg );
             if( projectFile.exists( ) ) {
@@ -711,8 +709,8 @@ public class Controller {
             else if( op == StartDialog.CANCEL_OPTION ) {
                 exit( );
             }
-            
-            start.remove();
+
+            start.remove( );
             //selectedChapter = 0;
         }
 
@@ -745,11 +743,9 @@ public class Controller {
         // initialize the selected effects container
         //selectedEffects = new SelectedEffectsController();
 
-        
-        
         mainWindow.setResizable( true );
         //mainWindow.setEnabled( true );
-       // mainWindow.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        // mainWindow.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         mainWindow.setVisible( true );
         //DEBUGGING
         //tsd = new ToolSystemDebugger( chaptersController );
@@ -994,7 +990,7 @@ public class Controller {
             // Show dialog
             //StartDialog start = new StartDialog( StartDialog.NEW_TAB );
             FrameForInitialDialogs start = new FrameForInitialDialogs( StartDialog.NEW_TAB );
-            
+
             //mainWindow.setEnabled( false );
             //mainWindow.setExtendedState(JFrame.ICONIFIED | mainWindow.getExtendedState());
             mainWindow.setVisible( false );
@@ -1023,8 +1019,8 @@ public class Controller {
             else if( op == StartDialog.CANCEL_OPTION ) {
                 exit( );
             }
-            
-            start.remove();
+
+            start.remove( );
 
             if( currentZipFile == null ) {
                 mainWindow.reloadData( );
@@ -1037,7 +1033,7 @@ public class Controller {
             //tsd = new ToolSystemDebugger( chaptersController );
         }
 
-        Controller.gc();
+        Controller.gc( );
 
         return createNewFile;
     }
@@ -1068,10 +1064,10 @@ public class Controller {
         java.io.File selectedFile = null;
         // Prompt main folder of the project
         //ProjectFolderChooser folderSelector = new ProjectFolderChooser( false, false );
-        FrameForInitialDialogs start = new FrameForInitialDialogs(false);
+        FrameForInitialDialogs start = new FrameForInitialDialogs( false );
         int op = start.showStartDialog( );
         // If some folder is selected, check all characters are correct  
-       // if( folderSelector.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ) {
+        // if( folderSelector.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ) {
         if( op == StartDialog.APROVE_SELECTION ) {
             java.io.File selectedFolder = start.getSelectedFile( );
             selectedFile = selectedFolder;
@@ -1191,7 +1187,7 @@ public class Controller {
             else
                 fileCreated = false;
         }
-        
+
         if( fileCreated ) {
             ConfigData.fileLoaded( currentZipFile );
             // Feedback
@@ -1203,7 +1199,7 @@ public class Controller {
         }
         loadingScreen.setVisible( false );
 
-        Controller.gc();
+        Controller.gc( );
 
         return fileCreated;
 
@@ -1333,10 +1329,10 @@ public class Controller {
                 // If an asset is missing or damaged. Delete references
                 if( current.getType( ) == Incidence.ASSET_INCIDENCE ) {
                     this.deleteAssetReferences( current.getAffectedResource( ) );
-                  //  if (current.getAffectedArea( ) == AssetsController.CATEGORY_ICON||current.getAffectedArea( ) == AssetsController.CATEGORY_BACKGROUND){
+                    //  if (current.getAffectedArea( ) == AssetsController.CATEGORY_ICON||current.getAffectedArea( ) == AssetsController.CATEGORY_BACKGROUND){
                     //    mainWindow.showInformationDialog( TC.get( "ErrorSolving.Asset.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), current.getMessage( ) );
                     //}else
-                        mainWindow.showInformationDialog( TC.get( "ErrorSolving.Asset.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), TC.get( "ErrorSolving.Asset.Deleted.Message", current.getAffectedResource( ) ) );
+                    mainWindow.showInformationDialog( TC.get( "ErrorSolving.Asset.Deleted.Title" ) + " - Error " + ( i + 1 ) + "/" + incidences.size( ), TC.get( "ErrorSolving.Asset.Deleted.Message", current.getAffectedResource( ) ) );
                     if( current.getException( ) != null )
                         ReportDialog.GenerateErrorReport( current.getException( ), true, TC.get( "GeneralText.LoadError" ) );
 
@@ -1407,9 +1403,10 @@ public class Controller {
         mainWindow.reloadData( );
         return true;
     }
-    
-    public NPC getNPC(String npcId){
-        return this.getSelectedChapterDataControl().getNPCsList( ).getNPC( npcId );
+
+    public NPC getNPC( String npcId ) {
+
+        return this.getSelectedChapterDataControl( ).getNPCsList( ).getNPC( npcId );
     }
 
     private boolean loadFile( String completeFilePath, boolean loadingImage ) {
@@ -1446,8 +1443,8 @@ public class Controller {
                 ProjectConfigData.loadFromXML( );
 
                 // Show dialog
-               // StartDialog start = new StartDialog( StartDialog.OPEN_TAB );
-                FrameForInitialDialogs start = new FrameForInitialDialogs(StartDialog.OPEN_TAB );
+                // StartDialog start = new StartDialog( StartDialog.OPEN_TAB );
+                FrameForInitialDialogs start = new FrameForInitialDialogs( StartDialog.OPEN_TAB );
                 //start.askForProject();
                 //mainWindow.setEnabled( false );
                 //mainWindow.setExtendedState(JFrame.ICONIFIED | mainWindow.getExtendedState());
@@ -1468,11 +1465,10 @@ public class Controller {
                     }
                     else if( selectedFile.isDirectory( ) && selectedFile.exists( ) )
                         loadFile( start.getSelectedFile( ).getAbsolutePath( ), true );
-                    else 
+                    else
                         // importGame is the same method for .ead, .jar and .zip (LO) import
                         this.importGame( selectedFile.getAbsolutePath( ) );
-                  
-                    
+
                 }
                 else if( op == StartDialog.RECENT_FILE_OPTION ) {
                     loadFile( start.getRecentFile( ).getAbsolutePath( ), true );
@@ -1480,17 +1476,16 @@ public class Controller {
                 else if( op == StartDialog.CANCEL_OPTION ) {
                     exit( );
                 }
-                
-                start.remove();
 
-               // if( currentZipFile == null ) {
-                 //   mainWindow.reloadData( );
+                start.remove( );
+
+                // if( currentZipFile == null ) {
+                //   mainWindow.reloadData( );
                 //}
 
                 mainWindow.setResizable( true );
                 mainWindow.setEnabled( true );
                 mainWindow.setVisible( true );
-                
 
                 return true;
             }
@@ -1588,14 +1583,12 @@ public class Controller {
                 loadingScreen.setVisible( false );
             mainWindow.showInformationDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.FileNotLoadedMessage" ) );
         }
-        
-        Controller.gc();
+
+        Controller.gc( );
 
         return fileLoaded;
     }
-    
-    
-    
+
     /**
      * Called when the user wants to save data to a file.
      * 
@@ -1653,8 +1646,8 @@ public class Controller {
                                 currentZipFile = newFolder.getAbsolutePath( );
                                 currentZipPath = newFolder.getParent( );
                                 currentZipName = newFolder.getName( );
-                                
-                                AssetsController.createFolderStructure();
+
+                                AssetsController.createFolderStructure( );
                             }
 
                             // If the file was not overwritten, don't save the data
@@ -1755,7 +1748,7 @@ public class Controller {
 
         }
 
-        Controller.gc();
+        Controller.gc( );
 
         loadingScreen.setVisible( false );
 
@@ -1829,11 +1822,11 @@ public class Controller {
             }
 
             if( importGame ) {
-                if (eadPath.endsWith( ".zip" ))
+                if( eadPath.endsWith( ".zip" ) )
                     mainWindow.showInformationDialog( TC.get( "Operation.ImportProject" ), TC.get( "Operation.ImportLO.InfoMessage" ) );
-                else if (eadPath.endsWith( ".jar" ))
-                    mainWindow.showInformationDialog( TC.get( "Operation.ImportProject" ), TC.get( "Operation.ImportJAR.InfoMessage" ));
-                
+                else if( eadPath.endsWith( ".jar" ) )
+                    mainWindow.showInformationDialog( TC.get( "Operation.ImportProject" ), TC.get( "Operation.ImportJAR.InfoMessage" ) );
+
                 // Ask origin file
                 JFileChooser chooser = new JFileChooser( );
                 chooser.setFileFilter( new EADFileFilter( ) );
@@ -1849,10 +1842,9 @@ public class Controller {
                     else
                         originFile = new File( eadPath );
 
-                    
-                   // if( !originFile.getAbsolutePath( ).endsWith( ".ead" ) )
-                     //   originFile = new java.io.File( originFile.getAbsolutePath( ) + ".ead" );
-                    
+                    // if( !originFile.getAbsolutePath( ).endsWith( ".ead" ) )
+                    //   originFile = new java.io.File( originFile.getAbsolutePath( ) + ".ead" );
+
                     // If the file not exists display error
                     if( !originFile.exists( ) )
                         mainWindow.showErrorDialog( TC.get( "Error.Import.FileNotFound.Title" ), TC.get( "Error.Import.FileNotFound.Title", originFile.getName( ) ) );
@@ -1861,11 +1853,11 @@ public class Controller {
                         boolean create = false;
                         java.io.File selectedDir = null;
                         // Prompt main folder of the project
-                       // ProjectFolderChooser folderSelector = new ProjectFolderChooser( false, false );
-                        FrameForInitialDialogs start = new FrameForInitialDialogs(false);
+                        // ProjectFolderChooser folderSelector = new ProjectFolderChooser( false, false );
+                        FrameForInitialDialogs start = new FrameForInitialDialogs( false );
                         // If some folder is selected, check all characters are correct  
                         int op = start.showStartDialog( );
-                       if( op == StartDialog.APROVE_SELECTION ) {
+                        if( op == StartDialog.APROVE_SELECTION ) {
                             java.io.File selectedFolder = start.getSelectedFile( );
                             selectedFile = selectedFolder;
                             if( selectedFolder.getAbsolutePath( ).endsWith( ".eap" ) ) {
@@ -1895,10 +1887,10 @@ public class Controller {
                                                 else {
                                                     this.showStrictConfirmDialog( TC.get( "Error.Title" ), TC.get( "Error.DeletingFolderContents" ) );
                                                 }
-                                                
+
                                             } // FIXME: else branch to return to previous dialog when the user tries to assign an existing name to his project
-                                            // and select "no" in re-writing confirmation panel
-                                                
+                                              // and select "no" in re-writing confirmation panel
+
                                         }
                                         else {
                                             create = true;
@@ -1927,7 +1919,7 @@ public class Controller {
                             }
                         }
 
-                          start.remove();
+                        start.remove( );
                         // Create the new project?
                         if( create ) {
                             //LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ImportProject" ), getLoadingImage( ), mainWindow);
@@ -1942,22 +1934,34 @@ public class Controller {
 
                             boolean correctFile = true;
                             // Unzip directory
-                            if (eadPath.endsWith( ".ead" ))
-                                File.unzipDir( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( ) );
-                            else if (eadPath.endsWith( ".zip" )){
-                                
-                                // import EadJAR returns false when selected jar is not a eadventure jar
-                                if  (!File.importEadventureLO( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( )  )){
+
+                            if( eadPath != null && eadPath.endsWith( ".ead" ) ) {
+                                boolean newerVersionRequired = Loader.requiresNewVersion( new java.io.File( eadPath ) );
+                                if( newerVersionRequired ) {
+                                    // FIXME Internationalize
+                                    mainWindow.showErrorDialog( TC.get( "Error.LoadAborted.Title" ), "Newer version required" );
                                     loadingScreen.setVisible( false );
-                                    mainWindow.showErrorDialog( TC.get("Operation.FileNotLoadedTitle"), TC.get( "Operation.ImportLO.FileNotLoadedMessage") );
                                     correctFile = false;
                                 }
-                            }else if (eadPath.endsWith( ".jar" )){
-                                // import EadLO returns false when selected zip is not a eadventure LO
-                                
-                                if (!File.importEadventureJar( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( )  )){
+                                else {
+                                    File.unzipDir( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( ) );
+                                }
+                            }
+                            else if( eadPath.endsWith( ".zip" ) ) {
+
+                                // import EadJAR returns false when selected jar is not a eadventure jar
+                                if( !File.importEadventureLO( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( ) ) ) {
                                     loadingScreen.setVisible( false );
-                                    mainWindow.showErrorDialog( TC.get("Operation.FileNotLoadedTitle"), TC.get("Operation.ImportJAR.FileNotLoaded") );
+                                    mainWindow.showErrorDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.ImportLO.FileNotLoadedMessage" ) );
+                                    correctFile = false;
+                                }
+                            }
+                            else if( eadPath.endsWith( ".jar" ) ) {
+                                // import EadLO returns false when selected zip is not a eadventure LO
+
+                                if( !File.importEadventureJar( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( ) ) ) {
+                                    loadingScreen.setVisible( false );
+                                    mainWindow.showErrorDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.ImportJAR.FileNotLoaded" ) );
                                     correctFile = false;
                                 }
 
@@ -1965,15 +1969,16 @@ public class Controller {
                             //ProjectConfigData.loadFromXML( );
 
                             // Load new project
-                            if (correctFile) {
-                            loadFile( selectedDir.getAbsolutePath( ), false );
-                            //loadingScreen.close( );
-                            loadingScreen.setVisible( false );
-                            } else {
+                            if( correctFile ) {
+                                loadFile( selectedDir.getAbsolutePath( ), false );
+                                //loadingScreen.close( );
+                                loadingScreen.setVisible( false );
+                            }
+                            else {
                                 //remove .eapFile
                                 selectedFile.delete( );
                                 selectedDir.delete( );
-                                
+
                             }
                         }
 
@@ -1983,7 +1988,7 @@ public class Controller {
         }
         catch( Exception e ) {
             loadingScreen.setVisible( false );
-            mainWindow.showErrorDialog( TC.get("Operation.FileNotLoadedTitle"), TC.get("Operation.FileNotLoadedMessage" ));
+            mainWindow.showErrorDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.FileNotLoadedMessage" ) );
 
         }
     }
@@ -1994,6 +1999,7 @@ public class Controller {
     }
 
     public boolean exportGame( String targetFilePath ) {
+
         boolean exportGame = true;
         boolean exported = false;
         try {
@@ -2133,7 +2139,7 @@ public class Controller {
 
             if( exportGame ) {
                 String completeFilePath = null;
-                completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder( ), new JARFileFilter());
+                completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder( ), new JARFileFilter( ) );
 
                 if( completeFilePath != null ) {
 
@@ -2170,7 +2176,7 @@ public class Controller {
         }
         catch( Exception e ) {
             loadingScreen.setVisible( false );
-            mainWindow.showErrorDialog( TC.get("Operation.FileNotSavedTitle"), TC.get("Operation.FileNotSavedMessage") );
+            mainWindow.showErrorDialog( TC.get( "Operation.FileNotSavedTitle" ), TC.get( "Operation.FileNotSavedMessage" ) );
         }
 
     }
@@ -2208,7 +2214,6 @@ public class Controller {
                 String testUserId = dialog.getTestUserID( );
                 String testReturnURI = dialog.getTestReturnURI( );
 
-                
                 boolean validated = dialog.isValidated( );
 
                 if( type == 2 && !hasScormProfiles( SCORM12 ) ) {
@@ -2224,10 +2229,9 @@ public class Controller {
                     mainWindow.showErrorDialog( TC.get( "Operation.ExportSCORM2004AGREGA.BadProfiles.Title" ), TC.get( "Operation.ExportSCORM2004AGREGA.BadProfiles.Message" ) );
                 }
                 //TODO comprobaciones de perfiles
-               // else if( type == 5 ) {
-                    // error situation: both profiles must be scorm 2004 if they exist to export to AGREGA
-                 //   mainWindow.showErrorDialog( TC.get( "Operation.ExportSCORM2004AGREGA.BadProfiles.Title" ), TC.get( "Operation.ExportSCORM2004AGREGA.BadProfiles.Message" ) );
-                
+                // else if( type == 5 ) {
+                // error situation: both profiles must be scorm 2004 if they exist to export to AGREGA
+                //   mainWindow.showErrorDialog( TC.get( "Operation.ExportSCORM2004AGREGA.BadProfiles.Title" ), TC.get( "Operation.ExportSCORM2004AGREGA.BadProfiles.Message" ) );
 
                 if( validated ) {
                     //String loName = this.showInputDialog( TextConstants.getText( "Operation.ExportToLOM.Title" ), TextConstants.getText( "Operation.ExportToLOM.Message" ), TextConstants.getText( "Operation.ExportToLOM.DefaultValue" ));
@@ -2271,11 +2275,11 @@ public class Controller {
                                         try {
                                             if( newFile.exists( ) )
                                                 newFile.delete( );
-                                            
+
                                             //change the old animations to eaa animations, this method force to save game
-                                            changeAllAnimationFormats();
+                                            changeAllAnimationFormats( );
                                             saveFile( false );
-                                            
+
                                             //LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ExportProject.AsJAR" ), getLoadingImage( ), mainWindow);
                                             loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsLO" ) );
                                             loadingScreen.setVisible( true );
@@ -2297,10 +2301,10 @@ public class Controller {
                                             else if( type == 4 && Writer.exportAsAGREGA( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
                                                 mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
-                                            else if( type == 5 && Writer.exportAsLAMSLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ){
+                                            else if( type == 5 && Writer.exportAsLAMSLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
                                                 mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
-                                            else if( type == 6 && Writer.exportAsGAMETELLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, testReturnURI, testUserId, adventureDataControl ) ){
+                                            else if( type == 6 && Writer.exportAsGAMETELLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, testReturnURI, testUserId, adventureDataControl ) ) {
                                                 mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
                                             else {
@@ -2314,7 +2318,7 @@ public class Controller {
                                         catch( Exception e ) {
                                             this.showErrorDialog( TC.get( "Operation.ExportToLOM.LONameNotValid.Title" ), TC.get( "Operation.ExportToLOM.LONameNotValid.Title" ) );
                                             ReportDialog.GenerateErrorReport( e, true, TC.get( "Operation.ExportToLOM.LONameNotValid.Title" ) );
-                                            hideLoadingScreen();
+                                            hideLoadingScreen( );
                                         }
 
                                     }
@@ -2322,7 +2326,7 @@ public class Controller {
                                 else {
                                     // Show error: The target dir cannot be contained 
                                     mainWindow.showErrorDialog( TC.get( "Operation.ExportT.TargetInProjectDir.Title" ), TC.get( "Operation.ExportT.TargetInProjectDir.Message" ) );
-                                    hideLoadingScreen();
+                                    hideLoadingScreen( );
                                 }
 
                             }
@@ -2490,44 +2494,47 @@ public class Controller {
         }
         return isValid;
     }
-    
+
     /**
-     * Confirm user that the conditions associated to description block will be deleted
+     * Confirm user that the conditions associated to description block will be
+     * deleted
+     * 
      * @return
      */
-    public boolean askDeleteConditionsDescriptionSet(){
-        int option = mainWindow.showConfirmDialog(TC.get( "DescriptionSet.deleteOnlyOneDescription.title") ,TC.get("DescriptionSet.deleteOnlyOneDescription.message"));
-     
+    public boolean askDeleteConditionsDescriptionSet( ) {
+
+        int option = mainWindow.showConfirmDialog( TC.get( "DescriptionSet.deleteOnlyOneDescription.title" ), TC.get( "DescriptionSet.deleteOnlyOneDescription.message" ) );
+
         if( option == JOptionPane.YES_OPTION )
             return true;
 
         else if( option == JOptionPane.NO_OPTION || option == JOptionPane.CANCEL_OPTION )
             return false;
-        
+
         return false;
 
     }
 
-    
     /**
-     * Confirm user that the conditions associated to resource block will be deleted
+     * Confirm user that the conditions associated to resource block will be
+     * deleted
+     * 
      * @return
      */
-    public boolean askDeleteConditionsResourceBlock(){
-        
-        int option = mainWindow.showConfirmDialog(TC.get( "ResourceBlock.deleteOnlyOneBlock.title") ,TC.get("ResourceBlock.deleteOnlyOneBlock.message"));
-     
+    public boolean askDeleteConditionsResourceBlock( ) {
+
+        int option = mainWindow.showConfirmDialog( TC.get( "ResourceBlock.deleteOnlyOneBlock.title" ), TC.get( "ResourceBlock.deleteOnlyOneBlock.message" ) );
+
         if( option == JOptionPane.YES_OPTION )
             return true;
 
         else if( option == JOptionPane.NO_OPTION || option == JOptionPane.CANCEL_OPTION )
             return false;
-        
+
         return false;
 
     }
-    
-    
+
     /**
      * Exits from the aplication.
      */
@@ -2643,16 +2650,14 @@ public class Controller {
 
         adventureDataControl.showGUIStylesDialog( );
     }
-    
-    
-    
-    public void changeToolGUIStyleDialog( int optionSelected ){
-        
-       if (optionSelected != 1){
-           
-           adventureDataControl.setGUIStyleDialog( optionSelected );
-       } 
-        
+
+    public void changeToolGUIStyleDialog( int optionSelected ) {
+
+        if( optionSelected != 1 ) {
+
+            adventureDataControl.setGUIStyleDialog( optionSelected );
+        }
+
     }
 
     /**
@@ -2773,16 +2778,17 @@ public class Controller {
         else
             mainWindow.showInformationDialog( TC.get( "DeleteUnusedAssets.Title" ), TC.get( "DeleteUnusedAssets.NoUnsuedAssetsFound" ) );
     }
-    
-    public java.io.File selectXMLChapterFile(){
+
+    public java.io.File selectXMLChapterFile( ) {
+
         JFileChooser chooser = new JFileChooser( );
         chooser.setFileFilter( new XMLFileFilter( ) );
         chooser.setMultiSelectionEnabled( false );
-        chooser.setCurrentDirectory( new File( getCurrentLoadFolder( )) );
+        chooser.setCurrentDirectory( new File( getCurrentLoadFolder( ) ) );
         int option = chooser.showOpenDialog( mainWindow );
-        if( option == JFileChooser.APPROVE_OPTION ) 
+        if( option == JFileChooser.APPROVE_OPTION )
             return chooser.getSelectedFile( );
-        else 
+        else
             return null;
     }
 
@@ -2820,21 +2826,22 @@ public class Controller {
 
         addTool( new AddChapterTool( chaptersController ) );
     }
-    
+
     /**
-     * Imports a new chapter to the adventure. This method open a window to select
-     * the xml chapter.
+     * Imports a new chapter to the adventure. This method open a window to
+     * select the xml chapter.
      */
     public void importChapter( ) {
-        try{    
+
+        try {
             addTool( new ImportChapterTool( chaptersController ) );
         }
-        catch (Exception ex){
+        catch( Exception ex ) {
             ex.getStackTrace( );
             loadingScreen.setVisible( false );
-            showInformationDialog(TC.get( "ImportChapter.UnknowProblems.Title" ), TC.get( "ImportChapter.UnknowProblems.Message" ));  
+            showInformationDialog( TC.get( "ImportChapter.UnknowProblems.Title" ), TC.get( "ImportChapter.UnknowProblems.Message" ) );
         }
-    
+
     }
 
     /**
@@ -2928,14 +2935,16 @@ public class Controller {
             adventureDataControl.setDescription( description );
         }
     }
-    
-    public void setKeyboardNavigation ( boolean enabled ){
-        if (enabled!=adventureDataControl.isKeyboardNavigationEnabled( )){
+
+    public void setKeyboardNavigation( boolean enabled ) {
+
+        if( enabled != adventureDataControl.isKeyboardNavigationEnabled( ) ) {
             adventureDataControl.setKeyboardNavigation( enabled );
         }
     }
-    
-    public boolean isKeyboardNavigationEnabled(){
+
+    public boolean isKeyboardNavigationEnabled( ) {
+
         return adventureDataControl.isKeyboardNavigationEnabled( );
     }
 
@@ -2972,19 +2981,19 @@ public class Controller {
         boolean elementIdValid = false;
 
         // Check if the identifier has no spaces
-        if( !elementId.contains( " " ) && !elementId.contains( "'" )) {
+        if( !elementId.contains( " " ) && !elementId.contains( "'" ) ) {
 
             // If the identifier doesn't exist already
             if( !getIdentifierSummary( ).existsId( elementId ) ) {
 
                 // If the identifier is not a reserved identifier
                 if( !elementId.equals( Player.IDENTIFIER ) && !elementId.equals( TC.get( "ConversationLine.PlayerName" ) ) ) {
-                   
+
                     // If the first character is a letter
-                    if( Character.isLetter( elementId.charAt( 0 ) ) ){
-                      elementIdValid = isCharacterValid(elementId);
-                      if (!elementIdValid)
-                          mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorCharacter" ) );
+                    if( Character.isLetter( elementId.charAt( 0 ) ) ) {
+                        elementIdValid = isCharacterValid( elementId );
+                        if( !elementIdValid )
+                            mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorCharacter" ) );
                     }
                     // Show non-letter first character error
                     else if( showError )
@@ -3007,23 +3016,24 @@ public class Controller {
 
         return elementIdValid;
     }
-    
-public boolean isCharacterValid(String elementId){
-    Character chId;
-    boolean isValid = true;
-    int i=1;
-    while (i < elementId.length( ) && isValid) {  
-      chId = elementId.charAt( i );
-      if (!Character.isLetterOrDigit( chId ) && chId!='-' && chId!='_'&& chId!=':'&& chId!='.'){
-          isValid = false;
-      }
-      i++;
+
+    public boolean isCharacterValid( String elementId ) {
+
+        Character chId;
+        boolean isValid = true;
+        int i = 1;
+        while( i < elementId.length( ) && isValid ) {
+            chId = elementId.charAt( i );
+            if( !Character.isLetterOrDigit( chId ) && chId != '-' && chId != '_' && chId != ':' && chId != '.' ) {
+                isValid = false;
+            }
+            i++;
+        }
+
+        return isValid;
+
     }
-   
-    return isValid;
-    
-    
-}
+
     /**
      * Returns whether the given identifier is valid or not. If the element
      * identifier is not valid, this method shows an error message to the user.
@@ -3110,34 +3120,37 @@ public boolean isCharacterValid(String elementId){
     /**
      * Returns the player
      */
-    public Player getPlayer(){
-        return (Player)getSelectedChapterDataControl( ).getPlayer( ).getContent( );
+    public Player getPlayer( ) {
+
+        return (Player) getSelectedChapterDataControl( ).getPlayer( ).getContent( );
     }
-    
-    
+
     /**
      * Change the player resources when the mode is changed.
+     * 
      * @param assetNecessary
-     *            
+     * 
      */
-    public void changePlayerNecessaryResources(boolean assetNecessary){
-        int right,left;
+    public void changePlayerNecessaryResources( boolean assetNecessary ) {
+
+        int right, left;
         //TODO no se comprueba el caso en el que el player tenga uno de los dos.... al realizar 2 veces el cambio de 
         // tipo de juego, se setean ambos como necesarios y solo aparece uno...
-        for (ResourcesDataControl rdc : getSelectedChapterDataControl( ).getPlayer( ).getResources( )){
-            for (int i=0;  i < rdc.getAssetsInformation( ).length; i++ ){
-                if (rdc.getAssetsInformation( )[i].name.equals( "standleft" )){
+        for( ResourcesDataControl rdc : getSelectedChapterDataControl( ).getPlayer( ).getResources( ) ) {
+            for( int i = 0; i < rdc.getAssetsInformation( ).length; i++ ) {
+                if( rdc.getAssetsInformation( )[i].name.equals( "standleft" ) ) {
                     rdc.getAssetsInformation( )[i].assetNecessary = assetNecessary;
                     left = i;
-                } else if (rdc.getAssetsInformation( )[i].name.equals( "standright" )){
+                }
+                else if( rdc.getAssetsInformation( )[i].name.equals( "standright" ) ) {
                     rdc.getAssetsInformation( )[i].assetNecessary = assetNecessary;
                     right = i;
-                }   
+                }
             }
-          
+
         }
     }
-    
+
     /**
      * This method returns the absolute path of the default image of the given
      * element (item or character).
@@ -3312,10 +3325,9 @@ public boolean isCharacterValid(String elementId){
 
         mainWindow.popWindow( );
     }
-    
-    
+
     /**
-     * Shows a dialog showing information and with the button "Ok" 
+     * Shows a dialog showing information and with the button "Ok"
      * 
      * @param title
      *            Title of the dialog
@@ -3386,11 +3398,10 @@ public boolean isCharacterValid(String elementId){
 
         return mainWindow.showInputDialog( title, message, defaultValue );
     }
-    
-    
-    public String showInputDialog( String title, String message) {
 
-        return mainWindow.showInputDialog( title, message);
+    public String showInputDialog( String title, String message ) {
+
+        return mainWindow.showInputDialog( title, message );
     }
 
     /**
@@ -3460,8 +3471,8 @@ public boolean isCharacterValid(String elementId){
             JDialog dialog = new JDialog( Controller.getInstance( ).peekWindow( ), TC.get( "About" ), Dialog.ModalityType.TOOLKIT_MODAL );
             dialog.getContentPane( ).setLayout( new BorderLayout( ) );
 
-            JPanel panel = new JPanel();
-            panel.setLayout( new BorderLayout() );
+            JPanel panel = new JPanel( );
+            panel.setLayout( new BorderLayout( ) );
 
             File file = new File( ConfigData.getAboutFile( ) );
             if( file.exists( ) ) {
@@ -3469,9 +3480,9 @@ public boolean isCharacterValid(String elementId){
                 pane.setPage( file.toURI( ).toURL( ) );
                 pane.setEditable( false );
                 panel.add( pane, BorderLayout.CENTER );
-                
+
             }
-            
+
             dialog.getContentPane( ).add( panel, BorderLayout.CENTER );
 
             dialog.setSize( 275, 560 );
@@ -3479,14 +3490,12 @@ public boolean isCharacterValid(String elementId){
             dialog.setLocation( ( screenSize.width - dialog.getWidth( ) ) / 2, ( screenSize.height - dialog.getHeight( ) ) / 2 );
             dialog.setVisible( true );
 
-
         }
         catch( IOException e ) {
             ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
         }
     }
-    
-    
+
     public AssessmentProfilesDataControl getAssessmentController( ) {
 
         return this.chaptersController.getSelectedChapterDataControl( ).getAssessmentProfilesDataControl( );
@@ -3518,7 +3527,7 @@ public boolean isCharacterValid(String elementId){
         this.adventureDataControl.setKeepShowing( b );
 
     }
-    
+
     /**
      * Returns an int value representing the current language used to display
      * the editor
@@ -3529,16 +3538,17 @@ public boolean isCharacterValid(String elementId){
 
         return this.languageFile;
     }
-    
+
     /**
      * Get the default lenguage
+     * 
      * @return name of default language in standard internationalization
      */
     public String getDefaultLanguage( ) {
 
         return ReleaseFolders.LANGUAGE_DEFAULT;
     }
-    
+
     /**
      * Sets the current language of the editor. Accepted values are
      * {@value #LANGUAGE_ENGLISH} & {@value #LANGUAGE_ENGLISH}. This method
@@ -3569,18 +3579,18 @@ public boolean isCharacterValid(String elementId){
         // image loading route
         String dirImageLoading = ReleaseFolders.IMAGE_LOADING_DIR + "/" + language + "/Editor2D-Loading.png";
         // if there isn't file, load the default file
-        File fichero = new File(dirImageLoading);
-        if (!fichero.exists( ))
+        File fichero = new File( dirImageLoading );
+        if( !fichero.exists( ) )
             dirImageLoading = ReleaseFolders.IMAGE_LOADING_DIR + "/" + getDefaultLanguage( ) + "/Editor2D-Loading.png";
-       
+
         //about file route
         String dirAboutFile = ReleaseFolders.LANGUAGE_DIR_EDITOR + "/" + ReleaseFolders.getAboutFilePath( language );
-        File fichero2 = new File(dirAboutFile);
-        if (!fichero2.exists( ))
+        File fichero2 = new File( dirAboutFile );
+        if( !fichero2.exists( ) )
             dirAboutFile = ReleaseFolders.LANGUAGE_DIR_EDITOR + "/" + ReleaseFolders.getDefaultAboutFilePath( );
-        
+
         ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), dirAboutFile, dirImageLoading );
-        
+
         languageFile = language;
         TC.loadStrings( ReleaseFolders.getLanguageFilePath4Editor( true, languageFile ) );
         TC.appendStrings( ReleaseFolders.getLanguageFilePath4Editor( false, languageFile ) );
@@ -3597,25 +3607,25 @@ public boolean isCharacterValid(String elementId){
     public void showGraphicConfigDialog( ) {
 
         // Show the dialog
-     //   GraphicConfigDialog guiStylesDialog = new GraphicConfigDialog( adventureDataControl.getGraphicConfig( ) );
+        //   GraphicConfigDialog guiStylesDialog = new GraphicConfigDialog( adventureDataControl.getGraphicConfig( ) );
         new GraphicConfigDialog( adventureDataControl.getGraphicConfig( ) );
-      
+
         // If the new GUI style is different from the current, and valid, change the value
-    /*    int optionSelected = guiStylesDialog.getOptionSelected( );
+        /*    int optionSelected = guiStylesDialog.getOptionSelected( );
+            if( optionSelected != -1 && this.adventureDataControl.getGraphicConfig( ) != optionSelected ) {
+                adventureDataControl.setGraphicConfig( optionSelected );
+            }*/
+    }
+
+    public void changeToolGraphicConfig( int optionSelected ) {
+
         if( optionSelected != -1 && this.adventureDataControl.getGraphicConfig( ) != optionSelected ) {
+            //  this.grafhicDialog.cambiarCheckBox( );
             adventureDataControl.setGraphicConfig( optionSelected );
-        }*/
+        }
+
     }
-  public void changeToolGraphicConfig( int optionSelected ) {
-        
-        
-      if( optionSelected != -1 && this.adventureDataControl.getGraphicConfig( ) != optionSelected ) {
-        //  this.grafhicDialog.cambiarCheckBox( );
-          adventureDataControl.setGraphicConfig( optionSelected );
-      }
-        
-        
-    }
+
     // METHODS TO MANAGE UNDO/REDO
 
     public boolean addTool( Tool tool ) {
@@ -3682,10 +3692,11 @@ public boolean isCharacterValid(String elementId){
         return isLomEs;
     }
 
-    public int getGUIConfigConfiguration(){
+    public int getGUIConfigConfiguration( ) {
+
         return this.adventureDataControl.getGraphicConfig( );
     }
-    
+
     public String getDefaultExitCursorPath( ) {
 
         String temp = this.adventureDataControl.getCursorPath( "exit" );
@@ -3715,120 +3726,134 @@ public boolean isCharacterValid(String elementId){
         return new Color( r, g, b );
     }
 
+    private static final Runnable gc = new Runnable( ) {
 
-    private static final Runnable gc = new Runnable() { public void run() { System.gc( );} };
+        public void run( ) {
+
+            System.gc( );
+        }
+    };
+
     /**
      * Public method to perform garbage collection on a different thread.
      */
-    public static void gc() {
-        new Thread(gc).start( );
+    public static void gc( ) {
+
+        new Thread( gc ).start( );
     }
-    
-    public static java.io.File createTempDirectory() throws IOException
-    {
+
+    public static java.io.File createTempDirectory( ) throws IOException {
+
         final java.io.File temp;
-    
-        temp = java.io.File.createTempFile("temp", Long.toString(System.nanoTime()));
-    
-        if(!(temp.delete()))
-            throw new IOException("Could not delete temp file: " + temp.getAbsolutePath());
-    
-        if(!(temp.mkdir()))
-            throw new IOException("Could not create temp directory: " + temp.getAbsolutePath());
-    
-        return (temp);
+
+        temp = java.io.File.createTempFile( "temp", Long.toString( System.nanoTime( ) ) );
+
+        if( !( temp.delete( ) ) )
+            throw new IOException( "Could not delete temp file: " + temp.getAbsolutePath( ) );
+
+        if( !( temp.mkdir( ) ) )
+            throw new IOException( "Could not create temp directory: " + temp.getAbsolutePath( ) );
+
+        return ( temp );
     }
 
     public DefaultClickAction getDefaultCursorAction( ) {
+
         return this.adventureDataControl.getDefaultClickAction( );
     }
 
     public void setDefaultCursorAction( DefaultClickAction defaultClickAction ) {
-        this.adventureDataControl.setDefaultClickAction(defaultClickAction);
+
+        this.adventureDataControl.setDefaultClickAction( defaultClickAction );
     }
-    
-    public Perspective getPerspective() {
+
+    public Perspective getPerspective( ) {
+
         return this.adventureDataControl.getPerspective( );
     }
-    
+
     public void setPerspective( Perspective perspective ) {
+
         this.adventureDataControl.setPerspective( perspective );
     }
-    
-    public DragBehaviour getDragBehaviour() {
-        return this.adventureDataControl.getDragBehaviour() ;
+
+    public DragBehaviour getDragBehaviour( ) {
+
+        return this.adventureDataControl.getDragBehaviour( );
     }
-    
+
     public void setDragBehaviour( DragBehaviour dragBehaviour ) {
+
         this.adventureDataControl.setDragBehaviour( dragBehaviour );
     }
-    
+
     /**
      * Change all animation old formats (name_01) for new formats (.eaa)
      */
-     public void changeAllAnimationFormats(){
-         
-         //Get all cutsecene data controls 
-         List<DataControlWithResources> dataControlList = new ArrayList<DataControlWithResources>();
-         dataControlList.addAll(chaptersController.getSelectedChapterDataControl( ).getCutscenesList( ).getAllCutsceneDataControls( ));
-         // change formats seting the option "slides animation" in the new .eaa created animations
-         changeFormats(true,dataControlList);
-         dataControlList.clear( );
+    public void changeAllAnimationFormats( ) {
 
-         //Get all NPC and Player data controls 
-         dataControlList.addAll(chaptersController.getSelectedChapterDataControl( ).getNPCsList( ).getAllNPCDataControls( ));
-         dataControlList.add(chaptersController.getSelectedChapterDataControl( ).getPlayer( ));
-         // change formats seting the option "slides animation" in the new .eaa created animations
-         changeFormats(false,dataControlList);
-         
-         loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsLO" ) );
-         loadingScreen.setVisible( true );
-         
-     } // end changeAllAnimationFormats
-     
-     private void changeFormats(boolean isCutScene, List<DataControlWithResources> dataControlList){
-         // Take the project folder to check if the .eaa animation has been previously created
-         File projectFolder = new File( Controller.getInstance( ).getProjectFolder( ) );
-         for (DataControlWithResources dc:dataControlList){
-             // iterate the whole list of resourceDataControls looking for all animations
-             List<ResourcesDataControl> resourcesDataControl = dc.getResources( );
-             for (ResourcesDataControl rdc :resourcesDataControl){
-                 for (int i=0; i<rdc.getAssetCount( );i++){
-                     if (rdc.getAssetCategory( i ) == AssetsConstants.CATEGORY_ANIMATION ){
-                     String assetPath = rdc.getAssetPath( i );
-                     if ((assetPath==null || assetPath.equals( "" )) /*&&  !assetPath.equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION )*/ ){
-                         assetPath = SpecialAssetPaths.ASSET_EMPTY_ANIMATION;                         
-                     }
-                         
-                     if (!assetPath.toLowerCase( ).endsWith( ".eaa" ) ){
-                        // String path;
-                         String[] temp = assetPath.split( "/" );
-                         String animationName = temp[temp.length - 1];
-                         File animationFile = new File(projectFolder, assetPath + ".eaa");
-                         if (!animationFile.exists( )){
-                            Animation animation = new Animation( animationName, new EditorImageLoader());
-                            // set the animation to cutsecene mode when was necessary
-                            animation.setSlides( isCutScene );
-                            animation.setDocumentation( rdc.getAssetDescription( i ) );
-                            // add the images of the old animation
-                            ResourcesDataControl.framesFromImages( animation, assetPath, true);
-                            AnimationWriter.writeAnimation( animationFile.getAbsolutePath( ), animation );
-                            // CAUTION!! adding resources without using tool
-                            rdc.addAsset( rdc.getAssetName( i ) , assetPath + ".eaa" );
-                          } else
-                              rdc.changeAssetPath( i , assetPath + ".eaa" );
-                      } else {
-                             // if the eaa animation for this old animation was previously created, change only the path (without using Tools, cause this operation
-                             // ask for user confirmation if animation path previously exist)
-                             rdc.changeAssetPath( i , assetPath );
-                         }
-                     
-                         }
-                     }
-                 }// end resources  for
-             }// end main for
-     }
-     
+        //Get all cutsecene data controls 
+        List<DataControlWithResources> dataControlList = new ArrayList<DataControlWithResources>( );
+        dataControlList.addAll( chaptersController.getSelectedChapterDataControl( ).getCutscenesList( ).getAllCutsceneDataControls( ) );
+        // change formats seting the option "slides animation" in the new .eaa created animations
+        changeFormats( true, dataControlList );
+        dataControlList.clear( );
 
-    
+        //Get all NPC and Player data controls 
+        dataControlList.addAll( chaptersController.getSelectedChapterDataControl( ).getNPCsList( ).getAllNPCDataControls( ) );
+        dataControlList.add( chaptersController.getSelectedChapterDataControl( ).getPlayer( ) );
+        // change formats seting the option "slides animation" in the new .eaa created animations
+        changeFormats( false, dataControlList );
+
+        loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsLO" ) );
+        loadingScreen.setVisible( true );
+
+    } // end changeAllAnimationFormats
+
+    private void changeFormats( boolean isCutScene, List<DataControlWithResources> dataControlList ) {
+
+        // Take the project folder to check if the .eaa animation has been previously created
+        File projectFolder = new File( Controller.getInstance( ).getProjectFolder( ) );
+        for( DataControlWithResources dc : dataControlList ) {
+            // iterate the whole list of resourceDataControls looking for all animations
+            List<ResourcesDataControl> resourcesDataControl = dc.getResources( );
+            for( ResourcesDataControl rdc : resourcesDataControl ) {
+                for( int i = 0; i < rdc.getAssetCount( ); i++ ) {
+                    if( rdc.getAssetCategory( i ) == AssetsConstants.CATEGORY_ANIMATION ) {
+                        String assetPath = rdc.getAssetPath( i );
+                        if( ( assetPath == null || assetPath.equals( "" ) ) /*&&  !assetPath.equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION )*/) {
+                            assetPath = SpecialAssetPaths.ASSET_EMPTY_ANIMATION;
+                        }
+
+                        if( !assetPath.toLowerCase( ).endsWith( ".eaa" ) ) {
+                            // String path;
+                            String[] temp = assetPath.split( "/" );
+                            String animationName = temp[temp.length - 1];
+                            File animationFile = new File( projectFolder, assetPath + ".eaa" );
+                            if( !animationFile.exists( ) ) {
+                                Animation animation = new Animation( animationName, new EditorImageLoader( ) );
+                                // set the animation to cutsecene mode when was necessary
+                                animation.setSlides( isCutScene );
+                                animation.setDocumentation( rdc.getAssetDescription( i ) );
+                                // add the images of the old animation
+                                ResourcesDataControl.framesFromImages( animation, assetPath, true );
+                                AnimationWriter.writeAnimation( animationFile.getAbsolutePath( ), animation );
+                                // CAUTION!! adding resources without using tool
+                                rdc.addAsset( rdc.getAssetName( i ), assetPath + ".eaa" );
+                            }
+                            else
+                                rdc.changeAssetPath( i, assetPath + ".eaa" );
+                        }
+                        else {
+                            // if the eaa animation for this old animation was previously created, change only the path (without using Tools, cause this operation
+                            // ask for user confirmation if animation path previously exist)
+                            rdc.changeAssetPath( i, assetPath );
+                        }
+
+                    }
+                }
+            }// end resources  for
+        }// end main for
+    }
+
 }
