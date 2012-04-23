@@ -1935,5 +1935,23 @@
 <entry key="MenuConfiguration.DebugOptions.PaintGrid">Paint grila, de compensare a scenei şi zonele de încadrare a butoanelor</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Desenaţi puncte importante pentru interacţiune tastatură</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Egal zone de încadrare pentru elemente interactive si zonele de scena</entry>
-
+<entry key="Resources.DescriptionButtonSound">Sunetele asociate cu butonul (acest lucru îmbunătăţeşte accesibilitatea)</entry>
+<entry key="Button.examine.sound.Description">Sunetele asociate cu butonul de "examina"</entry>
+<entry key="Button.examine.sound.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
+<entry key="Button.talk.sound.Description">Sunetele asociate cu butonul de "talk"</entry>
+<entry key="Button.talk.sound.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
+<entry key="Button.use.sound.Description">Sunetele asociate cu butonul de "utilizarea"</entry>
+<entry key="Button.use.sound.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
+<entry key="Button.grab.sound.Description">Sunetele asociate cu butonul de "acaparare"</entry>
+<entry key="Button.grab.sound.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
+<entry key="Button.use-with.sound.Description">Sunetele asociate cu butonul de "utilizare cu"</entry>
+<entry key="Button.use-with.sound.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
+<entry key="Button.give-to.sound.Description">Sunetele asociate cu butonul de "da"</entry>
+<entry key="Button.give-to.sound.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
+<entry key="Button.drag-to.sound.Description">Sunetele asociate cu butonul "Trage pentru a"</entry>
+<entry key="Button.drag-to.sound.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
+<entry key="Inventory.sound-right.Description">Sunetele asociate cu butonul "săgeată dreapta"</entry>
+<entry key="Inventory.sound-right.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
+<entry key="Inventory.sound-left.Description">Sunetele asociate cu butonul "săgeată stânga"</entry>
+<entry key="Inventory.sound-left.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
 </properties>

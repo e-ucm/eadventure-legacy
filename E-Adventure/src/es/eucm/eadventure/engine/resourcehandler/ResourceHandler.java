@@ -43,7 +43,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Random;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import javax.imageio.ImageIO;
@@ -303,14 +305,34 @@ public abstract class ResourceHandler implements InputStreamCreator {
                     else
                         inputStream = getResourceAsStream( path );
                 }
-                
             }
                 
         }
         catch( IOException e ) {
             e.printStackTrace( );
+            inputStream = null;
         }
 
+        if (inputStream==null && zipFile!=null){
+            Enumeration<? extends ZipEntry> en = zipFile.entries( );
+            while (en.hasMoreElements( )){
+                ZipEntry entry=en.nextElement( );
+                String lowerCaseEntryName = entry.getName( ).toLowerCase( );
+                if (lowerCaseEntryName.startsWith( "assets" ) || lowerCaseEntryName.startsWith( "gui" )){
+                    if (lowerCaseEntryName.equals( path.toLowerCase( ) )){
+                        try {
+                            inputStream = zipFile.getInputStream( entry );
+                        }
+                        catch( IOException e ) {
+                            inputStream=null;
+                            inputStream = getResourceAsStream( entry.getName( ) );
+                        }
+                    }
+                }
+            }
+            
+        }
+        
         return inputStream;
     }
 

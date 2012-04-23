@@ -79,7 +79,7 @@ public class PlayerPanel extends ElementPanel {
         @Override
         protected JComponent getTabComponent( ) {
 
-            return new NPCDocPanel( dataControl );
+            return new NPCDocPanel( dataControl, true );
         }
     }
 

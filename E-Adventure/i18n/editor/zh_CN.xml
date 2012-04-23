@@ -1916,4 +1916,23 @@
 <entry key="TalkToAction.MessageSelectConversation">选择一个会话</entry>
 <entry key="BookPage.NotValidURL">提供的网址不能访问,因此不能保证它显示到游戏中.请检查输入的网址是否正确和因特网连接是否正常工作.</entry>
 <entry key="LOMES.MetaMetaData.Language">语言</entry>
+<entry key="Resources.DescriptionButtonSound">健全相关的按钮（这提高了无障碍）</entry>
+<entry key="Button.examine.sound.Description">听起来关联到按钮“审查”</entry>
+<entry key="Button.examine.sound.Tip">你可以定义一个特殊的按钮被激活时播放的声音（这提高了可访问）</entry>
+<entry key="Button.talk.sound.Description">健全相关按钮“谈话”</entry>
+<entry key="Button.talk.sound.Tip">你可以定义一个特殊的按钮被激活时播放的声音（这提高了可访问）</entry>
+<entry key="Button.use.sound.Description">健全相关的按钮“使用”</entry>
+<entry key="Button.use.sound.Tip">你可以定义一个特殊的按钮被激活时播放的声音（这提高了可访问）</entry>
+<entry key="Button.grab.sound.Description">健全相关的按钮“抢”</entry>
+<entry key="Button.grab.sound.Tip">你可以定义一个特殊的按钮被激活时播放的声音（这提高了可访问）</entry>
+<entry key="Button.use-with.sound.Description">健全相关的按钮“使用”</entry>
+<entry key="Button.use-with.sound.Tip">你可以定义一个特殊的按钮被激活时播放的声音（这提高了可访问）</entry>
+<entry key="Button.give-to.sound.Description">听起来相关的按钮“给”</entry>
+<entry key="Button.give-to.sound.Tip">你可以定义一个特殊的按钮被激活时播放的声音（这提高了可访问）</entry>
+<entry key="Button.drag-to.sound.Description">健全相关的按钮“拖动到”</entry>
+<entry key="Button.drag-to.sound.Tip">你可以定义一个特殊的按钮被激活时播放的声音（这提高了可访问）</entry>
+<entry key="Inventory.sound-right.Description">健全相关的按钮“右箭头”</entry>
+<entry key="Inventory.sound-right.Tip">你可以定义一个特殊的按钮被激活时播放的声音（这提高了可访问）</entry>
+<entry key="Inventory.sound-left.Description">健全相关按钮“左箭头”</entry>
+<entry key="Inventory.sound-left.Tip">你可以定义一个特殊的按钮被激活时播放的声音（这提高了可访问）</entry>
 </properties>

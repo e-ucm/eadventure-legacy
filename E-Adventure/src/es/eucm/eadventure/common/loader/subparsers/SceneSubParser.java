@@ -324,14 +324,20 @@ public class SceneSubParser extends SubParser {
                 currentExitLook = new ExitLook( );
                 String text = null;
                 String cursorPath = null;
+                String soundPath = null;
                 for( int i = 0; i < attrs.getLength( ); i++ ) {
                     if( attrs.getQName( i ).equals( "text" ) )
                         text = attrs.getValue( i );
                     if( attrs.getQName( i ).equals( "cursor-path" ) )
                         cursorPath = attrs.getValue( i );
+                    if( attrs.getQName( i ).equals( "sound-path" ) )
+                        soundPath = attrs.getValue( i );
                 }
                 currentExitLook.setCursorPath( cursorPath );
                 currentExitLook.setExitText( text );
+                if (soundPath!=null){
+                    currentExitLook.setSoundPath( soundPath );
+                }
             }
 
             // If it is a next-scene tag, create the new next scene

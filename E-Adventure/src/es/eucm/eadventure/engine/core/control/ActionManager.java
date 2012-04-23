@@ -137,6 +137,10 @@ public class ActionManager {
      * Name of the current string being selected.
      */
     private String exit;
+    /**
+     * Path of the current audio path for exit's name. Added for v1.4
+     */
+    private String exitSoundPath;
 
     /**
      * Cursor of the current exit being selected
@@ -159,6 +163,7 @@ public class ActionManager {
         elementOver = null;
         actionSelected = ACTION_GOTO;
         exit = "";
+        exitSoundPath = "";
         exitCursor = null;
         cursors = new HashMap<Exit, Cursor>( );
     }
@@ -215,6 +220,18 @@ public class ActionManager {
 
         return exit;
     }
+    
+    /**
+     * Returns the current exit sound path.
+     * 
+     * @return Current exit sound path
+     * 
+     * Added 1.4
+     */
+    public String getExitSoundPath( ) {
+
+        return exitSoundPath;
+    }
 
     /**
      * Returns the current exit cursor.
@@ -229,15 +246,25 @@ public class ActionManager {
     /**
      * Sets the current exit.
      * 
-     * @param exit
+     * @param exitText
      *            Current exit
+     *            
+     *            Modified 1.4
      */
-    public void setExit( String exit ) {
+    public void setExit( String exitText, String soundPath ) {
 
-        if( exit == null )
+        if( exitText == null ){
             this.exit = "";
-        else
-            this.exit = exit;
+        }else{
+            this.exit = exitText;
+        }
+        
+        if( soundPath == null ){
+            this.exitSoundPath = "";
+        }else{
+            this.exitSoundPath = soundPath;
+        }
+
     }
 
     /**
@@ -251,10 +278,10 @@ public class ActionManager {
         this.exitCursor = cursor;
     }
 
-    public void setExitCustomized( String exit, Cursor cursor ) {
+    public void deleteCustomExit(  ) {
 
-        setExit( exit );
-        setExitCursor( cursor );
+        setExit( null, null );
+        setExitCursor( null );
     }
 
     /**
@@ -329,23 +356,30 @@ public class ActionManager {
 
             //Check the text (customized or not)
             if( getExitText( exit ) != null && !getExitText( exit ).equals( "" ) ) {
-                setExit( getExitText( exit ) );
+                setExit( getExitText( exit ), getExitAudioPath ( exit ) );
             }
             else if( getExitText( exit ) != null ) {
-                setExit( " " );
+                setExit( " ", getExitAudioPath ( exit ) );
             }
             else if( nextScene != null )
-                setExit( nextScene.getName( ) );
+                setExit( nextScene.getName( ), getExitAudioPath ( exit ) );
         }
     }
 
-    public String getExitText( Exit exit ) {
+    private String getExitText( Exit exit ) {
 
         if( exit.getDefaultExitLook( ) != null )
             return exit.getDefaultExitLook( ).getExitText( );
         return null;
     }
 
+    private String getExitAudioPath( Exit exit ) {
+
+        if( exit.getDefaultExitLook( ) != null )
+            return exit.getDefaultExitLook( ).getSoundPath( );
+        return null;
+    }
+    
     /**
      * Returns the cursor of the first resources block which all conditions are
      * met

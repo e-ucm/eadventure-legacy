@@ -37,6 +37,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.character;
 
 import javax.swing.JComponent;
+
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
@@ -77,7 +78,7 @@ public class NPCPanel extends ElementPanel {
         @Override
         protected JComponent getTabComponent( ) {
 
-            return new NPCDocPanel( dataControl );
+            return new NPCDocPanel( dataControl, false );
         }
     }
 

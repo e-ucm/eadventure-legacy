@@ -2064,5 +2064,23 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="MenuConfiguration.DebugOptions.PaintGrid">Pintar cuadrícula, desplazamiento de escena y contorno de botones</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Pintar puntos de interacción para teclado</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Pintar contorno de elementos y zonas interactivas</entry>
-
+<entry key="Resources.DescriptionButtonSound">Sonido asociado al botón (esto mejora la accesibilidad)</entry>
+<entry key="Button.examine.sound.Description">Sonido asociado al botón "examinar"</entry>
+<entry key="Button.examine.sound.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
+<entry key="Button.talk.sound.Description">Sonido asociado al botón de "hablar"</entry>
+<entry key="Button.talk.sound.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
+<entry key="Button.use.sound.Description">Sonido asociado al botón de "uso"</entry>
+<entry key="Button.use.sound.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
+<entry key="Button.grab.sound.Description">Sonido asociado al botón de "agarrar"</entry>
+<entry key="Button.grab.sound.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
+<entry key="Button.use-with.sound.Description">Sonido asociado al botón de "usar con"</entry>
+<entry key="Button.use-with.sound.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
+<entry key="Button.give-to.sound.Description">Sonido asociado al botón de "dar"</entry>
+<entry key="Button.give-to.sound.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
+<entry key="Button.drag-to.sound.Description">Sonido asociado al botón de "arrastrar a"</entry>
+<entry key="Button.drag-to.sound.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
+<entry key="Inventory.sound-right.Description">Sonido asociado a la tecla "flecha derecha"</entry>
+<entry key="Inventory.sound-right.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
+<entry key="Inventory.sound-left.Description">Sonido asociado a la tecla "flecha izquierda"</entry>
+<entry key="Inventory.sound-left.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
 </properties>

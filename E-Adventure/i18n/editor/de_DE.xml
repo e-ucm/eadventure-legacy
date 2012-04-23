@@ -1947,5 +1947,23 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="MenuConfiguration.DebugOptions.PaintGrid">Malen Sie das Raster, die Versetzung der Szene und der umgebenden Bereiche der Tasten</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Zeichnen Sie wichtige Punkte für die Tastatur-Interaktion</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Draw begrenzenden Flächen für interaktive Elemente und Szenen Bereichen</entry>
-
+<entry key="Resources.DescriptionButtonSound">Geräusch in Verbindung mit dem Knopf (Das verbessert die Zugänglichkeit)</entry>
+<entry key="Button.examine.sound.Description">Taste, um zugehörigen Ton "untersuchen"</entry>
+<entry key="Button.examine.sound.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
+<entry key="Button.talk.sound.Description">Geräusch in Verbindung, um die Schaltfläche "talk"</entry>
+<entry key="Button.talk.sound.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
+<entry key="Button.use.sound.Description">Geräusch in Verbindung, um die Schaltfläche "Einsatz"</entry>
+<entry key="Button.use.sound.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
+<entry key="Button.grab.sound.Description">Geräusch in Verbindung, um den Button "grab"</entry>
+<entry key="Button.grab.sound.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
+<entry key="Button.use-with.sound.Description">Geräusch in Verbindung, um den Button "mit verwenden"</entry>
+<entry key="Button.use-with.sound.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
+<entry key="Button.give-to.sound.Description">Auf die Schaltfläche zugehörigen Ton "zu geben"</entry>
+<entry key="Button.give-to.sound.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
+<entry key="Button.drag-to.sound.Description">Geräusch in Verbindung, um die Schaltfläche "ziehen, um"</entry>
+<entry key="Button.drag-to.sound.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
+<entry key="Inventory.sound-right.Description">Geräusch in Verbindung, um die Schaltfläche "Pfeil nach rechts"</entry>
+<entry key="Inventory.sound-right.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
+<entry key="Inventory.sound-left.Description">Geräusch in Verbindung, um die Schaltfläche "Pfeil nach links"</entry>
+<entry key="Inventory.sound-left.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
 </properties>
