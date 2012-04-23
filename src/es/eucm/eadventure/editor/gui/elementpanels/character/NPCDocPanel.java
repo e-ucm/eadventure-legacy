@@ -65,7 +65,7 @@ public class NPCDocPanel extends JPanel {
      */
     private JTextArea documentationTextArea;
   
-    public NPCDocPanel( NPCDataControl dataControl ) {
+    public NPCDocPanel( NPCDataControl dataControl, boolean player ) {
 
         this.dataControl = dataControl;
         
@@ -92,9 +92,10 @@ public class NPCDocPanel extends JPanel {
         cDoc.weighty = 0;
 
         cDoc.gridy = 1;
-        
-        DescriptionsPanel descriptionsPanel = new DescriptionsPanel(dataControl.getDescriptionController( ));
-        add( descriptionsPanel, cDoc );
+        if (!player){
+            DescriptionsPanel descriptionsPanel = new DescriptionsPanel(dataControl.getDescriptionController( ));
+            add( descriptionsPanel, cDoc );
+        }
     }
 
     

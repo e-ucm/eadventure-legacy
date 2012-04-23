@@ -42,6 +42,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -60,12 +61,14 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import es.eucm.eadventure.common.data.HasSound;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.general.ExitLookDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
+import es.eucm.eadventure.editor.control.tools.listeners.SelectSimpleSoundListener;
 
 public class ExitLooksCellRendererEditor extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
 
@@ -99,8 +102,11 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
 
         if( !isSelected ) {
             if( value != null ) {
+                Component c;
+                
                 this.value = (ExitLookDataControl) value;
                 String text = ( this.value.getCustomizedText( ) != null ? this.value.getCustomizedText( ) : "" );
+                
                 ImageIcon icon = new ImageIcon( );
                 if( this.value.isCursorCustomized( ) ) {
                     Image image = AssetsController.getImage( this.value.getCustomizedCursor( ) );
@@ -110,7 +116,30 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
                     Image image = AssetsController.getImage( Controller.getInstance( ).getDefaultExitCursorPath( ) );
                     icon.setImage( image );
                 }
-                return new JLabel( text, icon, SwingConstants.LEFT );
+                
+                // Check audio path
+                if (this.value.getSoundPath( )!= null && !this.value.getSoundPath( ).equals( "" )){
+                    JLabel cursorAndText = new JLabel( text, icon, SwingConstants.LEADING );
+                    ImageIcon iconAudio = new ImageIcon( "img/icons/audio.png" );
+                    JLabel audioPath = new JLabel ( /*this.value.getSoundPath( ),*/ iconAudio, SwingConstants.LEFT );
+                    JPanel toReturn = new JPanel();
+                    toReturn.setOpaque( false );
+                    GridBagLayout gbl = new GridBagLayout();
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.anchor=GridBagConstraints.WEST;
+                    gbc.fill=GridBagConstraints.HORIZONTAL;
+                    toReturn.setLayout( gbl );
+                    toReturn.add( cursorAndText, gbc );
+                    gbc.anchor = GridBagConstraints.EAST;
+                    gbc.gridx=1;
+                    toReturn.add( audioPath, gbc );
+                    c=toReturn;
+                } else {
+                    c=new JLabel( text, icon, SwingConstants.LEFT );
+                }
+
+                return c;
+                //return new JLabel( text, icon, SwingConstants.LEFT );
             }
             else {
                 this.value = null;
@@ -138,22 +167,24 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
         text.getDocument( ).addDocumentListener( new DocumentListener( ) {
 
             public void changedUpdate( DocumentEvent arg0 ) {
-
             }
 
             public void insertUpdate( DocumentEvent arg0 ) {
-
                 Tool tool = new ChangeStringValueTool( value, text.getText( ), "getCustomizedText", "setExitText" );
                 Controller.getInstance( ).addTool( tool );
             }
 
             public void removeUpdate( DocumentEvent arg0 ) {
-
                 Tool tool = new ChangeStringValueTool( value, text.getText( ), "getCustomizedText", "setExitText" );
                 Controller.getInstance( ).addTool( tool );
             }
         } );
 
+        JPanel soundPanel = null;
+        if (value!=null){
+            soundPanel = createSoundPanel ( value);
+        }
+        
         Icon deleteContentIcon = new ImageIcon( "img/icons/deleteContent.png" );
         JButton deleteContentButton = new JButton( deleteContentIcon );
         deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
@@ -225,7 +256,22 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
 
         JPanel temp = new JPanel( );
         temp.setLayout( new BorderLayout( ) );
-        temp.add( text, BorderLayout.NORTH );
+        
+        if (soundPanel!=null){
+            JPanel firstRow = new JPanel();
+            firstRow.setLayout( new GridBagLayout() );
+            GridBagConstraints gc=new GridBagConstraints();
+            text.setColumns( 20 );
+            gc.fill = GridBagConstraints.HORIZONTAL;
+            firstRow.add( text, gc );
+            gc.fill = GridBagConstraints.NONE;
+            gc.gridx = 1;
+            firstRow.add( soundPanel, gc );
+            temp.add( firstRow, BorderLayout.NORTH );
+        } else {
+            temp.add( text, BorderLayout.NORTH );    
+        }
+        
         temp.add( panel, BorderLayout.CENTER );
 
         temp.setBorder( BorderFactory.createMatteBorder( 2, 0, 2, 0, table.getSelectionBackground( ) ) );
@@ -233,4 +279,92 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
         return temp;
     }
 
+    
+    /**
+     * Max of characters to be shown in the label with the path of the audio path
+     */
+    private static final int PATH_MAX_LONG_TO_SHOW = 10;
+    
+    private JPanel createSoundPanel( HasSound descriptionSound ){
+        
+        JPanel soundpanel = new JPanel( );        
+        //soundPanels[type] = soundpanel;
+        soundpanel.setLayout( new GridBagLayout( )  );
+        GridBagConstraints cPanel = new GridBagConstraints( );
+        cPanel.gridx = 0;
+        cPanel.gridy = 0;
+        cPanel.ipadx = 10;
+        cPanel.weightx = 0;
+        
+        JLabel label = new JLabel();
+        label.setPreferredSize( new Dimension(1,1) );
+        
+     
+        // prepare the label for the sound panel
+        String soundPath = descriptionSound.getSoundPath( );
+        if (soundPath!=null && !soundPath.equals( "" )){
+            ImageIcon icon = new ImageIcon( "img/icons/audio.png" );
+            String[] temp = soundPath.split( "/" );
+            label = new JLabel( cutLongAudioPath( temp[temp.length - 1]), icon, SwingConstants.LEFT );
+        }
+        else {
+            ImageIcon icon = new ImageIcon( "img/icons/noAudio.png" );
+            label = new JLabel( TC.get( "Conversations.NoAudio" ), icon, SwingConstants.LEFT );
+        }   
+        
+        //soundLabels[type] = label;
+        
+        label.setOpaque( false );
+        soundpanel.add( label, cPanel );
+        
+        JPanel buttonPanel = new JPanel( );
+        buttonPanel.setLayout( new GridBagLayout( ) );
+        GridBagConstraints cButtons = new GridBagConstraints( );
+        cButtons.gridx = 0;
+        cButtons.gridy = 0;
+        //cButtons.anchor = GridBagConstraints.NONE; 
+        
+        
+        // prepare the buttons
+        JButton selectButton = new JButton( TC.get( "Conversations.Select" ) );
+        selectButton.setFocusable( false );
+        selectButton.setEnabled( true );
+        selectButton.addActionListener(new SelectSimpleSoundListener(descriptionSound, false)  );
+        selectButton.setOpaque( false );
+        buttonPanel.add( selectButton, cButtons );
+
+        cButtons.gridx = 1;
+        JButton deleteButton = new JButton( new ImageIcon( "img/icons/deleteContent.png" ) );
+        //soundDeleteButtons[type] = deleteButton ;
+        deleteButton.setToolTipText( TC.get( "Conversations.DeleteAudio" ) );
+        deleteButton.setContentAreaFilled( false );
+        deleteButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+        deleteButton.setFocusable( false );
+        deleteButton.setEnabled( soundPath != null &&  !soundPath.equals( "" ));
+        deleteButton.addActionListener( new SelectSimpleSoundListener(descriptionSound, true)  );
+        deleteButton.setOpaque( false );
+        buttonPanel.add( deleteButton, cButtons );
+        buttonPanel.setOpaque( false );
+        
+        
+        cPanel.gridx = 1;
+        cPanel.anchor = GridBagConstraints.EAST;
+        soundpanel.add( buttonPanel, cPanel );
+        
+        return soundpanel;
+    }
+
+    private String cutLongAudioPath(String audioPath){
+        
+        String cutAudioPath = new String();
+        
+        if (audioPath!=null){
+            if (audioPath.length( ) < PATH_MAX_LONG_TO_SHOW )
+                return audioPath;
+            else 
+                return "..." +  audioPath.substring( audioPath.length( ) - PATH_MAX_LONG_TO_SHOW, audioPath.length( ));
+        }
+        
+        return cutAudioPath;
+    }
 }

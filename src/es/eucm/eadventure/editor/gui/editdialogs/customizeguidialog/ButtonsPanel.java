@@ -58,6 +58,7 @@ import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.displaydialogs.AudioDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
 
 /**
@@ -153,56 +154,29 @@ public class ButtonsPanel extends JScrollPane implements Updateable {
             for( int i = 0; i < buttonTypes.length; i++ ) {
                 int assetIndex = j * buttonTypes.length + i;
 
-                // Create the panel and set the border
-                JPanel assetPanel = new JPanel( );
-                assetPanel.setLayout( new GridBagLayout( ) );
-                assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Button." + actionTypes[j] + "." + buttonTypes[i] + ".Description" ) ) );
-                GridBagConstraints c2 = new GridBagConstraints( );
-                c2.insets = new Insets( 2, 2, 2, 2 );
-                c2.fill = GridBagConstraints.NONE;
-                c2.weightx = 0;
-                c2.weighty = 0;
-
-                // Create the delete content button
-                JButton deleteContentButton = new JButton( deleteContentIcon );
-                deleteContentButton.addActionListener( new DeleteContentButtonListener( assetIndex, j, i ) );
-                deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-                deleteContentButton.setToolTipText( TC.get( "Buttons.DeleteButton" ) );
-                assetPanel.add( deleteContentButton, c2 );
-
-                // Create the text field and insert it
-                buttonFields[assetIndex] = new JTextField( MAX_SPACE );
-                if( adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ) != null )
-                    buttonFields[assetIndex].setText( adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ) );
-
-                buttonFields[assetIndex].setEditable( false );
-                c2.gridx = 1;
-                c2.fill = GridBagConstraints.HORIZONTAL;
-                c2.weightx = 1;
-                assetPanel.add( buttonFields[assetIndex], c2 );
-
-                // Create the "Select" button and insert it
-                JButton selectButton = new JButton( TC.get( "Buttons.Select" ) );
-                selectButton.addActionListener( new ExamineButtonListener( assetIndex, j, i ) );
-                c2.gridx = 2;
-                c2.fill = GridBagConstraints.NONE;
-                c2.weightx = 0;
-                assetPanel.add( selectButton, c2 );
-
-                // Create the "View" button and insert it
-                viewButtons[assetIndex] = new JButton( TC.get( "Buttons.Preview" ) );
-                viewButtons[assetIndex].setEnabled( adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ) != null );
-                viewButtons[assetIndex].addActionListener( new ViewButtonListener( assetIndex, j, i ) );
-                c2.gridx = 3;
-                assetPanel.add( viewButtons[assetIndex], c2 );
-
-                // Add the panel
-                //resourcesPanel.add( assetPanel, c );
-                assetPanel.setToolTipText( TC.get( "Button." + actionTypes[j] + "." + buttonTypes[i] + ".Tip" ) );
+                JPanel assetPanel = null;
+                if (buttonTypes[i].equals( DescriptorData.SOUND_PATH )){
+                    
+                    assetPanel = this.getAssetPanel( assetIndex, i, j, TC.get( "Button." + actionTypes[j] + "." + buttonTypes[i] + ".Description" ), TC.get( "Button." + actionTypes[j] + "." + buttonTypes[i] + ".Tip" ), 
+                            (adventureData.getButtonPath( actionTypes[j], buttonTypes[i] )!=null?adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ):TC.get( "Conversations.NoAudio" )), 
+                            deleteContentIcon, TC.get( "Conversations.DeleteAudio" ), 
+                            TC.get( "Conversations.Select" ), 
+                            new ImageIcon("img/buttons/play16x16.png"));
+                    
+                } else{ 
+                    assetPanel = this.getAssetPanel( assetIndex, i, j, TC.get( "Button." + actionTypes[j] + "." + buttonTypes[i] + ".Description" ), TC.get( "Button." + actionTypes[j] + "." + buttonTypes[i] + ".Tip" ), 
+                            adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ), 
+                            deleteContentIcon, TC.get( "Buttons.DeleteButton" ), 
+                            TC.get( "Buttons.Select" ), 
+                            TC.get( "Buttons.Preview" ));
+                }
+                
                 buttonPanel.add( assetPanel, c3 );
                 c3.gridy++;
 
             }
+            
+            
             c.gridy++;
             mainPanel.add( buttonPanel, c );
         }
@@ -229,14 +203,28 @@ public class ButtonsPanel extends JScrollPane implements Updateable {
         for( int j = 0; j < actionTypes.length; j++ ) {
             for( int i = 0; i < buttonTypes.length; i++ ) {
                 int assetIndex = j * buttonTypes.length + i;
-                if( adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ) != null ) {
-                    buttonFields[assetIndex].setText( adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ) );
-                    viewButtons[assetIndex].setEnabled( true );
+                if (buttonTypes[i].equals( DescriptorData.SOUND_PATH )){
+                    if( adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ) != null ) {
+                        buttonFields[assetIndex].setText( adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ) );
+                        viewButtons[assetIndex].setEnabled( true );
+                    }
+                    else {
+                        buttonFields[assetIndex].setText( TC.get( "Conversations.NoAudio" ) );
+                        viewButtons[assetIndex].setEnabled( false );
+                    }
+                    
+                } else {
+                    if( adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ) != null ) {
+                        buttonFields[assetIndex].setText( adventureData.getButtonPath( actionTypes[j], buttonTypes[i] ) );
+                        viewButtons[assetIndex].setEnabled( true );
+                    }
+                    else {
+                        buttonFields[assetIndex].setText( null );
+                        viewButtons[assetIndex].setEnabled( false );
+                    }
+                    
                 }
-                else {
-                    buttonFields[assetIndex].setText( null );
-                    viewButtons[assetIndex].setEnabled( false );
-                }
+                
             }
         }
         return true;
@@ -260,7 +248,7 @@ public class ButtonsPanel extends JScrollPane implements Updateable {
         /**
          * Constructor.
          * 
-         * @param assetIndex
+         * @param actionType
          *            Index of the asset
          */
         public DeleteContentButtonListener( int assetIndex, int action, int type ) {
@@ -278,7 +266,11 @@ public class ButtonsPanel extends JScrollPane implements Updateable {
         public void actionPerformed( ActionEvent e ) {
 
             adventureData.deleteButton( actionTypes[action], buttonTypes[type] );
-            buttonFields[assetIndex].setText( null );
+            if (buttonTypes[type].equals( DescriptorData.SOUND_PATH )){
+                buttonFields[assetIndex].setText( TC.get( "Conversations.NoAudio" ) );    
+            } else{
+                buttonFields[assetIndex].setText( null );
+            }
             viewButtons[assetIndex].setEnabled( false );
         }
     }
@@ -300,7 +292,7 @@ public class ButtonsPanel extends JScrollPane implements Updateable {
         /**
          * Constructor.
          * 
-         * @param assetIndex
+         * @param actionType
          *            Index of the asset
          */
         public ExamineButtonListener( int assetIndex, int action, int type ) {
@@ -320,7 +312,10 @@ public class ButtonsPanel extends JScrollPane implements Updateable {
             adventureData.editButtonPath( actionTypes[action], buttonTypes[type] );
             if( adventureData.getButtonPath( actionTypes[action], buttonTypes[type] ) != null ) {
                 buttonFields[assetIndex].setText( adventureData.getButtonPath( actionTypes[action], buttonTypes[type] ) );
-
+            } else if (buttonTypes[type].equals( DescriptorData.SOUND_PATH )){
+                buttonFields[assetIndex].setText( TC.get( "Conversations.NoAudio" ) );    
+            } else {
+                buttonFields[assetIndex].setText( null );    
             }
             viewButtons[assetIndex].setEnabled( adventureData.getButtonPath( actionTypes[action], buttonTypes[type] ) != null );
         }
@@ -338,7 +333,7 @@ public class ButtonsPanel extends JScrollPane implements Updateable {
         /**
          * Constructor.
          * 
-         * @param assetIndex
+         * @param actionType
          *            Index of the asset
          */
         public ViewButtonListener( int assetIndex, int action, int type ) {
@@ -354,9 +349,74 @@ public class ButtonsPanel extends JScrollPane implements Updateable {
          */
         public void actionPerformed( ActionEvent arg0 ) {
 
-            String assetPath = adventureData.getButtonPath( actionTypes[action], buttonTypes[type] );
-            new ImageDialog( assetPath );
+            if (buttonTypes[type].equals( DescriptorData.SOUND_PATH )){
+                String audioPath = adventureData.getButtonPath( actionTypes[action], DescriptorData.SOUND_PATH );
+                if (audioPath!=null)
+                    new AudioDialog( audioPath );
+            } else {
+                String assetPath = adventureData.getButtonPath( actionTypes[action], buttonTypes[type] );
+                new ImageDialog( assetPath );
+            }
         }
     }
+    
+    private JPanel getAssetPanel(int assetIndex, int i, int j, String title, String tooltip, String path, 
+            Icon deleteContentIcon, String deleteToolTip, 
+            String selectText, 
+            Object viewContent){
+        
+        // Create the panel and set the border
+        JPanel assetPanel = new JPanel( );
+        assetPanel.setLayout( new GridBagLayout( ) );
+        assetPanel.setBorder( BorderFactory.createTitledBorder( title ) ); //MODIFICADO
+        GridBagConstraints c2 = new GridBagConstraints( );
+        c2.insets = new Insets( 2, 2, 2, 2 );
+        c2.fill = GridBagConstraints.NONE;
+        c2.weightx = 0;
+        c2.weighty = 0;
 
+        // Create the delete content button
+        JButton deleteContentButton = new JButton( deleteContentIcon ); //MODIFICADO
+        deleteContentButton.addActionListener( new DeleteContentButtonListener( assetIndex, j, i ) );
+        deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
+        deleteContentButton.setToolTipText( deleteToolTip ); //MODIFICADO
+        assetPanel.add( deleteContentButton, c2 );
+
+        // Create the text field and insert it
+        buttonFields[assetIndex] = new JTextField( MAX_SPACE );
+        if( path != null ) //MODIFICADO
+            buttonFields[assetIndex].setText( path ); //MODIFICADO
+
+        buttonFields[assetIndex].setEditable( false );
+        c2.gridx = 1;
+        c2.fill = GridBagConstraints.HORIZONTAL;
+        c2.weightx = 1;
+        assetPanel.add( buttonFields[assetIndex], c2 );
+
+        // Create the "Select" button and insert it
+        JButton selectButton = new JButton( selectText ); //MODIFICADO
+        selectButton.addActionListener( new ExamineButtonListener( assetIndex, j, i ) );
+        c2.gridx = 2;
+        c2.fill = GridBagConstraints.NONE;
+        c2.weightx = 0;
+        assetPanel.add( selectButton, c2 );
+
+        // Create the "View" button and insert it
+        if (viewContent instanceof String)
+            viewButtons[assetIndex] = new JButton( (String)viewContent ); //MODIFICADO
+        else if (viewContent instanceof ImageIcon)
+            viewButtons[assetIndex] = new JButton( (ImageIcon)viewContent ); //MODIFICADO
+        else
+            viewButtons[assetIndex] = new JButton( "" ); //MODIFICADO
+        viewButtons[assetIndex].setEnabled( adventureData.getButtonPath( actionTypes[j], buttonTypes[i] )!=null ); //MODIFICADO
+        viewButtons[assetIndex].addActionListener( new ViewButtonListener( assetIndex, j, i ) );
+        c2.gridx = 3;
+        assetPanel.add( viewButtons[assetIndex], c2 );
+
+        // Add the panel
+        //resourcesPanel.add( assetPanel, c );
+        assetPanel.setToolTipText( tooltip );//MODIFICADO
+        return assetPanel;
+    }
+    
 }

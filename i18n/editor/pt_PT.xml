@@ -1912,4 +1912,24 @@
 <entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Desenhe pontos importantes para a interação de teclado</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Desenhar áreas delimitadora de elementos interativos e áreas de cena</entry>
 
+<entry key="Resources.DescriptionButtonSound">Som associado ao botão (esta acessibilidade melhora)</entry>
+<entry key="Button.examine.sound.Description">Som associado ao botão de "examinar"</entry>
+<entry key="Button.examine.sound.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
+<entry key="Button.talk.sound.Description">Som associado ao botão "conversa"</entry>
+<entry key="Button.talk.sound.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
+<entry key="Button.use.sound.Description">Som associado ao botão de "uso"</entry>
+<entry key="Button.use.sound.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
+<entry key="Button.grab.sound.Description">Som associado ao botão de "garra"</entry>
+<entry key="Button.grab.sound.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
+<entry key="Button.use-with.sound.Description">Som associado ao botão "usar com"</entry>
+<entry key="Button.use-with.sound.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
+<entry key="Button.give-to.sound.Description">Som associado ao botão de "dar"</entry>
+<entry key="Button.give-to.sound.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
+<entry key="Button.drag-to.sound.Description">Som associado ao botão "arrastar para"</entry>
+<entry key="Button.drag-to.sound.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
+<entry key="Inventory.sound-right.Description">Som associado ao botão "seta para a direita"</entry>
+<entry key="Inventory.sound-right.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
+<entry key="Inventory.sound-left.Description">Som associado ao botão "seta para a esquerda"</entry>
+<entry key="Inventory.sound-left.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
+
 </properties>

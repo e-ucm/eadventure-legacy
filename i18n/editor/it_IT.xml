@@ -1924,5 +1924,23 @@
 <entry key="MenuConfiguration.DebugOptions.PaintGrid">Dipingi la griglia, l'offset della scena e le aree di delimitazione dei pulsanti</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Disegna punti importanti per l'interazione della tastiera</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Disegnare aree di delimitazione per elementi interattivi e aree scena</entry>
-
+<entry key="Resources.DescriptionButtonSound">Suono associato al pulsante (questo migliora l'accessibilità)</entry>
+<entry key="Button.examine.sound.Description">Suono associato al pulsante "esaminare"</entry>
+<entry key="Button.examine.sound.Tip">È possibile definire un suono speciale che viene riprodotto quando il pulsante è attivato (questo migliora l'accessibilità)</entry>
+<entry key="Button.talk.sound.Description">Suono associato al "talk" pulsante</entry>
+<entry key="Button.talk.sound.Tip">È possibile definire un suono speciale che viene riprodotto quando il pulsante è attivato (questo migliora l'accessibilità)</entry>
+<entry key="Button.use.sound.Description">Suono associato all '"uso" pulsante</entry>
+<entry key="Button.use.sound.Tip">È possibile definire un suono speciale che viene riprodotto quando il pulsante è attivato (questo migliora l'accessibilità)</entry>
+<entry key="Button.grab.sound.Description">Suono associato al "afferrare" il pulsante</entry>
+<entry key="Button.grab.sound.Tip">È possibile definire un suono speciale che viene riprodotto quando il pulsante è attivato (questo migliora l'accessibilità)</entry>
+<entry key="Button.use-with.sound.Description">Suono associato al pulsante "usare con"</entry>
+<entry key="Button.use-with.sound.Tip">È possibile definire un suono speciale che viene riprodotto quando il pulsante è attivato (questo migliora l'accessibilità)</entry>
+<entry key="Button.give-to.sound.Description">Suono associato al pulsante "dare"</entry>
+<entry key="Button.give-to.sound.Tip">È possibile definire un suono speciale che viene riprodotto quando il pulsante è attivato (questo migliora l'accessibilità)</entry>
+<entry key="Button.drag-to.sound.Description">Suono associato al "trascinamento per" pulsante</entry>
+<entry key="Button.drag-to.sound.Tip">È possibile definire un suono speciale che viene riprodotto quando il pulsante è attivato (questo migliora l'accessibilità)</entry>
+<entry key="Inventory.sound-right.Description">Suono associato alla "freccia destra" pulsante</entry>
+<entry key="Inventory.sound-right.Tip">È possibile definire un suono speciale che viene riprodotto quando il pulsante è attivato (questo migliora l'accessibilità)</entry>
+<entry key="Inventory.sound-left.Description">Suono associato alla "freccia sinistra" pulsante</entry>
+<entry key="Inventory.sound-left.Tip">È possibile definire un suono speciale che viene riprodotto quando il pulsante è attivato (questo migliora l'accessibilità)</entry>
 </properties>

@@ -34,25 +34,27 @@
  *      You should have received a copy of the GNU Lesser General Public License
  *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package es.eucm.eadventure.engine.resourcehandler;
+package es.eucm.eadventure.common.data;
 
-import java.awt.Image;
+/**
+ * The object has associated
+ *
+ */
 
-import es.eucm.eadventure.common.data.animation.ImageLoaderFactory;
-import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+public interface HasSound {
+    
+    /**
+     * Added for v1.4 - soundPath for accessibility purposes
+     * @return
+     */
+    public String getSoundPath( ) ;
 
+    /**
+     * Added for v1.4 - soundPath for accessibility purposes
+     * @return
+     */
+    public void setSoundPath( String soundPath );
+    
 
-public class EngineImageLoader implements ImageLoaderFactory {
-
-    public Image getImageFromPath( String uri ) {
-        Image image = ResourceHandler.getInstance( ).getResourceAsImageFromZip( uri );
-        if (image == null){
-            image = MultimediaManager.getInstance( ).buildResourceNotFoundImage( uri );
-        }
-        return image;
-    }
-
-    public void showErrorDialog( String title, String message ) {
-    }
 
 }

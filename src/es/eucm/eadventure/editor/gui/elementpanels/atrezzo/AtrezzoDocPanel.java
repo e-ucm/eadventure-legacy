@@ -49,7 +49,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
@@ -69,39 +68,12 @@ public class AtrezzoDocPanel extends JPanel implements Updateable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Controller of the item.
-     */
-    private AtrezzoDataControl atrezzoDataControl;
-
-    /**
      * Text area for the documentation.
      */
     private JTextArea documentationTextArea;
 
-    /**
-     * Text field for the name.
-     */
-    private JTextField nameTextField;
-
-    /**
-     * Panel for sound selection
-     * 
-     */
-    private JPanel soundpanel;
-    
-    /**
-     * Label for the name of the selected audio
-     */
-    private JLabel label;
-    
-    /**
-     * Button to delete the selected sound
-     */
-    private JButton deleteButton;
-    
     public AtrezzoDocPanel( AtrezzoDataControl atrezzoDataControl ) {
 
-        this.atrezzoDataControl = atrezzoDataControl;
         setLayout( new GridBagLayout( ) );
         GridBagConstraints cDoc = new GridBagConstraints( );
         cDoc.insets = new Insets( 5, 5, 5, 5 );

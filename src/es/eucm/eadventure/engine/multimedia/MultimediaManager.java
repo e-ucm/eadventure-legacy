@@ -36,10 +36,13 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.multimedia;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Polygon;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -158,8 +161,12 @@ public class MultimediaManager {
         if( image == null ) {
             // Load the image and store it in cache
             image = getScaledImage( ResourceHandler.getInstance( ).getResourceAsImage( imagePath ), 1, 1 );
-            if( image != null )
+            if( image != null ){
                 imageCache[category].put( imagePath, image );
+            } else {
+                image = buildResourceNotFoundImage( imagePath );
+                imageCache[category].put( imagePath, image );
+            }
         }
         return image;
     }
@@ -175,13 +182,15 @@ public class MultimediaManager {
      * @return an Image for imagePath.
      */
     public Image loadImageFromZip( String imagePath, int category ) {
-
         Image image = imageCache[category].get( imagePath );
         // If the image is in cache, don't load it
         if( image == null ) {
             // Load the image and store it in cache
             image = getScaledImage( ResourceHandler.getInstance( ).getResourceAsImageFromZip( imagePath ), 1, 1 );
             if( image != null ) {
+                imageCache[category].put( imagePath, image );
+            } else {
+                image = buildResourceNotFoundImage( imagePath );
                 imageCache[category].put( imagePath, image );
             }
         }
@@ -304,7 +313,7 @@ public class MultimediaManager {
      *            whether or not the sound must be played in a loop
      * @return an Id that represents the sound with the given configuration.
      */
-    public long loadSound( int soundType, String soundPath, boolean loop ) {
+    public synchronized long loadSound( int soundType, String soundPath, boolean loop ) {
 
         Sound sound = null;
         long soundId = -1;
@@ -460,7 +469,7 @@ public class MultimediaManager {
      * 
      * @throws InterruptedException
      */
-    public void update( ) throws InterruptedException {
+    public synchronized void update( ) throws InterruptedException {
 
         Collection<Sound> sounds = soundCache.values( );
         ArrayList<Sound> soundsToRemove = new ArrayList<Sound>( );
@@ -479,7 +488,7 @@ public class MultimediaManager {
     /**
      * Stops and deletes all sounds currently in the cache, except the music
      */
-    public void stopAllSounds( ) {
+    public synchronized void stopAllSounds( ) {
 
         Collection<Sound> sounds = soundCache.values( );
         ArrayList<Sound> soundsToRemove = new ArrayList<Sound>( );
@@ -502,7 +511,7 @@ public class MultimediaManager {
     /**
      * Stops and deletes all sounds currently in the cache even the music
      */
-    public void deleteSounds( ) {
+    public synchronized void deleteSounds( ) {
 
         Collection<Sound> sounds = soundCache.values( );
         for( Sound sound : sounds ) {
@@ -552,10 +561,17 @@ public class MultimediaManager {
             Image currentFrame = null;
             boolean end = false;
             while( !end ) {
-                if( mirror )
-                    currentFrame = loadMirroredImageFromZip( animationPath + "_" + leadingZeros( i ) + ".png", category );
-                else
-                    currentFrame = loadImageFromZip( animationPath + "_" + leadingZeros( i ) + ".png", category );
+                if( mirror ){
+                    if (ResourceHandler.getInstance( ).getResourceAsImageFromZip( animationPath + "_" + leadingZeros( i ) + ".png")!=null)
+                        currentFrame = loadMirroredImageFromZip( animationPath + "_" + leadingZeros( i ) + ".png", category );
+                    else
+                        end=true;
+                }else{
+                    if (ResourceHandler.getInstance( ).getResourceAsImageFromZip(  animationPath + "_" + leadingZeros( i ) + ".png")!=null)
+                        currentFrame = loadImageFromZip( animationPath + "_" + leadingZeros( i ) + ".png", category );
+                    else
+                        end=true;
+                }
 
                 if( currentFrame != null ) {
                     frames.add( currentFrame );
@@ -638,4 +654,65 @@ public class MultimediaManager {
         animationCache.clear( );
     }
 
+    /**
+     * Added in version v1.4. It's used to generate a "Not available" image when a resource is not found.
+     * How the image is produced depends on the relative path of the resource (that is, the category of the resource).
+     * For example, if it belongs to backgrounds (assets/background/*.*), the image is given 800x600 dimensions
+     * and a solid black "Resource not found: +uri" is print onto it.
+     * 
+     * NOTE: This method does not actually check if the resource exists; it just builds the image.
+     * 
+     * @param uri   The uri of the resource that was not found
+     * @return  BufferedImage with the "Not available" image
+     */
+    public BufferedImage buildResourceNotFoundImage(String uri){
+        int w=100;int h=100;
+        if (uri.startsWith( "gui/cursors" )){
+            w=32;h=32;
+        }
+        else if (uri.startsWith( "gui/arrows" )){
+            w=80;h=48;
+        }
+        else if (uri.startsWith( "gui/buttons" )){
+            w=80;h=48;
+        }
+        else if (uri.startsWith( "assets/image" )){
+            w=300;h=100;
+        }
+        else if (uri.startsWith( "assets/background" )){
+            w=GUI.WINDOW_WIDTH;h=GUI.WINDOW_HEIGHT;
+        }
+        BufferedImage bImg = new BufferedImage(w, h, BufferedImage.OPAQUE);
+        Graphics2D g = bImg.createGraphics( );
+        if (w>10 && h>10){
+            g.setColor( Color.red );
+            g.fillRect( 0, 0, w, h );
+            g.setColor( Color.white );
+            g.fillRect( 5, 5, w-10, h-10 );
+            g.setColor( Color.red );
+            Polygon p = new Polygon();
+            p.addPoint( 5, 0 );
+            p.addPoint( w, h-5 );
+            p.addPoint( w-5, h );
+            p.addPoint( 0, 5 );
+            g.fillPolygon( p );
+            
+            Polygon p2 = new Polygon();
+            p2.addPoint( w-5, 0 );
+            p2.addPoint( w, 5 );
+            p2.addPoint( 5, h );
+            p2.addPoint( 0, h-5 );
+            g.fillPolygon( p2 );
+        } else {
+            g.setColor( Color.white );
+            g.fillRect( 0, 0, w, h );
+        }
+            
+        g.setColor( Color.black );
+        g.drawString( "Resource not found:", w>50?50:0, h/2-20 );
+        g.drawString( uri, w>50?50:0, GUI.WINDOW_HEIGHT/2+20 );
+        g.dispose( );
+        return bImg;
+    }
+    
 }

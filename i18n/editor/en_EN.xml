@@ -2060,5 +2060,23 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="MenuConfiguration.DebugOptions.PaintGrid">Paint grid, scene offset and buttons' bounding area</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintHotSpots">Paint hot spots for keyboard interaction</entry>
 <entry key="MenuConfiguration.DebugOptions.PaintBoundingAreas">Paint elements' and areas' bounding areas</entry>
-
+<entry key="Resources.DescriptionButtonSound">Sound associated to the button (this improves accessibility)</entry>
+<entry key="Button.examine.sound.Description">Sound associated to button "examine"</entry>
+<entry key="Button.examine.sound.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
+<entry key="Button.talk.sound.Description">Sound associated to the button "talk" </entry>
+<entry key="Button.talk.sound.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
+<entry key="Button.use.sound.Description">Sound associated to the button "use"</entry>
+<entry key="Button.use.sound.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
+<entry key="Button.grab.sound.Description">Sound associated to the button "grab"</entry>
+<entry key="Button.grab.sound.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
+<entry key="Button.use-with.sound.Description">Sound associated to the button "use with"</entry>
+<entry key="Button.use-with.sound.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
+<entry key="Button.give-to.sound.Description">Sound associated to the button "give to"</entry>
+<entry key="Button.give-to.sound.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
+<entry key="Button.drag-to.sound.Description">Sound associated to the button "drag to"</entry>
+<entry key="Button.drag-to.sound.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
+<entry key="Inventory.sound-right.Description">Sound associated to the button "right arrow"</entry>
+<entry key="Inventory.sound-right.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
+<entry key="Inventory.sound-left.Description">Sound associated to the button "left arrow"</entry>
+<entry key="Inventory.sound-left.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
 </properties>
