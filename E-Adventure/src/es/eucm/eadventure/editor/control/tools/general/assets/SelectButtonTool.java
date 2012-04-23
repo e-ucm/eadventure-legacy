@@ -39,6 +39,7 @@ package es.eucm.eadventure.editor.control.tools.general.assets;
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.CustomButton;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -46,6 +47,8 @@ import es.eucm.eadventure.editor.data.AssetInformation;
 
 public class SelectButtonTool extends SelectResourceTool {
 
+    private static final String AUDIO="audio";
+    
     protected AdventureData adventureData;
 
     protected String type;
@@ -57,7 +60,11 @@ public class SelectButtonTool extends SelectResourceTool {
     protected static AssetInformation[] createAssetInfoArray( String action, String type ) {
 
         AssetInformation[] array = new AssetInformation[ 1 ];
-        array[0] = new AssetInformation( "", action + "#" + type, true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_NONE );
+        if (type.equals( DescriptorData.SOUND_PATH )){
+            array[0] = new AssetInformation( "", action + "#" + type, true, AssetsConstants.CATEGORY_AUDIO, AssetsController.FILTER_NONE );
+        }else{
+            array[0] = new AssetInformation( "", action + "#" + type, true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_NONE );    
+        }
         return array;
     }
 
@@ -100,10 +107,11 @@ public class SelectButtonTool extends SelectResourceTool {
                 if( adventureData.getButtons( ).get( i ).getType( ).equals( type ) && adventureData.getButtons( ).get( i ).getAction( ).equals( action ) ) {
                     if( removed ) {
                         adventureData.getButtons( ).remove( i );
-                        setButton( action, type, resources.getAssetPath( action + "#" + type ) );
+                        setButton( action, type, resources.getAssetPath( action + "#" + type ));
                     }
-                    else
+                    else{
                         adventureData.getButtons( ).get( i ).setPath( resources.getAssetPath( action + "#" + type ) );
+                    }
                     break;
 
                 }
@@ -155,7 +163,7 @@ public class SelectButtonTool extends SelectResourceTool {
         if( !done )
             return false;
         else {
-            setButton( action, type, resources.getAssetPath( action + "#" + type ) );
+            setButton( action, type, resources.getAssetPath( action + "#" + type ));
             return true;
         }
     }

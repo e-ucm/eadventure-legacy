@@ -49,6 +49,7 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.core.gui.GUIAudioDescriptionsHandler;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 public class ActionButton {
@@ -122,6 +123,8 @@ public class ActionButton {
      * Image of the button when it has the mouse over
      */
     private Image buttonOver;
+    //Added v1.4
+    private String soundPath;
 
     /**
      * Position of the button in the x-axis
@@ -157,6 +160,9 @@ public class ActionButton {
      * The type of the button
      */
     private int type;
+    
+    //1.4
+    private GUIAudioDescriptionsHandler audioDescHandler;
 
     /**
      * Construct a button form it's type
@@ -164,8 +170,9 @@ public class ActionButton {
      * @param type
      *            the type of the button
      */
-    public ActionButton( int type ) {
+    public ActionButton( int type, GUIAudioDescriptionsHandler audioDescHandler  ) {
         reload(type);
+        this.audioDescHandler = audioDescHandler;
     }
 
     /**
@@ -174,7 +181,7 @@ public class ActionButton {
      * @param action
      *            the custom action
      */
-    public ActionButton( CustomAction action ) {
+    public ActionButton( CustomAction action, GUIAudioDescriptionsHandler audioDescHandler  ) {
 
         actionName = action.getName( );
         customAction = action;
@@ -186,6 +193,12 @@ public class ActionButton {
 
         buttonNormal = loadImage( resources.getAssetPath( "buttonNormal" ), "gui/hud/contextual/btnError.png" );
         buttonOver = loadImage( resources.getAssetPath( "buttonOver" ), "gui/hud/contextual/btnError.png" );
+        // If alternative sound for accessibility purposes has been added, use it
+        if (resources.getAssetPath( "buttonSound" )!=null){
+            soundPath =resources.getAssetPath( "buttonSound" ); 
+        } else {
+            soundPath = null;
+        }
         //buttonPressed = loadImage( resources.getAssetPath( "buttonPressed" ), "gui/hud/contextual/btnError.png" );
 
         buttonNormal = scaleButton( buttonNormal );
@@ -195,6 +208,7 @@ public class ActionButton {
         button_width = buttonNormal.getWidth( null );
         button_height = buttonNormal.getHeight( null );
         this.type = CUSTOM_BUTTON;
+        this.audioDescHandler = audioDescHandler;
     }
     
     /**
@@ -352,6 +366,11 @@ public class ActionButton {
         int y = this.posY - button_height / 2;
         String[] text = new String[] { actionName };
         GUI.drawStringOnto( g, text, posX, y, Color.BLACK, Color.WHITE );
+        
+        // if alternative sound has been set, play it
+        if (soundPath!=null){
+            audioDescHandler.checkAndPlay( soundPath );
+        }
     }
 
     public String getName( ) {
@@ -396,43 +415,55 @@ public class ActionButton {
     }
 
     public void reload( int type ) {
+        DescriptorData d=Game.getInstance( ).getGameDescriptor( );
+        String sPath = null;
         switch( type ) {
             case USE_BUTTON:
                 loadButtonImages( DescriptorData.USE_BUTTON, "btnUse", "btnHand" );
                 actionName = TC.get( "ActionButton.Use" );
+                sPath = d.getButtonPathFromEngine( DescriptorData.USE_BUTTON, DescriptorData.SOUND_PATH ); 
                 break;
             case USE_WITH_BUTTON:
                 loadButtonImages( DescriptorData.USEWITH_BUTTON, "btnUseWith", "btnHand" );
                 actionName = TC.get( "ActionButton.UseWith" );
+                sPath = d.getButtonPathFromEngine( DescriptorData.USEWITH_BUTTON, DescriptorData.SOUND_PATH ); 
                 break;
             case GRAB_BUTTON:
                 loadButtonImages( DescriptorData.GRAB_BUTTON, "btnGrab", "btnHand" );
                 actionName = TC.get( "ActionButton.Grab" );
+                sPath = d.getButtonPathFromEngine( DescriptorData.GRAB_BUTTON, DescriptorData.SOUND_PATH );
                 break;                
             case GIVETO_BUTTON:
                 loadButtonImages( DescriptorData.GIVETO_BUTTON, "btnGiveTo", "btnHand" );
                 actionName = TC.get( "ActionButton.GiveTo" );
+                sPath = d.getButtonPathFromEngine( DescriptorData.GIVETO_BUTTON, DescriptorData.SOUND_PATH );
                 break;
             case USEWITHGIVETO_BUTTON:
                 loadButtonImages( DescriptorData.USE_GRAB_BUTTON, "btnGiveTo", "btnHand" );
                 actionName = TC.get( "ActionButton.UseGive" );
+                sPath = d.getButtonPathFromEngine( DescriptorData.USE_GRAB_BUTTON, DescriptorData.SOUND_PATH );
                 break;                
                 
             case EXAMINE_BUTTON:
                 loadButtonImages( DescriptorData.EXAMINE_BUTTON, "btnExamine", "btnEye" );
                 actionName = TC.get( "ActionButton.Examine" );
+                sPath = d.getButtonPathFromEngine( DescriptorData.EXAMINE_BUTTON, DescriptorData.SOUND_PATH );
                 break;
             case TALK_BUTTON:
                 loadButtonImages( DescriptorData.TALK_BUTTON, "btnTalkTo", "btnMouth" );
                 actionName = TC.get( "ActionButton.Talk" );
+                sPath = d.getButtonPathFromEngine( DescriptorData.TALK_BUTTON, DescriptorData.SOUND_PATH );
                 break;
             case DRAG_BUTTON:
                 loadButtonImages( DescriptorData.DRAGTO_BUTTON, "btnDragTo", "btnHand" );
                 actionName = TC.get( "ActionButton.Drag" );
+                sPath = d.getButtonPathFromEngine( DescriptorData.DRAGTO_BUTTON, DescriptorData.SOUND_PATH );
                 break;
         }
         this.type = type;
-
+        if (sPath!=null){
+            this.soundPath = sPath;
+        }
     }
 
     public int getPosX( ) {

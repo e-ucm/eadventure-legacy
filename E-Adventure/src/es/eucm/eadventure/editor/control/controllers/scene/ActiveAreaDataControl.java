@@ -46,20 +46,16 @@ import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.control.tools.general.areaedition.AddNewPointTool;
 import es.eucm.eadventure.editor.control.tools.general.areaedition.ChangeRectangularValueTool;
 import es.eucm.eadventure.editor.control.tools.general.areaedition.DeletePointTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDetailedDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ActiveAreaDataControl extends DataControl implements RectangleArea {
@@ -151,85 +147,6 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
     public String getDocumentation( ) {
 
         return activeArea.getDocumentation( );
-    }
-
-    /**
-     * Returns the name of the item.
-     * 
-     * @return Item's name
-     */
-    //TODO!!!!!! related with searh
-    
-    public String getName( ) {
-
-        //return activeArea.getName( );
-        return "";
-    }
-
-    /**
-     * Returns the brief description of the item.
-     * 
-     * @return Item's description
-     */
-    public String getBriefDescription( ) {
-
-        //return activeArea.getDescription( );
-        return "";
-    }
-
-    /**
-     * Returns the detailed description of the item.
-     * 
-     * @return Item's detailed description
-     */
-    public String getDetailedDescription( ) {
-
-        //return activeArea.getDetailedDescription( );
-        return "";
-    }
-
-    /**
-     * Sets the new documentation of the item.
-     * 
-     * @param documentation
-     *            Documentation of the item
-     */
-    public void setDocumentation( String documentation ) {
-
-        controller.addTool( new ChangeDocumentationTool( activeArea, documentation ) );
-    }
-
-    /**
-     * Sets the new name of the activeArea.
-     * 
-     * @param name
-     *            Name of the activeArea
-     */
-    public void setName( String name ) {
-
-        controller.addTool( new ChangeNameTool( descriptionsController.getSelectedDescription(), name ) );
-    }
-
-    /**
-     * Sets the new brief description of the activeArea.
-     * 
-     * @param description
-     *            Description of the activeArea
-     */
-    public void setBriefDescription( String description ) {
-
-        controller.addTool( new ChangeDescriptionTool( descriptionsController.getSelectedDescription(), description ) );
-    }
-
-    /**
-     * Sets the new detailed description of the activeArea.
-     * 
-     * @param detailedDescription
-     *            Detailed description of the activeArea
-     */
-    public void setDetailedDescription( String detailedDescription ) {
-
-        controller.addTool( new ChangeDetailedDescriptionTool( descriptionsController.getSelectedDescription(), detailedDescription ) );
     }
 
     /**
@@ -389,6 +306,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
         actionsListDataControl.updateVarFlagSummary( varFlagSummary );
         ConditionsController.updateVarFlagSummary( varFlagSummary, activeArea.getConditions( ) );
+        descriptionsController.updateVarFlagSummary( varFlagSummary );
     }
 
     @Override
@@ -397,6 +315,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
         boolean valid = true;
 
         valid &= actionsListDataControl.isValid( currentPath, incidences );
+        valid &= descriptionsController.isValid( currentPath, incidences );
 
         return valid;
     }
@@ -408,7 +327,9 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
         // Add the references in the actions
         count += actionsListDataControl.countAssetReferences( assetPath );
-
+        //v1.4
+        count+=descriptionsController.countAssetReferences( assetPath );
+        
         return count;
     }
 
@@ -416,6 +337,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
     public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
 
         actionsListDataControl.getAssetReferences( assetPaths, assetTypes );
+        descriptionsController.getAssetReferences( assetPaths, assetTypes );
     }
 
     @Override
@@ -423,6 +345,9 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
         // Delete the references from the actions
         actionsListDataControl.deleteAssetReferences( assetPath );
+        
+        //1.4
+        descriptionsController.deleteAssetReferences( assetPath );
     }
 
     @Override
@@ -431,6 +356,8 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
         int count = 0;
         count += actionsListDataControl.countIdentifierReferences( id );
         count += conditionsController.countIdentifierReferences( id );
+        //1.4
+        count +=descriptionsController.countIdentifierReferences( id );
         return count;
     }
 
@@ -439,6 +366,8 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
         actionsListDataControl.replaceIdentifierReferences( oldId, newId );
         conditionsController.replaceIdentifierReferences( oldId, newId );
+        //1.4
+        descriptionsController.replaceIdentifierReferences( oldId, newId );
     }
 
     @Override
@@ -446,6 +375,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
         actionsListDataControl.deleteIdentifierReferences( id );
         conditionsController.deleteIdentifierReferences( id );
+        descriptionsController.deleteIdentifierReferences( id );
     }
 
     /**
@@ -475,12 +405,10 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
     public void recursiveSearch( ) {
 
         this.getActionsList( ).recursiveSearch( );
-        check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
+        this.descriptionsController.recursiveSearch( );
         check( this.getConditions( ), TC.get( "Search.Conditions" ) );
-        check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
         check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
-        check( this.getName( ), TC.get( "Search.Name" ) );
     }
 
     public boolean isRectangular( ) {
@@ -532,8 +460,11 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
     @Override
     public List<Searchable> getPathToDataControl( Searchable dataControl ) {
-
-        return getPathFromChild( dataControl, actionsListDataControl );
+        List<Searchable> path= getPathFromChild( dataControl, actionsListDataControl );
+        if (path!=null)
+            return path;
+        path= getPathFromChild( dataControl, this.descriptionsController );
+        return path;
     }
 
     
@@ -541,5 +472,4 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
     
         return descriptionsController;
     }
-
 }

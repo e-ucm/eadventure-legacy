@@ -88,6 +88,10 @@ public class DescriptorData implements Cloneable, Described, Titled {
     public static final String EXAMINE_BUTTON = "examine";
 
     public static final String HIGHLIGHTED_BUTTON = "highlighted";
+    //ONLY USE IT IN editor.ButtonsPanel
+    public static final String SOUND_PATH = "sound";
+    public static final String SOUND_PATH_ARROW_RIGHT = "sound-right";
+    public static final String SOUND_PATH_ARROW_LEFT = "sound-left";
 
     public static final String NORMAL_BUTTON = "normal";
 
@@ -210,14 +214,14 @@ public class DescriptorData implements Cloneable, Described, Titled {
         return actionTypes;
     }
 
-    private static final String[] buttonTypes = { NORMAL_BUTTON, HIGHLIGHTED_BUTTON/*, PRESSED_BUTTON */};
+    private static final String[] buttonTypes = { NORMAL_BUTTON, HIGHLIGHTED_BUTTON, SOUND_PATH/*, PRESSED_BUTTON */};
 
     public static String[] getButtonTypes( ) {
 
         return buttonTypes;
     }
 
-    private static final String[] arrowTypes = { NORMAL_ARROW_RIGHT, NORMAL_ARROW_LEFT, HIGHLIGHTED_ARROW_RIGHT, HIGHLIGHTED_ARROW_LEFT };
+    private static final String[] arrowTypes = { NORMAL_ARROW_RIGHT, NORMAL_ARROW_LEFT, HIGHLIGHTED_ARROW_RIGHT, HIGHLIGHTED_ARROW_LEFT, SOUND_PATH_ARROW_RIGHT, SOUND_PATH_ARROW_LEFT };
 
     public static String[] getArrowTypes( ) {
 
@@ -531,8 +535,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
     }
 
     public void addButton( String action, String type, String path ) {
-
-        addButton( new CustomButton( action, type, path ) );
+        CustomButton cb =new CustomButton( action, type, path );
+        addButton( cb );
     }
 
     public String getButtonPathFromEditor( String action, String type) {
@@ -565,8 +569,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
     }
 
     public void addArrow( String type, String path ) {
-
-        arrows.add( new CustomArrow( type, path ) );
+        CustomArrow ca = new CustomArrow( type, path);
+        arrows.add( ca );
     }
 
     public List<CustomArrow> getArrows( ) {

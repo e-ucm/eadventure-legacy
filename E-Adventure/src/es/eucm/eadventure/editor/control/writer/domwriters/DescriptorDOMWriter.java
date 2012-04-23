@@ -184,6 +184,7 @@ public class DescriptorDOMWriter {
 
             if( adventureData.getButtons( ).size( ) > 0 ) {
                 Node buttonsNode = doc.createElement( "buttons" );
+                
                 for( CustomButton button : adventureData.getButtons( ) ) {
                     Element currentButton = doc.createElement( "button" );
                     currentButton.setAttribute( "action", button.getAction( ) );
@@ -196,6 +197,7 @@ public class DescriptorDOMWriter {
 
             if( adventureData.getArrows( ).size( ) > 0 ) {
                 Node arrowNode = doc.createElement( "arrows" );
+                
                 for( CustomArrow arrow : adventureData.getArrows( ) ) {
                     Element currentArrow = doc.createElement( "arrow" );
                     currentArrow.setAttribute( "type", arrow.getType( ) );

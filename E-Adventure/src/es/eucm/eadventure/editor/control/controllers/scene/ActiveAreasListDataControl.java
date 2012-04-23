@@ -47,7 +47,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
-public class ActiveAreasListDataControl extends DataControl {
+public class ActiveAreasListDataControl extends DataControl{
 
     /**
      * Scene controller that contains this element reference.

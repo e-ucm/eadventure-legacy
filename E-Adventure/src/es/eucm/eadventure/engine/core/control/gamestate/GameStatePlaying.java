@@ -232,7 +232,7 @@ public class GameStatePlaying extends GameState {
      *            Mouse event
      */
     public void mouseMovedEvent( MouseEvent e ) {
-        game.getActionManager( ).setExitCustomized( null, null );
+        game.getActionManager( ).deleteCustomExit(  );
         game.getActionManager( ).setElementOver( null );
 
         if(!GUI.getInstance( ).mouseMovedinHud( e ) ) {

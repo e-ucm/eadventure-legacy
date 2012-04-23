@@ -135,7 +135,6 @@ public class GridManager {
     // PRIVATE METHODS
     ///////////////////////////////
     
-    
     private void handleEscapeEvent(KeyEvent e){
         if (bDowns) {
             index_downs=GUI.getInstance( ).getButtonCount( );

@@ -49,8 +49,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.util.Hashtable;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Action;
@@ -68,6 +66,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.core.gui.GUIAudioDescriptionsHandler;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.tracking.pub._HighLevelEvents;
@@ -194,6 +193,11 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
     private int lastSelectedAction=-1;
     
     /**
+     * Added in v1.4 to allow audio descriptions
+     */
+    private GUIAudioDescriptionsHandler audioDescHandler = new GUIAudioDescriptionsHandler();
+    
+    /**
      * Function that initializa the HUD class
      */
     @Override
@@ -202,8 +206,8 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
         super.init( );
         DebugLog.general( "Using contextual HUD" );
 
-        actionButtons = new ActionButtons( false );
-        inventory = new Inventory( );
+        actionButtons = new ActionButtons( false, audioDescHandler );
+        inventory = new Inventory( audioDescHandler );
 
         showInventory = false;
         showActionButtons = false;
@@ -847,7 +851,7 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
         //If there is no element selected
         if( elementInCursor == null ) {
             
-            //If there mouse is over an exit
+            //If the mouse is over an exit
             if( !actionManager.getExit( ).equals( "" ) ) {
                 this.playName = true;
                 //change the cursor for the exit one
@@ -859,8 +863,12 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
                 if( lastMouseMoved != null )
                     //draw the name of the exit into the mouse in the last mouse position
                     GUI.drawStringOnto( g, new String[] { actionManager.getExit( ) }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
+                
+                // Check name and play it
+                audioDescHandler.checkAndPlay( actionManager.getExitSoundPath( ) );
+                
             }
-            //esle if the mouse is over an element
+            //else if the mouse is over an element
             else if( actionManager.getElementOver( ) != null ) {
                 //change the cursor for the over an element one
                 gui.setCursor( cursorOver );
@@ -869,32 +877,23 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
                     Description description = new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( );
                     //draw the name of the element into the mouse in the last mouse position
                     GUI.drawStringOnto( g, new String[] { description.getName( ) }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
-                    // if there are associated sound, play it
-                    if (description.getNameSoundPath( ) != null && 
-                            !description.getNameSoundPath( ).equals( lastAudioPlayed )/*&& this.playName*/){
-                        //Game.getInstance( ).getFunctionalPlayer( ).stopTalking( );
-                        /*if (Game.getInstance( ).getFunctionalPlayer( ).isTalking( ))
-                            Game.getInstance( ).getFunctionalPlayer( ).stopTalking( );
-                        
-                        Game.getInstance( ).getFunctionalPlayer( ).speak( "", description.getNameSoundPath( ) );*/
-                        Timer timer = new Timer ();
-                        timer.schedule( new ScheduledSoundPlay(description.getNameSoundPath( )), 1 );
-                        lastAudioPlayed=description.getNameSoundPath( );
-                        //this.playName = false;
-                    }
+                    // if there are associated sound, check & play it
+                    audioDescHandler.checkAndPlay( description.getNameSoundPath( ) );
                 }
             }
             //else (the mouse is over and action button or nothing
             else {
                 this.playName = true;
                 //If the action buttons are shown and the mouse is over one of them
-                if( showActionButtons && actionButtons.getButtonOver( ) != null )
+                if( showActionButtons && actionButtons.getButtonOver( ) != null ){
                     //change the cursor for the action button cursor one
                     gui.setCursor( cursorAction );
                 //else, the mouse is over nothing 
-                else
+                }else{
                     //set the default cursor
                     gui.setDefaultCursor( );
+                    audioDescHandler.reset( );
+                }
             }
         }
         //else if there is element selected and the mouse is over an element
@@ -933,10 +932,12 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
                 
                 //draw the name of the element into the mouse in the last mouse position
                 GUI.drawStringOnto( g, new String[] { name }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
-            
+                if (description.getNameSoundPath( )!=null){
+                    audioDescHandler.checkAndPlay( description.getNameSoundPath( ) );
+                }
             }
             
-            }
+        }
 
     }
 
@@ -1033,23 +1034,5 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
         else return -1;
     }
     
-    private class   ScheduledSoundPlay  extends TimerTask {
-        private String path;
-
-        public ScheduledSoundPlay( String path ) {
-
-            super( );
-            this.path = path;
-        }
-
-        @Override
-        public void run( ) {
-            MultimediaManager.getInstance( ).stopAllSounds( );
-            MultimediaManager.getInstance( ).startPlaying( MultimediaManager.getInstance( ).loadSound( path, false ) );
-        }
-        
-    };
-
     
-    private String lastAudioPlayed="";
 }

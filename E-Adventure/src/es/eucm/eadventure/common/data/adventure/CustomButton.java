@@ -36,7 +36,9 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.data.adventure;
 
-public class CustomButton implements Cloneable {
+import es.eucm.eadventure.common.data.HasSound;
+
+public class CustomButton implements Cloneable, HasSound {
 
     private String type;
 
@@ -112,8 +114,10 @@ public class CustomButton implements Cloneable {
         if( o == null || !( o instanceof CustomButton ) )
             return false;
         CustomButton button = (CustomButton) o;
-        if( button.action.equals( action ) && button.type.equals( type ) )
-            return true;
+        if( button.action.equals( action ) && button.type.equals( type )){
+                return true;
+        }
+            
         return false;
     }
 
@@ -125,5 +129,13 @@ public class CustomButton implements Cloneable {
         cb.path = ( path != null ? new String( path ) : null );
         cb.type = ( type != null ? new String( type ) : null );
         return cb;
+    }
+
+    public String getSoundPath( ) {
+        return path;
+    }
+
+    public void setSoundPath( String soundPath ) {
+        this.path = soundPath;
     }
 }

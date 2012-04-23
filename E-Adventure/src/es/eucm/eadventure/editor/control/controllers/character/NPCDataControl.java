@@ -206,39 +206,6 @@ public class NPCDataControl extends DataControlWithResources {
     }
 
     /**
-     * Returns the name of the item.
-     * 
-     * @return Character's name
-     */
-    public String getName( ) {
-
-       // return npc.getName( );
-        return "";
-    }
-
-    /**
-     * Returns the brief description of the character.
-     * 
-     * @return Character's description
-     */
-    public String getBriefDescription( ) {
-
-        //return npc.getDescription( );
-        return "";
-    }
-
-    /**
-     * Returns the detailed description of the character.
-     * 
-     * @return Character's detailed description
-     */
-    public String getDetailedDescription( ) {
-
-        //return npc.getDetailedDescription( );
-        return "";
-    }
-
-    /**
      * Check if the engine must synthesizer all current npc conversation lines
      * 
      * @return if npc must synthesizer all his lines
@@ -475,6 +442,7 @@ public class NPCDataControl extends DataControlWithResources {
     public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 
         actionsListDataControl.updateVarFlagSummary( varFlagSummary );
+        descriptionController.updateVarFlagSummary( varFlagSummary );
         // Iterate through the resources
         for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
             resourcesDataControl.updateVarFlagSummary( varFlagSummary );
@@ -494,6 +462,8 @@ public class NPCDataControl extends DataControlWithResources {
 
         // Spread the call to the actions
         valid &= actionsListDataControl.isValid( currentPath, incidences );
+        //1.4
+        valid &= descriptionController.isValid( currentPath, incidences );
 
         return valid;
     }
@@ -509,6 +479,9 @@ public class NPCDataControl extends DataControlWithResources {
 
         // Add the references in the actions
         count += actionsListDataControl.countAssetReferences( assetPath );
+        
+        //1.4
+        count += descriptionController.countAssetReferences( assetPath );
 
         return count;
     }
@@ -522,6 +495,8 @@ public class NPCDataControl extends DataControlWithResources {
 
         // Add the references in the actions
         actionsListDataControl.getAssetReferences( assetPaths, assetTypes );
+        
+        descriptionController.getAssetReferences( assetPaths, assetTypes );
     }
 
     @Override
@@ -533,6 +508,8 @@ public class NPCDataControl extends DataControlWithResources {
 
         // Delete the references from the actions
         actionsListDataControl.deleteAssetReferences( assetPath );
+        //1.4
+        descriptionController.deleteAssetReferences( assetPath );
     }
 
     @Override
@@ -544,6 +521,8 @@ public class NPCDataControl extends DataControlWithResources {
             resourcesDataControl.countIdentifierReferences( id );
 
         count += actionsListDataControl.countIdentifierReferences( id );
+        //1.4
+        count+=descriptionController.countIdentifierReferences( id );   
         return count;
     }
 
@@ -555,6 +534,7 @@ public class NPCDataControl extends DataControlWithResources {
             resourcesDataControl.replaceIdentifierReferences( oldId, newId );
 
         actionsListDataControl.replaceIdentifierReferences( oldId, newId );
+        descriptionController.replaceIdentifierReferences( oldId, newId );
     }
 
     @Override
@@ -565,6 +545,8 @@ public class NPCDataControl extends DataControlWithResources {
             resourcesDataControl.deleteIdentifierReferences( id );
 
         actionsListDataControl.deleteIdentifierReferences( id );
+        //1.4
+        descriptionController.deleteIdentifierReferences( id );
     }
 
     public boolean buildResourcesTab( ) {
@@ -581,14 +563,15 @@ public class NPCDataControl extends DataControlWithResources {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
-        check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
         check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
-        check( this.getName( ), TC.get( "Search.Name" ) );
         check( this.getVoice( ), TC.get( "Search.NPCVoice" ) );
         check( this.getPreviewImage( ), TC.get( "Search.PreviewImage" ) );
+        descriptionController.recursiveSearch( );
         getActionsList( ).recursiveSearch( );
+        for (ResourcesDataControl r:resourcesDataControlList){
+            r.recursiveSearch( );
+        }
     }
 
     public String getAnimationPath( String animation ) {
@@ -620,6 +603,9 @@ public class NPCDataControl extends DataControlWithResources {
     public List<Searchable> getPathToDataControl( Searchable dataControl ) {
 
         List<Searchable> path = getPathFromChild( dataControl, resourcesDataControlList );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, descriptionController );
         if( path != null )
             return path;
         return getPathFromChild( dataControl, actionsListDataControl );

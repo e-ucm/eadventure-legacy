@@ -45,14 +45,9 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
-import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDetailedDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AtrezzoDataControl extends DataControlWithResources {
@@ -62,11 +57,6 @@ public class AtrezzoDataControl extends DataControlWithResources {
      */
     private Atrezzo atrezzo;
     
-    /**
-     * Controller for descriptions
-     */
-    private DescriptionsController descriptionController;
-
     /**
      * Constructor.
      * 
@@ -89,8 +79,6 @@ public class AtrezzoDataControl extends DataControlWithResources {
         for( Resources resources : resourcesList )
             resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.ATREZZO ) );
         
-        descriptionController = new DescriptionsController(atrezzo.getDescriptions( ));
-
     }
 
     /**
@@ -121,62 +109,6 @@ public class AtrezzoDataControl extends DataControlWithResources {
     public String getDocumentation( ) {
 
         return atrezzo.getDocumentation( );
-    }
-
-    /**
-     * Returns the name of the atrezzo item.
-     * 
-     * @return Atrezzo's name
-     */
-    // Attrezzo elements only have name, and only can have one name because they are not interactive
-    public String getName( ) {
-
-        return atrezzo.getDescription( 0 ).getName( );
-    }
-
-    
-    /**
-     * Sets the new documentation of the atrezzo item.
-     * 
-     * @param documentation
-     *            Documentation of the atrezzo item
-     */
-    public void setDocumentation( String documentation ) {
-
-        controller.addTool( new ChangeDocumentationTool( atrezzo, documentation ) );
-    }
-
-    /**
-     * Sets the new name of the atrezzo item.
-     * 
-     * @param name
-     *            Name of the atrezzo item
-     */
-    public void setName( String name ) {
-
-        controller.addTool( new ChangeNameTool( descriptionController.getSelectedDescription(), name ) );
-    }
-
-    /**
-     * Sets the new brief description of the atrezzo item.
-     * 
-     * @param description
-     *            Description of the atrezzo item
-     */
-    public void setBriefDescription( String description ) {
-
-        controller.addTool( new ChangeDescriptionTool( descriptionController.getSelectedDescription(), description ) );
-    }
-
-    /**
-     * Sets the new detailed description of the atrezzo item.
-     * 
-     * @param detailedDescription
-     *            Detailed description of the atrezzo item
-     */
-    public void setDetailedDescription( String detailedDescription ) {
-
-        controller.addTool( new ChangeDetailedDescriptionTool( descriptionController.getSelectedDescription(), detailedDescription ) );
     }
 
     @Override
@@ -385,8 +317,10 @@ public class AtrezzoDataControl extends DataControlWithResources {
        // check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
         check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
-        check( this.getName( ), TC.get( "Search.Name" ) );
         check( this.getPreviewImage( ), TC.get( "Search.PreviewImage" ) );
+        for (ResourcesDataControl r:resourcesDataControlList){
+            r.recursiveSearch( );
+        }
     }
 
     @Override

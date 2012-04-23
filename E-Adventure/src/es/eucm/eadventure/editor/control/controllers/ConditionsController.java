@@ -204,13 +204,14 @@ public class ConditionsController {
         }
 
         // Then add the references from the either blocks
-        for( int i = 0; i < conditions.getEitherConditionsBlockCount( ); i++ )
+        for( int i = 0; i < conditions.getEitherConditionsBlockCount( ); i++ ){
             for( Condition condition : conditions.getEitherConditions( i ) ) {
                 if( condition.getType( ) == Condition.FLAG_CONDITION )
                     varFlagSummary.addFlagReference( condition.getId( ) );
                 else if( condition.getType( ) == Condition.VAR_CONDITION )
                     varFlagSummary.addVarReference( condition.getId( ) );
             }
+        }
     }
 
     public static HashMap<String, ConditionContextProperty> createContextFromOwner( int ownerType, String ownerName ) {
@@ -437,7 +438,7 @@ public class ConditionsController {
             Iterator<Condition> it = wrapper.iterator( );
             while( it.hasNext( ) ) {
                 Condition condition = it.next( );
-                if( condition.getType( ) == Condition.GLOBAL_STATE_CONDITION && condition.getId( ).equals( id ) ) {
+                if( condition.getId( ).equals( id ) ) {
                     it.remove( );
                 }
             }
@@ -474,11 +475,14 @@ public class ConditionsController {
     public int countIdentifierReferences( String id ) {
 
         int count = 0;
-        for( String conditionId : conditions.getGloblaStateIds( ) ) {
-            if( conditionId.equals( id ) )
-                count++;
+        
+        for( int i = 0; i < conditions.size( ); i++ ) {
+            for( int j = 0; j < conditions.get( i ).size( ); j++ ) {
+                if( conditions.get( i ).get( j ).getId( ).equals( id ) )
+                    count++;
+            }
         }
-
+        
         return count;
     }
 

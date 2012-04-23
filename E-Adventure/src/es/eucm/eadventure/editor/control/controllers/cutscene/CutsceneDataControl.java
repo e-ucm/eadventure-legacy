@@ -425,6 +425,10 @@ public class CutsceneDataControl extends DataControlWithResources {
 
             String previewImagePath = resourcesDataControlList.get( selectedResources ).getAssetPath( "slides" );
 
+            if ( previewImagePath.length( )==0){
+                System.out.println( );
+            }
+            
             // Add the extension of the frame
             if( previewImagePath != null && !previewImagePath.toLowerCase( ).endsWith( ".eaa" ) )
                 previewImagePath += "_01.jpg";

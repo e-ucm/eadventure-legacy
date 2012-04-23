@@ -47,10 +47,12 @@ import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.animation.Transition;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteAssetReferencesInResources;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteResourceTool;
@@ -112,8 +114,8 @@ public class ResourcesDataControl extends DataControl {
                 break;
             case Controller.ACTION_CUSTOM:
             case Controller.ACTION_CUSTOM_INTERACT:
-                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionButtonNormal" , "buttonNormal", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation(  "Resources.DescriptionButtonOver" , "buttonOver", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG )/*, new AssetInformation( "Resources.DescriptionButtonPressed" , "buttonPressed", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG )*/, new AssetInformation(  "Resources.DescriptionActionAnimation" , "actionAnimation", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionActionAnimationLeft" , "actionAnimationLeft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ) };
-                assetsGroups = new int[][] { { 0, 1}, { 2, 3 } };
+                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionButtonNormal" , "buttonNormal", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation(  "Resources.DescriptionButtonOver" , "buttonOver", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation(  "Resources.DescriptionButtonSound" , "buttonSound", true, AssetsConstants.CATEGORY_AUDIO, AssetsController.FILTER_NONE )/*, new AssetInformation( "Resources.DescriptionButtonPressed" , "buttonPressed", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG )*/, new AssetInformation(  "Resources.DescriptionActionAnimation" , "actionAnimation", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionActionAnimationLeft" , "actionAnimationLeft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ) };
+                assetsGroups = new int[][] { { 0, 1, 2}, { 3, 4 } };
                 groupsInfo = new String[] { "Resources.Button" , "Resources.Animations"  };
                 break;
             case Controller.CUTSCENE_VIDEO:
@@ -481,6 +483,14 @@ public class ResourcesDataControl extends DataControl {
         for( int i = 0; i < this.getAssetCount( ); i++ ) {
             check( this.getAssetDescription( i ), TC.get( "Search.AssetDescription" ) );
             check( this.getAssetPath( i ), TC.get( "Search.AssetPath" ) );
+            //Added v1.4
+            if( this.getAssetPath( i ).toLowerCase().endsWith( ".eaa" )){
+                Animation animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), this.getAssetPath( i ), new EditorImageLoader() );
+                for (Frame frame:animation.getFrames( )){
+                    check( frame.getUri( ), TC.get( "Search.AssetPath" ) );
+                    check( frame.getSoundUri( ), TC.get( "Search.AssetPath" ) );
+                }
+            }
         }
     }
 
