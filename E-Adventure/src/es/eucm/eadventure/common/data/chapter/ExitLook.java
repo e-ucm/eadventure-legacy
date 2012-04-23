@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.data.chapter;
 
+import es.eucm.eadventure.common.auxiliar.AllElementsWithAssets;
 import es.eucm.eadventure.common.data.HasSound;
 
 public class ExitLook implements Cloneable, HasSound {
@@ -86,6 +87,9 @@ public class ExitLook implements Cloneable, HasSound {
     public void setCursorPath( String cursorPath ) {
 
         this.cursorPath = cursorPath;
+        if (cursorPath!=null){
+            AllElementsWithAssets.addAsset( this );
+        }
     }
 
     /**
@@ -104,6 +108,9 @@ public class ExitLook implements Cloneable, HasSound {
     public void setSoundPath( String soundPath ) {
     
         this.soundPath = soundPath;
+        if (soundPath!=null){
+            AllElementsWithAssets.addAsset( this );
+        }
     }
     
     

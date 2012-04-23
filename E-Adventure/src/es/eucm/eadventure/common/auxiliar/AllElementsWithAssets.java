@@ -71,8 +71,17 @@ public class AllElementsWithAssets {
      * @param key
      */
     public static void addAsset(Object element){
-        if (storePath)
-            allAssets.add( element );
+        if (storePath){
+            boolean found=false;
+            for (Object o:allAssets){
+                if (o==element){
+                    found=true;break;
+                }
+            }
+            if(!found){
+                allAssets.add( element );
+            }
+        }
     }
     
     /**
