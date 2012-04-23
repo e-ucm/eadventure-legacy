@@ -887,7 +887,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
                 if (oneTalker==null)
                     oneTalker = currentLineFunctionalElement;
                 
-                else if (otherTalker == null ){
+                else if (otherTalker != null ){
                         // check if is not the same
                         if( !oneTalker.getElement( ).getId( ).equals( currentLineFunctionalElement.getElement( ).getId( )) )   
                                 otherTalker = currentLineFunctionalElement;
