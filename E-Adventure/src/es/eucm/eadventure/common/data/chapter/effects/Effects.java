@@ -89,14 +89,20 @@ public class Effects implements Cloneable {
         effects.add( effect );
         
         //Check if the effect has resources, to add it in the AllAssetsPaths
-        if (effect.getType( ) == Effect.PLAY_ANIMATION || effect.getType( ) == Effect.PLAY_SOUND ){
+        if (effect.getType( ) == Effect.PLAY_ANIMATION || effect.getType( ) == Effect.PLAY_SOUND || effect.getType( ) == Effect.SPEAK_CHAR || effect.getType( ) == Effect.SPEAK_PLAYER || effect.getType( ) == Effect.SHOW_TEXT){
             AllElementsWithAssets.addAsset( effect );
         } else if (effect.getType( ) == Effect.RANDOM_EFFECT ){
-            if ( ((RandomEffect)effect).getPositiveEffect( )!=null &&   ((RandomEffect)effect).getPositiveEffect( ).getType( ) == Effect.PLAY_ANIMATION){
-                AllElementsWithAssets.addAsset( ((RandomEffect)effect).getPositiveEffect( ) );
+            if ( ((RandomEffect)effect).getPositiveEffect( )!=null){
+                int peType=   ((RandomEffect)effect).getPositiveEffect( ).getType( );
+                if(peType == Effect.PLAY_ANIMATION || peType == Effect.PLAY_SOUND || peType == Effect.SPEAK_CHAR || peType == Effect.SPEAK_PLAYER || peType == Effect.SHOW_TEXT ){
+                    AllElementsWithAssets.addAsset( ((RandomEffect)effect).getPositiveEffect( ) );
+                }
             }
-            if (  ((RandomEffect)effect).getNegativeEffect( )!=null && ((RandomEffect)effect).getNegativeEffect( ).getType( ) == Effect.PLAY_SOUND){
-                AllElementsWithAssets.addAsset( ((RandomEffect)effect).getNegativeEffect( ) );
+            if ( ((RandomEffect)effect).getNegativeEffect( )!=null){
+                int neType=   ((RandomEffect)effect).getNegativeEffect( ).getType( );
+                if(neType == Effect.PLAY_ANIMATION || neType == Effect.PLAY_SOUND || neType == Effect.SPEAK_CHAR || neType == Effect.SPEAK_PLAYER || neType == Effect.SHOW_TEXT ){
+                    AllElementsWithAssets.addAsset( ((RandomEffect)effect).getNegativeEffect( ) );
+                }
             }
         }
         
