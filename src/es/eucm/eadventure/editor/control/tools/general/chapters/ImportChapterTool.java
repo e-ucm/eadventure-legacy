@@ -56,6 +56,7 @@ import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.ExitLook;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
@@ -63,6 +64,10 @@ import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
+import es.eucm.eadventure.common.data.chapter.effects.ShowTextEffect;
+import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
+import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
+import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.Loader;
@@ -277,14 +282,39 @@ public class ImportChapterTool extends Tool {
             else if (o instanceof AbstractEffect){
                 if (((AbstractEffect)o).getType( ) == Effect.PLAY_SOUND){
                     oldPath = ((PlaySoundEffect)o).getPath( );
-                    // extract the new path taking the folder and the name of the oldPath and adding the current project folder
-                    newPath = copyFile(newBasePath,oldPath,xmlPath);
-                    ((PlaySoundEffect)o).setPath( newPath );
+                    if (oldPath!=null &!oldPath.equals( "" )){
+                        // extract the new path taking the folder and the name of the oldPath and adding the current project folder
+                        newPath = copyFile(newBasePath,oldPath,xmlPath);
+                        ((PlaySoundEffect)o).setPath( newPath );
+                    }
                 }else if (((AbstractEffect)o).getType( ) == Effect.PLAY_ANIMATION){
                     oldPath = ((PlayAnimationEffect)o).getPath( );
-                    // extract the new path taking the folder and the name of the oldPath and adding the current project folder
-                    newPath = copyFile(newBasePath,oldPath,xmlPath);
-                    ((PlayAnimationEffect)o).setPath( newPath );
+                    if (oldPath!=null &!oldPath.equals( "" )){
+                        // extract the new path taking the folder and the name of the oldPath and adding the current project folder
+                        newPath = copyFile(newBasePath,oldPath,xmlPath);
+                        ((PlayAnimationEffect)o).setPath( newPath );
+                    }
+                }else if (((AbstractEffect)o).getType( ) == Effect.SPEAK_CHAR){
+                    oldPath = ((SpeakCharEffect)o).getAudioPath( );
+                    if (oldPath!=null &!oldPath.equals( "" )){
+                        // extract the new path taking the folder and the name of the oldPath and adding the current project folder
+                        newPath = copyFile(newBasePath,oldPath,xmlPath);
+                        ((SpeakCharEffect)o).setAudioPath( newPath );
+                    }
+                }else if (((AbstractEffect)o).getType( ) == Effect.SPEAK_PLAYER){
+                    oldPath = ((SpeakPlayerEffect)o).getAudioPath( );
+                    if (oldPath!=null &!oldPath.equals( "" )){
+                        // extract the new path taking the folder and the name of the oldPath and adding the current project folder
+                        newPath = copyFile(newBasePath,oldPath,xmlPath);
+                        ((SpeakPlayerEffect)o).setAudioPath( newPath );
+                    }
+                }else if (((AbstractEffect)o).getType( ) == Effect.SHOW_TEXT){
+                    oldPath = ((ShowTextEffect)o).getAudioPath( );
+                    if (oldPath!=null &!oldPath.equals( "" )){
+                        // extract the new path taking the folder and the name of the oldPath and adding the current project folder
+                        newPath = copyFile(newBasePath,oldPath,xmlPath);
+                        ((ShowTextEffect)o).setAudioPath( newPath );
+                    }
                 }
             } 
             // Get the path for html files in books
@@ -333,7 +363,28 @@ public class ImportChapterTool extends Tool {
                 newPath = copyFile(newBasePath,oldPath,xmlPath);
                 ((BookParagraph)o).setContent( newPath );
             }
-            
+            // Get the path of an image in image paragraphs in books
+            else if (o instanceof Description){
+                Description d = (Description)o;
+                if (d.getDescriptionSoundPath( )!=null && !d.getDescriptionSoundPath( ).equals( "" )){
+                    d.setDescriptionSoundPath( copyFile(newBasePath,d.getDescriptionSoundPath( ),xmlPath) );
+                }
+                if (d.getDetailedDescriptionSoundPath( )!=null && !d.getDetailedDescriptionSoundPath( ).equals( "" )){
+                    d.setDetailedDescriptionSoundPath( copyFile(newBasePath,d.getDetailedDescriptionSoundPath( ),xmlPath) );
+                }
+                if (d.getNameSoundPath( )!=null && !d.getNameSoundPath( ).equals( "" )){
+                    d.setNameSoundPath( copyFile(newBasePath,d.getNameSoundPath( ),xmlPath) );
+                }
+            }
+            else if (o instanceof ExitLook){
+                ExitLook e = (ExitLook)o;
+                if (e.getCursorPath( )!=null && !e.getCursorPath( ).equals( "" )){
+                    e.setCursorPath( copyFile(newBasePath,e.getCursorPath( ),xmlPath) );
+                }
+                if (e.getSoundPath( )!=null&& !e.getSoundPath( ).equals( "" )){
+                    e.setSoundPath( copyFile(newBasePath,e.getSoundPath( ),xmlPath) );
+                }
+            }
              
         }
         
@@ -369,7 +420,7 @@ public class ImportChapterTool extends Tool {
                    if( f.getUri( ) != null && !f.getUri( ).equals( "" )) {
                       f.setUri( copyFile(newBasePath,f.getUri( ),xmlPath) );
                    }
-                   if( f.getSoundUri( ) != null && f.getSoundUri( )!="" ) {
+                   if( f.getSoundUri( ) != null && !f.getSoundUri( ).equals("") ) {
                        f.setSoundUri( copyFile(newBasePath,f.getSoundUri( ),xmlPath) );
                    }
                }
