@@ -50,6 +50,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.LangString;
@@ -58,7 +59,6 @@ import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxon;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESCreateContainerPanel;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMLangStringPanel;
-import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMContributeDialog;
 
 ;
 
@@ -138,7 +138,7 @@ public class LOMTaxonPathDialog extends JDialog {
         this.setSize( new Dimension( 270, 230 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-        setResizable( false );
+        //setResizable( false );
         setVisible( true );
 
         addWindowListener( new WindowAdapter( ) {

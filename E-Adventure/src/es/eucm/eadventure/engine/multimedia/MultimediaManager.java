@@ -616,7 +616,10 @@ public class MultimediaManager {
             boolean end = false;
 
             while( !end ) {
-                currentSlide = loadImageFromZip( slidesPath + "_" + leadingZeros( i ) + ".jpg", category );
+                if (ResourceHandler.getInstance( ).getResourceAsImageFromZip( slidesPath + "_" + leadingZeros( i ) + ".jpg")!=null)
+                    currentSlide = loadImageFromZip( slidesPath + "_" + leadingZeros( i ) + ".jpg", category );
+                else
+                    end=true;
 
                 if( currentSlide != null ) {
                     slides.add( getFullscreenImage( currentSlide ) );

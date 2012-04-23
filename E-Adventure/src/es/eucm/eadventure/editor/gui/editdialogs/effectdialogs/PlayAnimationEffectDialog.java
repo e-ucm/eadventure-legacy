@@ -237,7 +237,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
         add( mainPanel, BorderLayout.CENTER );
 
         // Set the dialog
-        setResizable( false );
+        //setResizable( false );
         setSize( 640, 480 );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );

@@ -104,8 +104,8 @@ public class TriggerCutsceneEffectDialog extends EffectDialog {
             }
 
             // Set the dialog
-            setResizable( false );
-            setSize( 280, 140 );
+            //setResizable( false );
+            setSize( 400,300 );
             Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
             setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
             setVisible( true );

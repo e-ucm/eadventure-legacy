@@ -75,7 +75,7 @@ public class DocumentationDialog extends ToolManagableDialog {
         dp = new DescriptionsPanel(this.descriptionsController);
         this.add( dp );
         //setLayout( );
-        setResizable( false );
+        //setResizable( false );
         setSize( 600, 400 );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );

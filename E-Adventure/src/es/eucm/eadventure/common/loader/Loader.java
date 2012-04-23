@@ -453,15 +453,19 @@ public class Loader {
         }
         catch( ParserConfigurationException e ) {
             e.printStackTrace( );
+            System.err.println( filename );
         }
         catch( SAXException e ) {
             e.printStackTrace( );
+            System.err.println( filename );
         }
         catch( FileNotFoundException e ) {
             e.printStackTrace( );
+            System.err.println( filename );
         }
         catch( IOException e ) {
             e.printStackTrace( );
+            System.err.println( filename );
         }
 
         if( animationHandler.getAnimation( ) != null )

@@ -386,7 +386,7 @@ public class NPCDialogPanel extends JPanel {
                 colorDialog = JColorChooser.createDialog( null, TC.get( "Player.BubbleBkgColor" ), true, colorChooser, new UpdateColorListener( ), null );
             else if( color == BUBBLEBORDER_COLOR )
                 colorDialog = JColorChooser.createDialog( null, TC.get( "Player.BubbleBorderColor" ), true, colorChooser, new UpdateColorListener( ), null );
-            colorDialog.setResizable( false );
+            //colorDialog.setResizable( false );
             colorDialog.setVisible( true );
         }
 

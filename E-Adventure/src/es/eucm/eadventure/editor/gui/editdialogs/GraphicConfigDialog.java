@@ -261,7 +261,7 @@ public class GraphicConfigDialog extends ToolManagableDialog {
         setSize( 450, 410 );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-        setResizable( false );
+        //setResizable( false );
         setVisible( true );
     }
 

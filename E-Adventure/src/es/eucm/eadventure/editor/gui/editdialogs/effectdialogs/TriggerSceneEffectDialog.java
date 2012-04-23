@@ -164,11 +164,11 @@ public class TriggerSceneEffectDialog extends EffectDialog {
             scenesComboBox.addActionListener( new ScenesComboBoxActionListener( ) );
 
             // Set the dialog
-            setResizable( false );
+            //setResizable( false );
             if( !isFirstPersonGame  )
                 setSize( 640, 480 );
             else 
-                setSize(250,120);
+                setSize(400,300);
             Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
             setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
             setVisible( true );

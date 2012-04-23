@@ -109,7 +109,7 @@ public class HTMLEditDialog extends JDialog implements WindowListener {
 
         addWindowListener( this );
         setSize( 800, 600 );
-        setResizable( true );
+        //setResizable( true );
         //setAlwaysOnTop(true);
         setModalityType( ModalityType.APPLICATION_MODAL );
         setModal( true );

@@ -56,11 +56,11 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESGeneralId;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESCreateContainerPanel;
 
 public class LOMlIdentifierDialog extends JDialog {
@@ -156,7 +156,7 @@ public class LOMlIdentifierDialog extends JDialog {
         this.setSize( new Dimension( 350, 200 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-        setResizable( false );
+        //setResizable( false );
         setVisible( true );
 
         addWindowListener( new WindowAdapter( ) {

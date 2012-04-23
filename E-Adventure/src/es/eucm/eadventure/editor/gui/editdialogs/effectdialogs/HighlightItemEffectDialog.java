@@ -161,7 +161,7 @@ public class HighlightItemEffectDialog extends EffectDialog {
             
 
             // Set the dialog
-            setResizable( false );
+            //setResizable( false );
             pack( );
             setSize(400, 300);
             Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );

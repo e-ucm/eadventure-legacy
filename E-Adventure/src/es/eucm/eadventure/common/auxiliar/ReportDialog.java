@@ -277,7 +277,7 @@ public class ReportDialog extends JDialog {
         super( );
 
         this.setSize( PANEL_WIDTH, PANEL_HEIGHT );
-        this.setResizable( false );
+        //this.setResizable( false );
         //#JAVA6#
         this.setModalityType( ModalityType.TOOLKIT_MODAL );
         ///@JAVA6@
@@ -406,7 +406,7 @@ public class ReportDialog extends JDialog {
         super( );
 
         this.setSize( PANEL_WIDTH, PANEL_HEIGHT );
-        this.setResizable( false );
+        //this.setResizable( false );
 
         this.setTitle( TC.get( "ErrorReport.TitleComments" ) );
 

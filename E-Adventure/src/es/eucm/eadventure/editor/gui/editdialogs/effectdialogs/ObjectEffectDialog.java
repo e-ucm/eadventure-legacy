@@ -133,7 +133,7 @@ public class ObjectEffectDialog extends EffectDialog {
             setMinimumSize( new Dimension( width, height ) );
             setPreferredSize( new Dimension( width, height ) );
 
-            setResizable( false );
+            //setResizable( false );
             pack( );
             Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
             setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );

@@ -53,6 +53,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.LangString;
@@ -190,7 +191,7 @@ public class LOMContributeDialog extends JDialog {
         this.setSize( new Dimension( 250, 300 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-        setResizable( false );
+        //setResizable( false );
         setVisible( true );
 
     }

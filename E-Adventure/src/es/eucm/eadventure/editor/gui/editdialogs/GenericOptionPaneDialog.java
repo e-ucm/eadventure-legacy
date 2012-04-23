@@ -73,7 +73,7 @@ public class GenericOptionPaneDialog extends ToolManagableDialog {
             }
         } );
 
-        setResizable( false );
+        //setResizable( false );
 
         this.pack( );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );

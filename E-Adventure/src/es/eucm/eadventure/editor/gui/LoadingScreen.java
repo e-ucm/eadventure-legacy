@@ -90,14 +90,13 @@ public class LoadingScreen extends JFrame {
         int width = icon.getImage( ).getWidth( this );
         int height = icon.getImage( ).getHeight( this );
         this.setSize( width, height );
-        this.setResizable( false );
+        //this.setResizable( false );
         double screenWidth = Toolkit.getDefaultToolkit( ).getScreenSize( ).getWidth( );
         double screenHeight = Toolkit.getDefaultToolkit( ).getScreenSize( ).getHeight( );
         int locX = Math.round( ( (int) screenWidth - width ) / 2.0f );
         int locY = Math.round( ( (int) screenHeight - height ) / 2.0f );
         this.setLocation( locX, locY );
         this.setCursor( Cursor.getPredefinedCursor( Cursor.WAIT_CURSOR ) );
-        this.setResizable( false );
         //this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
         //this.setAlwaysOnTop( true );
         
