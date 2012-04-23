@@ -186,7 +186,7 @@ public class JARSigner {
 
                 //Sign the jar
                 
-                if (new File(originJarPath2).exists()){
+                if (originJarPath2!=null && new File(originJarPath2).exists()){
                     if (new File(originJarPath2).isFile( ))
                         System.out.println( "MIERDA PUTA DEL TO" );
                 }
