@@ -37,6 +37,7 @@
 package es.eucm.eadventure.common.data.chapter.elements;
 
 
+import es.eucm.eadventure.common.auxiliar.AllElementsWithAssets;
 import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.common.data.HasDescriptionSound;
@@ -168,6 +169,9 @@ public class Description implements Named, Described, Detailed, HasDescriptionSo
     public void setNameSoundPath( String nameSoundPath ) {
     
         this.nameSoundPath = nameSoundPath;
+        if (nameSoundPath!=null){
+            AllElementsWithAssets.addAsset( this );
+        }
     }
 
     
@@ -180,6 +184,10 @@ public class Description implements Named, Described, Detailed, HasDescriptionSo
     public void setDescriptionSoundPath( String descriptionSoundPath ) {
     
         this.descriptionSoundPath = descriptionSoundPath;
+        if (descriptionSoundPath!=null){
+            AllElementsWithAssets.addAsset( this );
+        }
+
     }
 
     
@@ -192,6 +200,10 @@ public class Description implements Named, Described, Detailed, HasDescriptionSo
     public void setDetailedDescriptionSoundPath( String detailedDescriptionSoundPath ) {
     
         this.detailedDescriptionSoundPath = detailedDescriptionSoundPath;
+        if (detailedDescriptionSoundPath!=null){
+            AllElementsWithAssets.addAsset( this );
+        }
+
     }
     
        
