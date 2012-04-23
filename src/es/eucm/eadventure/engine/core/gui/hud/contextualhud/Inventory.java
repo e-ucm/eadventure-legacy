@@ -48,6 +48,7 @@ import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.core.gui.GUIAudioDescriptionsHandler;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
@@ -156,6 +157,10 @@ public class Inventory {
      * Image for the right button highlighted
      */
     private Image righthigh;
+    
+    //v1.4
+    private String leftSound;
+    private String rightSound;
 
     /**
      * Relative Y coordinate of the inventory (the less the more inventory is
@@ -188,11 +193,14 @@ public class Inventory {
 
     private boolean highlightLeft;
 
+    //1.4
+    private GUIAudioDescriptionsHandler audioDescHandler;
+    
     /**
      * Constructor
      */
-    public Inventory( ) {
-
+    public Inventory( GUIAudioDescriptionsHandler audioDescHandler ) {
+        this.audioDescHandler = audioDescHandler;
         indexFirstItemDisplayed = 0;
 
         DescriptorData descriptor = Game.getInstance( ).getGameDescriptor( );
@@ -209,6 +217,10 @@ public class Inventory {
 
         leftpath = descriptor.getArrowPath( DescriptorData.HIGHLIGHTED_ARROW_LEFT );
         rightpath = descriptor.getArrowPath( DescriptorData.HIGHLIGHTED_ARROW_RIGHT );
+        
+        leftSound = descriptor.getArrowPath( DescriptorData.SOUND_PATH_ARROW_LEFT );
+        rightSound = descriptor.getArrowPath( DescriptorData.SOUND_PATH_ARROW_RIGHT );
+        
         if( leftpath == null )
             lefthigh = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/left.png", MultimediaManager.IMAGE_MENU );
         else
@@ -325,11 +337,17 @@ public class Inventory {
 
         g_inv.setClip( 0, 0, INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT );
 
-        if( drawLeft )
+        if( drawLeft ){
             g_inv.drawImage( ( highlightLeft ? lefthigh : left ), 0, 0, null );
-        if( drawRight )
+            if (highlightLeft && this.leftSound!=null){
+                this.audioDescHandler.checkAndPlay( leftSound );
+            }
+        }if( drawRight ){
             g_inv.drawImage( ( highlightRight ? righthigh : right ), INVENTORY_PANEL_WIDTH - SCROLL_WIDTH, 0, null );
-
+            if (highlightRight && this.rightSound!=null){
+                this.audioDescHandler.checkAndPlay( rightSound );
+            }
+        }
         g_inv.finalize( );
 
         g.drawImage( inventory, 0, (int) ( upperInventory ? -dy : GUI.WINDOW_HEIGHT - SCROLL_HEIGHT + dy ), null );

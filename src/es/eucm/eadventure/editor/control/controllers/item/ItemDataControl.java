@@ -50,10 +50,6 @@ import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDetailedDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ItemDataControl extends DataControlWithResources {
@@ -140,83 +136,7 @@ public class ItemDataControl extends DataControlWithResources {
         return item.getDocumentation( );
     }
 
-    /**
-     * Returns the name of the item.
-     * 
-     * @return Item's name
-     */
-    public String getName( ) {
 
-       // return item.getName( );
-        return "";
-    }
-
-    /**
-     * Returns the brief description of the item.
-     * 
-     * @return Item's description
-     */
-    public String getBriefDescription( ) {
-
-        //return item.getDescription( );
-        return "";
-    }
-
-    /**
-     * Returns the detailed description of the item.
-     * 
-     * @return Item's detailed description
-     */
-    public String getDetailedDescription( ) {
-
-      //  return item.getDetailedDescription( );
-        return "";
-    }
-
-    /**
-     * Sets the new documentation of the item.
-     * 
-     * @param documentation
-     *            Documentation of the item
-     */
-    public void setDocumentation( String documentation ) {
-
-        controller.addTool( new ChangeDocumentationTool( item, documentation ) );
-    }
-
-    /**
-     * Sets the new name of the item.
-     * 
-     * @param name
-     *            Name of the item
-     */
-    public void setName( String name ) {
-
-        controller.addTool( new ChangeNameTool( descriptionController.getSelectedDescription(), name ) );
-    }
-
-    /**
-     * Sets the new brief description of the item.
-     * 
-     * @param description
-     *            Description of the item
-     */
-    public void setBriefDescription( String description ) {
-
-        controller.addTool( new ChangeDescriptionTool( descriptionController.getSelectedDescription(), description ) );
-    }
-
-    /**
-     * Sets the new detailed description of the item.
-     * 
-     * @param detailedDescription
-     *            Detailed description of the item
-     */
-    public void setDetailedDescription( String detailedDescription ) {
-
-        controller.addTool( new ChangeDetailedDescriptionTool( descriptionController.getSelectedDescription(), detailedDescription ) );
-    }
-    
     public void setReturnsWhenDragged(Boolean returnsWhenDragged) {
         item.setReturnsWhenDragged( returnsWhenDragged );
     }
@@ -343,6 +263,10 @@ public class ItemDataControl extends DataControlWithResources {
     public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 
         actionsListDataControl.updateVarFlagSummary( varFlagSummary );
+        
+        //1.4
+        descriptionController.updateVarFlagSummary( varFlagSummary );
+        
         // Iterate through the resources
         for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
             resourcesDataControl.updateVarFlagSummary( varFlagSummary );
@@ -361,6 +285,9 @@ public class ItemDataControl extends DataControlWithResources {
 
         // Spread the call to the actions
         valid &= actionsListDataControl.isValid( currentPath, incidences );
+        
+        //1.4
+        valid &=descriptionController.isValid( currentPath, incidences );
 
         return valid;
     }
@@ -376,6 +303,9 @@ public class ItemDataControl extends DataControlWithResources {
 
         // Add the references in the actions
         count += actionsListDataControl.countAssetReferences( assetPath );
+        
+        //v1.4
+        count+=this.descriptionController.countAssetReferences( assetPath ); 
 
         return count;
     }
@@ -389,6 +319,9 @@ public class ItemDataControl extends DataControlWithResources {
 
         // Add the references in the actions
         actionsListDataControl.getAssetReferences( assetPaths, assetTypes );
+        
+        //v1.4
+        this.descriptionController.getAssetReferences( assetPaths, assetTypes );
     }
 
     @Override
@@ -400,24 +333,33 @@ public class ItemDataControl extends DataControlWithResources {
 
         // Delete the references from the actions
         actionsListDataControl.deleteAssetReferences( assetPath );
+        
+        //1.4
+        this.descriptionController.deleteAssetReferences( assetPath );
     }
 
     @Override
     public int countIdentifierReferences( String id ) {
 
-        return actionsListDataControl.countIdentifierReferences( id );
+        return actionsListDataControl.countIdentifierReferences( id ) + this.descriptionController.countIdentifierReferences( id );
     }
 
     @Override
     public void replaceIdentifierReferences( String oldId, String newId ) {
 
         actionsListDataControl.replaceIdentifierReferences( oldId, newId );
+        
+        //1.4
+        descriptionController.replaceIdentifierReferences( oldId, newId );
     }
 
     @Override
     public void deleteIdentifierReferences( String id ) {
 
         actionsListDataControl.deleteIdentifierReferences( id );
+        
+        //1.4
+        this.descriptionController.deleteIdentifierReferences( id );
     }
 
     @Override
@@ -428,20 +370,23 @@ public class ItemDataControl extends DataControlWithResources {
 
     @Override
     public void recursiveSearch( ) {
-
-        check( this.getBriefDescription( ), TC.get( "Search.BriefDescription" ) );
-        check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
         check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getId( ), "ID" );
-        check( this.getName( ), TC.get( "Search.Name" ) );
         check( this.getPreviewImage( ), TC.get( "Search.PreviewImage" ) );
+        this.descriptionController.recursiveSearch( );
         this.getActionsList( ).recursiveSearch( );
+        for (ResourcesDataControl r:resourcesDataControlList){
+            r.recursiveSearch( );
+        }
     }
 
     @Override
     public List<Searchable> getPathToDataControl( Searchable dataControl ) {
 
         List<Searchable> path = getPathFromChild( dataControl, resourcesDataControlList );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, this.descriptionController );
         if( path != null )
             return path;
         path = getPathFromChild( dataControl, actionsListDataControl );

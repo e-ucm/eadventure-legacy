@@ -87,7 +87,7 @@ public class GameStateRunEffects extends GameState implements _HighLevelEvents{
     public void mainLoop( long elapsedTime, int fps ) {
 
         game.getActionManager( ).setElementOver( null );
-        game.getActionManager( ).setExitCustomized( null, null );
+        game.getActionManager( ).deleteCustomExit(  );
 
         // Toggle the HUD off and set the default cursor
         GUI.getInstance( ).toggleHud( false );

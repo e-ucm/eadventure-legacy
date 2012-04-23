@@ -34,87 +34,43 @@
  *      You should have received a copy of the GNU Lesser General Public License
  *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package es.eucm.eadventure.common.data.adventure;
+package es.eucm.eadventure.editor.control.tools.listeners;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.HasSound;
+import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeSimpleSoundTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.DeleteSimpleSoundTool;
 
-public class CustomArrow implements Cloneable, HasSound {
 
-    private String type;
+public class SelectSimpleSoundListener implements ActionListener {
 
-    private String path;
+    private HasSound objectWithSound;
     
-    /**
-     * @return the type
-     */
-    public String getType( ) {
-
-        return type;
-    }
-
-    /**
-     * @param type
-     *            the type to set
-     */
-    public void setType( String type ) {
-
-        this.type = type;
-    }
-
-    /**
-     * @return the path
-     */
-    public String getPath( ) {
-
-        return path;
-    }
-
-    /**
-     * @param path
-     *            the path to set
-     */
-    public void setPath( String path ) {
-
-        this.path = path;
-    }
-
-    /**
-     * @param type
-     * @param path
-     */
-    public CustomArrow( String type, String path ) {
-
-        this.type = type;
-        this.path = path;
-    }
-
-    @Override
-    public boolean equals( Object o ) {
-
-        if( o == null || !( o instanceof CustomArrow ) )
-            return false;
-        CustomArrow arrow = (CustomArrow) o;
-        if( arrow.type.equals( type ) ){
-                return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Object clone( ) throws CloneNotSupportedException {
-
-        CustomArrow ca = (CustomArrow) super.clone( );
-        ca.path = ( path != null ? new String( path ) : null );
-        ca.type = ( type != null ? new String( type ) : null );
-        return ca;
-    }
+    private boolean delete;
     
-    public String getSoundPath( ) {
-        return path;
+    public SelectSimpleSoundListener(HasSound descrSound, boolean delete){
+        this.objectWithSound = descrSound;
+        this.delete = delete;
     }
+           
+    
+    public void actionPerformed( ActionEvent e ) {
 
-    public void setSoundPath( String soundPath ) {
-        this.path = soundPath;
+            try {
+                if (delete)
+                    Controller.getInstance( ).addTool( new DeleteSimpleSoundTool( objectWithSound ) );
+                else
+                    Controller.getInstance( ).addTool( new ChangeSimpleSoundTool( objectWithSound ) );
+            }
+            catch( CloneNotSupportedException e1 ) {
+                ReportDialog.GenerateErrorReport( new Exception( "Could not clone resources" ), false, TC.get( "Error.Title" ) );
+            }
+   
+
     }
-
 }

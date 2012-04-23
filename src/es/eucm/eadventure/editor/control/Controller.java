@@ -3190,9 +3190,42 @@ public class Controller {
      */
     public int countAssetReferences( String assetPath ) {
 
-        return adventureDataControl.countAssetReferences( assetPath ) + chaptersController.countAssetReferences( assetPath );
+        int refs = adventureDataControl.countAssetReferences( assetPath ) + chaptersController.countAssetReferences( assetPath );
+        
+        // Add references in images and sounds in eaa files
+        List<String> assetPaths = new ArrayList<String>();
+        List<Integer> assetTypes = new ArrayList<Integer>();
+        getAssetReferences(assetPaths, assetTypes);
+        
+        for (int i=0; i<assetPaths.size( ); i++){
+            if (assetPaths.get( i ).toLowerCase().endsWith( ".eaa" )){
+                refs+=countAssetReferencesInEAA ( assetPaths.get( i ), assetPath );
+            }
+        }
+
+        return refs;
     }
 
+    /**
+     * ead1.4 - used to check references to images and sounds in eaa files
+     */
+    private int countAssetReferencesInEAA ( String eaaFilePath, String assetPath ){
+        int refs=0;
+        Animation animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), eaaFilePath, new EditorImageLoader() );
+        for (Frame frame:animation.getFrames( )){
+            if (frame!=null){
+                if (frame.getUri( )!=null && frame.getUri( ).equals( assetPath ) ){
+                    refs++;
+                }
+                if (frame.getSoundUri( )!=null && frame.getSoundUri( ).equals( assetPath ) ){
+                    refs++;
+                }
+            }
+        }
+        return refs;
+    }
+
+    
     /**
      * Gets a list with all the assets referenced in the chapter along with the
      * types of those assets
@@ -3204,6 +3237,32 @@ public class Controller {
 
         adventureDataControl.getAssetReferences( assetPaths, assetTypes );
         chaptersController.getAssetReferences( assetPaths, assetTypes );
+        
+        // Add references in images and sounds in eaa files
+        for (int i=0; i<assetPaths.size( ); i++){
+            if (assetPaths.get( i ).toLowerCase().endsWith( ".eaa" ) ){
+                getAssetReferencesInEAA ( assetPaths.get( i ), assetPaths, assetTypes );
+            }
+        }
+    }
+    
+    /**
+     * ead1.4 - used to check references to images and sounds in eaa files
+     */
+    private void getAssetReferencesInEAA ( String eaaFilePath, List<String> assetPaths, List<Integer> assetTypes ){
+        Animation animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), eaaFilePath, new EditorImageLoader() );
+        for (Frame frame:animation.getFrames( )){
+            if (frame!=null){
+                if (frame.getUri( )!=null && !frame.getUri( ).equals( "" ) && !assetPaths.contains( frame.getUri( ) )){
+                    assetPaths.add( frame.getUri( ));
+                    assetTypes.add( AssetsController.CATEGORY_ANIMATION_IMAGE );
+                }
+                if (frame.getSoundUri( )!=null && !frame.getSoundUri( ).equals( "" ) && !assetPaths.contains( frame.getSoundUri( ) )){
+                    assetPaths.add( frame.getSoundUri( ));
+                    assetTypes.add( AssetsController.CATEGORY_ANIMATION_AUDIO );
+                }
+            }
+        }
     }
 
     /**
@@ -3217,8 +3276,45 @@ public class Controller {
 
         adventureDataControl.deleteAssetReferences( assetPath );
         chaptersController.deleteAssetReferences( assetPath );
+        
+        // Add references in images and sounds in eaa files
+        List<String> assetPaths = new ArrayList<String>();
+        List<Integer> assetTypes = new ArrayList<Integer>();
+        getAssetReferences(assetPaths, assetTypes);
+        
+        for (int i=0; i<assetPaths.size( ); i++){
+            if (assetPaths.get( i ).toLowerCase().endsWith( ".eaa" )){
+                deleteAssetReferencesInEAA ( assetPaths.get( i ), assetPath );
+            }
+        }
+
     }
 
+    /**
+     * ead1.4 - used to check references to images and sounds in eaa files
+     */
+    private void deleteAssetReferencesInEAA ( String eaaFilePath, String assetPath ){
+        Animation animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), eaaFilePath, new EditorImageLoader() );
+        boolean changed=false;
+        for (int i=0; i<animation.getFrames( ).size( ); i++){
+            Frame frame=animation.getFrame( i );
+            if (frame!=null){
+                if (frame.getSoundUri( )!=null && frame.getSoundUri( ).equals( assetPath ) ){
+                    frame.setSoundUri( null );
+                    changed=true;
+                }
+                if (frame.getUri( )!=null && frame.getUri( ).equals( assetPath ) ){
+                    frame.setUri( null );
+                    changed=true;
+                }
+            }
+        }
+        if (changed){
+            AnimationWriter.writeAnimation( eaaFilePath, animation );
+        }
+    }
+
+    
     /**
      * Counts all the references to a given identifier in the entire script.
      * 

@@ -357,7 +357,7 @@ public class AdventureDataControl {
         }
         return null;
     }
-
+    
     public void deleteArrow( String type ) {
 
         int position = -1;
@@ -479,14 +479,13 @@ public class AdventureDataControl {
 
     public String getButtonPath( String action, String type ) {
 
-        CustomButton button = new CustomButton( action, type, null );
         for( CustomButton cb : adventureData.getButtons( ) ) {
-            if( cb.equals( button ) )
+            if( cb.getType().equals( type ) &&  cb.getAction( ).equals( action ))
                 return cb.getPath( );
         }
         return null;
     }
-
+    
     public void deleteButton( String action, String type ) {
 
         Controller.getInstance( ).addTool( new DeleteButtonTool( adventureData, action, type ) );

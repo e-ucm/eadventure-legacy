@@ -52,6 +52,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.core.gui.GUIAudioDescriptionsHandler;
 
 /**
  * This class contains all the graphical information about the action buttons
@@ -103,6 +104,7 @@ public class ActionButtons {
 
     private static long appearingTime = 600L;
 
+    private GUIAudioDescriptionsHandler audioDescHandler;
     /**
      * Constructor of the class. Requires that the MultimediaManager class is
      * loaded.
@@ -111,7 +113,7 @@ public class ActionButtons {
      *            True if the graphics of the HUD are customized, false
      *            otherwise
      */
-    public ActionButtons( boolean customized ) {
+    public ActionButtons( boolean customized, GUIAudioDescriptionsHandler audioDescHandler ) {
 
         buttons = new ArrayList<ActionButton>( );
 
@@ -119,9 +121,11 @@ public class ActionButtons {
         buttonOver = null;
         buttonPressed = null;
 
-        handButton = new ActionButton( ActionButton.USE_BUTTON );
-        mouthButton = new ActionButton( ActionButton.TALK_BUTTON );
-        eyeButton = new ActionButton( ActionButton.EXAMINE_BUTTON );
+        handButton = new ActionButton( ActionButton.USE_BUTTON, audioDescHandler );
+        mouthButton = new ActionButton( ActionButton.TALK_BUTTON, audioDescHandler );
+        eyeButton = new ActionButton( ActionButton.EXAMINE_BUTTON, audioDescHandler );
+        
+        this.audioDescHandler = audioDescHandler;
     }
 
     /**
@@ -169,7 +173,7 @@ public class ActionButtons {
             if( action.getType( ) == Action.DRAG_TO && !drag_to&&!functionalElement.isInInventory( )) {
                 boolean add = functionalElement.getFirstValidAction( Action.DRAG_TO ) != null;
                 if( add ) {
-                buttons.add( new ActionButton(ActionButton.DRAG_BUTTON) );
+                buttons.add( new ActionButton(ActionButton.DRAG_BUTTON, audioDescHandler) );
                 drag_to = true;
                 }
             }
@@ -180,7 +184,7 @@ public class ActionButtons {
                         add = false;
                 }
                 if( add ) {
-                    buttons.add( new ActionButton( (CustomAction) action ) );
+                    buttons.add( new ActionButton( (CustomAction) action, audioDescHandler ) );
                     added.add( (CustomAction) action );
                 }
             }
@@ -191,7 +195,7 @@ public class ActionButtons {
                         add = false;
                 }
                 if( add ) {
-                    buttons.add( new ActionButton( (CustomAction) action ) );
+                    buttons.add( new ActionButton( (CustomAction) action, audioDescHandler ) );
                     added.add( (CustomAction) action );
                 }
             }

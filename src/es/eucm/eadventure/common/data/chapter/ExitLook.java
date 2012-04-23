@@ -36,11 +36,17 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.data.chapter;
 
-public class ExitLook implements Cloneable {
+import es.eucm.eadventure.common.data.HasSound;
+
+public class ExitLook implements Cloneable, HasSound {
 
     private String exitText;
 
     private String cursorPath;
+    
+    //eAd1.4
+    // Added for accessibility purposes. When the mouse hovers the exit, a sound is played (only once)
+    private String soundPath;
 
     public ExitLook( ) {
 
@@ -82,12 +88,32 @@ public class ExitLook implements Cloneable {
         this.cursorPath = cursorPath;
     }
 
+    /**
+     * Added for v1.4 - soundPath for accessibility purposes
+     * @return
+     */
+    public String getSoundPath( ) {
+        
+        return soundPath;
+    }
+
+    /**
+     * Added for v1.4 - soundPath for accessibility purposes
+     * @return
+     */
+    public void setSoundPath( String soundPath ) {
+    
+        this.soundPath = soundPath;
+    }
+    
+    
     @Override
     public Object clone( ) throws CloneNotSupportedException {
 
         ExitLook el = (ExitLook) super.clone( );
         el.cursorPath = ( cursorPath != null ? new String( cursorPath ) : null );
         el.exitText = ( exitText != null ? new String( exitText ) : null );
+        el.soundPath = ( soundPath != null ? new String( soundPath ) : null );
         return el;
     }
 

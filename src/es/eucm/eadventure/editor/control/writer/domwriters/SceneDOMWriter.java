@@ -158,6 +158,8 @@ public class SceneDOMWriter {
                             exitLook.setAttribute( "text", defaultLook.getExitText( ) );
                         if( defaultLook.getCursorPath( ) != null )
                             exitLook.setAttribute( "cursor-path", defaultLook.getCursorPath( ) );
+                        if( defaultLook.getSoundPath( ) != null )
+                            exitLook.setAttribute( "sound-path", defaultLook.getSoundPath( ) );
 
                         if( defaultLook.getExitText( ) != null || defaultLook.getCursorPath( ) != null )
                             exitElement.appendChild( exitLook );
@@ -193,7 +195,8 @@ public class SceneDOMWriter {
                                 exitLook.setAttribute( "text", look.getExitText( ) );
                             if( look.getCursorPath( ) != null )
                                 exitLook.setAttribute( "cursor-path", look.getCursorPath( ) );
-
+                            if( look.getSoundPath( ) != null )
+                                exitLook.setAttribute( "sound-path", look.getSoundPath( ) );
                             if( look.getExitText( ) != null || look.getCursorPath( ) != null )
                                 nextSceneElement.appendChild( exitLook );
                         }

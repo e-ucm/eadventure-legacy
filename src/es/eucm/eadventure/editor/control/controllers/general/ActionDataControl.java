@@ -371,6 +371,8 @@ public class ActionDataControl extends DataControlWithResources {
         
         // Check the effects of the action
         valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.Effects" ), incidences, action.getEffects( ) );
+        valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.Effects" ), incidences, action.getNotEffects( ) );
+        valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.Effects" ), incidences, action.getClickEffects( ) );
         return valid;
     }
 
@@ -380,11 +382,13 @@ public class ActionDataControl extends DataControlWithResources {
         int count = 0;
         if (action.getType( ) == Action.CUSTOM_INTERACT || action.getType( ) == Action.CUSTOM){
      // Iterate through the resources
-        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-            count += resourcesDataControl.countAssetReferences( assetPath );
+            for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+                count += resourcesDataControl.countAssetReferences( assetPath );
         }
      // Return the asset references from the effects
-        count += EffectsController.countAssetReferences( assetPath, action.getEffects( ) );;
+        count += EffectsController.countAssetReferences( assetPath, action.getEffects( ) );
+        count += EffectsController.countAssetReferences( assetPath, action.getNotEffects( ) );
+        count += EffectsController.countAssetReferences( assetPath, action.getClickEffects( ) );
         return count;
     }
 
@@ -396,6 +400,8 @@ public class ActionDataControl extends DataControlWithResources {
             resourcesDataControl.deleteAssetReferences( assetPath );
         }
         EffectsController.deleteAssetReferences( assetPath, action.getEffects( ) );
+        EffectsController.deleteAssetReferences( assetPath, action.getNotEffects( ) );
+        EffectsController.deleteAssetReferences( assetPath, action.getClickEffects( ) );
     }
 
     @Override
@@ -415,6 +421,8 @@ public class ActionDataControl extends DataControlWithResources {
 
         // Add to the counter the references in the effects block
         count += EffectsController.countIdentifierReferences( id, action.getEffects( ) );
+        count += EffectsController.countIdentifierReferences( id, action.getNotEffects( ) );
+        count += EffectsController.countIdentifierReferences( id, action.getClickEffects( ) );
 
         count += conditionsController.countIdentifierReferences( id );
         return count;
@@ -433,6 +441,8 @@ public class ActionDataControl extends DataControlWithResources {
             action.setTargetId( newId );
 
         EffectsController.replaceIdentifierReferences( oldId, newId, action.getEffects( ) );
+        EffectsController.replaceIdentifierReferences( oldId, newId, action.getNotEffects( ) );
+        EffectsController.replaceIdentifierReferences( oldId, newId, action.getClickEffects( ) );
         conditionsController.replaceIdentifierReferences( oldId, newId );
     }
 
@@ -445,6 +455,8 @@ public class ActionDataControl extends DataControlWithResources {
         }
 
         EffectsController.deleteIdentifierReferences( id, action.getEffects( ) );
+        EffectsController.deleteIdentifierReferences( id, action.getNotEffects( ) );
+        EffectsController.deleteIdentifierReferences( id, action.getClickEffects( ) );
         conditionsController.deleteIdentifierReferences( id );
     }
 
@@ -456,6 +468,8 @@ public class ActionDataControl extends DataControlWithResources {
         for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
             resourcesDataControl.getAssetReferences( assetPaths, assetTypes );
         EffectsController.getAssetReferences( assetPaths, assetTypes, action.getEffects( ) );
+        EffectsController.getAssetReferences( assetPaths, assetTypes, action.getNotEffects( ) );
+        EffectsController.getAssetReferences( assetPaths, assetTypes, action.getClickEffects( ) );
     }
 
     @Override
@@ -525,6 +539,14 @@ public class ActionDataControl extends DataControlWithResources {
 
         for( int i = 0; i < this.getEffects( ).getEffectCount( ); i++ ) {
             check( this.getEffects( ).getEffectInfo( i ), TC.get( "Search.Effect" ) );
+        }
+        
+        for( int i = 0; i < this.getNotEffectsController( ).getEffectCount( ); i++ ) {
+            check( this.getNotEffectsController( ).getEffectInfo( i ), TC.get( "Search.Effect" ) );
+        }
+
+        for (ResourcesDataControl r:resourcesDataControlList){
+            r.recursiveSearch( );
         }
     }
 

@@ -39,15 +39,16 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
+import es.eucm.eadventure.common.data.HasSound;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.tools.general.InvalidExitCursorTool;
 import es.eucm.eadventure.editor.control.tools.general.assets.SelectExitCursorPathTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 
-public class ExitLookDataControl {
+public class ExitLookDataControl implements HasSound{
 
     private ExitLook exitLook;
 
@@ -80,13 +81,22 @@ public class ExitLookDataControl {
             text = exitLook.getExitText( );
         return text;
     }
+    
+    //v1.4
+    public String getSoundPath( ) {
+
+        String text = null;
+        if( exitLook != null && exitLook.getSoundPath( ) != null )
+            text = exitLook.getSoundPath( );
+        return text;
+    }
 
     /**
      * @return the isCursorCustomized
      */
     public boolean isCursorCustomized( ) {
 
-        return exitLook.getCursorPath( ) != null;
+        return exitLook.getCursorPath( ) != null || exitLook.getSoundPath( )!=null;
     }
 
     public String getCustomizedCursor( ) {
@@ -98,8 +108,14 @@ public class ExitLookDataControl {
     }
 
     public void setExitText( String text ) {
-
-        this.exitLook.setExitText( text );
+        try {
+            Controller.getInstance( ).addTool( new ChangeStringValueTool ( exitLook, text, "getExitText", "setExitText") );
+        }
+        catch( Exception e ) {
+            e.printStackTrace( );
+        }
+        
+        //this.exitLook.setExitText( text );
     }
 
     public void editCursorPath( ) {
@@ -119,26 +135,23 @@ public class ExitLookDataControl {
 
     public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
 
-        if( this.isCursorCustomized( ) ) {
-            boolean add = true;
-            for( String asset : assetPaths ) {
-                if( asset.equals( exitLook.getCursorPath( ) ) ) {
-                    add = false;
-                    break;
-                }
-            }
-            if( add ) {
-                int last = assetPaths.size( );
-                assetPaths.add( last, exitLook.getCursorPath( ) );
-                assetTypes.add( last, AssetsConstants.CATEGORY_CURSOR );
-            }
+        if (exitLook.getCursorPath( )!=null && !exitLook.getCursorPath( ).equals( "" ) && !assetPaths.contains( exitLook.getCursorPath( ) )){
+            assetPaths.add( exitLook.getCursorPath( ) );
+            assetTypes.add( AssetsConstants.CATEGORY_CURSOR );    
         }
-
+        
+        if (exitLook.getSoundPath( )!=null && !exitLook.getSoundPath( ).equals( "" ) && !assetPaths.contains( exitLook.getSoundPath( ) )){
+            assetPaths.add( exitLook.getSoundPath( ) );
+            assetTypes.add( AssetsConstants.CATEGORY_AUDIO );    
+        }
+        
     }
 
     public int countAssetReferences( String assetPath ) {
 
         if( exitLook.getCursorPath( ) != null && exitLook.getCursorPath( ).equals( assetPath ) )
+            return 1;
+        else if( exitLook.getSoundPath( ) != null && exitLook.getSoundPath( ).equals( assetPath ) )
             return 1;
         else
             return 0;
@@ -149,12 +162,16 @@ public class ExitLookDataControl {
 
         if( exitLook.getCursorPath( ) != null && exitLook.getCursorPath( ).equals( assetPath ) )
             exitLook.setCursorPath( "" );
+        
+        if( exitLook.getSoundPath( ) != null && exitLook.getSoundPath( ).equals( assetPath ) )
+            exitLook.setSoundPath( "" );
 
     }
 
-    public void setCursorPath( String value ) {
-
-        exitLook.setCursorPath( value );
+    public void setSoundPath( String soundPath ) {
+        if (exitLook!=null){
+            exitLook.setSoundPath( soundPath );
+        }
     }
 
 }

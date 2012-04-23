@@ -36,13 +36,9 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.control.controllers.character;
 
-import java.util.List;
-
-import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 
 public class PlayerDataControl extends NPCDataControl {
 
@@ -136,83 +132,11 @@ public class PlayerDataControl extends NPCDataControl {
         return null;
     }
 
-    @Override
-    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-
-        // Iterate through the resources
-        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-            resourcesDataControl.updateVarFlagSummary( varFlagSummary );
-    }
-
-    @Override
-    public int countIdentifierReferences( String id ) {
-
-        int count = 0;
-        // Iterate through the resources
-        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-            resourcesDataControl.countIdentifierReferences( id );
-        return count;
-
-    }
-
-    @Override
-    public void replaceIdentifierReferences( String oldId, String newId ) {
-
-        // Iterate through the resources
-        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-            resourcesDataControl.replaceIdentifierReferences( oldId, newId );
-
-    }
-
-    @Override
-    public void deleteIdentifierReferences( String id ) {
-
-        // Iterate through the resources
-        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-            resourcesDataControl.deleteIdentifierReferences( id );
-
-    }
 
     @Override
     public boolean canBeDuplicated( ) {
 
         return false;
-
-    }
-
-    @Override
-    public void recursiveSearch( ) {
-
-        super.recursiveSearch( );
-    }
-
-    @Override
-    public int countAssetReferences( String assetPath ) {
-
-        int count = 0;
-
-        // Iterate through the resources
-        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-            count += resourcesDataControl.countAssetReferences( assetPath );
-
-        return count;
-    }
-
-    @Override
-    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-
-        // Iterate through the resources
-        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-            resourcesDataControl.getAssetReferences( assetPaths, assetTypes );
-
-    }
-
-    @Override
-    public void deleteAssetReferences( String assetPath ) {
-
-        // Iterate through the resources
-        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-            resourcesDataControl.deleteAssetReferences( assetPath );
 
     }
 

@@ -39,6 +39,7 @@ package es.eucm.eadventure.editor.control.tools.general.assets;
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.CustomArrow;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -46,6 +47,8 @@ import es.eucm.eadventure.editor.data.AssetInformation;
 
 public class SelectArrowTool extends SelectResourceTool {
 
+    private static final String AUDIO="audio";
+    
     protected AdventureData adventureData;
 
     protected String type;
@@ -55,7 +58,11 @@ public class SelectArrowTool extends SelectResourceTool {
     protected static AssetInformation[] createAssetInfoArray( String type ) {
 
         AssetInformation[] array = new AssetInformation[ 1 ];
-        array[0] = new AssetInformation( "", type, true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_NONE );
+        if (type.startsWith( DescriptorData.SOUND_PATH )){
+            array[0] = new AssetInformation(  "", type, true, AssetsConstants.CATEGORY_AUDIO, AssetsController.FILTER_NONE );
+        } else {
+            array[0] = new AssetInformation( "", type, true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_NONE );
+        }
         return array;
     }
 
@@ -75,7 +82,7 @@ public class SelectArrowTool extends SelectResourceTool {
         if( !introduced ) {
             resources.addAsset( type, null );
         }
-
+        
         return resources;
     }
 
@@ -97,8 +104,9 @@ public class SelectArrowTool extends SelectResourceTool {
                 if( adventureData.getArrows( ).get( i ).getType( ).equals( type ) ) {
                     if( removed )
                         adventureData.getArrows( ).remove( i );
-                    else
+                    else{
                         adventureData.getArrows( ).get( i ).setPath( resources.getAssetPath( type ) );
+                    }
                     break;
 
                 }
