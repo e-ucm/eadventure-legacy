@@ -108,8 +108,8 @@ public class WaitTimeEffectDialog extends EffectDialog {
 
         add( mainPanel, BorderLayout.CENTER );
         // Set the dialog
-        setResizable( false );
-        setSize( 250, 150 );
+        //setResizable( false );
+        setSize( 400,300 );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
         setVisible( true );

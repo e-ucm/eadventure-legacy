@@ -366,7 +366,7 @@ public class ShowTextEffectDialog extends EffectDialog {
         add( mainPanel, BorderLayout.CENTER );
 
         // Set the dialog
-        setResizable( false );
+        //setResizable( false );
         setSize( 640, 640 );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
@@ -534,7 +534,7 @@ public class ShowTextEffectDialog extends EffectDialog {
             } );
             container.add( ok );
             this.add( container, BorderLayout.SOUTH );
-            setResizable( false );
+            //setResizable( false );
             setSize( 450, 400 );
             Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
             setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );

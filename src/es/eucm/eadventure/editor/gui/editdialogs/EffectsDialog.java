@@ -86,7 +86,7 @@ public class EffectsDialog extends ToolManagableDialog {
         add( effectsPanel, c );
 
         // Set the size, position and properties of the dialog
-        setResizable( false );
+        //setResizable( false );
         setSize( 600, 400 );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );

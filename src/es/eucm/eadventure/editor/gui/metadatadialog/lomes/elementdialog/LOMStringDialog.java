@@ -56,6 +56,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
@@ -137,7 +138,7 @@ public class LOMStringDialog extends JDialog {
 
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-        setResizable( false );
+        //setResizable( false );
         setVisible( true );
 
         addWindowListener( new WindowAdapter( ) {

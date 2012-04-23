@@ -136,8 +136,8 @@ public class VarDialog extends JDialog {
         container.add( ok );
         add( ok, BorderLayout.SOUTH );
         // Set the size, position and properties of the dialog
-        setResizable( false );
-        setSize( 250, 100 );
+        //setResizable( false );
+        setSize( 400,200 );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
         setVisible( true );

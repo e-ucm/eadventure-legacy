@@ -237,7 +237,7 @@ public class SCORMAttributeDialog extends JDialog{
 
         // Set the dialog
         //pack( );
-        setResizable( false );
+        //setResizable( false );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
         setVisible( true );

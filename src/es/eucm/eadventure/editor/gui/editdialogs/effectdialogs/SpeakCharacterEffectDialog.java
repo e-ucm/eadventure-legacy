@@ -207,7 +207,7 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
             }
 
             // Set the dialog
-            setResizable( false );
+            //setResizable( false );
             setSize( 400, 300 );
             Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
             setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );

@@ -231,7 +231,7 @@ public class ConditionDialog extends ToolManagableDialog {
 
         add( buttonsPanel, BorderLayout.SOUTH );
 
-        setResizable( false );
+       // setResizable( false );
         if( defaultMode.equals( ConditionsController.CONDITION_TYPE_FLAG ) )
             selectedMode = Condition.FLAG_CONDITION;
         if( defaultMode.equals( ConditionsController.CONDITION_TYPE_VAR ) )

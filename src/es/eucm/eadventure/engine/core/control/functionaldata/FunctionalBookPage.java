@@ -150,9 +150,9 @@ public class FunctionalBookPage extends JPanel {
     private boolean createResourcePage( ) {
 
         // Check if there is an image created for the representatio of this page
-        image = MultimediaManager.getInstance( ).loadImageFromZip( "assets/image/" + bookPage.getImageName( ) + ".png", MultimediaManager.IMAGE_SCENE );
-
-        if( image == null ) {
+        boolean existsImage=ResourceHandler.getInstance( ).getResourceAsImageFromZip("assets/image/" + bookPage.getImageName( ) + ".png")!=null;
+        if( !existsImage ) {
+            image=null;
             String uri = bookPage.getUri( );
             String ext = uri.substring( uri.lastIndexOf( '.' ) + 1, uri.length( ) ).toLowerCase( );
             if( ext.equals( "html" ) || ext.equals( "htm" ) || ext.equals( "rtf" ) ) {
@@ -201,6 +201,7 @@ public class FunctionalBookPage extends JPanel {
             }
         }
         else {
+            image = MultimediaManager.getInstance( ).loadImageFromZip( "assets/image/" + bookPage.getImageName( ) + ".png", MultimediaManager.IMAGE_SCENE );
             htmlToImage = true;
         }
 
@@ -244,6 +245,7 @@ public class FunctionalBookPage extends JPanel {
             Game.getInstance( ).mouseClicked( nEvt );
         }
 
+        @Override
         public void mouseMoved( MouseEvent evt ) {
 
             MouseEvent nEvt = createMouseEvent( evt );
@@ -264,6 +266,7 @@ public class FunctionalBookPage extends JPanel {
             return nEvt;
         }
 
+        @Override
         public void mouseDragged( MouseEvent e ) {}
 
     }

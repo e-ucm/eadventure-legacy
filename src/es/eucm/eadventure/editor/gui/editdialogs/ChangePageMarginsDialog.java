@@ -160,7 +160,7 @@ public class ChangePageMarginsDialog extends ToolManagableDialog {
 
         this.setSize( 840, 660 );
         //this.pack( );
-        this.setResizable( false );
+        //this.setResizable( false );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
         this.setVisible( true );

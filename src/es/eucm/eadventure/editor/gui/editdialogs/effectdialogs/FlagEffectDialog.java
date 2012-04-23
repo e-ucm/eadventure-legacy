@@ -129,7 +129,7 @@ public class FlagEffectDialog extends EffectDialog {
         }
 
         // Set the dialog
-        setResizable( false );
+        //setResizable( false );
         pack( );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );

@@ -112,7 +112,7 @@ public class PlayerPositionDialog extends ToolManagableDialog {
         add( playerPositionPanel, c );
 
         // Set the dialog
-        setResizable( false );
+        //setResizable( false );
         setSize( 640, 480 );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
