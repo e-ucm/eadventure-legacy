@@ -997,5 +997,15 @@ public class FunctionalScene implements Renderable, _HighLevelEvents {
     
         return showsOffsetArrows;
     }
+    
+    //v1.4: resetAllItems()
+    public void resetAllItems(FunctionalItem it){
+        for (FunctionalItem fit:items){
+            if (it==null || fit!=it){
+                fit.resetItem( );
+            }
+        }
+    }
+
 
 }

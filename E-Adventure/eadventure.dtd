@@ -91,7 +91,9 @@
 <!ATTLIST exit-look 
 	text CDATA #IMPLIED
 	cursor-path CDATA #IMPLIED
+	sound-path CDATA #IMPLIED
 >
+
 <!ELEMENT next-scene (condition?, exit-look?, effect?, post-effect?)>
 <!ATTLIST next-scene
 	idTarget IDREF #REQUIRED
@@ -202,6 +204,7 @@
 	yPreviousPage NMTOKEN #IMPLIED
 	
 >
+
 <!ELEMENT pages (page)*>
 <!ELEMENT page EMPTY>
 <!ATTLIST page
@@ -212,7 +215,8 @@
 	marginTop CDATA #IMPLIED
 	marginBottom CDATA #IMPLIED
 	scrollable (yes | no) "no" 
-> 
+>
+ 
 <!ELEMENT text (#PCDATA | title | bullet | img)*>
 <!ELEMENT title (#PCDATA)>
 <!ELEMENT bullet (#PCDATA)>
@@ -224,7 +228,6 @@
 <!ATTLIST atrezzoobject
 	id ID #IMPLIED
 >
-
 
 <!ELEMENT object (documentation?, instance*, resources+, description+, actions?)>
 <!ATTLIST object
