@@ -69,14 +69,14 @@
 <!ELEMENT button EMPTY>
 <!ATTLIST button
 	action (talk | use-grab | examine | grab | use | use-with | give-to | drag-to ) "use-grab"
-	type (highlighted | normal | pressed ) "normal"
+	type (highlighted | normal | sound | pressed ) "normal"
 	uri CDATA #REQUIRED
 >
 
 <!ELEMENT arrows (arrow+)>
 <!ELEMENT arrow EMPTY>
 <!ATTLIST arrow
-	type (normalright | normalleft | highlightedright | highlightedleft ) "normalright"
+	type (normalright | normalleft | soundleft | soundright | highlightedright | highlightedleft ) "normalright"
 	uri CDATA #REQUIRED
 >
 

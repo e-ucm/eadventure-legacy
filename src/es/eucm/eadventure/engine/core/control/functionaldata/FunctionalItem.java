@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Transparency;
@@ -48,6 +49,7 @@ import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.data.chapter.elements.Item.BehaviourType;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.ActionManager;
@@ -62,6 +64,8 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  */
 public class FunctionalItem extends FunctionalElement {
 
+    protected static final long GAP=10000L;
+    
     /**
      * Resources being used in the item
      */
@@ -72,6 +76,16 @@ public class FunctionalItem extends FunctionalElement {
      */
     protected Image image;
 
+    ////////////Added v1.4
+    /**
+     * Image of the item when the mouse is over, to display in the scene
+     */
+    protected Image imageOver;
+    protected ResourceTransition transitionNormal;
+    protected ResourceTransition transitionOver;
+    //protected FunctionalMoveObjectEffect animation;
+    //////////////////
+    
     /**
      * Image of the item, to display on the inventory
      */
@@ -89,9 +103,26 @@ public class FunctionalItem extends FunctionalElement {
     private Image oldImage = null;
     
     private int width, height;
+
+    ////////////Added v1.4
+    private int width_normal, height_normal;
+    private int width_over, height_over;
+    /////////
     
     private int x1, y1, x2, y2;
-
+    
+    ////////////Added v1.4
+    protected int x1_normal, y1_normal, x2_normal, y2_normal;
+    protected int x1_over, y1_over, x2_over, y2_over;
+    /**
+     * Boolean that indicates whether image or imageOver must be rendered
+     */
+    protected boolean isMouseOver;
+    
+    protected long timeElapsed;
+    protected boolean startCounting;
+    /////////
+    
     private float oldScale = -1;
 
     private ElementReference reference;
@@ -118,25 +149,85 @@ public class FunctionalItem extends FunctionalElement {
         this.item = item;
         this.influenceArea = influenceArea;
         Image tempimage = null;
+        Image tempimage2 = null;
+        
+        x1 = x1_normal = x1_over = y1 = y1_normal = y1_over = x2 = x2_normal = x2_over = y2 = y2_normal = y2_over = Integer.MAX_VALUE;
         
         image = null;
+        imageOver=null;
         icon = null;
+        isMouseOver=false;
+        timeElapsed=0L;
+        startCounting=false;
 
         resources = createResourcesBlock( );
 
         // Load the resources
         MultimediaManager multimediaManager = MultimediaManager.getInstance( );
-        if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) ) {
+        /*if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) ) {
             tempimage = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
             removeTransparentParts(tempimage);
             tempimage = null;
             Runtime.getRuntime( ).gc( );
+        }*/
+        
+        if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) ) {
+            tempimage = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
+            
         }
+
+        if( resources.existAsset( Item.RESOURCE_TYPE_IMAGEOVER ) ) {
+            tempimage2 = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGEOVER ), MultimediaManager.IMAGE_SCENE );
+            
+        }
+        
+        if (tempimage2!=null&&tempimage!=null){
+            int wo=tempimage2.getWidth( null );
+            int ho=tempimage2.getHeight( null );
+            int wn=tempimage.getWidth( null );
+            int hn=tempimage.getHeight( null );
+            
+            if (wo>wn || ho>hn){
+                BufferedImage temp = new BufferedImage(wo, ho, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D gr = temp.createGraphics( );
+                gr.drawImage( tempimage, (int)Math.round( (wo-wn)/2.0 ), (int)Math.round( (ho-hn)/2.0 ), wn, hn, null  );
+                tempimage=temp;
+                //width_normal=width_over;
+                //height_normal=height_over;
+            }
+            
+
+        }
+        
+        if (tempimage!=null){
+            image=removeTransparentParts(tempimage, true);
+            tempimage = null;
+            //invokeGC=true;
+        }
+        
+        if (tempimage2!=null){
+            imageOver=removeTransparentParts(tempimage2, false);
+            tempimage2 = null;
+            //invokeGC=true;            
+        }
+        
+        int minH = 0;
+        if (image!=null){
+            minH = imageOver!=null?Math.min( image.getHeight( null ), imageOver.getHeight( null ) ):image.getHeight( null );            
+        }
+         
+        //int minW = imageOver!=null?Math.min( image.getWidth( null ), imageOver.getWidth( null ) ):image.getWidth( null );
+        
+        //cx = x; cy = (int)(y-minH*scale/2.0);
+        width = Math.max(width_over,width_normal); height=Math.max(height_over, height_normal);
+        
+        
         if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
             icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
     }
 
-    private void removeTransparentParts(Image tempimage) {
+    //Param added:boolean normal (v1.4)
+    /*private void removeTransparentParts(Image tempimage, boolean normal) {
         x1 = tempimage.getWidth( null ); y1 = tempimage.getHeight( null ); x2 = 0; y2 = 0;
         width = x1;
         height = y1;
@@ -175,8 +266,73 @@ public class FunctionalItem extends FunctionalElement {
 //        g.drawImage( image, transform, null );
         g.dispose( );
         
-    }
+    }*/
 
+    private Image removeTransparentParts(Image tempimage, boolean normal) {
+        int x1p = tempimage.getWidth( null )-1; int y1p = tempimage.getHeight( null )-1; int x2p = 0; int y2p = 0;
+        if (normal){
+            width_normal = x1p;
+            height_normal = y1p;
+        } else {
+            width_over = x1p;
+            height_over = y1p;
+        }
+        for (int i = 0; i < tempimage.getWidth( null ); i++) {
+            boolean x_clear = true;
+            for (int j = 0; j < tempimage.getHeight( null ); j++) {
+                boolean y_clear = true;
+                BufferedImage bufferedImage = (BufferedImage) tempimage;
+                int alpha = bufferedImage.getRGB( i, j ) >>> 24;
+        
+                //OLD VALUE: 128
+                if (alpha > 0) {
+                    if (x_clear)
+                        x1p = Math.min( x1p, i );
+                    if (y_clear)
+                        y1p = Math.min( y1p, j );
+                    x_clear = false;
+                    y_clear = false;
+                    x2p = Math.max( x2p, i );
+                    y2p = Math.max( y2p, j );
+                }
+            }
+        }
+        
+        //Check if max and min values are swapped. In that case, just use the whole image
+        if (x2p<=x1p||y2p<=y1p){
+            x2p=tempimage.getWidth( null )-1;
+            y2p=tempimage.getHeight( null )-1;
+            x1p=0;y1p=0;
+        }
+        
+        // create a transparent (not translucent) image
+        Image newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( x2p - x1p, y2p - y1p, Transparency.TRANSLUCENT );
+        //image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( x2 - x1, y2 - y1, Transparency.TRANSLUCENT );
+
+        // draw the transformed image
+        Graphics2D g = (Graphics2D) newImage.getGraphics( );
+
+        g.drawImage( tempimage, 0, 0, x2p-x1p, y2p-y1p, x1p, y1p, x2p, y2p, null);
+//        g.drawImage( image, transform, null );
+        g.dispose( );
+        
+        if (normal){
+            x1_normal = x1p;
+            x2_normal = x2p;
+            y1_normal = y1p;
+            y2_normal = y2p;
+        } else {
+            x1_over = x1p;
+            x2_over = x2p;
+            y1_over = y1p;
+            y2_over = y2p;
+        }
+        
+        return newImage;
+        
+    }
+    
+    
     /**
      * Creates a new FunctionalItem at position (0, 0)
      * 
@@ -192,13 +348,22 @@ public class FunctionalItem extends FunctionalElement {
      * Updates the resources of the icon (if the current resources and the new
      * one are different)
      */
+    //V1.4_forceLoad
+    /**
+     * Updates the resources of the icon (if the current resources and the new
+     * one are different)
+     */
     public void updateResources( ) {
+        updateResources(false);
+    }
+    
+    public void updateResources( boolean forceLoad ) {
 
         // Get the new resources
-        Resources newResources = createResourcesBlock( );
+        Resources newResources = createResourcesBlock(  );
         
         // If the resources have changed, load the new one
-        if( resources != newResources ) {
+        if( resources != newResources || forceLoad) {
             resources = newResources;
 
             // Load the resources
@@ -206,9 +371,21 @@ public class FunctionalItem extends FunctionalElement {
             Image tempimage = null;
             if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) ) {
                 tempimage = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
-                removeTransparentParts(tempimage);
+                Image oldImage = image;
+                image = removeTransparentParts(tempimage, true);
+                transitionNormal = new ResourceTransition((item.getResourcesTransitionTime( )), oldImage, image);
+                transitionNormal.start( );
                 tempimage = null;
-                Runtime.getRuntime( ).gc( );
+                //Runtime.getRuntime( ).gc( );
+            }
+            if( resources.existAsset( Item.RESOURCE_TYPE_IMAGEOVER ) ) {
+                tempimage = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGEOVER ), MultimediaManager.IMAGE_SCENE );
+                Image oldImageOver=imageOver;
+                imageOver = removeTransparentParts(tempimage, false);
+                transitionOver = new ResourceTransition((item.getResourcesTransitionTime( )), oldImageOver, imageOver);
+                transitionOver.start( );
+
+                tempimage = null;
             }
             if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
                 icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
@@ -258,15 +435,54 @@ public class FunctionalItem extends FunctionalElement {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#update(long)
      */
     public void update( long elapsedTime ) {
-
-        // Do nothing
+        if (startCounting){
+            timeElapsed-=elapsedTime;
+            if (timeElapsed<=0){
+                timeElapsed=0;
+                isMouseOver=false;
+                startCounting=false;
+            }
+        }
+        
+        if (transitionNormal!=null)
+            transitionNormal.update( elapsedTime );
+        
+        if (transitionOver!=null)
+            transitionOver.update( elapsedTime );
+        
+        // Animation
+        /*if (animation!=null){
+            animation.update( elapsedTime );
+            if (!animation.isStillRunning( )){
+                animation=null;
+            }
+        }*/
     }
 
+    protected Image getImageToPaint(){
+        //Image imageToPaint=(isMouseOver&&imageOver!=null)?imageOver:image;
+        Image imageToPaint=(isMouseOver&&imageOver!=null)?
+                (transitionOver!=null?transitionOver.getLastUpdate( ):imageOver):
+                    (transitionNormal!=null?transitionNormal.getLastUpdate( ):image);
+        
+        //width = imageToPaint.getWidth( null );
+        //height = imageToPaint.getHeight( null );
+        
+        x1=(isMouseOver&&imageOver!=null)?x1_over:x1_normal;
+        x2=(isMouseOver&&imageOver!=null)?x2_over:x2_normal;
+        y1=(isMouseOver&&imageOver!=null)?y1_over:y1_normal;
+        y2=(isMouseOver&&imageOver!=null)?y2_over:y2_normal;
+        width = (isMouseOver&&imageOver!=null)?width_over:width_normal;
+        height = (isMouseOver&&imageOver!=null)?height_over:height_normal;
+        
+        return imageToPaint;
+    }
+    
     /*
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
      */
-    public void draw( ) {
+    /*public void draw( ) {
         int x_image = Math.round( (x + x1 * scale) - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
         int y_image = Math.round( (y + y1 * scale) - getHeight( ) * scale );
         if( scale != 1 ) {
@@ -312,8 +528,110 @@ public class FunctionalItem extends FunctionalElement {
         }
 
         return isInside;
+    }*/
+
+    /*
+     *  (non-Javadoc)
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
+     */
+    public void draw( ) {
+        
+        Image imageToPaint=getImageToPaint();
+        
+        //int x_image = Math.round( (x + x1_normal * scale) - ( width_normal * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+        //int y_image = Math.round( (y + y1_normal * scale) - height_normal * scale );
+        
+        //int x_image = Math.round(cx-width/2+x1);
+        //int y_image = Math.round(cy-height/2+y1);
+        int x_image = Math.round(x-(width/2-x1)*scale)- Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+        int y_image = Math.round(y-(height-y1)*scale);
+
+        if( scale != 1 ) {
+            Image temp;
+            if( imageToPaint == oldOriginalImage && scale == oldScale ) {
+                temp = oldImage;
+            }
+            else {
+                temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( imageToPaint.getWidth( null ) * scale ),  Math.round( imageToPaint.getHeight( null ) * scale ), Transparency.TRANSLUCENT );
+                ((Graphics2D) temp.getGraphics( )).drawImage( imageToPaint, AffineTransform.getScaleInstance( scale, scale ), null );
+                //temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.TRANSLUCENT );
+                //((Graphics2D) temp.getGraphics( )).drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
+
+                oldImage = temp;
+                oldOriginalImage = imageToPaint;
+                oldScale = scale;
+            }
+            if( layer == -1 ){
+                //lastImage = temp;
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ), highlight, this );
+            }else{
+                //lastImage = temp;
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ), highlight, this );
+            }
+        }
+        else if( layer == -1 ){
+            //lastImage = imageToPaint;
+            GUI.getInstance( ).addElementToDraw( imageToPaint, x_image, y_image, Math.round( y ), Math.round( y ), highlight, this  );
+        }else{
+            //lastImage = imageToPaint;
+            GUI.getInstance( ).addElementToDraw( imageToPaint, x_image, y_image, layer, Math.round( y ), highlight, this  );
+        }
     }
 
+    @Override
+    public boolean isPointInside( float x, float y ) {
+        boolean isInside = false;
+        
+        // XXX INREDIS
+        if (item.getBehaviour( )==BehaviourType.ATREZZO){
+            return false;
+        }
+        // XXX FININREDIS
+
+        int mousex = (int) ( x - ( this.x - getWidth( ) * scale / 2 ) );
+        int mousey = (int) ( y - ( this.y - getHeight( ) * scale ) );
+        
+        if (mousex < x1 * scale || mousey < y1 * scale || mousex >= x2 * scale || mousey >= y2 * scale)
+            return false;
+        mousex = mousex - (int) (x1 * scale);
+        mousey = mousey - (int) (y1 * scale);
+
+        if( ( mousex >= 0 ) && ( mousex < (x2 - x1) * scale ) && ( mousey >= 0 ) && ( mousey < (y2 - y1) * scale ) ) {
+            BufferedImage bufferedImage = (BufferedImage) getImageToPaint();
+            int coordX = (int) ( mousex / scale );
+            int coordY = (int) ( mousey / scale );
+            // Check coordX, coordY are in bounds.
+            if (coordX<0)  coordX=0;
+            if (coordY<0)  coordY=0;
+            if (coordX>=bufferedImage.getWidth( ))  coordX=bufferedImage.getWidth( )-1;
+            if (coordY>=bufferedImage.getHeight( ))  coordY=bufferedImage.getHeight( )-1;
+            int alpha = bufferedImage.getRGB( coordX, coordY ) >>> 24;
+            isInside = alpha > 124;
+        }
+
+        if (isInside){
+            isMouseOver=true;
+            FunctionalScene fscene = Game.getInstance( ).getFunctionalScene( );
+            if (fscene!=null){
+                fscene.resetAllItems( this );
+            }
+            startCounting=true;
+            timeElapsed=GAP;
+        } else {
+            isMouseOver=false;
+            startCounting=false;
+        }
+        //isMouseOver=isInside;
+        
+        return isInside;
+    }
+    
+    //XXX INREDIS
+    public void resetItem(){
+        isMouseOver=false;
+        startCounting=false;
+    }    
+    
     @Override
     public boolean canPerform( int action ) {
         boolean canPerform = false;
@@ -888,4 +1206,100 @@ public class FunctionalItem extends FunctionalElement {
     public int getWImage(){
         return  Math.round( (x2-x1)*scale );//Math.round( scale*getWidth());
     }    
+    
+    //XXX INREDIS-MASTERMED
+    private class ResourceTransition{
+        private static final long DEFAULT_TRANSITION_TIME=1200;
+        
+        private Image image1;
+        
+        private Image image2;
+        
+        private BufferedImage lastUpdate;
+        
+        private long transitionTime;
+        
+        private boolean started;
+        
+        private boolean finished;
+        
+        private long elapsedTime;
+        
+        private int imgWidth;
+        
+        private int imgHeight;
+        
+        public ResourceTransition ( long transitionTime, Image image1, Image image2){
+            this.image1=image1;
+            this.image2=image2;
+            this.transitionTime=transitionTime;
+            started=false;
+            finished=false;
+            
+            imgWidth = Math.max( image1==null?Integer.MIN_VALUE:image1.getWidth( null ), 
+                    image2==null?Integer.MIN_VALUE:image2.getWidth( null ) );
+            imgHeight = Math.max( image1==null?Integer.MIN_VALUE:image1.getHeight( null ), 
+                    image2==null?Integer.MIN_VALUE:image2.getHeight( null ) );
+        }
+        
+        public ResourceTransition(Image image1, Image image2){
+            this (DEFAULT_TRANSITION_TIME,image1, image2);
+        }
+        
+        public Image update (long elapsedTime){
+            if (hasStarted()&&!hasFinished()){
+                this.elapsedTime+=elapsedTime;
+                float ratio = (this.elapsedTime<transitionTime)?(float)this.elapsedTime/(float)transitionTime:1.0F;
+                
+                lastUpdate=new BufferedImage( imgWidth, imgHeight,BufferedImage.TYPE_4BYTE_ABGR );
+                Graphics2D g=lastUpdate.createGraphics( );
+                if (image1!=null){
+                    AlphaComposite alphaComposite1 = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 1 - ratio );
+                    g.setComposite( alphaComposite1 );
+                    g.drawImage( image1, 0, 0, null );
+                }
+                
+                if (image2!=null){
+                    AlphaComposite alphaComposite2 = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, ratio );
+                    g.setComposite( alphaComposite2 );
+                    g.drawImage( image2, 0, 0, null );
+                }
+                
+                g.dispose( );
+                
+                if (ratio==1.0F)
+                    finished=true;
+                
+                return lastUpdate;
+                
+            } else if (!hasStarted()){
+                return image1;
+            } else if (hasFinished()){
+                return image2;
+            }
+            return null;
+        }
+        
+        public boolean hasStarted(){
+            return started;
+        }
+        
+        public boolean hasFinished(){
+            return finished;
+        }
+        
+        public void start(){
+            if (image1!=null || image2!=null)
+                started=true;
+        }
+
+        public Image getLastUpdate( ) {
+            if (lastUpdate!=null)
+                return lastUpdate;
+            else if (!hasStarted())
+                return image1;
+            else return image2;
+        }
+    }
+
 }
