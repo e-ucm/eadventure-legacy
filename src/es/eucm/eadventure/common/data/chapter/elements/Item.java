@@ -119,6 +119,8 @@ public class Item extends Element {
     public Object clone( ) throws CloneNotSupportedException {
 
         Item i = (Item) super.clone( );
+        i.setBehaviour( this.behaviour );
+        i.setResourcesTransitionTime( this.resourcesTransitionTime );
         return i;
     }
     
@@ -128,14 +130,29 @@ public class Item extends Element {
      * see {@link BehaviourType for more info}
      */
     public BehaviourType getBehaviour( ) {
-    
         return behaviour;
     }
-
+    //For tools
+    public Integer getBehaviourInteger( ) {
+        return behaviour.ordinal( );
+    }
     
     public void setBehaviour( BehaviourType behaviour ) {
     
         this.behaviour = behaviour;
+    }
+    
+    // For tools
+    public void setBehaviourInteger( Integer behaviour ) {
+        if (behaviour.intValue( ) == BehaviourType.ATREZZO.ordinal( )){
+            this.behaviour = BehaviourType.ATREZZO;
+        }
+        else if (behaviour.intValue( ) == BehaviourType.NORMAL.ordinal( )){
+            this.behaviour = BehaviourType.NORMAL;
+        }
+        else if (behaviour.intValue( ) == BehaviourType.FIRST_ACTION.ordinal( )){
+            this.behaviour = BehaviourType.FIRST_ACTION;
+        }
     }
     
     /**
@@ -144,12 +161,13 @@ public class Item extends Element {
      * If it's>0, a fade-in-out is performed to render this item for X miliseconds.
      * @return  X miliseconds for transition between changes of appearances.
      */
-    public long getResourcesTransitionTime( ) {
+    //Long is used for tools
+    public Long getResourcesTransitionTime( ) {
     
         return resourcesTransitionTime;
     }
-
-    public void setResourcesTransitionTime( long resourcesTransitionTime ) {
+    //Long is used for tools
+    public void setResourcesTransitionTime( Long resourcesTransitionTime ) {
     
         this.resourcesTransitionTime = resourcesTransitionTime;
     }

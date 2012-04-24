@@ -1517,7 +1517,7 @@ Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán v�
 <entry key="Operation.AddBookDefaultValue">IdLibro</entry>
 <entry key="LOMES.ClassificationTaxonPath.DialogTitle">añadir Nueva Ruta Taxonómica</entry>
 <entry key="ActiveAreasList.MoveUp">Subir la referencia en la tabla</entry>
-<entry key="Item.DocPanelTitle">Información</entry>
+<entry key="Item.DocPanelTitle">Descripciones &amp; Configuración</entry>
 <entry key="IMS.Educational.Difficulty">Define la dificultad del recurso</entry>
 <entry key="NPC.Description">Descripción breve del personaje (se muestra al mirar el personaje)</entry>
 <entry key="Ids.ErrorIdWhitespaces">Los nombres de variables o flags no pueden contener espacios en blanco</entry>
@@ -2083,4 +2083,15 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="Inventory.sound-right.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
 <entry key="Inventory.sound-left.Description">Sonido asociado a la tecla "flecha izquierda"</entry>
 <entry key="Inventory.sound-left.Tip">Puede definir un sonido especial que se reproduce cuando el botón está activado (mejora la accesibilidad de este)</entry>
+<entry key="Resources.DescriptionItemImageOver">Imagen cuando el ratón está sobre el objeto</entry>
+<entry key="Item.ReturnsWhenDragged.Description">Si la casilla a continuación se activa, el objeto vuelve a su posición original después de ser arrastrado a un elemento diferente. Si no está marcada, permanecerá en el lugar donde fue soltado.</entry>
+<entry key="Item.ReturnsWhenDragged.Title">Arrastrar: Volver a la posición original</entry>
+<entry key="Behaviour.Description">Seleccione el comportamiento del elemento. Hay dos opciones disponibles: "Default" y "primera acción".</entry>
+<entry key="Behaviour">Comportamiento (respuesta a los clics del ratón)</entry>
+<entry key="Behaviour.Normal">Por defecto</entry>
+<entry key="Behaviour.FirstAction">Primera acción</entry>
+<entry key="Behaviour.Selection.FirstAction">En este caso el objeto simula el comportamiento de un botón. Después de un clic, la primera acción válida del objeto se activará. Esto es, la primera acción en el que se cumplen las condiciones.</entry>
+<entry key="Resources.TransitionTime.Description">Utilizar el control de abajo para ajustar la transición visual cuando la imagen del objeto varía. Si el valor proporcionado (en milisegundos) es mayor que cero, las imágenes se funden durante un tiempo para hacer la transición más suave.</entry>
+<entry key="Resources.TransitionTime">Transición cuando los recursos cambian</entry>
+<entry key="Behaviour.Selection.Normal">En este caso, el objeto responde a los clics de ratón como de costumbre. Las acciones disponibles o la descripción (breve) se muestran en la pantalla, dependiendo de la configuración general de la aventura (ver configuración de Aventura en el menú de "Aventura").</entry>
 </properties>

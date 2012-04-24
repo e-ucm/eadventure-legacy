@@ -1966,4 +1966,15 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Inventory.sound-right.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
 <entry key="Inventory.sound-left.Description">Geräusch in Verbindung, um die Schaltfläche "Pfeil nach links"</entry>
 <entry key="Inventory.sound-left.Tip">Sie können einen speziellen Sound, der abgespielt wird, wenn die Schaltfläche aktiviert ist (dies verbessert die Zugänglichkeit)</entry>
+<entry key="Resources.DescriptionItemImageOver">Bild, wenn die Maus über das Objekt ist</entry>
+<entry key="Item.ReturnsWhenDragged.Description">Ist die Checkbox unten aktiviert ist, wird das Objekt in seine ursprüngliche Position, nachdem er zu einem anderen Element gezogen zurückzukehren. Wenn es nicht aktiviert ist, wird er auf der Stelle bleiben, wo es abgelegt wurde.</entry>
+<entry key="Item.ReturnsWhenDragged.Title">Ziehen: Zurück zur ursprünglichen Position</entry>
+<entry key="Behaviour.Description">Wählen Sie das Verhalten des Artikels. Es gibt zwei Optionen zur Verfügung: "Standard" und "First Action".</entry>
+<entry key="Behaviour">Behavior (Reaktion auf Mausklicks)</entry>
+<entry key="Behaviour.Normal">Standardmäßig</entry>
+<entry key="Behaviour.FirstAction">Erste Aktion</entry>
+<entry key="Behaviour.Selection.FirstAction">In diesem Fall wird das Objekt simuliert das Verhalten eines Knopfes. Nach einem Klick wird die erste Aktion gültig von dem Objekt ausgelöst werden. Das heißt, die erste Aktion, in der Bedingungen erfüllt sind.</entry>
+<entry key="Resources.TransitionTime.Description">Mit der Steuer folgendem sichtbaren Übergang einzustellen, wenn das Bild des Objekts variiert. Wenn der Wert vorgesehen (in Millisekunden) größer als Null ist, werden die Bilder für eine Weile kombiniert, um den Übergang weicher.</entry>
+<entry key="Resources.TransitionTime">Transition, wenn die Ressourcen ändern</entry>
+<entry key="Behaviour.Selection.Normal">In diesem Fall wird das Objekt reagiert auf Mausklicks wie üblich. Die verfügbaren Aktionen oder die Beschreibung (kurz) werden auf dem Bildschirm dargestellt, je nach den allgemeinen Einstellungen des Abenteuers (siehe Adventure Einstellungen im Menü "Abenteuer").</entry>
 </properties>

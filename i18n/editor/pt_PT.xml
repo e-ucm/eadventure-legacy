@@ -1931,5 +1931,15 @@
 <entry key="Inventory.sound-right.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
 <entry key="Inventory.sound-left.Description">Som associado ao botão "seta para a esquerda"</entry>
 <entry key="Inventory.sound-left.Tip">Você pode definir um som especial, que é jogado quando o botão for ativado (essa acessibilidade melhora)</entry>
-
+<entry key="Resources.DescriptionItemImageOver">Imagem quando o mouse está sobre o objeto</entry>
+<entry key="Item.ReturnsWhenDragged.Description">Se a caixa de seleção abaixo é ativado, o objeto voltará para sua posição original depois de ser arrastado para um elemento diferente. Se ele não estiver marcado, ele permanecerá no local onde foi abandonado.</entry>
+<entry key="Item.ReturnsWhenDragged.Title">Arrastar: retornar à posição original</entry>
+<entry key="Behaviour.Description">Seleccione o comportamento do artigo. Há duas opções disponíveis: "Padrão" e "Ação em primeiro lugar".</entry>
+<entry key="Behaviour">(Resposta a cliques de mouse) Comportamento</entry>
+<entry key="Behaviour.Normal">Por padrão</entry>
+<entry key="Behaviour.FirstAction">Primeira ação</entry>
+<entry key="Behaviour.Selection.FirstAction">Neste caso, o objecto simula o comportamento de um botão. Após um clique, a primeira ação válida do objeto será acionado. Ou seja, a primeira ação em que as condições sejam cumpridas.</entry>
+<entry key="Resources.TransitionTime.Description">Use o controle abaixo para ajustar a transição visual quando a imagem do objecto varia. Se o valor previsto (em milissegundos) é maior que zero, as imagens são combinados por um tempo para fazer a transição suave.</entry>
+<entry key="Resources.TransitionTime">Transição quando os recursos mudar</entry>
+<entry key="Behaviour.Selection.Normal">Neste caso, o objecto responde a cliques como é habitual. As ações disponíveis ou a descrição (breve) são mostrados na tela, dependendo das configurações gerais da aventura (ver definições de Aventura no Menu "Adventure").</entry>
 </properties>

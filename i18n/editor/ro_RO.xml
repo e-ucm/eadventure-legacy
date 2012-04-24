@@ -1954,4 +1954,15 @@
 <entry key="Inventory.sound-right.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
 <entry key="Inventory.sound-left.Description">Sunetele asociate cu butonul "săgeată stânga"</entry>
 <entry key="Inventory.sound-left.Tip">Puteţi defini un sunet special, care este jucat atunci când butonul este activat (acest lucru îmbunătăţeşte accesibilitatea)</entry>
+<entry key="Resources.DescriptionItemImageOver">Imagine atunci când mouse-ul este de peste obiect</entry>
+<entry key="Item.ReturnsWhenDragged.Description">În cazul în care caseta de selectare de mai jos este activat, obiectul va reveni la poziţia sa iniţială după ce a fost târât într-un element diferit. Dacă nu este verificat, acesta va rămâne pe locul în care a fost abandonat.</entry>
+<entry key="Item.ReturnsWhenDragged.Title">Localizez: Revenire la poziţia iniţială</entry>
+<entry key="Behaviour.Description">Selectaţi comportamentul elementului. Există două opţiuni disponibile: "Default" şi "prima acţiune".</entry>
+<entry key="Behaviour">Comportamentul (răspunsul la clicuri de mouse)</entry>
+<entry key="Behaviour.Normal">În mod implicit</entry>
+<entry key="Behaviour.FirstAction">Prima acţiune</entry>
+<entry key="Behaviour.Selection.FirstAction">În acest caz, obiectul simuleaza comportamentul unui buton. După un clic, prima acţiune valabilă de obiect va fi declanşat. Aceasta este, prima acţiune în care condiţiile sunt îndeplinite.</entry>
+<entry key="Resources.TransitionTime.Description">Utilizaţi controlul de mai jos pentru a regla de tranziţie vizual atunci când imaginea obiectului variază. Dacă valoarea prevăzută (în milisecunde) este mai mare decât zero, imaginile sunt combinate pentru un timp pentru a face tranziţia mai moale.</entry>
+<entry key="Resources.TransitionTime">De tranziţie atunci când resursele schimba</entry>
+<entry key="Behaviour.Selection.Normal">În acest caz, obiectul răspunde la clicurile mouse-ul ca de obicei. Acţiunile disponibile sau descriere (scurtă) sunt afişate pe ecran, în funcţie de setările generale de aventura (a se vedea setările de aventură în meniul "Aventura").</entry>
 </properties>

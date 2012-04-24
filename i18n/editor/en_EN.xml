@@ -1494,7 +1494,7 @@ Folders with names containing other characters will not be valid.</entry>
 <entry key="Operation.AddBookDefaultValue">BookId</entry>
 <entry key="LOMES.ClassificationTaxonPath.DialogTitle">Add new Taxon Path entry</entry>
 <entry key="ActiveAreasList.MoveUp">Move up current reference</entry>
-<entry key="Item.DocPanelTitle">Documentation</entry>
+<entry key="Item.DocPanelTitle">Descriptions &amp; Config</entry>
 <entry key="IMS.Educational.Difficulty">It defines how hard it is to work through this resource for the typical target audience</entry>
 <entry key="NPC.Description">Brief description of the character</entry>
 <entry key="Ids.ErrorIdWhitespaces">Variable or flag names cannot contain white spaces</entry>
@@ -2079,4 +2079,15 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Inventory.sound-right.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
 <entry key="Inventory.sound-left.Description">Sound associated to the button "left arrow"</entry>
 <entry key="Inventory.sound-left.Tip">You can define a special sound that is played when the button is activated (this improves accessibility)</entry>
+<entry key="Resources.DescriptionItemImageOver">Image when the mouse is over the item</entry>
+<entry key="Item.ReturnsWhenDragged.Description">If the checkbox below is activated, the item will return to its original position after being dragged to a different element. If it is not checked, it will remain on the location where it was dropped.</entry>
+<entry key="Item.ReturnsWhenDragged.Title">Drag&amp;Drop: Return to original position</entry>
+<entry key="Behaviour.Description">Select the behaviour of the item. There are two options available: "Default" and "First Action".</entry>
+<entry key="Behaviour">Behavior (response to mouse clicks)</entry>
+<entry key="Behaviour.Normal">Default</entry>
+<entry key="Behaviour.FirstAction">First action</entry>
+<entry key="Behaviour.Selection.FirstAction">In this case the object simulates the behaviour of a button. After a click, the first valid action of the object will be triggered. That is, the first action which conditions are met.</entry>
+<entry key="Resources.TransitionTime.Description">Use the control below to adjust the visual transition when the image of the object varies. If the value provided (in milliseconds) is greater than zero, the images are combined for a while to make the transition softer.</entry>
+<entry key="Resources.TransitionTime">Transition when the appearance changes</entry>
+<entry key="Behaviour.Selection.Normal">In this case the object responds to mouse clicks as usual. The actions available or the description (brief) are shown on the screen, depending on the general settings of the adventure (see Adventure settings in the Menu "Adventure").</entry>
 </properties>
