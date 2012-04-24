@@ -47,6 +47,7 @@ import org.w3c.dom.Node;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.data.chapter.elements.Item.BehaviourType;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 public class ItemDOMWriter {
@@ -73,6 +74,16 @@ public class ItemDOMWriter {
             itemElement.setAttribute( "id", item.getId( ) );
             itemElement.setAttribute( "returnsWhenDragged", (item.isReturnsWhenDragged( ) ? "yes" : "no" ));
 
+            //v1.4
+            if (item.getBehaviour( )==BehaviourType.NORMAL)
+                itemElement.setAttribute( "behaviour", "normal" );
+            if (item.getBehaviour( )==BehaviourType.ATREZZO)
+                itemElement.setAttribute( "behaviour", "atrezzo" );
+            if (item.getBehaviour( )==BehaviourType.FIRST_ACTION)
+                itemElement.setAttribute( "behaviour", "first-action" );
+            itemElement.setAttribute( "resources-transition-time", Long.toString( item.getResourcesTransitionTime( )));
+            //v1.4
+            
             // Append the documentation (if avalaible)
             if( item.getDocumentation( ) != null ) {
                 Node itemDocumentationNode = doc.createElement( "documentation" );

@@ -41,9 +41,16 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
+import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
@@ -302,6 +309,70 @@ public class ActionManager {
     }
 
     /**
+     * Added v1.4 (See method below)
+     * @param element
+     * @param actions
+     * @return
+     */
+    private boolean isElementTargetInActions ( FunctionalElement element, List<Action> actions ){
+        boolean isTarget=false;
+        if (actions!=null){
+            for (Action a: actions){
+                if (element!=null && element.getElement( ) !=null && element.getElement( ).getId()!=null &&
+                        a!=null && a.getTargetId( )!=null && a.getTargetId( ).equals( element.getElement( ).getId() )){
+                    isTarget=true;break;
+                }
+            }
+        }
+        return isTarget;
+    }
+    
+    /**
+     * Added in v1.4. Checks if the given element is the target of any interaction (use-with, give-to, etc.) in the chapter.
+     * This method is used to determine if an element with no actions should be clickable (it name appears on screen)
+     * @param element
+     * @return
+     */
+    private boolean isElementTarget( FunctionalElement element ){
+        Chapter chapter = Game.getInstance( ).getCurrentChapterData( );
+        boolean isTarget=false;
+        if (chapter!=null){
+            //Check if element is target in items
+            List<Item> items=chapter.getItems( );
+            if (items!=null){
+                for (Item it:items){
+                    isTarget |= isElementTargetInActions(element, it.getActions( ));
+                    if (isTarget) break;
+                }
+            }
+            
+            //Check if element is target in npcs
+            List<NPC> npcs=chapter.getCharacters( );
+            if (!isTarget && npcs!=null){
+                for (NPC npc:npcs){
+                    isTarget |= isElementTargetInActions(element, npc.getActions( ));
+                    if (isTarget) break;
+                }
+            }
+
+            //Check if element is target in active areas
+            List<Scene> scenes=chapter.getScenes( );
+            if (!isTarget && scenes!=null){
+                for (Scene scene: scenes){
+                    List<ActiveArea> activeAreas=scene.getActiveAreas( );
+                    if (activeAreas!=null){
+                        for (ActiveArea aa :activeAreas){
+                            isTarget |= isElementTargetInActions(element, aa.getActions( ));
+                            if (isTarget) break;
+                        }
+                    }
+                }
+            }
+        }
+        return isTarget;
+    }
+    
+    /**
      * Called when a mouse move event has been triggered
      * 
      * @param e
@@ -323,10 +394,11 @@ public class ActionManager {
         
         if( exit == null && elementInside != null ) {
             if (elementInside.getElement( ).getActionsCount( ) != 0
+                    || isElementTarget(elementInside)
                     || elementInside.getElement( ).getDescriptions( ).size() > 1
                     || (elementInside.getElement( ).getDescription( 0 ).getDetailedDescription( ) != null
                         && !elementInside.getElement( ).getDescription( 0 ).getDetailedDescription( ).equals( "" )))
-                setElementOver( elementInside );
+                setElementOver( elementInside ); 
         }
         else if( exit != null && actionSelected == ACTION_GOTO ) {
             boolean isCursorSet = getCursorPath( exit ) != null && !getCursorPath( exit ).equals( "" );

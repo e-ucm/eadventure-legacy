@@ -52,13 +52,16 @@ import java.util.Hashtable;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.elements.Description;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.data.chapter.elements.Item.BehaviourType;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalActiveArea;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalDescriptions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
@@ -452,10 +455,9 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
             elementInside = actionManager.getElementOver( );
         }
             
-        if( ( !button && (e.getButton( ) == MouseEvent.BUTTON3 || game.isShowActions( )) && elementInCursor == null ) || 
+        if( !(pressedElement instanceof FunctionalItem && ((Item)pressedElement.getElement( )).getBehaviour( )==BehaviourType.FIRST_ACTION) && (( !button && (e.getButton( ) == MouseEvent.BUTTON3 || game.isShowActions( )) && elementInCursor == null ) || 
                 ( e.getClickCount( ) == 2 && System.getProperty( "os.name" ).contains( "Windows" ) ) || 
-                ( !button && elementInside == null && elementInCursor != null ) ) {
-            System.out.println( "RIGHT CLICK o similar" );
+                ( !button && elementInside == null && elementInCursor != null ) )) {
             inHud = processRightClickNoButton( pressedElement, e );
             DebugLog.user( "Mouse click, no action button. " + e.getX( ) + " , " + e.getY( ) );
         }
@@ -647,12 +649,110 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
             gui.setDefaultCursor( );
         }
         else {
-            actionManager.setActionSelected( ActionManager.ACTION_LOOK );
-            game.getFunctionalPlayer( ).performActionInElement( pressedElement );
+            //actionManager.setActionSelected( ActionManager.ACTION_LOOK );
+            //game.getFunctionalPlayer( ).performActionInElement( pressedElement );
+            processElementFirstAction( actionManager  );
         }
         return true;
     }
 
+    //v1.4. To be called from processElementClick && processInventoryClick
+    private void processElementFirstAction( ActionManager actionManager  ){
+        if (pressedElement instanceof FunctionalItem){
+            FunctionalItem functionalItem = (FunctionalItem)pressedElement;
+            if (functionalItem.getItem( ).getBehaviour( )==BehaviourType.NORMAL){
+                actionManager.setActionSelected( ActionManager.ACTION_LOOK );
+                game.getFunctionalPlayer( ).performActionInElement( pressedElement );
+            } else if (functionalItem.getItem( ).getBehaviour( )==BehaviourType.ATREZZO){
+                // Just do nothing
+            } else if (functionalItem.getItem( ).getBehaviour( )==BehaviourType.FIRST_ACTION){
+                if (functionalItem.getItem( ).getActions( ).size( )>0){
+                    Action firstAction = null;
+                    for (int i=0; i<functionalItem.getItem( ).getActions( ).size( ); i++ ){
+                        if (new FunctionalConditions(functionalItem.getItem( ).getAction( i ).getConditions( )).allConditionsOk( )){
+                            firstAction=functionalItem.getItem( ).getAction( i );
+                            break;
+                        }
+                    }
+                    if (firstAction!=null&&firstAction.getType( ) == Action.USE && pressedElement.canBeUsedAlone( )){
+                        actionManager.setActionSelected( ActionManager.ACTION_USE );
+                        game.getFunctionalPlayer( ).performActionInElement( pressedElement );
+                    } else if (firstAction!=null&&firstAction.getType( ) == Action.GRAB && !pressedElement.isInInventory( )){
+                        actionManager.setActionSelected( ActionManager.ACTION_GRAB );
+                        game.getFunctionalPlayer( ).performActionInElement( pressedElement );
+                    } else if (firstAction!=null&&firstAction.getType( ) == Action.EXAMINE){
+                        actionManager.setActionSelected( ActionManager.ACTION_EXAMINE );
+                        game.getFunctionalPlayer( ).performActionInElement( pressedElement );
+                    } else if (firstAction!=null&&firstAction.getType( ) == Action.TALK_TO){
+                        actionManager.setActionSelected( ActionManager.ACTION_TALK );
+                        game.getFunctionalPlayer( ).performActionInElement( pressedElement );
+                        lastSelectedAction = ActionManager.ACTION_TALK;
+                    } else if (firstAction!=null&&firstAction.getType( ) == Action.USE_WITH && 
+                            pressedElement.canPerform( ActionManager.ACTION_USE_WITH )){
+                        lastSelectedAction = ActionManager.ACTION_USE_WITH;
+                        elementInCursor = elementAction;
+                        Image image = null;
+                        if (( (FunctionalItem) elementInCursor ).getIconImage( ) == null)
+                            image = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnError.png", MultimediaManager.IMAGE_MENU );
+                        else 
+                            image = ( (FunctionalItem) elementInCursor ).getIconImage( );
+                        
+                        gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( image , new Point( 5, 5 ), "elementInCursor" )) ;
+                    }
+                    else if (firstAction!=null && firstAction.getType( ) == Action.CUSTOM_INTERACT){
+                        lastSelectedAction = ActionManager.ACTION_CUSTOM_INTERACT;
+                        elementInCursor = elementAction;
+                        Image image = null;
+                        if (( (FunctionalItem) elementInCursor ).getIconImage( ) == null)
+                            image = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnError.png", MultimediaManager.IMAGE_MENU );
+                        else 
+                            image = ( (FunctionalItem) elementInCursor ).getIconImage( );
+                        
+                        gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( image, new Point( 5, 5 ), "elementInCursor" ) );
+                        actionManager.setActionSelected( ActionManager.ACTION_CUSTOM_INTERACT );
+                        actionManager.setCustomActionName( actionButtons.getButtonPressed( ).getName( ) );
+                        game.getFunctionalPlayer( ).performActionInElement( elementAction );    
+                    }
+                    else if (firstAction!=null && firstAction.getType( ) == Action.GIVE_TO){
+                        lastSelectedAction = ActionManager.ACTION_GIVE_TO;
+                        elementInCursor = elementAction;
+                        elementInCursor = elementAction;
+                        Image image = null;
+                        if (( (FunctionalItem) elementInCursor ).getIconImage( ) == null)
+                            image = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnError.png", MultimediaManager.IMAGE_MENU );
+                        else 
+                            image = ( (FunctionalItem) elementInCursor ).getIconImage( );
+                        
+                        gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( image , new Point( 5, 5 ), "elementInCursor" )) ;
+                    }
+                    
+                    else if (firstAction!=null&&firstAction.getType( ) == Action.CUSTOM){
+                        CustomAction customAction = (CustomAction)functionalItem.getItem( ).getAction( 0 );
+                        actionManager.setActionSelected( ActionManager.ACTION_CUSTOM );
+                        actionManager.setCustomActionName( customAction.getName( ) );
+                        game.getFunctionalPlayer( ).performActionInElement( pressedElement );
+                    } else if (firstAction!=null&&firstAction.getType( ) == Action.DRAG_TO){
+                        lastSelectedAction = ActionManager.ACTION_DRAG_TO;
+                        elementInCursor = pressedElement;//elementAction;
+                        this.startDragging( elementInCursor );
+                        this.draggingElement.setX( pressedX );
+                        this.draggingElement.setY( pressedY + this.draggingElement.getHeight( ) * this.draggingElement.getScale( ) / 2);
+                        pressedX = (int) (this.originalDragX + this.draggingElement.getWidth( ) * this.draggingElement.getScale( ) / 4 );
+                        pressedY = (int) (this.originalDragY - this.draggingElement.getHeight( ) * this.draggingElement.getScale( ) / 2);
+                        //avoidRelease=true;
+                        //this.milisWhenLastClick = System.currentTimeMillis( );
+                    }
+                }
+            }
+
+        } else {
+        // XXX FININREDIS
+            actionManager.setActionSelected( ActionManager.ACTION_LOOK );
+            game.getFunctionalPlayer( ).performActionInElement( pressedElement );
+        }
+        
+    }
+    
     /**
      * Method called when the click is inside the inventory
      * 
@@ -676,8 +776,9 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
             }
         }
         else if( element != null ) {
-            actionManager.setActionSelected( ActionManager.ACTION_LOOK );
-            game.getFunctionalPlayer( ).performActionInElement( element );
+            //actionManager.setActionSelected( ActionManager.ACTION_LOOK );
+            //game.getFunctionalPlayer( ).performActionInElement( element );
+            processElementFirstAction( actionManager  );
         }
         return true;
     }
@@ -785,8 +886,13 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
 
         elementInCursor = null;
         gui.setDefaultCursor( );
-        System.out.println( ( ( elementOver != null ) ? elementOver.getElement( ).getId( ) : "" ) + " " + e.getID( ) + " " );
-        if( elementOver != null ) {
+        //System.out.println( ( ( elementOver != null ) ? elementOver.getElement( ).getId( ) : "" ) + " " + e.getID( ) + " " );
+        boolean skipShowingButtons = false;
+        if ( elementOver!=null && elementOver.getElement( ) instanceof Item ){
+            Item it = (Item)elementOver.getElement( );
+            skipShowingButtons = it.getBehaviour( )==BehaviourType.FIRST_ACTION;
+        }
+        if( elementOver != null && !skipShowingButtons ) {
             elementAction = elementOver;
             actionButtons.recreate( e.getX( ), e.getY( ), elementAction );
             Game.getInstance( ).getGameLog( ).highLevelEvent( SHOW_ACTIONS, elementOver.getElement( ).getId() );
@@ -893,6 +999,10 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
                     //set the default cursor
                     gui.setDefaultCursor( );
                     audioDescHandler.reset( );
+                    FunctionalScene fScene = Game.getInstance( ).getFunctionalScene( );
+                    if (fScene!=null){
+                        fScene.resetAllItems( null );
+                    }
                 }
             }
         }

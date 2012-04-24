@@ -129,7 +129,8 @@ public class ResourcesDataControl extends DataControl {
                         new AssetInformation( "Resources.ArrowRightOver", "arrowRightOver", false, AssetsConstants.CATEGORY_ARROW_BOOK, AssetsController.FILTER_PNG) };
                 break;
             case Controller.ITEM:
-                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionItemImage" , "image", true, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionItemIcon" , "icon", false, AssetsConstants.CATEGORY_ICON, AssetsController.FILTER_NONE ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionItemImage" , "image", true, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionItemIcon" , "icon", false, AssetsConstants.CATEGORY_ICON, AssetsController.FILTER_NONE ) 
+                                                            ,  new AssetInformation( "Resources.DescriptionItemImageOver" , "imageover", false, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE )};
                 imageIconMap = new HashMap<String, String>( );
                 imageIconMap.put( "icon", "image" );
                 break;

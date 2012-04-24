@@ -157,6 +157,7 @@ public class ItemSubParser extends SubParser {
                 String objectId = "";
                 boolean returnsWhenDragged = true;
                 
+                //Two lines added:v1.4
                 BehaviourType behaviour = BehaviourType.NORMAL;
                 long resourceTransition=0;
                 

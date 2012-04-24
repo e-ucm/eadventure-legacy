@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.data.chapter.elements.Item.BehaviourType;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
@@ -50,6 +51,8 @@ import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeLongValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ItemDataControl extends DataControlWithResources {
@@ -399,4 +402,28 @@ public class ItemDataControl extends DataControlWithResources {
         return descriptionController;
     }
 
+    //v1.4
+    public void setBehaviour(BehaviourType behaviour){
+        if (behaviour!=item.getBehaviour( )){
+            Controller.getInstance( ).addTool( new ChangeIntegerValueTool(item, behaviour.ordinal( ), "getBehaviourInteger", "setBehaviourInteger") );
+            //item.setBehaviour( behaviour );
+            //Controller.getInstance( ).dataModified( );
+        }
+    }
+    
+    public BehaviourType getBehaviour(){
+        return item.getBehaviour( );
+    }
+    
+    public long getResourcesTransitionTime(){
+        return item.getResourcesTransitionTime( );
+    }
+    
+    public void setResourcesTransitionTime( long resourcesTransitionTime ){
+        if (resourcesTransitionTime!=item.getResourcesTransitionTime( )){
+            Controller.getInstance( ).addTool( new ChangeLongValueTool(item, resourcesTransitionTime, "getResourcesTransitionTime", "setResourcesTransitionTime") );
+            //item.setResourcesTransitionTime( resourcesTransitionTime );
+            //Controller.getInstance( ).dataModified( );
+        }
+    }
 }
