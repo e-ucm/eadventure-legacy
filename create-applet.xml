@@ -9,10 +9,10 @@
 	<property name="gui.dir" value="gui" />
 	<property name="img.dir" value="img" />
 	<property name="web.dir" value="web" />
-	<property name="plugin.dir" value="/Library/Java/Home/lib/" />
+	<property name="plugin.dir" value="C:/Program Files (x86)/Java/jre6/lib" />
 	<property name="lanengine.dir" value="i18n/editor" />
 	<property name="laneditor.dir" value="i18n/engine" />
-	<property name="release.version" value="1.0" />
+	<property name="release.version" value="1.4" />
 
 	<path id="project.class.path">
 		<fileset dir="${lib.dir}">
@@ -29,7 +29,7 @@
 		
 	<target name="compile">
 		<mkdir dir="web/tempcompile/" />
-		<javac srcdir="src/es/eucm/eadventure/" destdir="web/tempcompile/" source="1.5" target="1.5">
+		<javac srcdir="src/es/eucm/" destdir="web/tempcompile/" source="1.5" target="1.5">
 			<exclude name="src/es/eucm/eadventure/editor/**" />
 			<exclude name="src/es/eucm/eadventure/assistant/**" />
 			<classpath refid="project.class.path" />
