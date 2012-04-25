@@ -193,9 +193,10 @@ public class GameStateSlidescene extends GameState implements _HighLevelEvents{
                 yetSkipped = true;
                 game.goToNextChapter( );
             }
-            slides.stopMusic();
             FunctionalEffects.storeAllEffects( new Effects( ) );
         }
+        
+        slides.stopMusic();
     }
 
     /**
