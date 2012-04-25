@@ -166,6 +166,11 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
     private long audioId;
 
     /**
+     * Store the audio ID for the last conversation line
+     */
+    private long lastConvAudioId;
+    
+    /**
      * keep the last option which is being pre-hearing
      */
     private int linePreHearing;
@@ -227,6 +232,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
         lastConversationLine = null;
         generalKeepShowing = Game.getInstance( ).getGameDescriptor( ).isKeepShowing( );
         audioId = -1;
+        lastConvAudioId = -1;
         linePreHearing = -1;
         optionLineOffset=0;
         timeShowingOptions=0;
@@ -344,7 +350,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
             if (talking!=null){
             if (firstTime){
                 if( lastConversationLine.isValidAudio( ))
-                    talking.speak( lastConversationLine.getText( ), lastConversationLine.getAudioPath( ), true );
+                   lastConvAudioId = talking.speak( lastConversationLine.getText( ), lastConversationLine.getAudioPath( ), true );
                 else if( lastConversationLine.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) )
                     talking.speakWithFreeTTS( lastConversationLine.getText( ), talking.getPlayerVoice( ), true );
             } else
@@ -448,7 +454,9 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
             int blue = textColor.getBlue( );
             textColor = new Color( 255 - red, 255 - green, 255 - blue );
             // pre-listen the option if it is set
-            if( ( (OptionConversationNode) currentNode ).isPreListening( ) && linePreHearing != optionIndex + firstLineDisplayed ) {
+            // if the previous line is not being playing
+            if( !MultimediaManager.getInstance( ).isPlaying( lastConvAudioId ) ){
+                if( ( (OptionConversationNode) currentNode ).isPreListening( ) && linePreHearing != optionIndex + firstLineDisplayed ) {
 
                 if( this.optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
                     linePreHearing = optionIndex;
@@ -464,6 +472,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
                         setAudio( ( (OptionConversationNode) currentNode ).getLine( linePreHearing ).getAudioPath( ) );
                     }
                 }
+            }
             }
             
             // if this is a new line to shift, restart the values

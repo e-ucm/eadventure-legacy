@@ -311,4 +311,10 @@ public class FunctionalSpeak extends FunctionalAction {
 
     }
 
+    
+    public long getAudioId( ) {
+    
+        return audioId;
+    }
+
 }
