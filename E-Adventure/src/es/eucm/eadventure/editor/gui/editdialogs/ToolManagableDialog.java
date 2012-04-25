@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.gui.editdialogs;
 
+import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
@@ -48,6 +49,7 @@ import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.gui.MainWindow;
 import es.eucm.eadventure.editor.gui.Updateable;
 
 public abstract class ToolManagableDialog extends JDialog implements Updateable, WindowListener {
@@ -191,4 +193,102 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
     public void windowIconified( WindowEvent e ) {
 
     }
+    
+    private static ToolManagableDialog lookForDialog(Component comp){
+        
+        Component pointer = null;
+        while (pointer==null){
+            if (comp.getParent( )!=null && comp.getParent() instanceof ToolManagableDialog){
+                pointer = comp.getParent( );
+            }else if (comp.getParent( )==null){
+                break;
+            } else {
+                comp=comp.getParent( );
+            }
+        }
+        if (pointer!=null){
+            return (ToolManagableDialog)pointer;
+        } else{
+            return null;
+        }
+            
+    }
+    
+    
+    private static MainWindow lookForMainWindow(Component comp){
+        
+        Component pointer = null;
+        while (pointer==null){
+            if (comp.getParent( )!=null && comp.getParent() instanceof MainWindow){
+                pointer = comp.getParent( );
+            }else if (comp.getParent( )==null){
+                break;
+            } else {
+                comp=comp.getParent( );
+            }
+        }
+        if (pointer!=null){
+            return (MainWindow)pointer;
+        } else{
+            return null;
+        }
+            
+    }
+    
+    public static void cleanSelectionMainWindow(Component component){
+        
+        SwingUtilities.invokeLater( new ExtendDialog(ToolManagableDialog.lookForMainWindow( component )));
+     } 
+    
+    public static void cleanSelection(Component component){
+    
+       SwingUtilities.invokeLater( new ExtendDialog(ToolManagableDialog.lookForDialog( component )));
+    }
+    
+    private static class ExtendDialog implements Runnable{
+        
+        private Component comp;
+        
+        public ExtendDialog(Component comp){
+            this.comp = comp;            
+        }
+
+        public void run( ) {
+
+            
+            if (comp!=null){
+                int w= comp.getWidth( );
+                int h=comp.getHeight( );
+                comp.setSize( w+1,h+1 );
+                SwingUtilities.invokeLater( new ReduceDialog(comp));
+            
+        }
+        
+    }
+    }
+        
+        private static class ReduceDialog implements Runnable{
+            
+            private Component comp;
+            
+            public ReduceDialog(Component comp){
+                this.comp = comp;            
+            }
+
+            public void run( ) {
+                if (comp!=null){
+                    int w= comp.getWidth( );
+                    int h=comp.getHeight( );
+                    comp.setSize( w-1,h-1);
+                }
+                
+            }
+            
+        }
+        
+    
+    
+    
+    
+    
 }

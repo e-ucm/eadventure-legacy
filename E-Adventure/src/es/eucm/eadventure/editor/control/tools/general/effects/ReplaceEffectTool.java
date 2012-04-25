@@ -261,8 +261,9 @@ public class ReplaceEffectTool extends Tool {
                     break;
             }
             effectEdited = true;
+            Controller.getInstance( ).updatePanel( );
         }
-
+        
         return effectEdited;
     }
 
