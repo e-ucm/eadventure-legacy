@@ -127,8 +127,9 @@ public class ChapterListDataControl {
         }
         else {
             identifierSummary = new IdentifierSummary( getSelectedChapterData( ) );
-            if( varFlagSummary == null )
-                varFlagSummary = new VarFlagSummary( );
+            //if( varFlagSummary == null )
+            //delete all flags and vars before add those included in the chapter through updateVarFlagSummary methods
+            varFlagSummary = new VarFlagSummary( );
             getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
         }
     }
