@@ -96,25 +96,28 @@ public class GameStateNextScene extends GameState implements _HighLevelEvents {
 
                 // Create a background music identifier to not replay the music from the start
                 long backgroundMusicId = -1;
-
+                String newMusicPath = this.findMusicPath( scene );
+                String oldMusicPath = null;
                 // If there is a funcional scene
                 if( game.getFunctionalScene( ) != null ) {
                     // Take the old and the new music path
-                    String oldMusicPath = null;
+                    
                     for( int i = 0; i < game.getFunctionalScene( ).getScene( ).getResources( ).size( ) && oldMusicPath == null; i++ )
                         if( new FunctionalConditions( game.getFunctionalScene( ).getScene( ).getResources( ).get( i ).getConditions( ) ).allConditionsOk( ) )
                             oldMusicPath = game.getFunctionalScene( ).getScene( ).getResources( ).get( i ).getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
-                    String newMusicPath = null;
-                    for( int i = 0; i < scene.getResources( ).size( ) && newMusicPath == null; i++ )
-                        if( new FunctionalConditions( scene.getResources( ).get( i ).getConditions( ) ).allConditionsOk( ) )
-                            newMusicPath = scene.getResources( ).get( i ).getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
-
-                    // If the music paths are the same, take the music identifier
-                    if( oldMusicPath != null && newMusicPath != null && oldMusicPath.equals( newMusicPath ) )
-                        backgroundMusicId = game.getFunctionalScene( ).getBackgroundMusicId( );
-                    else
-                        game.getFunctionalScene( ).stopBackgroundMusic( );
+                }else if (game.getMusicInSlides( )!=null){
+                    oldMusicPath =game.getMusicInSlides( ); 
                 }
+                // If the music paths are the same, take the music identifier
+                if( oldMusicPath != null && newMusicPath != null && oldMusicPath.equals( newMusicPath ) && game.getFunctionalScene( ) != null)
+                    backgroundMusicId = game.getFunctionalScene( ).getBackgroundMusicId( );
+                else if( oldMusicPath != null && newMusicPath != null && oldMusicPath.equals( newMusicPath ) && game.getMusicInSlides( ) != null){
+                    backgroundMusicId = game.getMusicInSlidesId( );
+                    game.setMusicInSlides( null );
+                    game.setMusicInSlidesId( -1 );
+                    
+                }else
+                    game.getFunctionalScene( ).stopBackgroundMusic( );
                 // set the player layer for this scene
                 game.setPlayerLayer( scene.getPlayerLayer( ) );
                 // Create the new functional scene
@@ -194,5 +197,15 @@ public class GameStateNextScene extends GameState implements _HighLevelEvents {
                 game.setState( Game.STATE_VIDEO_SCENE );
                 break;
         }
+    }
+    
+    private String findMusicPath(Scene scene){
+        String newMusicPath = null;
+        for( int i = 0; i < scene.getResources( ).size( ) && newMusicPath == null; i++ ){
+            if( new FunctionalConditions( scene.getResources( ).get( i ).getConditions( ) ).allConditionsOk( ) ){
+                newMusicPath = scene.getResources( ).get( i ).getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
+            }
+        }
+        return newMusicPath;
     }
 }

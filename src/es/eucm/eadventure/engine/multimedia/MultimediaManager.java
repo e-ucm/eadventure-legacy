@@ -343,7 +343,7 @@ public class MultimediaManager {
      *            whether or not the sound must be played in a loop
      * @return an Id that represents the sound with the given configuration.
      */
-    public long loadSound( String soundPath, boolean loop ) {
+    public synchronized long loadSound( String soundPath, boolean loop ) {
 
         String type = soundPath.substring( soundPath.lastIndexOf( "." ) + 1 ).toLowerCase( );
         int soundType = -1;
@@ -368,7 +368,7 @@ public class MultimediaManager {
      *            whether or not the music must be played in a loop
      * @return an Id that represents the music with the given configuration.
      */
-    public long loadMusic( int musicType, String musicPath, boolean loop ) {
+    public synchronized long loadMusic( int musicType, String musicPath, boolean loop ) {
 
         musicSoundId = loadSound( musicType, musicPath, loop );
         return musicSoundId;
@@ -385,7 +385,7 @@ public class MultimediaManager {
      *            whether or not the music must be played in a loop
      * @return an Id that represents the music with the given configuration.
      */
-    public long loadMusic( String musicPath, boolean loop ) {
+    public synchronized long loadMusic( String musicPath, boolean loop ) {
 
         musicSoundId = loadSound( musicPath, loop );
         return musicSoundId;
@@ -397,7 +397,7 @@ public class MultimediaManager {
      * @param soundId
      *            Id of the sound to be played
      */
-    public void startPlaying( long soundId ) {
+    public synchronized void startPlaying( long soundId ) {
 
         if( soundCache.containsKey( soundId ) ) {
             Sound sound = soundCache.get( soundId );
@@ -412,7 +412,7 @@ public class MultimediaManager {
      * @param soundId
      *            Id of the sound to be stopped
      */
-    public void stopPlaying( long soundId ) {
+    public synchronized void stopPlaying( long soundId ) {
 
         if( soundCache.containsKey( soundId ) ) {
             Sound sound = soundCache.get( soundId );
@@ -421,7 +421,7 @@ public class MultimediaManager {
         }
     }
 
-    public void stopPlayingMusic( ) {
+    public synchronized void stopPlayingMusic( ) {
 
         Collection<Sound> sounds = soundCache.values( );
         for( Sound sound : sounds ) {
@@ -431,7 +431,7 @@ public class MultimediaManager {
         }
     }
 
-    public void stopPlayingInmediately( long soundId ) {
+    public synchronized void stopPlayingInmediately( long soundId ) {
 
         if( soundCache.containsKey( soundId ) ) {
             Sound sound = soundCache.get( soundId );
@@ -450,7 +450,7 @@ public class MultimediaManager {
      *            long The soundId
      * @return true if the sound is playing
      */
-    public boolean isPlaying( long soundId ) {
+    public synchronized boolean isPlaying( long soundId ) {
 
         boolean playing = false;
         if (soundId!=-1){
