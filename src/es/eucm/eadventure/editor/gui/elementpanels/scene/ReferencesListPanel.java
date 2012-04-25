@@ -77,6 +77,7 @@ import es.eucm.eadventure.editor.control.tools.scene.DeleteReferenceTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.editdialogs.ToolManagableDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
@@ -329,6 +330,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
             public void actionPerformed( ActionEvent e ) {
 
                 moveUp( );
+                ToolManagableDialog.cleanSelectionMainWindow(ReferencesListPanel.this);
             }
         } );
         moveUpButton.setEnabled( false );
@@ -342,6 +344,17 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel, Up
             public void actionPerformed( ActionEvent e ) {
 
                 moveDown( );
+               ToolManagableDialog.cleanSelectionMainWindow(ReferencesListPanel.this);
+               
+                /*SwingUtilities.invokeLater( new Runnable(){
+
+                    public void run( ) {
+
+                        ReferencesListPanel.this.table.updateUI( );
+                        
+                    }
+                    
+                });*/
             }
         } );
         moveDownButton.setEnabled( false );

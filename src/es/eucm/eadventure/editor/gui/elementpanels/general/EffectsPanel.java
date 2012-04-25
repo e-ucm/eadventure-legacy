@@ -63,6 +63,7 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.editdialogs.ToolManagableDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.EditEffectCellRenderEditor;
 
@@ -130,7 +131,7 @@ public class EffectsPanel extends JPanel implements Updateable {
         effectsTable.getColumnModel( ).getColumn( 2 ).setWidth( 120 );
 
         // Conditions  button
-        effectsTable.getColumnModel( ).getColumn( 3 ).setCellRenderer( new ConditionsCellRendererEditor( ) );
+        effectsTable.getColumnModel( ).getColumn( 3 ).setCellRenderer( new ConditionsCellRendererEditor(  ) );
         effectsTable.getColumnModel( ).getColumn( 3 ).setCellEditor( new ConditionsCellRendererEditor( ) );
         effectsTable.getColumnModel( ).getColumn( 3 ).setMaxWidth( 120 );
         effectsTable.getColumnModel( ).getColumn( 3 ).setMinWidth( 120 );
@@ -267,13 +268,15 @@ public class EffectsPanel extends JPanel implements Updateable {
             if( effectIndex >= 0 ) {
                 if( effectsController.moveUpEffect( effectIndex ) ) {
                     effectsTable.changeSelection( effectIndex - 1, effectIndex - 1, false, false );
-                    effectsTable.updateUI( );
+                    ToolManagableDialog.cleanSelection(EffectsPanel.this);
+                    
                     updateButtons( );
                 }
             }
         }
     }
-
+    
+     
     /**
      * Listener for the move down effect button.
      */
@@ -285,8 +288,9 @@ public class EffectsPanel extends JPanel implements Updateable {
             if( effectIndex >= 0 && effectIndex < effectsTable.getRowCount( ) - 1 ) {
                 if( effectsController.moveDownEffect( effectIndex ) ) {
                     effectsTable.changeSelection( effectIndex + 1, effectIndex + 1, false, false );
-                    effectsTable.updateUI( );
+                    ToolManagableDialog.cleanSelection(EffectsPanel.this);
                     updateButtons( );
+                    
                 }
             }
         }

@@ -71,7 +71,6 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
 
     private int iconSize;
 
-    private ConditionsController value;
 
     public ConditionsCellRendererEditor( ) {
 
@@ -79,34 +78,29 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
         this.iconSize = ICON_SMALL;
     }
 
-    public ConditionsCellRendererEditor( boolean useText, int iconSize ) {
-
-        this.useText = useText;
-        this.iconSize = iconSize;
-    }
-
     public Object getCellEditorValue( ) {
 
-        return value;
+        //return value;
+        return null;
     }
 
     public Component getTableCellEditorComponent( JTable table, Object value, boolean isSelected, int row, int col ) {
 
         if( value == null )
             return null;
-        this.value = (ConditionsController) value;
-        return createButton( isSelected, table );
+      //  this.value = (ConditionsController) value;
+        return createButton( isSelected, table, (ConditionsController) value );
     }
 
     public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
 
         if( value == null )
             return null;
-        this.value = (ConditionsController) value;
-        return createButton( isSelected, table );
+        //this.value = (ConditionsController) value;
+        return createButton( isSelected, table, (ConditionsController) value );
     }
 
-    private Icon createIcon( ) {
+    private Icon createIcon( ConditionsController value ) {
 
         // Create icon (if applicable)
         Icon icon = null;
@@ -142,7 +136,7 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
         return icon;
     }
 
-    private Component createButton( boolean isSelected, JTable table ) {
+    private Component createButton( boolean isSelected, JTable table, ConditionsController value ) {
 
         JPanel temp = new JPanel( );
         temp.setOpaque( false );
@@ -157,7 +151,7 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
         }
 
         // Create icon (if applicable)
-        Icon icon = createIcon( );
+        Icon icon = createIcon( value );
 
         // Create button
         if( text != null && icon != null ) {
@@ -177,23 +171,28 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
         button.setFocusable( false );
         button.setEnabled( isSelected );
 
-        //button.setOpaque(false);
-        //button.setContentAreaFilled(false);
-        //button.setRolloverIcon(new ImageIcon("img/icons/conditions-hot-16x16.png"));
-        button.addActionListener( new ActionListener( ) {
-
-            public void actionPerformed( ActionEvent arg0 ) {
-
-                new ConditionsDialog( ConditionsCellRendererEditor.this.value );
-                //Update icon
-                ( (JButton) ( arg0.getSource( ) ) ).setIcon( createIcon( ) );
-            }
-        } );
+        button.addActionListener( new ConditionDialogListener(value) );
         temp.setLayout( new BorderLayout( ) );
         temp.add( button, BorderLayout.CENTER );
-        //button.requestFocus();
         return temp;
 
     }
+    
+    
+    private class ConditionDialogListener implements ActionListener{
+        
+        
+        private ConditionsController conds;
+        
+        public ConditionDialogListener(ConditionsController conds){
+            this.conds = conds;
+        }
+
+        public void actionPerformed( ActionEvent arg0 ) {
+
+            new ConditionsDialog( conds );
+        }
+    } 
+    
 
 }
