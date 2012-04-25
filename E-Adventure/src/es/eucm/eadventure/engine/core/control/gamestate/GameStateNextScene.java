@@ -116,7 +116,7 @@ public class GameStateNextScene extends GameState implements _HighLevelEvents {
                     game.setMusicInSlides( null );
                     game.setMusicInSlidesId( -1 );
                     
-                }else
+                }else if (game.getFunctionalScene( )!= null)
                     game.getFunctionalScene( ).stopBackgroundMusic( );
                 // set the player layer for this scene
                 game.setPlayerLayer( scene.getPlayerLayer( ) );
