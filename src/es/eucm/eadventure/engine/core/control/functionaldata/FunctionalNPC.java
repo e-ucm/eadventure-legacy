@@ -478,7 +478,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         speak( text2, false);
     }
 
-    public void speak( String text2, String audioPath, boolean keepShowing ) {
+    public long speak( String text2, String audioPath, boolean keepShowing ) {
 
         text2 =  processName(text2);
         String text = Game.getInstance( ).processText( text2 );
@@ -487,10 +487,12 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         talkingAnimation.setAudio( audioPath );
         talkingAnimation.setText( text, keepShowing );
         setState( TALK );
+        
+        return talkingAnimation.getAudioId( );
     }
     
-    public void speak( String text2, String audioPath){
-        speak( text2, audioPath, false);
+    public long  speak( String text2, String audioPath){
+        return speak( text2, audioPath, false);
     }
 
     public void speakWithFreeTTS( String text2, String voice, boolean keepShowing ) {

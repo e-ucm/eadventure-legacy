@@ -228,4 +228,10 @@ public class NPCTalking extends NPCState {
     }
 
     
+    public long getAudioId( ) {
+    
+        return audioId;
+    }
+
+    
 }

@@ -646,17 +646,18 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         speak( text, false);
     }
 
-    public void speak( String text, String audioPath, boolean keepShowing ) {
+    public long speak( String text, String audioPath, boolean keepShowing ) {
         
         
         text = processName(text);
         DebugLog.player( "Player says " + text + " with audio" );
         FunctionalSpeak functionalSpeak = new FunctionalSpeak( null, text, audioPath, keepShowing );
         addAction( functionalSpeak );
+        return functionalSpeak.getAudioId( );
     }
     
-    public void speak( String text, String audioPath) {
-        speak( text, audioPath, false );
+    public long speak( String text, String audioPath) {
+        return speak( text, audioPath, false );
     }
 
     /**

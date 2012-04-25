@@ -55,7 +55,7 @@ public interface TalkingElement {
 
     public void speakWithFreeTTS( String text, String voice, boolean keepShowing );
 
-    public void speak( String text, String audioPath,boolean keepShowing );
+    public long speak( String text, String audioPath,boolean keepShowing );
 
     /**
      * Check if all player conversation lines must be read by synthesizer
