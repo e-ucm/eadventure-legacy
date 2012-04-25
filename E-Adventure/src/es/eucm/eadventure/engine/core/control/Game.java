@@ -2134,4 +2134,26 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         return gameLog.getGameLog( );
     }
     
+    private String musicInSlides = null;
+    private long musicInSlidesId=-1L;
+    
+    public void setMusicInSlides(String music){
+        this.musicInSlides = music;
+    }
+    
+    public String getMusicInSlides(){
+        return musicInSlides;
+    }
+
+    
+    public long getMusicInSlidesId( ) {
+    
+        return musicInSlidesId;
+    }
+
+    
+    public void setMusicInSlidesId( long musicInSlidesId ) {
+    
+        this.musicInSlidesId = musicInSlidesId;
+    }
 }

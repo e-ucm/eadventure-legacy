@@ -82,6 +82,10 @@ public class GameStateSlidescene extends GameState implements _HighLevelEvents{
      * Flag to stop updating the slides when they finished
      */
     private boolean finish = false;
+    
+    private String musicPath=null;
+    
+    private long backgroundMusicId;
 
    // private BufferedImage bkg = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR );
 
@@ -98,7 +102,7 @@ public class GameStateSlidescene extends GameState implements _HighLevelEvents{
         Resources resources = createResourcesBlock( );
 
         // Create a background music identifier to not replay the music from the start
-        long backgroundMusicId = -1;
+        backgroundMusicId = -1;
 
         // If there is a funcional scene
         if( game.getFunctionalScene( ) != null ) {
@@ -121,13 +125,15 @@ public class GameStateSlidescene extends GameState implements _HighLevelEvents{
         if( Game.getInstance( ).getOptions( ).isMusicActive( ) ) {
             if( backgroundMusicId != -1 ) {
                 if( !MultimediaManager.getInstance( ).isPlaying( backgroundMusicId ) ) {
-                    backgroundMusicId = MultimediaManager.getInstance( ).loadMusic( resources.getAssetPath( Scene.RESOURCE_TYPE_MUSIC ), true );
+                    musicPath = resources.getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
+                    backgroundMusicId = MultimediaManager.getInstance( ).loadMusic( musicPath, true );
                     MultimediaManager.getInstance( ).startPlaying( backgroundMusicId );
                 }
             }
             else {
                 if( resources.existAsset( Scene.RESOURCE_TYPE_MUSIC ) ) {
-                    backgroundMusicId = MultimediaManager.getInstance( ).loadMusic( resources.getAssetPath( Scene.RESOURCE_TYPE_MUSIC ), true );
+                    musicPath = resources.getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
+                    backgroundMusicId = MultimediaManager.getInstance( ).loadMusic( musicPath, true );
                     MultimediaManager.getInstance( ).startPlaying( backgroundMusicId );
                 }
             }
@@ -185,6 +191,12 @@ public class GameStateSlidescene extends GameState implements _HighLevelEvents{
             exit.setTransitionTime( slidescene.getTransitionTime( ) );
             exit.setTransitionType( slidescene.getTransitionType( ) );
             game.setNextScene( exit );
+            if (musicPath!=null){
+                game.setMusicInSlides( musicPath );
+            } else {
+                game.setMusicInSlides( null );
+            }
+            game.setMusicInSlidesId( backgroundMusicId );
             game.setState( Game.STATE_NEXT_SCENE );
         }
         else {
