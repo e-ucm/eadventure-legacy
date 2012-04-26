@@ -98,8 +98,21 @@ public class AdventureDataDialog extends ToolManagableDialog {
     private DocumentListener documentListener;
     
     private JCheckBox waitUserInteraction;
-    
+
+    //V1.4    
     private JCheckBox keyboardNavigationEnabled;
+    
+    private JTextField versionNumber;
+
+    private JComboBox actionOnMouseClick;
+
+    private JComboBox perspective;
+
+    private JComboBox ignoreTargets;
+
+    private JTextField playerMode;
+
+    private JTextArea playerModeDescription;
 
     /**
      * Constructor.
@@ -116,9 +129,9 @@ public class AdventureDataDialog extends ToolManagableDialog {
         this.controller = Controller.getInstance( );
 
         // Panel with the options
-        JPanel guiStylesPanel = new JPanel( );
-        guiStylesPanel.setLayout( new GridBagLayout( ) );
-        guiStylesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.Title" ) ) );
+        JPanel adventureDataPanel = new JPanel( );
+        adventureDataPanel.setLayout( new GridBagLayout( ) );
+        adventureDataPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.Title" ) ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.insets = new Insets( 5, 5, 5, 5 );
 
@@ -132,7 +145,7 @@ public class AdventureDataDialog extends ToolManagableDialog {
         titleTextField.addFocusListener( new TitleTextFieldChangeListener( ) );
         titlePanel.add( titleTextField );
         titlePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.AdventureTitle" ) ) );
-        guiStylesPanel.add( titlePanel, c );
+        adventureDataPanel.add( titlePanel, c );
 
         // Create the text area for the description
         c.fill = GridBagConstraints.BOTH;
@@ -147,7 +160,7 @@ public class AdventureDataDialog extends ToolManagableDialog {
         descriptionTextArea.setWrapStyleWord( true );
         descriptionPanel.add( new JScrollPane( descriptionTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
         descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.AdventureDescription" ) ) );
-        guiStylesPanel.add( descriptionPanel, c );
+        adventureDataPanel.add( descriptionPanel, c );
 
         //Create the info panel for the mode of the player
         c.fill = GridBagConstraints.BOTH;
@@ -164,8 +177,8 @@ public class AdventureDataDialog extends ToolManagableDialog {
         c1.gridy = 0;
         descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.AdventureDescription" ) ) );
 
-        JTextField playerMode = null;
-        JTextArea playerModeDescription = new JTextArea( );
+        playerMode = null;
+        playerModeDescription = new JTextArea( );
         playerModeDescription.setEditable( false );
         playerModeDescription.setWrapStyleWord( true );
         playerModeDescription.setBackground( playerModePanel.getBackground( ) );
@@ -191,7 +204,7 @@ public class AdventureDataDialog extends ToolManagableDialog {
         c1.anchor = GridBagConstraints.CENTER;
         playerModePanel.add( playerModeDescription, c1 );
         playerModePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Adventure.PlayerMode" ) ) );
-        guiStylesPanel.add( playerModePanel, c );
+        adventureDataPanel.add( playerModePanel, c );
 
         // Automatic-commentaries
         JPanel commentariesPanel = new JPanel( );
@@ -207,7 +220,7 @@ public class AdventureDataDialog extends ToolManagableDialog {
         commentariesPanel.add( commentariesCheckBox );
         commentariesCheckBox.addActionListener( new CheckBoxListener( ) );
         c.gridy = 3;
-        guiStylesPanel.add( commentariesPanel, c );
+        adventureDataPanel.add( commentariesPanel, c );
         
       
         waitUserInteraction = new JCheckBox( TC.get( "Conversation.WaitUserInteraction" ), controller.isKeepShowing( ) );
@@ -225,7 +238,7 @@ public class AdventureDataDialog extends ToolManagableDialog {
         waitUserInteractionPanel.add( waitUserInteraction, BorderLayout.WEST );
         
         c.gridy = 4;
-        guiStylesPanel.add(waitUserInteractionPanel, c);
+        adventureDataPanel.add(waitUserInteractionPanel, c);
         
         
         JPanel panel = new JPanel();
@@ -233,28 +246,28 @@ public class AdventureDataDialog extends ToolManagableDialog {
         panel.add( new JLabel( TC.get( "DefaultClickAction.Explanation" )) );
         String[] values = { TC.get( "DefaultClickAction.ShowDetails" ),
                 TC.get( "DefaultClickAction.ShowActions" )};
-        final JComboBox comboBox = new JComboBox(values);
+        actionOnMouseClick = new JComboBox(values);
         switch (controller.getDefaultCursorAction()) {
             case SHOW_DETAILS:
-                comboBox.setSelectedIndex( 0 );
+                actionOnMouseClick.setSelectedIndex( 0 );
                 break;
             case SHOW_ACTIONS:
-                comboBox.setSelectedIndex( 1 );
+                actionOnMouseClick.setSelectedIndex( 1 );
                 break;
         }
-        comboBox.addActionListener( new ActionListener() {
+        actionOnMouseClick.addActionListener( new ActionListener() {
 
             public void actionPerformed( ActionEvent arg0 ) {
-                controller.setDefaultCursorAction((comboBox.getSelectedIndex( ) == 0 ?
+                controller.setDefaultCursorAction((actionOnMouseClick.getSelectedIndex( ) == 0 ?
                         DescriptorData.DefaultClickAction.SHOW_DETAILS :
                             DescriptorData.DefaultClickAction.SHOW_ACTIONS));
             }
             
         });
-        panel.add( comboBox );
+        panel.add( actionOnMouseClick );
         
         c.gridy = 5;
-        guiStylesPanel.add( panel, c);
+        adventureDataPanel.add( panel, c);
         
 
         JPanel panel2 = new JPanel();
@@ -262,28 +275,28 @@ public class AdventureDataDialog extends ToolManagableDialog {
         panel2.add( new JLabel( TC.get( "Perspective.Explanation" )) );
         String[] values2 = { TC.get( "Perspective.Regular" ),
                 TC.get( "Perspective.Isometric" )};
-        final JComboBox comboBox2 = new JComboBox(values2);
+        perspective = new JComboBox(values2);
         switch (controller.getPerspective( )) {
             case REGULAR:
-                comboBox2.setSelectedIndex( 0 );
+                perspective.setSelectedIndex( 0 );
                 break;
             case ISOMETRIC:
-                comboBox2.setSelectedIndex( 1 );
+                perspective.setSelectedIndex( 1 );
                 break;
         }
-        comboBox2.addActionListener( new ActionListener() {
+        perspective.addActionListener( new ActionListener() {
 
             public void actionPerformed( ActionEvent arg0 ) {
-                controller.setPerspective((comboBox2.getSelectedIndex( ) == 0 ?
+                controller.setPerspective((perspective.getSelectedIndex( ) == 0 ?
                         DescriptorData.Perspective.REGULAR :
                             DescriptorData.Perspective.ISOMETRIC));
             }
             
         });
-        panel2.add( comboBox2 );
+        panel2.add( perspective );
         
         c.gridy++;
-        guiStylesPanel.add( panel2, c);
+        adventureDataPanel.add( panel2, c);
 
         
         panel2 = new JPanel();
@@ -291,28 +304,28 @@ public class AdventureDataDialog extends ToolManagableDialog {
         panel2.add( new JLabel( TC.get( "DragBehaviour.Explanation" )) );
         String[] values3 = { TC.get( "DragBehaviour.IgnoreNonTrargets" ),
                 TC.get( "DragBehaviour.ConsiderNonTargets" )};
-        final JComboBox comboBox3 = new JComboBox(values3);
+        ignoreTargets = new JComboBox(values3);
         switch (controller.getDragBehaviour( )) {
             case IGNORE_NON_TARGETS:
-                comboBox3.setSelectedIndex( 0 );
+                ignoreTargets.setSelectedIndex( 0 );
                 break;
             case CONSIDER_NON_TARGETS:
-                comboBox3.setSelectedIndex( 1 );
+                ignoreTargets.setSelectedIndex( 1 );
                 break;
         }
-        comboBox3.addActionListener( new ActionListener() {
+        ignoreTargets.addActionListener( new ActionListener() {
 
             public void actionPerformed( ActionEvent arg0 ) {
-                controller.setDragBehaviour((comboBox3.getSelectedIndex( ) == 0 ?
+                controller.setDragBehaviour((ignoreTargets.getSelectedIndex( ) == 0 ?
                         DescriptorData.DragBehaviour.IGNORE_NON_TARGETS :
                             DescriptorData.DragBehaviour.CONSIDER_NON_TARGETS));
             }
             
         });
-        panel2.add( comboBox3 );
+        panel2.add( ignoreTargets );
         
         c.gridy++;
-        guiStylesPanel.add( panel2, c);
+        adventureDataPanel.add( panel2, c);
 
         keyboardNavigationEnabled = new JCheckBox( TC.get( "MenuAdventure.KeyboardNavigationEnabled.Checkbox" ), controller.isKeyboardNavigationEnabled( ) );
         keyboardNavigationEnabled.addActionListener( new ActionListener( ) {
@@ -329,8 +342,16 @@ public class AdventureDataDialog extends ToolManagableDialog {
         keyboardNavigationPanel.add( keyboardNavigationEnabled, BorderLayout.WEST );
         
         c.gridy++;
-        guiStylesPanel.add(keyboardNavigationPanel, c);
+        adventureDataPanel.add(keyboardNavigationPanel, c);
 
+        JPanel versionNumberPanel = new JPanel();
+        versionNumberPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "VersionNumber" ) ) );
+        versionNumber = new JTextField( controller.getVersionNumber( ) );
+        versionNumber.setEditable( false );
+        versionNumber.setOpaque( false );
+        versionNumberPanel.add( versionNumber );
+        c.gridy++;
+        adventureDataPanel.add(versionNumberPanel, c);
         
         // Panel with the buttons
         JPanel buttonsPanel = new JPanel( );
@@ -346,13 +367,15 @@ public class AdventureDataDialog extends ToolManagableDialog {
         buttonsPanel.add( btnExit );
 
         // Add the principal and the buttons panel
-        add( guiStylesPanel, BorderLayout.CENTER );
+        add( adventureDataPanel, BorderLayout.CENTER );
         add( buttonsPanel, BorderLayout.SOUTH );
 
         // Set size and position and show the dialog
-        setSize( new Dimension( 450, 700 ) );
-        setMinimumSize( new Dimension( 450, 700 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+        int w = Math.min( 600, screenSize.width-50 );
+        int h = Math.min( 900, screenSize.height-50 );
+        setSize( new Dimension( w, h ) );
+        setMinimumSize( new Dimension( w, h ) );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
         setVisible( true );
     }
@@ -446,16 +469,60 @@ public class AdventureDataDialog extends ToolManagableDialog {
     @Override
     public boolean updateFields( ) {
 
-        descriptionTextArea.getDocument( ).removeDocumentListener( documentListener );
-        descriptionTextArea.setText( Controller.getInstance( ).getAdventureDescription( ) );
-        descriptionTextArea.getDocument( ).addDocumentListener( documentListener );
-        titleTextField.setText( Controller.getInstance( ).getAdventureTitle( ) );
+        if (titleTextField!=null){
+            titleTextField.setText( controller.getAdventureTitle( ) );
+        }
+        if( controller.isPlayTransparent( ) ) {
+            playerMode.setText( TC.get( "Adventure.ModePlayerTransparent.Name" ) );
+            playerModeDescription.setText( TC.get( "Adventure.ModePlayerTransparent.Description" ) );
+        }
+        else {
+            playerMode.setText( TC.get( "Adventure.ModePlayerVisible.Name" ) );
+            playerModeDescription.setText( TC.get( "Adventure.ModePlayerVisible.Description" ) );
+        }
         if( controller.isCommentaries( ) ) {
             commentariesCheckBox.setSelected( true );
         }
         else {
             commentariesCheckBox.setSelected( false );
         }
+      
+        waitUserInteraction.setSelected( controller.isKeepShowing( ) );
+        
+        switch (controller.getDefaultCursorAction()) {
+            case SHOW_DETAILS:
+                actionOnMouseClick.setSelectedIndex( 0 );
+                break;
+            case SHOW_ACTIONS:
+                actionOnMouseClick.setSelectedIndex( 1 );
+                break;
+        }
+
+        switch (controller.getPerspective( )) {
+            case REGULAR:
+                perspective.setSelectedIndex( 0 );
+                break;
+            case ISOMETRIC:
+                perspective.setSelectedIndex( 1 );
+                break;
+        }
+
+        switch (controller.getDragBehaviour( )) {
+            case IGNORE_NON_TARGETS:
+                ignoreTargets.setSelectedIndex( 0 );
+                break;
+            case CONSIDER_NON_TARGETS:
+                ignoreTargets.setSelectedIndex( 1 );
+                break;
+        }
+
+        keyboardNavigationEnabled.setSelected( controller.isKeyboardNavigationEnabled( ) );
+        
+        versionNumber.setText( controller.getVersionNumber( ) );
+        
+        descriptionTextArea.getDocument( ).removeDocumentListener( documentListener );
+        descriptionTextArea.setText( Controller.getInstance( ).getAdventureDescription( ) );
+        descriptionTextArea.getDocument( ).addDocumentListener( documentListener );
         return true;
     }
 }

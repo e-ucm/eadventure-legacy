@@ -2094,4 +2094,5 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="Resources.TransitionTime.Description">Utilizar el control de abajo para ajustar la transición visual cuando la imagen del objeto varía. Si el valor proporcionado (en milisegundos) es mayor que cero, las imágenes se funden durante un tiempo para hacer la transición más suave.</entry>
 <entry key="Resources.TransitionTime">Transición cuando los recursos cambian</entry>
 <entry key="Behaviour.Selection.Normal">En este caso, el objeto responde a los clics de ratón como de costumbre. Las acciones disponibles o la descripción (breve) se muestran en la pantalla, dependiendo de la configuración general de la aventura (ver configuración de Aventura en el menú de "Aventura").</entry>
+<entry key="VersionNumber">Versión</entry>
 </properties>

@@ -2884,6 +2884,10 @@ public class Controller {
 
         return adventureDataControl.getTitle( );
     }
+    
+    public String getVersionNumber(){
+        return adventureDataControl.getAdventureData( ).getVersionNumber( );
+    }
 
     /**
      * Returns the description of the adventure.

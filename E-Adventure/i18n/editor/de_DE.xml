@@ -1977,4 +1977,5 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Resources.TransitionTime.Description">Mit der Steuer folgendem sichtbaren Übergang einzustellen, wenn das Bild des Objekts variiert. Wenn der Wert vorgesehen (in Millisekunden) größer als Null ist, werden die Bilder für eine Weile kombiniert, um den Übergang weicher.</entry>
 <entry key="Resources.TransitionTime">Transition, wenn die Ressourcen ändern</entry>
 <entry key="Behaviour.Selection.Normal">In diesem Fall wird das Objekt reagiert auf Mausklicks wie üblich. Die verfügbaren Aktionen oder die Beschreibung (kurz) werden auf dem Bildschirm dargestellt, je nach den allgemeinen Einstellungen des Abenteuers (siehe Adventure Einstellungen im Menü "Abenteuer").</entry>
+<entry key="VersionNumber">Version</entry>
 </properties>

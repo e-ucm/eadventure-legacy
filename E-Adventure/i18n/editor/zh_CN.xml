@@ -1946,4 +1946,5 @@
 <entry key="Resources.TransitionTime.Description">使用下面的控制时，物体的影像变化，来调整视觉过渡。如果提供的值（以毫秒为单位）大于零，图像相结合，同时使过渡更柔和。</entry>
 <entry key="Resources.TransitionTime">过渡时资源改变</entry>
 <entry key="Behaviour.Selection.Normal">在这种情况下，像往常一样的鼠标点击对象响应。行动或描述（简要）显示在屏幕上，根据一般的冒险（见菜单中的“冒险”冒险设置）设置。</entry>
+<entry key="VersionNumber">版本</entry>
 </properties>
