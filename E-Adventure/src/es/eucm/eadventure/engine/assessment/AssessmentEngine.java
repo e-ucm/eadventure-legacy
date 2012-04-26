@@ -215,8 +215,13 @@ public class AssessmentEngine implements TimerEventListener {
 		 // check if repeated rules have to be executed again 
 	        for (AssessmentRule repeatRule: repeatedRules){
 	            if (isActive(repeatRule)){
-	              //  AssessmentRule ruleToBeProcessed = (AssessmentRule) repeatRule.clone( );
-                    triggerRule((AssessmentRule) repeatRule.clone( ));
+	                // if it's a TimedAssessmentRule, it hasn't to be cloned: it will be cloned at TimerStop
+	                // for repeated rules, it has to be added to the TimerManager and started up
+	                if (repeatRule instanceof TimedAssessmentRule){
+	                       triggerRule(repeatRule);
+	                }else
+	                    triggerRule((AssessmentRule) repeatRule.clone( ));
+
 	            }
 	        }
 	        
@@ -225,14 +230,22 @@ public class AssessmentEngine implements TimerEventListener {
 
 			// If it was activated, execute the rule
 			if (isActive(assessmentRules.get(i))) {
-				    AssessmentRule oldRule = (AssessmentRule) (assessmentRules.remove(i).clone( ));
+			    
+			    if (assessmentRules.get(i) instanceof TimedAssessmentRule){
+			        
+			        AssessmentRule oldRule = (assessmentRules.remove(i));
+			        triggerRule(oldRule);
+			    
+			    }else {
 
+			        AssessmentRule oldRule = (AssessmentRule) (assessmentRules.remove(i).clone( ));
 				    triggerRule((AssessmentRule) oldRule.clone( ));
 				    
 				    // first time that the repeatRule is executed
 				    if (oldRule.isRepeatRule( )){
 				        repeatedRules.add( oldRule );
 				    }
+			    }
 				    
 				    
 			}
@@ -581,10 +594,29 @@ public class AssessmentEngine implements TimerEventListener {
 
 	public void timerStopped(int timerId, long currentTime) {
 		// Get the rule
-		TimedAssessmentRule tRule = this.timedRules.get(new Integer(timerId));
+		TimedAssessmentRule tRule = this.timedRules.remove(new Integer(timerId));
 		tRule.ruleDone(currentTime);
 		// Once the rule has been processed, remove it from the timermanager
 		TimerManager.getInstance().deleteTimer(timerId);
+		
+		//add the rule again to timedRules and repeated rules, and add the timer again if it is "repeatable" 
+		if (tRule.isRepeatRule( )){
+		    try {
+                
+		        TimedAssessmentRule oldRule = (TimedAssessmentRule) tRule.clone( );
+		        this.repeatedRules.add( oldRule);
+           
+                TimerManager.getInstance().addTimer( oldRule.getConditions( ), oldRule.getEndConditions( ), oldRule.isUsesEndConditions( ), this );
+                
+                timedRules.put( new Integer(timerId), oldRule );
+		    
+		    }
+            catch( CloneNotSupportedException e ) {
+                e.printStackTrace();
+            }
+		}
+
+		
 		// System.out.println( "[TIMER DONE] " + timerId + " - time:
 		// "+currentTime );
 	}
