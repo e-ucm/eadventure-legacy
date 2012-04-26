@@ -345,6 +345,7 @@ public class TimedAssessmentRule extends AssessmentRule {
             for( TimedAssessmentEffect tae : effects )
                 tar.effects.add( (TimedAssessmentEffect) tae.clone( ) );
         }
+        tar.startTime = startTime;
         tar.elapsedTime = elapsedTime;
         tar.endConditions = ( endConditions != null ? (Conditions) endConditions.clone( ) : null );
         tar.isDone = isDone;
