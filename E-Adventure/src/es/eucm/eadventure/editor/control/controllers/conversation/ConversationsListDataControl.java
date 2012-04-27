@@ -45,7 +45,6 @@ import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.config.ConversationConfigData;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -185,7 +184,7 @@ public class ConversationsListDataControl extends DataControl {
             controller.getIdentifierSummary( ).addConversationId( id );
             
             String oldId = ( (GraphConversation) ( dataControl.getContent( ) ) ).getId( );
-            boolean posConfigured = ConversationConfigData.isConversationConfig( oldId );
+            /*boolean posConfigured = ConversationConfigData.isConversationConfig( oldId );
             if (posConfigured) {
                 for (int j = 0; j < newElement.getAllNodes( ).size( ); j++) {
                     int centerX = ConversationConfigData.getNodeX( oldId, j
@@ -194,8 +193,15 @@ public class ConversationsListDataControl extends DataControl {
                     ConversationConfigData.setNodeX( id, j, centerX );
                     ConversationConfigData.setNodeY( id, j, centerY );
                 }
+            }*/
+            GraphConversationDataControl g = (GraphConversationDataControl)dataControl;
+            for (int j = 0; j < g.getAllNodes( ).size( ); j++) {
+                
+                int centerX = g.getEditorX( g.getAllNodes().get(j) );
+                int centerY = g.getEditorY( g.getAllNodes().get(j) );
+                newElement.getAllNodes( ).get( j ).setEditorX( centerX );
+                newElement.getAllNodes( ).get( j ).setEditorY( centerY );
             }
-
             
             
             return true;

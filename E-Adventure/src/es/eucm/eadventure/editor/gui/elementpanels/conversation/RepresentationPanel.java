@@ -40,13 +40,10 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.editor.control.config.ConversationConfigData;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.GraphicRepresentation;
@@ -127,7 +124,7 @@ class RepresentationPanel extends JPanel {
         ConversationPanelMouseListener mouseListener = new ConversationPanelMouseListener( conversationRepresentation, conversationDataControl, conversationPanel, this );
         addMouseListener( mouseListener );
         addMouseMotionListener( mouseListener );
-        addComponentListener( new ConversationPanelComponentListener( ) );
+        //addComponentListener( new ConversationPanelComponentListener( ) );
 
         // Set the preferred size of the panel, with the size of the graphical represented conversation
         setPreferredSize( conversationRepresentation.getConversationSize( ) );
@@ -218,7 +215,7 @@ class RepresentationPanel extends JPanel {
     /**
      * Component listener for the panel (used for resize)
      */
-    private class ConversationPanelComponentListener extends ComponentAdapter {
+    /*private class ConversationPanelComponentListener extends ComponentAdapter {
 
         @Override
         public void componentResized( ComponentEvent e ) {
@@ -230,7 +227,7 @@ class RepresentationPanel extends JPanel {
             }
             repaint( );
         }
-    }
+    }*/
 
     public int getState( ) {
 

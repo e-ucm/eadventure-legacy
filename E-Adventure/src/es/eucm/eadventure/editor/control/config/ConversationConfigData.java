@@ -135,15 +135,6 @@ public class ConversationConfigData implements ProjectConfigDataConsumer {
         return Y;
     }
 
-    public static Point getNodePos( String convId, int nodeIndex ) {
-
-        Point point = new Point( Integer.MIN_VALUE, Integer.MIN_VALUE );
-        if( isNodeConfig( convId, nodeIndex ) ) {
-            point = new Point( getNodeX( convId, nodeIndex ), getNodeY( convId, nodeIndex ) );
-        }
-        return point;
-    }
-
     public static void setNodeX( String convId, int nodeIndex, int X ) {
 
         if( X != Integer.MIN_VALUE ) {

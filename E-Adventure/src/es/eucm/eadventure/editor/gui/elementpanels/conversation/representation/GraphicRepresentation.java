@@ -45,7 +45,6 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.config.ConversationConfigData;
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.graphicnode.DialogueGraphicNode;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.graphicnode.GraphicNode;
@@ -140,7 +139,7 @@ public class GraphicRepresentation {
         graphicNodes = new ArrayList<GraphicNode>( );
 
         /* If the position of the nodes have been previously set, that will be the initial drawing of the conversation. Otherwise, the initial drawing of the conversation displays the nodes in a circumference */
-        boolean posConfigured = ConversationConfigData.isConversationConfig( graphConversationDataControl.getId( ) );
+        //boolean posConfigured = ConversationConfigData.isConversationConfig( graphConversationDataControl.getId( ) );
         String convId = graphConversationDataControl.getId( );
 
         // Extract all the nodes in the conversation 
@@ -153,13 +152,25 @@ public class GraphicRepresentation {
         int centerY = 150 + (int) radius;
 
         // Create the initial graphic node (always the first in the vector)
-        if( posConfigured ) {
+        boolean editorXisSet=graphConversationDataControl.getEditorX( nodes.get( 0 ) )!=-1;
+        boolean editorYisSet=graphConversationDataControl.getEditorY( nodes.get( 0 ) )!=-1;
+        /*if( posConfigured ) {
             centerX = ConversationConfigData.getNodeX( convId, 0 );
             centerY = ConversationConfigData.getNodeY( convId, 0 );
         }
         else {
             ConversationConfigData.setNodeX( convId, 0, centerX );
             ConversationConfigData.setNodeY( convId, 0, centerY );
+        }*/
+        if (editorXisSet){
+            centerX = graphConversationDataControl.getEditorX( nodes.get( 0 ) );
+        } else {
+            graphConversationDataControl.setEditorX( nodes.get( 0 ), centerX );
+        }
+        if (editorYisSet){
+            centerY = graphConversationDataControl.getEditorY( nodes.get( 0 ) );
+        } else {
+            graphConversationDataControl.setEditorY( nodes.get( 0 ), centerY );
         }
         graphicNodes.add( new InitialGraphicNode( nodes.get( 0 ), new Point( centerX, centerY ) ) );
 
@@ -176,13 +187,25 @@ public class GraphicRepresentation {
             // Calculate the position of the current node
             int pointX = centerX + (int) ( Math.cos( angle ) * radius );
             int pointY = centerY - (int) ( Math.sin( angle ) * radius );
-            if( posConfigured ) {
+            editorXisSet=graphConversationDataControl.getEditorX( node )!=-1;
+            editorYisSet=graphConversationDataControl.getEditorY( node )!=-1;
+            /*if( posConfigured ) {
                 pointX = ConversationConfigData.getNodeX( convId, i );
                 pointY = ConversationConfigData.getNodeY( convId, i );
             }
             else {
                 ConversationConfigData.setNodeX( convId, i, pointX );
                 ConversationConfigData.setNodeY( convId, i, pointY );
+            }*/
+            if (editorXisSet){
+                pointX = graphConversationDataControl.getEditorX( node );
+            } else {
+                graphConversationDataControl.setEditorX( node, pointX );
+            }
+            if (editorYisSet){
+                pointY = graphConversationDataControl.getEditorY( node );
+            } else {
+                graphConversationDataControl.setEditorY( node, pointY );
             }
             Point nodePosition = new Point( pointX, pointY );
 
@@ -196,8 +219,8 @@ public class GraphicRepresentation {
 
         updateConversationSize( );
 
-        if( !posConfigured )
-            setContainerSize( containerSize );
+        /*if( !posConfigured )
+            setContainerSize( containerSize );*/
     }
 
     /**
@@ -285,8 +308,11 @@ public class GraphicRepresentation {
                 graphicNodes.get( i ).moveNode( difference );
 
                 // Update the config data of the conversation
-                String id = this.graphConversationDataControl.getId( );
-                ConversationConfigData.setNodePos( id, i, graphicNodes.get( i ).getPosition( 1.0f ) );
+                //String id = this.graphConversationDataControl.getId( );
+                /*Point newPos = graphicNodes.get( i ).getPosition( 1.0f );
+                graphicNodes.get( i ).getNode( ).setEditorX( newPos.x );
+                graphicNodes.get( i ).getNode( ).setEditorY( newPos.y );*/
+                //ConversationConfigData.setNodePos( id, i, graphicNodes.get( i ).getPosition( 1.0f ) );
             }
 
         // Set the new upper left corner
@@ -428,7 +454,9 @@ public class GraphicRepresentation {
 
                 // Create a new graphic node, with the node and the position, and set it into the vector (in the same
                 // position as node)
-                ConversationConfigData.setNodePos( graphConversationDataControl.getId( ), nodeIndex, nodePosition );
+                //ConversationConfigData.setNodePos( graphConversationDataControl.getId( ), nodeIndex, nodePosition );
+                /*node.setEditorX( nodePosition.x );
+                node.setEditorY( nodePosition.y );*/
                 // If it is a dialogue node, create a dialogue graphic node
                 if( node.getType( ) == ConversationNodeView.DIALOGUE )
                     newGraphicNodes.set( nodeIndex, new DialogueGraphicNode( node, nodePosition ) );
@@ -567,8 +595,11 @@ public class GraphicRepresentation {
             pickedNode.moveNode( moved );
 
             // Update the config data of the conversation
-            String id = this.graphConversationDataControl.getId( );
-            ConversationConfigData.setNodePos( id, pickedNodeIndex, pickedNode.getPosition( 1.0f ) );
+            //String id = this.graphConversationDataControl.getId( );
+            /*Point newPos = pickedNode.getPosition( 1.0f );
+            pickedNode.getNode( ).setEditorX( newPos.x );
+            pickedNode.getNode( ).setEditorY( newPos.y );*/
+            //ConversationConfigData.setNodePos( id, pickedNodeIndex, pickedNode.getPosition( 1.0f ) );
 
             // Set the point to the new node and set modified to true
             lastPoint = point;

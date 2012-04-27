@@ -279,6 +279,12 @@ public class ConversationDOMWriter {
                     // Adds a random attribute if "keepShowing" is activate in conversation node data
                     if( ( (DialogueConversationNode) node ).isKeepShowing( ) )
                         nodeElement.setAttribute( "keepShowing", "yes" );
+                    if( node.getEditorX( )!=-1 ){
+                        nodeElement.setAttribute( "editor-x", Integer.toString( node.getEditorX() ) );
+                    }
+                    if( node.getEditorY( )!=-1 ){
+                        nodeElement.setAttribute( "editor-y", Integer.toString( node.getEditorY() ) );
+                    }
                     // For each line of the node
                     for( int j = 0; j < node.getLineCount( ); j++ ) {
                         // Create a phrase element, and extract the actual text line
@@ -380,6 +386,12 @@ public class ConversationDOMWriter {
                     // Adds a random attribute if "preListening" is activate in conversation node data
                     if( ( (OptionConversationNode) node ).isPreListening( ) )
                         nodeElement.setAttribute( "preListening", "yes" );
+                    if( node.getEditorX( )!=-1 ){
+                        nodeElement.setAttribute( "editor-x", Integer.toString( node.getEditorX() ) );
+                    }
+                    if( node.getEditorY( )!=-1 ){
+                        nodeElement.setAttribute( "editor-y", Integer.toString( node.getEditorY() ) );
+                    }
                     // Adds the x position of the options conversations node
                     nodeElement.setAttribute( "x", String.valueOf( ((OptionConversationNode)node).getX( )) );
                     // Adds a random attribute if "preListening" is activate in conversation node data

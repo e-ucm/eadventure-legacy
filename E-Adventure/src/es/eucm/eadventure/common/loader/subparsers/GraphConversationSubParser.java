@@ -153,6 +153,10 @@ public class GraphConversationSubParser extends SubParser {
      */
     private int x,y;
     
+    /**
+     * v1.4 - Graphical Position of nodes in editor
+     */
+    private int editorX,editorY;
     
     /**
      * Check if each conversation line will wait until user interacts
@@ -213,6 +217,7 @@ public class GraphConversationSubParser extends SubParser {
             // If it is a node, create a new node
             else if( qName.equals( "dialogue-node" ) || qName.equals( "option-node" ) ) {
                 // Create the node depending of the tag
+                editorX=editorY=-1;
                 if( qName.equals( "dialogue-node" ) ){
                     for( int i = 0; i < attrs.getLength( ); i++ ) {
                         //If there is a "waitUserInteraction" attribute, store if the lines will wait until user interacts
@@ -222,12 +227,24 @@ public class GraphConversationSubParser extends SubParser {
                             else
                                 keepShowingDialogue = false;
                         }
+                      //If there is a "editor-x" and "editor-y" attributes
+                        if( attrs.getQName( i ).equals( "editor-x" ) ) {
+                            editorX = Integer.parseInt( attrs.getValue( i ));
+                        } else
+                        
+                        if( attrs.getQName( i ).equals( "editor-y" ) ) {
+                            editorY = Integer.parseInt( attrs.getValue( i ) );
+                        }
                     
-                    currentNode = new DialogueConversationNode(keepShowingDialogue);
-
                     }
-                }
-                
+                    currentNode = new DialogueConversationNode(keepShowingDialogue);
+                    if (editorX!=-1){
+                        currentNode.setEditorX( editorX );
+                    }
+                    if (editorY!=-1){
+                        currentNode.setEditorY( editorY );
+                    }
+                }                
                 if( qName.equals( "option-node" ) ) {
                     for( int i = 0; i < attrs.getLength( ); i++ ) {
                         //If there is a "random" attribute, store if the options will be random
@@ -267,9 +284,23 @@ public class GraphConversationSubParser extends SubParser {
                         if( attrs.getQName( i ).equals( "y" ) ) {
                             y = Integer.parseInt( attrs.getValue( i ) );
                         }
+                      //If there is a "editor-x" and "editor-y" attributes
+                        if( attrs.getQName( i ).equals( "editor-x" ) ) {
+                            editorX = Integer.parseInt( attrs.getValue( i ));
+                        } else
+                        
+                        if( attrs.getQName( i ).equals( "editor-y" ) ) {
+                            editorY = Integer.parseInt( attrs.getValue( i ) );
+                        }
                     }
 
                     currentNode = new OptionConversationNode( random,keepShowing, showUserOption, preListening, x, y );
+                    if (editorX!=-1){
+                        currentNode.setEditorX( editorX );
+                    }
+                    if (editorY!=-1){
+                        currentNode.setEditorY( editorY );
+                    }
                 }
                 // Create a new vector for the links of the current node
                 currentLinks = new ArrayList<Integer>( );

@@ -47,6 +47,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode
 import es.eucm.eadventure.common.data.chapter.conversation.node.DialogueConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
@@ -603,6 +604,34 @@ public abstract class ConversationDataControl extends DataControl {
 
         ConversationNode node = (ConversationNode) selectedNode;
         return ( (DialogueConversationNode) node ).isKeepShowing( );
+    }
+    
+    public int getEditorX( ConversationNodeView selectedNode ){
+        ConversationNode node = (ConversationNode) selectedNode;
+        return node.getEditorX( );
+    }
+    
+    public int getEditorY( ConversationNodeView selectedNode ){
+        ConversationNode node = (ConversationNode) selectedNode;
+        return node.getEditorY( );
+    }
+    
+    public void setEditorX( ConversationNodeView selectedNode, int x ){
+        ConversationNode node = (ConversationNode) selectedNode;
+        
+        if (x!=node.getEditorX( )){
+            node.setEditorX( x );
+            Controller.getInstance( ).dataModified( );
+        }
+        
+    }
+    
+    public void setEditorY( ConversationNodeView selectedNode, int y ){
+        ConversationNode node = (ConversationNode) selectedNode;
+        if (y!=node.getEditorY( )){
+            node.setEditorY( y );
+            Controller.getInstance( ).dataModified( );
+        }
     }
 
 
