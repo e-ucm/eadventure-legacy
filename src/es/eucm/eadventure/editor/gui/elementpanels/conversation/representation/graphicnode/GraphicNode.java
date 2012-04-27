@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.editor.control.Controller;
 
 /**
  * This class is the graphic representation of a given conversational node.
@@ -191,6 +192,15 @@ public class GraphicNode {
             position.x = 0;
         if (position.y < 0)
             position.y = 0;
+        
+        if (position.x!=getNode().getEditorX( )){
+            getNode( ).setEditorX( position.x );
+            Controller.getInstance( ).dataModified( );
+        }
+        if (position.y!=getNode().getEditorY( )){
+            getNode( ).setEditorY( position.y );
+            Controller.getInstance( ).dataModified( );
+        }
     }
 
     /**

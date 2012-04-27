@@ -41,6 +41,14 @@ import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine
 
 public interface ConversationNodeView extends Cloneable {
 
+    public int getEditorX( );
+    
+    public void setEditorX( int xEditor );
+    
+    public int getEditorY( );
+    
+    public void setEditorY( int yEditor );
+    
     /**
      * Constant for dialogue node.
      */

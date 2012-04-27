@@ -45,6 +45,15 @@ import es.eucm.eadventure.common.data.chapter.effects.Effects;
  */
 public abstract class ConversationNode implements ConversationNodeView {
 
+    private int xEditor;
+    
+    private int yEditor;
+    
+    public ConversationNode(){
+        this.xEditor = -1;
+        this.yEditor = -1;
+    }
+    
     /**
      * Returns the child in the specified position
      * 
@@ -223,6 +232,30 @@ public abstract class ConversationNode implements ConversationNodeView {
 
         ConversationNode cn = (ConversationNode) super.clone( );
         return cn;
+    }
+
+    
+    public int getEditorX( ) {
+    
+        return xEditor;
+    }
+
+    
+    public void setEditorX( int xEditor ) {
+    
+        this.xEditor = xEditor;
+    }
+
+    
+    public int getEditorY( ) {
+    
+        return yEditor;
+    }
+
+    
+    public void setEditorY( int yEditor ) {
+    
+        this.yEditor = yEditor;
     }
 
 }
