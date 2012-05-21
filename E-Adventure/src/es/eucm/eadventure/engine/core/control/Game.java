@@ -39,6 +39,7 @@ package es.eucm.eadventure.engine.core.control;
 import java.awt.Graphics2D;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -51,6 +52,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
@@ -853,7 +855,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.lang.Runnable#run()
      */
     public void run( ) {
-
+        
+        
         FINISH = false;
 
         if( debug ) {
@@ -870,6 +873,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             }
         }, 0, 100 );
          */
+        
+        // Added v1.4
+        if ( debug ){
+            printProperties( );
+        }
         
         try {
             this.timerManager = TimerManager.getInstance( );
@@ -2155,5 +2163,27 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     public void setMusicInSlidesId( long musicInSlidesId ) {
     
         this.musicInSlidesId = musicInSlidesId;
+    }
+    
+    /**
+     * Added in v1.4 to facilitate debugging.
+     */
+    private void printProperties(){
+        Properties p = System.getProperties( );
+        DebugLog.general("****************************" );
+        DebugLog.general("**  SYSTEM PROPERTIES  ***" );
+        DebugLog.general("****************************" );
+        
+        for (Object key:p.keySet( )){
+            DebugLog.general( "[ "+key+" , "+p.getProperty( (String)key )+"]" );    
+        }
+        DebugLog.general("****************************" );
+        DebugLog.general("**  TOOLKIT PROPERTIES  ***" );
+        Toolkit t = Toolkit.getDefaultToolkit( );
+        DebugLog.general( "[MAX CURSOR COLORS = "+t.getMaximumCursorColors( ) +"]");
+        DebugLog.general( "[MENU SHORTCUT KEY MASK = "+t.getMenuShortcutKeyMask( ) +"]");
+        DebugLog.general( "[SCREEN RESOLUTION = "+t.getScreenResolution( ) +"]");
+        DebugLog.general( "[SCREEN SIZE = "+t.getScreenSize( ).width + " X " +t.getScreenSize( ).height +"]");
+        DebugLog.general("****************************" );
     }
 }
