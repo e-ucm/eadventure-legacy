@@ -114,8 +114,9 @@ public class SoundMp3 extends Sound {
             audioInputStream = AudioSystem.getAudioInputStream( decodedFormat, ais );
 
             DataLine.Info info = new DataLine.Info( SourceDataLine.class, decodedFormat );
+            //line = AudioSystem.getSourceDataLine( decodedFormat );
             line = (SourceDataLine) AudioSystem.getLine( info );
-            line.open( decodedFormat );
+            //line.open( decodedFormat );
 
             if( line != null ) {
                 try {
