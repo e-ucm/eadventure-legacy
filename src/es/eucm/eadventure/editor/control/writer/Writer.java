@@ -675,7 +675,7 @@ public class Writer {
             }
 
             // Copy the web to the zip
-            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureApplet " );
+            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureApplet" );
 
             // Merge project & e-Adventure jar into file eAdventure_temp.jar
             // Destiny file
@@ -922,7 +922,7 @@ public class Writer {
             }
 
             // Copy the web to the zip
-            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletLAMS " );
+            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletLAMS" );
 
             // Merge project & e-Adventure jar into file eAdventure_temp.jar
             // Destiny file
