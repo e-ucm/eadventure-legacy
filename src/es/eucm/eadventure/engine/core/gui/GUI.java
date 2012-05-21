@@ -66,6 +66,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
@@ -210,12 +211,18 @@ public abstract class GUI implements FocusListener {
     /**
      * Create the singleton instance
      */
+    // V1.5: Added support for decorated frames to improve user experience with two screens
     public static void create( ) {
 
         if( GUIType == GUI.GUI_APPLET )
             instance = new GUIApplet( );
-        else
-            instance = new GUIFrame( );
+        else{
+            boolean decorated = false;
+            if (Game.getInstance( )!=null && Game.getInstance( ).getGameDescriptor( )!=null){
+                decorated = Game.getInstance( ).getGameDescriptor( ).getGraphicConfig( ) == DescriptorData.GRAPHICS_WINDOWED;
+            }
+            instance = new GUIFrame( decorated );
+        }
     }
 
     /**
