@@ -39,9 +39,9 @@ package es.eucm.eadventure.editor.gui.assetchooser;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -106,7 +106,7 @@ public abstract class AssetChooser extends JFileChooser {
 
     private JPanel filePanel;
 
-    private JScrollPane zipContentsPanel;
+    private JScrollPane projectContentsPanel;
 
     protected JList assetsList;
 
@@ -275,7 +275,7 @@ public abstract class AssetChooser extends JFileChooser {
         approveAssetButton.add( app );
         //assetsPanel.add( approveAssetButton, BorderLayout.SOUTH );
         assetsPanel.add( approveAssetButton, BorderLayout.SOUTH );
-        assetsPanel.add( zipContentsPanel, BorderLayout.CENTER );
+        assetsPanel.add( projectContentsPanel, BorderLayout.CENTER );
 
         JPanel centerPanel = new JPanel( );
         if( previewLocation == PREVIEW_LOCATION_SOUTH ) {
@@ -288,7 +288,7 @@ public abstract class AssetChooser extends JFileChooser {
         }
 
         centerPanel.add( mainPanel );
-        zipContentsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Assets in .ead file" ) );
+        projectContentsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Assets in .ead file" ) );
 
         JPanel southPanel = new JPanel( );
         southPanel.setLayout( new BorderLayout( ) );
@@ -328,8 +328,8 @@ public abstract class AssetChooser extends JFileChooser {
         assetsList.addListSelectionListener( new ResourcesListListener( ) );
         //assetsList.setMinimumSize( new Dimension( filePanel.getMinimumSize( ).width + min.width, filePanel.getMinimumSize( ).height + min.height ) );
         //assetsList.setPreferredSize( new Dimension( filePanel.getPreferredSize( ).width + pref.width + 1, filePanel.getPreferredSize( ).height + pref.height + 1 ) );
-        this.zipContentsPanel = new JScrollPane( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS );
-        zipContentsPanel.setViewportView( assetsList );
+        this.projectContentsPanel = new JScrollPane( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS );
+        projectContentsPanel.setViewportView( assetsList );
 
     }
 
@@ -339,23 +339,111 @@ public abstract class AssetChooser extends JFileChooser {
         if( previewLocation == PREVIEW_LOCATION_WEST ) {
             assetsList.setLayoutOrientation( JList.VERTICAL );
 
-            this.zipContentsPanel = new JScrollPane( ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+            this.projectContentsPanel = new JScrollPane( ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
         }
         else if( previewLocation == PREVIEW_LOCATION_SOUTH ) {
             assetsList.setLayoutOrientation( JList.VERTICAL );
-            this.zipContentsPanel = new JScrollPane( ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+            this.projectContentsPanel = new JScrollPane( ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
         }
         String[] assets = AssetsController.getAssetFilenames( assetCategory );
+        // Order assets by filename
+        
+        
         if (this.isMultiSelectionEnabled( ))
             assetsList.setSelectionMode( ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
         else
             assetsList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-        assetsList.setListData( assets );
+        //assetsList.setListData( assets );
+        assetsList.setListData( orderAssetList(assets) );
         assetsList.addListSelectionListener( new ResourcesListListener( ) );
-        zipContentsPanel.setViewportView( assetsList );
+        projectContentsPanel.setViewportView( assetsList );
 
     }
 
+    /**
+     * Orders the given assets array alphabetically using the Quicksort algorithm
+     * @param assets    The asset list to be ordered
+     * @since   v1.5
+     */
+    private String[] orderAssetList ( String[] assets){
+        if (assets == null || assets.length == 0){
+            return assets;
+        }
+        
+        List<String> orderedAssets = new ArrayList<String>();
+        for (String s: assets){
+            orderedAssets.add( s );
+        }
+        
+        orderAssetList ( orderedAssets, 0, assets.length-1 );
+        
+        return orderedAssets.toArray( new String[]{} );
+    }
+    
+    /**
+     * Orders the given assets list alphabetically from position i to j (both included) using the Quicksort algorithm
+     * @param assets    The asset list to be ordered
+     * @param i     First position in the sublist that will be ordered
+     * @param j     Last position in the sublist that will be ordered
+     * @since   v1.5
+     */
+    private void orderAssetList ( List<String> assets, int i, int j){
+        if (assets==null || assets.size( )==0 || j-i+1<=1){
+            return;
+        }
+        
+        //Pivot
+        int pivotIndx = (j-i+1)/2;
+        String pivot = assets.get( pivotIndx );
+        
+        int movedToEnd=0;
+        for (int indx=i; indx<=j-movedToEnd; indx++){
+            int compare = compareStrings (assets.get( indx ), pivot);
+            if (compare==1 && indx>pivotIndx){
+                assets.add( 0, assets.remove( indx ) );
+            }
+            else if (compare==2 && indx<pivotIndx){
+                assets.add( j, assets.remove( indx ) );
+                movedToEnd++;
+            }
+        }
+        
+        orderAssetList(assets, i, pivotIndx-1);
+        orderAssetList(assets, pivotIndx+1, j);
+    }
+    
+    /**
+     * Checks if s1 precedes s2 in alphabetical order. The algorithm takes into account the length of the strings, 
+     * considering that if s1 is a substring of s2, then s1 < s2.
+     * @param s1
+     * @param s2
+     * @return  1 if s1 is lower than s2;
+     *          2 if s2 is lower than s1:
+     *          0 if s1 is equals to s2. This only happens if s1=s2 and they have the same length. if s2 contains s1, 1 is returned, 
+     *              If s1 contains s2, 2 is returned.
+     * @since v1.5. Used to order the asset list.
+     * 
+     */
+    private int compareStrings ( String s1, String s2 ){
+        char[] chars1 = s1.toCharArray( );
+        char[] chars2 = s2.toCharArray( );
+        for (int i=0; i<Math.min( chars1.length, chars2.length ); i++){
+            if (chars1[i]<chars2[i]){
+                return 1;
+            } else if (chars1[i]>chars2[i]){
+                return 2;
+            }
+        }
+        
+        if (chars1.length<chars2.length){
+            return 1;
+        } else if (chars1.length>chars2.length){
+            return 2;
+        } else {
+            return 0;
+        }
+    }
+    
     private void createCentralPanel( ) {
 
         //3)Create the central panel and add the filePanel to it
@@ -456,7 +544,7 @@ public abstract class AssetChooser extends JFileChooser {
 
             setCurrentDirectory( new File( Controller.getInstance( ).getProjectFolder( ) ) );
             //+"/"+AssetsController.getCategoryFolder(type)
-            explorerPanel = zipContentsPanel;
+            explorerPanel = projectContentsPanel;
             showingZipContents = true;
             setSelectedFile( null );
 
