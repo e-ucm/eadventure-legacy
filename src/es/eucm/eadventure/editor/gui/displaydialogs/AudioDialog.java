@@ -40,11 +40,10 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import javax.swing.JDialog;
-
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.AudioPanel;
 
 /**
@@ -52,7 +51,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.AudioPanel;
  * 
  * @author Bruno Torijano Bueno
  */
-public class AudioDialog extends JDialog {
+public class AudioDialog extends JPositionedDialog {
 
     /**
      * Required.

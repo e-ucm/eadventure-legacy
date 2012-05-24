@@ -39,14 +39,14 @@ package es.eucm.eadventure.editor.gui.displaydialogs;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookPagePreviewPanel;
 
-public class StyledBookDialog extends JDialog {
+public class StyledBookDialog extends JPositionedDialog {
 
     private static final long serialVersionUID = 1L; 
 

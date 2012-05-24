@@ -60,7 +60,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -90,6 +89,7 @@ import es.eucm.eadventure.editor.control.tools.adaptation.DeleteRuleTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.DuplicateRuleTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericOptionPaneDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
@@ -607,7 +607,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         return tempPanel;
     }
 
-    private class SMTPDialog extends JDialog {
+    private class SMTPDialog extends JPositionedDialog {
 
         private static final long serialVersionUID = -1152972955243725648L;
 

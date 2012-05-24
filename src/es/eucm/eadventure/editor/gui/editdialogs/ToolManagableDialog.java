@@ -45,14 +45,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.gui.MainWindow;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
-public abstract class ToolManagableDialog extends JDialog implements Updateable, WindowListener {
+public abstract class ToolManagableDialog extends JPositionedDialog implements Updateable, WindowListener {
 
     /**
      * 

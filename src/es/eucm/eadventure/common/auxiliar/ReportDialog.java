@@ -81,6 +81,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedFrame;
 
 /**
  * This class has methods used to generate and send an error or comments report
@@ -183,7 +184,12 @@ public class ReportDialog extends JDialog {
      */
     public static void GenerateCommentsReport( ) {
 
-        new ReportDialog( );
+        ReportDialog rep = new ReportDialog( );
+        int x=rep.getX( );
+        int y=rep.getY( );
+        int w=rep.getWidth( );
+        int h=rep.getHeight( );
+        rep.setLocation( JPositionedFrame.adjustXWithConfig( x, w ), JPositionedFrame.adjustYWithConfig( y, h ));
     }
 
     /**
@@ -591,7 +597,7 @@ public class ReportDialog extends JDialog {
 
     }
 
-    //TODO: eliminar este mŽtodo, se a–adi— para las pruebas de medicina
+    //TODO: eliminar este mï¿½todo, se aï¿½adiï¿½ para las pruebas de medicina
     public static void sendReport(String comment) {
         try {
             URL url = new URL( "http://backend-ea.e-ucm.es/reports.php" );

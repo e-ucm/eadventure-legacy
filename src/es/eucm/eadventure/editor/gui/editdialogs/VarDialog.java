@@ -52,7 +52,6 @@ import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
@@ -62,8 +61,9 @@ import javax.swing.text.PlainDocument;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
-public class VarDialog extends JDialog {
+public class VarDialog extends JPositionedDialog {
 
     private static final long serialVersionUID = 2389765067746677296L;
 

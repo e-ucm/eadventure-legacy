@@ -43,7 +43,6 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.util.List;
 
-import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -51,6 +50,7 @@ import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
 /**
  * Dialog that shows a set of list of data, containing the inconsistencies found
@@ -59,7 +59,7 @@ import es.eucm.eadventure.editor.control.Controller;
  * 
  * @author Bruno Torijano Bueno
  */
-public class InvalidReportDialog extends JDialog {
+public class InvalidReportDialog extends JPositionedDialog {
 
     /**
      * Required.

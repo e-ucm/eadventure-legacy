@@ -44,19 +44,21 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSDataControl;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.HelpDialog;
 
-public class IMSDialog extends JDialog {
+public class IMSDialog extends JPositionedDialog {
 
     private static final String helpPath = "metadata/IMSLOM.html";
 

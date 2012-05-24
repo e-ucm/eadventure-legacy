@@ -49,13 +49,13 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
-public class LOMVocabularyDialog extends JDialog {
+public class LOMVocabularyDialog extends JPositionedDialog {
 
     private int selection;
 

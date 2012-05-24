@@ -65,8 +65,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
@@ -217,11 +219,7 @@ public abstract class GUI implements FocusListener {
         if( GUIType == GUI.GUI_APPLET )
             instance = new GUIApplet( );
         else{
-            boolean decorated = false;
-            if (Game.getInstance( )!=null && Game.getInstance( ).getGameDescriptor( )!=null){
-                decorated = Game.getInstance( ).getGameDescriptor( ).getGraphicConfig( ) == DescriptorData.GRAPHICS_WINDOWED;
-            }
-            instance = new GUIFrame( decorated );
+            instance = new GUIFrame( );
         }
     }
 
@@ -1499,7 +1497,7 @@ public abstract class GUI implements FocusListener {
         /**
          * Returns the y of the element
          * 
-         * @return The y element´s position
+         * @return The y elementï¿½s position
          */
         public int getY( ) {
 
@@ -1507,7 +1505,7 @@ public abstract class GUI implements FocusListener {
         }
 
         /**
-         * Changes the element´s depth
+         * Changes the elementï¿½s depth
          * 
          * @param depth
          */
@@ -1736,6 +1734,12 @@ public abstract class GUI implements FocusListener {
     public static void setGraphicConfig( int newGraphicConfig ) {
 
         graphicConfig = newGraphicConfig;
+        
+        
+        if ( graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN && !System.getProperty( "os.name" ).toLowerCase().contains( "win" )){
+            JOptionPane.showMessageDialog( null, TC.get( "GUI.NoFullscreenTitle" ), TC.get( "GUI.NoFullscreenContent" ), JOptionPane.WARNING_MESSAGE );
+            graphicConfig = DescriptorData.GRAPHICS_WINDOWED;
+        }
     }
 
     public abstract Frame getJFrame( );

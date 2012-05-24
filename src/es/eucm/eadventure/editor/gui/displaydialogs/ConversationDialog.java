@@ -56,7 +56,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
@@ -70,10 +69,11 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.gui.audio.SoundMp3;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.Clock;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.ClockListener;
 
-public class ConversationDialog extends JDialog implements ClockListener {
+public class ConversationDialog extends JPositionedDialog implements ClockListener {
 
     /**
      * Required.

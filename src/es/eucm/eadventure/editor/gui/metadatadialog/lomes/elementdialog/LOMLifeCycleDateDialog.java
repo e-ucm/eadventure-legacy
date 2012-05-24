@@ -49,7 +49,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -60,8 +59,9 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDateDataControl;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleDate;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
-public class LOMLifeCycleDateDialog extends JDialog {
+public class LOMLifeCycleDateDialog extends JPositionedDialog {
 
     private JTextField years;
 

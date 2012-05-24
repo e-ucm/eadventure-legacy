@@ -43,14 +43,13 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
-import javax.swing.JFileChooser;
-
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedFrame;
 
-public class TestLargeImages extends JFrame {
+public class TestLargeImages extends JPositionedFrame {
 
     private ImagePanel imagePanel;
 

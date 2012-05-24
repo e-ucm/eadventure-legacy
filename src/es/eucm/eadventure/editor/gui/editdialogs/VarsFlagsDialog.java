@@ -50,7 +50,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -64,14 +63,14 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
 /**
  * This class is the editing dialog of the flags. Here the user can add new
  * flags to use them in the script. Also, the flags can be deleted.
  * 
- * @author Bruno Torijano Bueno
  */
-public class VarsFlagsDialog extends JDialog {
+public class VarsFlagsDialog extends JPositionedDialog {
 
     /**
      * Required.

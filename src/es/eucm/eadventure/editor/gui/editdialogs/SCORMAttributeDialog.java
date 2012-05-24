@@ -51,7 +51,6 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -59,11 +58,12 @@ import javax.swing.SpinnerNumberModel;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
 /**
  * Class to manage the arrays attributes in SCORM data model
  */
-public class SCORMAttributeDialog extends JDialog{
+public class SCORMAttributeDialog extends JPositionedDialog{
 
     /**
      * Required.

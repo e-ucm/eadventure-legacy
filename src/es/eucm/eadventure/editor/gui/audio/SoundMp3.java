@@ -97,7 +97,7 @@ public class SoundMp3 extends Sound {
         this.filename = filename;
         stop = false;
 
-        try {
+        /*try {
             // Open MP3 file
             InputStream is = AssetsController.getInputStream( filename );
             AudioInputStream ais = AudioSystem.getAudioInputStream( is );
@@ -115,8 +115,9 @@ public class SoundMp3 extends Sound {
             audioInputStream = AudioSystem.getAudioInputStream( decodedFormat, ais );
 
             DataLine.Info info = new DataLine.Info( SourceDataLine.class, decodedFormat );
-            line = (SourceDataLine) AudioSystem.getLine( info );
-            line.open( decodedFormat );
+            line = AudioSystem.getSourceDataLine( decodedFormat );
+            //line = (SourceDataLine) AudioSystem.getLine( info );
+            //line.open( decodedFormat );
 
         }
         catch( UnsupportedAudioFileException e ) {
@@ -127,7 +128,7 @@ public class SoundMp3 extends Sound {
         }
         catch( LineUnavailableException e ) {
             System.err.println( "WARNING - audio device is unavailable to play \"" + filename + "\" - sound will be disabled" );
-        }
+        }*/
     }
 
     /*
@@ -138,30 +139,66 @@ public class SoundMp3 extends Sound {
     @Override
     public void playOnce( ) {
 
-        if( line != null ) {
-            try {
-                line.open( decodedFormat );
-                byte[] data = new byte[ 4096 ];
-                line.start( );
-
-                int nBytesRead;
-                while( !stop && ( nBytesRead = audioInputStream.read( data, 0, data.length ) ) != -1 )
-                    line.write( data, 0, nBytesRead );
-
-            }
-            catch( IOException e ) {
-                stopPlaying( );
-                System.out.println( "WARNING - could not open \"" + filename + "\" - sound will be disabled" );
-            }
-            catch( LineUnavailableException e ) {
-                stopPlaying( );
-                System.out.println( "WARNING - audio device is unavailable to play \"" + filename + "\" - sound will be disabled" );
-            }
-
+     // Open MP3 file
+        InputStream is = AssetsController.getInputStream( filename );
+        AudioInputStream ais=null;
+        try {
+            ais = AudioSystem.getAudioInputStream( is );
         }
-        else
-            // If there was any error loading the sound, do nothing
-            stopPlaying( );
+        catch( UnsupportedAudioFileException e1 ) {
+            e1.printStackTrace();
+        }
+        catch( IOException e1 ) {
+            e1.printStackTrace();
+        }
+
+        if (ais!=null){
+            AudioFormat baseFormat = ais.getFormat( );
+            decodedFormat = new AudioFormat( AudioFormat.Encoding.PCM_SIGNED, // Encoding to use
+            baseFormat.getSampleRate( ), // sample rate (same as base format)
+            16, // sample size in bits (thx to Javazoom)
+            baseFormat.getChannels( ), // # of Channels
+            baseFormat.getChannels( ) * 2, // Frame Size
+            baseFormat.getSampleRate( ), // Frame Rate
+            false // Big Endian
+            );
+    
+            audioInputStream = AudioSystem.getAudioInputStream( decodedFormat, ais );
+    
+            DataLine.Info info = new DataLine.Info( SourceDataLine.class, decodedFormat );
+            try {
+                line = AudioSystem.getSourceDataLine( decodedFormat );
+            }
+            catch( LineUnavailableException e1 ) {
+                e1.printStackTrace();
+            }
+            
+            if( line != null ) {
+                try {
+                    //line.open( decodedFormat );
+                    line.open( );
+                    byte[] data = new byte[ 4096 ];
+                    line.start( );
+    
+                    int nBytesRead;
+                    while( !stop && ( nBytesRead = audioInputStream.read( data, 0, data.length ) ) != -1 )
+                        line.write( data, 0, nBytesRead );
+    
+                }
+                catch( IOException e ) {
+                    stopPlaying( );
+                    System.out.println( "WARNING - could not open \"" + filename + "\" - sound will be disabled" );
+                }
+                catch( LineUnavailableException e ) {
+                    stopPlaying( );
+                    System.out.println( "WARNING - audio device is unavailable to play \"" + filename + "\" - sound will be disabled" );
+                }
+    
+            }
+            else
+                // If there was any error loading the sound, do nothing
+                stopPlaying( );
+        }
     }
 
     /*

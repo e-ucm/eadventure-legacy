@@ -51,6 +51,7 @@ import javax.swing.JFrame;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedFrame;
 
 
 public class FrameForInitialDialogs {
@@ -87,7 +88,7 @@ public class FrameForInitialDialogs {
     public synchronized int showStartDialog(){
        
         
-        frame = new JFrame(TC.get( "StartDialog.Title" ));
+        frame = new JPositionedFrame(TC.get( "StartDialog.Title" ));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         List<Image> icons = new ArrayList<Image>( );

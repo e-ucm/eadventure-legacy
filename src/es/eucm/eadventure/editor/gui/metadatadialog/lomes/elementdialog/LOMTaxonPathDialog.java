@@ -48,7 +48,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
@@ -57,12 +56,13 @@ import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMClassificationTaxonPath;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxon;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESCreateContainerPanel;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMLangStringPanel;
 
 ;
 
-public class LOMTaxonPathDialog extends JDialog {
+public class LOMTaxonPathDialog extends JPositionedDialog {
 
     private LOMLangStringPanel source;
 
