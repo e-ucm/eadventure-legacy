@@ -47,17 +47,17 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
 /**
  * This holds the common operations for a class that displays images.
  * 
  * @author Bruno Torijano Bueno
  */
-public abstract class GraphicDialog extends JDialog {
+public abstract class GraphicDialog extends JPositionedDialog {
 
     /**
      * Required.

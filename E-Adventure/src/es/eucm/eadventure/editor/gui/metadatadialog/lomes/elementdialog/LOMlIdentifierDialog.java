@@ -49,7 +49,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -61,9 +60,10 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESGeneralId;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESCreateContainerPanel;
 
-public class LOMlIdentifierDialog extends JDialog {
+public class LOMlIdentifierDialog extends JPositionedDialog {
 
     private JTextField catalog;
 

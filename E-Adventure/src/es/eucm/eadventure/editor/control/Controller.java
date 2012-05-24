@@ -108,6 +108,7 @@ import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.MainWindow;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
@@ -1017,7 +1018,7 @@ public class Controller {
                 loadFile( start.getRecentFile( ).getAbsolutePath( ), true );
             }
             else if( op == StartDialog.CANCEL_OPTION ) {
-                exit( );
+                //exit( );
             }
 
             start.remove( );
@@ -1474,7 +1475,7 @@ public class Controller {
                     loadFile( start.getRecentFile( ).getAbsolutePath( ), true );
                 }
                 else if( op == StartDialog.CANCEL_OPTION ) {
-                    exit( );
+                    //exit( );
                 }
 
                 start.remove( );
@@ -3568,7 +3569,7 @@ public class Controller {
     public void showAboutDialog( ) {
 
         try {
-            JDialog dialog = new JDialog( Controller.getInstance( ).peekWindow( ), TC.get( "About" ), Dialog.ModalityType.TOOLKIT_MODAL );
+            JDialog dialog = new JPositionedDialog( Controller.getInstance( ).peekWindow( ), TC.get( "About" ), Dialog.ModalityType.TOOLKIT_MODAL );
             dialog.getContentPane( ).setLayout( new BorderLayout( ) );
 
             JPanel panel = new JPanel( );
@@ -3887,6 +3888,22 @@ public class Controller {
         this.adventureDataControl.setDragBehaviour( dragBehaviour );
     }
 
+    public int getMainWindowWidth(){
+        return mainWindow.getWidth( );
+    }
+    
+    public int getMainWindowHeight(){
+        return mainWindow.getHeight( );
+    }
+    
+    public int getMainWindowX(){
+        return mainWindow.getX( );
+    }
+    
+    public int getMainWindowY(){
+        return mainWindow.getY( );
+    }
+    
     /**
      * Change all animation old formats (name_01) for new formats (.eaa)
      */
@@ -3954,6 +3971,10 @@ public class Controller {
                 }
             }// end resources  for
         }// end main for
+    }
+
+    public boolean isMainWindowBuilt( ) {
+        return mainWindow!=null;
     }
 
 }

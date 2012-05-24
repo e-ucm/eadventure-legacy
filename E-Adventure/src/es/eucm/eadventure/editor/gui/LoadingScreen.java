@@ -41,19 +41,18 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.Window;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 import es.eucm.eadventure.common.auxiliar.CreateImage;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedFrame;
 
-public class LoadingScreen extends JFrame {
+public class LoadingScreen extends JPositionedFrame {
 
     private String message;
 
@@ -91,11 +90,11 @@ public class LoadingScreen extends JFrame {
         int height = icon.getImage( ).getHeight( this );
         this.setSize( width, height );
         //this.setResizable( false );
-        double screenWidth = Toolkit.getDefaultToolkit( ).getScreenSize( ).getWidth( );
+        /*double screenWidth = Toolkit.getDefaultToolkit( ).getScreenSize( ).getWidth( );
         double screenHeight = Toolkit.getDefaultToolkit( ).getScreenSize( ).getHeight( );
         int locX = Math.round( ( (int) screenWidth - width ) / 2.0f );
         int locY = Math.round( ( (int) screenHeight - height ) / 2.0f );
-        this.setLocation( locX, locY );
+        this.setLocation( locX, locY );*/
         this.setCursor( Cursor.getPredefinedCursor( Cursor.WAIT_CURSOR ) );
         //this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
         //this.setAlwaysOnTop( true );
@@ -113,6 +112,13 @@ public class LoadingScreen extends JFrame {
         thread.start( );
     }
 
+    @Override
+    public void setVisible ( boolean visible ){
+        if ( visible )
+            setLocation (0,0);
+        super.setVisible( visible );
+    }
+    
     public void close( ) {
 
         thread.setStop( true );

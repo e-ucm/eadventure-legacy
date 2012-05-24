@@ -50,7 +50,6 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -61,10 +60,11 @@ import es.eucm.eadventure.editor.data.meta.Vocabulary;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleContribute;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleDate;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESCreateComposeTypePanel;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMVocabularyPanel;
 
-public class LOMContributeDialog extends JDialog {
+public class LOMContributeDialog extends JPositionedDialog {
 
     public static final int NONE = 0;
 

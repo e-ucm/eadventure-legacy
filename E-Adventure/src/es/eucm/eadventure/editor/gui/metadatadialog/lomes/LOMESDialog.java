@@ -49,7 +49,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
@@ -58,9 +57,10 @@ import javax.swing.event.ChangeListener;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDataControl;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.HelpDialog;
 
-public class LOMESDialog extends JDialog {
+public class LOMESDialog extends JPositionedDialog {
 
     private LOMESDataControl dataControl;
 

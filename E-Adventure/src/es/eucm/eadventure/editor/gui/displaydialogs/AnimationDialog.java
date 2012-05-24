@@ -40,14 +40,13 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import javax.swing.JDialog;
-
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.AnimationPanel;
 
 /**
@@ -55,7 +54,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.AnimationPanel;
  * 
  * @author Bruno Torijano Bueno
  */
-public class AnimationDialog extends JDialog {
+public class AnimationDialog extends JPositionedDialog {
 
     /**
      * Required.

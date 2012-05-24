@@ -39,12 +39,12 @@ package es.eucm.eadventure.editor.gui.editdialogs;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -53,8 +53,9 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.HTMLEditController;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
-public class HTMLEditDialog extends JDialog implements WindowListener {
+public class HTMLEditDialog extends JPositionedDialog implements WindowListener {
 
     //private BookPage bookPage;
 

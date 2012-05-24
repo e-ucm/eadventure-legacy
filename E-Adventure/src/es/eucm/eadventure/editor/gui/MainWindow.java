@@ -41,11 +41,14 @@ import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -101,6 +104,9 @@ public class MainWindow extends JFrame {
     private static final int STRUCTURE_PANEL_WIDTH = 250;
     private static final int STRUCTURE_PANEL_MINHEIGHT = 0;
     private static final int STRUCTURE_PANEL_MAXHEIGHT = Integer.MAX_VALUE;
+    
+    private static final int WINDOW_MIN_WIDTH=960;
+    private static final int WINDOW_MIN_HEIGHT=720;
     
     /**
      * Required.
@@ -245,19 +251,82 @@ public class MainWindow extends JFrame {
         // Create the windows stack
         windowsStack = new Stack<Window>( );
 
+
+        
+        this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
+        // Set title and properties
+        updateTitle( );
+
+        sizeAndLocationSetup();
+        
+    }
+    
+    
+    private void sizeAndLocationSetup(){
         // Set size and position
-        setMinimumSize( new Dimension( 640, 400 ) );
-        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
+        // Use default device
+        GraphicsDevice device = environment.getDefaultScreenDevice( );
+        int deviceWidth = device.getDisplayMode( ).getWidth( );
+        int deviceHeight = device.getDisplayMode( ).getHeight( );
+
+        int totalWidth = Math.min( environment.getMaximumWindowBounds( ).width, deviceWidth);
+        int totalHeight = Math.min( environment.getMaximumWindowBounds( ).height, deviceHeight);
+        
+        int minWidth = Math.min( totalWidth>WINDOW_MIN_WIDTH?WINDOW_MIN_WIDTH:totalWidth-10, ConfigData.getEditorWindowWidth( ));
+        int minHeight = Math.min( totalHeight>WINDOW_MIN_HEIGHT?WINDOW_MIN_HEIGHT:totalHeight-40, ConfigData.getEditorWindowHeight( ));
+        setMinimumSize( new Dimension(minWidth, minHeight) );
+        
+        int prefWidth = ConfigData.getEditorWindowWidth( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowWidth( ):totalWidth;
+        int prefHeight = ConfigData.getEditorWindowHeight( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowHeight( ):totalHeight;
+        setPreferredSize ( new Dimension (prefWidth, prefHeight) );
+        setSize ( new Dimension (prefWidth, prefHeight) );
         /*int width = (int) Math.min( 960, screenSize.getWidth( ) );
         int height = (int) Math.min( 720, screenSize.getHeight( ) );
         setSize( width, height );
         setLocation( Math.max( ( screenSize.width - width ) / 2, 0 ), Math.max(( screenSize.height - height ) / 2, 0) );*/
 
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        int screenOffsetX = device.getDefaultConfiguration( ).getBounds( ).x;
+        int screenOffsetY = device.getDefaultConfiguration( ).getBounds( ).y;
+        
+        int x = ConfigData.getEditorWindowX( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowX( ):screenOffsetX+(totalWidth-prefWidth)/2 ;
+        int y = ConfigData.getEditorWindowY( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowY( ):screenOffsetY+(totalHeight-prefHeight)/2 ;
+        this.setLocation( x, y );
+        ConfigData.setEditorWindowX( x );
+        ConfigData.setEditorWindowY( y );
+        ConfigData.setEditorWindowWidth( prefWidth );
+        ConfigData.setEditorWindowHeight( prefHeight );
+        
+        this.addComponentListener( new ComponentListener(){
 
-        this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
-        // Set title and properties
-        updateTitle( );
+            public void componentHidden( ComponentEvent e ) {
+                updateWindowParams();
+            }
+
+            public void componentMoved( ComponentEvent e ) {
+                updateWindowParams();
+            }
+
+            public void componentResized( ComponentEvent e ) {
+                updateWindowParams();                
+            }
+
+            public void componentShown( ComponentEvent e ) {
+                updateWindowParams();
+            }
+            
+        });
+    }
+    
+    /**
+     *  Updates Config data with window's size and locaiton
+     *  @since v1.5
+     */
+    private void updateWindowParams(){
+        ConfigData.setEditorWindowX( this.getX( ) );
+        ConfigData.setEditorWindowY( this.getY( ) );
+        ConfigData.setEditorWindowWidth( this.getWidth( ) );
+        ConfigData.setEditorWindowHeight( this.getHeight( ) );
     }
 
     private JPanel createToolsPanel( ) {

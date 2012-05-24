@@ -52,7 +52,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
@@ -60,8 +59,9 @@ import javax.swing.JTextPane;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
-public class BookTypesDialog extends JDialog {
+public class BookTypesDialog extends JPositionedDialog {
 
     /**
      * Required.

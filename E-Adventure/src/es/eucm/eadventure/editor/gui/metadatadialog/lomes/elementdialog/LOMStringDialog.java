@@ -48,7 +48,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -59,8 +58,9 @@ import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
-public class LOMStringDialog extends JDialog {
+public class LOMStringDialog extends JPositionedDialog {
 
     public static final int TYPE_NONE = 0;
 

@@ -41,13 +41,14 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JDialog;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.VideoPanel;
 
 /**
@@ -55,7 +56,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.VideoPanel;
  * 
  * @author Javier Torrente
  */
-public class VideoDialog extends JDialog {
+public class VideoDialog extends JPositionedDialog {
 
     private VideoPanel videoPanel;
 

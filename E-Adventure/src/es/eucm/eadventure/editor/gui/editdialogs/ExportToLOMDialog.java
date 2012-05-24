@@ -54,7 +54,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -66,8 +65,9 @@ import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
-public class ExportToLOMDialog extends JDialog {
+public class ExportToLOMDialog extends JPositionedDialog {
 
     private boolean validated;
 
@@ -112,7 +112,7 @@ public class ExportToLOMDialog extends JDialog {
         c.weightx = 1;
 
         JPanel typePanel = new JPanel( );
-        String[] options = { "IMS CP", "WebCT 4 CP", "SCORM", "SCORM2004", "AGREGA", "LAMS"/*, "GAME·TEL-PC"*/};
+        String[] options = { "IMS CP", "WebCT 4 CP", "SCORM", "SCORM2004", "AGREGA", "LAMS"/*, "GAMEï¿½TEL-PC"*/};
         typeComboBox = new JComboBox( options );
         typeComboBox.addItemListener( new ItemListener(){
 

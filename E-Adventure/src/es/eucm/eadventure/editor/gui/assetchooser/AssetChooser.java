@@ -39,9 +39,9 @@ package es.eucm.eadventure.editor.gui.assetchooser;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -377,6 +377,10 @@ public abstract class AssetChooser extends JFileChooser {
         
         orderAssetList ( orderedAssets, 0, assets.length-1 );
         
+        for (String s: orderedAssets){
+            System.out.println( s);
+        }
+        
         return orderedAssets.toArray( new String[]{} );
     }
     
@@ -393,18 +397,21 @@ public abstract class AssetChooser extends JFileChooser {
         }
         
         //Pivot
-        int pivotIndx = (j-i+1)/2;
+        int pivotIndx = i+(j-i+1)/2;
         String pivot = assets.get( pivotIndx );
         
         int movedToEnd=0;
         for (int indx=i; indx<=j-movedToEnd; indx++){
             int compare = compareStrings (assets.get( indx ), pivot);
             if (compare==1 && indx>pivotIndx){
-                assets.add( 0, assets.remove( indx ) );
+                assets.add( i, assets.remove( indx ) );
+                pivotIndx++;
             }
             else if (compare==2 && indx<pivotIndx){
                 assets.add( j, assets.remove( indx ) );
                 movedToEnd++;
+                pivotIndx--;
+                indx--;
             }
         }
         

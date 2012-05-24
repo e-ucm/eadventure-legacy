@@ -52,7 +52,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -64,8 +63,9 @@ import javax.swing.event.HyperlinkListener;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
-public class HelpDialog extends JDialog implements HyperlinkListener {
+public class HelpDialog extends JPositionedDialog implements HyperlinkListener {
 
     /**
      * 
