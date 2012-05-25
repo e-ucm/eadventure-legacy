@@ -368,6 +368,10 @@
 <!ATTLIST dialogue-node
 	nodeindex CDATA #REQUIRED
 	keepShowing (yes | no) "no"
+	x CDATA #IMPLIED
+	y CDATA #IMPLIED
+	editor-x CDATA #IMPLIED
+	editor-y CDATA #IMPLIED
 >
 <!ELEMENT option-node ((speak-player,condition?, child)*,effect?)>
 <!ATTLIST option-node
@@ -376,8 +380,8 @@
 	keepShowing (yes | no) "no"
 	showUserOption (yes | no) "no"
 	preListening (yes | no) "no"
-	x NMTOKEN "10"
-	y NMTOKEN "480"	
+	editor-x CDATA #IMPLIED
+	editor-y CDATA #IMPLIED
 >
 <!ELEMENT child EMPTY>
 <!ATTLIST child
