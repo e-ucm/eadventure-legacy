@@ -36,7 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine;
 
-import es.eucm.eadventure.common.auxiliar.DebugOptions;
+import es.eucm.eadventure.common.auxiliar.runsettings.RunAndDebugSettings;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.Loader;
@@ -62,7 +62,7 @@ public class EAdventureDebug {
      * @param args
      *            Arguments
      */
-    public static void debug( AdventureData data, InputStreamCreator isCreator, DebugOptions debugOptions ) {
+    public static void runOrDebug( AdventureData data, InputStreamCreator isCreator, RunAndDebugSettings debugOptions ) {
 
         Loader.setAdventureData( data );
         ResourceHandler.setExternalMode( isCreator );
@@ -74,15 +74,4 @@ public class EAdventureDebug {
         Loader.setAdventureData( null );
     }
 
-    public static void normalRun( AdventureData data, InputStreamCreator isCreator ) {
-
-        Loader.setAdventureData( data );
-        ResourceHandler.setExternalMode( isCreator );
-        GameText.reloadStrings( );
-        Game.create( true, null );
-        Game.getInstance( ).setAdventureName( data.getTitle( ) );
-        Game.getInstance( ).run( );
-        Game.delete( );
-        Loader.setAdventureData( null );
-    }
 }

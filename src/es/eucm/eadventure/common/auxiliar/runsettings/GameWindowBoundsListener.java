@@ -35,65 +35,18 @@
  *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.common.auxiliar;
+package es.eucm.eadventure.common.auxiliar.runsettings;
 
+import java.awt.Rectangle;
+import java.awt.event.ComponentListener;
 
-public class DebugOptions {
+/**
+ * Listener that is added to RunAndDebugSettings so changes in game frame can be tracked
+ * Receives the initial bounds of the frame to avoid registering system-generated events
+ * @author Javier Torrente
+ *
+ */
+public interface GameWindowBoundsListener extends ComponentListener {
 
-    private boolean paintGrid;
-    
-    private boolean paintHotSpots;
-    
-    private boolean paintBoundingAreas;
-
-    public DebugOptions(){
-        this(false,false,false);
-    }
-    
-    public DebugOptions( boolean paintGrid, boolean paintHotSpots, boolean paintBoundingAreas ) {
-
-        super( );
-        this.paintGrid = paintGrid;
-        this.paintHotSpots = paintHotSpots;
-        this.paintBoundingAreas = paintBoundingAreas;
-    }
-
-    
-    public boolean isPaintGrid( ) {
-    
-        return paintGrid;
-    }
-
-    
-    public void setPaintGrid( boolean paintGrid ) {
-    
-        this.paintGrid = paintGrid;
-    }
-
-    
-    public boolean isPaintHotSpots( ) {
-    
-        return paintHotSpots;
-    }
-
-    
-    public void setPaintHotSpots( boolean paintHotSpots ) {
-    
-        this.paintHotSpots = paintHotSpots;
-    }
-
-    
-    public boolean isPaintBoundingAreas( ) {
-    
-        return paintBoundingAreas;
-    }
-
-    
-    public void setPaintBoundingAreas( boolean paintBoundingAreas ) {
-    
-        this.paintBoundingAreas = paintBoundingAreas;
-    }
-    
-    
-    
+    public void setInitialBounds ( Rectangle bounds );
 }
