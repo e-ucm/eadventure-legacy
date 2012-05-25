@@ -45,8 +45,8 @@ import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import es.eucm.eadventure.common.auxiliar.DebugOptions;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
+import es.eucm.eadventure.common.auxiliar.runsettings.DebugSettings;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class ConfigData {
@@ -99,7 +99,7 @@ public class ConfigData {
     
     
     /////// Added to control preferences on support display options for debugging
-    private DebugOptions debugOptions;
+    private DebugSettings debugOptions;
     //////
     
     /**
@@ -209,7 +209,7 @@ public class ConfigData {
         return instance.loadingImage;
     }
     
-    public static DebugOptions getDebugOptions(){
+    public static DebugSettings getUserDefinedDebugSettings(){
         return instance.debugOptions;
     }
 
@@ -533,7 +533,7 @@ public class ConfigData {
             showNPCReferences = Boolean.parseBoolean( configuration.getProperty( "ShowNPCReferences" ) );
             showStartDialog = Boolean.parseBoolean( configuration.getProperty( "ShowStartDialog" ) );
 
-            debugOptions = new DebugOptions();
+            debugOptions = new DebugSettings();
             if (configuration.containsKey( "PaintBoundingAreas" ))
                 debugOptions.setPaintBoundingAreas( Boolean.parseBoolean( configuration.getProperty( "PaintBoundingAreas" ) ));
             if (configuration.containsKey( "PaintGrid" ))    
@@ -577,7 +577,7 @@ public class ConfigData {
     private void checkConsistency( ) {
 
         if (debugOptions == null)
-            debugOptions = new DebugOptions();
+            debugOptions = new DebugSettings();
         
         if( languageFile == null ) {
             languageFile = ReleaseFolders.getLanguageFilePath( ReleaseFolders.LANGUAGE_ENGLISH );

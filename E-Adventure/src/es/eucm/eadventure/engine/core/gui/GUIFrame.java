@@ -51,9 +51,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -66,9 +65,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import es.eucm.eadventure.common.auxiliar.runsettings.RunAndDebugSettings;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
@@ -97,9 +96,7 @@ public class GUIFrame extends GUI implements FocusListener {
     public static void delete( ) {
 
         if( originalDisplayMode != null && instance != null && ( (GUIFrame) instance ).bkgFrame != null ) {
-            GraphicsDevice gm;
-            GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
-            gm = environment.getDefaultScreenDevice( );
+            GraphicsDevice gm = getDevice();
             gm.setFullScreenWindow( ( (GUIFrame) instance ).bkgFrame );
             gm.setDisplayMode( originalDisplayMode );
             originalDisplayMode = null;
@@ -111,13 +108,12 @@ public class GUIFrame extends GUI implements FocusListener {
         instance = null;
     }
 
-    //private JPanel panel;
-
     /**
      * Private constructor to create the unique instace of the class
      */
     protected GUIFrame( ) {
 
+        // Build the back window that contains the canvas
         bkgFrame = new JFrame( "eadventure" ) {
 
             private static final long serialVersionUID = 3648656167576771790L;
@@ -167,10 +163,7 @@ public class GUIFrame extends GUI implements FocusListener {
         }
         
         // Decoration
-        boolean decorated = false;
-        if (Game.getInstance( )!=null && Game.getInstance( ).getGameDescriptor( )!=null){
-            decorated = graphicConfig == DescriptorData.GRAPHICS_WINDOWED || Game.getInstance( ).isDebug( );
-        }
+        boolean decorated = graphicConfig == DescriptorData.GRAPHICS_WINDOWED || Game.getInstance( ).isDebug( );
         bkgFrame.setUndecorated( !decorated );
 
         bkgFrame.setBackground( Color.BLACK );
@@ -180,6 +173,7 @@ public class GUIFrame extends GUI implements FocusListener {
         
         bkgFrame.setLayout( guiLayout );//new BorderLayout());
 
+        // Make the canvas
         gameFrame = new Canvas( );
         background = null;
         elementsToDraw = new ArrayList<ElementImage>( );
@@ -271,7 +265,7 @@ public class GUIFrame extends GUI implements FocusListener {
         bkgFrame.setIgnoreRepaint( true );
         if( this.component != null ) {
             bkgFrame.remove( this.component );
-            guiLayout.setFixedSize( 800, 600 );
+            guiLayout.setFixedSize( WINDOW_WIDTH, WINDOW_HEIGHT );
             guiLayout.setMode( GUILayout.MODE_USE_ALL_WINDOW  );
         }
         this.component = component;
@@ -297,7 +291,7 @@ public class GUIFrame extends GUI implements FocusListener {
 
         if( component != null ) {
             bkgFrame.remove( component );
-            guiLayout.setFixedSize( 800, 600 );
+            guiLayout.setFixedSize( WINDOW_WIDTH, WINDOW_HEIGHT );
             guiLayout.setMode( GUILayout.MODE_USE_ALL_WINDOW  );
         }
         component = null;
@@ -386,6 +380,8 @@ public class GUIFrame extends GUI implements FocusListener {
 
         public void layoutContainer( Container container ) {
 
+            RunAndDebugSettings rSettings= Game.getInstance( ).getDebugOptions( );
+            
             int totalScreenWidth = totalScreenWidth();
             int totalScreenHeight = totalScreenHeight();
             
@@ -400,53 +396,50 @@ public class GUIFrame extends GUI implements FocusListener {
                     }
                         
                     else {   
-                        int posX = ( totalScreenWidth - GUI.WINDOW_WIDTH )/2; //;/ 2 +screenXOffset();//- (int) bkgFrame.getLocation( ).getX( );
-                        int posY = ( totalScreenHeight - GUI.WINDOW_HEIGHT )/2; //;/ 2 +screenYOffset();//- (int) bkgFrame.getLocation( ).getY( );
+                        int canvasX = ( totalScreenWidth - GUI.WINDOW_WIDTH )/2; //;/ 2 +screenXOffset();//- (int) bkgFrame.getLocation( ).getX( );
+                        int canvasY = ( totalScreenHeight - GUI.WINDOW_HEIGHT )/2; //;/ 2 +screenYOffset();//- (int) bkgFrame.getLocation( ).getY( );
                         
                         // New Lines //
-                        int w = GUI.WINDOW_WIDTH;
-                        int h = GUI.WINDOW_HEIGHT;
+                        int canvasWidth = GUI.WINDOW_WIDTH;
+                        int canvasHeight = GUI.WINDOW_HEIGHT;
                         if ( mode == MODE_RESPECT_WHRATIO ){
-                            if (fixedWidth / fixedHeight >= w / h) {
-                                w = GUI.WINDOW_WIDTH;
-                                h = (int) ((float) fixedHeight / (float) fixedWidth * GUI.WINDOW_WIDTH);
+                            if (fixedWidth / fixedHeight >= canvasWidth / canvasHeight) {
+                                canvasWidth = GUI.WINDOW_WIDTH;
+                                canvasHeight = (int) ((float) fixedHeight / (float) fixedWidth * GUI.WINDOW_WIDTH);
                             } else {
-                                h = GUI.WINDOW_HEIGHT;
-                                w = (int) ((float) fixedWidth / (float) fixedHeight * GUI.WINDOW_HEIGHT);
+                                canvasHeight = GUI.WINDOW_HEIGHT;
+                                canvasWidth = (int) ((float) fixedWidth / (float) fixedHeight * GUI.WINDOW_HEIGHT);
                             }
                             
-                            posX = ( totalScreenWidth - w ) / 2 ;//+screenXOffset();//- (int) bkgFrame.getLocation( ).getX( );
-                            posY = ( totalScreenHeight - h ) / 2 ;//+screenYOffset();//- (int) bkgFrame.getLocation( ).getY( );
+                            canvasX = ( totalScreenWidth - canvasWidth ) / 2 ;//+screenXOffset();//- (int) bkgFrame.getLocation( ).getX( );
+                            canvasY = ( totalScreenHeight - canvasHeight ) / 2 ;//+screenYOffset();//- (int) bkgFrame.getLocation( ).getY( );
                         }
                         
-                        int totalWidth=totalScreenWidth;
-                        int totalHeight=totalScreenHeight;
-                        if (Game.getInstance( ).isFromEditor( ) && Game.getInstance( ).isDebug( )){
-                            if (ConfigData.getDebugWindowHeight( )!=Integer.MAX_VALUE && ConfigData.getDebugWindowWidth( )!=Integer.MAX_VALUE ){
-                                totalWidth = ConfigData.getDebugWindowWidth( );
-                                totalHeight = ConfigData.getDebugWindowHeight( );
-                            }
-                        }
-                        
-                        if( Game.getInstance( ).isDebug( ) ) {
-                            if (ConfigData.getDebugWindowX( )!=Integer.MAX_VALUE && ConfigData.getDebugWindowY( )!=Integer.MAX_VALUE){
-                                posX = ConfigData.getDebugWindowWidth( )-w;
-                                posY = 0;
+                        // Calculate windowWidth, windowHeight and canvas X, y
+                        int windowWidth=GUI.WINDOW_WIDTH,windowHeight=GUI.WINDOW_HEIGHT;
+                        if (Game.getInstance( ).isDebug( )){
+                            if ( rSettings!=null && rSettings.getPreferredBounds( )!=null ){
+                                windowWidth = rSettings.getPreferredBounds( ).width;
+                                windowHeight = rSettings.getPreferredBounds( ).height;
+                                canvasX = windowWidth-canvasWidth;
+                                canvasY = 0;
                             } else {
-                                posX = ( totalWidth - w );
-                                posY = +( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 );
+                                windowWidth=totalScreenWidth;
+                                windowHeight=totalScreenHeight;
+                                canvasX = windowWidth - canvasWidth;
+                                canvasY = System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ;
                             }
                         }
-    
                         
+                        // Layout
                         if( components[i] instanceof DebugLogPanel ) {
-                            components[i].setBounds( 0, h + ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ), totalWidth, totalHeight - h - ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ) );
+                            components[i].setBounds( 0, canvasHeight + ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ), windowWidth, windowHeight - canvasHeight - ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ) );
                         }
                         else if( components[i] instanceof DebugValuesPanel ) {
-                            components[i].setBounds( 0, posY+ ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ), totalWidth - w, h );
+                            components[i].setBounds( 0, canvasY+ ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ), windowWidth - canvasWidth, canvasHeight );
                         }
                         else
-                            components[i].setBounds( posX, posY, w, h );
+                            components[i].setBounds( canvasX, canvasY, canvasWidth, canvasHeight );
                     }
                 }
                 else {
@@ -464,6 +457,7 @@ public class GUIFrame extends GUI implements FocusListener {
         public Dimension preferredLayoutSize( Container arg0 ) {
 
             Dimension dim = new Dimension(0,0);
+            RunAndDebugSettings rSettings= Game.getInstance( ).getDebugOptions( );
             
             if (graphicConfig == DescriptorData.GRAPHICS_WINDOWED && !Game.getInstance( ).isDebug( )){
                 dim.width+= GUI.WINDOW_WIDTH;
@@ -472,10 +466,9 @@ public class GUIFrame extends GUI implements FocusListener {
                 dim.width += insets.left + insets.right;
                 dim.height += insets.top + insets.bottom;
             } else {
-                if (Game.getInstance( ).isFromEditor( ) && Game.getInstance( ).isDebug( ) && ConfigData.getDebugWindowWidth( )!=Integer.MAX_VALUE 
-                        && ConfigData.getDebugWindowHeight( )!=Integer.MAX_VALUE){
-                    dim.width += ConfigData.getDebugWindowWidth( );
-                    dim.height += ConfigData.getDebugWindowHeight( );
+                if (rSettings!=null && rSettings.getPreferredBounds( )!=null){
+                    dim.width +=rSettings.getPreferredBounds( ).width;
+                    dim.height += rSettings.getPreferredBounds( ).height;
                 } else {
                     dim.width += GUIFrame.this.totalScreenWidth( );//Toolkit.getDefaultToolkit( ).getScreenSize( ).width;
                     dim.height += GUIFrame.this.totalScreenHeight();//Toolkit.getDefaultToolkit( ).getScreenSize( ).height;
@@ -510,13 +503,13 @@ public class GUIFrame extends GUI implements FocusListener {
             System.setProperty( "apple.awt.rendering", "speed" );
         
         if( os.contains( "Windows" ) && graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN && !Game.getInstance( ).isDebug( ) && !Game.getInstance( ).isAppletMode( ) ) {
-            GraphicsEnvironment environment;
             GraphicsDevice gm = null;
             boolean changed = false;
             try {
                 // Set fullscreen... Runs into compatibility issues in non-Windows systems
-                environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
-                gm = environment.getDefaultScreenDevice( );
+                //environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
+                //gm = environment.getDefaultScreenDevice( );
+                gm=getDevice();
                 originalDisplayMode = gm.getDisplayMode( );
                 DisplayMode dm = new DisplayMode( WINDOW_WIDTH, WINDOW_HEIGHT, 32, DisplayMode.REFRESH_RATE_UNKNOWN );
                 DisplayMode[] dmodes = gm.getDisplayModes( );
@@ -548,25 +541,11 @@ public class GUIFrame extends GUI implements FocusListener {
         }        
     }
     
-    private int totalScreenHeight(){
-        // Set size and position
-           GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
-           // Use default device
-           GraphicsDevice device = environment.getDefaultScreenDevice( );
-           // If there are more than one device, pick one that is not the "default", as this one may be occupied with Editor's main window
-           if (environment.getScreenDevices( ).length>1){
-               for (GraphicsDevice d: environment.getScreenDevices( )){
-                   if (d!=device){
-                       device = d; break;
-                   }
-               }
-           }
-           int totalHeight=device.getDefaultConfiguration( ).getBounds( ).height;
-           return totalHeight;
-       }
-    
-    private int totalScreenWidth(){
-     // Set size and position
+    private static GraphicsDevice getDevice (){
+        RunAndDebugSettings rSettings= Game.getInstance( ).getDebugOptions( );
+        if (rSettings!=null && rSettings.getGraphicsDevice( )!=null){
+            return rSettings.getGraphicsDevice( );
+        }
         GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
         // Use default device
         GraphicsDevice device = environment.getDefaultScreenDevice( );
@@ -578,40 +557,29 @@ public class GUIFrame extends GUI implements FocusListener {
                 }
             }
         }
+        return device;
+    }
+    
+    private int totalScreenHeight(){
+           GraphicsDevice device = getDevice();
+           int totalHeight=device.getDefaultConfiguration( ).getBounds( ).height;
+           return totalHeight;
+       }
+    
+    private int totalScreenWidth(){
+        GraphicsDevice device = getDevice();
         int totalWidth=device.getDefaultConfiguration( ).getBounds( ).width;
         return totalWidth;
     }
     
     private int screenXOffset(){
-        // Set size and position
-           GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
-           // Use default device
-           GraphicsDevice device = environment.getDefaultScreenDevice( );
-           // If there are more than one device, pick one that is not the "default", as this one may be occupied with Editor's main window
-           if (environment.getScreenDevices( ).length>1){
-               for (GraphicsDevice d: environment.getScreenDevices( )){
-                   if (d!=device){
-                       device = d; break;
-                   }
-               }
-           }
-            return device.getDefaultConfiguration( ).getBounds( ).x;
-       }
+        GraphicsDevice device = getDevice();
+        return device.getDefaultConfiguration( ).getBounds( ).x;
+    }
     
     private int screenYOffset(){
-        // Set size and position
-           GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
-           // Use default device
-           GraphicsDevice device = environment.getDefaultScreenDevice( );
-           // If there are more than one device, pick one that is not the "default", as this one may be occupied with Editor's main window
-           if (environment.getScreenDevices( ).length>1){
-               for (GraphicsDevice d: environment.getScreenDevices( )){
-                   if (d!=device){
-                       device = d; break;
-                   }
-               }
-           }
-            return device.getDefaultConfiguration( ).getBounds( ).y;
+        GraphicsDevice device = getDevice();
+        return device.getDefaultConfiguration( ).getBounds( ).y;
        }
     
     /**
@@ -619,8 +587,14 @@ public class GUIFrame extends GUI implements FocusListener {
      */
     private void sizeAndLocationSetup(){
 
-        int totalWidth = totalScreenWidth();
-        int totalHeight = totalScreenHeight();
+        RunAndDebugSettings rSettings= Game.getInstance( ).getDebugOptions( );
+        Rectangle prefBounds = null;
+        if (rSettings!=null){
+            prefBounds = rSettings.getPreferredBounds( );
+        }
+        
+        int totalScreenWidth = totalScreenWidth();
+        int totalScreenHeight = totalScreenHeight();
         int screenOffsetX = this.screenXOffset( );
         int screenOffsetY = this.screenYOffset( );
         
@@ -629,50 +603,28 @@ public class GUIFrame extends GUI implements FocusListener {
         gameFrame.setPreferredSize( new Dimension( WINDOW_WIDTH, WINDOW_HEIGHT ) );
         
         // Frame - min size
-        int minWidth = Math.min( totalWidth>WINDOW_WIDTH?WINDOW_WIDTH:totalWidth-10, Game.getInstance( ).isFromEditor( )?(Game.getInstance( ).isDebug( )?ConfigData.getDebugWindowWidth( ):ConfigData.getEngineWindowWidth( )):Integer.MAX_VALUE);
-        int minHeight = Math.min( totalHeight>WINDOW_HEIGHT?WINDOW_HEIGHT:totalHeight-40, Game.getInstance( ).isFromEditor( )?(Game.getInstance( ).isDebug( )?ConfigData.getDebugWindowHeight( ):ConfigData.getEngineWindowHeight( )):Integer.MAX_VALUE);
+        int minWidth = Math.min( totalScreenWidth>WINDOW_WIDTH?WINDOW_WIDTH:totalScreenWidth-10, prefBounds!=null?prefBounds.width:Integer.MAX_VALUE);
+        int minHeight = Math.min( totalScreenHeight>WINDOW_HEIGHT?WINDOW_HEIGHT:totalScreenHeight-40, prefBounds!=null?prefBounds.height:Integer.MAX_VALUE);
         bkgFrame.setMinimumSize( new Dimension(minWidth, minHeight) );
         
         // Pref size, location and size
         if( graphicConfig == DescriptorData.GRAPHICS_BLACKBKG && !Game.getInstance( ).isDebug( ) && !Game.getInstance( ).isAppletMode( ) ) {
-            bkgFrame.setPreferredSize( new Dimension(totalWidth, totalHeight) );
-            bkgFrame.setSize( totalWidth, totalHeight );
+            bkgFrame.setPreferredSize( new Dimension(totalScreenWidth, totalScreenHeight) );
+            bkgFrame.setSize( totalScreenWidth, totalScreenHeight );
             bkgFrame.setLocation( screenOffsetX, screenOffsetY );
         }
         else {
             
-            if( !Game.getInstance( ).isDebug( ) ) {
-                //Size
-                if (Game.getInstance( ).isFromEditor( ) && ConfigData.getEngineWindowWidth( )!=Integer.MAX_VALUE && ConfigData.getEngineWindowHeight( )!=Integer.MAX_VALUE){
-                    bkgFrame.setPreferredSize( new Dimension(ConfigData.getEngineWindowWidth( ), ConfigData.getEngineWindowHeight( )) );
-                    bkgFrame.setSize( new Dimension(ConfigData.getEngineWindowWidth( ), ConfigData.getEngineWindowHeight( )) );
-                } else {
-                    bkgFrame.pack( );
-                }
-                
-                // Location
-                if (Game.getInstance( ).isFromEditor( ) && ConfigData.getEngineWindowX( )!=Integer.MAX_VALUE && ConfigData.getEngineWindowY( )!=Integer.MAX_VALUE){
-                    bkgFrame.setLocation( ConfigData.getEngineWindowX( ), ConfigData.getEngineWindowY( ) );
-                } else {
-                    bkgFrame.setLocation( screenOffsetX+( totalWidth - bkgFrame.getWidth( ) ) / 2, screenOffsetY+( totalHeight - bkgFrame.getHeight( ) ) / 2 );
-                }
-                //bkgFrame.setSize( WINDOW_WIDTH, WINDOW_HEIGHT );
-                //bkgFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2 );
-            }
-            else {
-                //bkgFrame.setSize( screenSize.width, screenSize.height );
-                if (Game.getInstance( ).isFromEditor( ) && ConfigData.getDebugWindowWidth( )!=Integer.MAX_VALUE && ConfigData.getDebugWindowHeight( )!=Integer.MAX_VALUE){
-                    bkgFrame.setPreferredSize( new Dimension(ConfigData.getDebugWindowWidth( ), ConfigData.getDebugWindowHeight( )) );
-                    bkgFrame.setSize( new Dimension(ConfigData.getDebugWindowWidth( ), ConfigData.getDebugWindowHeight( )) );
-                } else {
-                    bkgFrame.pack();
-                }
-                
-                
-                if (Game.getInstance( ).isFromEditor( ) && ConfigData.getDebugWindowX( )!=Integer.MAX_VALUE && ConfigData.getDebugWindowY( )!=Integer.MAX_VALUE){
-                    bkgFrame.setLocation( ConfigData.getDebugWindowX( ), ConfigData.getDebugWindowY( ) );
-                } else {
+            if (prefBounds!=null){
+                bkgFrame.setPreferredSize( new Dimension(prefBounds.width, prefBounds.height) );
+                bkgFrame.setSize( new Dimension(prefBounds.width, prefBounds.height) );
+                bkgFrame.setLocation( prefBounds.x, prefBounds.y );
+            } else {
+                bkgFrame.pack( );
+                if (Game.getInstance( ).isDebug( )){
                     bkgFrame.setLocation( screenOffsetX, screenOffsetY+( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ) );
+                }else {
+                    bkgFrame.setLocation( screenOffsetX+( totalScreenWidth - bkgFrame.getWidth( ) ) / 2, screenOffsetY+( totalScreenHeight - bkgFrame.getHeight( ) ) / 2 );
                 }
             }
         }
@@ -682,26 +634,10 @@ public class GUIFrame extends GUI implements FocusListener {
         else
             gameFrame.setLocation( (int) bkgFrame.getLocation( ).getX( ), (int) bkgFrame.getLocation( ).getY( ) );*/
         
-        // ADd listener to update config data
-        if ( Game.getInstance( ).isFromEditor( ) ){
-            bkgFrame.addComponentListener( new ComponentListener(){
-
-                public void componentHidden( ComponentEvent e ) {
-                }
-
-                public void componentMoved( ComponentEvent e ) {
-                    GUIFrame.this.updateWindowParams( );
-                }
-
-                public void componentResized( ComponentEvent e ) {
-                    GUIFrame.this.updateWindowParams( );                    
-                }
-
-                public void componentShown( ComponentEvent e ) {
-                    
-                }
-                
-            });
+        // Add listener to update config data
+        if ( rSettings!=null && rSettings.getListener( )!=null ){
+            rSettings.getListener( ).setInitialBounds( bkgFrame.getBounds( ) );
+            bkgFrame.addComponentListener( rSettings.getListener( ) );
         }
 
     }
@@ -711,7 +647,7 @@ public class GUIFrame extends GUI implements FocusListener {
      * By default, these values will be set to Integer.MAX_VALUE
      * @since V1.5
      */
-    private void updateWindowParams(){
+    /*private void updateWindowParams(){
         if (bkgFrame==null) return;
         
         if (Game.getInstance( ).isFromEditor( ) && graphicConfig == DescriptorData.GRAPHICS_WINDOWED && !Game.getInstance( ).isDebug( ) ){
@@ -726,5 +662,5 @@ public class GUIFrame extends GUI implements FocusListener {
             ConfigData.setDebugWindowWidth( bkgFrame.getWidth( ) );
             ConfigData.setDebugWindowHeight( bkgFrame.getHeight( ) );
         }
-    }
+    }*/
 }

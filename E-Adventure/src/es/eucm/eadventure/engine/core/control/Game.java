@@ -60,9 +60,9 @@ import javax.swing.JOptionPane;
 import es.eucm.eadventure.comm.AdventureApplet;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerGAMETEL;
-import es.eucm.eadventure.common.auxiliar.DebugOptions;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
+import es.eucm.eadventure.common.auxiliar.runsettings.RunAndDebugSettings;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
@@ -371,7 +371,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     private String state = "";
 
     private boolean debug = false;
-    private DebugOptions debugOptions;
+    private RunAndDebugSettings debugOptions;
 
     private boolean fromEditor = false;
 
@@ -406,12 +406,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         instance.gameLog = new GameLogProxy();
     }
 
-    public static void create( boolean fromEditor, DebugOptions debugOptions ) {
+    public static void create( boolean fromEditor, RunAndDebugSettings debugOptions ) {
 
         instance = new Game( );
         instance.fromEditor = fromEditor;
         instance.debugOptions = debugOptions;
-        instance.debug = debugOptions!=null;
+        instance.debug = debugOptions!=null && debugOptions.isDebugMode( );
         // Set logging=true to enable gamelog        
         instance.gameLog = new GameLogProxy();
     }
@@ -2092,7 +2092,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         return debug;
     }
     
-    public DebugOptions getDebugOptions(){
+    public RunAndDebugSettings getDebugOptions(){
         return debugOptions;
     }
 

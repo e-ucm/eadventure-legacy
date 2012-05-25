@@ -39,8 +39,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.awt.event.ComponentEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +63,9 @@ import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
+import es.eucm.eadventure.common.auxiliar.runsettings.DebugSettings;
+import es.eucm.eadventure.common.auxiliar.runsettings.GameWindowBoundsListener;
+import es.eucm.eadventure.common.auxiliar.runsettings.RunAndDebugSettings;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData.DefaultClickAction;
@@ -2394,7 +2401,7 @@ public class Controller {
                         mainWindow.setNormalRunAvailable( false );
                         // First update flags
                         chaptersController.updateVarsFlagsForRunning( );
-                        EAdventureDebug.normalRun( Controller.getInstance( ).adventureDataControl.getAdventureData( ), AssetsController.getInputStreamCreator( ) );
+                        EAdventureDebug.runOrDebug( Controller.getInstance( ).adventureDataControl.getAdventureData( ), AssetsController.getInputStreamCreator( ), buildRunAndDebugSettings(false) );
                         Controller.getInstance( ).startAutoSave( 15 );
                         mainWindow.setNormalRunAvailable( true );
                     }
@@ -2425,7 +2432,7 @@ public class Controller {
                     if( canBeRun( ) ) {
                         mainWindow.setNormalRunAvailable( false );
                         chaptersController.updateVarsFlagsForRunning( );
-                        EAdventureDebug.debug( Controller.getInstance( ).adventureDataControl.getAdventureData( ), AssetsController.getInputStreamCreator( ), ConfigData.getDebugOptions( ) );
+                        EAdventureDebug.runOrDebug( Controller.getInstance( ).adventureDataControl.getAdventureData( ), AssetsController.getInputStreamCreator( ), buildRunAndDebugSettings(true) );
                         Controller.getInstance( ).startAutoSave( 15 );
                         mainWindow.setNormalRunAvailable( true );
                     }
@@ -3973,8 +3980,125 @@ public class Controller {
         }// end main for
     }
 
+    /**
+     * Used to determine location of dialogs and frames on the screen.
+     * @return
+     */
     public boolean isMainWindowBuilt( ) {
         return mainWindow!=null;
     }
 
+    /**
+     * Builds the settings to run the game. It takes debug options from ConfigData and also
+     * calculates the graphic device where the game must be run, and the preferredBounds, if any.
+     * @param debug Running mode. False if normal, True if debug
+     * @return
+     */
+    private RunAndDebugSettings buildRunAndDebugSettings( boolean debug ){
+        RunAndDebugSettings settings=null;
+        
+        //Calculate bounding rectangle, if defined
+        Rectangle prefBounds = null;
+        if (debug && ConfigData.getDebugWindowHeight( )!=Integer.MAX_VALUE && 
+                    ConfigData.getDebugWindowWidth( )!=Integer.MAX_VALUE &&
+                    ConfigData.getDebugWindowX( )!=Integer.MAX_VALUE &&
+                    ConfigData.getDebugWindowY( )!=Integer.MAX_VALUE){
+            prefBounds =  new Rectangle(ConfigData.getDebugWindowX( ),ConfigData.getDebugWindowY( ), 
+                    ConfigData.getDebugWindowWidth( ),ConfigData.getDebugWindowHeight( ) );
+        } else if (!debug && ConfigData.getEngineWindowHeight( )!=Integer.MAX_VALUE && 
+                    ConfigData.getEngineWindowWidth( )!=Integer.MAX_VALUE &&
+                    ConfigData.getEngineWindowX( )!=Integer.MAX_VALUE &&
+                    ConfigData.getEngineWindowY( )!=Integer.MAX_VALUE){
+            prefBounds =  new Rectangle(ConfigData.getEngineWindowX( ),ConfigData.getEngineWindowY( ), 
+                    ConfigData.getEngineWindowWidth( ),ConfigData.getEngineWindowHeight( ) );
+        }; 
+        
+        // Calculate GraphicsDevice
+        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
+        GraphicsDevice device = null;
+        if (prefBounds!=null){
+            // Try to determine which device these bounds belong to
+            // If there are more than one device, pick one that is not the "default", as this one may be occupied with Editor's main window
+            for (GraphicsDevice d: environment.getScreenDevices( )){
+                // If prefBounds are contained on screen bounds, pick this device
+                if (d.getDefaultConfiguration( ).getBounds( ).contains( prefBounds )){
+                    device = d; break;
+                }
+            }
+        }
+        
+        // IF device could not be determined using preferred Bounds, then use other device that is not occupied by mainWindow
+        if (device==null){
+            Rectangle mainWindowBounds = mainWindow.getBounds( );
+            for (GraphicsDevice d: environment.getScreenDevices( )){
+                // If prefBounds are contained on screen bounds, pick this device
+                if (!d.getDefaultConfiguration( ).getBounds( ).contains( mainWindowBounds )){
+                    device = d; break;
+                }
+            }
+        }
+        
+        // If device could not be calculated, then use default one
+        if (device == null){
+            device = environment.getDefaultScreenDevice( );
+        }
+        
+        // Finally, make the object
+        if (debug){
+            DebugSettings dSettings = ConfigData.getUserDefinedDebugSettings( );
+            settings = new RunAndDebugSettings( dSettings.isPaintGrid( ), dSettings.isPaintHotSpots( ), dSettings.isPaintBoundingAreas( ),
+                    device, prefBounds, new GameWindowBoundsListenerImpl(debug));
+        } else{
+            settings = new RunAndDebugSettings( device, prefBounds, new GameWindowBoundsListenerImpl(debug));
+        }
+        
+        return settings;
+    }
+    
+
+    private static class GameWindowBoundsListenerImpl implements GameWindowBoundsListener{
+
+        private boolean debug;
+        private Rectangle initialBounds;
+        
+        public GameWindowBoundsListenerImpl(boolean debug){
+            this.debug = debug;
+        }
+        
+        public void componentResized( ComponentEvent e ) {
+            update(e.getComponent( ).getBounds( ));
+        }
+
+        public void componentMoved( ComponentEvent e ) {
+            update(e.getComponent( ).getBounds( ));
+        }
+
+        public void componentShown( ComponentEvent e ) {
+        }
+
+        public void componentHidden( ComponentEvent e ) {
+        }
+        
+        private void update (Rectangle newBounds){
+            if (initialBounds!=null && newBounds.equals( initialBounds ))
+                return;
+            if (!debug ){
+                ConfigData.setEngineWindowX( newBounds.x );
+                ConfigData.setEngineWindowY( newBounds.y );
+                ConfigData.setEngineWindowWidth( newBounds.width );
+                ConfigData.setEngineWindowHeight( newBounds.height );
+            }
+            else {
+                ConfigData.setDebugWindowX( newBounds.x );
+                ConfigData.setDebugWindowY( newBounds.y );
+                ConfigData.setDebugWindowWidth( newBounds.width );
+                ConfigData.setDebugWindowHeight( newBounds.height );
+            }
+        }
+
+        public void setInitialBounds( Rectangle bounds ) {
+            this.initialBounds = bounds;
+        }
+            
+    }
 }

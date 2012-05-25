@@ -297,6 +297,10 @@ public class MainWindow extends JFrame {
         ConfigData.setEditorWindowWidth( prefWidth );
         ConfigData.setEditorWindowHeight( prefHeight );
         
+        if (System.getProperty("os.name").toLowerCase( ).contains( "win" ) && prefWidth==totalWidth && prefHeight ==totalHeight){
+            this.setExtendedState( JFrame.MAXIMIZED_BOTH );
+        }
+        
         this.addComponentListener( new ComponentListener(){
 
             public void componentHidden( ComponentEvent e ) {
@@ -872,13 +876,13 @@ public class MainWindow extends JFrame {
         configurationMenu.add( languageMenu );
         
         JMenu debugOptionsMenu = new JMenu( TC.get( "MenuConfiguration.DebugOptions" ) );
-        paintGridMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintGrid" ), ConfigData.getDebugOptions( ).isPaintGrid( ) );
-        paintHotSpotsMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintHotSpots" ), ConfigData.getDebugOptions( ).isPaintHotSpots( ) );
-        paintBoundingAreasMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintBoundingAreas" ), ConfigData.getDebugOptions( ).isPaintBoundingAreas( ) );
+        paintGridMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintGrid" ), ConfigData.getUserDefinedDebugSettings( ).isPaintGrid( ) );
+        paintHotSpotsMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintHotSpots" ), ConfigData.getUserDefinedDebugSettings( ).isPaintHotSpots( ) );
+        paintBoundingAreasMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintBoundingAreas" ), ConfigData.getUserDefinedDebugSettings( ).isPaintBoundingAreas( ) );
         paintGridMenuItem.addActionListener( new ActionListener(){
 
             public void actionPerformed( ActionEvent e ) {
-                ConfigData.getDebugOptions( ).setPaintGrid( paintGridMenuItem.isSelected( ) );
+                ConfigData.getUserDefinedDebugSettings( ).setPaintGrid( paintGridMenuItem.isSelected( ) );
             }
             
         });
@@ -887,7 +891,7 @@ public class MainWindow extends JFrame {
         paintHotSpotsMenuItem.addActionListener( new ActionListener(){
 
             public void actionPerformed( ActionEvent e ) {
-                ConfigData.getDebugOptions( ).setPaintHotSpots( paintHotSpotsMenuItem.isSelected( ) );
+                ConfigData.getUserDefinedDebugSettings( ).setPaintHotSpots( paintHotSpotsMenuItem.isSelected( ) );
             }
             
         });
@@ -896,7 +900,7 @@ public class MainWindow extends JFrame {
         paintBoundingAreasMenuItem.addActionListener( new ActionListener(){
 
             public void actionPerformed( ActionEvent e ) {
-                ConfigData.getDebugOptions( ).setPaintBoundingAreas( paintBoundingAreasMenuItem.isSelected( ) );
+                ConfigData.getUserDefinedDebugSettings( ).setPaintBoundingAreas( paintBoundingAreasMenuItem.isSelected( ) );
             }
             
         });
