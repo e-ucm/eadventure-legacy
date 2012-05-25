@@ -4030,10 +4030,13 @@ public class Controller {
         // IF device could not be determined using preferred Bounds, then use other device that is not occupied by mainWindow
         if (device==null){
             Rectangle mainWindowBounds = mainWindow.getBounds( );
+            int intersectionArea=Integer.MAX_VALUE;
             for (GraphicsDevice d: environment.getScreenDevices( )){
-                // If prefBounds are contained on screen bounds, pick this device
-                if (!d.getDefaultConfiguration( ).getBounds( ).contains( mainWindowBounds )){
-                    device = d; break;
+                Rectangle intersection = d.getDefaultConfiguration( ).getBounds( ).intersection( mainWindowBounds );
+                int area = intersection.width*intersection.height;
+                if (area<intersectionArea){
+                    intersectionArea = area;
+                    device = d;
                 }
             }
         }
