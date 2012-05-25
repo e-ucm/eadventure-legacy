@@ -635,7 +635,7 @@ public class GUIFrame extends GUI implements FocusListener {
             gameFrame.setLocation( (int) bkgFrame.getLocation( ).getX( ), (int) bkgFrame.getLocation( ).getY( ) );*/
         
         // Add listener to update config data
-        if ( rSettings!=null && rSettings.getListener( )!=null ){
+        if ( rSettings!=null && rSettings.getListener( )!=null && (rSettings.isDebugMode( ) || graphicConfig == DescriptorData.GRAPHICS_WINDOWED)){
             rSettings.getListener( ).setInitialBounds( bkgFrame.getBounds( ) );
             bkgFrame.addComponentListener( rSettings.getListener( ) );
         }
