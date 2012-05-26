@@ -161,7 +161,7 @@ public class Trajectory implements Cloneable {
 
             return id;
         }
-
+        
         public int getX( ) {
 
             return x;
@@ -189,9 +189,7 @@ public class Trajectory implements Cloneable {
                 return false;
             if( o instanceof Node ) {
                 Node node = (Node) o;
-                if( node.id.equals( this.id ) )
-                    return true;
-                if( node.x == this.x && node.y == this.y )
+                if( node.id.equals( this.id ) && node.x == this.x && node.y == this.y )
                     return true;
             }
             return false;

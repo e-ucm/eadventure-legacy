@@ -47,6 +47,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.auxiliar.TrajectoryFixer;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
@@ -70,6 +71,10 @@ public class SceneDOMWriter {
     public static Node buildDOM( Scene scene, boolean initialScene ) {
 
         Element sceneElement = null;
+        
+        if (scene!=null){
+            TrajectoryFixer.fixTrajectory( scene );
+        }
 
         try {
             // Create the necessary elements to create the DOM
