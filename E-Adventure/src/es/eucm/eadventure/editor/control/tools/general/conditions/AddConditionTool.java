@@ -1,10 +1,10 @@
 /*******************************************************************************
- * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
+ * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the e-UCM
  *          research group.
  *   
- *    Copyright 2005-2012 <e-UCM> research group.
+ *    Copyright 2005-2012 e-UCM research group.
  *  
- *     <e-UCM> is a research group of the Department of Software Engineering
+ *     e-UCM is a research group of the Department of Software Engineering
  *          and Artificial Intelligence at the Complutense University of Madrid
  *          (School of Computer Science).
  *  
@@ -15,24 +15,24 @@
  *          <http://www.e-ucm.es>
  *  
  *  ****************************************************************************
- * This file is part of <e-Adventure>, version 1.4.
+ * This file is part of eAdventure, version 1.5.
  * 
- *   You can access a list of all the contributors to <e-Adventure> at:
+ *   You can access a list of all the contributors to eAdventure at:
  *          http://e-adventure.e-ucm.es/contributors
  *  
  *  ****************************************************************************
- *       <e-Adventure> is free software: you can redistribute it and/or modify
+ *       eAdventure is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU Lesser General Public License as published by
  *      the Free Software Foundation, either version 3 of the License, or
  *      (at your option) any later version.
  *  
- *      <e-Adventure> is distributed in the hope that it will be useful,
+ *      eAdventure is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU Lesser General Public License for more details.
  *  
  *      You should have received a copy of the GNU Lesser General Public License
- *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
+ *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.editor.control.tools.general.conditions;
 
@@ -47,8 +47,8 @@ import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control/**
-                                         * <e-Adventure> is an <e-UCM> research
-                                         * project. <e-UCM>, Department of
+                                         * eAdventure is an e-UCM research
+                                         * project. e-UCM, Department of
                                          * Software Engineering and Artificial
                                          * Intelligence. Faculty of Informatics,
                                          * Complutense University of Madrid
@@ -70,23 +70,23 @@ import es.eucm.eadventure.editor.control/**
                                          */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
+    Copyright (C) 2004-2009 e-UCM research group
 
     This file is part of <e-Adventure> project, an educational game & game-like 
     simulation authoring tool, available at http://e-adventure.e-ucm.es. 
 
-    <e-Adventure> is free software; you can redistribute it and/or modify
+    eAdventure is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    <e-Adventure> is distributed in the hope that it will be useful,
+    eAdventure is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
+    along with Adventure; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
