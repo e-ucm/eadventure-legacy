@@ -41,6 +41,7 @@ import java.util.ArrayList;
 
 import org.xml.sax.Attributes;
 
+import es.eucm.eadventure.common.auxiliar.TrajectoryFixer;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
@@ -495,6 +496,9 @@ public class SceneSubParser extends SubParser {
 
             // If it is a scene tag, store the scene in the game data
             if( qName.equals( "scene" ) ) {
+                if (scene!=null){
+                    TrajectoryFixer.fixTrajectory( scene );
+                }
                 chapter.addScene( scene );
             }
 
