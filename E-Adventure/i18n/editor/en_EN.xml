@@ -411,9 +411,9 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="AssessmentProfiles.Title">Assessment profiles</entry>
 <entry key="Error.Title">Error</entry>
 <entry key="IMS.Educational.LearningResourceType">Specific kind of resource</entry>
-<entry key="Operation.ImportLO.InfoMessage">Please note that the import process will succeed only if you selected a .ZIP file that contains an &lt;e-Adventure&gt; game exported as Learning Object.\nOther ZIP files will not be imported.</entry>
+<entry key="Operation.ImportLO.InfoMessage">Please note that the import process will succeed only if you selected a .ZIP file that contains an eAdventure game exported as Learning Object.\nOther ZIP files will not be imported.</entry>
 <entry key="ErrorReport.FoundException">Found exception:</entry>
-<entry key="Operation.ImportJAR.FileNotLoaded">The chosen .JAR is not a game exported from &lt;e-Adventure&gt;.</entry>
+<entry key="Operation.ImportJAR.FileNotLoaded">The chosen .JAR is not a game exported from eAdventure.</entry>
 <entry key="Menu.SendComments">Send comments or suggestions</entry>
 <entry key="Arrows.DefaultPosition">Default position</entry>
 <entry key="MenuChapters.Title">Chapters</entry>
@@ -933,7 +933,7 @@ based on the state of the flags.</entry>
 		Do you want to overwrite it?</entry>
 <entry key="Conditions.ConditionGroup.Satisfied">is satisfied</entry>
 <entry key="Operation.AddNPCDefaultValue">CharacterId</entry>
-<entry key="Operation.AdventurInconsistentWarning">The adventure is inconsistent and will be unplayable with the &lt;e-Adventure&gt; engine
+<entry key="Operation.AdventurInconsistentWarning">The adventure is inconsistent and will be unplayable with the eAdventure engine
 		Please perform a "Adventure consistency check" and solve the problems</entry>
 <entry key="MainWindow.Title.NewFile">New file</entry>
 <entry key="Effect.ActivateInfo">Activate flag: {#0}</entry>
@@ -1038,7 +1038,7 @@ The operation was aborted.</entry>
 <entry key="Conditions.EditCondition">Edit condition</entry>
 <entry key="SelectImageDialog.Message">The selected image is too large (greater than 800x600). Please select the section of the image to use as background. To make an automatic adjustment, click the button below.</entry>
 <entry key="Cursor.action.Tip">For contextual gui only: This cursor will be used when an action is going to be performed</entry>
-<entry key="StartDialog.Title">Welcome to the &lt;e-Adventure&gt; editor</entry>
+<entry key="StartDialog.Title">Welcome to the eAdventure editor</entry>
 <entry key="Flags.DefaultFlagName">newFlag</entry>
 <entry key="RandomEffect.Negative.Title">Second effect</entry>
 <entry key="Vars.VarName">Variable name</entry>
@@ -1065,7 +1065,7 @@ The operation was aborted.</entry>
 <entry key="Operation.AddMacroDefaultValue">MacroId</entry>
 <entry key="Cursor.use.Tip">For traditional gui only: This cursor will be used for "use" actions</entry>
 <entry key="AnimationPanel.AnimationNotAvalaible">Animation not avalaible</entry>
-<entry key="Operation.AdventureConsistentReport">The adventure is completely consistent and can be played in the &lt;e-Adventure&gt; engine</entry>
+<entry key="Operation.AdventureConsistentReport">The adventure is completely consistent and can be played in the eAdventure engine</entry>
 <entry key="SelectImageDialog.Description">To set the background image must move or expand the area highlighted.</entry>
 <entry key="Book.Contents">Contents</entry>
 <entry key="Macro.Documentation">Documentation (not used in game engine)</entry>
@@ -1281,7 +1281,7 @@ The load process was aborted</entry>
 <entry key="Inventory.Information">Here you can customize how the arrows of the inventory look. 
 When not customized, default arrows will be used in the game.</entry>
 <entry key="SelectEffectDialog.AllEffects.ToolTipText">Displays all the effects</entry>
-<entry key="Operation.ImportJAR.InfoMessage">Please note that the import process will succeed only if you selected a .JAR file that contains a game exported with the &lt;e-Adventure&gt; editor.\nOther. JAR files will not be imported.</entry>
+<entry key="Operation.ImportJAR.InfoMessage">Please note that the import process will succeed only if you selected a .JAR file that contains a game exported with the eAdventure editor.\nOther. JAR files will not be imported.</entry>
 <entry key="Adventure.ModePlayerTransparent.Name">1st person</entry>
 <entry key="Conditions.Group.Title">Fields of the global state</entry>
 <entry key="Chapter.ChapterTitle">Title of the chapter</entry>
@@ -1550,7 +1550,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 <entry key="Element.Name2">Scene</entry>
 <entry key="Element.Name1">Scenes</entry>
 <entry key="Element.Name0">Chapter</entry>
-<entry key="Operation.ImportLO.FileNotLoadedMessage">The chosen .ZIP is not a Learning Object exported with &lt;e-Adventure&gt;.</entry>
+<entry key="Operation.ImportLO.FileNotLoadedMessage">The chosen .ZIP is not a Learning Object exported with eAdventure.</entry>
 <entry key="CustomAction.GetNameTitle">Name of the action</entry>
 <entry key="Effect.DecrementVarInfo">Decrement var "{#0}" in "{#1}" units</entry>
 <entry key="Inventory.Tip">Customize the default elements of the inventory</entry>
@@ -1725,7 +1725,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="Cursor.exit.Description">Exit cursor</entry>
 <entry key="LOMES.Technical.Requirement">Requirement</entry>
 <entry key="conditions.context.1.251"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
-<entry key="StartDialog.HelpMessage">Welcome to the &lt;e-Adventure&gt; editor! 
+<entry key="StartDialog.HelpMessage">Welcome to the eAdventure editor! 
 	To get started using the editor you must choose between the options prompted here. You can create a new file by clicking on the button you can find below. You are allowed to create two different type of adventure games (this choice can be modified later):
 	 - Adventures where the player is shown normally, as for instance, the MonkeyIslandTM saga (3rd person mode).
 	 - Adventures where the player is not shown, giving the impression that the user is directly inside the game, as in the Myst saga (1st person mode).
@@ -1858,7 +1858,7 @@ When not customized, default buttons will be used in the game.</entry>
 <entry key="MacrosList.ID">Macro ID</entry>
 <entry key="LOM.General.Tab">General</entry>
 <entry key="MoveObjectEffect.NoItemSelected">No item selected</entry>
-<entry key="Menu.AboutEAD">About &lt;e-Adventure&gt;</entry>
+<entry key="Menu.AboutEAD">About eAdventure</entry>
 <entry key="RandomEffect.DeleteEffect">Delete this effect</entry>
 <entry key="NextScene.AdvancedOptions">Advanced options</entry>
 <entry key="Element.Name251">Drag to</entry>
@@ -1958,7 +1958,7 @@ Please, try it again with other destiny directory.</entry>
 <entry key="BookParagraphsList.NotApplicable">- Not applicable -</entry>
 <entry key="Cursors.Tip">Customize the cursor for different cases</entry>
 <entry key="Search.AssessmentPath">Assessment Path</entry>
-<entry key="StartDialog.Message">To start using the &lt;e-Adventure&gt; editor, you must choose between creating a new adventure, or opening an existing one to edit it.</entry>
+<entry key="StartDialog.Message">To start using the eAdventure editor, you must choose between creating a new adventure, or opening an existing one to edit it.</entry>
 <entry key="HighlightItemEffect.Animated">Animated</entry>
 <entry key="TriggerSceneEffect.Description.FirstPerson">Select the scene you want to trigger:</entry>
 <entry key="AssessmentRule.Importance.High">High</entry>
