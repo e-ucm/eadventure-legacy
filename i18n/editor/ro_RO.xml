@@ -399,9 +399,9 @@
 <entry key="AssessmentProfiles.Title">Profile evaluare</entry>
 <entry key="Error.Title">Eroare</entry>
 <entry key="IMS.Educational.LearningResourceType">Resursa specifica</entry>
-<entry key="Operation.ImportLO.InfoMessage">Retineti ca procesul de import va avea succes numai daca ati selectat un fişier .ZIP ce contine un joc &lt;e-Adventure&gt; exportat ca obiect de invatare. \nAlte fisiere ZIP nu vor fi importate.</entry>
+<entry key="Operation.ImportLO.InfoMessage">Retineti ca procesul de import va avea succes numai daca ati selectat un fişier .ZIP ce contine un joc eAdventure exportat ca obiect de invatare. \nAlte fisiere ZIP nu vor fi importate.</entry>
 <entry key="ErrorReport.FoundException">Exceptie gasita:</entry>
-<entry key="Operation.ImportJAR.FileNotLoaded">Fisierul .JAR ales nu este un joc exportat din &lt;e-Adventure&gt;.</entry>
+<entry key="Operation.ImportJAR.FileNotLoaded">Fisierul .JAR ales nu este un joc exportat din eAdventure.</entry>
 <entry key="Menu.SendComments">Trimiteti comentarii si sugestii</entry>
 <entry key="Arrows.DefaultPosition">Pozitie implicita</entry>
 <entry key="MenuChapters.Title">Capitole</entry>
@@ -884,7 +884,7 @@
 <entry key="Assets.WarningAssetFound">Resursa "{#0}"  exista deja in aceasta categorie. Doriti sa o suprascrieti?</entry>
 <entry key="Conditions.ConditionGroup.Satisfied">este satisfacut</entry>
 <entry key="Operation.AddNPCDefaultValue">IDPersonaj</entry>
-<entry key="Operation.AdventurInconsistentWarning">Aventura nu este consecventa si nu va putea fi redata cu motorul &lt;e-Adventure&gt; . Efectuati o “verificare a consecventei Aventurii ” si rezolvati problema </entry>
+<entry key="Operation.AdventurInconsistentWarning">Aventura nu este consecventa si nu va putea fi redata cu motorul eAdventure . Efectuati o “verificare a consecventei Aventurii ” si rezolvati problema </entry>
 <entry key="MainWindow.Title.NewFile">Fisier nou</entry>
 <entry key="Effect.ActivateInfo">Activeaza marcator: {#0}</entry>
 <entry key="Operation.ExportToLOM.Credentials">Autentificare autor</entry>
@@ -982,7 +982,7 @@
 <entry key="Conditions.EditCondition">Editare conditie</entry>
 <entry key="SelectImageDialog.Message">Imaginea selectata este prea mare (mai mare de 800x600). Selectati sectiunea din imagine ce va fi folosita ca fundal. Pentru a face ajustari automate, faceti click pe butonul de mai jos. </entry>
 <entry key="Cursor.action.Tip">Numai pentru interfata grafica contextuala: Acest cursor va fi folosit atunci cand o actiune urmeaza a fi realizata.</entry>
-<entry key="StartDialog.Title">Bine ati venit la editorul &lt;e-Adventure&gt;</entry>
+<entry key="StartDialog.Title">Bine ati venit la editorul eAdventure</entry>
 <entry key="Flags.DefaultFlagName">Marcator nou</entry>
 <entry key="RandomEffect.Negative.Title">Al doilea efect</entry>
 <entry key="Vars.VarName">Nume variabila</entry>
@@ -1010,7 +1010,7 @@
 <entry key="Operation.AddMacroDefaultValue">IDMacro</entry>
 <entry key="Cursor.use.Tip">Numai pentru interfata grafica traditionala: Acest cursor va fi folosit pentru actiuni de tip “foloseste”</entry>
 <entry key="AnimationPanel.AnimationNotAvalaible">Animatie indisponibila</entry>
-<entry key="Operation.AdventureConsistentReport">Aventura este consecventa şi poate fi redata cu motorul  &lt;e-Adventure&gt;</entry>
+<entry key="Operation.AdventureConsistentReport">Aventura este consecventa şi poate fi redata cu motorul  eAdventure</entry>
 <entry key="SelectImageDialog.Description">Pentru a seta imaginea de fundal trebuie extinsa sau mutata zona evidentiata. </entry>
 <entry key="Book.Contents">Continuturi</entry>
 <entry key="Macro.Documentation">Documentatie (neutilizata in motorul jocului)</entry>
@@ -1223,7 +1223,7 @@
 <entry key="AtrezzoList.Title">Set de itemi</entry>
 <entry key="Inventory.Information">Aici puteti particulariza aspectul sagetilor inventarului. Atunci cand nu sunt particularizate, in joc vor fi folosite sagetile implicite</entry>
 <entry key="SelectEffectDialog.AllEffects.ToolTipText">Afiseaza toate efectele</entry>
-<entry key="Operation.ImportJAR.InfoMessage">Retineti ca procesul de import va avea succes numai daca ati selectat un fisier .JAR ce contine un joc exportat cu editorul &lt;e-Adventure&gt;. \nAlte fisiere .JAR nu vor fi importate.</entry>
+<entry key="Operation.ImportJAR.InfoMessage">Retineti ca procesul de import va avea succes numai daca ati selectat un fisier .JAR ce contine un joc exportat cu editorul eAdventure. \nAlte fisiere .JAR nu vor fi importate.</entry>
 <entry key="Adventure.ModePlayerTransparent.Name">persoana I</entry>
 <entry key="Conditions.Group.Title">Campuri de conditii globale</entry>
 <entry key="Chapter.ChapterTitle">Titlu capitol</entry>
@@ -1471,7 +1471,7 @@
 <entry key="Element.Name2">Scena</entry>
 <entry key="Element.Name1">Scene</entry>
 <entry key="Element.Name0">Capitol</entry>
-<entry key="Operation.ImportLO.FileNotLoadedMessage">Fisierul .ZIP ales nu este un obiect de invatare exportat cu &lt;e-Adventure&gt;.</entry>
+<entry key="Operation.ImportLO.FileNotLoadedMessage">Fisierul .ZIP ales nu este un obiect de invatare exportat cu eAdventure.</entry>
 <entry key="CustomAction.GetNameTitle">Numele actiunii</entry>
 <entry key="Effect.DecrementVarInfo">Decrementarea variabilei  "{#0}" in "{#1}" unitati</entry>
 <entry key="ActionProperties.EnableClickEffects">Activare "efecte click"</entry>
@@ -1635,7 +1635,7 @@
 <entry key="Cursor.exit.Description">Cursor iesire</entry>
 <entry key="LOMES.Technical.Requirement">Cerinta</entry>
 <entry key="conditions.context.1.251">Actiunea {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;va deveni executabila&lt;/b&gt; cand urmatoarea conditie este satisfacuta:</entry>
-<entry key="StartDialog.HelpMessage">Bun venit in editorul &lt;e-Adventure&gt;! Pentru a incepe sa utilizati editorul trebuie sa alegeti intre optiunile afisate. Puteti crea un nou fisier prin click pe butonul pe care il aveti mai jos. Va este permis sa creati doua tipuri diferite de joc de aventura (optiune pe care o puteti modifica mai tarziu): Aventuri unde jucatorul este afisat normal, cum ar fi, de exemplu legenda Monkey Island (joc la persoana a III a); Aventuri unde jucatorul nu este afisat, lasand impresia ca utilizatorul este in interiorul jocului asa cum este in legenda Myst (joc la persoana I). Daca nu doriti sa creati un nou proiect, puteti deschide unul existent mai jos.</entry>
+<entry key="StartDialog.HelpMessage">Bun venit in editorul eAdventure! Pentru a incepe sa utilizati editorul trebuie sa alegeti intre optiunile afisate. Puteti crea un nou fisier prin click pe butonul pe care il aveti mai jos. Va este permis sa creati doua tipuri diferite de joc de aventura (optiune pe care o puteti modifica mai tarziu): Aventuri unde jucatorul este afisat normal, cum ar fi, de exemplu legenda Monkey Island (joc la persoana a III a); Aventuri unde jucatorul nu este afisat, lasand impresia ca utilizatorul este in interiorul jocului asa cum este in legenda Myst (joc la persoana I). Daca nu doriti sa creati un nou proiect, puteti deschide unul existent mai jos.</entry>
 <entry key="TimersList.AddTimer">Adauga un nou timp</entry>
 <entry key="RandomEffect.EditEffect">Editati acest efect</entry>
 <entry key="ErrorReport.ShortDescription">Faceti o mica descriere a ceea ce faceati</entry>
@@ -1761,7 +1761,7 @@
 <entry key="MacrosList.ID">ID macro</entry>
 <entry key="LOM.General.Tab">General</entry>
 <entry key="MoveObjectEffect.NoItemSelected">Niciun item selectat</entry>
-<entry key="Menu.AboutEAD">Despre &lt;e-Adventure&gt;</entry>
+<entry key="Menu.AboutEAD">Despre eAdventure</entry>
 <entry key="RandomEffect.DeleteEffect">Stergeti acest efect</entry>
 <entry key="NextScene.AdvancedOptions">Optiuni avansate</entry>
 <entry key="Element.Name251">Trage catre</entry>
@@ -1864,7 +1864,7 @@
 <entry key="Cursors.Tip">Personalizare cursor pentru diferite cazuri</entry>
 <entry key="ActionProperties.EditClickFailEffects">Editeaza "efecte click esuate"</entry>
 <entry key="Search.AssessmentPath">Cale evaluare</entry>
-<entry key="StartDialog.Message">Pentru a utiliza editorul &lt;e-Adventure&gt;, trebuie sa alegeti intre crearea unei noi aventuri sau deschiderea uneia existente pentru a o edita.</entry>
+<entry key="StartDialog.Message">Pentru a utiliza editorul eAdventure, trebuie sa alegeti intre crearea unei noi aventuri sau deschiderea uneia existente pentru a o edita.</entry>
 <entry key="HighlightItemEffect.Animated">Animat</entry>
 <entry key="TriggerSceneEffect.Description.FirstPerson">Selectati scena pe care doriti sa o deschideti:</entry>
 <entry key="AssessmentRule.Importance.High">Ridicat</entry>

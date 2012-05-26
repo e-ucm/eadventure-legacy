@@ -409,9 +409,9 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="AssessmentProfiles.Title">Assesment-Profile</entry>
 <entry key="Error.Title">Fehler</entry>
 <entry key="IMS.Educational.LearningResourceType">Spezifischer Typ der Ressource</entry>
-<entry key="Operation.ImportLO.InfoMessage">Bitte beachten Sie, dass der Import wird nur erfolgereicht, wenn Sie eine. ZIP-Datei, die ein Spiel als Learning Object mit dem Editor &lt;e-Adventure&gt; exportiert wird enthält.\n Sonstige. ZIP-Dateien werden nicht importiert.</entry>
+<entry key="Operation.ImportLO.InfoMessage">Bitte beachten Sie, dass der Import wird nur erfolgereicht, wenn Sie eine. ZIP-Datei, die ein Spiel als Learning Object mit dem Editor eAdventure exportiert wird enthält.\n Sonstige. ZIP-Dateien werden nicht importiert.</entry>
 <entry key="ErrorReport.FoundException">Exception gefunden:</entry>
-<entry key="Operation.ImportJAR.FileNotLoaded">Die gewählte JAR-Datei ist nicht aus &lt;e-Adventure&gt; exportiert worden</entry>
+<entry key="Operation.ImportJAR.FileNotLoaded">Die gewählte JAR-Datei ist nicht aus eAdventure exportiert worden</entry>
 <entry key="Menu.SendComments">Kommentare oder Anregungen senden</entry>
 <entry key="Arrows.DefaultPosition">Default Position</entry>
 <entry key="MenuChapters.Title">Kapitel</entry>
@@ -894,7 +894,7 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="Assets.WarningAssetFound">Der Ressource "{#0}" ist bereits in dieser Kategorie. 		Ersetzen?</entry>
 <entry key="Conditions.ConditionGroup.Satisfied">begegnet</entry>
 <entry key="Operation.AddNPCDefaultValue">IdCharakter</entry>
-<entry key="Operation.AdventurInconsistentWarning">Das Abenteuer ist ungültig und kann nicht auf den &lt;e-Adventure&gt; Engine laufen.	Bitte führen Sie "Check Gültigkeit" aus und Probleme beheben, um das Abenteuer zu validieren.</entry>
+<entry key="Operation.AdventurInconsistentWarning">Das Abenteuer ist ungültig und kann nicht auf den eAdventure Engine laufen.	Bitte führen Sie "Check Gültigkeit" aus und Probleme beheben, um das Abenteuer zu validieren.</entry>
 <entry key="MainWindow.Title.NewFile">Neue Datei</entry>
 <entry key="Effect.ActivateInfo">Flag aktivieren: {#0}</entry>
 <entry key="Operation.ExportToLOM.Credentials">Credentials des Autors</entry>
@@ -1020,7 +1020,7 @@ Diese art der effekte ausgelöst, wenn der spieler diese aktion im spiel auswäh
 <entry key="Operation.AddMacroDefaultValue">IdMacro</entry>
 <entry key="Cursor.use.Tip">Nur für kontextuellen GUI: Dieser Mauszeiger wird für "nutzen" Aktionen nutzen</entry>
 <entry key="AnimationPanel.AnimationNotAvalaible">Animation nicht verfügbar</entry>
-<entry key="Operation.AdventureConsistentReport">Das Abenteuer ist vollständig gültig und kann in der &lt;e-Adventure&gt; Engine ausgeführt werden</entry>
+<entry key="Operation.AdventureConsistentReport">Das Abenteuer ist vollständig gültig und kann in der eAdventure Engine ausgeführt werden</entry>
 <entry key="SelectImageDialog.Description">Um das Hintergrundbild zu erstellen, markierte Bereich bewegen oder erweitern</entry>
 <entry key="Book.Contents">Buch Inhalt</entry>
 <entry key="Macro.Documentation">Beschreibung (nicht benutzt im Engine)</entry>
@@ -1236,7 +1236,7 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="AtrezzoList.Title">Atrezzo Objekte</entry>
 <entry key="Inventory.Information">Aus diesem Menü können Sie das Erscheinungsbild der Daten der Bestandsaufnahme. Wenn Sie nicht ändern, wird das Spiel mit dem Standard-Pfeile.</entry>
 <entry key="SelectEffectDialog.AllEffects.ToolTipText">Zeigt alle Arten von Effekten</entry>
-<entry key="Operation.ImportJAR.InfoMessage">Bitte beachten Sie, dass der Import wird nur erfolgereicht, wenn Sie eine. JAR-Datei, die ein Spiel mit dem Editor &lt;e-Adventure&gt; exportiert wird enthält.\n Sonstige. JAR-Dateien werden nicht importiert.</entry>
+<entry key="Operation.ImportJAR.InfoMessage">Bitte beachten Sie, dass der Import wird nur erfolgereicht, wenn Sie eine. JAR-Datei, die ein Spiel mit dem Editor eAdventure exportiert wird enthält.\n Sonstige. JAR-Dateien werden nicht importiert.</entry>
 <entry key="Adventure.ModePlayerTransparent.Name">First-Person</entry>
 <entry key="Conditions.Group.Title">Werte der Global Zustand</entry>
 <entry key="Chapter.ChapterTitle">Kapiteltiteln</entry>
@@ -1484,7 +1484,7 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Element.Name2">Szene</entry>
 <entry key="Element.Name1">Szenen</entry>
 <entry key="Element.Name0">Kapitel</entry>
-<entry key="Operation.ImportLO.FileNotLoadedMessage">Die gewählte ,ZIP ist kein Learning Objekt aus &lt;e-Adventure&gt; exportiert</entry>
+<entry key="Operation.ImportLO.FileNotLoadedMessage">Die gewählte ,ZIP ist kein Learning Objekt aus eAdventure exportiert</entry>
 <entry key="CustomAction.GetNameTitle">Aktionsname</entry>
 <entry key="Effect.DecrementVarInfo">Variable "{#0}" "{#1}" einheiten dekrementiert</entry>
 <entry key="ActionProperties.EnableClickEffects">Aktivieren sie "klick-effekte"</entry>
@@ -1648,7 +1648,7 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Cursor.exit.Description">Ausfahrt Mauszeiger</entry>
 <entry key="LOMES.Technical.Requirement">Requerimientos</entry>
 <entry key="conditions.context.1.251">{action} # ELEMENT_TYPE $ $} {# element_id &lt;b&gt; durchgeführt werden können, wenn &lt;/b&gt;, weil nicht alle Bedingungen festgelegt:</entry>
-<entry key="StartDialog.HelpMessage">Willkommen in der Editor &lt;e-Adventure&gt; Um mit dem Editor können von der hier angegebenen Optionen wählen. Sie können eine neue Datei, indem Sie eine der folgenden Tasten zu schaffen. Es entstehen zwei verschiedene Arten von Abenteuer (diese Entscheidung kann später geändert werden): - Adventures, dass der Charakter der Spieler zeigen, wie in den Spielen der Saga Monkey Island (sichtbar Spieler-Modus). - Adventures in ist nicht der Spieler-Charakter, wie in der Myst-Reihe-Spiele (erste Person-Modus). Wenn Sie nicht möchten, dass ein neues Spiel erstellen, können Sie eine vorhandene Datei öffnen Ordner mit den Tasten befindet sich oben.</entry>
+<entry key="StartDialog.HelpMessage">Willkommen in der Editor eAdventure Um mit dem Editor können von der hier angegebenen Optionen wählen. Sie können eine neue Datei, indem Sie eine der folgenden Tasten zu schaffen. Es entstehen zwei verschiedene Arten von Abenteuer (diese Entscheidung kann später geändert werden): - Adventures, dass der Charakter der Spieler zeigen, wie in den Spielen der Saga Monkey Island (sichtbar Spieler-Modus). - Adventures in ist nicht der Spieler-Charakter, wie in der Myst-Reihe-Spiele (erste Person-Modus). Wenn Sie nicht möchten, dass ein neues Spiel erstellen, können Sie eine vorhandene Datei öffnen Ordner mit den Tasten befindet sich oben.</entry>
 <entry key="TimersList.AddTimer">Neuer Timer hinzufügen</entry>
 <entry key="RandomEffect.EditEffect">Diese Wirkung bearbeiten</entry>
 <entry key="ErrorReport.ShortDescription">Bitte, schreibt eine kurze Beschreibung</entry>
@@ -1774,7 +1774,7 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="MacrosList.ID">Macro ID</entry>
 <entry key="LOM.General.Tab">Allgemein</entry>
 <entry key="MoveObjectEffect.NoItemSelected">Kein ausgewählte Objekt</entry>
-<entry key="Menu.AboutEAD">Über &lt;e-Adventure&gt;</entry>
+<entry key="Menu.AboutEAD">Über eAdventure</entry>
 <entry key="RandomEffect.DeleteEffect">Effekte löschen</entry>
 <entry key="NextScene.AdvancedOptions">Erweiterte Optionen</entry>
 <entry key="Element.Name251">Arrastrar a</entry>
@@ -1877,7 +1877,7 @@ Diese art der effekte werden ausgelöst, wenn der spieler nicht das ziel der ma�
 <entry key="Cursors.Tip">Benutzerdefiniert cursoren</entry>
 <entry key="ActionProperties.EditClickFailEffects">Bearbeiten "klick-scheitern-effekte"</entry>
 <entry key="Search.AssessmentPath">Anpassungsdatei Pfad</entry>
-<entry key="StartDialog.Message">Um mit &lt;e-Adventure&gt; Editor muss zwischen dem Erstellen einer neuen Datei zu dem neuen Unternehmen zu speichern wählen, oder wählen Sie ein Abenteuer und für die Bearbeitung erstellt. </entry>
+<entry key="StartDialog.Message">Um mit eAdventure Editor muss zwischen dem Erstellen einer neuen Datei zu dem neuen Unternehmen zu speichern wählen, oder wählen Sie ein Abenteuer und für die Bearbeitung erstellt. </entry>
 <entry key="HighlightItemEffect.Animated">Animierte</entry>
 <entry key="TriggerSceneEffect.Description.FirstPerson">Wählen Sie die Szene:</entry>
 <entry key="AssessmentRule.Importance.High">Hoch</entry>

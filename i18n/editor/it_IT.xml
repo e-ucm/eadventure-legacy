@@ -390,9 +390,9 @@
 <entry key="AssessmentProfiles.Title">Profili di valutazione </entry>
 <entry key="Error.Title">Errore </entry>
 <entry key="IMS.Educational.LearningResourceType">Tipo specifico di risorse </entry>
-<entry key="Operation.ImportLO.InfoMessage">Attenzione: Per fare in modo che l'importazione avvenga il file  ZIP scelto deve essere l’esportazione di un gioco &lt;e-Adventure&gt; come oggetto di apprendimento. I rimanenti file ZIP non verranno importati. </entry>
+<entry key="Operation.ImportLO.InfoMessage">Attenzione: Per fare in modo che l'importazione avvenga il file  ZIP scelto deve essere l’esportazione di un gioco eAdventure come oggetto di apprendimento. I rimanenti file ZIP non verranno importati. </entry>
 <entry key="ErrorReport.FoundException">Eccezione trovata: </entry>
-<entry key="Operation.ImportJAR.FileNotLoaded">Il file .JAR scelto non è l'esportazione di &lt;e-Adventure&gt;. </entry>
+<entry key="Operation.ImportJAR.FileNotLoaded">Il file .JAR scelto non è l'esportazione di eAdventure. </entry>
 <entry key="Menu.SendComments">Inviare commenti o suggerimenti </entry>
 <entry key="Arrows.DefaultPosition">Nessun difetto di posizione </entry>
 <entry key="MenuChapters.Title">Capitoli </entry>
@@ -869,7 +869,7 @@
 <entry key="Assets.WarningAssetFound">La risorsa "{#0}" è già in questa categoria. Vuoi sovrascriverla? </entry>
 <entry key="Conditions.ConditionGroup.Satisfied">Nuovo file </entry>
 <entry key="Operation.AddNPCDefaultValue">IdPersonaggio</entry>
-<entry key="Operation.AdventurInconsistentWarning">L'avventura non è valida e non può essere eseguita sul motore &lt;e-Adventure&gt; . Si prega di eseguire "validità Test" e risolvere i problemi per convalidare l'avventura. </entry>
+<entry key="Operation.AdventurInconsistentWarning">L'avventura non è valida e non può essere eseguita sul motore eAdventure . Si prega di eseguire "validità Test" e risolvere i problemi per convalidare l'avventura. </entry>
 <entry key="MainWindow.Title.NewFile">Nuovo file </entry>
 <entry key="Effect.ActivateInfo">Attivare flag: {#0} </entry>
 <entry key="Operation.ExportToLOM.Credentials">Autore credenziali  </entry>
@@ -993,7 +993,7 @@
 <entry key="Operation.AddMacroDefaultValue">IdMacro</entry>
 <entry key="Cursor.use.Tip">Questo cursore viene utilizzato per selezionare la destinazione di un'azione "uso" (solo l'interfaccia tradizionale)</entry>
 <entry key="AnimationPanel.AnimationNotAvalaible">Animazione non disponibile</entry>
-<entry key="Operation.AdventureConsistentReport">L'avventura è totalmente valida e può essere eseguito nel motore &lt;e-Adventure&gt; </entry>
+<entry key="Operation.AdventureConsistentReport">L'avventura è totalmente valida e può essere eseguito nel motore eAdventure </entry>
 <entry key="SelectImageDialog.Description">Per impostare l'immagine di sfondo, spostare o espandere l'area evidenziata.</entry>
 <entry key="Book.Contents">Prenota il contenuto </entry>
 <entry key="Macro.Documentation">Descrizione (non utilizzato nel motore)</entry>
@@ -1201,7 +1201,7 @@
 <entry key="AtrezzoList.Title">Oggetti di scena</entry>
 <entry key="Inventory.Information">Da questo menu è possibile personalizzare l'aspetto delle date di inventario. Se non è cambiato, il gioco utilizza i tasti freccia per impostazione predefinita.</entry>
 <entry key="SelectEffectDialog.AllEffects.ToolTipText">Mostra tutti i tipi di effetti</entry>
-<entry key="Operation.ImportJAR.InfoMessage">Attenzione: Per l'importazione è soddisfacente JAR scelto deve essere un esportazione di un gioco come &lt;e-Adventure&gt; jar eseguibile.. Il resto del. JAR non essere importati n.</entry>
+<entry key="Operation.ImportJAR.InfoMessage">Attenzione: Per l'importazione è soddisfacente JAR scelto deve essere un esportazione di un gioco come eAdventure jar eseguibile.. Il resto del. JAR non essere importati n.</entry>
 <entry key="Adventure.ModePlayerTransparent.Name">First Person</entry>
 <entry key="Conditions.Group.Title">Campi di stato globale</entry>
 <entry key="Chapter.ChapterTitle">Ta-layer-Titolo Titolo</entry>
@@ -1448,7 +1448,7 @@
 <entry key="Element.Name2">Scene</entry>
 <entry key="Element.Name1">Scene</entry>
 <entry key="Element.Name0">Capitolo</entry>
-<entry key="Operation.ImportLO.FileNotLoadedMessage">L'. ZIP scelto è un Learning Object &lt;e-Adventure&gt; esportato.</entry>
+<entry key="Operation.ImportLO.FileNotLoadedMessage">L'. ZIP scelto è un Learning Object eAdventure esportato.</entry>
 <entry key="CustomAction.GetNameTitle">Nome del ³ n azione</entry>
 <entry key="Effect.DecrementVarInfo">Decrementa la variabile "{#0}" "{#1}" unità</entry>
 <entry key="Inventory.Tip">Personalizzazione di articoli di magazzino</entry>
@@ -1609,7 +1609,7 @@
 <entry key="Cursor.exit.Description">Cursore di uscita</entry>
 <entry key="LOMES.Technical.Requirement">Requisiti</entry>
 <entry key="conditions.context.1.251">L'azione {#ELEMENT_TYPE$} {#ELEMENT_ID$}&lt;b&gt; sarà eventualmente svolgerà &lt;/b&gt; quando si incontra il seguente requisito:</entry>
-<entry key="StartDialog.HelpMessage">Benvenuti al &lt;e-Adventure&gt; editor Per iniziare a utilizzare l'editor è possibile scegliere tra le opzioni qui. È possibile creare un nuovo file, selezionando uno dei pulsanti qui sotto. Esso crea due diversi tipi di avventura (Questa decisione può cambiare s ³ n più sotto): - avventure che mostrano il personaggio per il giocatore, come nei giochi della saga di Monkey Island (modalità lettore visibile). - Avventure in non è il personaggio del giocatore, come nei giochi della serie Myst (modalità in prima persona). Se non si desidera creare un nuovo gioco, è possibile aprire una cartella esistente file utilizzando i pulsanti di cui sopra.</entry>
+<entry key="StartDialog.HelpMessage">Benvenuti al eAdventure editor Per iniziare a utilizzare l'editor è possibile scegliere tra le opzioni qui. È possibile creare un nuovo file, selezionando uno dei pulsanti qui sotto. Esso crea due diversi tipi di avventura (Questa decisione può cambiare s ³ n più sotto): - avventure che mostrano il personaggio per il giocatore, come nei giochi della saga di Monkey Island (modalità lettore visibile). - Avventure in non è il personaggio del giocatore, come nei giochi della serie Myst (modalità in prima persona). Se non si desidera creare un nuovo gioco, è possibile aprire una cartella esistente file utilizzando i pulsanti di cui sopra.</entry>
 <entry key="TimersList.AddTimer">Aggiungi ± Aggiungi timer</entry>
 <entry key="RandomEffect.EditEffect">Modifica questo effetto</entry>
 <entry key="ErrorReport.ShortDescription">Si prega di scrivere una breve  descrizione di quello che stava facendo</entry>
@@ -1733,7 +1733,7 @@
 <entry key="MacrosList.ID">Macro ID</entry>
 <entry key="LOM.General.Tab">Generale</entry>
 <entry key="MoveObjectEffect.NoItemSelected">Nessun oggetto selezionato</entry>
-<entry key="Menu.AboutEAD">A proposito di &lt;e-Adventure&gt;</entry>
+<entry key="Menu.AboutEAD">A proposito di eAdventure</entry>
 <entry key="RandomEffect.DeleteEffect">Eliminare questo effetto</entry>
 <entry key="NextScene.AdvancedOptions">Advanced</entry>
 <entry key="Element.Name251">A. Drag ...</entry>
@@ -1831,7 +1831,7 @@
 <entry key="BookParagraphsList.NotApplicable">- Non applicabile -</entry>
 <entry key="Cursors.Tip">Personalizzazione dei cursori</entry>
 <entry key="Search.AssessmentPath">Posizione del file aprendiaje</entry>
-<entry key="StartDialog.Message">Per iniziare a utilizzare editor &lt;e-Adventure&gt; deve scegliere tra la creazione di un nuovo file per memorizzare la nuova avventura, o scegliere un avventura e creato per la modifica.</entry>
+<entry key="StartDialog.Message">Per iniziare a utilizzare editor eAdventure deve scegliere tra la creazione di un nuovo file per memorizzare la nuova avventura, o scegliere un avventura e creato per la modifica.</entry>
 <entry key="HighlightItemEffect.Animated">Animato</entry>
 <entry key="TriggerSceneEffect.Description.FirstPerson">Selezionare la scena che verrà eseguito:</entry>
 <entry key="AssessmentRule.Importance.High">Aggiunto</entry>

@@ -402,9 +402,9 @@
 <entry key="AssessmentProfiles.Title">评估资料</entry>
 <entry key="Error.Title">错误</entry>
 <entry key="IMS.Educational.LearningResourceType">特定类型资源</entry>
-<entry key="Operation.ImportLO.InfoMessage">请注意:仅在选中一个保含&lt;e-Adventure&gt;游戏以学习对象输出的.ZIP文件时,导入过程才能成功.</entry>
+<entry key="Operation.ImportLO.InfoMessage">请注意:仅在选中一个保含eAdventure游戏以学习对象输出的.ZIP文件时,导入过程才能成功.</entry>
 <entry key="ErrorReport.FoundException">发现例外</entry>
-<entry key="Operation.ImportJAR.FileNotLoaded">选中的.JAR文件不是从&lt;e-Adventure&gt;输出的.</entry>
+<entry key="Operation.ImportJAR.FileNotLoaded">选中的.JAR文件不是从eAdventure输出的.</entry>
 <entry key="Arrows.DefaultPosition">默认位置</entry>
 <entry key="Menu.SendComments">发送评论或建议</entry>
 <entry key="LOM.Duration.Years">年</entry>
@@ -885,7 +885,7 @@
 <entry key="Assets.WarningAssetFound">资产"{#0}"已经在此分类中,确定要覆盖它吗?</entry>
 <entry key="Conditions.ConditionGroup.Satisfied">满足</entry>
 <entry key="Operation.AddNPCDefaultValue">角色编号</entry>
-<entry key="Operation.AdventurInconsistentWarning">体验游戏不一致不能被&lt;e-Adventure&gt;引擎运行.请执行"体验游戏一致性检查"并解决这个问题</entry>
+<entry key="Operation.AdventurInconsistentWarning">体验游戏不一致不能被eAdventure引擎运行.请执行"体验游戏一致性检查"并解决这个问题</entry>
 <entry key="MainWindow.Title.NewFile">新文件</entry>
 <entry key="Effect.ActivateInfo">激活标志:{#0}</entry>
 <entry key="Operation.ExportToLOM.Credentials">作者身份</entry>
@@ -983,7 +983,7 @@
 <entry key="Conditions.EditCondition">编辑条件</entry>
 <entry key="SelectImageDialog.Message">选择的图片太大(大于800x600).请选择作为背景图像的部分.单击此按钮,自动调整适应.</entry>
 <entry key="Cursor.action.Tip">仅上下文图形用户界面中:当一个动作将被执行时,此光标将被使用</entry>
-<entry key="StartDialog.Title">欢迎使用&lt;e-Adventure&gt;编辑器</entry>
+<entry key="StartDialog.Title">欢迎使用eAdventure编辑器</entry>
 <entry key="Flags.DefaultFlagName">新标志</entry>
 <entry key="RandomEffect.Negative.Title">第二效果</entry>
 <entry key="Vars.VarName">变量名</entry>
@@ -1224,7 +1224,7 @@
 <entry key="AtrezzoList.Title">物品集</entry>
 <entry key="Inventory.Information">可以定制物品清单箭头的外观.不定制,游戏将使用默认箭头</entry>
 <entry key="SelectEffectDialog.AllEffects.ToolTipText">显示所有效果</entry>
-<entry key="Operation.ImportJAR.InfoMessage">请注意仅在选中一个用&lt;e-Adventure&gt;编辑器输出的一个.JAR文件时导入过程才能成功.\n否则.JAR文件不能被导入.</entry>
+<entry key="Operation.ImportJAR.InfoMessage">请注意仅在选中一个用eAdventure编辑器输出的一个.JAR文件时导入过程才能成功.\n否则.JAR文件不能被导入.</entry>
 <entry key="Adventure.ModePlayerTransparent.Name">第一人称</entry>
 <entry key="Conditions.Group.Title">全局状态域</entry>
 <entry key="Chapter.ChapterTitle">章节标题</entry>
@@ -1473,7 +1473,7 @@
 <entry key="Operation.IdErrorFirstCharacter">标识符的首字符必须是字母</entry>
 <entry key="Element.Name1">场景</entry>
 <entry key="Element.Name0">章节</entry>
-<entry key="Operation.ImportLO.FileNotLoadedMessage">选中的.ZIP文件不包含用&lt;e-Adventure&gt;输出的学习对象</entry>
+<entry key="Operation.ImportLO.FileNotLoadedMessage">选中的.ZIP文件不包含用eAdventure输出的学习对象</entry>
 <entry key="CustomAction.GetNameTitle">动作名称</entry>
 <entry key="Effect.DecrementVarInfo">"{#1}"单元中的"{#0}"递减变量</entry>
 <entry key="ActionProperties.EnableClickEffects">激活"单击效果"</entry>
@@ -1636,7 +1636,7 @@
 <entry key="Cursor.exit.Description">离开光标</entry>
 <entry key="ImportChapter.ImportationOK.Message">章节被正确的导入</entry>
 <entry key="LOMES.Technical.Requirement">必要条件</entry>
-<entry key="StartDialog.HelpMessage">欢迎使用&lt;e-Adventure&gt;编辑器！开始使用编辑器之前需要在这两个选项中进行选择.单击下面的按钮可以创建一个新文件.可以创建两种不同类型的体验游戏(此选项后面可以修改): -像MonkeyIslandTM传说游戏一样,游戏者可以出现在游戏中(第三人称模式). -向Myst传说游戏一样,游戏者不出现在游戏中,但给用户的印象是其直接在游戏中(第一人称模式). 如果不想创建一个新体验游戏项目,浏览上面的标签打开一个已存在的游戏项目.</entry>
+<entry key="StartDialog.HelpMessage">欢迎使用eAdventure编辑器！开始使用编辑器之前需要在这两个选项中进行选择.单击下面的按钮可以创建一个新文件.可以创建两种不同类型的体验游戏(此选项后面可以修改): -像MonkeyIslandTM传说游戏一样,游戏者可以出现在游戏中(第三人称模式). -向Myst传说游戏一样,游戏者不出现在游戏中,但给用户的印象是其直接在游戏中(第一人称模式). 如果不想创建一个新体验游戏项目,浏览上面的标签打开一个已存在的游戏项目.</entry>
 <entry key="conditions.context.1.251">当下一个条件被满足时,动作{#ElEMENT_TYPE$}{#ELEMENT_ID$}&lt;b&gt;将可执行&lt;/b&gt;:</entry>
 <entry key="TimersList.AddTimer">添加新计时器</entry>
 <entry key="ErrorReport.ShortDescription">请写下简短的叙述关于那里你是如何做的</entry>
@@ -1763,7 +1763,7 @@
 <entry key="MacrosList.ID">宏编号</entry>
 <entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">评估和适应资料必须是SCORM 2004,如果它们存在用AGREGA格式输出.</entry>
 <entry key="MoveObjectEffect.NoItemSelected">没有物品被选中</entry>
-<entry key="Menu.AboutEAD">关于&lt;e-Adventure&gt;</entry>
+<entry key="Menu.AboutEAD">关于eAdventure</entry>
 <entry key="RandomEffect.DeleteEffect">删除此效果</entry>
 <entry key="Element.Name251">拖动到</entry>
 <entry key="NextScene.AdvancedOptions">高级选项</entry>
@@ -1866,7 +1866,7 @@
 <entry key="Cursors.Tip">为不同的情形定制光标</entry>
 <entry key="ActionProperties.EditClickFailEffects">编辑"单击失败效果"</entry>
 <entry key="Search.AssessmentPath">评估路径</entry>
-<entry key="StartDialog.Message">启动&lt;e-Adventure&gt;编辑器,在创建新体验游戏或打开并编辑一个已存得游戏之间进行选择.</entry>
+<entry key="StartDialog.Message">启动eAdventure编辑器,在创建新体验游戏或打开并编辑一个已存得游戏之间进行选择.</entry>
 <entry key="HighlightItemEffect.Animated">动画</entry>
 <entry key="AssessmentRule.Importance.High">高</entry>
 <entry key="TriggerSceneEffect.Description.FirstPerson">选择要触发的场景</entry>
