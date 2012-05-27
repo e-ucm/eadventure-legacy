@@ -160,7 +160,7 @@ public class PlaySoundEffectDialog extends EffectDialog {
         if( currentProperties != null ) {
             if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_PATH ) && 
                     (String) currentProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) != null &&
-                    ((String) currentProperties.get( EffectsController.EFFECT_PROPERTY_PATH )).equals( "" )) {
+                    !((String) currentProperties.get( EffectsController.EFFECT_PROPERTY_PATH )).equals( "" )) {
                 pathTextField.setText( (String) currentProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) );
                 viewButton.setEnabled( pathTextField.getText( ) != null );
             }
