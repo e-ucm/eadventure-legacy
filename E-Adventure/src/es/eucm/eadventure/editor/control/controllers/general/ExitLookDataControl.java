@@ -174,4 +174,11 @@ public class ExitLookDataControl implements HasSound{
         }
     }
 
+    //DO NOT REMOVE: USED WITH REFLECTION
+    public void setCursorPath( String value ) {
+
+        exitLook.setCursorPath( value );
+    }
+
+
 }
