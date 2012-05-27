@@ -142,11 +142,14 @@ public class NPCDataControl extends DataControlWithResources {
      * Look for one image path. If there no one, return empty animation path
      * 
      */
+    // Modified v1.5 to fix a bug with empty animations in eaa format
     private String getExistingPreviewImagePath( ) {
 
         String path = null;
         for( ResourcesDataControl resource : resourcesDataControlList ) {
-            if (resource !=null && resource.getAssetPath( "standright" )!=null&&!resource.getAssetPath( "standright" ).equals( EMPTY_ANIMATION))
+            if (resource !=null && resource.getAssetPath( "standright" )!=null&&
+                    !resource.getAssetPath( "standright" ).equals( EMPTY_ANIMATION) && 
+                    !resource.getAssetPath( "standright" ).equals( EMPTY_ANIMATION+".eaa"))
                 path = resource.getAssetPath( "standright" );
             else 
                 path = resource.getAssetPath( "standleft" );
