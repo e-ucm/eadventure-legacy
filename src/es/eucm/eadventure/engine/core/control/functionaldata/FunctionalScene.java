@@ -834,9 +834,7 @@ public class FunctionalScene implements Renderable, _HighLevelEvents {
      */
     public void mouseClicked( int x, int y ) {
 
-        // FIXME Francis: Aclarar el uso del offset, ya que se añade en sitios que no deberia y viceversa
         if( isInsideOffsetArrow( x, y ) ) {
-            System.out.println( "Is inside offset arrow" );
             if( moveOffsetRight ){
                 Game.getInstance( ).getGameLog( ).highLevelEvent( OFFSET_ARROW_RIGHT );
                 updateOffset( true );

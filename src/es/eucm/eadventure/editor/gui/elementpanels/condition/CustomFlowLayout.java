@@ -565,8 +565,6 @@ public class CustomFlowLayout implements LayoutManager {
             }
             else if( m == skip ) {
                 skip.setLocation( target.getWidth( ) / 2 - skip.getWidth( ) + xSkip, ySkip );
-                System.out.println( "x=" + ( target.getWidth( ) / 2 - skip.getWidth( ) + xSkip ) );
-                System.out.println( "y=" + ySkip );
             }
         }
         return height;

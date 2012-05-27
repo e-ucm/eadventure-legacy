@@ -347,7 +347,7 @@ public class ImportChapterTool extends Tool {
                     for (int i=0; i<filesToCopy.length;i++){
                         if (!File.copyTo( new File(originFolder, filesToCopy[i]), new File(destinyFolder, filesToCopy[i]))){
                             //TODO mensaje de error
-                            System.out.println("something wrong happens");
+                            System.out.println("something wrong happened during importation");
                         }
                     }
                 }

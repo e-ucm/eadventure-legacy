@@ -77,12 +77,6 @@ public class FunctionalRandomEffect extends FunctionalEffect {
 
         int number = r.nextInt( 100 );
         positive = number < ( (RandomEffect) effect ).getProbability( );
-        if( positive ) {
-            //System.out.println(number+" < "+probability+" : Triggering positive effect" );
-        }
-        else {
-            //System.out.println(number+" >= "+probability+" : Triggering negative effect" );
-        }
 
         if( positive )
             return positiveEffect;

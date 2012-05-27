@@ -104,7 +104,6 @@ public class SelectExitCursorPathTool extends SelectResourceTool {
             return false;
         else {
             exitLook.setCursorPath( resources.getAssetPath( CURSOR_STR ) );
-            //System.out.println("NEW CURSOR PATH = "+resources.getAssetPath(CURSOR_STR));
             return true;
         }
     }

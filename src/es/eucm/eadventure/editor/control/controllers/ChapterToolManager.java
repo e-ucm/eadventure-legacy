@@ -75,18 +75,18 @@ public class ChapterToolManager {
     public boolean addTool( boolean execute, Tool tool ) {
         if( localToolManagers.isEmpty( ) ) {
             boolean added = globalToolManager.addTool( execute, tool );
-            if( added )
+            /*if( added )
                 System.out.println( "[ToolManager] Global Tool Manager: Tool \"" + tool.getToolName( ) + "\" ADDED" );
             else
-                System.out.println( "[ToolManager] Global Tool Manager: Tool \"" + tool.getToolName( ) + "\" NOT ADDED" );
+                System.out.println( "[ToolManager] Global Tool Manager: Tool \"" + tool.getToolName( ) + "\" NOT ADDED" );*/
             return added;
         }
         else {
             boolean added = localToolManagers.peek( ).addTool( execute, tool );
-            if( added )
+            /*if( added )
                 System.out.println( "[ToolManager] Local Tool Manager: Tool \"" + tool.getToolName( ) + "\" ADDED" );
             else
-                System.out.println( "[ToolManager] Local Tool Manager: Tool \"" + tool.getToolName( ) + "\" NOT ADDED" );
+                System.out.println( "[ToolManager] Local Tool Manager: Tool \"" + tool.getToolName( ) + "\" NOT ADDED" );*/
             return added;
         }
     }
@@ -94,11 +94,11 @@ public class ChapterToolManager {
     public void undoTool( ) {
         if( localToolManagers.isEmpty( ) ) {
             globalToolManager.undoTool( );
-            System.out.println( "[ToolManager] Global Tool Manager: Undo Performed" );
+            //System.out.println( "[ToolManager] Global Tool Manager: Undo Performed" );
         }
         else {
             localToolManagers.peek( ).undoTool( );
-            System.out.println( "[ToolManager] Local Tool Manager: Undo Performed" );
+            //System.out.println( "[ToolManager] Local Tool Manager: Undo Performed" );
         }
     }
 
@@ -106,28 +106,28 @@ public class ChapterToolManager {
 
         if( localToolManagers.isEmpty( ) ) {
             globalToolManager.redoTool( );
-            System.out.println( "[ToolManager] Global Tool Manager: Redo Performed" );
+            //System.out.println( "[ToolManager] Global Tool Manager: Redo Performed" );
         }
         else {
             localToolManagers.peek( ).redoTool( );
-            System.out.println( "[ToolManager] Local Tool Manager: Redo Performed" );
+            //System.out.println( "[ToolManager] Local Tool Manager: Redo Performed" );
         }
     }
 
     public void pushLocalToolManager( ) {
 
         localToolManagers.push( new ToolManager( false ) );
-        System.out.println( "[ToolManager] Local Tool Manager PUSHED: Total local tool managers = " + localToolManagers.size( ) );
+        //System.out.println( "[ToolManager] Local Tool Manager PUSHED: Total local tool managers = " + localToolManagers.size( ) );
     }
 
     public void popLocalToolManager( ) {
 
         if( !localToolManagers.isEmpty( ) ) {
             localToolManagers.pop( );
-            System.out.println( "[ToolManager] Local Tool Manager POPED: Total local tool managers = " + localToolManagers.size( ) );
+            //System.out.println( "[ToolManager] Local Tool Manager POPED: Total local tool managers = " + localToolManagers.size( ) );
         }
         else {
-            System.out.println( "[ToolManager] Local Tool Manager Could NOT be POPED: Total local tool managers = " + localToolManagers.size( ) );
+            //System.out.println( "[ToolManager] Local Tool Manager Could NOT be POPED: Total local tool managers = " + localToolManagers.size( ) );
         }
     }
 

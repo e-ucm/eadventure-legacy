@@ -79,7 +79,6 @@ public class SelectAssetForEffectTool extends SelectResourceTool {
             return false;
         else {
             exitLook.setCursorPath( resources.getAssetPath( ANIMATION_EFF ) );
-            //System.out.println("NEW CURSOR PATH = "+resources.getAssetPath(CURSOR_STR));
             controller.reloadPanel( );
             return true;
         }
@@ -93,7 +92,6 @@ public class SelectAssetForEffectTool extends SelectResourceTool {
         if( !done )
             return false;
         else {
-            //System.out.println("NEW CURSOR PATH = "+resources.getAssetPath(CURSOR_STR));
             exitLook.setCursorPath( resources.getAssetPath( ANIMATION_EFF ) );
             controller.reloadPanel( );
             return true;
@@ -108,7 +106,6 @@ public class SelectAssetForEffectTool extends SelectResourceTool {
             return false;
         else {
             exitLook.setCursorPath( resources.getAssetPath( ANIMATION_EFF ) );
-            //System.out.println("NEW CURSOR PATH = "+resources.getAssetPath(CURSOR_STR));
             return true;
         }
     }

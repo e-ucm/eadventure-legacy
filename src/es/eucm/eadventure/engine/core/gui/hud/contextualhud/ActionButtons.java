@@ -440,7 +440,6 @@ public class ActionButtons {
 
         //For each action button
         float percent = (float) ( System.currentTimeMillis( ) - appearedTime ) / (float) appearingTime;
-        //System.out.println("" + System.currentTimeMillis() + " " + appearedTime + " " + percent);
         if( percent > 1 )
             percent = 1;
 

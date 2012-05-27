@@ -68,11 +68,9 @@ public class GameStateBook extends GameState implements _HighLevelEvents {
         super( );
         gameLog.highLevelEvent( BOOK_ENTER, game.getBook( ).getId( ) );
         if( game.getBook( ).getType( ) == Book.TYPE_PARAGRAPHS ) {
-            //System.out.println( "[LOG] GameStateBook - Constructor - Paragraphs Book" );
             book = new FunctionalTextBook( game.getBook( ) );
         }
         else if( game.getBook( ).getType( ) == Book.TYPE_PAGES ) {
-            //System.out.println( "[LOG] GameStateBook - Constructor - Pages Book" );
             book = new FunctionalStyledBook( game.getBook( ) );
         }
     }
@@ -102,7 +100,6 @@ public class GameStateBook extends GameState implements _HighLevelEvents {
     @Override
     public void mouseClicked( MouseEvent e ) {
 
-        //System.out.println( "MOUSE CLICKED" );
         // Left click changes the page
         if( e.getButton( ) == MouseEvent.BUTTON1 ) {
             if( book.isInPreviousPage( e.getX( ), e.getY( ) ) )

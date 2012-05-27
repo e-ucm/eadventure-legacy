@@ -614,7 +614,6 @@ public class ResourcesPanel extends JPanel {
                 }
 
                 Graphics2D g = (Graphics2D) newImage.getGraphics( );
-                System.out.println( "" + tempWidth + " x " + tempHeight );
                 int dx1 = ( 80 - tempWidth ) / 2;
                 int dy1 = ( 48 - tempHeight ) / 2;
 

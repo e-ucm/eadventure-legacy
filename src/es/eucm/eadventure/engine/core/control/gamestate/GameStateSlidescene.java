@@ -234,7 +234,6 @@ public class GameStateSlidescene extends GameState implements _HighLevelEvents{
     public void keyPressed( KeyEvent e ) {
         if (!keyPressed){
             keyPressed=true;
-            System.out.println("Pulsada tecla (SlideScene)");               
             nextSlides( );
         }
     }

@@ -186,11 +186,6 @@ public class JARSigner {
 
                 //Sign the jar
                 
-                if (originJarPath2!=null && new File(originJarPath2).exists()){
-                    if (new File(originJarPath2).isFile( ))
-                        System.out.println( "MIERDA PUTA DEL TO" );
-                }
-                
                 if (signedJarPath2!=null && originJarPath2!=null )
                     es.eucm.eadventure.editor.control.security.jarsigner.Main.main( new String[] { "-keystore", KEY_STORE_NAME, "-storepass", KEY_STORE_PASSWORD, "-keypass", password, "-signedjar", new File( signedJarPath2 ).getAbsolutePath( ), "-sigfile", new File( originJarPath2 ).getAbsolutePath( ), alias } );
 

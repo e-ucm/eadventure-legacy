@@ -142,8 +142,6 @@ public class CommManagerScorm extends AdventureApplet {
 
     public void dataFromLMS( String key, String value ) {
 
-        //System.out.println("Esto es lo que nos ha devuelto el LMS: "+ value);
-
         if( value == null )
             value = new String( "" );
         valuesFromLMS.put( key, value );
@@ -170,7 +168,6 @@ public class CommManagerScorm extends AdventureApplet {
 
     public void notifyRelevantState( List<AssessmentProperty> list ) {
 
-        //System.out.println("Entramos en notify relevant state");
         Iterator<AssessmentProperty> it = list.iterator( );
         while( it.hasNext( ) ) {
             AssessmentProperty assessProp = it.next( );

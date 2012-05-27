@@ -810,7 +810,7 @@ public class ConversationDialog extends JPositionedDialog implements ClockListen
 
             }
             catch( IllegalStateException e ) {
-                System.out.println( "Error at playing sound." );
+                System.out.println( "Error playing sound." );
             }
 
         }

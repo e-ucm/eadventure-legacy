@@ -131,9 +131,7 @@ public class SceneLooksPanel extends LooksPanel {
     public void updatePreview( ) {
 
         if( scenePreviewEditionPanel != null ) {
-            System.out.println( sceneDataControl.getPreviewBackground( ) );
             scenePreviewEditionPanel.loadBackground( sceneDataControl.getPreviewBackground( ) );
-            System.out.println( "BG UPDATED!!" );
         }
         if( getParent( ) != null && getParent( ).getParent( ) != null )
             getParent( ).getParent( ).repaint( );

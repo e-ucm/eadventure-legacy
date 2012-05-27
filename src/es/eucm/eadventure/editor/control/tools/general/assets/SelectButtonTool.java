@@ -178,7 +178,6 @@ public class SelectButtonTool extends SelectResourceTool {
         }
         if( temp != null )
             adventureData.getButtons( ).remove( temp );
-        System.out.println( "Adding button: " + button.getAction( ) + "," + button.getType( ) + "," + button.getPath( ) );
         adventureData.addButton( button );
     }
 }

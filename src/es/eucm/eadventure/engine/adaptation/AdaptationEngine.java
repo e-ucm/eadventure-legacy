@@ -108,17 +108,14 @@ public class AdaptationEngine {
         // the inital state is returned at the end of method
 
         //}
-        //System.out.println("antes de comprobar si esta en modo applet");
         //If we are an applet...
         if( Game.getInstance( ).isAppletMode( ) ) {
-            //System.out.println("antes de comprobar si es Scorm");
             if( Game.getInstance( ).getComm( ).getCommType( ) == CommManagerApi.LD_ENVIROMENT_TYPE ) {
                 //Process rules
                 processLDRules( );
             }
             else if( ( Game.getInstance( ).getComm( ).getCommType( ) == CommManagerApi.SCORMV12_TYPE ) || Game.getInstance( ).getComm( ).getCommType( ) == CommManagerApi.SCORMV2004_TYPE ) {
                 //Process rules
-                //  System.out.println("Entramos a procesar reglas scorm");
                 processSCORMRules( );
 
             }
@@ -180,7 +177,6 @@ public class AdaptationEngine {
      */
     private void processSCORMRules( ) {
 
-        //System.out.println("Entramos en el sitio correcto en AssesmentEngine.init()");
         Set<String> properties = new HashSet<String>( );
         for( AdaptationRule rule : externalAdaptationRules ) {
             // get all property names, to search in LMS
@@ -196,14 +192,12 @@ public class AdaptationEngine {
             boolean runRule = true;
             Iterator<String> it = propertyNames.iterator( );
             while( runRule && it.hasNext( ) ) {
-                //System.out.println("entramos en el bucle");
                 String propertyName = it.next( );
                 runRule = checkOperation( keys, lmsInitialStates, propertyName, rule );
             }
             if( runRule ) {
                 // merge the adapted state, beca
                 Game.getInstance( ).setAdaptedStateToExecute( rule.getAdaptedState( ) );
-                //System.out.println("Se tendria que ejecutar la regla");
             }
         }
     }
@@ -216,35 +210,30 @@ public class AdaptationEngine {
             if( keys.contains( propertyName ) ) {
                 String op = rule.getPropertyOp( propertyName );
                 if( op.equals( AdaptationProfile.EQUALS ) ) {
-                    //System.out.println("Entramos a compara equals");
                     if( !lmsInitialStates.get( propertyName ).equals( rule.getPropertyValue( propertyName ) ) ) {
                         runRule = false;
                     }
                 }
                 else if( op.equals( AdaptationProfile.GRATER ) ) {
                     // the data get from LMS must be grater than the value 
-                    //System.out.println("Entramos a compara grater");
                     if( Integer.parseInt( lmsInitialStates.get( propertyName ) ) <= Integer.parseInt( rule.getPropertyValue( propertyName ) ) ) {
                         runRule = false;
                     }
                 }
                 else if( op.equals( AdaptationProfile.GRATER_EQ ) ) {
                     // the data get from LMS must be grater or equals than the value 
-                    //System.out.println("Entramos a compara grater equals");
                     if( Integer.parseInt( lmsInitialStates.get( propertyName ) ) < Integer.parseInt( rule.getPropertyValue( propertyName ) ) ) {
                         runRule = false;
                     }
                 }
                 else if( op.equals( AdaptationProfile.LESS ) ) {
                     // the data get from LMS must be less than the value 
-                    //System.out.println("Entramos a compara less");
                     if( Integer.parseInt( lmsInitialStates.get( propertyName ) ) >= Integer.parseInt( rule.getPropertyValue( propertyName ) ) ) {
                         runRule = false;
                     }
                 }
                 else if( op.equals( AdaptationProfile.LESS_EQ ) ) {
                     // the data get from LMS must be less or equals than the value 
-                    //System.out.println("Entramos a compara less equals");
                     if( Integer.parseInt( lmsInitialStates.get( propertyName ) ) > Integer.parseInt( rule.getPropertyValue( propertyName ) ) ) {
                         runRule = false;
                     }
@@ -279,7 +268,6 @@ public class AdaptationEngine {
 
         for( AdaptationRule r : externalAdaptationRules ) {
             if( evaluate( r, uolState ) ) {
-                //System.out.println("Rule triggered");
                 Game.getInstance( ).setAdaptedStateToExecute( r.getAdaptedState( ) );
 
                 //The UoL states should be defined to be mutually exclusive
@@ -298,22 +286,10 @@ public class AdaptationEngine {
             try {
                 //System.out.print("Comparing " + propertyInUoL + " with "+ propertyInRule);
                 activated = currentState.get( key ).equals( rule.getPropertyValue( key ) );
-                if( activated ) {
-                    //System.out.println(" TRUE");
-                }
-                else {
-                    //System.out.println(" FALSE");
-                }
             }
             catch( NullPointerException e ) {
                 throw new IllegalArgumentException( "The external state does not reflect all relevant properties: Property " + key + " not found." );
             }
-        }
-        if( activated ) {
-            // System.out.println("Rule returns with TRUE");
-        }
-        else {
-            // System.out.println("Rule returns with FALSE");
         }
         return activated;
     }
