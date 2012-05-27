@@ -39,9 +39,9 @@ package es.eucm.eadventure.editor.gui.assetchooser;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -128,9 +128,9 @@ public abstract class AssetChooser extends JFileChooser {
 
     private int previewLocation;
 
-    private String selectedAsset;
+    protected String selectedAsset;
     
-    private List<String> selectedAssets;
+    protected List<String> selectedAssets;
 
     private String title;
 
@@ -305,7 +305,19 @@ public abstract class AssetChooser extends JFileChooser {
                 if( getSelectedFile( ) != null ) {
                     setSelectedAsset( null );
                 }
-                updatePreview( );
+                try {
+                    updatePreview( );
+                } 
+                
+                // THIS CATCH IS IMPORTANT. IllegalArgumentException is thrown by ImageIO.read() when the file extension is valid but the content does not match 
+                // any supported specification. So, if that happens, an error must be shown and the asset must be discarded.
+                catch (IllegalArgumentException exception){
+                    AssetChooser.this.selectedAsset=null;
+                    if (AssetChooser.this.selectedAssets!=null)
+                        AssetChooser.this.selectedAssets.clear( );
+                    Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.ImageTypeNotSupported" ) );
+                }
+
             }
 
         } );
@@ -490,7 +502,8 @@ public abstract class AssetChooser extends JFileChooser {
     protected abstract void updatePreview( );
 
     protected abstract void createPreviewPanel( Container parent );
-
+    
+    //NEW v1.5
     protected FileFilter getFilter( ) {
 
         return AssetsController.getAssetsFileFilter( assetCategory, filter );
@@ -518,7 +531,19 @@ public abstract class AssetChooser extends JFileChooser {
             else
                 setSelectedAsset( null );
 
-            updatePreview( );
+            try {
+                updatePreview( );
+            } 
+            
+            // THIS CATCH IS IMPORTANT. IllegalArgumentException is thrown by ImageIO.read() when the file extension is valid but the content does not match 
+            // any supported specification. So, if that happens, an error must be shown and the asset must be discarded.
+            catch (IllegalArgumentException exception){
+                AssetChooser.this.selectedAsset=null;
+                if (AssetChooser.this.selectedAssets!=null)
+                    AssetChooser.this.selectedAssets.clear( );
+                Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.ImageTypeNotSupported" ) );
+            }
+
             //if( assetsList.getSelectedIndex( ) >= 0 )
             //animationPanel.loadAnimation( assetPaths[resourcesList.getSelectedIndex( )] );
 
@@ -574,7 +599,18 @@ public abstract class AssetChooser extends JFileChooser {
 
             }
             else if( evt.getPropertyName( ).equals( JFileChooser.SELECTED_FILE_CHANGED_PROPERTY ) ) {
-                updatePreview( );
+                try {
+                    updatePreview( );
+                } 
+                
+                // THIS CATCH IS IMPORTANT. IllegalArgumentException is thrown by ImageIO.read() when the file extension is valid but the content does not match 
+                // any supported specification. So, if that happens, an error must be shown and the asset must be discarded.
+                catch (IllegalArgumentException exception){
+                    AssetChooser.this.selectedAsset=null;
+                    if (AssetChooser.this.selectedAssets!=null)
+                        AssetChooser.this.selectedAssets.clear( );
+                    Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.ImageTypeNotSupported" ) );
+                }
             }
 
         }
@@ -621,8 +657,7 @@ public abstract class AssetChooser extends JFileChooser {
      * @return the selectedAsset
      */
     public String getSelectedAsset( ) {
-
-        return selectedAsset;
+            return selectedAsset; 
     }
 
     /**
@@ -635,7 +670,7 @@ public abstract class AssetChooser extends JFileChooser {
     }
     
     public Object[] getSelectedAssets() {
-        return selectedAssets.toArray( );
+            return selectedAssets.toArray( );
     }
 
     @Override

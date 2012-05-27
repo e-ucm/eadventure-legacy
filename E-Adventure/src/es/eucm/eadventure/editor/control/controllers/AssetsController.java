@@ -511,17 +511,15 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
                 //System.out.println("Size : " + image.getWidth(null) + " , " + image.getHeight(null));
                 if( image == null || image.getHeight( null ) == -1 || image.getWidth( null ) == -1 ) {
                     Controller.getInstance( ).showErrorDialog( TC.get( "Error.Title" ), TC.get( "Error.ImageTypeNotSupported" ) );
+                    image=null;
                 }
                 inputStream.close( );
             }
         }
         catch( IOException e ) {
             ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+            image=null;
         }
-        catch( Exception e ) {
-            ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
-        }
-
         return image;
     }
 
