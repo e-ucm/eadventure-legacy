@@ -670,8 +670,6 @@ public class GameLauncher extends JFrame implements Runnable {
         adventureName = adventureName.substring( 0, adventureName.indexOf( "." ) );
         // Load the selected adventure in the next iteration of the thread 
         load = true;
-        //System.out.println( adventurePath);
-        //System.out.println( adventureName);
 
     }
 

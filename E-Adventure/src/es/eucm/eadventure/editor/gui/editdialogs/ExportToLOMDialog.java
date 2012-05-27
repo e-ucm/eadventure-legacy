@@ -117,7 +117,6 @@ public class ExportToLOMDialog extends JPositionedDialog {
         typeComboBox.addItemListener( new ItemListener(){
 
             public void itemStateChanged( ItemEvent e ) {
-                System.out.println( "TYPE SELECTED"+typeComboBox.getSelectedIndex( ) );
                 if (typeComboBox.getSelectedIndex( )==6){
                     if (!gametelContainerPanel.isAncestorOf( gametelPanel )){
                         gametelContainerPanel.add( gametelPanel );

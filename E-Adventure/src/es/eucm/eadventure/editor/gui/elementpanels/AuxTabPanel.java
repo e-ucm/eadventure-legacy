@@ -111,7 +111,6 @@ public class AuxTabPanel extends JTabbedPane implements Updateable {
             ( (JPanel) getSelectedComponent( ) ).add( tab.getComponent( ), BorderLayout.CENTER );
             ( (JPanel) getSelectedComponent( ) ).updateUI( );
         }
-        System.out.println( "Element Panel UPDATED" );
         return true;
     }
 

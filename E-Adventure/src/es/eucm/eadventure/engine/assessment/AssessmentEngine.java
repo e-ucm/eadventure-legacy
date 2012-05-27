@@ -351,7 +351,6 @@ public class AssessmentEngine implements TimerEventListener {
             exception.printStackTrace();
         }
        if (writer!=null){
-          System.out.println( writer.toString( ) );
            return writer.toString( );
        }else
            return "";
@@ -588,8 +587,6 @@ public class AssessmentEngine implements TimerEventListener {
 		// Save the currentTime
 		TimedAssessmentRule tRule = this.timedRules.get(new Integer(timerId));
 		tRule.ruleStarted(currentTime);
-		// System.out.println( "[TIMER STARTED] " + timerId + " - time:
-		// "+currentTime );
 	}
 
 	public void timerStopped(int timerId, long currentTime) {
@@ -617,8 +614,6 @@ public class AssessmentEngine implements TimerEventListener {
 		}
 
 		
-		// System.out.println( "[TIMER DONE] " + timerId + " - time:
-		// "+currentTime );
 	}
 
 	public boolean isEndOfChapterFeedbackDone() {

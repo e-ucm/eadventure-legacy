@@ -121,7 +121,6 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
             ( (JPanel) getSelectedComponent( ) ).add( tab.getComponent( ), BorderLayout.CENTER );
             ( (JPanel) getSelectedComponent( ) ).updateUI( );
         }
-        System.out.println( "Element Panel UPDATED" );
         return true;
     }
 

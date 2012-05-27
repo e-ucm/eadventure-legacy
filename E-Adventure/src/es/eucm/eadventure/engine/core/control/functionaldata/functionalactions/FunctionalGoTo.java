@@ -330,7 +330,6 @@ public class FunctionalGoTo extends FunctionalAction {
         if (Game.getInstance( ).isIsometric( )) {
             double angle = Math.atan2( newSpeedY, newSpeedX );
 
-            System.out.println(angle);
             if (angle < -Math.PI / 2) {
                 nextDir = AnimationState.WEST;
             } else if (angle < 0) {

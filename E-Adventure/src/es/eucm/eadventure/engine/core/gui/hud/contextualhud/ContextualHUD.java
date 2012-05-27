@@ -483,7 +483,6 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
         else if( /*actionManager.getElementOver( )*/ pressedElement != null ) {
             DebugLog.user( "Mouse click over element at " + e.getX( ) + " , " + e.getY( ) );
             inHud = processElementClick( actionManager );
-            System.out.println( "INHUD = " + inHud );
             showActionButtons = false;
             elementAction = null;
         }
@@ -537,7 +536,6 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
         }
 
         pressedTime = System.currentTimeMillis( ) - pressedTime;
-        System.out.println("" + pressedTime);
         
         DebugLog.user( "Mouse released after " + pressedTime );
 
@@ -553,7 +551,6 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
                 mouseReleased = false;
                 pressedTime = Long.MAX_VALUE;
                 if (pressedTime >= 80 && pressedX != e.getX( ) && pressedY != e.getY( )) {
-                    System.out.println( "Emulate left click" );
                     //#JAVA6#
                     MouseEvent d = new MouseEvent( e.getComponent( ), e.getID( ), e.getWhen( ), e.getModifiers( ), pressedX, pressedY, e.getXOnScreen( ), e.getYOnScreen( ), 1, false, MouseEvent.BUTTON1 );
                     //@JAVA6@
@@ -886,7 +883,6 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
 
         elementInCursor = null;
         gui.setDefaultCursor( );
-        //System.out.println( ( ( elementOver != null ) ? elementOver.getElement( ).getId( ) : "" ) + " " + e.getID( ) + " " );
         boolean skipShowingButtons = false;
         if ( elementOver!=null && elementOver.getElement( ) instanceof Item ){
             Item it = (Item)elementOver.getElement( );

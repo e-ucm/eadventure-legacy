@@ -80,7 +80,7 @@ public class TTask extends TimerTask {
 
         }
         catch( IllegalStateException e ) {
-            System.out.println( "TTS found one word which can not be processated." );
+            System.out.println( "TTS found one word which can not be processed." );
         }
 
     }

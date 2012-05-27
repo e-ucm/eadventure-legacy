@@ -621,7 +621,6 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
                 point.setX( panelPosition.x + FIRST_BUTTON_OFFSET_X,BUTTON_WIDTH);
                 point.setY( panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i,BUTTON_HEIGHT);
                 points.add( i, point ); 
-                //System.out.println( i + " Botón en la posicion " + points.get( i).getX( ) + "  " + points.get( i).getY( ));    
             }
             first=false;
             loadCursor(points.get( index ));
@@ -859,8 +858,6 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
                 if (index<0)
                     index = points.size( ) - 1;                
                
-                System.out.println("Subimos en menu " + index);
-
                 loadCursor(points.get( index ));
            
                 break;
@@ -871,14 +868,11 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
                  if (index>=points.size())
                      index = 0;
                
-                 System.out.println("Bajamos en menu " + index);
-                 
                  loadCursor(points.get( index ));
                 
                  break;
              case KeyEvent.VK_ENTER:
                  
-                 System.out.println("Pulsada tecla ENTER (simula click)");
                  if (type == 1) { 
                      pressCursor( ); 
                     // pressCursor( ); //Esto para que se recalcule todo correctamente

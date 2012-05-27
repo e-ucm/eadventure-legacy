@@ -210,7 +210,7 @@ public class CommManagerLAMS extends AdventureApplet{
             while ((line = br.readLine())!=null)
             {
                 if (line.equals( "showButton" )){
-                    System.out.println( "Rebibido OK respuesta del servlet!!" );
+                    System.out.println( "Server answers" );
                     String command = "javascript:showButton(\" \");";
 
                     this.sendJavaScript( command );
@@ -276,8 +276,6 @@ public class CommManagerLAMS extends AdventureApplet{
        // this.appletURL = appletURL;
         // take the part of the applet URL where the outputs will be sent (+ to obtain tool signature into result char)
         this.appletURL=appletURL.substring(0, appletURL.indexOf(SPLIT, 0)+SPLIT.length( )+1);
-        System.out.println( appletURL );
-        System.out.println( this.appletURL );
     }
 
     /**
@@ -294,7 +292,6 @@ public class CommManagerLAMS extends AdventureApplet{
     public void setUserFName( String userFName ) {
     
         this.userFName = userFName;
-        //  System.out.println( userFName );
     }
     
     /**
@@ -311,7 +308,6 @@ public class CommManagerLAMS extends AdventureApplet{
     public void setUserLName( String userLName ) {
     
         this.userLName = userLName;
-        System.out.println( userLName );
     }
 
 }

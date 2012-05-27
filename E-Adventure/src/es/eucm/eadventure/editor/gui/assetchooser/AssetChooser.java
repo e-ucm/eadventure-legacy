@@ -389,10 +389,6 @@ public abstract class AssetChooser extends JFileChooser {
         
         orderAssetList ( orderedAssets, 0, assets.length-1 );
         
-        for (String s: orderedAssets){
-            System.out.println( s);
-        }
-        
         return orderedAssets.toArray( new String[]{} );
     }
     

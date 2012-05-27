@@ -79,7 +79,6 @@ public class SelectLineAudioPathTool extends SelectResourceTool {
             return false;
         else {
             line.setAudioPath( resources.getAssetPath( AUDIO_STR ) );
-            //System.out.println("NEW CURSOR PATH = "+resources.getAssetPath(CURSOR_STR));
             controller.updatePanel( );
             return true;
         }
@@ -93,7 +92,6 @@ public class SelectLineAudioPathTool extends SelectResourceTool {
         if( !done )
             return false;
         else {
-            //System.out.println("NEW CURSOR PATH = "+resources.getAssetPath(CURSOR_STR));
             line.setAudioPath( resources.getAssetPath( AUDIO_STR ) );
             controller.updatePanel( );
             return true;

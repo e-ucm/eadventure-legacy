@@ -269,22 +269,22 @@ public class GameStateVideoscene extends GameState implements ControllerListener
     public synchronized void controllerUpdate( ControllerEvent event ) {
 
         if( event instanceof RealizeCompleteEvent ) {
-            System.out.println("RealizeCompleteEvent");
+            System.out.println("Video:RealizeCompleteEvent");
             //realized = true;
             notify( );
         }
         else if( event instanceof EndOfMediaEvent ) {
-            System.out.println("EndOfMediaEvent");
+            System.out.println("Video:EndOfMediaEvent");
             //eomReached = true;
             loadNextScene( );
         }
         else if( event instanceof StopEvent ) {
-            System.out.println("StopEvent");
+            System.out.println("Video:StopEvent");
             //stoped = true;
             notify( );
         }
         else if( event instanceof PrefetchCompleteEvent ) {
-            System.out.println("PrefetchCompleteEvent");
+            System.out.println("Video:PrefetchCompleteEvent");
             prefetched = true;
             notify( );
         }

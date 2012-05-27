@@ -50,7 +50,6 @@ public class WindowManager extends WindowAdapter {
 
         //FIXME: Testing to get rid of this fragment
         //( (Applet) Game.getInstance( ).getComm( ) ).stop( );
-        //System.out.println( "Hey!" );
     }
 
 }

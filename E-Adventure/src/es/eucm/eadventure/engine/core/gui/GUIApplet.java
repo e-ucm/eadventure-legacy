@@ -120,7 +120,6 @@ public class GUIApplet extends GUI {
 
         // Load the customized default cursor
         if( Game.getInstance( ).getGameDescriptor( ).getCursorPath( DEFAULT_CURSOR ) != null ) {
-            //System.out.println("PATH CURSOR = "+Game.getInstance( ).getGameDescriptor( ).getCursorPath( DEFAULT_CURSOR ) );
             defaultCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( Game.getInstance( ).getGameDescriptor( ).getCursorPath( DEFAULT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "defaultCursor" );
             // Load the default default cursor
         }
@@ -160,7 +159,6 @@ public class GUIApplet extends GUI {
         applet.add( component, BorderLayout.CENTER );
         applet.validate( );
         component.repaint( );
-        //System.out.println("IS DISPLAYABLE: " + component.isDisplayable() + "\n");
 
         return null;
     }

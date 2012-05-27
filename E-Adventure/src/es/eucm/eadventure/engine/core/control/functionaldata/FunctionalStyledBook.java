@@ -72,10 +72,6 @@ public class FunctionalStyledBook extends FunctionalBook {
             
             if( newFPage.isValid( ) ) {
                 functionalPages.add( newFPage );
-                //System.out.println( "[LOG] FunctionalStyledBook - Constructor - Page added" );
-            }
-            else {
-                //System.out.println( "[LOG] FunctionalStyledBook - Constructor - Page NOT added" );
             }
         }
 
@@ -87,7 +83,6 @@ public class FunctionalStyledBook extends FunctionalBook {
         }
         this.currentPage = 0;
 
-        //System.out.println( "[LOG] FunctionalStyledBook - Constructor - TOTAL PAGES: "+numPages );
         //Show the first page
         GUI.getInstance( ).showComponent( functionalPages.get( currentPage ) );
 
@@ -115,7 +110,6 @@ public class FunctionalStyledBook extends FunctionalBook {
             currentPage++;
             GUI.getInstance( ).showComponent( functionalPages.get( currentPage ) );
             functionalPages.get( currentPage ).updateUI( );
-            //System.out.println( "NEXT PAGE" );
         }
     }
 
@@ -129,7 +123,6 @@ public class FunctionalStyledBook extends FunctionalBook {
             currentPage--;
             GUI.getInstance( ).showComponent( functionalPages.get( currentPage ) );
             functionalPages.get( currentPage ).updateUI( );
-            //System.out.println( "PREVIOUS PAGE" );
         }
     }
 

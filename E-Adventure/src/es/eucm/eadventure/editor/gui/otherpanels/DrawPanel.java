@@ -830,7 +830,6 @@ public class DrawPanel extends JPanel {
         this.component = component;
         componentPanel.setComponentZOrder( component, 0 );
         componentPanel.setComponentZOrder( insidePanel, 1 );
-        System.out.println("a–adido boton!");
         componentPanel.updateUI( );
         componentPanel.repaint( );
     }
