@@ -151,7 +151,14 @@ public class FunctionalAtrezzo extends FunctionalElement {
             }
         }
         
-        // create a transparent (not translucent) image
+        
+      //Check if max and min values are swapped. In that case, just use the whole image
+        if (x2<=x1||y2<=y1){
+            x2=tempimage.getWidth( null )-1;
+            y2=tempimage.getHeight( null )-1;
+            x1=0;y1=0;
+        }
+     // create a transparent (not translucent) image
         image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( x2 - x1, y2 - y1, Transparency.TRANSLUCENT );
 
         // draw the transformed image

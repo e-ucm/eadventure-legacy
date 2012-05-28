@@ -292,10 +292,11 @@ public class FunctionalScene implements Renderable, _HighLevelEvents {
 
                 // If the functional item is present, update its resources
                 for( FunctionalItem currentItem : items ) {
-                   if( itemReference.getTargetId( ).equals( currentItem.getElement( ).getId( )  )) {
+                   //if( itemReference.getTargetId( ).equals( currentItem.getElement( ).getId( )  )) {
                         currentItem.updateResources( );
-                        found = true;
-                    }
+                        if (currentItem.getReference( )== itemReference )
+                            found = true;
+                    
                 }
 
                 // If it was not found, search for it and add it
@@ -332,10 +333,11 @@ public class FunctionalScene implements Renderable, _HighLevelEvents {
 
                 // If the functional character is present, update its resources
                 for( FunctionalNPC currentNPC : npcs ) {
-                    if( npcReference.getTargetId( ).equals( currentNPC.getElement( ).getId( ))  ) {
+                  //  if( npcReference.getTargetId( ).equals( currentNPC.getElement( ).getId( ))  ) {
                         currentNPC.updateResources( );
-                        found = true;
-                    }
+                        if (currentNPC.getReference( )== npcReference )
+                            found = true;
+                    
                 }
 
                 // If it was not found, search for it and add it
@@ -400,9 +402,12 @@ public class FunctionalScene implements Renderable, _HighLevelEvents {
                 // If the functional atrezzo item is present, update its resources
                 for( FunctionalAtrezzo currentAtrezzo : atrezzo ) {
                     if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getElement( ).getId( ) ) ) {
+                    //if( atrezzoReference.getTargetId( ) == currentAtrezzo.getElement( ).getId( ) )  {
                         currentAtrezzo.updateResources( );
-                        found = true;
+                        if (currentAtrezzo.getReference( )== atrezzoReference )
+                            found = true;
                     }
+                    
                 }
 
                 // If it was not found, search for it and add it
