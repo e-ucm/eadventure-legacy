@@ -657,7 +657,9 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
             if( firstLineDisplayed >= optionsToShow.size( ) )
                 firstLineDisplayed = 0;
         }
-        else
+        else //Avoid to select an option bigger than the options shown 
+        	 //(case: options in the upper part of the screen and user click down the last option)
+               if (optionSelected < indexLastLine)
             selectDisplayedOption( );
     }
 
