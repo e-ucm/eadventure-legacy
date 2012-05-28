@@ -49,6 +49,7 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -366,99 +367,13 @@ public abstract class AssetChooser extends JFileChooser {
         else
             assetsList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
         //assetsList.setListData( assets );
-        assetsList.setListData( orderAssetList(assets) );
+        Arrays.sort( assets );
+        assetsList.setListData( assets );
         assetsList.addListSelectionListener( new ResourcesListListener( ) );
         projectContentsPanel.setViewportView( assetsList );
 
     }
 
-    /**
-     * Orders the given assets array alphabetically using the Quicksort algorithm
-     * @param assets    The asset list to be ordered
-     * @since   v1.5
-     */
-    private String[] orderAssetList ( String[] assets){
-        if (assets == null || assets.length == 0){
-            return assets;
-        }
-        
-        List<String> orderedAssets = new ArrayList<String>();
-        for (String s: assets){
-            orderedAssets.add( s );
-        }
-        
-        orderAssetList ( orderedAssets, 0, assets.length-1 );
-        
-        return orderedAssets.toArray( new String[]{} );
-    }
-    
-    /**
-     * Orders the given assets list alphabetically from position i to j (both included) using the Quicksort algorithm
-     * @param assets    The asset list to be ordered
-     * @param i     First position in the sublist that will be ordered
-     * @param j     Last position in the sublist that will be ordered
-     * @since   v1.5
-     */
-    private void orderAssetList ( List<String> assets, int i, int j){
-        if (assets==null || assets.size( )==0 || j-i+1<=1){
-            return;
-        }
-        
-        //Pivot
-        int pivotIndx = i+(j-i+1)/2;
-        String pivot = assets.get( pivotIndx );
-        
-        int movedToEnd=0;
-        for (int indx=i; indx<=j-movedToEnd; indx++){
-            int compare = compareStrings (assets.get( indx ), pivot);
-            if (compare==1 && indx>pivotIndx){
-                assets.add( i, assets.remove( indx ) );
-                pivotIndx++;
-            }
-            else if (compare==2 && indx<pivotIndx){
-                assets.add( j, assets.remove( indx ) );
-                movedToEnd++;
-                pivotIndx--;
-                indx--;
-            }
-        }
-        
-        orderAssetList(assets, i, pivotIndx-1);
-        orderAssetList(assets, pivotIndx+1, j);
-    }
-    
-    /**
-     * Checks if s1 precedes s2 in alphabetical order. The algorithm takes into account the length of the strings, 
-     * considering that if s1 is a substring of s2, then s1 < s2.
-     * @param s1
-     * @param s2
-     * @return  1 if s1 is lower than s2;
-     *          2 if s2 is lower than s1:
-     *          0 if s1 is equals to s2. This only happens if s1=s2 and they have the same length. if s2 contains s1, 1 is returned, 
-     *              If s1 contains s2, 2 is returned.
-     * @since v1.5. Used to order the asset list.
-     * 
-     */
-    private int compareStrings ( String s1, String s2 ){
-        char[] chars1 = s1.toCharArray( );
-        char[] chars2 = s2.toCharArray( );
-        for (int i=0; i<Math.min( chars1.length, chars2.length ); i++){
-            if (chars1[i]<chars2[i]){
-                return 1;
-            } else if (chars1[i]>chars2[i]){
-                return 2;
-            }
-        }
-        
-        if (chars1.length<chars2.length){
-            return 1;
-        } else if (chars1.length>chars2.length){
-            return 2;
-        } else {
-            return 0;
-        }
-    }
-    
     private void createCentralPanel( ) {
 
         //3)Create the central panel and add the filePanel to it

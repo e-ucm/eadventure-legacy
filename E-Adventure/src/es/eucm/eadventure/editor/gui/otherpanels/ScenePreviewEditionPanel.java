@@ -657,15 +657,34 @@ public class ScenePreviewEditionPanel extends JPanel {
 
         List<ImageElement> elementsToDraw = new ArrayList<ImageElement>( );
 
+        // First, add objects, characters, atrezzo and order the list
         for( Integer key : displayCategory.keySet( ) ) {
-            if( displayCategory.get( key ) ) {
+            if( displayCategory.get( key ) && (key.intValue( )==CATEGORY_OBJECT || key.intValue( )==CATEGORY_CHARACTER || key.intValue( )==CATEGORY_ATREZZO)) {
                 for( ImageElement imageElement : elements.get( key ) ) {
                     elementsToDraw.add( imageElement );
                 }
             }
         }
-
         Collections.sort( elementsToDraw );
+        
+        // Add exits, barriers and active areas
+        for( Integer key : displayCategory.keySet( ) ) {
+            if( displayCategory.get( key ) && (key.intValue( )==CATEGORY_EXIT || key.intValue( )==CATEGORY_ACTIVEAREA || key.intValue( )==CATEGORY_BARRIER)) {
+                for( ImageElement imageElement : elements.get( key ) ) {
+                    elementsToDraw.add( imageElement );
+                }
+            }
+        }
+        
+        // Add the rest
+        for( Integer key : displayCategory.keySet( ) ) {
+            if( displayCategory.get( key ) && key.intValue( )!=CATEGORY_EXIT && key.intValue( )!=CATEGORY_ACTIVEAREA && key.intValue( )!=CATEGORY_BARRIER &&
+                    key.intValue( )!=CATEGORY_OBJECT && key.intValue( )!=CATEGORY_CHARACTER && key.intValue( )!=CATEGORY_ATREZZO) {
+                for( ImageElement imageElement : elements.get( key ) ) {
+                    elementsToDraw.add( imageElement );
+                }
+            }
+        }
 
         for( ImageElement imageElement : elementsToDraw ) {
             if( imageElement.isVisible( ) )
