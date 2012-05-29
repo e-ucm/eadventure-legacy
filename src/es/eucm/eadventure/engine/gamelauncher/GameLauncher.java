@@ -37,6 +37,7 @@
 package es.eucm.eadventure.engine.gamelauncher;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -82,6 +83,7 @@ import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.engine.EAdventure;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
@@ -397,12 +399,16 @@ public class GameLauncher extends JFrame implements Runnable {
                     if( ge.isValid( ) ) {
                         btnLoad.setText( TC.get( "MainWindow.buttonLoad" ) );
                         btnLoad.setEnabled( true );
+                        txtDescription.setForeground( null );
+                        txtCurrentDir.setForeground( null );
                     }
 
                     // Else, disable it
                     else {
                         btnLoad.setText( TC.get( "MainWindow.InvalidAdventure" ) );
                         btnLoad.setEnabled( false );
+                        txtDescription.setForeground( Color.RED );
+                        txtCurrentDir.setForeground( Color.RED );
                     }
                 }
             }
@@ -740,14 +746,23 @@ public class GameLauncher extends JFrame implements Runnable {
                 ResourceHandler.setRestrictedMode( false );
                 ResourceHandler.getInstance( ).setZipFile( file.getAbsolutePath( ) );
                 try {
-                    DescriptorData descriptor = Loader.loadDescriptorData( ResourceHandler.getInstance( ) );
-                    if (descriptor!=null){
+                    List<Incidence> incidences = new ArrayList<Incidence>();
+                    DescriptorData descriptor = Loader.loadDescriptorData( ResourceHandler.getInstance( ), incidences );
+                    
+                    if (descriptor!=null && incidences.size( )==0){
                         GameEntry gameEntry = new GameEntry();
                         gameEntry.setDescription( descriptor.getDescription( ) );
                         gameEntry.setTitle( descriptor.getTitle( ) );
                         gameEntry.setValid( true );
                         gameEntry.setFilename( file.getAbsolutePath( ) );
                         gameEntries.add( gameEntry );
+                    } else {
+                        GameEntry gameEntry = new GameEntry();
+                        gameEntry.setDescription( TC.get( "ErrorMessage.Title" ) );
+                        gameEntry.setTitle( TC.get( "ErrorMessage.Content" ) );
+                        gameEntry.setValid( false );
+                        gameEntry.setFilename( file.getAbsolutePath( ) );
+                        gameEntries.add( gameEntry );                    
                     }
                 } catch (Exception e){};
                 ResourceHandler.getInstance( ).closeZipFile( );

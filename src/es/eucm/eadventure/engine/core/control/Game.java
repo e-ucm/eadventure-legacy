@@ -890,10 +890,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             int oldFps = 0;
 
             // Load the game descriptor (it holds the info of the GUI and the player)
-            gameDescriptor = Loader.loadDescriptorData( ResourceHandler.getInstance( ) );
+            List<Incidence> incidences = new ArrayList<Incidence>();
+            gameDescriptor = Loader.loadDescriptorData( ResourceHandler.getInstance( ), incidences );
 
-            if( gameDescriptor == null ) {
-                // TODO possibly add dialog to tell player the game couldn't get loaded
+            if( gameDescriptor == null || incidences.size( )>0) {
+                JOptionPane.showMessageDialog( GUI.getInstance( ).getFrame( ), TC.get( "ErrorMessage.Title" ), TC.get( "ErrorMessage.Content" ), JOptionPane.ERROR_MESSAGE );
                 return;
             }
             gameDescriptor.setProjectName( adventureName );

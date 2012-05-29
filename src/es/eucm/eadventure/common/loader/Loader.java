@@ -51,7 +51,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
@@ -143,7 +142,7 @@ public class Loader {
      * 
      * @return The descriptor data of the game
      */
-    public static DescriptorData loadDescriptorData( InputStreamCreator isCreator ) {
+    public static DescriptorData loadDescriptorData( InputStreamCreator isCreator, List<Incidence> incidences  ) {
 
         DescriptorData descriptorData = null;
 
@@ -169,13 +168,16 @@ public class Loader {
 
             }
             catch( ParserConfigurationException e ) {
-                ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+                incidences.add( Incidence.createDescriptorIncidence( TC.get( "Error.LoadDescriptor.SAX" ), e ) );
             }
             catch( SAXException e ) {
-                ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+                incidences.add( Incidence.createDescriptorIncidence( TC.get( "Error.LoadDescriptor.SAX" ), e ) );
             }
             catch( IOException e ) {
-                ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+                incidences.add( Incidence.createDescriptorIncidence( TC.get( "Error.LoadDescriptor.IO" ), e ) );
+            }
+            catch( IllegalArgumentException e ) {
+                incidences.add( Incidence.createDescriptorIncidence( TC.get( "Error.LoadDescriptor.NoDescriptor" ), e ) );
             }
         }
         return descriptorData;
