@@ -583,13 +583,15 @@ public class Writer {
         }
        
         if (needsFreeTts) {
-            File.addJarContentsToZip("jars/freetts.jar", os);
             File.addJarContentsToZip("jars/cmu_time_awb.jar", os);
+            File.addJarContentsToZip("jars/cmu_us_kal.jar", os);
+            File.addJarContentsToZip("jars/cmudict04.jar", os);
             File.addJarContentsToZip("jars/cmulex.jar", os);
             File.addJarContentsToZip("jars/cmutimelex.jar", os);
-            File.addJarContentsToZip("jars/cmudict04.jar", os);
+            
+            File.addJarContentsToZip("jars/freetts.jar", os);
             File.addJarContentsToZip("jars/en_us.jar", os);
-            File.addJarContentsToZip("jars/cmu_us_kal.jar", os);
+            
         }
         if (needsJFFMpeg) {
            File.addJarContentsToZip("jars/jffmpeg-1.1.0.jar", os );
