@@ -150,54 +150,58 @@ public class FunctionalBookPage extends JPanel {
     private boolean createResourcePage( ) {
 
         // Check if there is an image created for the representatio of this page
-        boolean existsImage=ResourceHandler.getInstance( ).getResourceAsImageFromZip("assets/image/" + bookPage.getImageName( ) + ".png")!=null;
+        boolean existsImage=bookPage.getImageName( )!=null && ResourceHandler.getInstance( ).getResourceAsImageFromZip("assets/image/" + bookPage.getImageName( ) + ".png")!=null;
         if( !existsImage ) {
             image=null;
             String uri = bookPage.getUri( );
-            String ext = uri.substring( uri.lastIndexOf( '.' ) + 1, uri.length( ) ).toLowerCase( );
-            if( ext.equals( "html" ) || ext.equals( "htm" ) || ext.equals( "rtf" ) ) {
-
-                //Read the text
-                StringBuffer textBuffer = new StringBuffer( );
-                InputStream is = ResourceHandler.getInstance( ).getResourceAsStreamFromZip( uri );//null;
-                try {
-                    int c;
-                    while( ( c = is.read( ) ) != -1 ) {
-                        textBuffer.append( (char) c );
-                    }
-                }
-                catch( IOException e ) {
-                    isValid = false;
-                }
-                finally {
-                    if( is != null ) {
-                        try {
-                            is.close( );
-                        }
-                        catch( IOException e ) {
-                            isValid = false;
-                        }
-                    }
-                }
-
-                //Set the proper content type
-                if( ext.equals( "html" ) || ext.equals( "htm" ) ) {
-                    editorPane.setContentType( "text/html" );
-                    editorPane.setText( textBuffer.toString( ) );
-                    URL url = ResourceHandler.getInstance( ).getResourceAsURL( uri );
+            
+            if (uri!=null){
+                String ext = uri.substring( uri.lastIndexOf( '.' ) + 1, uri.length( ) ).toLowerCase( );
+                if( ext.equals( "html" ) || ext.equals( "htm" ) || ext.equals( "rtf" ) ) {
+    
+                    //Read the text
+                    StringBuffer textBuffer = new StringBuffer( );
+                    InputStream is = ResourceHandler.getInstance( ).getResourceAsStreamFromZip( uri );//null;
                     try {
-                        editorPane.setDocumentBase( new URL( url.getProtocol( ), url.getHost( ), url.getPort( ), url.getFile( ) ) );
+                        int c;
+                        while( ( c = is.read( ) ) != -1 ) {
+                            textBuffer.append( (char) c );
+                        }
                     }
-                    catch( MalformedURLException e ) {
-                        e.printStackTrace( );
+                    catch( IOException e ) {
+                        isValid = false;
                     }
+                    finally {
+                        if( is != null ) {
+                            try {
+                                is.close( );
+                            }
+                            catch( IOException e ) {
+                                isValid = false;
+                            }
+                        }
+                    }
+    
+                    //Set the proper content type
+                    if( ext.equals( "html" ) || ext.equals( "htm" ) ) {
+                        editorPane.setContentType( "text/html" );
+                        editorPane.setText( textBuffer.toString( ) );
+                        URL url = ResourceHandler.getInstance( ).getResourceAsURL( uri );
+                        if (url!=null){
+                            try {
+                                editorPane.setDocumentBase( new URL( url.getProtocol( ), url.getHost( ), url.getPort( ), url.getFile( ) ) );
+                            }
+                            catch( MalformedURLException e ) {
+                                e.printStackTrace( );
+                            }
+                        }
+                    }
+                    else {
+                        editorPane.setContentType( "text/rtf" );
+                        editorPane.setText( textBuffer.toString( ) );
+                    }
+                    isValid = true;
                 }
-                else {
-                    editorPane.setContentType( "text/rtf" );
-                    editorPane.setText( textBuffer.toString( ) );
-                }
-                isValid = true;
-
             }
         }
         else {
