@@ -579,16 +579,23 @@ public class GameLauncher extends JFrame implements Runnable {
                     String adventurePath = getAdventurePath( );
                     String adventureName = getAdventureName( );
                     if( adventureName.length( ) > 0 ) {
-                        ResourceHandler.setRestrictedMode( false );
-                        ResourceHandler.getInstance( ).setZipFile( adventurePath + adventureName + ".ead" );
-                        Game.create( );
-                        Game.getInstance( ).setAdventurePath( adventurePath );
-                        Game.getInstance( ).setAdventureName( adventureName );
-                        Game.getInstance( ).run( );
-                        Game.delete( );
-                        ResourceHandler.getInstance( ).closeZipFile( );
-                        ResourceHandler.delete( );
-                        this.setVisible( !initGameLoad );
+                        String zipFile = adventurePath + adventureName + ".ead";
+                        File fileToLoad = new File( zipFile );
+                        if (fileToLoad.exists( )){
+                            ResourceHandler.setRestrictedMode( false );
+                            ResourceHandler.getInstance( ).setZipFile( zipFile );
+                            Game.create( );
+                            Game.getInstance( ).setAdventurePath( adventurePath );
+                            Game.getInstance( ).setAdventureName( adventureName );
+                            Game.getInstance( ).run( );
+                            Game.delete( );
+                            ResourceHandler.getInstance( ).closeZipFile( );
+                            ResourceHandler.delete( );
+                            this.setVisible( !initGameLoad );
+                        } else {
+                            initGameLoad = false;
+                            this.setVisible( true );
+                        }
                     }
                     if( initGameLoad )
                         System.exit( 0 );
