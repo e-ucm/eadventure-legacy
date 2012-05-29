@@ -41,14 +41,9 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import es.eucm.eadventure.common.auxiliar.FileFilter;
-import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.loader.Loader;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
- * Filter for ZIP files (and folders).
- * 
- * @author Bruno Torijano Bueno
+ * Filter for Project folders
  */
 /*
  * @updated by Javier Torrente. New functionalities added - Support for .ead files. Therefore <e-Adventure> files are no
@@ -135,11 +130,12 @@ public class FolderFileFilter extends FileFilter {
                     break;
                 }
             }
-            if( containsDescriptor ) {
+            /*if( containsDescriptor ) {
                 DescriptorData descriptor = Loader.loadDescriptorData( AssetsController.getInputStreamCreator( file.getAbsolutePath( ) ) );
                 descriptorValid = descriptor != null;
             }
-            accepted &= containsDescriptor && descriptorValid;
+            accepted &= containsDescriptor && descriptorValid;*/
+            accepted = containsDescriptor;
         }
         return accepted;
     }
@@ -148,7 +144,7 @@ public class FolderFileFilter extends FileFilter {
     public String getDescription( ) {
 
         // Description of the filter
-        return "Folders";
+        return "Folders/eap";
     }
 
     public void setFileChooser( JFileChooser fileDialog ) {

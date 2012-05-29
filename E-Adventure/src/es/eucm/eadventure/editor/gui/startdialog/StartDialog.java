@@ -85,6 +85,7 @@ import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.auxiliar.filefilters.EADAndFolderFileFilter;
 import es.eucm.eadventure.editor.auxiliar.filefilters.JARFileFilter;
 import es.eucm.eadventure.editor.auxiliar.filefilters.ZIPFileFilter;
@@ -694,12 +695,25 @@ public class StartDialog extends JFileChooser {
             if( selectedRow >= 0 ) {
                 openRecentsButton.setEnabled( true );
                 recentFile = new File( info[selectedRow][0] );
+                DescriptorData summary = null;
+                List<Incidence> incidences = new ArrayList<Incidence>();
                 try {
-                    descriptorDataPanel.update( Loader.loadDescriptorData( AssetsController.getInputStreamCreator( recentFile.getAbsolutePath( ) ) ), recentFile.getAbsolutePath( ) );
+                    summary = Loader.loadDescriptorData( AssetsController.getInputStreamCreator( recentFile.getAbsolutePath( ) ), incidences );
                 }
                 catch( Exception ex ) {
-
+                    summary = null;
                 }
+                if (incidences.size( )>0){
+                    summary=null;
+                }
+                
+                if (summary!=null){
+                    descriptorDataPanel.update( summary, recentFile.getAbsolutePath( ) );
+                } else {
+                    descriptorDataPanel.error(recentFile.getAbsolutePath( ));
+                    openRecentsButton.setEnabled( false );
+                }
+                
                 for( JTable otherTable : otherTables ) {
                     otherTable.clearSelection( );
                 }
@@ -721,26 +735,27 @@ public class StartDialog extends JFileChooser {
             if( column == 0 ) {
                 JPanel panelIcon = new JPanel( );
                 panelIcon.setLayout( new BorderLayout( ) );
+                DescriptorData d = null;
+                List<Incidence> incidences = new ArrayList<Incidence>();
                 try {
                     String path = (String) value;
-                    DescriptorData d = Loader.loadDescriptorData( AssetsController.getInputStreamCreator( path ) );
-
-                    if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
-                        return new JLabel( new ImageIcon( "img/TransparentAdventure32.png" ) );
-                        //return panelIcon;
-                    }
-                    else if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
-                        return new JLabel( new ImageIcon( "img/NormalAdventure32.png" ) );
-                        //return panelIcon;
-                    }
-                    else {
-                        return panelIcon;
-                    }
+                    d = Loader.loadDescriptorData( AssetsController.getInputStreamCreator( path ) , incidences);
+                } catch( Exception ex ) {
+                    d=null;
                 }
-                catch( Exception ex ) {
-                    return panelIcon;
+                if (incidences.size( )>1){
+                    d=null;
                 }
-
+                
+                if( d!=null && d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
+                    return new JLabel( new ImageIcon( "img/TransparentAdventure32.png" ) );
+                }
+                else if( d!=null && d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
+                    return new JLabel( new ImageIcon( "img/NormalAdventure32.png" ) );
+                }
+                else {
+                    return new JLabel( new ImageIcon( "img/icons/deleteNode.png" ) );
+                }
             }
             return null;
         }

@@ -37,6 +37,7 @@
 package es.eucm.eadventure.editor.gui.startdialog;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -192,11 +193,18 @@ public class DescriptorDataPanel extends JPanel {
     }
 
     /**
+     * Updates the panel with information provided in currentDescriptor.
+     * CurrentDescriptor can be null. If so, all fields are set blank.
+     * To set error message, use method error()
      * @param currentDescriptor
      *            the currentDescriptor to set
      */
     public void update( DescriptorData currentDescriptor, String absolutePath ) {
 
+        titleTextField.setForeground( null );
+        descriptionTextArea.setForeground( null );
+        pathTextField.setForeground( null );
+        
         this.currentDescriptor = currentDescriptor;
         this.absoultePath = absolutePath;
         //Update the text fields
@@ -224,6 +232,31 @@ public class DescriptorDataPanel extends JPanel {
             titleTextField.setText( "" );
 
         if( absolutePath != null ) {
+            pathTextField.setText( absoultePath );
+        }
+        else {
+            pathTextField.setText( "" );
+        }
+
+    }
+    
+    /**
+     * Sets all fields with a warning message. Useful to notify the user that the project  may be corrupt.
+     * @param   The absolute path of the project that caused the loading error
+     */
+    public void error( String absolutePath ) {
+
+        this.absoultePath = absolutePath;
+        
+            playerMode.setText( TC.get( "N/A" ) );
+            playerModeDescription.setText( "N/A" );
+            descriptionTextArea.setText( TC.get( "Operation.FileNotLoadedMessage" ) );
+            titleTextField.setForeground( Color.red );
+            descriptionTextArea.setForeground( Color.red );
+            titleTextField.setText( TC.get( "Operation.FileNotLoadedTitle" ) );
+
+        if( absolutePath != null ) {
+            pathTextField.setForeground( Color.red );
             pathTextField.setText( absoultePath );
         }
         else {
