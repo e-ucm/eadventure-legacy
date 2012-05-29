@@ -536,8 +536,11 @@ public class GraphicRepresentation {
             for( int j = 0; j < father.getChildCount( ); j++ ) {
                 if( father.getChildView( j ) != node ) {
                     ConversationNodeView possibleBrother = father.getChildView( j );
-                    if( graphicNodes.get( nodes.indexOf( possibleBrother ) ).getPosition( scale ).x > maxPoint.x ) {
-                        maxPoint = graphicNodes.get( nodes.indexOf( possibleBrother ) ).getPosition( scale );
+                    int index=nodes.indexOf( possibleBrother );
+                    // Index>=0 && index< graphicNodes.size() were added as a tentative solution to bug #BUG_CONVERSATION_EDITOR (IndexOutOfBoundsException),
+                    // although there is no guarantee that it works.
+                    if( index>=0 && index< graphicNodes.size() && graphicNodes.get( index ).getPosition( scale ).x > maxPoint.x ) {
+                        maxPoint = graphicNodes.get( index ).getPosition( scale );
                     }
                 }
             }
