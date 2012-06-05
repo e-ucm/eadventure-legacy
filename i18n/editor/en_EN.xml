@@ -2091,4 +2091,6 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Resources.TransitionTime">Transition when the appearance changes</entry>
 <entry key="Behaviour.Selection.Normal">In this case the object responds to mouse clicks as usual. The actions available or the description (brief) are shown on the screen, depending on the general settings of the adventure (see Adventure settings in the Menu "Adventure").</entry>
 <entry key="VersionNumber">Version</entry>
+<entry key="AssessmentRule.Header">Header</entry>
+<entry key="AssessmentRule.Body">Body</entry>
 </properties>

@@ -150,7 +150,7 @@ public class AssessmentPropertiesPanel extends JPanel implements Updateable{
         this.assessmentRuleDataControl = assDataControl;
 
         // Create and set border (titled border in this case)
-        border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TC.get( "AssessmentRule.Effect.PropertiesTitle" ), TitledBorder.CENTER, TitledBorder.TOP );
+        border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TC.get( "AssessmentRule.Effect.PropertiesTitle" ));
         setBorder( border );
 
         // Set a BorderLayout

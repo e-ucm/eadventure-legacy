@@ -2095,4 +2095,6 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="Resources.TransitionTime">Transición cuando los recursos cambian</entry>
 <entry key="Behaviour.Selection.Normal">En este caso, el objeto responde a los clics de ratón como de costumbre. Las acciones disponibles o la descripción (breve) se muestran en la pantalla, dependiendo de la configuración general de la aventura (ver configuración de Aventura en el menú de "Aventura").</entry>
 <entry key="VersionNumber">Versión</entry>
+<entry key="AssessmentRule.Header">Encabezamiento</entry>
+<entry key="AssessmentRule.Body">Cuerpo</entry>
 </properties>
