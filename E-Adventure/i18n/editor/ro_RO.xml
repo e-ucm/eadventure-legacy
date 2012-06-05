@@ -1966,4 +1966,6 @@
 <entry key="Resources.TransitionTime">De tranziţie atunci când resursele schimba</entry>
 <entry key="Behaviour.Selection.Normal">În acest caz, obiectul răspunde la clicurile mouse-ul ca de obicei. Acţiunile disponibile sau descriere (scurtă) sunt afişate pe ecran, în funcţie de setările generale de aventura (a se vedea setările de aventură în meniul "Aventura").</entry>
 <entry key="VersionNumber">Versiune</entry>
+<entry key="AssessmentRule.Header">Antet</entry>
+<entry key="AssessmentRule.Body">Corp</entry>
 </properties>

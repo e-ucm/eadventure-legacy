@@ -72,7 +72,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
@@ -224,18 +223,13 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
                 rulesInfoPanel.updateUI( );
             }
             else {
-                GridBagConstraints c = new GridBagConstraints( );
-                c.insets = new Insets( 5, 5, 5, 5 );
-
-                // Create the combo box of importance
-                c.fill = GridBagConstraints.BOTH;
-                c.weightx = 1;
-                c.gridy = 0;
-
-                // Create the text area for the concept
-                c.gridy++;
-                c.weighty = 1;
-                c.ipady = 20;
+                rulesInfoPanel.removeAll( );
+                rulesInfoPanel.setLayout( new TwoColumnsLayout(0.65f) );
+                // Create the effect panel with the header and the text to be printed
+                JPanel effectPanel = new JPanel( );
+                effectPanel.setLayout( new GridBagLayout( ) );
+                effectPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Effect.Text" ) ) );
+                
                 JPanel conceptPanel = new JPanel( );
                 conceptPanel.setLayout( new BorderLayout( ) );
                 conceptTextArea = new JTextArea( currentRuleDataControl.getConcept( ), 4, 0 );
@@ -243,27 +237,18 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
                 conceptTextArea.setWrapStyleWord( true );
                 conceptTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
                 conceptPanel.add( new JScrollPane( conceptTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
-                conceptPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Concept" ) ) );
-
-                // Create the button for the conditions
-                c.gridy++;
-                c.ipady = 0;
-                c.gridx = 0;
-                c.gridy = 0;
-                rulesInfoPanel.add( conceptPanel, c );
-
-                // Create the effect panel (second tab)
-                JPanel effectPanel = new JPanel( );
-                effectPanel.setLayout( new GridBagLayout( ) );
-                effectPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Effect.Title" ) ) );
+                conceptPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Header" ) )  );
+                
                 GridBagConstraints c2 = new GridBagConstraints( );
-
                 c2.gridx = 0;
                 c2.gridy = 0;
                 c2.insets = new Insets( 5, 5, 5, 5 );
                 c2.fill = GridBagConstraints.BOTH;
                 c2.weightx = 1;
-                c2.weighty = 0.2;
+                c2.weighty = 0;
+                effectPanel.add( conceptPanel, c2 );
+                
+                
                 JPanel textPanel = new JPanel( );
                 textPanel.setLayout( new GridLayout( ) );
                 textTextArea = new JTextArea( currentRuleDataControl.getEffectText( 0 ), 4, 0 );
@@ -271,20 +256,20 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
                 textTextArea.setWrapStyleWord( true );
                 textTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
                 textPanel.add( new JScrollPane( textTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ) );
-                textPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Effect.Text" ), TitledBorder.CENTER, TitledBorder.TOP ) );
-
-                effectPanel.add( textPanel, c2 );
-                // effectPanel.add( new JFiller() );
-
-                // Create and add the set-property table
-                c2.weighty = 0.8;
+                textPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Body" ) ) );
+                
+                c2.weighty = 1;
                 c2.fill = GridBagConstraints.BOTH;
                 c2.gridy = 1;
-                AssessmentPropertiesPanel propPanel = new AssessmentPropertiesPanel( this.currentRuleDataControl, this.dataControl.isScorm12( ), this.dataControl.isScorm2004( ) );
-                effectPanel.add( propPanel, c2 );
+                
+                effectPanel.add( textPanel, c2 );
+              
+                rulesInfoPanel.add( effectPanel,TwoColumnsLayout.LEFT_COMPONENT );
 
-                c.gridx = 1;
-                rulesInfoPanel.add( effectPanel, c );
+                AssessmentPropertiesPanel propPanel = new AssessmentPropertiesPanel( this.currentRuleDataControl, this.dataControl.isScorm12( ), this.dataControl.isScorm2004( ) );
+                
+                rulesInfoPanel.add( propPanel, TwoColumnsLayout.RIGHT_COMPONENT );
+                rulesInfoPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "AssessmentRule.Effect.Title" ) ) );
                 rulesInfoPanel.updateUI( );
             }
         }

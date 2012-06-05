@@ -1943,4 +1943,6 @@
 <entry key="Resources.TransitionTime">Transição quando os recursos mudar</entry>
 <entry key="Behaviour.Selection.Normal">Neste caso, o objecto responde a cliques como é habitual. As ações disponíveis ou a descrição (breve) são mostrados na tela, dependendo das configurações gerais da aventura (ver definições de Aventura no Menu "Adventure").</entry>
 <entry key="VersionNumber">Versão</entry>
+<entry key="AssessmentRule.Header">Cabeçalho</entry>
+<entry key="AssessmentRule.Body">Corpo</entry>
 </properties>

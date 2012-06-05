@@ -1955,4 +1955,6 @@
 <entry key="Resources.TransitionTime">Transizione quando le risorse cambiare</entry>
 <entry key="Behaviour.Selection.Normal">In questo caso l'oggetto risponde ai clic del mouse, come al solito. Le azioni disponibili o la descrizione (breve) sono mostrati sullo schermo, a seconda delle impostazioni generali del avventura (vedere Impostazioni avventura nel "Adventure" Menu).</entry>
 <entry key="VersionNumber">Versione</entry>
+<entry key="AssessmentRule.Header">Testata</entry>
+<entry key="AssessmentRule.Body">Corpo</entry>
 </properties>
