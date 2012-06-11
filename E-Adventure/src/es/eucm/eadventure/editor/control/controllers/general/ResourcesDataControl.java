@@ -467,10 +467,10 @@ public class ResourcesDataControl extends DataControl {
      * @param filename
      * @param index
      */
-    public void setAssetPath( String filename, int index ) {
+    public void setAssetPath( String filename, String destinyAssetName, int index ) {
 
         try {
-            controller.addTool( new EditResourceTool( resources, assetsInformation, index, filename ) );
+            controller.addTool( new EditResourceTool( resources, assetsInformation, index, filename, destinyAssetName ) );
         }
         catch( CloneNotSupportedException e ) {
             e.printStackTrace( );

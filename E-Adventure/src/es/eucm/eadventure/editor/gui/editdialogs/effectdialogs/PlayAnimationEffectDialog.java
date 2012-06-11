@@ -44,6 +44,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -365,22 +366,37 @@ public class PlayAnimationEffectDialog extends EffectDialog {
                 new AnimationEditDialog( path, null );
             }
             else {
+                java.io.File file = null;
                 String filename = null;
                 String animationName = "anim" + ( new Random( ) ).nextInt( 1000 );
                 if( path != null && !path.equals( "" ) ) {
                     String[] temp = path.split( "/" );
                     animationName = temp[temp.length - 1];
-                    filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
+                    try {
+                        file = File.createTempFile( animationName, ".eaa" );
+                    }
+                    catch( IOException e1 ) {
+                        e1.printStackTrace();
+                    }
+                    filename = file.getAbsolutePath( );
+                    //filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
                 }
                 else {
                     animationName = JOptionPane.showInputDialog( Controller.getInstance( ).peekWindow( ), TC.get( "Animation.AskFilename" ), TC.get( "Animation.AskFilenameTitle" ), JOptionPane.QUESTION_MESSAGE );
                     if( animationName != null && animationName.length( ) > 0 ) {
-                        filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
+                        //filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
+                        try {
+                            file = File.createTempFile( animationName, ".eaa" );
+                        }
+                        catch( IOException e1 ) {
+                            e1.printStackTrace();
+                        }
+                        filename = file.getAbsolutePath( );
                     }
                 }
-                if( filename != null ) {
-                    File file = new File( filename );
-                    file.create( );
+                if( file!=null&&filename != null ) {
+                    //File file = new File( filename );
+                    //file.create( );
                     AnimationWriter.writeAnimation( filename, new Animation( animationName, new EditorImageLoader()  ) );
 
                     Animation animation = new Animation( animationName, new EditorImageLoader()  );

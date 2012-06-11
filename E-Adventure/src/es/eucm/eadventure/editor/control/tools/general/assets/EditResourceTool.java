@@ -56,11 +56,15 @@ public class EditResourceTool extends ResourcesTool {
      * The filename to edit
      */
     protected String filename;
+    
+    // Added v.15
+    protected String destinyAssetName;
 
-    public EditResourceTool( Resources resources, AssetInformation[] assetsInformation, int index, String filename ) throws CloneNotSupportedException {
+    public EditResourceTool( Resources resources, AssetInformation[] assetsInformation, int index, String filename, String destinyAssetName ) throws CloneNotSupportedException {
 
         super( resources, assetsInformation, -1, index );
         this.filename = filename;
+        this.destinyAssetName = destinyAssetName;
     }
 
     @Override
@@ -68,12 +72,11 @@ public class EditResourceTool extends ResourcesTool {
 
         boolean done = false;
 
-        AssetsController.addSingleAsset( assetsInformation[index].category, filename );
+        AssetsController.addSingleAsset( assetsInformation[index].category, filename, destinyAssetName, true );
         // Dirty fix?
-        String selectedAsset = ( new File( filename ) ).getName( );
+        String selectedAsset = destinyAssetName==null?( new File( filename ) ).getName( ):destinyAssetName;
         // If a file was selected
         if( selectedAsset != null ) {
-           
             
             // Take the index of the selected asset
             String[] assetFilenames = AssetsController.getAssetFilenames( assetsInformation[index].category, assetsInformation[index].filter );

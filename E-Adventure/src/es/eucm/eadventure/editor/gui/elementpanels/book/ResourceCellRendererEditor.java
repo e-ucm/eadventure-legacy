@@ -62,7 +62,6 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
@@ -297,21 +296,30 @@ public class ResourceCellRendererEditor extends AbstractCellEditor implements Ta
         public void actionPerformed( ActionEvent e ) {
 
             String filename = null;
-
-            filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath( "html" );
-            File file = new File( filename );
+            java.io.File file =null;
             try {
-                file.createNewFile( );
+                file = File.createTempFile( "ead-book", ".html" );
+                filename = file.getAbsolutePath( );
+            }
+            catch( IOException e1 ) {
+                e1.printStackTrace();
+                return;
+            }
+            
+            //filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath( "html" );
+            //File file = new File( filename );
+            //try {
+                //file.createNewFile( );
                 AssetsController.addSingleAsset( AssetsConstants.CATEGORY_STYLED_TEXT, file.getAbsolutePath( ) );
                 String uri = "assets/styledtext/" + file.getName( );
                 control.getSelectedPage( ).setUri( uri );
                 textField.setText( control.getSelectedPage( ).getUri( ) );
                 editButton.setEnabled( true );
                 parentPanel.updatePreview( );
-            }
+            /*}
             catch( IOException exc ) {
                 ReportDialog.GenerateErrorReport( exc, true, "UNKNOWERROR" );
-            }
+            }*/
         }
     }
 
