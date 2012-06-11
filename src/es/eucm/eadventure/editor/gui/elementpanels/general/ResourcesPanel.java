@@ -520,37 +520,38 @@ public class ResourcesPanel extends JPanel {
                 if( resourcesDataControl.getAssetPath( assetIndex ) != null ) {
                     String[] temp = resourcesDataControl.getAssetPath( assetIndex ).split( "/" );
                     animationName = temp[temp.length - 1];
-                    filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
                 }
                 else {
                     animationName = JOptionPane.showInputDialog( null, TC.get( "Animation.AskFilename" ), TC.get( "Animation.AskFilenameTitle" ), JOptionPane.QUESTION_MESSAGE );
-                    if( animationName != null && animationName.length( ) > 0 ) {
-                        filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( animationName, "eaa" );
-                        //} else {
-                        //	filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath(animationName, "eaa");
-                        //}
-                    }
                 }
-                if( filename != null ) {
-                    File file = new File( filename );
-                    file.create( );
-                    AnimationWriter.writeAnimation( filename, new Animation( animationName, new EditorImageLoader()  ) );
 
-                    Animation animation = new Animation( animationName, new EditorImageLoader() );
-                    animation.setDocumentation( resourcesDataControl.getAssetDescription( assetIndex ) );
-                    if( resourcesDataControl.getAssetPath( assetIndex ) != null ) {
-                        // Añadir las imagenes de la animación antigua
-                        //animation.framesFromImages(resourcesDataControl.getAssetPath(assetIndex));
-                        ResourcesDataControl.framesFromImages( animation, resourcesDataControl.getAssetPath( assetIndex ) );
-                        AnimationWriter.writeAnimation( filename, animation );
+                if( animationName != null && animationName.length( ) > 0 ) {
+                    try {
+                        java.io.File file = File.createTempFile( "ead-animation", ".eaa" );
+                        file.createNewFile( );
+                        filename = file.getAbsolutePath( );
+                        AnimationWriter.writeAnimation( filename, new Animation( animationName, new EditorImageLoader()  ) );
+
+                        Animation animation = new Animation( animationName, new EditorImageLoader() );
+                        animation.setDocumentation( resourcesDataControl.getAssetDescription( assetIndex ) );
+                        if( resourcesDataControl.getAssetPath( assetIndex ) != null ) {
+                            // Aï¿½adir las imagenes de la animaciï¿½n antigua
+                            //animation.framesFromImages(resourcesDataControl.getAssetPath(assetIndex));
+                            ResourcesDataControl.framesFromImages( animation, resourcesDataControl.getAssetPath( assetIndex ) );
+                            AnimationWriter.writeAnimation( filename, animation );
+                        }
+                        // Poner la nueva animacion en el assetPath
+                        //AssetsController.addSingleAsset(AssetsController.CATEGORY_ANIMATION, filename);
+                        //String uri = AssetsController.categoryFolders()[AssetsController.CATEGORY_ANIMATION] + "/" + file.getName();
+
+                        resourcesDataControl.setAssetPath( filename, animationName+".eaa", assetIndex );
+
+                        new AnimationEditDialog( resourcesDataControl.getAssetPath( assetIndex ), animation );
+                        
                     }
-                    // Poner la nueva animacion en el assetPath
-                    //AssetsController.addSingleAsset(AssetsController.CATEGORY_ANIMATION, filename);
-                    //String uri = AssetsController.categoryFolders()[AssetsController.CATEGORY_ANIMATION] + "/" + file.getName();
-
-                    resourcesDataControl.setAssetPath( filename, assetIndex );
-
-                    new AnimationEditDialog( resourcesDataControl.getAssetPath( assetIndex ), animation );
+                    catch( IOException e1 ) {
+                        e1.printStackTrace();
+                    }
                 }
 
             }
@@ -597,7 +598,15 @@ public class ResourcesPanel extends JPanel {
                 String[] temp = imagePath.split( "/" );
                 String newName = temp[temp.length - 1];
                 newName = "icon_" + newName.substring( 0, newName.length( ) - 4 );
-                String filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( newName, "png" );
+                String filename=null;
+                java.io.File file = null;
+                try {
+                    file = File.createTempFile( newName, ".png" );
+                    filename = file.getAbsolutePath( );
+                }
+                catch( IOException e2 ) {
+                    e2.printStackTrace();
+                }//AssetsController.TempFileGenerator.generateTempFileOverwriteExisting( newName, "png" );
                 Image original = AssetsController.getImage( imagePath );
                 BufferedImage bufferdOriginal = new BufferedImage( original.getWidth( null ), original.getHeight( null ), BufferedImage.TYPE_4BYTE_ABGR );
                 bufferdOriginal.getGraphics( ).drawImage( original, 0, 0, original.getWidth( null ), original.getHeight( null ), null );
@@ -624,17 +633,19 @@ public class ResourcesPanel extends JPanel {
                 g.drawImage( bufferdOriginal, aop, dx1, dy1 );
                 g.finalize( );
 
-                File file = new File( filename );
-                try {
-                    ImageIO.write( newImage, "png", file );
+                //File file = new File( filename );
+                if (file!=null){
+                    try {
+                        ImageIO.write( newImage, "png", file );
+                    }
+                    catch( IOException e1 ) {
+                        return;
+                    }
+                    resourcesDataControl.setAssetPath( filename, newName+".png", assetIndex );
+                    assetFields[assetIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
+                    viewButtons[assetIndex].setEnabled( resourcesDataControl.getAssetPath( assetIndex ) != null );
                 }
-                catch( IOException e1 ) {
-                    return;
-                }
-
-                resourcesDataControl.setAssetPath( filename, assetIndex );
-                assetFields[assetIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
-
+                
             }
         }
     }

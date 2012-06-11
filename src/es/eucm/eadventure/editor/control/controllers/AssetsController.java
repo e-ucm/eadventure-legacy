@@ -49,7 +49,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.media.MediaLocator;
@@ -187,7 +186,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
     //private static VideoCache videoCache = new AssetsController.VideoCache( );
 
-    private static HashMap<String, File> tempFiles = new HashMap<String, File>( );
+    private static HashMap<String, java.io.File> tempFiles = new HashMap<String, java.io.File>( );
 
     public static void resetCache( ) {
 
@@ -202,7 +201,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
         }*/
 
         //Reset tempFiles
-        tempFiles = new HashMap<String, File>( );
+        tempFiles = new HashMap<String, java.io.File>( );
     }
 
     /*public static void cleanVideoCache( ) {
@@ -601,6 +600,10 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
     }
 
     public static boolean addSingleAsset( int assetsCategory, String assetPath, boolean checkIfAssetExists ) {
+        return addSingleAsset ( assetsCategory, assetPath, null, checkIfAssetExists );
+    }
+    
+    public static boolean addSingleAsset( int assetsCategory, String assetPath, String destinyAssetName, boolean checkIfAssetExists ) {
 
         boolean assetsAdded = false;
         // Take the category folder, from the ZIP file name
@@ -623,7 +626,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
                     // If the file exists, create the destiny file and do the copy
                     if( sourceFile.exists( ) ) {
-                        File destinyFile = new File( categoryFolder, sourceFile.getName( ) );
+                        File destinyFile = new File( categoryFolder, destinyAssetName==null?sourceFile.getName( ):destinyAssetName );
 
                         // Check those are not the same file
                         if( !sourceFile.getAbsolutePath( ).toLowerCase( ).equals( destinyFile.getAbsolutePath( ).toLowerCase( ) ) ) {
@@ -653,12 +656,12 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
                 File destinyFile;
                 // empty animation always goes to assets/special folder
                 if (sourceFile.getName( ).contains( "EmptyAnimation" )){
-                    destinyFile = new File( Controller.getInstance( ).getProjectFolder( ) + "/" + CATEGORY_SPECIAL_ASSETS + "/" + sourceFile.getName( ));
+                    destinyFile = new File( Controller.getInstance( ).getProjectFolder( ) + "/" + CATEGORY_SPECIAL_ASSETS + "/" + destinyAssetName==null?sourceFile.getName( ):destinyAssetName);
                 } else 
-                    destinyFile   = new File( categoryFolder, sourceFile.getName( ) );
+                    destinyFile   = new File( categoryFolder, destinyAssetName==null?sourceFile.getName( ):destinyAssetName );
 
                 if( !sourceFile.getAbsolutePath( ).toLowerCase( ).equals( destinyFile.getAbsolutePath( ).toLowerCase( ) ) ) {
-                    if( destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Assets.AddAsset" ), TC.get( "Assets.WarningAssetFound", sourceFile.getName( ) ) ) ) {
+                    if( destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Assets.AddAsset" ), TC.get( "Assets.WarningAssetFound", destinyFile.getName( ) ) ) ) {
                         deleteAsset( assetPath, false );
                     }
                     assetsAdded = sourceFile.copyTo( destinyFile );
@@ -687,19 +690,19 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
             // If it's a styled text, images associated with it have to be imported too
             else if( assetsCategory == CATEGORY_STYLED_TEXT && ( assetPath.endsWith( ".html" ) || assetPath.endsWith( ".htm" ) ) ) {
-                assetsAdded = addStyledText( assetPath, categoryFolder );
+                assetsAdded = addStyledText( assetPath, destinyAssetName, categoryFolder );
             }
             // If it is not an animation asset, just add the file
             else {
                 // Open source file, and create destiny file in the ZIP
                 File sourceFile = new File( assetPath );
-                File destinyFile = new File( categoryFolder, sourceFile.getName( ) );
+                File destinyFile = new File( categoryFolder, destinyAssetName==null?sourceFile.getName( ):destinyAssetName );
 
                 // Check those are not the same file
                 if( !sourceFile.getAbsolutePath( ).toLowerCase( ).equals( destinyFile.getAbsolutePath( ).toLowerCase( ) ) ) {
 
                     // Check if the asset is being overwritten, if so prompt the user for action
-                    if( checkIfAssetExists && destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Assets.AddAsset" ), TC.get( "Assets.WarningAssetFound", sourceFile.getName( ) ) ) ) {
+                    if( checkIfAssetExists && destinyFile.exists( ) && !Controller.getInstance( ).showStrictConfirmDialog( TC.get( "Assets.AddAsset" ), TC.get( "Assets.WarningAssetFound", destinyFile.getName( ) ) ) ) {
                         // If the user accepts to overwrite the asset, delete it first
                         deleteAsset( assetPath, false );
                     }
@@ -726,13 +729,13 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
     }
 
-    private static boolean addStyledText( String assetPath, File categoryFolder ) {
+    private static boolean addStyledText( String assetPath, String destinyAssetName, File categoryFolder ) {
 
         boolean assetsAdded = true;
 
         try {
             File sourceFile = new File( assetPath );
-            File destinyFile = new File( categoryFolder, sourceFile.getName( ) );
+            File destinyFile = new File( categoryFolder, destinyAssetName==null?sourceFile.getName( ):destinyAssetName );
 
             // Read sourceFile content
             BufferedReader r = new BufferedReader( new FileReader( sourceFile ) );
@@ -1333,7 +1336,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
         return assetChooser;
     }
 
-    public static class TempFileGenerator {
+    /*public static class TempFileGenerator {
 
         private static Random random = new Random( );
 
@@ -1400,7 +1403,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
             return tempDirectory + "/" + fileName;
         }
 
-    }
+    }*/
 
     /**
      * Extracts the resource and get it copied to a file in the local system.
@@ -1417,9 +1420,11 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
             if( !tempFiles.containsKey( assetPath ) ) {
 
                 //String filePath = VideoCache.generateTempFileAbsolutePath (getExtension(assetPath));
-                String filePath = TempFileGenerator.generateTempFileAbsolutePath( getExtension( assetPath ) );
+                java.io.File destinyFile = File.createTempFile( "ead-resource", "."+getExtension( assetPath ) );
+                //String filePath = TempFileGenerator.generateTempFileAbsolutePath( getExtension( assetPath ) );
+                String filePath = destinyFile.getAbsolutePath( );
                 File sourceFile = new File( Controller.getInstance( ).getProjectFolder( ), assetPath );
-                File destinyFile = new File( filePath );
+                //File destinyFile = new File( filePath );
                 if( sourceFile.copyTo( destinyFile ) ) {
                     tempFiles.put( assetPath, destinyFile );
                     toReturn = filePath;
@@ -1453,40 +1458,44 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
         public InputStream buildInputStream( String filePath ) {
 
-            if( absolutePath == null ) {
-                if( filePath.startsWith( "/" ) || filePath.startsWith( "\\" ) ) {
-                    //FIXME: Somehow, these is not needed anymore (check more, might still be needed outside eclipse)
-                    //String os = System.getProperty( "os.name" ).toLowerCase( );
-                    if ( !filePath.startsWith( "/User" ) )
-                        filePath = filePath.substring( 1, filePath.length( ) );
-                }
-                return getInputStream( filePath );
-            }
-            else
+            InputStream is = null;
+            
+            /*if( filePath.startsWith( "/" ) || filePath.startsWith( "\\" ) ) {
+                //FIXME: Somehow, these is not needed anymore (check more, might still be needed outside eclipse)
+                //String os = System.getProperty( "os.name" ).toLowerCase( );
+                if ( !filePath.startsWith( "/User" ) )
+                    filePath = filePath.substring( 1, filePath.length( ) );
+            }*/
+            is = getInputStream( filePath );
+
+            if (is==null && absolutePath != null){
                 try {
-                    return new FileInputStream( new File( absolutePath, filePath ) );
+                    is = new FileInputStream( new File( absolutePath, filePath ) );
                 }
                 catch( FileNotFoundException e ) {
                     return null;
                 }
+            }
+            
+            return is;
         }
 
         public String[] listNames( String filePath ) {
 
-            if( absolutePath == null ) {
-                File dir = new File( Controller.getInstance( ).getProjectFolder( ), filePath );
+            String[] list=null;
+            
+            File dir = new File( Controller.getInstance( ).getProjectFolder( ), filePath );
+            if( dir.exists( ) && dir.isDirectory( ) )
+                list = dir.list( );
+
+            if (list==null && absolutePath!=null){
+                dir = new File( absolutePath, filePath );
                 if( dir.exists( ) && dir.isDirectory( ) )
-                    return dir.list( );
+                    list =  dir.list( );
                 else
-                    return new String[ 0 ];
+                    list = new String[ 0 ];
             }
-            else {
-                File dir = new File( absolutePath, filePath );
-                if( dir.exists( ) && dir.isDirectory( ) )
-                    return dir.list( );
-                else
-                    return new String[ 0 ];
-            }
+            return list;
         }
 
         public MediaLocator buildMediaLocator( String file ) {

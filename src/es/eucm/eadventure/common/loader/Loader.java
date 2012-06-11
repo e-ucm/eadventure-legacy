@@ -426,7 +426,7 @@ public class Loader {
         AnimationHandler animationHandler = new AnimationHandler( isCreator, imageloader );
 
         // Create a new factory
-        factory.setValidating( true );
+        factory.setValidating( false );
         SAXParser saxParser;
         try {
             saxParser = factory.newSAXParser( );

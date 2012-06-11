@@ -265,41 +265,63 @@ public class MainWindow extends JFrame {
     private void sizeAndLocationSetup(){
         // Set size and position
         GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
-        // Use default device
-        GraphicsDevice device = environment.getDefaultScreenDevice( );
-        int deviceWidth = device.getDisplayMode( ).getWidth( );
-        int deviceHeight = device.getDisplayMode( ).getHeight( );
+        int prefWidth=1024;
+        int prefHeight=728;
+        int x=0;
+        int y=0;
+        boolean set=false;
+        if (environment!=null){
+            // Use default device
+            GraphicsDevice device = environment.getDefaultScreenDevice( );
+            
+            if (device!=null && device.getDisplayMode( )!=null){
+                int deviceWidth = device.getDisplayMode( ).getWidth( );
+                int deviceHeight = device.getDisplayMode( ).getHeight( );
+        
+                int totalWidth = Math.min( environment.getMaximumWindowBounds( ).width, deviceWidth);
+                int totalHeight = Math.min( environment.getMaximumWindowBounds( ).height, deviceHeight);
+                
+                int minWidth = Math.min( totalWidth>WINDOW_MIN_WIDTH?WINDOW_MIN_WIDTH:totalWidth-10, ConfigData.getEditorWindowWidth( ));
+                int minHeight = Math.min( totalHeight>WINDOW_MIN_HEIGHT?WINDOW_MIN_HEIGHT:totalHeight-40, ConfigData.getEditorWindowHeight( ));
+                setMinimumSize( new Dimension(minWidth, minHeight) );
+                
+                prefWidth = ConfigData.getEditorWindowWidth( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowWidth( ):totalWidth;
+                prefHeight = ConfigData.getEditorWindowHeight( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowHeight( ):totalHeight;
+                setPreferredSize ( new Dimension (prefWidth, prefHeight) );
+                setSize ( new Dimension (prefWidth, prefHeight) );
+                /*int width = (int) Math.min( 960, screenSize.getWidth( ) );
+                int height = (int) Math.min( 720, screenSize.getHeight( ) );
+                setSize( width, height );
+                setLocation( Math.max( ( screenSize.width - width ) / 2, 0 ), Math.max(( screenSize.height - height ) / 2, 0) );*/
+        
+                int screenOffsetX = device.getDefaultConfiguration( ).getBounds( ).x;
+                int screenOffsetY = device.getDefaultConfiguration( ).getBounds( ).y;
+                
+                x = ConfigData.getEditorWindowX( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowX( ):screenOffsetX+(totalWidth-prefWidth)/2 ;
+                y = ConfigData.getEditorWindowY( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowY( ):screenOffsetY+(totalHeight-prefHeight)/2 ;
+                
+                this.setLocation( x, y );
+                
+                set=true;
+                
+                if (System.getProperty("os.name").toLowerCase( ).contains( "win" ) && prefWidth==totalWidth && prefHeight ==totalHeight){
+                    this.setExtendedState( JFrame.MAXIMIZED_BOTH );
+                }
 
-        int totalWidth = Math.min( environment.getMaximumWindowBounds( ).width, deviceWidth);
-        int totalHeight = Math.min( environment.getMaximumWindowBounds( ).height, deviceHeight);
-        
-        int minWidth = Math.min( totalWidth>WINDOW_MIN_WIDTH?WINDOW_MIN_WIDTH:totalWidth-10, ConfigData.getEditorWindowWidth( ));
-        int minHeight = Math.min( totalHeight>WINDOW_MIN_HEIGHT?WINDOW_MIN_HEIGHT:totalHeight-40, ConfigData.getEditorWindowHeight( ));
-        setMinimumSize( new Dimension(minWidth, minHeight) );
-        
-        int prefWidth = ConfigData.getEditorWindowWidth( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowWidth( ):totalWidth;
-        int prefHeight = ConfigData.getEditorWindowHeight( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowHeight( ):totalHeight;
-        setPreferredSize ( new Dimension (prefWidth, prefHeight) );
-        setSize ( new Dimension (prefWidth, prefHeight) );
-        /*int width = (int) Math.min( 960, screenSize.getWidth( ) );
-        int height = (int) Math.min( 720, screenSize.getHeight( ) );
-        setSize( width, height );
-        setLocation( Math.max( ( screenSize.width - width ) / 2, 0 ), Math.max(( screenSize.height - height ) / 2, 0) );*/
+            }
+        }
 
-        int screenOffsetX = device.getDefaultConfiguration( ).getBounds( ).x;
-        int screenOffsetY = device.getDefaultConfiguration( ).getBounds( ).y;
+        if (!set){
+            setPreferredSize ( new Dimension (prefWidth, prefHeight) );
+            setSize ( new Dimension (prefWidth, prefHeight) );
+        }
         
-        int x = ConfigData.getEditorWindowX( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowX( ):screenOffsetX+(totalWidth-prefWidth)/2 ;
-        int y = ConfigData.getEditorWindowY( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowY( ):screenOffsetY+(totalHeight-prefHeight)/2 ;
         this.setLocation( x, y );
+        
         ConfigData.setEditorWindowX( x );
         ConfigData.setEditorWindowY( y );
         ConfigData.setEditorWindowWidth( prefWidth );
         ConfigData.setEditorWindowHeight( prefHeight );
-        
-        if (System.getProperty("os.name").toLowerCase( ).contains( "win" ) && prefWidth==totalWidth && prefHeight ==totalHeight){
-            this.setExtendedState( JFrame.MAXIMIZED_BOTH );
-        }
         
         this.addComponentListener( new ComponentListener(){
 

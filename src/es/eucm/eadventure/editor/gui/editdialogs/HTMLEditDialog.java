@@ -39,7 +39,6 @@ package es.eucm.eadventure.editor.gui.editdialogs;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
@@ -51,7 +50,6 @@ import javax.swing.JOptionPane;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.HTMLEditController;
 import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 
@@ -86,14 +84,23 @@ public class HTMLEditDialog extends JPositionedDialog implements WindowListener 
 
         boolean newFile = false;
         if( filename == null ) {
-            filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath( "html" );
-            File file = new File( filename );
+            File file;
+            try {
+                file = File.createTempFile( "ead-book", ".html" );
+                filename = file.getAbsolutePath( );
+            }
+            catch( IOException e1 ) {
+                e1.printStackTrace();
+                ReportDialog.GenerateErrorReport( e1, true, "UNKNOWERROR" );
+            }
+            /*AssetsController.TempFileGenerator.generateTempFileAbsolutePath( "html" );*/
+            /*File file = new File( filename );
             try {
                 file.createNewFile( );
             }
             catch( IOException e ) {
                 ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
-            }
+            }*/
             newFile = true;
         }
 

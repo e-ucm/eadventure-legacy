@@ -165,7 +165,7 @@ public class EditImageDialog extends GraphicDialog {
                     try {
                         ImageIO.write( image, "png", ImageIO.createImageOutputStream( f ) );
                         if (!newPath.equals( path ) && resourcesDataControl != null)
-                            resourcesDataControl.setAssetPath( newPath, assetIndex );
+                            resourcesDataControl.setAssetPath( newPath, null, assetIndex );
                         if (!newPath.equals( path ) && frameDataControl != null)
                             frameDataControl.setImageURI( newPath );
                     }
