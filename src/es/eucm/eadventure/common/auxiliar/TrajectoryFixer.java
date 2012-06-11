@@ -52,6 +52,23 @@ import es.eucm.eadventure.common.data.chapter.scenes.Scene;
  */
 public class TrajectoryFixer {
 
+    /** If a trajectory has only one node, the player is not displayed. To fix that situation, the node is duplicated with a slightly different location.
+     * Both old and new nodes are linked through a side. 
+     * 
+     * @param scene
+     */
+    public static void fixSingleNode ( Scene scene ){
+        Trajectory trajectory =scene.getTrajectory( );
+        if (trajectory!=null){
+            if (trajectory.getNodes( ).size( )==1){
+                Node node1= trajectory.getNodes( ).get( 0 );
+                trajectory.addNode( node1.getID()+"Dupl", node1.getX( )+1, node1.getY(), node1.getScale( ) );
+                trajectory.addSide( node1.getID(), node1.getID()+"Dupl", 1 );
+            }
+        }
+    }
+
+    
     /**
      * Checks consistency between nodes and references in sides. If a node is referenced to but does not exist, it is created on position 400,300.
      * @param scene
@@ -140,6 +157,7 @@ public class TrajectoryFixer {
      * @param scene
      */
     public static void fixTrajectory( Scene scene ){
+        fixSingleNode ( scene );
         fixDuplicateNodes( scene );
         fixMissingNodes( scene );
         fixNodesWithSameLocation ( scene );
