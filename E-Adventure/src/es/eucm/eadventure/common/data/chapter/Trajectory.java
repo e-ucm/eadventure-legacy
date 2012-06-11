@@ -99,7 +99,20 @@ public class Trajectory implements Cloneable {
 
     public void removeNode( Node node ) {
 
-        if( nodes.contains( node ) ) {
+        for (Node n: nodes){
+            if (n.getID( ).equals( node.getID( ) )){
+                for( int i = 0; i < sides.size( ); ) {
+                    Side side = sides.get( i );
+                    if( side.getIDEnd( ).equals( node.getID( ) ) || side.getIDStart( ).equals( node.getID( ) ) )
+                        sides.remove( i );
+                    else
+                        i++;
+                }
+                nodes.remove( n);
+            }
+        }
+        
+        /*if( nodes.contains( node ) ) {
             node = nodes.get( nodes.indexOf( node ) );
             for( int i = 0; i < sides.size( ); ) {
                 Side side = sides.get( i );
@@ -109,13 +122,28 @@ public class Trajectory implements Cloneable {
                     i++;
             }
         }
-        nodes.remove( node );
+        nodes.remove( node );*/
     }
 
     public void removeNode( int x, int y ) {
 
         Node node = new Node( "id", x, y, 1.0f );
-        if( nodes.contains( node ) ) {
+        
+        for ( Node n: nodes ){
+            if (n.getX( ) == node.getX( ) && n.getY( ) == node.getY( )){
+                for( int i = 0; i < sides.size( ); ) {
+                    Side side = sides.get( i );
+                    if( side.getIDEnd( ).equals( n.getID( ) ) || side.getIDStart( ).equals( n.getID( ) ) )
+                        sides.remove( i );
+                    else
+                        i++;
+                }
+                nodes.remove( n );
+                break;
+            }
+        }
+        
+        /*if( nodes.contains( node ) ) {
             node = nodes.get( nodes.indexOf( node ) );
             for( int i = 0; i < sides.size( ); ) {
                 Side side = sides.get( i );
@@ -125,7 +153,7 @@ public class Trajectory implements Cloneable {
                     i++;
             }
             nodes.remove( node );
-        }
+        }*/
 
     }
 
