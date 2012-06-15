@@ -48,7 +48,6 @@ import javax.imageio.ImageIO;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.BookEditorPane;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.AssetsController.TempFileGenerator;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 
@@ -74,19 +73,25 @@ public class BookEditorPaneEditor extends BookEditorPane {
     
     private void exportImage( Image im ) {
 
-        String filePath = TempFileGenerator.generateTempFileOverwriteExisting( currentBookPage.getImageName( ), "png" );
+        //String filePath = TempFileGenerator.generateTempFileOverwriteExisting( currentBookPage.getImageName( ), "png" );
+         
 
-        File f = new File( filePath );
+        //File f = new File( filePath );
         try {
+            java.io.File f = File.createTempFile( "ead-image", ".png" );
+            String filePath = f.getAbsolutePath( );
+            
             BufferedImage ex = new BufferedImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_INT_ARGB );
             ex.getGraphics( ).drawImage( im, currentBookPage.getMargin( ), currentBookPage.getMarginTop( ), null );
             ImageIO.write( ex, "png", f );
+            
+            AssetsController.addSingleAsset( AssetsController.CATEGORY_IMAGE, filePath, false );
         }
         catch( IOException e ) {
             e.printStackTrace( );
         }
 
-        AssetsController.addSingleAsset( AssetsController.CATEGORY_IMAGE, filePath, false );
+        
     }
 
     @Override
