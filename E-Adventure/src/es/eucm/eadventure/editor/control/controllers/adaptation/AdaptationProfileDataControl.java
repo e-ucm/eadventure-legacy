@@ -185,11 +185,15 @@ public class AdaptationProfileDataControl extends DataControl {
     public int countIdentifierReferences( String id ) {
 
         int count = 0;
-        if( id.equals( profile.getName( ) ) )
-            count++;
+
         for( AdaptationRuleDataControl rule : dataControls ) {
             count += rule.countIdentifierReferences( id );
         }
+        
+       if ( profile != null && profile.getAdaptedState( ) != null && profile.getAdaptedState( ).getTargetId( ) != null && 
+               profile.getAdaptedState( ).getTargetId( ).equals( id ))  
+           count++;
+        
         return count;
     }
 
@@ -204,10 +208,10 @@ public class AdaptationProfileDataControl extends DataControl {
         boolean deleted = false;
 
         String adpRuleId = ( (AdaptationRuleDataControl) dataControl ).getId( );
-        String references = String.valueOf( controller.countIdentifierReferences( adpRuleId ) );
+      //  String references = String.valueOf( controller.countIdentifierReferences( adpRuleId ) );
 
         // Ask for confirmation
-        if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { adpRuleId, references } ) ) ) {
+    //    if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { adpRuleId, references } ) ) ) {
             if( profile.getRules( ).remove( dataControl.getContent( ) ) ) {
                 dataControls.remove( dataControl );
                 controller.deleteIdentifierReferences( adpRuleId );
@@ -215,7 +219,7 @@ public class AdaptationProfileDataControl extends DataControl {
                 //controller.dataModified( );
                 deleted = true;
             }
-        }
+      //  }
 
         return deleted;
     }
@@ -229,6 +233,11 @@ public class AdaptationProfileDataControl extends DataControl {
         while( itera.hasNext( ) ) {
             itera.next( ).deleteIdentifierReferences( id );
          // the rule ID are unique, do not look in rule's IDs
+        }
+        
+        if( profile != null && profile.getAdaptedState( ) != null && profile.getAdaptedState( ).getTargetId( ) != null &&
+                profile.getAdaptedState( ).getTargetId( ).equals( id )) {
+            profile.getAdaptedState( ).setTargetId( null );
         }
 
     }
@@ -344,10 +353,18 @@ public class AdaptationProfileDataControl extends DataControl {
     @Override
     public void replaceIdentifierReferences( String oldId, String newId ) {
 
-        for( AdaptationRuleDataControl rule : dataControls )
+        
+        for( AdaptationRuleDataControl rule : dataControls ){
             if( rule.getId( ).equals( oldId ) ) {
                 rule.renameElement( newId );
             }
+            rule.replaceIdentifierReferences( oldId, newId );
+        }
+        
+        if( profile != null && profile.getAdaptedState( ) != null && profile.getAdaptedState( ).getTargetId( ) != null ) {
+            if (profile.getAdaptedState( ).getTargetId( ).equals( oldId ))
+                profile.getAdaptedState( ).setTargetId( newId );
+        }
     }
 
     @Override

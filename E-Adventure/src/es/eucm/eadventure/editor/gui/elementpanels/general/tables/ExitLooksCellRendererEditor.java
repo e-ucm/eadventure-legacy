@@ -110,6 +110,9 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
                 ImageIcon icon = new ImageIcon( );
                 if( this.value.isCursorCustomized( ) ) {
                     Image image = AssetsController.getImage( this.value.getCustomizedCursor( ) );
+                    // the case of a sound is selected and image is not selected
+                    if (image == null)
+                        image = AssetsController.getImage( Controller.getInstance( ).getDefaultExitCursorPath( ) );
                     icon.setImage( image );
                 }
                 else {
@@ -195,6 +198,9 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
         if( value.isCursorCustomized( ) ) {
             Image image = AssetsController.getImage( value.getCustomizedCursor( ) );
             tooltip = value.getCustomizedCursor( );
+         // the case of a sound is selected and image is not selected
+            if (image == null)
+                image = AssetsController.getImage( Controller.getInstance( ).getDefaultExitCursorPath( ) );
             cursorPreview.setImage( image );
         }
         else {

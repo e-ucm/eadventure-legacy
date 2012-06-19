@@ -200,8 +200,6 @@ public class AdaptationProfilesDataControl extends DataControl {
 
         int count = 0;
         for( AdaptationProfileDataControl profile : profiles ) {
-            if( profile.getName( ).equals( id ) )
-                count++;
             count += profile.countIdentifierReferences( id );
         }
         return count;
@@ -359,6 +357,7 @@ public class AdaptationProfilesDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
+        // the id of the adaptation profile is checked at chapter datacontrol
         for( DataControl dc : this.profiles ) {
             dc.recursiveSearch( );
         }

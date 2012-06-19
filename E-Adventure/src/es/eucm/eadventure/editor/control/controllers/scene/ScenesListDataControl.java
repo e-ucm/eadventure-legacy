@@ -345,8 +345,11 @@ public class ScenesListDataControl extends DataControl {
         int count = 0;
 
         // Iterate through each scene
-        for( SceneDataControl sceneDataControl : scenesDataControlList )
+        for( SceneDataControl sceneDataControl : scenesDataControlList ){
+            if (sceneDataControl.getName( ).equals( id ))
+                count++;
             count += sceneDataControl.countIdentifierReferences( id );
+        }
 
         return count;
     }

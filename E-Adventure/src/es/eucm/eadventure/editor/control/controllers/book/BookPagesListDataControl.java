@@ -397,13 +397,14 @@ public class BookPagesListDataControl extends Searchable {
     public void recursiveSearch( ) {
 
         for( int i = 0; i < bookPagesList.size( ); i++ ) {
-            if( bookPagesList.get( i ).getType( ) != BookPage.TYPE_URL ) {
+            if( bookPagesList.get( i ).getType( ) == BookPage.TYPE_RESOURCE ) {
                 JEditorPane editor = new JEditorPane( );
 
                 try {
                     editor.setPage( AssetsController.getResourceAsURLFromZip( bookPagesList.get( i ).getUri( ) ) );
 
                     check( editor.getDocument( ).getText( 0, editor.getDocument( ).getLength( ) ), TC.get( "Search.HTMLBookPage" ) );
+                    check( bookPagesList.get( i ).getUri( ), TC.get( "Search.HTMLBookPage" ) );
                 }
                 catch( MalformedURLException e1 ) {
                     //writeFileNotFound(folder + helpPath);
@@ -416,6 +417,9 @@ public class BookPagesListDataControl extends Searchable {
                     e.printStackTrace( );
                 }
 
+                // case image and URL, search at 
+            } else  {
+                check( bookPagesList.get( i ).getUri( ), TC.get( "Search.HTMLBookPage" ) );
             }
         }
 

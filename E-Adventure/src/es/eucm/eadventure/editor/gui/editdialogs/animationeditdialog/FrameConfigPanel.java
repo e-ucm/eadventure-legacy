@@ -98,7 +98,7 @@ public class FrameConfigPanel extends JPanel {
 
         JPanel temp = new JPanel( );
         temp.add( new JLabel( TC.get( "Animation.Duration" ) + ": " ) );
-        SpinnerModel sm = new SpinnerNumberModel( frameDataControl.getTime( ), 0, 10000, 100 );
+        SpinnerModel sm = new SpinnerNumberModel( frameDataControl.getTime( ), 0, 100000, 100 );
         frameTimeSpinner = new JSpinner( sm );
         frameTimeSpinner.addChangeListener( new ChangeListener( ) {
 

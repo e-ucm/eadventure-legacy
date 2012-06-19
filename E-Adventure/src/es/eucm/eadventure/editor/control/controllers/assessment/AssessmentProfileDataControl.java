@@ -37,7 +37,6 @@
 package es.eucm.eadventure.editor.control.controllers.assessment;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
@@ -181,13 +180,14 @@ public class AssessmentProfileDataControl extends DataControl {
     @Override
     public int countIdentifierReferences( String id ) {
 
-        int count = 0;
+        /*int count = 0;
         if( id.equals( profile.getName( ) ) )
             count++;
         for( AssessmentRuleDataControl rule : dataControls ) {
             count += rule.countIdentifierReferences( id );
         }
-        return count;
+        return count;*/
+        return 0;
     }
 
     @Override
@@ -269,14 +269,14 @@ public class AssessmentProfileDataControl extends DataControl {
     @Override
     public void deleteIdentifierReferences( String id ) {
 
-        // profiles identifiers are deleted in assessmentProfilesDataControl
+       /* // profiles identifiers are deleted in assessmentProfilesDataControl
         Iterator<AssessmentRuleDataControl> itera = this.dataControls.iterator( );
 
         while( itera.hasNext( ) ) {
             itera.next( ).deleteIdentifierReferences( id );
             // the rule ID are unique, do not look in rule's IDs
    
-        }
+        }*/
 
     }
 
@@ -300,10 +300,13 @@ public class AssessmentProfileDataControl extends DataControl {
     @Override
     public boolean isValid( String currentPath, List<String> incidences ) {
 	
-	for (Iterator<AssessmentRuleDataControl> it = dataControls.iterator();it.hasNext();){
+	/*for (Iterator<AssessmentRuleDataControl> it = dataControls.iterator();it.hasNext();){
 	    if (it.next().getId().equals(currentPath))
 		return false;
 	}
+        return true;
+        */
+        
         return true;
     }
 
@@ -381,8 +384,9 @@ public class AssessmentProfileDataControl extends DataControl {
     @Override
     public void replaceIdentifierReferences( String oldId, String newId ) {
 
-        for( AssessmentRuleDataControl rule : dataControls )
+      /*  for( AssessmentRuleDataControl rule : dataControls )
             rule.replaceIdentifierReferences(oldId, newId);
+            */
     }
 
     @Override

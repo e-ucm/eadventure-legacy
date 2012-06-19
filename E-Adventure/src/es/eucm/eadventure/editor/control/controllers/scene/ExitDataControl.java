@@ -291,19 +291,43 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 
         boolean valid = true;
 
+        if( exit.getEffects( ) != null )
+            valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.Effects" ), incidences , exit.getEffects( ) );
+        if( exit.getPostEffects( ) != null )
+            valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.PostEffects" ), incidences ,  exit.getPostEffects( ) );
+        if( exit.getNotEffects( ) != null )
+            valid &= EffectsController.isValid( currentPath + " >> " + TC.get( "Element.NotEffects" ), incidences ,  exit.getNotEffects( ) );
+        
         return valid;
     }
 
     @Override
     public int countAssetReferences( String assetPath ) {
 
-        return exitLookDataControl.countAssetReferences( assetPath );
+        //return exitLookDataControl.countAssetReferences( assetPath );
+        int assetsRefs = 0;
+        assetsRefs += exitLookDataControl.countAssetReferences( assetPath );
+        
+        if( exit.getEffects( ) != null )
+            assetsRefs += EffectsController.countAssetReferences( assetPath, exit.getEffects( ) );
+        if( exit.getPostEffects( ) != null )
+            assetsRefs += EffectsController.countAssetReferences( assetPath, exit.getPostEffects( ) );
+        if( exit.getNotEffects( ) != null )
+            assetsRefs += EffectsController.countAssetReferences( assetPath, exit.getNotEffects( ) );
+        return assetsRefs;
+        
     }
 
     @Override
     public void deleteAssetReferences( String assetPath ) {
 
         exitLookDataControl.deleteAssetReferences( assetPath );
+        if( exit.getEffects( ) != null )
+            EffectsController.deleteAssetReferences( assetPath, exit.getEffects( ) );
+        if( exit.getPostEffects( ) != null )
+            EffectsController.deleteAssetReferences( assetPath, exit.getPostEffects( ) );
+        if( exit.getNotEffects( ) != null )
+            EffectsController.deleteAssetReferences( assetPath, exit.getNotEffects( ) );
     }
 
     @Override
@@ -354,6 +378,9 @@ public class ExitDataControl extends DataControl implements RectangleArea {
     public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
 
         exitLookDataControl.getAssetReferences( assetPaths, assetTypes );
+        EffectsController.getAssetReferences( assetPaths, assetTypes  ,exit.getEffects( ) );
+        EffectsController.getAssetReferences( assetPaths, assetTypes, exit.getPostEffects( ) );
+        EffectsController.getAssetReferences( assetPaths, assetTypes, exit.getNotEffects( ) );
     }
 
     @Override
@@ -365,8 +392,25 @@ public class ExitDataControl extends DataControl implements RectangleArea {
     @Override
     public void recursiveSearch( ) {
 
-        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
-        check( this.getExitLookDataControl( ).getCustomizedText( ), TC.get( "Search.CustomizedText" ) );
+        check( this.conditionsController, TC.get( "Search.Conditions" ) );
+//        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
+//        check( this.getExitLookDataControl( ).getCustomizedText( ), TC.get( "Search.CustomizedText" ) );
+        if (exitLookDataControl!=null)
+            exitLookDataControl.recursiveSearch( );
+        for( int i = 0; i < this.getEffects( ).getEffectCount( ); i++ ) {
+            check( this.getEffects( ).getEffectInfo( i ), TC.get( "Search.Effect" ) );
+            check(this.getEffects( ).getConditionController( i ), TC.get( "Search.Conditions" ));
+        }
+        
+        for( int i = 0; i < this.getNotEffects( ).getEffectCount( ); i++ ) {
+            check( this.getNotEffects( ).getEffectInfo( i ), TC.get( "Search.Effect" ) );
+            check(this.getNotEffects( ).getConditionController( i ), TC.get( "Search.Conditions" ));
+        }
+        
+        for( int i = 0; i < this.getPostEffects( ).getEffectCount( ); i++ ) {
+            check( this.getPostEffects( ).getEffectInfo( i ), TC.get( "Search.Effect" ) );
+            check(this.getPostEffects( ).getConditionController( i ), TC.get( "Search.Conditions" ));
+        }
     }
 
     public boolean isRectangular( ) {
@@ -536,7 +580,8 @@ public class ExitDataControl extends DataControl implements RectangleArea {
     @Override
     public List<Searchable> getPathToDataControl( Searchable dataControl ) {
 
-        return null;
+        List<Searchable> path = getPathFromSearchableChild( dataControl, exitLookDataControl );
+            return path;
     }
 
 }

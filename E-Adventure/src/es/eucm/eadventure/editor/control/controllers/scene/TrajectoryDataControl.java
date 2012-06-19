@@ -42,7 +42,6 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
-import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -292,10 +291,10 @@ public class TrajectoryDataControl extends DataControl {
     @Override
     public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 
-        for( NodeDataControl nodeDataControl : nodeDataControlList )
+        /*for( NodeDataControl nodeDataControl : nodeDataControlList )
             nodeDataControl.updateVarFlagSummary( varFlagSummary );
         for( SideDataControl sideDataControl : sideDataControlList )
-            sideDataControl.updateVarFlagSummary( varFlagSummary );
+            sideDataControl.updateVarFlagSummary( varFlagSummary );*/
     }
 
     @Override
@@ -303,14 +302,14 @@ public class TrajectoryDataControl extends DataControl {
 
         boolean valid = true;
 
-        for( int i = 0; i < nodeDataControlList.size( ); i++ ) {
+        /*for( int i = 0; i < nodeDataControlList.size( ); i++ ) {
             String activeAreaPath = currentPath + " >> " + TC.getElement( Controller.NODE ) + " #" + ( i + 1 );
             valid &= nodeDataControlList.get( i ).isValid( activeAreaPath, incidences );
         }
         for( int i = 0; i < sideDataControlList.size( ); i++ ) {
             String activeAreaPath = currentPath + " >> " + TC.getElement( Controller.SIDE ) + " #" + ( i + 1 );
             valid &= sideDataControlList.get( i ).isValid( activeAreaPath, incidences );
-        }
+        }*/
 
         return valid;
     }
@@ -318,64 +317,66 @@ public class TrajectoryDataControl extends DataControl {
     @Override
     public int countAssetReferences( String assetPath ) {
 
-        int count = 0;
+        /*int count = 0;
 
         for( NodeDataControl nodeDataControl : nodeDataControlList )
             count += nodeDataControl.countAssetReferences( assetPath );
         for( SideDataControl sideDataControl : sideDataControlList )
             count += sideDataControl.countAssetReferences( assetPath );
 
-        return count;
+        return count;*/
+        return 0;
     }
 
     @Override
     public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
 
-        for( NodeDataControl nodeDataControl : nodeDataControlList )
+        /*for( NodeDataControl nodeDataControl : nodeDataControlList )
             nodeDataControl.getAssetReferences( assetPaths, assetTypes );
         for( SideDataControl sideDataControl : sideDataControlList )
-            sideDataControl.getAssetReferences( assetPaths, assetTypes );
+            sideDataControl.getAssetReferences( assetPaths, assetTypes );*/
 
     }
 
     @Override
     public void deleteAssetReferences( String assetPath ) {
 
-        for( NodeDataControl nodeDataControl : nodeDataControlList )
+        /*for( NodeDataControl nodeDataControl : nodeDataControlList )
             nodeDataControl.deleteAssetReferences( assetPath );
         for( SideDataControl sideDataControl : sideDataControlList )
-            sideDataControl.deleteAssetReferences( assetPath );
+            sideDataControl.deleteAssetReferences( assetPath );/*/
     }
 
     @Override
     public int countIdentifierReferences( String id ) {
 
-        int count = 0;
+        /*int count = 0;
 
         for( NodeDataControl nodeDataControl : nodeDataControlList )
             count += nodeDataControl.countIdentifierReferences( id );
         for( SideDataControl sideDataControl : sideDataControlList )
             count += sideDataControl.countIdentifierReferences( id );
 
-        return count;
+        return count;*/
+        return 0; 
     }
 
     @Override
     public void replaceIdentifierReferences( String oldId, String newId ) {
 
-        for( NodeDataControl nodeDataControl : nodeDataControlList )
+        /*for( NodeDataControl nodeDataControl : nodeDataControlList )
             nodeDataControl.replaceIdentifierReferences( oldId, newId );
         for( SideDataControl sideDataControl : sideDataControlList )
-            sideDataControl.replaceIdentifierReferences( oldId, newId );
+            sideDataControl.replaceIdentifierReferences( oldId, newId );*/
     }
 
     @Override
     public void deleteIdentifierReferences( String id ) {
 
-        for( NodeDataControl nodeDataControl : nodeDataControlList )
+        /*for( NodeDataControl nodeDataControl : nodeDataControlList )
             nodeDataControl.deleteIdentifierReferences( id );
         for( SideDataControl sideDataControl : sideDataControlList )
-            sideDataControl.deleteIdentifierReferences( id );
+            sideDataControl.deleteIdentifierReferences( id );*/
     }
 
     @Override

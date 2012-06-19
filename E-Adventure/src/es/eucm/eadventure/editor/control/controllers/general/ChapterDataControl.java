@@ -497,10 +497,10 @@ public class ChapterDataControl extends DataControl {
         int count = 0;
 
         // Add the references from the assessment and adaptation files
-        if( getAssessmentName( ).equals( assetPath ) )
-            count++;
-        if( getAdaptationName( ).equals( assetPath ) )
-            count++;
+       // if( getAssessmentName( ).equals( assetPath ) )
+         //   count++;
+        //if( getAdaptationName( ).equals( assetPath ) )
+          //  count++;
 
         // Add the references from the elements
         count += scenesListDataControl.countAssetReferences( assetPath );
@@ -534,10 +534,10 @@ public class ChapterDataControl extends DataControl {
     public void deleteAssetReferences( String assetPath ) {
 
         // Delete the references for the assessment and adaptation files
-        if( getAssessmentName( ).equals( assetPath ) )
-            chapter.setAssessmentName( "" );
-        if( getAdaptationName( ).equals( assetPath ) )
-            chapter.setAdaptationName( "" );
+//        if( getAssessmentName( ).equals( assetPath ) )
+//            chapter.setAssessmentName( "" );
+//        if( getAdaptationName( ).equals( assetPath ) )
+//            chapter.setAdaptationName( "" );
 
         // Delete the asset references in the chapter
         scenesListDataControl.deleteAssetReferences( assetPath );
@@ -591,7 +591,7 @@ public class ChapterDataControl extends DataControl {
         npcsListDataControl.replaceIdentifierReferences( oldId, newId );
         conversationsListDataControl.replaceIdentifierReferences( oldId, newId );
         advancedFeaturesDataControl.replaceIdentifierReferences( oldId, newId );
-        assessmentProfilesDataControl.replaceIdentifierReferences( oldId, newId );
+//        assessmentProfilesDataControl.replaceIdentifierReferences( oldId, newId );
         adaptationProfilesDataControl.replaceIdentifierReferences( oldId, newId );
     }
 
@@ -610,7 +610,7 @@ public class ChapterDataControl extends DataControl {
         npcsListDataControl.deleteIdentifierReferences( id );
         conversationsListDataControl.deleteIdentifierReferences( id );
         advancedFeaturesDataControl.deleteIdentifierReferences( id );
-        assessmentProfilesDataControl.deleteIdentifierReferences( id );
+//        assessmentProfilesDataControl.deleteIdentifierReferences( id );
         adaptationProfilesDataControl.deleteIdentifierReferences( id );
     }
 

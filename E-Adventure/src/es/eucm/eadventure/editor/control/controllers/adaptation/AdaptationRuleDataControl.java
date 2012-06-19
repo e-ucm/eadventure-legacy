@@ -108,12 +108,19 @@ public class AdaptationRuleDataControl extends DataControl {
     @Override
     public int countIdentifierReferences( String id ) {
 
+        
         if( adaptationRule.getId( ).equals( id ) ) {
+            return 1;
+        }
+        else if (adaptationRule.getAdaptedState( )!=null && adaptationRule.getAdaptedState( ).getTargetId( ) != null && 
+                adaptationRule.getAdaptedState( ).getTargetId( ).equals( id )){
             return 1;
         }
         else {
             return 0;
         }
+        
+        
     }
 
     @Override
@@ -130,7 +137,9 @@ public class AdaptationRuleDataControl extends DataControl {
     @Override
     public void deleteIdentifierReferences( String id ) {
 
-        // this action is done in adaptationProfileDataControl
+       if (adaptationRule.getAdaptedState( ) != null && adaptationRule.getAdaptedState( ).getTargetId( ) != null && 
+               adaptationRule.getAdaptedState( ).getTargetId( ).equals( id ))
+           adaptationRule.getAdaptedState( ).setTargetId( null );
     }
 
     @Override
@@ -172,7 +181,9 @@ public class AdaptationRuleDataControl extends DataControl {
     @Override
     public void replaceIdentifierReferences( String oldId, String newId ) {
 
-        // this action is done in adaptationProfileDataControl
+        if (adaptationRule.getAdaptedState( ) != null && adaptationRule.getAdaptedState( ).getTargetId( ) != null &&
+                adaptationRule.getAdaptedState( ).getTargetId( ).equals( oldId ))
+            adaptationRule.getAdaptedState( ).setTargetId( newId );
     }
 
     @Override

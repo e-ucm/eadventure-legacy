@@ -1588,6 +1588,7 @@ Diese art der effekte werden ausgel√∂st, wenn der spieler nicht das ziel der ma√
 <entry key="MenuEdit.Title">Bearbeitung</entry>
 <entry key="TreeNode.MoveElementUp">Element nach oben bewegen</entry>
 <entry key="Element.Effects">Effekten</entry>
+<entry key="Element.NotEffects">Nicht-Effekte</entry>
 <entry key="LOMES.GeneralId.EntryName">Eingang</entry>
 <entry key="Error.LoadAssessmentData.SAX">Ein Fehler ist aufgetreten mit der Konsistenz der XML-Daten</entry>
 <entry key="IMS.Rights.Tip">Rights Data</entry>

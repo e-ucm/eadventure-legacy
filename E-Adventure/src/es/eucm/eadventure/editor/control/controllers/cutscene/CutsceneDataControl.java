@@ -406,6 +406,12 @@ public class CutsceneDataControl extends DataControlWithResources {
         check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getName( ), TC.get( "Search.Name" ) );
         check( this.getTargetId( ), TC.get( "Search.NextScene" ) );
+        
+        EffectsController effecContr  = new EffectsController( cutscene.getEffects( ));
+        for( int i = 0; i < this.getEffects( ).getEffectCount( ); i++ ) {
+            check( effecContr.getEffectInfo( i ), TC.get( "Search.Effect" ) );
+            check( effecContr.getConditionController( i ), TC.get( "Search.Conditions" ));
+        }
     }
 
     @Override

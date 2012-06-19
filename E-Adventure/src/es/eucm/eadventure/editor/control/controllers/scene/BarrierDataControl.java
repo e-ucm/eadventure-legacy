@@ -384,7 +384,7 @@ public class BarrierDataControl extends DataControl {
      // barriers have no detailed descriptions
         //check( this.getDetailedDescription( ), TC.get( "Search.DetailedDescription" ) );
         check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
-        check( this.getId( ), "ID" );
+       // check( this.getId( ), "ID" );
         //Barriers have no name
         //check( this.getName( ), TC.get( "Search.Name" ) );
     }

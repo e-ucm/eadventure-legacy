@@ -641,9 +641,13 @@ public class DescriptorData implements Cloneable, Described, Titled {
         for( CustomButton cb : buttons ) {
             if( cb.getPath( ).equals( path ) )
                 count++;
+            if (cb.getSoundPath( ).equals( path ) )
+                count++;
         }
         for( CustomArrow a : arrows ) {
             if( a.getPath( ).equals( path ) )
+                count++;
+            if (a.getSoundPath( ).equals( path ) )
                 count++;
         }
         for( CustomCursor cc : cursors ) {
@@ -662,12 +666,22 @@ public class DescriptorData implements Cloneable, Described, Titled {
                 int assetType = AssetsConstants.CATEGORY_BUTTON;
                 String assetPath = arrow.getPath( );
                 getAssetReferencesForOneAsset( assetPaths, assetTypes, assetPath, assetType );
+                if (arrow.getSoundPath( )!= null && !arrow.getSoundPath( ).equals( "" )){
+                    assetPath = arrow.getSoundPath( );
+                    assetType = AssetsConstants.CATEGORY_AUDIO;
+                    getAssetReferencesForOneAsset( assetPaths, assetTypes, assetPath, assetType );
+                }
             }
             // Secondly iterate buttons
             for( CustomButton button : buttons ) {
                 int assetType = AssetsConstants.CATEGORY_BUTTON;
                 String assetPath = button.getPath( );
                 getAssetReferencesForOneAsset( assetPaths, assetTypes, assetPath, assetType );
+                if (button.getSoundPath( )!= null && !button.getSoundPath( ).equals( "" )){
+                    assetPath = button.getSoundPath( );
+                    assetType = AssetsConstants.CATEGORY_AUDIO;
+                    getAssetReferencesForOneAsset( assetPaths, assetTypes, assetPath, assetType );
+                }
             }
             // Finally iterate cursors
             for( CustomCursor cursor : cursors ) {
@@ -712,6 +726,14 @@ public class DescriptorData implements Cloneable, Described, Titled {
             for( int i = 0; i < arrows.size( ); i++ ) {
                 CustomArrow arrow = arrows.get( i );
                 if( arrow.getPath( ) != null && arrow.getPath( ).equals( assetPath ) ) {
+                    arrow.setPath( null );
+                }
+                
+                if( arrow.getSoundPath( ) != null && arrow.getSoundPath( ).equals( assetPath ) ) {
+                    arrow.setSoundPath( null );
+                }
+                
+                if (arrow.getPath( )==null && arrow.getSoundPath( )==null){
                     arrows.remove( i );
                     i--;
                 }
@@ -720,7 +742,15 @@ public class DescriptorData implements Cloneable, Described, Titled {
             for( int i = 0; i < buttons.size( ); i++ ) {
                 CustomButton button = buttons.get( i );
                 if( button.getPath( ) != null && button.getPath( ).equals( assetPath ) ) {
-                    buttons.remove( i );
+                    button.setPath( null );
+                }
+                
+                if( button.getSoundPath( ) != null && button.getSoundPath( ).equals( assetPath ) ) {
+                    button.setSoundPath( null );
+                }
+                
+                if (button.getPath( )==null && button.getSoundPath( )==null){
+                    arrows.remove( i );
                     i--;
                 }
             }

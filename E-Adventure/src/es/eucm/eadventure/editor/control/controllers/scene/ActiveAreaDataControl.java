@@ -46,11 +46,11 @@ import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DescriptionsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.control.tools.general.areaedition.AddNewPointTool;
@@ -315,7 +315,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
         boolean valid = true;
 
         valid &= actionsListDataControl.isValid( currentPath, incidences );
-        valid &= descriptionsController.isValid( currentPath, incidences );
+      //  valid &= descriptionsController.isValid( currentPath, incidences );
 
         return valid;
     }

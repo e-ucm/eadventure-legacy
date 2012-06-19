@@ -401,7 +401,7 @@ public class SceneDataControl extends DataControlWithResources {
         referencesListDataControl.updateVarFlagSummary( varFlagSummary );
         activeAreasListDataControl.updateVarFlagSummary( varFlagSummary );
         barriersListDataControl.updateVarFlagSummary( varFlagSummary );
-        trajectoryDataControl.updateVarFlagSummary( varFlagSummary );
+        //trajectoryDataControl.updateVarFlagSummary( varFlagSummary );
         // Iterate through the resources
         for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
             resourcesDataControl.updateVarFlagSummary( varFlagSummary );
@@ -421,7 +421,8 @@ public class SceneDataControl extends DataControlWithResources {
 
         // Spread the call to the exits
         valid &= exitsListDataControl.isValid( currentPath, incidences );
-        valid &= trajectoryDataControl.isValid( currentPath, incidences );
+        valid &= activeAreasListDataControl.isValid( currentPath, incidences );
+       // valid &= trajectoryDataControl.isValid( currentPath, incidences );
 
         return valid;
     }
@@ -445,8 +446,8 @@ public class SceneDataControl extends DataControlWithResources {
     @Override
     public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
 
-        // Do nothing
         exitsListDataControl.getAssetReferences( assetPaths, assetTypes );
+        activeAreasListDataControl.getAssetReferences( assetPaths, assetTypes  );
 
         // Iterate through the resources
         for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
@@ -463,6 +464,7 @@ public class SceneDataControl extends DataControlWithResources {
 
         // Delete the references in the exits
         exitsListDataControl.deleteAssetReferences( assetPath );
+        activeAreasListDataControl.deleteAssetReferences( assetPath );
     }
 
     @Override
@@ -475,7 +477,7 @@ public class SceneDataControl extends DataControlWithResources {
         count += referencesListDataControl.countIdentifierReferences( id );
         count += activeAreasListDataControl.countIdentifierReferences( id );
         count += barriersListDataControl.countIdentifierReferences( id );
-        count += trajectoryDataControl.countIdentifierReferences( id );
+      //  count += trajectoryDataControl.countIdentifierReferences( id );
 
         return count;
     }
@@ -487,7 +489,7 @@ public class SceneDataControl extends DataControlWithResources {
         referencesListDataControl.replaceIdentifierReferences( oldId, newId );
         activeAreasListDataControl.replaceIdentifierReferences( oldId, newId );
         barriersListDataControl.replaceIdentifierReferences( oldId, newId );
-        trajectoryDataControl.replaceIdentifierReferences( oldId, newId );
+       // trajectoryDataControl.replaceIdentifierReferences( oldId, newId );
     }
 
     @Override
@@ -497,7 +499,7 @@ public class SceneDataControl extends DataControlWithResources {
         referencesListDataControl.deleteIdentifierReferences( id );
         activeAreasListDataControl.deleteIdentifierReferences( id );
         barriersListDataControl.deleteIdentifierReferences( id );
-        trajectoryDataControl.deleteIdentifierReferences( id );
+       // trajectoryDataControl.deleteIdentifierReferences( id );
     }
 
     @Override

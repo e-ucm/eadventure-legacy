@@ -485,7 +485,7 @@ public class ResourcesDataControl extends DataControl {
             check( this.getAssetDescription( i ), TC.get( "Search.AssetDescription" ) );
             check( this.getAssetPath( i ), TC.get( "Search.AssetPath" ) );
             //Added v1.4
-            if( this.getAssetPath( i ).toLowerCase().endsWith( ".eaa" )){
+            if( this.getAssetPath( i ) != null && this.getAssetPath( i ).toLowerCase().endsWith( ".eaa" )){
                 Animation animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), this.getAssetPath( i ), new EditorImageLoader() );
                 for (Frame frame:animation.getFrames( )){
                     check( frame.getUri( ), TC.get( "Search.AssetPath" ) );

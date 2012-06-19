@@ -1575,6 +1575,7 @@
 <entry key="MenuEdit.Title">Editeaza</entry>
 <entry key="TreeNode.MoveElementUp">Muta elementul in sus</entry>
 <entry key="Element.Effects">Efecte</entry>
+<entry key="Element.NotEffects">Non-efecte</entry>
 <entry key="LOMES.GeneralId.EntryName">Intrare</entry>
 <entry key="Error.LoadAssessmentData.SAX">A aparut o eroare la consistenta XML  a datelor de evaluare</entry>
 <entry key="IMS.Rights.Tip">Drepturi</entry>

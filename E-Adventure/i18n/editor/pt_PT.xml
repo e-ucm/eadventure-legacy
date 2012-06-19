@@ -1558,6 +1558,7 @@
 <entry key="MenuEdit.Title">Edição</entry>
 <entry key="TreeNode.MoveElementUp">Carregar elemento</entry>
 <entry key="Element.Effects">Efeitos</entry>
+<entry key="Element.NotEffects">Não-efeitos</entry>
 <entry key="LOMES.GeneralId.EntryName">Entrada</entry>
 <entry key="Error.LoadAssessmentData.SAX">Ocorreu um problema com a consistencia XML dos dados de avaliação</entry>
 <entry key="IMS.Rights.Tip">Dados sobre os direitos</entry>
