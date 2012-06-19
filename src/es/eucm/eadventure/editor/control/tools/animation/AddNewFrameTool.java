@@ -124,6 +124,7 @@ public class AddNewFrameTool extends Tool {
         int option = chooser.showAssetChooser( Controller.getInstance( ).peekWindow( ) );
         //FIXME: ya no tiene ningún sentido lo de ASSETS_FROM_ZIP, ya que son assets del proyecto, no del ZIP.
         // hay que redefinir en AssetChooser antes de cambiar, por no generar errores en otras clases que también lo utilizan
+        // NOTA: entra por ASSET_FROM_ZIP si los ficheros seleccionados están en el proyecto actual
         if( option == AssetChooser.ASSET_FROM_ZIP ) {
            selectedAssetsFromChooser = chooser.getSelectedAssets( );
             selectedAssets = new String[selectedAssetsFromChooser.length];

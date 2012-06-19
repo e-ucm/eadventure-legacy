@@ -41,7 +41,6 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
-import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
@@ -263,7 +262,11 @@ public class BarriersListDataControl extends DataControl {
     @Override
     public boolean isValid( String currentPath, List<String> incidences ) {
 
-        boolean valid = true;
+        // no sense to spread isValid method calling when there aren't any possibility where
+        // barriers are not valid
+        return true;
+        
+       /* boolean valid = true;
 
         // Iterate through the barriers
         for( int i = 0; i < barriersDataControlList.size( ); i++ ) {
@@ -271,35 +274,41 @@ public class BarriersListDataControl extends DataControl {
             valid &= barriersDataControlList.get( i ).isValid( activeAreaPath, incidences );
         }
 
-        return valid;
+        return valid;*/
     }
 
     @Override
     public int countAssetReferences( String assetPath ) {
 
-        int count = 0;
+     // no sense to spread countAssetsRefernces method calling when there aren't any possibility where
+        // barriers have assets
+        return 0;
+        
+        /*  int count = 0;
 
         // Iterate through each activeArea
         for( BarrierDataControl barrierDataControl : barriersDataControlList )
             count += barrierDataControl.countAssetReferences( assetPath );
 
-        return count;
+        return count;*/
     }
 
     @Override
     public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
 
-        for( BarrierDataControl barrierDataControl : barriersDataControlList )
-            barrierDataControl.getAssetReferences( assetPaths, assetTypes );
+        // no sense to spread getAssetReferences method calling when there aren't any possibility where
+        // barriers have assets
+/*        for( BarrierDataControl barrierDataControl : barriersDataControlList )
+            barrierDataControl.getAssetReferences( assetPaths, assetTypes );*/
 
     }
 
     @Override
     public void deleteAssetReferences( String assetPath ) {
-
-        // Iterate through each activeArea
-        for( BarrierDataControl barrierDataControl : barriersDataControlList )
-            barrierDataControl.deleteAssetReferences( assetPath );
+        // no sense to spread getAssetReferences method calling when there aren't any possibility where
+        // barriers have assets
+/*        for( BarrierDataControl barrierDataControl : barriersDataControlList )
+            barrierDataControl.deleteAssetReferences( assetPath );*/
     }
 
     @Override

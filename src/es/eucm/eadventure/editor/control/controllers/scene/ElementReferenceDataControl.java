@@ -474,7 +474,7 @@ public class ElementReferenceDataControl extends DataControl {
     public void recursiveSearch( ) {
 
         check( this.conditionsController, TC.get( "Search.Conditions" ) );
-        check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
+        //check( this.getDocumentation( ), TC.get( "Search.Documentation" ) );
         check( this.getElementId( ), TC.get( "Search.ElementID" ) );
     }
 

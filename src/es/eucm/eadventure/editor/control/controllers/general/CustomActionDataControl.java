@@ -88,17 +88,7 @@ public class CustomActionDataControl extends ActionDataControl {
         controller.addTool( new ChangeNameTool( customAction, name ) );
     }
 
-    @Override
-    public int countAssetReferences( String assetPath ) {
-
-        int count = super.countAssetReferences( assetPath );
-
-        for( ResourcesDataControl resources : resourcesDataControlList )
-            count += resources.countAssetReferences( assetPath );
-
-        return count;
-    }
-
+   
     /**
      * @return the value of name
      */

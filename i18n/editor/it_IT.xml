@@ -1551,6 +1551,7 @@
 <entry key="MenuEdit.Title">Edizione </entry>
 <entry key="TreeNode.MoveElementUp">Sposta in</entry>
 <entry key="Element.Effects">Effetti</entry>
+<entry key="Element.NotEffects">effetti non</entry>
 <entry key="LOMES.GeneralId.EntryName">Entrata</entry>
 <entry key="Error.LoadAssessmentData.SAX">Si è verificato un problema con la coerenza dei dati XML </entry>
 <entry key="IMS.Rights.Tip">Dati i diritti</entry>

@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.control.controllers.general;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
@@ -43,12 +44,14 @@ import es.eucm.eadventure.common.data.HasSound;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
 import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.general.InvalidExitCursorTool;
 import es.eucm.eadventure.editor.control.tools.general.assets.SelectExitCursorPathTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 
-public class ExitLookDataControl implements HasSound{
+public class ExitLookDataControl extends Searchable implements HasSound{
 
     private ExitLook exitLook;
 
@@ -178,6 +181,31 @@ public class ExitLookDataControl implements HasSound{
     public void setCursorPath( String value ) {
 
         exitLook.setCursorPath( value );
+    }
+    
+    @Override
+    public void recursiveSearch( ) {
+          
+        check(getCustomizedCursor( ), TC.get( "Cursor.exit.Description" ) );
+        check(getCustomizedText( ), TC.get( "Search.CustomizedText" )  );
+        check(getSoundPath(), TC.get( "Animation.Sound" ) );
+    }
+
+    
+    @Override
+    public List<Searchable> getPath( Searchable dataControl ) {
+
+        if( dataControl == this ) {
+            List<Searchable> path = new ArrayList<Searchable>( );
+            path.add( this );
+            return path;
+        }
+        return getPathToDataControl( dataControl );
+    }
+    
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        return null;
     }
 
 

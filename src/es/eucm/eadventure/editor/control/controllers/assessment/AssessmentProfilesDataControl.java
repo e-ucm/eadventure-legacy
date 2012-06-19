@@ -196,13 +196,15 @@ public class AssessmentProfilesDataControl extends DataControl {
     @Override
     public int countIdentifierReferences( String id ) {
 
-        int count = 0;
+//       int count = 0;
         for( AssessmentProfileDataControl profile : profiles ) {
             if( profile.getName( ).equals( id ) )
-                count++;
-            count += profile.countIdentifierReferences( id );
+                // assessment profiles ids are unique
+                return 1;
+//            count += profile.countIdentifierReferences( id );
         }
-        return count;
+       
+        return 0;
     }
 
     @Override
@@ -217,7 +219,7 @@ public class AssessmentProfilesDataControl extends DataControl {
         for( AssessmentProfileDataControl profile : profiles ) {
             if( dataControl == profile ) {
                 String path = profile.getName( );
-                int references = Controller.getInstance( ).countAssetReferences( path );
+                int references = Controller.getInstance( ).countIdentifierReferences( path );
                 if( !askConfirmation || controller.showStrictConfirmDialog( TC.get( "Operation.DeleteElementTitle" ), TC.get( "Operation.DeleteElementWarning", new String[] { TC.getElement( Controller.ASSESSMENT_PROFILE ), Integer.toString( references ) } ) ) ) {
                     data.remove( profiles.indexOf( dataControl ) );
                     deleted = this.profiles.remove( dataControl );
@@ -238,7 +240,7 @@ public class AssessmentProfilesDataControl extends DataControl {
     @Override
     public void deleteIdentifierReferences( String id ) {
 
-        AssessmentProfileDataControl profilesToDelete = null;
+      AssessmentProfileDataControl profilesToDelete = null;
         AssessmentProfileDataControl profile = null;
         Iterator<AssessmentProfileDataControl> itera = this.profiles.iterator( );
         while( itera.hasNext( ) ) {
@@ -248,8 +250,8 @@ public class AssessmentProfilesDataControl extends DataControl {
                 itera.remove( );
 
             }
-            else
-                profile.deleteIdentifierReferences( id );
+//            else
+//                profile.deleteIdentifierReferences( id );
         }
 
     }
@@ -319,12 +321,12 @@ public class AssessmentProfilesDataControl extends DataControl {
 
     @Override
     public void replaceIdentifierReferences( String oldId, String newId ) {
-
-        for( AssessmentProfileDataControl profile : profiles ) {
+        // its managed in the rename tool
+        /*for( AssessmentProfileDataControl profile : profiles ) {
             if( profile.getName( ).equals( oldId ) )
                 profile.renameElement( newId );
-            profile.replaceIdentifierReferences( oldId, newId );
-        }
+//            profile.replaceIdentifierReferences( oldId, newId );
+        }*/
     }
 
     @Override
@@ -393,6 +395,7 @@ public class AssessmentProfilesDataControl extends DataControl {
     @Override
     public void recursiveSearch( ) {
 
+        // the id of the assessment profile is checked at chapter datacontrol
         for( DataControl dc : this.profiles )
             dc.recursiveSearch( );
     }

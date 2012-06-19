@@ -91,7 +91,7 @@ public abstract class Searchable {
                 if( !caseSensitive && value.toLowerCase( ).equals( searchedText ) )
                     addResult( desc );
                 else if( caseSensitive && value.equals( searchedText ) )
-                    ;
+                    addResult( desc );
             }
         }
     }

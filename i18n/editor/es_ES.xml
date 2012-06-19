@@ -1688,6 +1688,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 <entry key="MenuEdit.Title">Edición</entry>
 <entry key="TreeNode.MoveElementUp">Subir elemento</entry>
 <entry key="Element.Effects">Efectos</entry>
+<entry key="Element.NotEffects">No Efectos</entry>
 <entry key="LOMES.GeneralId.EntryName">Entrada</entry>
 <entry key="Error.LoadAssessmentData.SAX">Ocurrió un problema con la consistencia XML de los datos de evaluación</entry>
 <entry key="IMS.Rights.Tip">Rights Data</entry>

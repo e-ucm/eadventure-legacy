@@ -1577,6 +1577,7 @@
 <entry key="MenuEdit.Title">编辑</entry>
 <entry key="LOMES.GeneralId.EntryName">入口</entry>
 <entry key="Element.Effects">效果</entry>
+<entry key="Element.NotEffects">不影响</entry>
 <entry key="TreeNode.MoveElementUp">向上移动元素</entry>
 <entry key="IMS.Rights.Tip">权力数据</entry>
 <entry key="Error.LoadAssessmentData.SAX">评估数据的XML一致性发生错误</entry>
