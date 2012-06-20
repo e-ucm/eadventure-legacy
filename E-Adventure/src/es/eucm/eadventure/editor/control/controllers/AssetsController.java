@@ -1460,12 +1460,12 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
             InputStream is = null;
             
-            /*if( filePath.startsWith( "/" ) || filePath.startsWith( "\\" ) ) {
+            if( filePath.startsWith( "/" ) || filePath.startsWith( "\\" ) ) {
                 //FIXME: Somehow, these is not needed anymore (check more, might still be needed outside eclipse)
                 //String os = System.getProperty( "os.name" ).toLowerCase( );
                 if ( !filePath.startsWith( "/User" ) )
                     filePath = filePath.substring( 1, filePath.length( ) );
-            }*/
+            }
             is = getInputStream( filePath );
 
             if (is==null && absolutePath != null){
