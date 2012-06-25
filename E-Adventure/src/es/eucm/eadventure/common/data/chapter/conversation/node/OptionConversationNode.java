@@ -127,8 +127,15 @@ public class OptionConversationNode extends ConversationNode {
         this.keepShowing = keepShowing;
         this.showUserOption = showUserOption;
         this.preListening = preHearing;
-        this.x = x;
-        this.y = y;
+        // the position of the option has been set, use it
+        if (x>0 && y>0){
+            this.x = x;
+            this.y = y;
+        } // if the positions hasn't been set, select the bottom position
+        else {
+             this.x = DEFAULT_OPTION_NODE_POSITION_X;
+             this.y = DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y;
+        }
         effects = new Effects( );
     }
 
