@@ -101,7 +101,7 @@ public class Loader {
      */
     public static AdventureData loadAdventureData( InputStreamCreator isCreator, List<Incidence> incidences ) {
 
-        AdventureData adventureData = null;
+        AdventureData adventureDataTemp = null;
         try {
             // Set the adventure handler
             AdventureHandler adventureParser = new AdventureHandler( isCreator, incidences );
@@ -118,7 +118,7 @@ public class Loader {
             // in each chapter.
             adventureParser.loadProfiles( );
             // Store the adventure data
-            adventureData = adventureParser.getAdventureData( );
+            adventureDataTemp = adventureParser.getAdventureData( );
 
         }
         catch( ParserConfigurationException e ) {
@@ -134,7 +134,7 @@ public class Loader {
             incidences.add( Incidence.createDescriptorIncidence( TC.get( "Error.LoadDescriptor.NoDescriptor" ), e ) );
         }
 
-        return adventureData;
+        return adventureDataTemp;
     }
 
     /**
