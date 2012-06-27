@@ -389,6 +389,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * Game Log for storing interaction info. Added in version v1.4.
      */
     private GameLogProxy gameLog;
+    
+    
+    /**
+     * This variable identifies if the game is closed using the "X" of the window which contains the game engine.
+     * 
+     * It's used to avoid waiting for showing the assessment report in that case
+     */
+    private boolean closedWindow = false;
 
     /**
      * Returns the instance of Game
@@ -1033,7 +1041,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
                 }
 
                 //If there is an assessment profile, show the "Save Report" dialog
-                while( !assessmentEngine.isEndOfChapterFeedbackDone( ) ) {
+                while( !assessmentEngine.isEndOfChapterFeedbackDone( ) && ( isClosedWindow( ) == false ) ){
                     Thread.sleep( 100 );
                 }
                 
@@ -2186,5 +2194,23 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         DebugLog.general( "[SCREEN RESOLUTION = "+t.getScreenResolution( ) +"]");
         DebugLog.general( "[SCREEN SIZE = "+t.getScreenSize( ).width + " X " +t.getScreenSize( ).height +"]");
         DebugLog.general("****************************" );
+    }
+
+    
+    public boolean isGameOver( ) {
+    
+        return gameOver;
+    }
+
+    
+    public boolean isClosedWindow( ) {
+    
+        return closedWindow;
+    }
+
+    
+    public void setClosedWindow( boolean closedWindow ) {
+    
+        this.closedWindow = closedWindow;
     }
 }

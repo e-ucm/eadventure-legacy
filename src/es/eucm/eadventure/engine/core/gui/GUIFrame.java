@@ -132,12 +132,14 @@ public class GUIFrame extends GUI implements FocusListener {
 
             @Override
             public void windowClosing( WindowEvent e ) {
+                
+                Game.getInstance( ).setClosedWindow( true );
                 Game.getInstance( ).setGameOver( );
+                
             }
 
             @Override
             public void windowClosed( WindowEvent e ) {
-                
             }
 
             
