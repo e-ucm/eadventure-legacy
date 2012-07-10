@@ -254,6 +254,7 @@ public class ActionsListDataControl extends DataControl {
                 
             String[] options = { TC.get( "Element.Action" ), TC.get( "Element.Interaction" )};
             int option = JOptionPane.showOptionDialog( null, TC.get( "CustomAction.SelectTypeMessage" ), TC.get( "CustomAction.SelectTypeTitle" ), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0 );
+           if (option != JOptionPane.CLOSED_OPTION){
             if( option == 0 ) {
                 newAction = new CustomAction( Action.CUSTOM );
                 ( (CustomAction) newAction ).setName( name );
@@ -287,16 +288,20 @@ public class ActionsListDataControl extends DataControl {
                     controller.showErrorDialog( TC.get( "Action.OperationAddAction" ), TC.get( "Action.ErrorNoItems" ) );
 
             }
+                   }// end if user cancel the action adition after introducing the name
             }// end if that controls if user
         }
         else if( type == Controller.ACTION_CUSTOM ) {
             String name = controller.showInputDialog(  TC.get( "CustomAction.GetNameMessage" ), TC.get( "CustomAction.GetNameTitle" ) );
-            if( name.equals( "" ) ) {
-                name = "NONAME_" + ( new Random( ) ).nextInt( 1000 );
-            }
+            // if name == null, the user cancel the action addition
+            if (name != null){
+                if( name.equals( "" ) ) {
+                    name = "NONAME_" + ( new Random( ) ).nextInt( 1000 );
+                }
 
-            newAction = new CustomAction( Action.CUSTOM );
-            ( (CustomAction) newAction ).setName( name );
+                newAction = new CustomAction( Action.CUSTOM );
+                ( (CustomAction) newAction ).setName( name );
+            }
         }
 
         // If the type of action is use-with, we must ask for a second item
