@@ -101,10 +101,10 @@ public abstract class FunctionalAction {
      * @param action
      *            The original action
      */
-    public FunctionalAction( Action action ) {
+    /*public FunctionalAction( Action action ) {
 
         originalAction = action;
-    }
+    }*/
 
     /**
      * Start the action, the player is already positioned to take it.
@@ -220,6 +220,16 @@ public abstract class FunctionalAction {
     public FunctionalElement getAnotherElement( ) {
 
         return null;
+    }
+    
+    /**
+     * 
+     * Check if the action has original action
+     * 
+     */
+    // this method has been added to solve inconsistencies between available actions and actions buttons being displayed
+    public boolean hasOriginalAction(){
+        return originalAction!=null;
     }
     
     /**

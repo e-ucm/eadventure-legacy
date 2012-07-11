@@ -90,7 +90,7 @@ public class FunctionalGive extends FunctionalAction {
      */
     public FunctionalGive( Action action, FunctionalElement element ) {
 
-        super( action );
+        super( );
         this.element = element;
         this.type = ActionManager.ACTION_GIVE;
         originalAction = element.getFirstValidAction( Action.GIVE_TO );

@@ -83,7 +83,7 @@ public class FunctionalUseWith extends FunctionalAction {
      */
     public FunctionalUseWith( Action action, FunctionalElement element ) {
 
-        super( action );
+        super( );
         this.element = element;
         this.type = ActionManager.ACTION_USE_WITH;
         this.originalAction = element.getFirstValidAction( Action.USE_WITH );

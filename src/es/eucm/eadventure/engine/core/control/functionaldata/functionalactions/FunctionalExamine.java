@@ -67,14 +67,14 @@ public class FunctionalExamine extends FunctionalAction {
      */
     public FunctionalExamine( Action action, FunctionalElement element ) {
 
-        super( action );
+        super( );
         type = ActionManager.ACTION_EXAMINE;
         this.element = element;
         originalAction = element.getFirstValidAction( Action.EXAMINE );
         if( element.isInInventory( ) || originalAction == null ) {
             this.needsGoTo = false;
         }
-        else {
+        else if (originalAction!=null){
             this.needsGoTo = originalAction.isNeedsGoTo( );
             this.keepDistance = originalAction.getKeepDistance( );
         }

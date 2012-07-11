@@ -126,7 +126,8 @@ public class FunctionalGoTo extends FunctionalAction {
      */
     public FunctionalGoTo( Action action, int posX, int posY ) {
 
-        super( action );
+        super(  );
+        originalAction = action;
         this.originalPosX = posX;
         this.originalPosY = posY;
         this.trajectory = Game.getInstance( ).getFunctionalScene( ).getTrajectory( );

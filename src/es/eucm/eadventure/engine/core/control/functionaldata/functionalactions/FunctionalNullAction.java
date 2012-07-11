@@ -52,7 +52,7 @@ public class FunctionalNullAction extends FunctionalAction {
      */
     public FunctionalNullAction( ) {
 
-        super( null );
+        super( );
         finished = false;
         type = -1;
     }

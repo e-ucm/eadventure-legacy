@@ -84,7 +84,7 @@ public class FunctionalGrab extends FunctionalAction {
      */
     public FunctionalGrab( Action action, FunctionalElement element ) {
 
-        super( action );
+        super(  );
         this.element = element;
         this.type = ActionManager.ACTION_GRAB;
         originalAction = element.getFirstValidAction( Action.GRAB );

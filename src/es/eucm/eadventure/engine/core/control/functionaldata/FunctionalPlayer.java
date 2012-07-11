@@ -484,6 +484,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 break;
             case ActionManager.ACTION_CUSTOM:
                 game.getGameLog( ).highLevelEvent( CUSTOM+": "+game.getActionManager( ).getCustomActionName( ), element.getElement( ).getId( ) );
+              //      if (element)
                 nextAction = new FunctionalCustom( element, Game.getInstance( ).getActionManager( ).getCustomActionName( ) );
                 break;
             case ActionManager.ACTION_CUSTOM_INTERACT:
@@ -522,6 +523,9 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 break;
         }
 
+     // this method has been added to solve inconsistencies between available actions and actions buttons being displayed
+        if (nextAction.hasOriginalAction( )){
+        
         if( nextAction.isNeedsGoTo( ) && !this.isTransparent ) {
             FunctionalGoTo functionalGoTo = new FunctionalGoTo( null, (int) element.getX( ), (int) element.getY( ), this, element );
             if( functionalGoTo.canGetTo( ) ) {
@@ -537,6 +541,11 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         else
             addAction( nextAction );
         return;
+        } else {
+            // ensure to reset action selected when original action is null
+            game.getActionManager( ).setActionSelected( -1  );
+        }
+            
 
     }
 

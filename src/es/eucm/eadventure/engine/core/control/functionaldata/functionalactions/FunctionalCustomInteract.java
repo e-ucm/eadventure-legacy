@@ -82,7 +82,7 @@ public class FunctionalCustomInteract extends FunctionalAction {
      */
     public FunctionalCustomInteract( FunctionalElement element, String customActionName ) {
 
-        super( null );
+        super(  );
         this.type = Action.CUSTOM_INTERACT;
         this.customActionName = customActionName;
         originalAction = element.getFirstValidCustomInteraction( customActionName );
