@@ -79,7 +79,7 @@ public class FunctionalUse extends FunctionalAction {
      */
     public FunctionalUse( FunctionalElement element ) {
 
-        super( null );
+        super(  );
         this.type = ActionManager.ACTION_USE;
         this.element = element;
         originalAction = element.getFirstValidAction( ActionManager.ACTION_USE );

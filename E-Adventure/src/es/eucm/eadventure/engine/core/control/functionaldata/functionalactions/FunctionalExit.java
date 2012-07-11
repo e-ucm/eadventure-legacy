@@ -65,7 +65,7 @@ public class FunctionalExit extends FunctionalAction {
      */
     public FunctionalExit( Exit exit ) {
 
-        super( null );
+        super(  );
         this.exit = exit;
     }
 

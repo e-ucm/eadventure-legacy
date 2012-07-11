@@ -104,7 +104,8 @@ public class FunctionalSpeak extends FunctionalAction {
      */
     public FunctionalSpeak( Action action, String text, boolean keepShowing ) {
 
-        super( action );
+        super( );
+        originalAction = action;
         type = ActionManager.ACTION_TALK;
         setText( text );
         task = new TTask();
@@ -126,7 +127,8 @@ public class FunctionalSpeak extends FunctionalAction {
      */
     public FunctionalSpeak( Action action, String text, String audioPath, boolean keepShowing ) {
 
-        super( action );
+        super( );
+        originalAction = action;
         type = ActionManager.ACTION_TALK;
         setText( text );
         setAudio( audioPath );

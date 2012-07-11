@@ -73,7 +73,7 @@ public class FunctionalDragTo extends FunctionalAction {
      *            The name of the action
      */
     public FunctionalDragTo( FunctionalElement element) {
-        super( null );
+        super(  );
         this.type = Action.DRAG_TO;
         originalAction = element.getFirstValidAction( Action.DRAG_TO );
         this.element = element;

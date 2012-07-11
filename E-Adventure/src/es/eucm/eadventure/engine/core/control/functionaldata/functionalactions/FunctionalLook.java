@@ -66,7 +66,7 @@ public class FunctionalLook extends FunctionalAction {
      */
     public FunctionalLook( FunctionalElement element ) {
 
-        super( null );
+        super( );
         type = ActionManager.ACTION_LOOK;
         this.element = element;
     }

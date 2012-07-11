@@ -90,12 +90,14 @@ public class FunctionalCustom extends FunctionalAction {
      */
     public FunctionalCustom( FunctionalElement element, String actionName ) {
 
-        super( null );
+        super( );
         this.element = element;
         this.actionName = actionName;
         originalAction = element.getFirstValidCustomAction( actionName );
-        needsGoTo = originalAction.isNeedsGoTo( );
-        keepDistance = originalAction.getKeepDistance( );
+        if (originalAction!=null){
+         needsGoTo = originalAction.isNeedsGoTo( );
+         keepDistance = originalAction.getKeepDistance( );
+        }
         this.hasAnimation = false;
     }
 

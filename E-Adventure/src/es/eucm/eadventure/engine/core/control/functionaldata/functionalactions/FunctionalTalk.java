@@ -82,7 +82,8 @@ public class FunctionalTalk extends FunctionalAction {
      */
     public FunctionalTalk( Action action, FunctionalElement npc ) {
 
-        super( action );
+        super(  );
+        originalAction = action;
         this.npc = (FunctionalNPC) npc;
         this.type = ActionManager.ACTION_TALK;
         if( functionalPlayer != null )
