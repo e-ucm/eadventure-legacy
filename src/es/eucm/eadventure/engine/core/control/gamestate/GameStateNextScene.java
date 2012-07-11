@@ -75,7 +75,6 @@ public class GameStateNextScene extends GameState implements _HighLevelEvents {
         switch( generalScene.getType( ) ) {
             case GeneralScene.SCENE:
                 
-                
                 // If next scene is the same as current scene, do not change the scene, only execute the effects
                 if (game.getFunctionalScene( )==null || !game.getFunctionalScene( ).getScene( ).getId( ).equals( generalScene.getId( ) )){
                     
