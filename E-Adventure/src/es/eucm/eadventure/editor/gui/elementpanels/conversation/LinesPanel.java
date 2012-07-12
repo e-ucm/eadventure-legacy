@@ -51,7 +51,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
@@ -546,7 +545,7 @@ class LinesPanel extends JPanel implements DataControlsPanel, Updateable {
             public void run( ) {
 
                 if( lineTable.editCellAt( selectedRow + 1, 1 ) )
-                    ( (JScrollPane) lineTable.getEditorComponent( ) ).requestFocusInWindow( );
+                    lineTable.getEditorComponent( ).requestFocusInWindow( );
             }
         } );
     }
