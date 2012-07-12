@@ -524,7 +524,8 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         }
 
      // this method has been added to solve inconsistencies between available actions and actions buttons being displayed
-        if (nextAction.hasOriginalAction( )){
+        if (nextAction.getType( ) == ActionManager.ACTION_TALK ||
+                nextAction.hasOriginalAction( )){
         
         if( nextAction.isNeedsGoTo( ) && !this.isTransparent ) {
             FunctionalGoTo functionalGoTo = new FunctionalGoTo( null, (int) element.getX( ), (int) element.getY( ), this, element );
