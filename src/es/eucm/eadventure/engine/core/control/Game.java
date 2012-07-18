@@ -125,7 +125,7 @@ import es.eucm.eadventure.tracking.pub.replay.Replayer;
  */
 public class Game implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Runnable, TimerEventListener, SpecialAssetPaths, _HighLevelEvents {
 
-    private static final boolean REPLAYING = true;
+    private static final boolean REPLAYING = false;
 
     /**
      * Constant for loading state

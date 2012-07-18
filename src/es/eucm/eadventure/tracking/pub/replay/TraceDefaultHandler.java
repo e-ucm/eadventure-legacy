@@ -82,6 +82,8 @@ public class TraceDefaultHandler extends DefaultHandler {
     @Override
     public void startElement( String uri, String localName, String qName, Attributes attributes ) throws SAXException {
 
+        String x = null;
+        String y = null;
         if( qName.equals( "l" ) || qName.equals( "h" ) ) {
             long timeStamp = Long.parseLong( attributes.getValue( "ms" ) );
             ms.add( (int) timeStamp );
@@ -90,8 +92,8 @@ public class TraceDefaultHandler extends DefaultHandler {
             // Low level traces
             if( qName.equals( "l" ) ) {
                 String button = attributes.getValue( "b" );
-                String x = attributes.getValue( "x" );
-                String y = attributes.getValue( "y" );
+                x = attributes.getValue( "x" );
+                y = attributes.getValue( "y" );
                 if( attributes.getValue( "i" ).equals( "m" ) && x != null && y != null ) {
                     buttons.add( 0 );
                     delays.add( delay );
@@ -134,7 +136,9 @@ public class TraceDefaultHandler extends DefaultHandler {
                     buttons.add( 0 );
                     delays.add( delay );
                     actions.add( Actions.SCENE );
-                    points.add( new Point( 0, 0 ) );
+                    int xp = x == null ? 0 : Integer.parseInt( x );
+                    int yp = y == null ? 0 : Integer.parseInt( y );
+                    points.add( new Point( xp, yp ) );
                     currentms = timeStamp;
                 }
             }

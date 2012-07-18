@@ -50,6 +50,9 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
+import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.tracking.pub.replay.TraceDefaultHandler.Actions;
 
@@ -66,7 +69,7 @@ public class Replayer extends Thread {
     public static int nextOpt = 0;
 
     public static int currentScene = -1;
-    
+
     public static boolean errorOpt = false;
 
     public Replayer( ) {
@@ -113,21 +116,13 @@ public class Replayer extends Thread {
             nextLine = 0;
             nextOpt = 0;
             currentScene = -1;
-            long elapsed = 0;
-            long oldTime = System.currentTimeMillis( );
-            long currentTimestamp = System.currentTimeMillis( );
-            long diff = 0;
+            boolean checkScene = false;
 
             Point loc = GUI.getInstance( ).getFrame( ).getLocationOnScreen( );
 
             int i = 0;
             while( i < handler.getActions( ).size( ) ) {
                 r.delay( handler.getDelays( ).get( i ) );
-                currentTimestamp = System.currentTimeMillis( );
-                diff = currentTimestamp - oldTime;
-                elapsed += diff;
-                oldTime = currentTimestamp;
-                //                while ( handler.getMs( ).get( i ) < elapsed ) {
                 Actions a = handler.getActions( ).get( i );
                 Point p = handler.getPoints( ).get( i );
                 p.x += loc.x;
@@ -143,6 +138,15 @@ public class Replayer extends Thread {
                         break;
                 }
 
+                if( checkScene ) {
+                    checkScene = false;
+                    String gameScene = Game.getInstance( ).getFunctionalScene( ).getScene( ).getId( );
+                    String logsScene = getCurrentScene( );
+                    if( !gameScene.equals( logsScene ) && !logsScene.equals( "unknown" ) ) {
+                        changeGameScene( logsScene, p.x - loc.x, p.y - loc.y );
+                    }
+                }
+
                 if( a == Actions.MOVE ) {
                     r.mouseMove( p.x, p.y );
                 }
@@ -156,15 +160,34 @@ public class Replayer extends Thread {
                 }
                 else if( a == Actions.SCENE ) {
                     currentScene++;
+                    checkScene = true;
                 }
                 i++;
             }
-
-            //            }
         }
         catch( AWTException e ) {
             e.printStackTrace( );
         }
+    }
+
+    private void changeGameScene( String logsScene, int x, int y ) {
+
+        Scene scene = Game.getInstance( ).getFunctionalScene( ).getScene( );
+        Exit rightExit = null;
+        for( Exit e : scene.getExits( ) ) {
+            if( e.isPointInside( x, y ) && e.getNextSceneId( ).equals( logsScene ) ) {
+                rightExit = e;
+                break;
+            }
+            else if( e.getNextSceneId( ).equals( logsScene ) ) {
+                rightExit = e;
+            }
+        }
+        if( rightExit != null ) {
+            Game.getInstance( ).setNextScene( rightExit );
+            Game.getInstance( ).setState( Game.STATE_NEXT_SCENE );
+        }
+
     }
 
     public static String getNextLine( ) {
@@ -182,7 +205,7 @@ public class Replayer extends Thread {
     public static int getNextOpt( ) {
 
         int opt = handler.getOpts( ).get( nextOpt );
-        if( nextOpt < handler.getOpts( ).size( ) - 1) {
+        if( nextOpt < handler.getOpts( ).size( ) - 1 ) {
             nextOpt++;
         }
         else {
