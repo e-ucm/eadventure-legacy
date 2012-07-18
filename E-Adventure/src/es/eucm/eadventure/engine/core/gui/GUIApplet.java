@@ -170,6 +170,7 @@ public class GUIApplet extends GUI {
 
     @Override
     public JFrame showComponent( Component component, int w, int h ) {
+        
         gameFrame.setVisible( false );
         if( this.component != null )
             applet.remove( this.component );
@@ -183,7 +184,7 @@ public class GUIApplet extends GUI {
         ((JPanel) this.component).setLayout( null );
         ((JPanel) this.component).add( component );
         
-        int fixedWidth = w;
+      /*  int fixedWidth = w;
         int fixedHeight = h;
         w = GUI.WINDOW_WIDTH;
         h = GUI.WINDOW_HEIGHT;
@@ -193,13 +194,38 @@ public class GUIApplet extends GUI {
         } else {
             h = GUI.WINDOW_HEIGHT;
             w = (int) (((float) fixedWidth / (float) fixedHeight) * GUI.WINDOW_HEIGHT);
-        }
+        }*/
         
-        int posX = ( GUI.WINDOW_WIDTH - w ) / 2;
-        int posY = ( GUI.WINDOW_HEIGHT - h ) / 2;
+        
+        
+        // update in Release v1.5
+        // this method is not used but has been fixed and improved: 
+        // keep the original size for videos smaller than 800X600 and centered them
+        // TODO!! a specific layout may be developed to achieve that and avoid that swing layers
+        // put in the top left corner
+        int width =0, height= 0, posX = 0, posY =0;
+        //double scale = w/h;
+        
+        float widthRatio = (float)w/(float)GUI.WINDOW_WIDTH;
+        float heightRatio = (float)h/(float)GUI.WINDOW_HEIGHT;
+        
+        // if (scale >= 1.0){
+        if (widthRatio > heightRatio){
+            height = (int)(((float)h/(float)w)*GUI.WINDOW_WIDTH);
+            width = GUI.WINDOW_WIDTH;
+        
+        } else {
+            width = (int)(((float)w/(float)h)*GUI.WINDOW_HEIGHT);
+            height = GUI.WINDOW_HEIGHT;
+        
+        }
 
-        component.setBounds(posX,posY, w, h);
-        applet.add( component );
+        posX = (GUI.WINDOW_WIDTH - width) / 2;
+        posY = ( GUI.WINDOW_HEIGHT - height ) / 2;
+        
+        component.setBounds(posX, posY, width, height);
+               
+        applet.add( component);
         applet.validate( );
         component.repaint( );
 

@@ -159,11 +159,13 @@ public class GameStateVideoscene extends GameState implements ControllerListener
             
             if( video != null ) {
                 video.addMouseListener( Game.getInstance( ) );
-                if ( w>0 && h>0 ){
+               /* if ( w>0 && h>0 ){
                     GUI.getInstance( ).showComponent( video, w, h );
                 } else { 
                     GUI.getInstance( ).showComponent( video );
-                }
+                }*/
+                
+                GUI.getInstance( ).showComponent( video );
 
                 stop = false;
                 mediaPlayer.start( );
