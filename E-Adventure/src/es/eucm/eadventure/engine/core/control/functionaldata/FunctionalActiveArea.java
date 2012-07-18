@@ -51,6 +51,7 @@ import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
@@ -147,8 +148,16 @@ public class FunctionalActiveArea extends FunctionalItem {
 
         }
         else {
-            return polygon.contains( x, y );
+            isInside= polygon.contains( x, y );
         }
+        
+        if (isInside){
+            FunctionalScene fscene = Game.getInstance( ).getFunctionalScene( );
+            if (fscene!=null){
+                fscene.resetAllItems( null );
+            }
+        }
+
         return isInside;
     }
 
