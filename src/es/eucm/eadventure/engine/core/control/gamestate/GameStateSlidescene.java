@@ -36,6 +36,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.gamestate;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -57,6 +58,7 @@ import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.tracking.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub.replay.Replayer;
 
 /**
  * A game main loop while a "slidescene" is being displayed
@@ -161,6 +163,10 @@ public class GameStateSlidescene extends GameState implements _HighLevelEvents{
         //g.dispose( );
         if (!finish){
             GUI.getInstance( ).addBackgroundToDraw( slides.getImage( ), 0 );
+            if( Replayer.replaying ) {
+                GUI.getInstance( ).getGraphics( ).setColor( Color.WHITE );
+                GUI.getInstance( ).getGraphics( ).drawString( "Current scene: " + Replayer.getCurrentScene( ), 10, 14 );
+            }
             GUI.getInstance( ).endDraw( );
             GUI.getInstance( ).drawScene( GUI.getInstance( ).getGraphics( ), elapsedTime );
         }

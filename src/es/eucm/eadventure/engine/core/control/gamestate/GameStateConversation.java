@@ -1,38 +1,37 @@
 /*******************************************************************************
- * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the e-UCM
- *          research group.
- *   
- *    Copyright 2005-2012 e-UCM research group.
- *  
- *     e-UCM is a research group of the Department of Software Engineering
- *          and Artificial Intelligence at the Complutense University of Madrid
- *          (School of Computer Science).
- *  
- *          C Profesor Jose Garcia Santesmases sn,
- *          28040 Madrid (Madrid), Spain.
- *  
- *          For more info please visit:  <http://e-adventure.e-ucm.es> or
- *          <http://www.e-ucm.es>
- *  
- *  ****************************************************************************
+ * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the
+ * e-UCM research group.
+ * 
+ * Copyright 2005-2012 e-UCM research group.
+ * 
+ * e-UCM is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
+ * 
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
+ * 
+ * ****************************************************************************
  * This file is part of eAdventure, version 1.5.
  * 
- *   You can access a list of all the contributors to eAdventure at:
- *          http://e-adventure.e-ucm.es/contributors
- *  
- *  ****************************************************************************
- *       eAdventure is free software: you can redistribute it and/or modify
- *      it under the terms of the GNU Lesser General Public License as published by
- *      the Free Software Foundation, either version 3 of the License, or
- *      (at your option) any later version.
- *  
- *      eAdventure is distributed in the hope that it will be useful,
- *      but WITHOUT ANY WARRANTY; without even the implied warranty of
- *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *      GNU Lesser General Public License for more details.
- *  
- *      You should have received a copy of the GNU Lesser General Public License
- *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
+ * You can access a list of all the contributors to eAdventure at:
+ * http://e-adventure.e-ucm.es/contributors
+ * 
+ * ****************************************************************************
+ * eAdventure is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * eAdventure is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Adventure. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.gamestate;
 
@@ -61,11 +60,12 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.F
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.tracking.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub.replay.Replayer;
 
 /**
  * A game main loop during a conversation
  */
-public class GameStateConversation extends GameState implements _HighLevelEvents{
+public class GameStateConversation extends GameState implements _HighLevelEvents {
 
     /**
      * Number of response lines to display
@@ -169,49 +169,50 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
      * Store the audio ID for the last conversation line
      */
     private long lastConvAudioId;
-    
+
     /**
      * keep the last option which is being pre-hearing
      */
     private int linePreHearing;
-    
+
     /**
-     * offset for text shifting in option lines which exceeds the size of the canvas
+     * offset for text shifting in option lines which exceeds the size of the
+     * canvas
      */
     private int optionLineOffset;
-    
+
     /**
      * Time showing option lines
      */
     private long timeShowingOptions;
-    
+
     /**
-     * Time that the option Continue shifting before reach the final of the string
+     * Time that the option Continue shifting before reach the final of the
+     * string
      */
     private int msContinueSitfting;
-    
+
     /**
      * Number of option selected to shift
      */
     private int numberOfOptionLineToShift;
-    
+
     /**
-     * The first two appearances of talkers in the conversation to ensure that they are always
-     * looking each others. 
+     * The first two appearances of talkers in the conversation to ensure that
+     * they are always looking each others.
      */
     private FunctionalElement oneTalker;
-    
+
     private FunctionalElement otherTalker;
-    
+
     private String originalConvID;
-    
-    
+
     /**
      * Last index to stop skiping
      */
     // this allows to keep the string stopped certain time (200 ms) at certain position 
     private int lastIndexToStopShifting;
-    
+
     /**
      * Creates a new GameStateConversation
      */
@@ -234,14 +235,14 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
         audioId = -1;
         lastConvAudioId = -1;
         linePreHearing = -1;
-        optionLineOffset=0;
-        timeShowingOptions=0;
+        optionLineOffset = 0;
+        timeShowingOptions = 0;
         numberOfOptionLineToShift = -1;
         msContinueSitfting = 0;
-        
-        lookForTalkers();
-        ensureLookEachOther();
-        
+
+        lookForTalkers( );
+        ensureLookEachOther( );
+
         gameLog.highLevelEvent( CONV_ENTER, originalConvID );
     }
 
@@ -324,7 +325,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
         if( !isOptionSelected ) {
             showPlayerQuestion( );
             optionNodeNoOptionSelected( g, elapsedTime );
-            
+
         }
         else
             optionNodeWithOptionSelected( );
@@ -337,7 +338,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
 
         if( ( (OptionConversationNode) currentNode ).isKeepShowing( ) ) {
             TalkingElement talking = null;
-            
+
             if( lastConversationLine.isPlayerLine( ) )
                 talking = game.getFunctionalPlayer( );
             else {
@@ -346,18 +347,21 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
                 else
                     talking = game.getFunctionalScene( ).getNPC( lastConversationLine.getName( ) );
             }
-         // talking will be null when the conversation begins with an empty node followed by option node
-            if (talking!=null){
-            if (firstTime){
-                if( lastConversationLine.isValidAudio( ))
-                   lastConvAudioId = talking.speak( lastConversationLine.getText( ), lastConversationLine.getAudioPath( ), true );
-                else if( lastConversationLine.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) )
-                    talking.speakWithFreeTTS( lastConversationLine.getText( ), talking.getPlayerVoice( ), true );
-            } else
-                talking.speak( lastConversationLine.getText( ), true );
-            } else  // if talking == null
+            // talking will be null when the conversation begins with an empty node followed by option node
+            if( talking != null ) {
+                if( firstTime ) {
+                    if( lastConversationLine.isValidAudio( ) )
+                        lastConvAudioId = talking.speak( lastConversationLine.getText( ), lastConversationLine.getAudioPath( ), true );
+                    else if( lastConversationLine.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) )
+                        talking.speakWithFreeTTS( lastConversationLine.getText( ), talking.getPlayerVoice( ), true );
+                }
+                else
+                    talking.speak( lastConversationLine.getText( ), true );
+            }
+            else
+                // if talking == null
                 talking = game.getFunctionalPlayer( );
-            
+
             game.setCharacterCurrentlyTalking( talking );
         }
 
@@ -373,31 +377,39 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
     private void optionNodeNoOptionSelected( Graphics2D g, long elapsedTime ) {
 
         if( firstTime ) {
+
+            // If the replayer is working, we use the preloaded responses
+            if( Replayer.replaying ) {
+                String s = Replayer.getNextLine( );
+                int opt = Replayer.getNextOpt( );
+                ( (OptionConversationNode) currentNode ).doTheTrick( opt, s );
+            }
             // modify the order of the options the first moment the loop entered in the options node 
             // (this will be done each time the loop enter in option node whereas entered previously or not )
-            ( (OptionConversationNode) currentNode ).doRandom( );
+            else {
+                ( (OptionConversationNode) currentNode ).doRandom( );
+            }
             firstTime = false;
             firstLineDisplayed = 0;
             // reset the timeShowingOptions and the number of chars to skip
-            timeShowingOptions=0;
-            msContinueSitfting=0;
+            timeShowingOptions = 0;
+            msContinueSitfting = 0;
         }
 
         numberDisplayedOptions = 0;
 
         storeOKConditionsConversationLines( );
-        
-        if (this.optionHighlighted==-1){
-            numberOfOptionLineToShift= -1;
-            optionLineOffset=0;
-            timeShowingOptions=0;
+
+        if( this.optionHighlighted == -1 ) {
+            numberOfOptionLineToShift = -1;
+            optionLineOffset = 0;
+            timeShowingOptions = 0;
             msContinueSitfting = 0;
         }
-        
-        
+
         if( optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
             for( int i = 0; i < optionsToShow.size( ); i++ ) {
-                drawLine( g, game.getFunctionalPlayer( ).processName( optionsToShow.get( i ).getText( )), i, i, elapsedTime );
+                drawLine( g, game.getFunctionalPlayer( ).processName( optionsToShow.get( i ).getText( ) ), i, i, elapsedTime );
                 numberDisplayedOptions++;
             }
         }
@@ -455,86 +467,86 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
             textColor = new Color( 255 - red, 255 - green, 255 - blue );
             // pre-listen the option if it is set
             // if the previous line is not being playing
-            if( !MultimediaManager.getInstance( ).isPlaying( lastConvAudioId ) ){
+            if( !MultimediaManager.getInstance( ).isPlaying( lastConvAudioId ) ) {
                 if( ( (OptionConversationNode) currentNode ).isPreListening( ) && linePreHearing != optionIndex + firstLineDisplayed ) {
 
-                if( this.optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
-                    linePreHearing = optionIndex;
-                    setAudio( ( (OptionConversationNode) currentNode ).getLine( optionIndex ).getAudioPath( ) );
-                }
-                else {
+                    if( this.optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
+                        linePreHearing = optionIndex;
+                        setAudio( ( (OptionConversationNode) currentNode ).getLine( optionIndex ).getAudioPath( ) );
+                    }
+                    else {
 
-                    linePreHearing = optionIndex + firstLineDisplayed;
+                        linePreHearing = optionIndex + firstLineDisplayed;
 
-                    int indexLastLine = Math.min( firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, currentNode.getLineCount( ) );
+                        int indexLastLine = Math.min( firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, currentNode.getLineCount( ) );
 
-                    if( linePreHearing != indexLastLine ) {
-                        setAudio( ( (OptionConversationNode) currentNode ).getLine( linePreHearing ).getAudioPath( ) );
+                        if( linePreHearing != indexLastLine ) {
+                            setAudio( ( (OptionConversationNode) currentNode ).getLine( linePreHearing ).getAudioPath( ) );
+                        }
                     }
                 }
             }
-            }
-            
+
             // if this is a new line to shift, restart the values
-            if (numberOfOptionLineToShift!=lineIndex){
-                
-                numberOfOptionLineToShift= lineIndex;
-                optionLineOffset=0;
-                timeShowingOptions=0;
+            if( numberOfOptionLineToShift != lineIndex ) {
+
+                numberOfOptionLineToShift = lineIndex;
+                optionLineOffset = 0;
+                timeShowingOptions = 0;
                 msContinueSitfting = 0;
-                
+
             }
             //To know the width of one character
-            
+
             FontMetrics fontMetrics = g.getFontMetrics( );
             double w = fontMetrics.getStringBounds( text, g ).getWidth( );
             double stimatedPosition = fontMetrics.stringWidth( new String( "A" ) );
             int position = (int) ( GUI.getInstance( ).WINDOW_WIDTH / stimatedPosition ) + 20;
-            
-            // check if the text has to be shifted
-            if (w >= GUI.getInstance( ).WINDOW_WIDTH ){
-            // update the time while options are showed
-            timeShowingOptions += elapsedTime;
-            // calculate the number of characters to be shifted in the option
-            optionLineOffset = (int) timeShowingOptions / 200;
-                int numberOfCharShowed = text.substring( 0, position ).length( ) ;
-                // if the final of the string is not reached
-                if (optionLineOffset + numberOfCharShowed <= text.length( ) ){
-                    // shift the text the number of characters calculated in optionLineOffset  
-                     text = text.substring( optionLineOffset%text.length( ),  optionLineOffset%text.length( ) + numberOfCharShowed);
 
-                } else {
+            // check if the text has to be shifted
+            if( w >= GUI.getInstance( ).WINDOW_WIDTH ) {
+                // update the time while options are showed
+                timeShowingOptions += elapsedTime;
+                // calculate the number of characters to be shifted in the option
+                optionLineOffset = (int) timeShowingOptions / 200;
+                int numberOfCharShowed = text.substring( 0, position ).length( );
+                // if the final of the string is not reached
+                if( optionLineOffset + numberOfCharShowed <= text.length( ) ) {
+                    // shift the text the number of characters calculated in optionLineOffset  
+                    text = text.substring( optionLineOffset % text.length( ), optionLineOffset % text.length( ) + numberOfCharShowed );
+
+                }
+                else {
                     // when the final of the string is reached, continue shifting 200 ms, and stop the string at this point 
                     // the next 200ms before reseting
-                    if ( msContinueSitfting < 200)
-                        lastIndexToStopShifting = optionLineOffset%text.length( );
-                        
-                    else if ( msContinueSitfting > 400){
+                    if( msContinueSitfting < 200 )
+                        lastIndexToStopShifting = optionLineOffset % text.length( );
+
+                    else if( msContinueSitfting > 400 ) {
                         optionLineOffset = 0;
                         timeShowingOptions = 0;
-                        msContinueSitfting=0;
+                        msContinueSitfting = 0;
                     }
-                    text = text.substring( lastIndexToStopShifting ,  text.length( ) );
+                    text = text.substring( lastIndexToStopShifting, text.length( ) );
                     msContinueSitfting++;
-                
+
                 }
-                
+
             }
-            
-        } 
-        
-        
-        int y = ((OptionConversationNode)currentNode).getY( ) + optionIndex * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT;
-        int x = ((OptionConversationNode)currentNode).getX( );
-        
+
+        }
+
+        int y = ( (OptionConversationNode) currentNode ).getY( ) + optionIndex * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT;
+        int x = ( (OptionConversationNode) currentNode ).getX( );
+
         if( text.startsWith( ConversationLine.Type.THOUGHT.toString( ) ) || text.startsWith( ConversationLine.Type.YELL.toString( ) ) || text.startsWith( ConversationLine.Type.WHISPER.toString( ) ) ) {
             int spaceIndex = text.indexOf( ' ' );
-            if ( spaceIndex != -1 )
-                text = text.substring( spaceIndex + 1);
+            if( spaceIndex != -1 )
+                text = text.substring( spaceIndex + 1 );
         }
-         
+
         String fullText = ( lineIndex + 1 ) + ".- " + text;
-        
+
         GUI.drawStringOnto( g, fullText, x, y, false, textColor, Game.getInstance( ).getFunctionalPlayer( ).getTextBorderColor( ), true, Game.getInstance( ).getFunctionalPlayer( ).getShowsSpeechBubbles( ) );
     }
 
@@ -547,15 +559,14 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
      */
     private void optionNodeWithOptionSelected( ) {
 
-        
         // restart the values related to option shifting
-        if (numberOfOptionLineToShift == -1){
-            optionLineOffset=0;
-            timeShowingOptions=0;
-           // numberOfOptionLineToShift = -1;
+        if( numberOfOptionLineToShift == -1 ) {
+            optionLineOffset = 0;
+            timeShowingOptions = 0;
+            // numberOfOptionLineToShift = -1;
             msContinueSitfting = 0;
         }
-        
+
         if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) ) {
             if( mouseClickedButton == MouseEvent.BUTTON1 ) {
                 DebugLog.user( "Skipped line in conversation" );
@@ -592,6 +603,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
      * Finalize the conversation
      */
     private void endConversation( ) {
+
         gameLog.highLevelEvent( CONV_EXIT, originalConvID );
         for( ConversationNode node : game.getConversation( ).getAllNodes( ) ) {
             node.resetEffect( );
@@ -604,22 +616,23 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
      * If the user chooses a valid option, it is selected and its text show.
      */
     private void selectDisplayedOption( ) {
-        
-     // restart the values related to option shifting
-        if (numberOfOptionLineToShift == -1){
-            optionLineOffset=0;
-            timeShowingOptions=0;
+
+        // restart the values related to option shifting
+        if( numberOfOptionLineToShift == -1 ) {
+            optionLineOffset = 0;
+            timeShowingOptions = 0;
             numberOfOptionLineToShift = -1;
             msContinueSitfting = 0;
         }
 
         if( optionSelected >= 0 && optionSelected < optionsToShow.size( ) ) {
-            gameLog.highLevelEvent( CONV_SELECT_OPTION, originalConvID, Integer.toString( optionSelected ) );
+
             if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
                 game.getCharacterCurrentlyTalking( ).stopTalking( );
 
             FunctionalPlayer player = game.getFunctionalPlayer( );
             ConversationLine line = currentNode.getLine( correspondingIndex.get( optionSelected ) );
+            gameLog.highLevelEvent( CONV_SELECT_OPTION, originalConvID, Integer.toString( optionSelected ), line.getText( ) );
 
             if( ( (OptionConversationNode) currentNode ).isShowUserOption( ) ) {
 
@@ -650,7 +663,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
         if( !keyPressed )
             optionSelected += firstLineDisplayed;
 
-        int indexLastLine = Math.min( firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, optionsToShow.size( ));
+        int indexLastLine = Math.min( firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, optionsToShow.size( ) );
 
         if( optionSelected == indexLastLine ) {
             firstLineDisplayed += RESPONSE_TEXT_NUMBER_LINES - 1;
@@ -658,8 +671,8 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
                 firstLineDisplayed = 0;
         }
         else //Avoid to select an option bigger than the options shown 
-        	 //(case: options in the upper part of the screen and user click down the last option)
-               if (optionSelected < indexLastLine)
+             //(case: options in the upper part of the screen and user click down the last option)
+        if( optionSelected < indexLastLine )
             selectDisplayedOption( );
     }
 
@@ -667,23 +680,21 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
     public synchronized void mouseClicked( MouseEvent e ) {
 
         if( currentNode.getType( ) == ConversationNodeView.OPTION && !isOptionSelected ) {
-            
-         // get the Y position value for the current options conversation node
-            int yValue =  ((OptionConversationNode)currentNode).getY( );
-            
-            if (yValue <= e.getY( ) && 
-                    yValue + optionsToShow.size( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) 
-                    && !isOptionSelected){
-            
-            if( MultimediaManager.getInstance( ).isPlaying( audioId ) )
-                MultimediaManager.getInstance( ).stopPlaying( audioId );
 
-            optionSelected = ( e.getY( ) - yValue ) / RESPONSE_TEXT_HEIGHT;
-            if( optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES )
-                selectDisplayedOption( );
-            else
-                selectNoAllDisplayedOption( );
-        }
+            // get the Y position value for the current options conversation node
+            int yValue = ( (OptionConversationNode) currentNode ).getY( );
+
+            if( yValue <= e.getY( ) && yValue + optionsToShow.size( ) * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY( ) && !isOptionSelected ) {
+
+                if( MultimediaManager.getInstance( ).isPlaying( audioId ) )
+                    MultimediaManager.getInstance( ).stopPlaying( audioId );
+
+                optionSelected = ( e.getY( ) - yValue ) / RESPONSE_TEXT_HEIGHT;
+                if( optionsToShow.size( ) <= RESPONSE_TEXT_NUMBER_LINES )
+                    selectDisplayedOption( );
+                else
+                    selectNoAllDisplayedOption( );
+            }
 
         }
         else if( currentNode.getType( ) == ConversationNodeView.DIALOGUE || isOptionSelected ) {
@@ -712,15 +723,15 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
             else if( optionSelected >= firstLineDisplayed && optionSelected <= numberDisplayedOptions + firstLineDisplayed )
                 selectNoAllDisplayedOption( );
         }
-        
+
         // Line skipping controls (only dialogues)
-        else if ( currentNode.getType( ) == ConversationNodeView.DIALOGUE ){
+        else if( currentNode.getType( ) == ConversationNodeView.DIALOGUE ) {
             // If  VK right is pressed, one line is advanced (like left click)
-            if (e.getKeyCode( ) == KeyEvent.VK_RIGHT){
+            if( e.getKeyCode( ) == KeyEvent.VK_RIGHT ) {
                 mouseClickedButton = MouseEvent.BUTTON1;
             }
             // IF Av page or esc is pressed, all conv/node skipped (like right click)
-            else if (e.getKeyCode( ) == KeyEvent.VK_PAGE_DOWN || e.getKeyCode( ) == KeyEvent.VK_ESCAPE){
+            else if( e.getKeyCode( ) == KeyEvent.VK_PAGE_DOWN || e.getKeyCode( ) == KeyEvent.VK_ESCAPE ) {
                 mouseClickedButton = MouseEvent.BUTTON3;
             }
         }
@@ -729,15 +740,15 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
     @Override
     public void mouseMoved( MouseEvent e ) {
 
-        if (currentNode.getType( ) == ConversationNodeView.OPTION ){
-            int yValue =  ((OptionConversationNode)currentNode).getY( );
-        if( yValue <= e.getY( ) && e.getY( ) < yValue + ((OptionConversationNode)currentNode).getLineCount( )*RESPONSE_TEXT_HEIGHT  )
-            optionHighlighted = ( e.getY( ) - yValue ) / RESPONSE_TEXT_HEIGHT;
-        else 
-            optionHighlighted = -1;
-        
+        if( currentNode.getType( ) == ConversationNodeView.OPTION ) {
+            int yValue = ( (OptionConversationNode) currentNode ).getY( );
+            if( yValue <= e.getY( ) && e.getY( ) < yValue + ( (OptionConversationNode) currentNode ).getLineCount( ) * RESPONSE_TEXT_HEIGHT )
+                optionHighlighted = ( e.getY( ) - yValue ) / RESPONSE_TEXT_HEIGHT;
+            else
+                optionHighlighted = -1;
+
         }
-        
+
     }
 
     /**
@@ -745,6 +756,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
      * end the conversation and trigger the efects or jump to the next node
      */
     private void playNextLine( ) {
+
         gameLog.highLevelEvent( CONV_SKIP_LINE, originalConvID, Integer.toString( currentLine ) );
         if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
             game.getCharacterCurrentlyTalking( ).stopTalking( );
@@ -761,41 +773,41 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
     private void playNextLineInNode( ) {
 
         //if the line before the option node is going to be shown, skip it and show directly with the options
-        if (currentLine + 1 == currentNode.getLineCount( ) && !currentNode.isTerminal( ) && 
-                currentNode.getChild( 0 ).getType( ) == ConversationNodeView.OPTION && ((OptionConversationNode)currentNode.getChild( 0 )).isKeepShowing( )){
-            
+        if( currentLine + 1 == currentNode.getLineCount( ) && !currentNode.isTerminal( ) && currentNode.getChild( 0 ).getType( ) == ConversationNodeView.OPTION && ( (OptionConversationNode) currentNode.getChild( 0 ) ).isKeepShowing( ) ) {
+
             currentLine++;
             skipToNextNode( );
-            
-        } else {
+
+        }
+        else {
             ConversationLine line = currentNode.getLine( currentLine );
             TalkingElement talking = null;
-        
-        // Only talk if all conditions in current line are OK
-        if( ( new FunctionalConditions( currentNode.getLine( currentLine ).getConditions( ) ).allConditionsOk( ) ) ) {
 
-            if( line.isPlayerLine( ) )
-                talking = game.getFunctionalPlayer( );
-            else {
-                if( line.getName( ).equals( "NPC" ) )
-                    talking = game.getCurrentNPC( );
-                else
-                    talking = game.getFunctionalScene( ).getNPC( line.getName( ) );
-            }
+            // Only talk if all conditions in current line are OK
+            if( ( new FunctionalConditions( currentNode.getLine( currentLine ).getConditions( ) ).allConditionsOk( ) ) ) {
 
-            if( talking != null ) {
-                boolean keepShowing = generalKeepShowing ||  ( (DialogueConversationNode) currentNode ).isKeepShowing( ) || line.isKeepShowing( );
-                
-                if( line.isValidAudio( ) )
-                    talking.speak( line.getText( ), line.getAudioPath( ), keepShowing );
-                else if( line.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) )
-                    talking.speakWithFreeTTS( line.getText( ), talking.getPlayerVoice( ), keepShowing );
-                else
-                    talking.speak( line.getText( ), keepShowing );
+                if( line.isPlayerLine( ) )
+                    talking = game.getFunctionalPlayer( );
+                else {
+                    if( line.getName( ).equals( "NPC" ) )
+                        talking = game.getCurrentNPC( );
+                    else
+                        talking = game.getFunctionalScene( ).getNPC( line.getName( ) );
+                }
+
+                if( talking != null ) {
+                    boolean keepShowing = generalKeepShowing || ( (DialogueConversationNode) currentNode ).isKeepShowing( ) || line.isKeepShowing( );
+
+                    if( line.isValidAudio( ) )
+                        talking.speak( line.getText( ), line.getAudioPath( ), keepShowing );
+                    else if( line.getSynthesizerVoice( ) || talking.isAlwaysSynthesizer( ) )
+                        talking.speakWithFreeTTS( line.getText( ), talking.getPlayerVoice( ), keepShowing );
+                    else
+                        talking.speak( line.getText( ), keepShowing );
+                }
+                game.setCharacterCurrentlyTalking( talking );
             }
-            game.setCharacterCurrentlyTalking( talking );
-        }
-        currentLine++;
+            currentLine++;
         }
     }
 
@@ -804,8 +816,9 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
      * Consume the effects of the current node.
      */
     private void skipToNextNode( ) {
-        ensureLookEachOther();
-        
+
+        ensureLookEachOther( );
+
         if( currentLine != 0 )
             lastConversationLine = currentNode.getConversationLine( currentLine - 1 );
         else
@@ -822,7 +835,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
         else if( !currentNode.isTerminal( ) ) {
             currentNode.resetEffect( );
             currentNode = currentNode.getChild( 0 );
-            gameLog.highLevelEvent( CONV_SKIP_NODE, originalConvID);
+            gameLog.highLevelEvent( CONV_SKIP_NODE, originalConvID );
             firstLineDisplayed = 0;
             currentLine = 0;
         }
@@ -868,23 +881,21 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
 
         return convID;
     }
-    
-    
+
     /**
      * 
      */
-    private void lookForTalkers(){
-        
+    private void lookForTalkers( ) {
+
         boolean bothAssigned = false;
         boolean endGraph = false;
         List<ConversationNode> nodeList = game.getConversation( ).getAllNodes( );
-        
-        
-        for (ConversationNode convNode: nodeList){
-            for (int i =0; i<convNode.getLineCount( ); i++){
+
+        for( ConversationNode convNode : nodeList ) {
+            for( int i = 0; i < convNode.getLineCount( ); i++ ) {
                 ConversationLine line = convNode.getConversationLine( i );
                 FunctionalElement currentLineFunctionalElement = null;
-                
+
                 if( line.isPlayerLine( ) )
                     currentLineFunctionalElement = game.getFunctionalPlayer( );
                 else {
@@ -893,45 +904,39 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
                     else
                         currentLineFunctionalElement = game.getFunctionalScene( ).getNPC( line.getName( ) );
                 }
-                
-                
-                if (oneTalker==null)
+
+                if( oneTalker == null )
                     oneTalker = currentLineFunctionalElement;
-                
-                else if (otherTalker != null ){
-                        // check if is not the same
-                        if( !oneTalker.getElement( ).getId( ).equals( currentLineFunctionalElement.getElement( ).getId( )) )   
-                                otherTalker = currentLineFunctionalElement;
-                } 
+
+                else if( otherTalker != null ) {
+                    // check if is not the same
+                    if( !oneTalker.getElement( ).getId( ).equals( currentLineFunctionalElement.getElement( ).getId( ) ) )
+                        otherTalker = currentLineFunctionalElement;
+                }
                 // oneTalker != null and otherTalker!= null
                 else {
                     break;
                 }
-        
-                
-                
+
             }
         }
-        
-        
-        
+
     }
-    
-    private void ensureLookEachOther(){
+
+    private void ensureLookEachOther( ) {
+
         // check that there are at least two NPCs/player in this conversation
         if( oneTalker != null && otherTalker != null ) {
-            if( oneTalker.getX( ) > otherTalker.getX( ) ){
-                ((TalkingElement)otherTalker).setDirection( AnimationState.EAST );
-                ((TalkingElement)oneTalker).setDirection( AnimationState.WEST);
+            if( oneTalker.getX( ) > otherTalker.getX( ) ) {
+                ( (TalkingElement) otherTalker ).setDirection( AnimationState.EAST );
+                ( (TalkingElement) oneTalker ).setDirection( AnimationState.WEST );
             }
-            else{
-                ((TalkingElement)otherTalker).setDirection( AnimationState.WEST );
-                ((TalkingElement)oneTalker).setDirection( AnimationState.EAST);
+            else {
+                ( (TalkingElement) otherTalker ).setDirection( AnimationState.WEST );
+                ( (TalkingElement) oneTalker ).setDirection( AnimationState.EAST );
             }
-                
+
         }
     }
-    
-    
-    
+
 }

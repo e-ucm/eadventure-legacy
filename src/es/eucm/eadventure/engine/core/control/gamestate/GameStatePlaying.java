@@ -1,41 +1,41 @@
 /*******************************************************************************
- * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the e-UCM
- *          research group.
- *   
- *    Copyright 2005-2012 e-UCM research group.
- *  
- *     e-UCM is a research group of the Department of Software Engineering
- *          and Artificial Intelligence at the Complutense University of Madrid
- *          (School of Computer Science).
- *  
- *          C Profesor Jose Garcia Santesmases sn,
- *          28040 Madrid (Madrid), Spain.
- *  
- *          For more info please visit:  <http://e-adventure.e-ucm.es> or
- *          <http://www.e-ucm.es>
- *  
- *  ****************************************************************************
+ * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the
+ * e-UCM research group.
+ * 
+ * Copyright 2005-2012 e-UCM research group.
+ * 
+ * e-UCM is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
+ * 
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
+ * 
+ * ****************************************************************************
  * This file is part of eAdventure, version 1.5.
  * 
- *   You can access a list of all the contributors to eAdventure at:
- *          http://e-adventure.e-ucm.es/contributors
- *  
- *  ****************************************************************************
- *       eAdventure is free software: you can redistribute it and/or modify
- *      it under the terms of the GNU Lesser General Public License as published by
- *      the Free Software Foundation, either version 3 of the License, or
- *      (at your option) any later version.
- *  
- *      eAdventure is distributed in the hope that it will be useful,
- *      but WITHOUT ANY WARRANTY; without even the implied warranty of
- *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *      GNU Lesser General Public License for more details.
- *  
- *      You should have received a copy of the GNU Lesser General Public License
- *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
+ * You can access a list of all the contributors to eAdventure at:
+ * http://e-adventure.e-ucm.es/contributors
+ * 
+ * ****************************************************************************
+ * eAdventure is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * eAdventure is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Adventure. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.gamestate;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -49,6 +49,7 @@ import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridManager;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.tracking.pub.replay.Replayer;
 
 /**
  * A game main loop during the normal game
@@ -59,20 +60,22 @@ public class GameStatePlaying extends GameState {
      * List of mouse events.
      */
     private Queue<MouseEvent> vMouse;
-    
+
     private GridManager gridManager;
-    
+
     /**
      * Constructor.
      */
     public GameStatePlaying( ) {
+
         super( );
         vMouse = new ConcurrentLinkedQueue<MouseEvent>( );
-        if (Game.getInstance( ).getGameDescriptor( ).isKeyboardNavigationEnabled( )){
-            gridManager = new GridManager();
-        } else
-            gridManager= null;
-        
+        if( Game.getInstance( ).getGameDescriptor( ).isKeyboardNavigationEnabled( ) ) {
+            gridManager = new GridManager( );
+        }
+        else
+            gridManager = null;
+
     }
 
     /*
@@ -81,10 +84,11 @@ public class GameStatePlaying extends GameState {
      */
     @Override
     public synchronized void mainLoop( long elapsedTime, int fps ) {
+
         // Process the mouse events
         MouseEvent e;
-        while( (e = vMouse.poll( )) != null ) {
-            switch (e.getID( )) {
+        while( ( e = vMouse.poll( ) ) != null ) {
+            switch( e.getID( ) ) {
                 case MouseEvent.MOUSE_CLICKED:
                     mouseClickedEvent( e );
                     break;
@@ -113,7 +117,7 @@ public class GameStatePlaying extends GameState {
 
         // Draw the functional scene, and then the GUI
         game.getFunctionalScene( ).draw( );
-        
+
         GUI.getInstance( ).drawScene( g, elapsedTime );
 
         GUI.getInstance( ).drawHUD( g );
@@ -173,15 +177,21 @@ public class GameStatePlaying extends GameState {
 
         }
 
-
-        
         // Update the data pending from the flags
         game.updateDataPendingFromState( true );
+
+        if( Replayer.replaying ) {
+            g.setColor( Color.WHITE );
+            g.drawString( "Current scene: " + Replayer.getCurrentScene( ), 10, 14 );
+            if ( Replayer.errorOpt ){
+                g.drawString( "Error with options generation", 10, 34 );
+            }
+        }
 
         // Ends the draw process
         GUI.getInstance( ).endDraw( );
         g.dispose( );
-        
+
     }
 
     @Override
@@ -204,7 +214,7 @@ public class GameStatePlaying extends GameState {
 
     @Override
     public synchronized void mouseReleased( MouseEvent e ) {
-       
+
         vMouse.add( e );
     }
 
@@ -221,7 +231,8 @@ public class GameStatePlaying extends GameState {
      *            Mouse event
      */
     public void mouseClickedEvent( MouseEvent e ) {
-        if(!GUI.getInstance( ).mouseClickedInHud( e ))
+
+        if( !GUI.getInstance( ).mouseClickedInHud( e ) )
             game.getActionManager( ).mouseClicked( e );
     }
 
@@ -232,30 +243,35 @@ public class GameStatePlaying extends GameState {
      *            Mouse event
      */
     public void mouseMovedEvent( MouseEvent e ) {
-        game.getActionManager( ).deleteCustomExit(  );
+
+        game.getActionManager( ).deleteCustomExit( );
         game.getActionManager( ).setElementOver( null );
 
-        if(!GUI.getInstance( ).mouseMovedinHud( e ) ) {
+        if( !GUI.getInstance( ).mouseMovedinHud( e ) ) {
             game.getActionManager( ).mouseMoved( e );
         }
     }
 
     private void mouseReleasedEvent( MouseEvent e ) {
+
         GUI.getInstance( ).mouseReleasedinHud( e );
     }
 
     private void mousePressedEvent( MouseEvent e ) {
+
         GUI.getInstance( ).mousePressedinHud( e );
     }
 
     @Override
     public void keyPressed( KeyEvent e ) {
-        if (gridManager==null){
-            if (e.getKeyCode( )==KeyEvent.VK_ESCAPE){
+
+        if( gridManager == null ) {
+            if( e.getKeyCode( ) == KeyEvent.VK_ESCAPE ) {
                 if( !GUI.getInstance( ).keyInHud( e ) )
                     game.setState( Game.STATE_OPTIONS );
             }
-        } else {
+        }
+        else {
             gridManager.handleKeyEvent( e );
         }
     }
