@@ -2243,7 +2243,7 @@ public class Controller {
 
                 if( validated ) {
                     //String loName = this.showInputDialog( TextConstants.getText( "Operation.ExportToLOM.Title" ), TextConstants.getText( "Operation.ExportToLOM.Message" ), TextConstants.getText( "Operation.ExportToLOM.DefaultValue" ));
-                    if( loName != null && !loName.equals( "" ) && !loName.contains( " " ) ) {
+                    if( loName != null && !loName.equals( "" ) && !loName.contains( " " ) && !loName.contains( "ñ" ) && !loName.contains( "Ñ" ) ) {
                         //Check authorName & organization
                         if( authorName != null && authorName.length( ) > 5 && organization != null && organization.length( ) > 5 ) {
 
