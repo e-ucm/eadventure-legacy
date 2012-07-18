@@ -335,6 +335,14 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
             int alpha = bufferedImage.getRGB( (int) ( mousex / scale ), (int) ( mousey / scale ) ) >>> 24;
             isInside = alpha > 128;
         }
+        
+        if (isInside){
+            FunctionalScene fscene = Game.getInstance( ).getFunctionalScene( );
+            if (fscene!=null){
+                fscene.resetAllItems( null );
+            }
+        }
+
 
         return isInside;
     }
