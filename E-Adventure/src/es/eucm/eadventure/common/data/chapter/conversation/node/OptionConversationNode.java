@@ -1,38 +1,37 @@
 /*******************************************************************************
- * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the e-UCM
- *          research group.
- *   
- *    Copyright 2005-2012 e-UCM research group.
- *  
- *     e-UCM is a research group of the Department of Software Engineering
- *          and Artificial Intelligence at the Complutense University of Madrid
- *          (School of Computer Science).
- *  
- *          C Profesor Jose Garcia Santesmases sn,
- *          28040 Madrid (Madrid), Spain.
- *  
- *          For more info please visit:  <http://e-adventure.e-ucm.es> or
- *          <http://www.e-ucm.es>
- *  
- *  ****************************************************************************
+ * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the
+ * e-UCM research group.
+ * 
+ * Copyright 2005-2012 e-UCM research group.
+ * 
+ * e-UCM is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
+ * 
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
+ * 
+ * ****************************************************************************
  * This file is part of eAdventure, version 1.5.
  * 
- *   You can access a list of all the contributors to eAdventure at:
- *          http://e-adventure.e-ucm.es/contributors
- *  
- *  ****************************************************************************
- *       eAdventure is free software: you can redistribute it and/or modify
- *      it under the terms of the GNU Lesser General Public License as published by
- *      the Free Software Foundation, either version 3 of the License, or
- *      (at your option) any later version.
- *  
- *      eAdventure is distributed in the hope that it will be useful,
- *      but WITHOUT ANY WARRANTY; without even the implied warranty of
- *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *      GNU Lesser General Public License for more details.
- *  
- *      You should have received a copy of the GNU Lesser General Public License
- *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
+ * You can access a list of all the contributors to eAdventure at:
+ * http://e-adventure.e-ucm.es/contributors
+ * 
+ * ****************************************************************************
+ * eAdventure is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * eAdventure is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Adventure. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.common.data.chapter.conversation.node;
 
@@ -77,31 +76,31 @@ public class OptionConversationNode extends ConversationNode {
      * Show the options randomly
      */
     private boolean random;
-    
+
     /**
      * Keep the last conversation line showing
      */
     private boolean keepShowing;
-    
+
     /**
      * Show the option selected by user
      */
     private boolean showUserOption;
-    
+
     /**
      * Pre-listening the conversation line
      */
     private boolean preListening;
-    
+
     /**
      * The position to be painted the option nodes
      */
-    private int x,y;
-    
+    private int x, y;
+
     private static final int DEFAULT_OPTION_NODE_POSITION_X = 10;
-    
+
     private static final int DEFAULT_OPTION_NODE__UPPER_POSITION_Y = 10;
-    
+
     private static final int DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y = 480;
 
     /* Methods */
@@ -119,7 +118,7 @@ public class OptionConversationNode extends ConversationNode {
     /**
      * Constructor
      */
-    public OptionConversationNode( boolean random, boolean keepShowing, boolean showUserOption, boolean preHearing, int x, int y) {
+    public OptionConversationNode( boolean random, boolean keepShowing, boolean showUserOption, boolean preHearing, int x, int y ) {
 
         options = new ArrayList<ConversationLine>( );
         optionNodes = new ArrayList<ConversationNode>( );
@@ -128,13 +127,13 @@ public class OptionConversationNode extends ConversationNode {
         this.showUserOption = showUserOption;
         this.preListening = preHearing;
         // the position of the option has been set, use it
-        if (x>0 && y>0){
+        if( x > 0 && y > 0 ) {
             this.x = x;
             this.y = y;
         } // if the positions hasn't been set, select the bottom position
         else {
-             this.x = DEFAULT_OPTION_NODE_POSITION_X;
-             this.y = DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y;
+            this.x = DEFAULT_OPTION_NODE_POSITION_X;
+            this.y = DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y;
         }
         effects = new Effects( );
     }
@@ -144,7 +143,7 @@ public class OptionConversationNode extends ConversationNode {
      */
     public OptionConversationNode( ) {
 
-        this( false, false, false, false, DEFAULT_OPTION_NODE_POSITION_X, DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y);
+        this( false, false, false, false, DEFAULT_OPTION_NODE_POSITION_X, DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y );
     }
 
     /*
@@ -312,6 +311,32 @@ public class OptionConversationNode extends ConversationNode {
         }
     }
 
+    /**
+     * Set the given answer in the given option
+     * 
+     * @param option
+     * @param line
+     */
+    public void doTheTrick( int option, String line ) {
+
+        boolean found = false;
+        int index = 0;
+        while( index < options.size( ) && !found ) {
+            ConversationLine lineNode = options.get( index );
+            if( lineNode.getText( ).equals( line ) ) {
+                found = true;
+            }
+            else {
+                index++;
+            }
+        }
+        ConversationLine lineNode = options.remove( index );
+        ConversationNode node = optionNodes.remove( index );
+
+        options.add( option, lineNode );
+        optionNodes.add( option, node );
+    }
+
     @Override
     public Object clone( ) throws CloneNotSupportedException {
 
@@ -349,67 +374,63 @@ public class OptionConversationNode extends ConversationNode {
         return options.get( index );
     }
 
-    
     public Boolean isKeepShowing( ) {
-    
+
         return keepShowing;
     }
 
-    
     public void setKeepShowing( Boolean keepShowing ) {
-    
+
         this.keepShowing = keepShowing;
     }
 
-    
     public Boolean isShowUserOption( ) {
-    
+
         return showUserOption;
     }
 
-    
     public void setShowUserOption( Boolean showUserOption ) {
-    
+
         this.showUserOption = showUserOption;
     }
 
-    
     public Boolean isPreListening( ) {
-    
+
         return preListening;
     }
 
-    
     public void setPreListening( Boolean preHearing ) {
-    
+
         this.preListening = preHearing;
     }
-    
-    public boolean isTopPosition(){
+
+    public boolean isTopPosition( ) {
+
         return y == DEFAULT_OPTION_NODE__UPPER_POSITION_Y;
     }
-    
-    public boolean isBottomPosition(){
+
+    public boolean isBottomPosition( ) {
+
         return y == DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y;
     }
-    
-    public void setTopPosition(){
+
+    public void setTopPosition( ) {
+
         y = DEFAULT_OPTION_NODE__UPPER_POSITION_Y;
     }
-    
-    public void setBottomPosition(){
+
+    public void setBottomPosition( ) {
+
         y = DEFAULT_OPTION_NODE__BOTTOM_POSITION_Y;
     }
 
-    
     public int getX( ) {
-    
+
         return x;
     }
 
-    
     public int getY( ) {
-    
+
         return y;
     }
 }

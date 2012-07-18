@@ -57,6 +57,8 @@ public interface _GameLog {
 	
 	public void highLevelEvent ( String action, String object, String target );
 	
+    public void highLevelEvent( String action, String object, String target, String line );
+	
 	public void effectEvent ( String effectCode, String ...arguments);
 	
 }

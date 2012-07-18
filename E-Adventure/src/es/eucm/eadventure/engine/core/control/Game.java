@@ -1,38 +1,37 @@
 /*******************************************************************************
- * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the e-UCM
- *          research group.
- *   
- *    Copyright 2005-2012 e-UCM research group.
- *  
- *     e-UCM is a research group of the Department of Software Engineering
- *          and Artificial Intelligence at the Complutense University of Madrid
- *          (School of Computer Science).
- *  
- *          C Profesor Jose Garcia Santesmases sn,
- *          28040 Madrid (Madrid), Spain.
- *  
- *          For more info please visit:  <http://e-adventure.e-ucm.es> or
- *          <http://www.e-ucm.es>
- *  
- *  ****************************************************************************
+ * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the
+ * e-UCM research group.
+ * 
+ * Copyright 2005-2012 e-UCM research group.
+ * 
+ * e-UCM is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
+ * 
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
+ * 
+ * ****************************************************************************
  * This file is part of eAdventure, version 1.5.
  * 
- *   You can access a list of all the contributors to eAdventure at:
- *          http://e-adventure.e-ucm.es/contributors
- *  
- *  ****************************************************************************
- *       eAdventure is free software: you can redistribute it and/or modify
- *      it under the terms of the GNU Lesser General Public License as published by
- *      the Free Software Foundation, either version 3 of the License, or
- *      (at your option) any later version.
- *  
- *      eAdventure is distributed in the hope that it will be useful,
- *      but WITHOUT ANY WARRANTY; without even the implied warranty of
- *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *      GNU Lesser General Public License for more details.
- *  
- *      You should have received a copy of the GNU Lesser General Public License
- *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
+ * You can access a list of all the contributors to eAdventure at:
+ * http://e-adventure.e-ucm.es/contributors
+ * 
+ * ****************************************************************************
+ * eAdventure is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * eAdventure is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Adventure. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control;
 
@@ -114,6 +113,7 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.tracking.pub.GameLogProxy;
 import es.eucm.eadventure.tracking.pub._GameLog;
 import es.eucm.eadventure.tracking.pub._HighLevelEvents;
+import es.eucm.eadventure.tracking.pub.replay.Replayer;
 
 /**
  * This class contains all the elements and data necessary to run an e-Adventure
@@ -124,6 +124,8 @@ import es.eucm.eadventure.tracking.pub._HighLevelEvents;
  * New functionalities: Load effects wherever in a conversation
  */
 public class Game implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Runnable, TimerEventListener, SpecialAssetPaths, _HighLevelEvents {
+
+    private static final boolean REPLAYING = true;
 
     /**
      * Constant for loading state
@@ -371,6 +373,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     private String state = "";
 
     private boolean debug = false;
+
     private RunAndDebugSettings debugOptions;
 
     private boolean fromEditor = false;
@@ -378,21 +381,23 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     private DebugValuesPanel debugChangesPanel;
 
     private DebugLogPanel debugLogPanel;
-    
+
     /**
-     * Boolean value used to determine if a special keyboard events dispatcher should be used to dispatch events to Game class.
-     * This is important to ensure that keyboard events are handled when swing components are displayed (videos, html).
+     * Boolean value used to determine if a special keyboard events dispatcher
+     * should be used to dispatch events to Game class. This is important to
+     * ensure that keyboard events are handled when swing components are
+     * displayed (videos, html).
      */
     private boolean dispatchEvents;
-    
+
     /**
      * Game Log for storing interaction info. Added in version v1.4.
      */
     private GameLogProxy gameLog;
-    
-    
+
     /**
-     * This variable identifies if the game is closed using the "X" of the window which contains the game engine.
+     * This variable identifies if the game is closed using the "X" of the
+     * window which contains the game engine.
      * 
      * It's used to avoid waiting for showing the assessment report in that case
      */
@@ -411,7 +416,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     public static void create( ) {
 
         instance = new Game( );
-        instance.gameLog = new GameLogProxy();
+        instance.gameLog = new GameLogProxy( );
     }
 
     public static void create( boolean fromEditor, RunAndDebugSettings debugOptions ) {
@@ -419,14 +424,15 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         instance = new Game( );
         instance.fromEditor = fromEditor;
         instance.debugOptions = debugOptions;
-        instance.debug = debugOptions!=null && debugOptions.isDebugMode( );
+        instance.debug = debugOptions != null && debugOptions.isDebugMode( );
         // Set logging=true to enable gamelog        
-        instance.gameLog = new GameLogProxy();
+        instance.gameLog = new GameLogProxy( );
     }
 
     public static void delete( ) {
-      //Force gamelog dump
-        instance.gameLog.terminate();
+
+        //Force gamelog dump
+        instance.gameLog.terminate( );
         staticStop( );
         if( instance.debugChangesPanel != null )
             instance.debugChangesPanel.close( );
@@ -455,7 +461,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     public void setAdventureName( String adventureName ) {
 
         this.adventureName = adventureName;
-       
+
     }
 
     /**
@@ -502,68 +508,61 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         // Load the script data
         gameData = Loader.loadChapterData( ResourceHandler.getInstance( ), chapter.getChapterPath( ), new ArrayList<Incidence>( ) );
 
-        
         GUI.getInstance( ).loading( 60 );
-        
+
         preLoadAnimations( );
-        
+
         try {
-           // store the values from flags and vars in the previous chapter
-        FlagSummary previousFlags = null;
-        if (flags!=null)
-           previousFlags = (FlagSummary) flags.clone( );
-            
-       VarSummary previousVars = null;
-       if (vars!=null)
-           previousVars = (VarSummary) vars.clone();
-       
-       
+            // store the values from flags and vars in the previous chapter
+            FlagSummary previousFlags = null;
+            if( flags != null )
+                previousFlags = (FlagSummary) flags.clone( );
 
-        // Create the flags & vars summaries 
-        flags = new FlagSummary( gameData.getFlags( ), debug );
-        vars = new VarSummary( gameData.getVars( ), debug );
+            VarSummary previousVars = null;
+            if( vars != null )
+                previousVars = (VarSummary) vars.clone( );
 
-        
-        
-        // copy the values for flags and vars that share name between chapters
-        // before the adaptation task. Adaptation changes have priority and are set
-        // after this global values copy
-        if (previousFlags!=null)
-            flags.copyValuesOfExistingsKeys( previousFlags );
-        if (previousVars!=null)
-            vars.copyValuesOfExistingsKeys( previousVars );
-      
-        
+            // Create the flags & vars summaries 
+            flags = new FlagSummary( gameData.getFlags( ), debug );
+            vars = new VarSummary( gameData.getVars( ), debug );
+
+            // copy the values for flags and vars that share name between chapters
+            // before the adaptation task. Adaptation changes have priority and are set
+            // after this global values copy
+            if( previousFlags != null )
+                flags.copyValuesOfExistingsKeys( previousFlags );
+            if( previousVars != null )
+                vars.copyValuesOfExistingsKeys( previousVars );
+
         }
         catch( CloneNotSupportedException e ) {
-            e.printStackTrace();
+            e.printStackTrace( );
         }
-        
+
         // Init the time manager
         timerManager = TimerManager.getInstance( );
         timerManager.reset( );
-        
-        if (gameData.getAdaptationName()!="")
-        chapter.setAdaptationName(gameData.getAdaptationName());
-        if (gameData.getAssessmentName()!="")
-        chapter.setAssessmentName(gameData.getAssessmentName());
-        
-        AdaptedState initialState=null;
+
+        if( gameData.getAdaptationName( ) != "" )
+            chapter.setAdaptationName( gameData.getAdaptationName( ) );
+        if( gameData.getAssessmentName( ) != "" )
+            chapter.setAssessmentName( gameData.getAssessmentName( ) );
+
+        AdaptedState initialState = null;
         // Load the assessment rules and adaptation data 
-        if (gameData.hasAdaptationProfile())
-            initialState = adaptationEngine.init( gameData.getSelectedAdaptationProfile() );
-       
-        if (gameData.hasAssessmentProfile())
-            assessmentEngine.loadAssessmentRules( gameData.getSelectedAssessmentProfile() );
-        
-        
+        if( gameData.hasAdaptationProfile( ) )
+            initialState = adaptationEngine.init( gameData.getSelectedAdaptationProfile( ) );
+
+        if( gameData.hasAssessmentProfile( ) )
+            assessmentEngine.loadAssessmentRules( gameData.getSelectedAssessmentProfile( ) );
+
         // Load the assessment rules and adaptation data (from chapter xml file)
-        if (!gameData.hasAdaptationProfile()&&chapter.hasAdaptationProfile())
-            initialState  = adaptationEngine.init( chapter.getSelectedAdaptationProfile() );
-        
-        if (!gameData.hasAssessmentProfile()&&chapter.hasAssessmentProfile())
-            assessmentEngine.loadAssessmentRules( chapter.getSelectedAssessmentProfile() );
-     
+        if( !gameData.hasAdaptationProfile( ) && chapter.hasAdaptationProfile( ) )
+            initialState = adaptationEngine.init( chapter.getSelectedAdaptationProfile( ) );
+
+        if( !gameData.hasAssessmentProfile( ) && chapter.hasAssessmentProfile( ) )
+            assessmentEngine.loadAssessmentRules( chapter.getSelectedAssessmentProfile( ) );
+
         // Initialize the required elements of the game
         actionManager = new ActionManager( );
         itemSummary = new ItemSummary( gameData.getItems( ) );
@@ -582,7 +581,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         // Initialize the stack of states (used to keep the conversations and can throw its effects)
         stackOfState = new Stack<GameState>( );
 
-        GUI.getInstance( ).loading(70);
+        GUI.getInstance( ).loading( 70 );
 
         // Load images to cache
         new GameStateOptions( );
@@ -610,18 +609,17 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             gameTimers.put( new Integer( id ), timer );
         }
 
-//        g.clearRect( 0, 0, 800, 600 );
-//        GUI.drawString( g, GameText.TEXT_LOADING_FINISHED, 400, 300 );
-//        GUI.getInstance( ).endDraw( );
-        GUI.getInstance( ).loading(90);
+        //        g.clearRect( 0, 0, 800, 600 );
+        //        GUI.drawString( g, GameText.TEXT_LOADING_FINISHED, 400, 300 );
+        //        GUI.getInstance( ).endDraw( );
+        GUI.getInstance( ).loading( 90 );
 
         currentState = new GameStateNextScene( );
 
         nextChapter = false;
 
         DebugLog.general( "Chapter loaded" );
-        
-        
+
     }
 
     /**
@@ -637,24 +635,24 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         if( adaptedState != null ) {
 
             // If it has an initial scene, set it
-            if( adaptedState.getTargetId( ) != null ){
+            if( adaptedState.getTargetId( ) != null ) {
                 boolean found = false;
                 // check the scene is in chapter
                 for( Scene scene : gameData.getScenes( ) ) {
-                    if( scene.getId( ).equals( adaptedState.getTargetId( ) ) ){
+                    if( scene.getId( ).equals( adaptedState.getTargetId( ) ) ) {
                         firstScene.setNextSceneId( adaptedState.getTargetId( ) );
                         found = true;
                     }
-                    
+
                 }
-                if (!found){
-                // check the scene is a cutscene
-                for( Cutscene cutscene : gameData.getCutscenes( ) ) {
-                    if( cutscene.getId( ).equals( adaptedState.getTargetId( ) ) )
-                        firstScene.setNextSceneId( adaptedState.getTargetId( ) );
-                
-                      }
-                 }
+                if( !found ) {
+                    // check the scene is a cutscene
+                    for( Cutscene cutscene : gameData.getCutscenes( ) ) {
+                        if( cutscene.getId( ).equals( adaptedState.getTargetId( ) ) )
+                            firstScene.setNextSceneId( adaptedState.getTargetId( ) );
+
+                    }
+                }
             }
             // Set the flags
             for( String flag : adaptedState.getActivatedFlags( ) )
@@ -720,17 +718,15 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
 
         MultimediaManager multimedia = MultimediaManager.getInstance( );
         for( Resources r : gameData.getPlayer( ).getResources( ) ) {
-            
+
             // pre load stand right resources. If doesn't exist or is empty, mirror the stand left animation
-            if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) 
-                    && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION + ".eaa" ) )
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION + ".eaa" ) )
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-            
+
             // pre load stand left resources. If doesn't exist or is empty, mirror the stand right animation
-            if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( ASSET_EMPTY_ANIMATION ) 
-                    && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION + ".eaa" ) )
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION + ".eaa" ) )
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
@@ -738,117 +734,101 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
 
-            
             // pre load speak right resources. If doesn't exist or is empty, mirror the speak left animation
-            if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION )
-                    && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION +".eaa"))
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ), true, MultimediaManager.IMAGE_PLAYER );
-            
+
             // pre load speak left resources. If doesn't exist or is empty, mirror the speak right animation
-            if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION )
-                    && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION +".eaa"))
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
             // pre-load speak up and down
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
-            
-         // pre load use right resources. If doesn't exist or is empty, mirror the use left animation
-            if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) 
-                    && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+
+            // pre load use right resources. If doesn't exist or is empty, mirror the use left animation
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ), true, MultimediaManager.IMAGE_PLAYER );
-            
+
             // pre load use left resources. If doesn't exist or is empty, mirror the use right animation
-            if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION ) 
-                    && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
 
             // pre load walk right resources. If doesn't exist or is empty, mirror the walk left animation
-            if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION )
-                    && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ), true, MultimediaManager.IMAGE_PLAYER );
-            
+
             // pre load walk left resources. If doesn't exist or is empty, mirror the walk right animation
-            if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION )
-                    && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+            if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
             else
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-         // pre-load walk up and down
+            // pre-load walk up and down
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
         }
         for( NPC npc : gameData.getCharacters( ) ) {
             for( Resources r : npc.getResources( ) ) {
-               
-             // pre load stand right resources. If doesn't exist or is empty, mirror the stand left animation
-                if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) 
-                        && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
+
+                // pre load stand right resources. If doesn't exist or is empty, mirror the stand left animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), true, MultimediaManager.IMAGE_SCENE );
-             // pre load stand left resources. If doesn't exist or is empty, mirror the stand right animation
-                if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( ASSET_EMPTY_ANIMATION ) 
-                        && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
+                // pre load stand left resources. If doesn't exist or is empty, mirror the stand right animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
-             // pre-load stand up and down
+                // pre-load stand up and down
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_SCENE );
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_SCENE );
 
-                
-             // pre load speak right resources. If doesn't exist or is empty, mirror the speak left animation
-                if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION )
-                        && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION +".eaa"))
+                // pre load speak right resources. If doesn't exist or is empty, mirror the speak left animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ), true, MultimediaManager.IMAGE_SCENE );
-             // pre load speak left resources. If doesn't exist or is empty, mirror the speak right animation
-                if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION )
-                        && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION +".eaa"))
+                // pre load speak left resources. If doesn't exist or is empty, mirror the speak right animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
-             // pre-load speak up and down
+                // pre-load speak up and down
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_SCENE );
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_SCENE );
 
-             // pre load use right resources. If doesn't exist or is empty, mirror the use left animation
-                if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION )
-                        && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+                // pre load use right resources. If doesn't exist or is empty, mirror the use left animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ), true, MultimediaManager.IMAGE_SCENE );
-             // pre load use left resources. If doesn't exist or is empty, mirror the use right animation
-                if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION )
-                        && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+                // pre load use left resources. If doesn't exist or is empty, mirror the use right animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
 
-             // pre load walk right resources. If doesn't exist or is empty, mirror the walk left animation
-                if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION )
-                        && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+                // pre load walk right resources. If doesn't exist or is empty, mirror the walk left animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ), true, MultimediaManager.IMAGE_SCENE );
-             // pre load walk left resources. If doesn't exist or is empty, mirror the walk right animation
-                if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION )
-                        && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ))
+                // pre load walk left resources. If doesn't exist or is empty, mirror the walk right animation
+                if( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION ) && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ).equals( ASSET_EMPTY_ANIMATION + ".eaa" ) )
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ), false, MultimediaManager.IMAGE_SCENE );
                 else
                     multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
-             // pre-load walk up and down
+                // pre-load walk up and down
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_SCENE );
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_SCENE );
             }
@@ -863,15 +843,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.lang.Runnable#run()
      */
     public void run( ) {
-        
-        
+
         FINISH = false;
 
         if( debug ) {
             debugLogPanel = new DebugLogPanel( );
         }
         DebugLog.general( "Log started..." );
-        
+
         /*// Timer to show how the memory varies
         java.util.Timer t = new  java.util.Timer();
         t.schedule( new TimerTask() {
@@ -881,12 +860,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             }
         }, 0, 100 );
          */
-        
+
         // Added v1.4
-        if ( debug ){
+        if( debug ) {
             printProperties( );
         }
-        
+
         try {
             this.timerManager = TimerManager.getInstance( );
             totalTime = 0;
@@ -898,10 +877,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             int oldFps = 0;
 
             // Load the game descriptor (it holds the info of the GUI and the player)
-            List<Incidence> incidences = new ArrayList<Incidence>();
+            List<Incidence> incidences = new ArrayList<Incidence>( );
             gameDescriptor = Loader.loadDescriptorData( ResourceHandler.getInstance( ), incidences );
 
-            if( gameDescriptor == null || incidences.size( )>0) {
+            if( gameDescriptor == null || incidences.size( ) > 0 ) {
                 JOptionPane.showMessageDialog( GUI.getInstance( ).getFrame( ), TC.get( "ErrorMessage.Title" ), TC.get( "ErrorMessage.Content" ), JOptionPane.ERROR_MESSAGE );
                 return;
             }
@@ -912,9 +891,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             GUI.create( );
 
             currentState = new GameStateLoading( );
-            
+
             // Just in case this is an Applet, hide the loading Message that appears on the HTML file
-            if (comm!=null){
+            if( comm != null ) {
                 String command = "javascript:hideText();";
                 comm.sendJavaScript( command );
             }
@@ -926,27 +905,28 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
              */
             dispatchEvents = true;
             if( GUI.getInstance( ).getFrame( ) != null ) {
-                KeyboardFocusManager.getCurrentKeyboardFocusManager( ).addKeyEventDispatcher( new KeyEventDispatcher(){
+                KeyboardFocusManager.getCurrentKeyboardFocusManager( ).addKeyEventDispatcher( new KeyEventDispatcher( ) {
 
                     public boolean dispatchKeyEvent( KeyEvent e ) {
-                        if (dispatchEvents){
-                            if (e.getID( ) == KeyEvent.KEY_TYPED)
+
+                        if( dispatchEvents ) {
+                            if( e.getID( ) == KeyEvent.KEY_TYPED )
                                 Game.getInstance( ).keyTyped( e );
-                            else if (e.getID( ) == KeyEvent.KEY_PRESSED)
+                            else if( e.getID( ) == KeyEvent.KEY_PRESSED )
                                 Game.getInstance( ).keyPressed( e );
-                            if (e.getID( ) == KeyEvent.KEY_RELEASED)
+                            if( e.getID( ) == KeyEvent.KEY_RELEASED )
                                 Game.getInstance( ).keyReleased( e );
                             return true;
-                        } else
+                        }
+                        else
                             return false;
                     }
-                    
-                });
+
+                } );
                 GUI.getInstance( ).getFrame( ).addMouseListener( this );
                 GUI.getInstance( ).getFrame( ).addMouseMotionListener( this );
             }
-            
-            
+
             /*if( GUI.getInstance( ).getFrame( ) != null ) {
                 GUI.getInstance( ).getFrame( ).addKeyListener( this );
                 GUI.getInstance( ).getFrame( ).addMouseListener( this );
@@ -955,9 +935,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
 
             Graphics2D g = GUI.getInstance( ).getGraphics( );
 
-            GUI.getInstance( ).loading(0);
+            GUI.getInstance( ).loading( 0 );
             gameLog.start( );
-            
+
+            if( REPLAYING ) {
+                Replayer r = new Replayer( );
+                r.loadTraces( );
+            }
+
             // Load the options
             options = new Options( );
             options.loadOptions( adventurePath, adventureName );
@@ -965,7 +950,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             // Init the assessment and adaptation engines
             adaptationEngine = new AdaptationEngine( );
             assessmentEngine = new AssessmentEngine( );
-            
+
             currentChapter = 0;
 
             boolean needsName = false;
@@ -984,12 +969,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             }
 
             GUI.getInstance( ).loading( 10 );
-            
+
             while( !gameOver ) {
                 int timeBarrier = 60;
 
                 loadCurrentChapter( g );
-                
+
                 GUI.getInstance( ).loading( 100 );
 
                 if( debug ) {
@@ -1022,35 +1007,33 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
                     }
 
                     currentState.mainLoop( elapsedTime, oldFps );
-                    
+
                     MultimediaManager.getInstance( ).update( );
                     // sent time to LAMS each 1 minute
-                    if( comm!=null && comm.getCommType( ) == CommManagerApi.LAMS_TYPE && (totalTime/1000 > timeBarrier)) {
+                    if( comm != null && comm.getCommType( ) == CommManagerApi.LAMS_TYPE && ( totalTime / 1000 > timeBarrier ) ) {
                         timeBarrier += 60;
-                      //Sent the time
-                        ArrayList l = new ArrayList();
-                        l.add( new AssessmentProperty("total-time",  String.valueOf(getTime( ))) );
+                        //Sent the time
+                        ArrayList l = new ArrayList( );
+                        l.add( new AssessmentProperty( "total-time", String.valueOf( getTime( ) ) ) );
                         comm.notifyRelevantState( l );
                     }
-                    
+
                     try {
-                        Thread.sleep( Math.max((10 - (System.currentTimeMillis( ) - time)), 0) );
+                        Thread.sleep( Math.max( ( 10 - ( System.currentTimeMillis( ) - time ) ), 0 ) );
                     }
                     catch( InterruptedException e ) {
                     }
                 }
 
                 //If there is an assessment profile, show the "Save Report" dialog
-                while( !assessmentEngine.isEndOfChapterFeedbackDone( ) && ( isClosedWindow( ) == false ) ){
+                while( !assessmentEngine.isEndOfChapterFeedbackDone( ) && ( isClosedWindow( ) == false ) ) {
                     Thread.sleep( 100 );
                 }
-                
-                
-                // FLush comm cache (if needed)
-                if (getComm( )!=null && getComm().getCommType( )==CommManagerApi.GAMETEL_TYPE)
-                    ((CommManagerGAMETEL)getComm()).flush();
 
-               
+                // FLush comm cache (if needed)
+                if( getComm( ) != null && getComm( ).getCommType( ) == CommManagerApi.GAMETEL_TYPE )
+                    ( (CommManagerGAMETEL) getComm( ) ).flush( );
+
                 if( currentChapter == gameDescriptor.getChapterSummaries( ).size( ) )
                     gameOver = true;
             }
@@ -1066,15 +1049,15 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
 
         }
     }
-    
+
     /**
      * Stops all sounds and music, the adaptation engine, the gui, etc
      */
     private void stop( ) {
 
         //Stop handling keyboard events
-        this.dispatchEvents=false;
-        
+        this.dispatchEvents = false;
+
         //Stop the music (if it is playing) and the adaptation clock
         if( functionalScene != null )
             functionalScene.stopBackgroundMusic( );
@@ -1082,13 +1065,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             adaptationEngine.stopAdaptationClock( );
 
         // Stop the communication 
-        if( comm.getCommType( ) == CommManagerApi.LAMS_TYPE ){
-            comm.sendHTMLReport( assessmentEngine.getHTMLReportStringLAMS( ) ); 
+        if( comm.getCommType( ) == CommManagerApi.LAMS_TYPE ) {
+            comm.sendHTMLReport( assessmentEngine.getHTMLReportStringLAMS( ) );
             comm.disconnect( null );
-        } else if (comm.getCommType( ) == CommManagerApi.SCORMV12_TYPE || comm.getCommType( ) == CommManagerApi.SCORMV2004_TYPE) {
-            comm.sendHTMLReport( assessmentEngine.getHTMLReportString( ) ); 
+        }
+        else if( comm.getCommType( ) == CommManagerApi.SCORMV12_TYPE || comm.getCommType( ) == CommManagerApi.SCORMV2004_TYPE ) {
+            comm.sendHTMLReport( assessmentEngine.getHTMLReportString( ) );
             comm.disconnect( null );
-            
+
         }
         //Force gamelog dump
         gameLog.terminate( );
@@ -1099,6 +1083,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * Stops all sounds and music, the gui, etc
      */
     private static void staticStop( ) {
+
         //Delete all sounds
         if( MultimediaManager.getInstance( ) != null )
             MultimediaManager.getInstance( ).deleteSounds( );
@@ -1224,19 +1209,18 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
             // If we found the item we wanted
             if( currentItem.getItem( ).getId( ).equals( itemId ) )
                 grabbedItem = currentItem;
-                    
+
         // if the element is not in the scene, take it from the data model
-        if (grabbedItem == null){
+        if( grabbedItem == null ) {
             grabbedItem = new FunctionalItem( gameData.getItem( itemId ), (InfluenceArea) null );
-        } 
+        }
         // if the element is in the scene
         else {
-            
+
             // Delete the item from the scene
             functionalScene.getItems( ).remove( grabbedItem );
         }
 
-        
         // Insert the item in the inventory
         inventory.storeItem( grabbedItem );
 
@@ -1268,10 +1252,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     public void generateItem( String itemId ) {
 
         if( itemSummary.isItemNormal( itemId ) ) {
-           // 23/11/2010 the object has to disappear from the scene when it's generated (aba)
+            // 23/11/2010 the object has to disappear from the scene when it's generated (aba)
             // inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ), (InfluenceArea) null ) );
-           // itemSummary.grabItem( itemId );
-            grabItem(itemId);
+            // itemSummary.grabItem( itemId );
+            grabItem( itemId );
         }
         else if( itemSummary.isItemConsumed( itemId ) ) {
             // 23/11/2010 in this case it is not necesary because the item is not being showhed in the secene
@@ -1290,7 +1274,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
 
         return actionManager;
     }
-
 
     /**
      * Push in the state stack the GameState gs
@@ -1386,6 +1369,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * Sets game over to true
      */
     public void setGameOver( ) {
+
         getGameLog( ).highLevelEvent( EXIT_GAME );
         gameOver = true;
     }
@@ -1409,8 +1393,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      *            New functional scene
      */
     public void setFunctionalScene( FunctionalScene scene ) {
-        if (this.functionalScene != null) {
-            functionalScene.freeMemory();
+
+        if( this.functionalScene != null ) {
+            functionalScene.freeMemory( );
             functionalScene = null;
             Runtime.getRuntime( ).gc( );
         }
@@ -1454,35 +1439,32 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      *            New next scene structure
      */
     public void setNextScene( Exit nextScene ) {
-        
+
         // only actualize the lastScene attribute when there is a change to a scene, not cutscene
-        if (!isCutscene(nextScene.getNextSceneId( )) && this.getFunctionalScene( ) != null){
-            this.lastNextScene = new Exit(this.getFunctionalScene( ).getScene( ).getId( ));
+        if( !isCutscene( nextScene.getNextSceneId( ) ) && this.getFunctionalScene( ) != null ) {
+            this.lastNextScene = new Exit( this.getFunctionalScene( ).getScene( ).getId( ) );
             this.lastNextScene.setDestinyX( this.getFunctionalScene( ).getScene( ).getPositionX( ) );
             this.lastNextScene.setDestinyY( this.getFunctionalScene( ).getScene( ).getPositionY( ) );
         }
         this.nextScene = nextScene;
     }
-    
-    
-    private boolean isCutscene(String id){
-        
-        
-        return this.gameData.getCutscene( id )!= null;
-        
+
+    private boolean isCutscene( String id ) {
+
+        return this.gameData.getCutscene( id ) != null;
+
     }
-    
-    
+
     /**
      * Set the last scene taking the current functional scene
      */
     // this method is needed to set correctly the last scene attribute used in LAST SCENE effect in those
     // cutscene set to return to the previous scene
-   /* public void setLastSceneFromCurrentFunctionalScene(){
-        lastNextScene = new Exit (this.functionalScene.getScene( ).getId( ) );
-        lastNextScene.setDestinyX( this.functionalScene.getScene( ).getPositionX( ) );
-        lastNextScene.setDestinyY( this.functionalScene.getScene( ).getPositionY( ) );
-    }*/
+    /* public void setLastSceneFromCurrentFunctionalScene(){
+         lastNextScene = new Exit (this.functionalScene.getScene( ).getId( ) );
+         lastNextScene.setDestinyX( this.functionalScene.getScene( ).getPositionX( ) );
+         lastNextScene.setDestinyY( this.functionalScene.getScene( ).getPositionY( ) );
+     }*/
 
     /**
      * Returns the current next scene
@@ -1769,6 +1751,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * game, and the rules processed.
      */
     public synchronized void updateDataPendingFromState( boolean notifyTimerCycles ) {
+
         timerManager.update( notifyTimerCycles );
         functionalScene.updateScene( );
         if( gameData.hasAssessmentProfile( ) )
@@ -1905,7 +1888,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
      */
     public void keyTyped( KeyEvent arg0 ) {
-        getGameLog().lowLevelEvent( arg0 );
+
+        getGameLog( ).lowLevelEvent( arg0 );
     }
 
     /**
@@ -1940,6 +1924,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      *            transition in the FSM
      */
     private void removeFakeDrags( MouseEvent e ) {
+
         if( e.getID( ) == MouseEvent.MOUSE_PRESSED ) {
             state = "P";
             lastPressedEvent = e;
@@ -1975,7 +1960,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
      */
     public void keyPressed( KeyEvent e ) {
-        getGameLog().lowLevelEvent( e );
+
+        getGameLog( ).lowLevelEvent( e );
         currentState.keyPressed( e );
     }
 
@@ -1984,7 +1970,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
      */
     public void keyReleased( KeyEvent arg0 ) {
-        getGameLog().lowLevelEvent( arg0 );
+
+        getGameLog( ).lowLevelEvent( arg0 );
     }
 
     /*
@@ -1992,7 +1979,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
      */
     public void mouseClicked( MouseEvent e ) {
-        getGameLog().lowLevelEvent( e );
+
+        getGameLog( ).lowLevelEvent( e );
         currentState.mouseClicked( e );
         removeFakeDrags( e );
     }
@@ -2002,7 +1990,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
      */
     public void mouseMoved( MouseEvent e ) {
-        getGameLog().lowLevelEvent( e );
+
+        getGameLog( ).lowLevelEvent( e );
         currentState.mouseMoved( e );
         lastMouseEvent = e;
         removeFakeDrags( e );
@@ -2013,7 +2002,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
      */
     public void mousePressed( MouseEvent e ) {
-        getGameLog().lowLevelEvent( e );
+
+        getGameLog( ).lowLevelEvent( e );
         currentState.mousePressed( e );
         removeFakeDrags( e );
     }
@@ -2023,7 +2013,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
      */
     public void mouseReleased( MouseEvent e ) {
-        getGameLog().lowLevelEvent( e );
+
+        getGameLog( ).lowLevelEvent( e );
         currentState.mouseReleased( e );
         removeFakeDrags( e );
     }
@@ -2033,7 +2024,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
      */
     public void mouseEntered( MouseEvent e ) {
-        getGameLog().lowLevelEvent( e );
+
+        getGameLog( ).lowLevelEvent( e );
     }
 
     /*
@@ -2041,7 +2033,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
      */
     public void mouseExited( MouseEvent e ) {
-        getGameLog().lowLevelEvent( e );
+
+        getGameLog( ).lowLevelEvent( e );
     }
 
     /*
@@ -2049,14 +2042,16 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
      */
     public void mouseDragged( MouseEvent e ) {
-        getGameLog().lowLevelEvent( e );
+
+        getGameLog( ).lowLevelEvent( e );
         currentState.mouseDragged( e );
         lastMouseEvent = e;
         removeFakeDrags( e );
     }
 
     public void mouseWheelMoved( MouseWheelEvent e ) {
-        getGameLog().lowLevelEvent( e );
+
+        getGameLog( ).lowLevelEvent( e );
     }
 
     /**
@@ -2065,8 +2060,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @return MouseEvent the last MouseEvent
      */
     public MouseEvent getLastMouseEvent( ) {
-        if (lastMouseEvent==null)
-            lastMouseEvent = new MouseEvent(GUI.getInstance( ).getFrame( ), MouseEvent.MOUSE_MOVED, 0, 0, MouseEvent.ALT_MASK, 0, 0, false);
+
+        if( lastMouseEvent == null )
+            lastMouseEvent = new MouseEvent( GUI.getInstance( ).getFrame( ), MouseEvent.MOUSE_MOVED, 0, 0, MouseEvent.ALT_MASK, 0, 0, false );
         return lastMouseEvent;
     }
 
@@ -2100,8 +2096,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
 
         return debug;
     }
-    
-    public RunAndDebugSettings getDebugOptions(){
+
+    public RunAndDebugSettings getDebugOptions( ) {
+
         return debugOptions;
     }
 
@@ -2115,10 +2112,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         return flags.processText( vars.processText( text ) );
     }
 
-    public boolean isInventoryFixed(){
+    public boolean isInventoryFixed( ) {
+
         return gameDescriptor.getInventoryPosition( ) == DescriptorData.INVENTORY_FIXED_TOP || gameDescriptor.getInventoryPosition( ) == DescriptorData.INVENTORY_FIXED_BOTTOM;
     }
-    
+
     public boolean showTopInventory( ) {
 
         return gameDescriptor.getInventoryPosition( ) == DescriptorData.INVENTORY_TOP || gameDescriptor.getInventoryPosition( ) == DescriptorData.INVENTORY_FIXED_TOP || gameDescriptor.getInventoryPosition( ) == DescriptorData.INVENTORY_TOP_BOTTOM;
@@ -2130,87 +2128,89 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     }
 
     public boolean isShowActions( ) {
+
         return gameDescriptor.getDefaultClickAction( ) == DescriptorData.DefaultClickAction.SHOW_ACTIONS;
     }
-    
-    public boolean isIsometric() {
+
+    public boolean isIsometric( ) {
+
         return gameDescriptor.getPerspective( ) == Perspective.ISOMETRIC;
     }
-    
-    public boolean isIgnoreNonTargets() {
+
+    public boolean isIgnoreNonTargets( ) {
+
         return gameDescriptor.getDragBehaviour( ) == DragBehaviour.IGNORE_NON_TARGETS;
     }
 
     public GameState getCurrentState( ) {
+
         return currentState;
     }
 
-    
     public _GameLog getGameLog( ) {
-    
+
         return gameLog.getGameLog( );
     }
-    
+
     private String musicInSlides = null;
-    private long musicInSlidesId=-1L;
-    
-    public void setMusicInSlides(String music){
+
+    private long musicInSlidesId = -1L;
+
+    public void setMusicInSlides( String music ) {
+
         this.musicInSlides = music;
     }
-    
-    public String getMusicInSlides(){
+
+    public String getMusicInSlides( ) {
+
         return musicInSlides;
     }
 
-    
     public long getMusicInSlidesId( ) {
-    
+
         return musicInSlidesId;
     }
 
-    
     public void setMusicInSlidesId( long musicInSlidesId ) {
-    
+
         this.musicInSlidesId = musicInSlidesId;
     }
-    
+
     /**
      * Added in v1.4 to facilitate debugging.
      */
-    private void printProperties(){
+    private void printProperties( ) {
+
         Properties p = System.getProperties( );
-        DebugLog.general("****************************" );
-        DebugLog.general("**  SYSTEM PROPERTIES  ***" );
-        DebugLog.general("****************************" );
-        
-        for (Object key:p.keySet( )){
-            DebugLog.general( "[ "+key+" , "+p.getProperty( (String)key )+"]" );    
+        DebugLog.general( "****************************" );
+        DebugLog.general( "**  SYSTEM PROPERTIES  ***" );
+        DebugLog.general( "****************************" );
+
+        for( Object key : p.keySet( ) ) {
+            DebugLog.general( "[ " + key + " , " + p.getProperty( (String) key ) + "]" );
         }
-        DebugLog.general("****************************" );
-        DebugLog.general("**  TOOLKIT PROPERTIES  ***" );
+        DebugLog.general( "****************************" );
+        DebugLog.general( "**  TOOLKIT PROPERTIES  ***" );
         Toolkit t = Toolkit.getDefaultToolkit( );
-        DebugLog.general( "[MAX CURSOR COLORS = "+t.getMaximumCursorColors( ) +"]");
-        DebugLog.general( "[MENU SHORTCUT KEY MASK = "+t.getMenuShortcutKeyMask( ) +"]");
-        DebugLog.general( "[SCREEN RESOLUTION = "+t.getScreenResolution( ) +"]");
-        DebugLog.general( "[SCREEN SIZE = "+t.getScreenSize( ).width + " X " +t.getScreenSize( ).height +"]");
-        DebugLog.general("****************************" );
+        DebugLog.general( "[MAX CURSOR COLORS = " + t.getMaximumCursorColors( ) + "]" );
+        DebugLog.general( "[MENU SHORTCUT KEY MASK = " + t.getMenuShortcutKeyMask( ) + "]" );
+        DebugLog.general( "[SCREEN RESOLUTION = " + t.getScreenResolution( ) + "]" );
+        DebugLog.general( "[SCREEN SIZE = " + t.getScreenSize( ).width + " X " + t.getScreenSize( ).height + "]" );
+        DebugLog.general( "****************************" );
     }
 
-    
     public boolean isGameOver( ) {
-    
+
         return gameOver;
     }
 
-    
     public boolean isClosedWindow( ) {
-    
+
         return closedWindow;
     }
 
-    
     public void setClosedWindow( boolean closedWindow ) {
-    
+
         this.closedWindow = closedWindow;
     }
 }
