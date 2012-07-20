@@ -307,7 +307,7 @@ public class EffectsStructurePanel extends StructurePanel {
             if( i == selectedElement )
                 add( createSelectedElementPanel( element, i ), new Integer( element.getChildCount( ) != 0 ? -1 : 40 ) );
             else {
-                button = new JButton( element.getName( ), element.getIcon( ) );
+                button = new JButton( element.getName( ));
                 button.setHorizontalAlignment( SwingConstants.LEFT );
                 Border b1 = BorderFactory.createRaisedBevelBorder( );
                 Border b2 = BorderFactory.createEmptyBorder( 3, 10, 3, 10 );
