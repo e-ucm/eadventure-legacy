@@ -36,8 +36,9 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects;
 
+import javax.swing.Icon;
+
 import es.eucm.eadventure.editor.gui.structurepanel.EffectsStructureElement;
-import es.eucm.eadventure.editor.gui.structurepanel.EffectsStructurePanel;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElement;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureListElement;
 
@@ -53,7 +54,7 @@ public abstract class EffectsStructureListElement extends StructureListElement {
     public EffectsStructureListElement( String name ) {
 
         super( name, null );
-        icon = EffectsStructurePanel.getEffectIcon( name, EffectsStructurePanel.ICON_SIZE_MEDIUM );
+        //icon = EffectsStructurePanel.getEffectIcon( name, EffectsStructurePanel.ICON_SIZE_MEDIUM );
     }
 
     @Override
@@ -73,4 +74,12 @@ public abstract class EffectsStructureListElement extends StructureListElement {
         return path;
     }
 
+    /**
+     * Icon for list estructure panels is not used any more. 
+     */
+    @Override
+    public Icon getIcon( ) {
+
+        return null;
+    }
 }
