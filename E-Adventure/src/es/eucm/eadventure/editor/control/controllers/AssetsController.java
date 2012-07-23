@@ -434,7 +434,8 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
         try {
             // Load the input stream from the file (if it exists)
-            if( new File( assetPath ).exists( ) )
+            File temp = new File(assetPath);
+            if( temp.exists( ) && !temp.isDirectory( ) )
                 inputStream = new FileInputStream( assetPath );
             else if( new File( Controller.getInstance( ).getProjectFolder( ), assetPath ).exists( ) )
                 inputStream = new FileInputStream( Controller.getInstance( ).getProjectFolder( ) + "/" + assetPath );
@@ -1460,13 +1461,18 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants, Ass
 
             InputStream is = null;
             if( absolutePath == null ) {
-                if( filePath.startsWith( "/" ) || filePath.startsWith( "\\" ) ) {
+               // if( filePath.startsWith( "/" ) || filePath.startsWith( "\\" ) ) {
                     //FIXME: Somehow, these is not needed anymore (check more, might still be needed outside eclipse)
                     //String os = System.getProperty( "os.name" ).toLowerCase( );
-                    if ( !filePath.startsWith( "/User" ) )
-                        filePath = filePath.substring( 1, filePath.length( ) );
-                }
+                   // if ( !filePath.startsWith( "/User" ) )
+                     //   filePath = filePath.substring( 1, filePath.length( ) );
+                //}
+                
                 is = getInputStream( filePath );
+                if (is==null && filePath.length( ) > 1 && !filePath.startsWith( "/User" )){
+                    is = getInputStream(filePath.substring( 1, filePath.length( ) ));
+                }
+                
             }
             else{
                 try {
