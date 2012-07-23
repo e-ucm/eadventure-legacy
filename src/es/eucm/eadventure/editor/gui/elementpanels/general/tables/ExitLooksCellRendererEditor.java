@@ -267,10 +267,11 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
             JPanel firstRow = new JPanel();
             firstRow.setLayout( new GridBagLayout() );
             GridBagConstraints gc=new GridBagConstraints();
-            text.setColumns( 20 );
+           // text.setColumns( 20 );
+            gc.weighty = 1.0;
             gc.fill = GridBagConstraints.HORIZONTAL;
             firstRow.add( text, gc );
-            gc.fill = GridBagConstraints.NONE;
+           // gc.fill = GridBagConstraints.NONE;
             gc.gridx = 1;
             firstRow.add( soundPanel, gc );
             temp.add( firstRow, BorderLayout.NORTH );
