@@ -796,6 +796,7 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
             case ActionButton.GIVETO_BUTTON:
             case ActionButton.GRAB_BUTTON:
             case ActionButton.USE_BUTTON:
+            case ActionButton.USEWITHGIVETO_BUTTON:
                 elementInCursor = null;
                 gui.setDefaultCursor( );
                 //if( elementAction.canBeUsedAlone( ) ) {

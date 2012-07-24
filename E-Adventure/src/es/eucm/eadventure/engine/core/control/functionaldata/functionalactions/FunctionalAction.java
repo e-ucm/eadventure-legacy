@@ -37,6 +37,7 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
@@ -230,6 +231,14 @@ public abstract class FunctionalAction {
     // this method has been added to solve inconsistencies between available actions and actions buttons being displayed
     public boolean hasOriginalAction(){
         return originalAction!=null;
+    }
+    
+    public boolean noOriginalActionType(){
+        if (type == ActionManager.ACTION_TALK || type == ActionManager.ACTION_GIVE ||
+                type == ActionManager.ACTION_EXAMINE)
+            return true;
+        else 
+            return false;
     }
     
     /**
