@@ -3954,7 +3954,14 @@ public class Controller {
                             String[] temp = assetPath.split( "/" );
                             String animationName = temp[temp.length - 1];
                             File animationFile = new File( projectFolder, assetPath + ".eaa" );
-                            if( !animationFile.exists( ) ) {
+                            //In win there are no differences between files with the same name but with different
+                            // case characteres. the first if check if there are exactly the same name file.
+                            if(! animationFile.existsSameFile( )) {
+                                //For win, if there are a file with the same name but different case characters, delete it
+                                File deleteFile = animationFile.existsIgnoreCase();
+                                if (deleteFile!=null)
+                                    deleteFile.delete( );
+                                
                                 Animation animation = new Animation( animationName, new EditorImageLoader( ) );
                                 // set the animation to cutsecene mode when was necessary
                                 animation.setSlides( isCutScene );

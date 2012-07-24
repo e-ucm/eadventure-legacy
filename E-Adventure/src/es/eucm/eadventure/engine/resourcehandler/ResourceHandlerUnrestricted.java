@@ -200,7 +200,7 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
      * @param assetPath
      * @return The absolute path of the destiny file where the asset was copied
      */
-    @Override
+    /*@Override
     public URL getResourceAsURL( String assetPath ) {
 
         URL toReturn = null;
@@ -223,7 +223,7 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
         }
 
         return toReturn;
-    }
+    }*/
     
     public boolean writeFile(InputStream is, File dest) {
         try {

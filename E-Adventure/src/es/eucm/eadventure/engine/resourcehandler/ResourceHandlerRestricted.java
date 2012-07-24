@@ -37,9 +37,6 @@
 package es.eucm.eadventure.engine.resourcehandler;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
@@ -150,7 +147,7 @@ class ResourceHandlerRestricted extends ResourceHandler {
      */
     @Override
     public InputStream getResourceAsStream( String path ) {
-
+        
         if( !path.startsWith( "/" ) ) {
             path = "/" + path;
         }
@@ -160,18 +157,29 @@ class ResourceHandlerRestricted extends ResourceHandler {
         return is;
     }
 
-    @Override
-    public URL getResourceAsURL( String path ) {
+    //@Override
+    /*public URL getResourceAsURL( String path ) {
 
         if( !path.startsWith( "/" ) )
             path = "/" + path;
         InputStream is = this.getClass( ).getResourceAsStream( path );
         byte[] data = new byte[ 1024 ];
-        File osFile = new File( path.substring( path.lastIndexOf( "/" ) + 1 ) );
-
+        String tempFileFolder = es.eucm.eadventure.common.auxiliar.File.getTemporalFileFolder( );
+        File osFile;
+        System.out.println( tempFileFolder );
+        if (tempFileFolder!=null){
+            File parentFolder = new File (tempFileFolder);
+            osFile = new File( parentFolder, path.substring( path.lastIndexOf( "/" ) + 1 ) );
+        } else {
+            osFile = new File( path.substring( path.lastIndexOf( "/" ) + 1 ) );
+        }
+        //File osFile = File.createTempFile( prefix, suffix )
+        System.out.println( osFile.getAbsolutePath( ) );
+        
         boolean copy = true;
         for( TempFile file : tempFiles ) {
             if( file.getOriginalAssetPath( ).equals( path ) ) {
+                osFile = file;
                 copy = false;
                 break;
             }
@@ -182,13 +190,21 @@ class ResourceHandlerRestricted extends ResourceHandler {
             int i = 0;
             while( osFile.exists( ) ) {
                 i++;
-                osFile = new File( i + "_" + path.substring( path.lastIndexOf( "/" ) + 1 ) );
+                if (tempFileFolder!=null){
+                    File parentFolder = new File (tempFileFolder);
+                    osFile = new File( parentFolder, i + "_" + path.substring( path.lastIndexOf( "/" ) + 1 ) );
+                } else {
+                    osFile = new File( i + "_" + path.substring( path.lastIndexOf( "/" ) + 1 ) );
+                }
+                
             }
             TempFile tempFile = new TempFile( ( osFile ).getAbsolutePath( ) );
             tempFile.setOriginalAssetPath( path );
             tempFiles.add( tempFile );
         }
 
+        System.out.println( "Secon execution "+osFile.getAbsolutePath( ) );
+        
         FileOutputStream os;
         try {
             if( copy ) {
@@ -213,7 +229,7 @@ class ResourceHandlerRestricted extends ResourceHandler {
             return null;
         }
 
-    }
+    }*/
 
     @Override
     public URL getResourceAsURLFromZip( String path ) {
