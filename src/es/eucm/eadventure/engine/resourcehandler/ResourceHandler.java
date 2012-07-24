@@ -38,6 +38,8 @@ package es.eucm.eadventure.engine.resourcehandler;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -399,7 +401,7 @@ public abstract class ResourceHandler implements InputStreamCreator {
 
     private static final String TEMP_FILE_NAME = "$temp_ead_";
 
-    public abstract URL getResourceAsURL( String path );
+    //public abstract URL getResourceAsURL( String path );
 
     protected String generateTempFileAbsolutePath( String extension ) {
 
@@ -469,4 +471,79 @@ public abstract class ResourceHandler implements InputStreamCreator {
         private static final long serialVersionUID = 896282044492374745L;
 
     }
+    
+    public URL getResourceAsURL( String path ) {
+
+        if( !path.startsWith( "/" ) )
+            path = "/" + path;
+        //InputStream is = this.getClass( ).getResourceAsStream( path );
+        InputStream is = buildInputStream( path );
+        byte[] data = new byte[ 1024 ];
+        String tempFileFolder = es.eucm.eadventure.common.auxiliar.File.getTemporalFileFolder( );
+        File osFile;
+        System.out.println( tempFileFolder );
+        if (tempFileFolder!=null){
+            File parentFolder = new File (tempFileFolder);
+            osFile = new File( parentFolder, path.substring( path.lastIndexOf( "/" ) + 1 ) );
+        } else {
+            osFile = new File( path.substring( path.lastIndexOf( "/" ) + 1 ) );
+        }
+        //File osFile = File.createTempFile( prefix, suffix )
+        System.out.println( osFile.getAbsolutePath( ) );
+        
+        boolean copy = true;
+        for( TempFile file : tempFiles ) {
+            if( file.getOriginalAssetPath( ).equals( path ) ) {
+                osFile = file;
+                copy = false;
+                break;
+            }
+        }
+
+        if( copy ) {
+            // Search the file name. If exists, change name
+            int i = 0;
+            while( osFile.exists( ) ) {
+                i++;
+                if (tempFileFolder!=null){
+                    File parentFolder = new File (tempFileFolder);
+                    osFile = new File( parentFolder, i + "_" + path.substring( path.lastIndexOf( "/" ) + 1 ) );
+                } else {
+                    osFile = new File( i + "_" + path.substring( path.lastIndexOf( "/" ) + 1 ) );
+                }
+                
+            }
+            TempFile tempFile = new TempFile( ( osFile ).getAbsolutePath( ) );
+            tempFile.setOriginalAssetPath( path );
+            tempFiles.add( tempFile );
+        }
+
+        System.out.println( "Secon execution "+osFile.getAbsolutePath( ) );
+        
+        FileOutputStream os;
+        try {
+            if( copy ) {
+                os = new FileOutputStream( new File( osFile.getAbsolutePath( ) ) );
+                int length = 0;
+                while( ( length = is.read( data ) ) != -1 ) {
+                    os.write( data, 0, length );
+                }
+                os.close( );
+                is.close( );
+            }
+            return osFile.toURI( ).toURL( );
+        }
+        catch( FileNotFoundException e ) {
+            // TODO Auto-generated catch block
+            e.printStackTrace( );
+            return null;
+        }
+        catch( IOException e ) {
+            // TODO Auto-generated catch block
+            e.printStackTrace( );
+            return null;
+        }
+
+    }
+    
 }

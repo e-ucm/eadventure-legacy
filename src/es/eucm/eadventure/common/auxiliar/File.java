@@ -639,4 +639,36 @@ public class File extends java.io.File {
             //ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
         }
     }
+    
+    public static String getTemporalFileFolder(){
+        return System.getProperty("java.io.tmpdir");
+    }
+ 
+    /**
+     * Looks in folder if file exists taking into account the upper and lower case characters
+     * 
+     * @param folder
+     * @param file
+     * @return
+     */
+    public boolean existsSameFile(){
+        
+        for (String f: new File(this.getParent( )).list( ))
+            if (f.equals( this.getName( )))
+                return true;
+        
+        return false;
+        
+    }
+    
+    /**
+     * Returns the file that match param "file" ignoring case characters. This returns the file which exits in 
+     * the real directory, not the file who calls this method.
+     */
+    public File existsIgnoreCase(){
+        for (String f: new File(this.getParent( )).list( ))
+            if (f.equalsIgnoreCase( this.getName( )))
+                return new File(this.getParent( )+"\\"+f);
+        return null;
+    }
 }
