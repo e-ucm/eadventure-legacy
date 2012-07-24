@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>comment</comment>
@@ -15,7 +15,6 @@
 <entry key="Language.Name">Galego</entry>
 <entry key="GameText.At">En </entry>
 <entry key="GameText.With">Con </entry>
-<entry key="DebugFrameLog.Estafe">Tempo</entry>
 <entry key="DebugFrameLog.UserTip">Mostra o log de interaccion de usuario</entry>
 <entry key="GameText.TextUseCannot2">Ok... NON</entry>
 <entry key="GameText.TextUseCannot1">Non creo que isto vaia a funcionar</entry>
@@ -23,7 +22,6 @@
 <entry key="GameText.Music">Música</entry>
 <entry key="SendMail.UnableToSendEmail">O sistema non podo enviar o e-mail</entry>
 <entry key="Report.XMLReport">Informe XML</entry>
-<entry key="GameText.Save/Loade">Salvar/Cargar</entry>
 <entry key="GameText.Go">Ir</entry>
 <entry key="MainWindow.InvalidAdventure">Aventura inválida</entry>
 <entry key="DebugFrameLog.All">Todo</entry>
@@ -75,6 +73,8 @@
 <entry key="ErrorReport.Send">Enviar</entry>
 <entry key="GameText.LoadingXML">Cargando XML...</entry>
 <entry key="GameText.Grab">Coller</entry>
+<entry key="GameText.Loade">Cargar</entry>
+<entry key="DebugFrameLog.Estafe">Tempo</entry>
 <entry key="GameText.Back">Volver</entry>
 <entry key="GameText.TextGiveObjectNotInventory2">Necesito o obxecto para dalo</entry>
 <entry key="GameText.TextGiveObjectNotInventory1">Non o teño aínda</entry>
@@ -100,17 +100,17 @@
 <entry key="MainWindow.SelectLanguage">Selecciona idioma</entry>
 <entry key="ActionButton.Use">Usar</entry>
 <entry key="ErrorReport.Cancel">Cancelar</entry>
-<entry key="DebugFrame.ide">ide</entry>
 <entry key="Report.Title">Xeración de Informe</entry>
+<entry key="DebugFrame.ide">ide</entry>
 <entry key="Reports.NameInput">Nome do xogador</entry>
-<entry key="GameText.Loade">Cargar</entry>
 <entry key="GameText.Examine">Examinar</entry>
 <entry key="DebugFrame.value">valor</entry>
 <entry key="Report.OKDontSend">Non enviar informe</entry>
+<entry key="DebugFrameLog.Xeneral">Xeral</entry>
 <entry key="GameText.LoadingData">Cargando datos...</entry>
 <entry key="DebugFrame.AllFlagsAndVars">Todos os flags e variables</entry>
-<entry key="DebugFrameLog.Xeneral">Xeral</entry>
 <entry key="Report.Importance.VeryHigh">Moi alto</entry>
+<entry key="GameText.Save/Loade">Salvar/Cargar</entry>
 <entry key="Conversation.WaitUserInteraction">Manter texto ata interacción de usuario</entry>
 <entry key="MainWindow.buttonExamine">Examinar...</entry>
 <entry key="MainWindow.SelectGameText">[Selecciona un xogo para ver a descrición...]</entry>
