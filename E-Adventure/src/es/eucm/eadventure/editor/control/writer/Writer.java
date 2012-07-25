@@ -36,9 +36,12 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.control.writer;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -419,11 +422,21 @@ public class Writer {
             nodeDOM.appendChild( document.createTextNode( "\n" + getTab( depth ) ) );
     }
 
-    private static boolean writeWebPage( String tempDir, String loName, boolean windowed, String mainClass ) {
-        return writeWebPage ( tempDir, loName, windowed, mainClass, null);
+    private static boolean writeWebPage( String tempDir, String loName, boolean windowed, String mainClass, boolean debugerScorm ) {
+        return writeWebPage ( tempDir, loName, windowed, mainClass, null,debugerScorm );
     }
     
-    private static boolean writeWebPage( String tempDir, String loName, boolean windowed, String mainClass, HashMap<String, String> additionalParams ) {
+    private static boolean writeWebPage( String tempDir, String loName, boolean windowed, String mainClass) {
+        return writeWebPage ( tempDir, loName, windowed, mainClass, null, false);
+    }
+    
+    private static boolean writeWebPage( String tempDir, String loName, boolean windowed, String mainClass, HashMap<String, String> additionalParams){
+        
+       return writeWebPage(tempDir, loName, windowed, mainClass, additionalParams, false);
+    }
+    
+    
+    private static boolean writeWebPage( String tempDir, String loName, boolean windowed, String mainClass, HashMap<String, String> additionalParams, boolean debugScorm ) {
 
 
         boolean dataSaved = true;
@@ -463,8 +476,31 @@ public class Writer {
             if( mainClass.equals( "es.eucm.eadventure.engine.EAdventureAppletScorm" ) ) {
                 jscript += "\n\t\t<script type='text/javascript' src='eadventure.js'></script>\n";
             }
-
-            String webPage = "<html>\n" + "\t<head>\n" +
+            
+            // adding the js which contains the managing debug console functions,FORM tags and css
+            String stringForm = new String();
+            String css = new String();
+            if (debugScorm){
+                jscript += "\n\t\t<script type='text/javascript' src='debugscorm.js'></script>\n";
+            
+                File form = new File( "web/debugform.txt" );
+                
+                char buffer[] = new char[(int)(form.length() * 1.5)];
+                FileInputStream fis = new FileInputStream(form);
+                BufferedReader br = new BufferedReader(
+                      new InputStreamReader(fis));
+                br.read(buffer, 0, (int)form.length());
+                br.close();
+                stringForm = new String(buffer, 0, (int)form.length());
+                
+                css = "\n\t\t<link rel='stylesheet' type='text/css' href='debugger.css'/>\n";
+            
+            
+            
+            }
+            
+            String webPage = "<html>\n" + "\t<head>\n" + css + 
+            
             //"\t\t<script type='text/javascript' src='commapi.js'></script>\n"+
             //"\t\t<script type='text/javascript' src='ajax-wrapper.js'></script>\n"+
             //"\t\t<script type='text/javascript' src='egame.js'></script>\n"+
@@ -472,7 +508,7 @@ public class Writer {
             //"\t\t<param name=\"USER_ID\" value=\"567\"/>\n" + "\t\t<param name=\"RUN_ID\" value=\"5540\"/>\n" +
             //The game is initating.. please be patient while the digital sign is verified
  
-            jscript + "\t</head>\n" + "\t<body>\n" + "\t\t<applet code=\"" + mainClass + "\" archive=\"./" + loName + ".jar\" name=\"eadventure\" id=\"eadventure\" " + ( windowed ? "width=\"200\" height=\"150\"" : "width=\"800\" height=\"600\"" ) +  " MAYSCRIPT>\n" + "\t\t<param name=\"WINDOWED\" value=\"" + ( windowed ? "yes" : "no" ) + "\"/>\n" + "\t\t<param name=\"java_arguments\" value=\"-Xms256m -Xmx512m\"/>\n"+ "\t\t<param name=\"image\" value=\"splashScreen.gif\"/>\n";
+            jscript + "\t</head>\n" + stringForm +"\t<body>\n" + "\t\t<applet code=\"" + mainClass + "\" archive=\"./" + loName + ".jar\" name=\"eadventure\" id=\"eadventure\" " + ( windowed ? "width=\"200\" height=\"150\"" : "width=\"800\" height=\"600\"" ) +  " MAYSCRIPT>\n" + "\t\t<param name=\"WINDOWED\" value=\"" + ( windowed ? "yes" : "no" ) + "\"/>\n" + "\t\t<param name=\"java_arguments\" value=\"-Xms256m -Xmx512m\"/>\n"+ "\t\t<param name=\"image\" value=\"splashScreen.gif\"/>\n";
             
             // Add additional params
             if (additionalParams!=null){
@@ -483,7 +519,7 @@ public class Writer {
                     }
                 }
             }
-            webPage+="\t\t</applet>\n" + "<div id=\"loadingMessage\"><p><b>"+TC.get( "Applet.LoadingMessage" )+"</b></p></div>\n" + "\t</body>\n" + "</html>\n";
+            webPage+="\t\t</applet>\n" + "<div id=\"loadingMessage\"><p><b>"+TC.get( "Applet.LoadingMessage" )+"</b></p></div>\n" + (debugScorm?"\t\t<div id=\"report\"></div>\n":"")+ "\t</body>\n" + "</html>\n";
 
             File pageFile = new File( tempDir + "/" + loName + ".html" );
             pageFile.createNewFile( );
@@ -1283,7 +1319,7 @@ public class Writer {
     
     
 
-    public static boolean exportAsSCORM( String zipFilename, String loName, String authorName, String organization, boolean windowed, String gameFilename, AdventureDataControl adventureData ) {
+    public static boolean exportAsSCORM( String zipFilename, String loName, String authorName, String organization, boolean windowed, String gameFilename, AdventureDataControl adventureData, boolean isDebugger ) {
 
         boolean dataSaved = true;
 
@@ -1309,7 +1345,7 @@ public class Writer {
 
 
             // Copy the web to the zip
-            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
+            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm", isDebugger );
 
             // Merge project & e-Adventure jar into file eAdventure_temp.jar
             // Destiny file
@@ -1425,6 +1461,17 @@ public class Writer {
             Element file4 = doc.createElement( "file" );
             file4.setAttribute( "href", "splashScreen.gif" );
             resource.appendChild( file4 );
+            
+            if (isDebugger){
+                Element file5 = doc.createElement( "file" );
+                file5.setAttribute( "href", "debugscorm.js" );
+                resource.appendChild( file5 );
+                
+                Element file6 = doc.createElement( "file" );
+                file6.setAttribute( "href", "debugger.css" );
+                resource.appendChild( file6 );
+                
+            }
 
             resources.appendChild( resource );
             manifest.appendChild( resources );
@@ -1456,6 +1503,15 @@ public class Writer {
             //copy javascript
             File javaScript = new File( "web/eadventure.js" );
             javaScript.copyTo( new File( tempDir.getAbsolutePath( ) + "/eadventure.js" ) );
+            
+            //copy debugger javascript and css
+            if (isDebugger){
+                File debugJavascript = new File( "web/debugscorm.js" );
+                debugJavascript.copyTo( new File( tempDir.getAbsolutePath( ) + "/debugscorm.js" ) );
+                
+                File css = new File( "web/debugger.css" );
+                css.copyTo( new File( tempDir.getAbsolutePath( ) + "/debugger.css" ) );
+            }
             
             //copy loadingImage
             File splashScreen = new File( "web/splashScreen.gif" );
@@ -1501,7 +1557,7 @@ public class Writer {
         return dataSaved;
     }
 
-    public static boolean exportAsSCORM2004( String zipFilename, String loName, String authorName, String organization, boolean windowed, String gameFilename, AdventureDataControl adventureData ) {
+    public static boolean exportAsSCORM2004( String zipFilename, String loName, String authorName, String organization, boolean windowed, String gameFilename, AdventureDataControl adventureData, boolean isDebugger ) {
 
         boolean dataSaved = true;
 
@@ -1526,7 +1582,7 @@ public class Writer {
 
             
             // Copy the web to the zip
-            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm" );
+            dataSaved &= writeWebPage( tempDir.getAbsolutePath( ), loName, windowed, "es.eucm.eadventure.engine.EAdventureAppletScorm", isDebugger );
 
             // Merge project & e-Adventure jar into file eAdventure_temp.jar
             // Destiny file
@@ -1648,6 +1704,17 @@ public class Writer {
             file4.setAttribute( "href", "splashScreen.gif" );
             resource.appendChild( file4 );
             
+            if (isDebugger){
+                Element file5 = doc.createElement( "file" );
+                file5.setAttribute( "href", "debugscorm.js" );
+                resource.appendChild( file5 );
+                
+                Element file6 = doc.createElement( "file" );
+                file6.setAttribute( "href", "debugger.css" );
+                resource.appendChild( file6 );
+                
+            }
+            
             resources.appendChild( resource );
             manifest.appendChild( resources );
             indentDOM( manifest, 0 );
@@ -1671,6 +1738,15 @@ public class Writer {
             //copy javascript
             File javaScript = new File( "web/eadventure.js" );
             javaScript.copyTo( new File( tempDir.getAbsolutePath( ) + "/eadventure.js" ) );
+            
+          //copy debuger javascript
+            if (isDebugger){
+                File debugJavascript = new File( "web/debugscorm.js" );
+                debugJavascript.copyTo( new File( tempDir.getAbsolutePath( ) + "/debugscorm.js" ) );
+                
+                File css = new File( "web/debugger.css" );
+                css.copyTo( new File( tempDir.getAbsolutePath( ) + "/debugger.css" ) );
+            }
             
             //copy loadingImage
             File splashScreen = new File( "web/splashScreen.gif" );

@@ -1,0 +1,44 @@
+	<FORM>
+		<div id= 'debugger' class='console'>
+			<div id='moreButton'><INPUT type="button" value="+" OnClick="javascript:showConsole()"/></div>
+			<table>
+				<tr >
+					<td align='center'colspan=3>
+						<div id='consolet' style="display:none"><textarea id="scormConsole"  rows="8" cols="95" readonly onChange='javascript:reloadTextArea()'>&nbsp;</textarea></div>
+					</td>
+				</tr>
+				<tr>
+					<td align='center'>
+						<div id='setValueButton' style="display:none"><INPUT type="radio" name="option" value="SetValue" onChange="javascript:controlRadioButton(this.form)" checked /> SetValue </div>
+					</td>
+					<td align='right'>
+					<div id='campolit' style="display:none">Field</div>
+					</td>
+					<td align='center'>
+						<div id='fieldText' style="display:none"><INPUT type="text" id ="campo" name="campo" size='75'/></div>
+					</td>
+				</tr>
+				<tr>
+					<td align='center'>
+						<div id='getValueButton' style="display:none"><INPUT type="radio" name="option" value="GetValue" onChange="javascript:controlRadioButton(this.form)"/> GetValue </div>
+					</td>
+					<td align='right'>
+					<div id='valorlit' style="display:none">Value</div>
+					</td>
+					<td align='center'>
+						<div id='valueText' style="display:none"><INPUT type="text" id ="valor" name="valor" size='75'/></div>
+					</td>
+				</tr>
+				<tr>			
+					<td align='center'>
+						<div id='showReportButton' style="display:none"><INPUT type="button" OnClick="eucm.eadventure.mostrarFormulario()" value="Report"/></div>
+					</td>
+					<td>&nbsp;</td>
+					<td align='center'>
+						<div id='submitButton' style="display:none"><INPUT type="button" OnClick="botonPulsado(this.form)" value="Submit"/></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</FORM>
+	

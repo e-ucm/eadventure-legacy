@@ -304,7 +304,8 @@ public class AssessmentEngine implements TimerEventListener {
 	                                property.setValue(getHTMLReportStringLAMS());
 	                            else if (Game.getInstance( ).getComm( ).getCommType()==CommManagerApi.SCORMV12_TYPE ||
 	                                    Game.getInstance( ).getComm( ).getCommType()==CommManagerApi.SCORMV2004_TYPE)
-	                                property.setValue(  generateXMLReport() );
+	                               // property.setValue(  generateXMLReport() );
+	                                property.setValue(  getHTMLReportString() );
 	                        }
 	                
 	    
