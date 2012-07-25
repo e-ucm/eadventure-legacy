@@ -311,32 +311,6 @@ public class OptionConversationNode extends ConversationNode {
         }
     }
 
-    /**
-     * This method is 
-     * 
-     * @param option
-     * @param line
-     */
-    public void doTheTrick( int option, String line ) {
-
-        boolean found = false;
-        int index = 0;
-        while( index < options.size( ) && !found ) {
-            ConversationLine lineNode = options.get( index );
-            if( lineNode.getText( ).equals( line ) ) {
-                found = true;
-            }
-            else {
-                index++;
-            }
-        }
-        ConversationLine lineNode = options.remove( index );
-        ConversationNode node = optionNodes.remove( index );
-
-        options.add( option, lineNode );
-        optionNodes.add( option, node );
-    }
-
     @Override
     public Object clone( ) throws CloneNotSupportedException {
 
