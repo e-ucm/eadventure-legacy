@@ -382,6 +382,8 @@
 	preListening (yes | no) "no"
 	editor-x CDATA #IMPLIED
 	editor-y CDATA #IMPLIED
+	x NMTOKEN "10"
+	y NMTOKEN "480"	
 >
 <!ELEMENT child EMPTY>
 <!ATTLIST child
