@@ -47,7 +47,9 @@ import java.awt.Window;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -2243,7 +2245,7 @@ public class Controller {
 
                 if( validated ) {
                     //String loName = this.showInputDialog( TextConstants.getText( "Operation.ExportToLOM.Title" ), TextConstants.getText( "Operation.ExportToLOM.Message" ), TextConstants.getText( "Operation.ExportToLOM.DefaultValue" ));
-                    if( loName != null && !loName.equals( "" ) && !loName.contains( " " ) && !loName.contains( "ñ" ) && !loName.contains( "Ñ" ) ) {
+                    if( loName != null && !loName.equals( "" ) && !loName.contains( " " ) && !loName.contains( "ï¿½" ) && !loName.contains( "ï¿½" ) ) {
                         //Check authorName & organization
                         if( authorName != null && authorName.length( ) > 5 && organization != null && organization.length( ) > 5 ) {
 
@@ -3936,6 +3938,8 @@ public class Controller {
 
     private void changeFormats( boolean isCutScene, List<DataControlWithResources> dataControlList ) {
 
+        HashMap<String, String> cache = new HashMap<String, String>();
+        
         // Take the project folder to check if the .eaa animation has been previously created
         File projectFolder = new File( Controller.getInstance( ).getProjectFolder( ) );
         for( DataControlWithResources dc : dataControlList ) {
@@ -3946,34 +3950,51 @@ public class Controller {
                     if( rdc.getAssetCategory( i ) == AssetsConstants.CATEGORY_ANIMATION ) {
                         String assetPath = rdc.getAssetPath( i );
                         if( ( assetPath == null || assetPath.equals( "" ) ) /*&&  !assetPath.equals( SpecialAssetPaths.ASSET_EMPTY_ANIMATION )*/) {
-                            assetPath = SpecialAssetPaths.ASSET_EMPTY_ANIMATION;
+                            assetPath = SpecialAssetPaths.ASSET_EMPTY_ANIMATION+".eaa";
                         }
 
                         if( !assetPath.toLowerCase( ).endsWith( ".eaa" ) ) {
-                            // String path;
+                            String originalAssetPath = assetPath;
                             String[] temp = assetPath.split( "/" );
                             String animationName = temp[temp.length - 1];
-                            File animationFile = new File( projectFolder, assetPath + ".eaa" );
-                            //In win there are no differences between files with the same name but with different
-                            // case characteres. the first if check if there are exactly the same name file.
-                            if(! animationFile.existsSameFile( )) {
+                            File animationFile = null;
+                            if (cache.containsKey( originalAssetPath )){
+                                assetPath = cache.get( originalAssetPath );
+                                animationFile = new File ( projectFolder, originalAssetPath + ".eaa" );
+                            } else {
+                                // String path;
+                                animationFile = new File( projectFolder, assetPath + ".eaa" );
+                                //In win there are no differences between files with the same name but with different
+                                // case characteres. the first if check if there are exactly the same name file.
+                                //if (! animationFile.exists( )){
+                                Random r = new Random();
+                                while (animationFile.exists()){
+                                    assetPath += Integer.toString( r.nextInt( 10 ) );
+                                    animationFile = new File ( projectFolder, assetPath + ".eaa" );
+                                }
+                                cache.put( originalAssetPath, assetPath );
+                            }
+                            /*if(! animationFile.existsSameFile( )) {
                                 //For win, if there are a file with the same name but different case characters, delete it
                                 File deleteFile = animationFile.existsIgnoreCase();
                                 if (deleteFile!=null)
-                                    deleteFile.delete( );
+                                    deleteFile.delete( );*/
                                 
                                 Animation animation = new Animation( animationName, new EditorImageLoader( ) );
                                 // set the animation to cutsecene mode when was necessary
                                 animation.setSlides( isCutScene );
                                 animation.setDocumentation( rdc.getAssetDescription( i ) );
                                 // add the images of the old animation
-                                ResourcesDataControl.framesFromImages( animation, assetPath, true );
+                                ResourcesDataControl.framesFromImages( animation, originalAssetPath, true );
                                 AnimationWriter.writeAnimation( animationFile.getAbsolutePath( ), animation );
                                 // CAUTION!! adding resources without using tool
+                                if (rdc.getAssetPath( rdc.getAssetName( i ) )!=null){
+                                    rdc.deleteAssetReferences( rdc.getAssetName( i ) );
+                                }
                                 rdc.addAsset( rdc.getAssetName( i ), assetPath + ".eaa" );
-                            }
+                            /*}
                             else
-                                rdc.changeAssetPath( i, assetPath + ".eaa" );
+                                rdc.changeAssetPath( i, assetPath + ".eaa" );*/
                         }
                         else {
                             // if the eaa animation for this old animation was previously created, change only the path (without using Tools, cause this operation
