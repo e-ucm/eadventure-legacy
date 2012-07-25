@@ -58,6 +58,10 @@ public class CommManagerScorm extends AdventureApplet {
     private int index;
 
     private AdaptationEngine adaptationEngine;
+    
+   //
+    
+   // private 
 
     /**
      * The relations between the operation and where is store in "valuesFromLms"
@@ -78,7 +82,7 @@ public class CommManagerScorm extends AdventureApplet {
      */
     public boolean connect( HashMap<String, String> info ) {
 
-        String command = "javascript:connect(\" \");";
+        String command = "javascript:eucm.eadventure.connect(\" \");";
 
         this.sendJavaScript( command );
 
@@ -90,7 +94,7 @@ public class CommManagerScorm extends AdventureApplet {
      */
     public boolean disconnect( HashMap<String, String> info ) {
 
-        String command = "javascript:disconnect(\" \");";
+        String command = "javascript:eucm.eadventure.disconnect(\" \");";
 
         this.sendJavaScript( command );
 
@@ -161,7 +165,7 @@ public class CommManagerScorm extends AdventureApplet {
 
     public void getFromLMS( String attribute ) {
 
-        String command = "javascript:getLMSData(\"" + attribute + "\");";
+        String command = "javascript:eucm.eadventure.getLMSData(\"" + attribute + "\");";
 
         this.sendJavaScript( command );
     }
@@ -173,9 +177,10 @@ public class CommManagerScorm extends AdventureApplet {
             AssessmentProperty assessProp = it.next( );
             String attribute = assessProp.getId( );
             String value = String.valueOf( assessProp.getValue( ) );
-            String command = "javascript:setLMSData(\"" + attribute + "\", \"" + removeQuotationMarks(value) + "\");";
+            String command = "javascript:eucm.eadventure.setLMSData(\"" + attribute + "\", \"" + removeQuotationMarks(value) + "\");";
+            System.out.println(command);
             this.sendJavaScript( command );
-            String command2 = "javascript:commit(\"\");";
+            String command2 = "javascript:eucm.eadventure.commit(\"\");";
             this.sendJavaScript( command2 );
         }
 

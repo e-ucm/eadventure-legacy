@@ -40,7 +40,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Iterator;
 import java.util.Properties;
@@ -64,7 +63,7 @@ public class SCORMConfigData {
     /**
      * Constant for especial case: an array inside array
      */
-    public static final String[] ArrayInArray = {"cmi.interactions.n.objetives.m.id","cmi.interactions.n.correct_responses.m.pattern"};
+    public static final String[] ArrayInArray = {"cmi.interactions.n.objectives.m.id","cmi.interactions.n.correct_responses.m.pattern"};
     
     /**
      * Constants with the index in array of attribute`s name

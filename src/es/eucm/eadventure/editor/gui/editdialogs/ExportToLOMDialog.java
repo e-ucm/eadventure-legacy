@@ -112,12 +112,12 @@ public class ExportToLOMDialog extends JPositionedDialog {
         c.weightx = 1;
 
         JPanel typePanel = new JPanel( );
-        String[] options = { "IMS CP", "WebCT 4 CP", "SCORM", "SCORM2004", "AGREGA", "LAMS"/*, "GAME�TEL-PC"*/};
+        String[] options = { "IMS CP", "WebCT 4 CP", "SCORM", "SCORM2004", "AGREGA", "LAMS", "SCORM+DEBUGGER", "SCORM2004+DEBUGGER"/*, "GAME�TEL-PC"*/};
         typeComboBox = new JComboBox( options );
         typeComboBox.addItemListener( new ItemListener(){
 
             public void itemStateChanged( ItemEvent e ) {
-                if (typeComboBox.getSelectedIndex( )==6){
+                if (typeComboBox.getSelectedIndex( )==8){
                     if (!gametelContainerPanel.isAncestorOf( gametelPanel )){
                         gametelContainerPanel.add( gametelPanel );
                         ExportToLOMDialog.this.setSize( new Dimension( 400, 670 ) );
@@ -301,7 +301,7 @@ public class ExportToLOMDialog extends JPositionedDialog {
             }
         } );
 
-        this.setSize( new Dimension( 400, 600 ) );
+        this.setSize( new Dimension( 400, 620 ) );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
         //setResizable( false );

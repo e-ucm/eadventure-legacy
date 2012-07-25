@@ -2226,11 +2226,11 @@ public class Controller {
 
                 boolean validated = dialog.isValidated( );
 
-                if( type == 2 && !hasScormProfiles( SCORM12 ) ) {
+                if( (type == 2 || type == 6) && !hasScormProfiles( SCORM12 ) ) {
                     // error situation: both profiles must be scorm 1.2 if they exist
                     mainWindow.showErrorDialog( TC.get( "Operation.ExportSCORM12.BadProfiles.Title" ), TC.get( "Operation.ExportSCORM12.BadProfiles.Message" ) );
                 }
-                else if( type == 3 && !hasScormProfiles( SCORM2004 ) ) {
+                else if( (type == 3 || type == 7) && !hasScormProfiles( SCORM2004 ) ) {
                     // error situation: both profiles must be scorm 2004 if they exist
                     mainWindow.showErrorDialog( TC.get( "Operation.ExportSCORM2004.BadProfiles.Title" ), TC.get( "Operation.ExportSCORM2004.BadProfiles.Message" ) );
                 }
@@ -2301,11 +2301,11 @@ public class Controller {
                                             else if( type == 1 && Writer.exportAsWebCTObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
                                                 mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
-                                            else if( type == 2 && Writer.exportAsSCORM( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
+                                            else if( type == 2 && Writer.exportAsSCORM( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl, false ) ) {
                                                 mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
 
                                             }
-                                            else if( type == 3 && Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
+                                            else if( type == 3 && Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl, false ) ) {
                                                 mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
                                             else if( type == 4 && Writer.exportAsAGREGA( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
@@ -2314,7 +2314,11 @@ public class Controller {
                                             else if( type == 5 && Writer.exportAsLAMSLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl ) ) {
                                                 mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
-                                            else if( type == 6 && Writer.exportAsGAMETELLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, testReturnURI, testUserId, adventureDataControl ) ) {
+                                            else if( type == 8 && Writer.exportAsGAMETELLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, testReturnURI, testUserId, adventureDataControl ) ) {
+                                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
+                                            } else if( type == 6 && Writer.exportAsSCORM( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl, true ) ) {
+                                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
+                                            } else if( type == 7 && Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl, true ) ) {
                                                 mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
                                             }
                                             else {
