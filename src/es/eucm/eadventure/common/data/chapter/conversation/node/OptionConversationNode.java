@@ -312,7 +312,7 @@ public class OptionConversationNode extends ConversationNode {
     }
 
     /**
-     * Set the given answer in the given option
+     * This method is 
      * 
      * @param option
      * @param line
