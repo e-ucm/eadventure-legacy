@@ -113,7 +113,7 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.tracking.pub.GameLogProxy;
 import es.eucm.eadventure.tracking.pub._GameLog;
 import es.eucm.eadventure.tracking.pub._HighLevelEvents;
-import es.eucm.eadventure.tracking.pub.replay.Replayer;
+import es.eucm.eadventure.tracking.pub.replay.ReplayerProxy;
 
 /**
  * This class contains all the elements and data necessary to run an e-Adventure
@@ -394,6 +394,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * Game Log for storing interaction info. Added in version v1.4.
      */
     private GameLogProxy gameLog;
+    
+    /**
+     * Replayer system for reproducing traces generated with the tracking system.
+     */
+    private ReplayerProxy replayer;
 
     /**
      * This variable identifies if the game is closed using the "X" of the
@@ -417,6 +422,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
 
         instance = new Game( );
         instance.gameLog = new GameLogProxy( );
+        instance.replayer = new ReplayerProxy( );
     }
 
     public static void create( boolean fromEditor, RunAndDebugSettings debugOptions ) {
@@ -427,6 +433,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         instance.debug = debugOptions != null && debugOptions.isDebugMode( );
         // Set logging=true to enable gamelog        
         instance.gameLog = new GameLogProxy( );
+        instance.replayer = new ReplayerProxy( );
     }
 
     public static void delete( ) {
@@ -937,11 +944,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
 
             GUI.getInstance( ).loading( 0 );
             gameLog.start( );
-
-            if( REPLAYING ) {
-                Replayer r = new Replayer( );
-                r.loadTraces( );
-            }
+            replayer.loadTraces( );
 
             // Load the options
             options = new Options( );
@@ -2150,6 +2153,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     public _GameLog getGameLog( ) {
 
         return gameLog.getGameLog( );
+    }
+    
+    public ReplayerProxy getReplayer(){
+        return replayer;
     }
 
     private String musicInSlides = null;

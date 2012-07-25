@@ -37,6 +37,8 @@
 package es.eucm.eadventure.tracking.prv.replay;
 
 import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
@@ -51,12 +53,19 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.gamestate.GameState;
+import es.eucm.eadventure.engine.core.control.gamestate.GameStatePlaying;
+import es.eucm.eadventure.engine.core.control.gamestate.GameStateSlidescene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.tracking.prv.replay.TraceDefaultHandler.Actions;
+import es.eucm.eadventure.tracking.pub.replay._Replayer;
 
-public class Replayer extends Thread {
+public class Replayer extends Thread implements _Replayer{
 
     private JFileChooser fileChooser = new JFileChooser( );
 
@@ -79,10 +88,12 @@ public class Replayer extends Thread {
     public void loadTraces( ) {
 
         replaying = false;
-        if( fileChooser.showOpenDialog( null ) == JFileChooser.APPROVE_OPTION ) {
-            File f = fileChooser.getSelectedFile( );
-            handler = parseXML( f );
-            this.start( );
+        if (replaying){
+            if( fileChooser.showOpenDialog( null ) == JFileChooser.APPROVE_OPTION ) {
+                File f = fileChooser.getSelectedFile( );
+                handler = parseXML( f );
+                this.start( );
+            }
         }
     }
 
@@ -217,5 +228,62 @@ public class Replayer extends Thread {
     public static String getCurrentScene( ) {
 
         return currentScene >= 0 && currentScene < handler.getScenes( ).size( ) ? handler.getScenes( ).get( currentScene ) : "unknown";
+    }
+    
+    /**
+     * This method is 
+     * 
+     * @param option
+     * @param line
+     */
+    public static void doTheTrick( int option, String line, OptionConversationNode node ) {
+
+        boolean found = false;
+        int index = 0;
+        while( index < node.getLineCount( ) && !found ) {
+            ConversationLine lineNode = node.getLine( index );
+            if( lineNode.getText( ).equals( line ) ) {
+                found = true;
+            }
+            else {
+                index++;
+            }
+        }
+        ConversationLine lineNode = node.removeLine( index );
+        ConversationNode nodeRemoved = node.removeChild( index );
+
+        node.addLine( option, lineNode );
+        node.addChild( option, nodeRemoved );
+    }
+
+    public boolean arrangeOptionsNode( OptionConversationNode node ) {
+     // If the replayer is working, we use the preloaded responses
+        if( Replayer.replaying ) {
+            String s = Replayer.getNextLine( );
+            int opt = Replayer.getNextOpt( );
+            doTheTrick(opt,s,node);
+            return true;
+        }
+        return false;
+    }
+
+    public void renderState( Graphics2D g, GameState state ) {
+        if (state!=null && state instanceof GameStatePlaying){
+            if( Replayer.replaying ) {
+                g.setColor( Color.WHITE );
+                g.drawString( "Current scene: " + Replayer.getCurrentScene( ), 10, 14 );
+                if ( Replayer.errorOpt ){
+                    g.drawString( "Error with options generation", 10, 34 );
+                }
+            }
+        }
+        else if (state!=null && state instanceof GameStateSlidescene){
+            if( Replayer.replaying ) {
+                GUI.getInstance( ).getGraphics( ).setColor( Color.WHITE );
+                GUI.getInstance( ).getGraphics( ).drawString( "Current scene: " + Replayer.getCurrentScene( ), 10, 14 );
+            }
+        }
+
+        
     }
 }

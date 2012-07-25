@@ -60,7 +60,6 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.F
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.tracking.pub._HighLevelEvents;
-import es.eucm.eadventure.tracking.pub.replay.Replayer;
 
 /**
  * A game main loop during a conversation
@@ -379,14 +378,10 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
         if( firstTime ) {
 
             // If the replayer is working, we use the preloaded responses
-            if( Replayer.replaying ) {
-                String s = Replayer.getNextLine( );
-                int opt = Replayer.getNextOpt( );
-                ( (OptionConversationNode) currentNode ).doTheTrick( opt, s );
-            }
+            
             // modify the order of the options the first moment the loop entered in the options node 
             // (this will be done each time the loop enter in option node whereas entered previously or not )
-            else {
+            if (!Game.getInstance( ).getReplayer( ).arrangeOptionsNode( ( (OptionConversationNode) currentNode ) )){
                 ( (OptionConversationNode) currentNode ).doRandom( );
             }
             firstTime = false;

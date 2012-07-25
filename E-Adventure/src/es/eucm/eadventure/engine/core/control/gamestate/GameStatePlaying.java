@@ -35,7 +35,6 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.gamestate;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -49,7 +48,6 @@ import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridManager;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.tracking.pub.replay.Replayer;
 
 /**
  * A game main loop during the normal game
@@ -180,14 +178,8 @@ public class GameStatePlaying extends GameState {
         // Update the data pending from the flags
         game.updateDataPendingFromState( true );
 
-        if( Replayer.replaying ) {
-            g.setColor( Color.WHITE );
-            g.drawString( "Current scene: " + Replayer.getCurrentScene( ), 10, 14 );
-            if ( Replayer.errorOpt ){
-                g.drawString( "Error with options generation", 10, 34 );
-            }
-        }
-
+        game.getReplayer( ).renderState( g, this );
+        
         // Ends the draw process
         GUI.getInstance( ).endDraw( );
         g.dispose( );
