@@ -54,12 +54,12 @@ import es.eucm.eadventure.engine.gamelauncher.GameLauncher;
 /**
  * @updated by Javier Torrente. New functionalities added - Support for .ead
  *          files. Therefore <e-Adventure> files are no longer .zip but .ead
- * @updated by Enrique López. Functionalities added (10/2008) - Multilanguage
+ * @updated by Enrique Lï¿½pez. Functionalities added (10/2008) - Multilanguage
  *          support. Two new classes added
  */
 public class EAdventure {
 
-    public static String VERSION = "1.4";
+    public static String VERSION = "1.5";
 
     public static String languageFile = ReleaseFolders.LANGUAGE_UNKNOWN;
 
