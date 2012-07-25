@@ -34,7 +34,7 @@
  * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.tracking.pub.replay;
+package es.eucm.eadventure.tracking.prv.replay;
 
 import java.awt.AWTException;
 import java.awt.Point;
@@ -54,7 +54,7 @@ import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.tracking.pub.replay.TraceDefaultHandler.Actions;
+import es.eucm.eadventure.tracking.prv.replay.TraceDefaultHandler.Actions;
 
 public class Replayer extends Thread {
 

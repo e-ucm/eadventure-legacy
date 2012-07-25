@@ -34,7 +34,7 @@
  * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.tracking.pub.replay;
+package es.eucm.eadventure.tracking.prv.replay;
 
 import java.awt.Point;
 import java.util.ArrayList;
