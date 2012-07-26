@@ -27,7 +27,7 @@ eucm.eadventure = (function (ctx, window, undefined) {
 	  if (APIVersion == "SCORM12"){
 	  communicationIni = API.LMSInitialize("");
 	  if (textBox!=null){
-		textBox.value+="Conecting with SCORM 1.2 \n";
+		textBox.value+="Connecting with SCORM 1.2 \n";
 		textBox.value+='LMSInitialize("") \n';
 		}
 	  } else if (APIVersion == "SCORM2004"){
