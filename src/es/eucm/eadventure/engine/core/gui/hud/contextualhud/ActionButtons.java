@@ -438,6 +438,8 @@ public class ActionButtons {
      */
     public void draw( Graphics2D g ) {
 
+        if ( buttons.size( )==0) return;
+        
         //For each action button
         float percent = (float) ( System.currentTimeMillis( ) - appearedTime ) / (float) appearingTime;
         if( percent > 1 )
