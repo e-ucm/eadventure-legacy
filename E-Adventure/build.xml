@@ -41,7 +41,7 @@
     More details in the README file.
 -->
 
-<project basedir="." default="build" name="eAdventure">
+<project basedir="." default="compile" name="eAdventure">
 
   <!-- default language; can change from command-line using -Dlang=<code> -->
   <property name="lang" value="en_EN" />
@@ -146,13 +146,13 @@
   <!--
       Execution
   -->
-  <target name="run-editor" depends="compile" description="Executes the e-Adventure editor">
+  <target name="run-editor" depends="compile" description="Executes the eAdventure editor">
     <java classpathref="run.path" classname="${main.editor}" fork="true">
         <jvmarg line="${jvm-args}"/>
         <arg line="${args}"/>
     </java>
   </target>
-  <target name="run-engine" depends="compile" description="Executes the e-Adventure engine">
+  <target name="run-engine" depends="compile" description="Executes the eAdventure engine">
     <java classpathref="run.path" classname="${main.engine}" fork="true">
        <jvmarg line="${jvm-args}"/>
        <arg line="${args}"/>
@@ -165,7 +165,7 @@
   <target name="applet-jar" depends="compile-applet">
 
     <property name="applet.name"
-      value="eAdventure-v${version}-applet.jar" />
+      value="eAdventure-applet.jar" />
     <property name="applet-file" location="${dist.dir}/${applet.name}" />
     <!-- define jarjar task -->
     <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask"
@@ -174,6 +174,7 @@
     <jarjar compress="false" jarfile="${applet-file}">
         <fileset dir="${build.dir}/applet">
           <exclude name="es/eucm/eadventure/editor/**" />
+          <exclude name="src/es/eucm/eadventure/assistant/**" />
         </fileset>
         <zipgroupfileset dir="${lib.dir}" includes="*.jar" />
         <manifest>
@@ -243,7 +244,7 @@
   <target name="zip" depends="eadventure-common" 
       description="Zip, platform-agnostic packaging">
     <property name="zip-file"
-      value="${dist.dir}/eAdventure-v${version}-multiplatform.zip" />
+      value="${dist.dir}/eAdventure-multiplatform.zip" />
     <zip destfile="${zip-file}">
         <!-- add packaging; exclude any special subdirectories -->
         <fileset dir="${pack.dir}" includes="*.*" />
@@ -304,7 +305,7 @@
     <launch4j>
       <config headerType="gui" outfile="${build.dir}/eAdventureEditor.exe"
           dontWrapJar="true" jarPath="eadventure/eadventure-editor.jar"
-          chdir="eadventure" icon="${pack.dir}/icons/Iconos-Editor-EAD.ico">
+          chdir="eadventure" icon="${pack.dir}/icons/eAd-1.5-editor.ico">
         <classPath mainClass="${main.editor}">
             <cp>./jars/*.jar</cp>
             <cp>./*.jar</cp>
@@ -317,7 +318,7 @@
     <launch4j>
       <config headerType="gui" outfile="${build.dir}/eAdventureEngine.exe"
           dontWrapJar="true" jarPath="eadventure/eadventure-engine.jar"
-          chdir="eadventure"  icon="${pack.dir}/icons/Iconos-Motor-EAD.ico">
+          chdir="eadventure"  icon="${pack.dir}/icons/eAd-1.5-engine.ico">
         <classPath mainClass="${main.engine}">
             <cp>./jars/*.jar</cp>
             <cp>./*.jar</cp>
@@ -355,15 +356,15 @@
     </copy>
     <!-- build the installer -->
   	<property name="mac-installer"
-  	      value="${dist.dir}/eAdventure-v${version}-mac.jar" />
+  	      value="${dist.dir}/eAdventure-mac.jar" />
     <izpack input="${build.dir}/installer.xml"
       output="${mac-installer}" basedir="${basedir}" />
 
     <!-- build an exe with the installer -->
     <launch4j>
-      <config headerType="gui" outfile="${dist.dir}/eAdventure-v${version}-installer.exe"
+      <config headerType="gui" outfile="${dist.dir}/eAdventure-installer.exe"
           jarPath="${mac-installer}"
-          chdir="eadventure"  icon="${pack.dir}/icons/Iconos-Plataforma-EAD.ico">
+          chdir="eadventure"  icon="${pack.dir}/icons/eAd-1.5-installer.ico">
         <classPath mainClass="com.izforge.izpack.installer.Installer">
             <cp>./jars/*.jar</cp>
             <cp>./*.jar</cp>
@@ -390,18 +391,18 @@
 
   <target name="create-desktop-entry" depends="init">
     <desktopentry
-      toFile="${build.dir}/e-Adventure-engine.desktop"
-      name="e-Adventure engine"
-      comment="Engine for the e-Adventure platform"
+      toFile="${build.dir}/eAdventure-engine.desktop"
+      name="eAdventure engine"
+      comment="Engine for the eAdventure platform"
       exec="/usr/bin/eAdventure-engine"
-      icon="/usr/share/java/${package.name}/e-adventure-engine.xpm"
+      icon="/usr/share/java/${package.name}/Iconos-eAd1.5-Engine-64x64.png"
       categories="Game;AdventureGame;Java" />
     <desktopentry
-      toFile="${build.dir}/e-Adventure-editor.desktop"
-      name="e-Adventure editor"
+      toFile="${build.dir}/eAdventure-editor.desktop"
+      name="eAdventure editor"
       comment="Editor for the e-Adventure platform"
       exec="/usr/bin/eAdventure-editor"
-      icon="/usr/share/java/${package.name}/e-adventure-editor.xpm"
+      icon="/usr/share/java/${package.name}/Iconos-eAd1.5-Editor-64x64.png"
       categories="Game;AdventureGame;Java" />
   </target>
   
@@ -539,7 +540,10 @@ Homepage: http://e-adventure.e-ucm.es/
   -->
   <target name="editor-jar">
     <jar compress="true" destfile="${build.dir}/eadventure-editor.jar">
-      <fileset dir="${build.dir}" includes="es/eucm/eadventure/editor/**/*.class" />
+    	<fileset dir="release-dir/">
+    					<include name="es/eucm/eadventure/editor/*.class" />
+    					<include name="es/eucm/eadventure/editor/**/*.class" />
+    	</fileset>
       <manifest>
         <attribute name="Main-Class" value="${main.editor}" />
         <attribute name="Class-Path" 
@@ -550,7 +554,11 @@ Homepage: http://e-adventure.e-ucm.es/
 
   <target name="engine-jar" depends="compile">
     <jar compress="true" destfile="${build.dir}/eadventure-engine.jar">
-      <fileset dir="${build.dir}" includes="es/eucm/eadventure/engine/**/*.class" />
+    	<fileset dir="release-dir/">
+    					<include name="es/eucm/eadventure/engine/*.class" />
+    					<include name="es/eucm/eadventure/engine/**/*.class" />
+    					<include name="es/eucm/eadventure/tracking/pub/*.class" />
+    	</fileset>
       <manifest>
         <attribute name="Main-Class" value="${main.engine}" />
         <attribute name="Class-Path" 
@@ -561,13 +569,19 @@ Homepage: http://e-adventure.e-ucm.es/
 
   <target name="comm-jar" depends="compile">
     <jar compress="true" destfile="${build.dir}/eadventure-comm.jar">
-      <fileset dir="${build.dir}" includes="es/eucm/eadventure/comm/**/*.class" />
+    	<fileset dir="release-dir/">
+    					<include name="es/eucm/eadventure/comm/*.class" />
+    					<include name="es/eucm/eadventure/comm/**/*.class" />
+    	</fileset>
     </jar>
   </target>
 
   <target name="common-jar" depends="compile">
     <jar compress="true" destfile="${build.dir}/eadventure-common.jar">
-      <fileset dir="${build.dir}" includes="es/eucm/eadventure/common/**/*.class" />
+    	<fileset dir="release-dir/">
+    					<include name="es/eucm/eadventure/common/*.class" />
+    					<include name="es/eucm/eadventure/common/**/*.class" />
+    	</fileset>
     </jar>
   </target>
 </project>
