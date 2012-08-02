@@ -99,7 +99,7 @@
 	<!-- variable for Manifest Libraries-->
   <pathconvert property="manifest.path" dirsep="/" pathsep=" ">
     <path refid="project.path" />
-  	<map from="${basedir}\" to=" " />
+  	<map from="${basedir}/" to=" " />
   </pathconvert>
 	
   <target name="init" description="Initialize the build">
@@ -382,7 +382,7 @@
 
   <!--
       Deb, a debian/ubuntu packaging
-  -->
+   	-->
   <taskdef resource="ant_deb_task.properties"
     classpath="${pack.dir}/deb/ant-deb.jar:${pack.dir}/deb" />
 
@@ -540,7 +540,7 @@ Homepage: http://e-adventure.e-ucm.es/
   -->
   <target name="editor-jar">
     <jar compress="true" destfile="${build.dir}/eadventure-editor.jar">
-    	<fileset dir="release-dir/">
+    	<fileset dir="${build.dir}">
     					<include name="es/eucm/eadventure/editor/*.class" />
     					<include name="es/eucm/eadventure/editor/**/*.class" />
     	</fileset>
@@ -554,10 +554,11 @@ Homepage: http://e-adventure.e-ucm.es/
 
   <target name="engine-jar" depends="compile">
     <jar compress="true" destfile="${build.dir}/eadventure-engine.jar">
-    	<fileset dir="release-dir/">
+    	<fileset dir="${build.dir}">
     					<include name="es/eucm/eadventure/engine/*.class" />
     					<include name="es/eucm/eadventure/engine/**/*.class" />
     					<include name="es/eucm/eadventure/tracking/pub/*.class" />
+    					<include name="es/eucm/eadventure/tracking/pub/**/*.class" />
     	</fileset>
       <manifest>
         <attribute name="Main-Class" value="${main.engine}" />
@@ -569,7 +570,7 @@ Homepage: http://e-adventure.e-ucm.es/
 
   <target name="comm-jar" depends="compile">
     <jar compress="true" destfile="${build.dir}/eadventure-comm.jar">
-    	<fileset dir="release-dir/">
+    	<fileset dir="${build.dir}">
     					<include name="es/eucm/eadventure/comm/*.class" />
     					<include name="es/eucm/eadventure/comm/**/*.class" />
     	</fileset>
@@ -578,7 +579,7 @@ Homepage: http://e-adventure.e-ucm.es/
 
   <target name="common-jar" depends="compile">
     <jar compress="true" destfile="${build.dir}/eadventure-common.jar">
-    	<fileset dir="release-dir/">
+    	<fileset dir="${build.dir}">
     					<include name="es/eucm/eadventure/common/*.class" />
     					<include name="es/eucm/eadventure/common/**/*.class" />
     	</fileset>
