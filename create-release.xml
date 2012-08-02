@@ -74,7 +74,7 @@ Steps:
 	<property name="help.dir" value="help" />
 	<property name="lanengine.dir" value="i18n/engine" />
 	<property name="laneditor.dir" value="i18n/editor" />
-	<property name="release.version" value="1.4" />
+	<property name="release.version" value="1.5RC2" />
 
 	<property name="plugin.dir" value="C:/Program Files (x86)/Java/jre6/lib" />
 
@@ -209,6 +209,7 @@ Steps:
 		<copy todir="${basedir}/release-dir/eadventure" flatten="true">
 			<fileset dir="${basedir}">
 				<include name="*.dtd" />
+				<include name="tracking.config" />
                 <include name="datamodel*.xml" />
 			</fileset>
 		</copy>

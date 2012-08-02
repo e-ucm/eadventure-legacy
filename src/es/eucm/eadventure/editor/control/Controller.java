@@ -3053,37 +3053,6 @@ public class Controller {
     }
 
     /**
-     * Returns whether the given identifier is valid or not. If the element
-     * identifier is not valid, this method shows an error message to the user.
-     * 
-     * @param elementId
-     *            Element identifier to be checked
-     * @return True if the identifier is valid, false otherwise
-     */
-    public boolean isPropertyIdValid( String elementId ) {
-
-        boolean elementIdValid = false;
-
-        // Check if the identifier has no spaces
-        if( !elementId.contains( " " ) ) {
-
-            // If the first character is a letter
-            if( Character.isLetter( elementId.charAt( 0 ) ) )
-                elementIdValid = true;
-
-            // Show non-letter first character error
-            else
-                mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorFirstCharacter" ) );
-        }
-
-        // Show blank spaces error
-        else
-            mainWindow.showErrorDialog( TC.get( "Operation.IdErrorTitle" ), TC.get( "Operation.IdErrorBlankSpaces" ) );
-
-        return elementIdValid;
-    }
-
-    /**
      * This method returns the absolute path of the background image of the
      * given scene.
      * 

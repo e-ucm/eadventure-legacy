@@ -97,7 +97,7 @@
   </path>
 	
 	<!-- variable for Manifest Libraries-->
-  <pathconvert property="manifest.path" pathsep=" ">
+  <pathconvert property="manifest.path" dirsep="/" pathsep=" ">
     <path refid="project.path" />
   	<map from="${basedir}\" to=" " />
   </pathconvert>
