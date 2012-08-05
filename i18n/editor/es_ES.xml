@@ -1919,7 +1919,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 <entry key="BookTypes.SimpleDescription">El libro se crea en el propio editor, añadiendo títulos, párrafos, imágenes y listas.</entry>
 <entry key="Conversations.DeleteLine">Borrar línea</entry>
 <entry key="Resources.DescriptionCharacterAnimationWalkDown">Hacia abajo</entry>
-<entry key="Player.ShowsSpeechBubble">Muestra bocadillos de dialog</entry>
+<entry key="Player.ShowsSpeechBubble">Muestra bocadillos de diálogo</entry>
 <entry key="Exit.ConditionsInactive">Condiciones inactivas</entry>
 <entry key="GeneralText.Is.Singular">está</entry>
 <entry key="Operation.AddBookMessage">Introduzca un identificador para el nuevo libro:</entry>
