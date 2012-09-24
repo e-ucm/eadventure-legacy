@@ -575,6 +575,25 @@ public class Writer {
         //return true;
     }
     
+    /**
+     * Copies all localized images of the GUI (which are under gui/options/language_ID/*.png) for the current
+     * editor language to a temp folder. This makes merging these files with the project folder and other libraries
+     * much easier.
+     *
+     * @return The temp folder that contains the whole gui/options/language_ID/*.png structure that must be copied
+     * ( this folder is parent of "gui").
+     */
+    private static File addLocalizedGUIImages(){
+        
+        File parentTempDir = new File("web/temp/configPanel/");
+        parentTempDir.deleteAll( );
+        File destinyDir = new File("web/temp/configPanel/gui/options/"+Controller.getInstance( ).getLanguage( )+"/");
+        destinyDir.mkdirs( );
+        File sourceDir = new File("gui/options/"+Controller.getInstance( ).getLanguage( )+"/");
+        File.copyAllTo( sourceDir, destinyDir );
+        return parentTempDir;
+    }
+    
     public static void addNeededLibrariesToJar(ZipOutputStream os, Controller controller ) {
 
         File.addJarContentsToZip("jars/tritonus_share.jar", os);
@@ -635,7 +654,6 @@ public class Writer {
        
         
         File.addFileToZip( new File(ReleaseFolders.getLanguageFilePath4Engine( Controller.getInstance( ).getLanguage( ) )), "i18n/engine/en_EN.xml", os );
-        
     }
     
     /**
@@ -667,9 +685,10 @@ public class Writer {
             os.write( manifest.getBytes( ) );
             os.closeEntry( );
             os.flush( );
-
+            
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
-            File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", projectDirectory, os );
+            File tempFile = addLocalizedGUIImages();
+            File.mergeZipAndDirToJar( os, "web/eAdventure_temp.jar", projectDirectory, tempFile.getAbsolutePath( ) );
             addNeededLibrariesToJar(os, Controller.getInstance( ));
             
            
@@ -738,7 +757,8 @@ public class Writer {
             os.flush( );
             
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
-            File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            File tempFile = addLocalizedGUIImages();
+            File.mergeZipAndDirToJar( os, "web/eAdventure_temp.jar", gameFilename, tempFile.getAbsolutePath( ) );
             addNeededLibrariesToJar(os, Controller.getInstance( ));
 
             os.close( );
@@ -983,7 +1003,8 @@ public class Writer {
             os.closeEntry( );
 
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
-            File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            File tempFile = addLocalizedGUIImages();
+            File.mergeZipAndDirToJar( os, "web/eAdventure_temp.jar", gameFilename, tempFile.getAbsolutePath( ) );
             addNeededLibrariesToJar(os, Controller.getInstance( ));
 
           
@@ -1207,7 +1228,8 @@ public class Writer {
             os.closeEntry( );
 
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
-            File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            File tempFile = addLocalizedGUIImages();
+            File.mergeZipAndDirToJar( os, "web/eAdventure_temp.jar", gameFilename, tempFile.getAbsolutePath( ) );
             addNeededLibrariesToJar(os, Controller.getInstance( ));
 
           
@@ -1374,7 +1396,8 @@ public class Writer {
             //chapterForMoodle.copyTo( new File( "web/temp/chapter1.xml" ) );
             
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
-            File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            File tempFile = addLocalizedGUIImages();
+            File.mergeZipAndDirToJar( os, "web/eAdventure_temp.jar", gameFilename, tempFile.getAbsolutePath( ) );
             addNeededLibrariesToJar(os, Controller.getInstance( ));
             
             os.close( );
@@ -1607,7 +1630,8 @@ public class Writer {
             os.flush( );
 
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
-            File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            File tempFile = addLocalizedGUIImages();
+            File.mergeZipAndDirToJar( os, "web/eAdventure_temp.jar", gameFilename, tempFile.getAbsolutePath( ) );
             addNeededLibrariesToJar(os, Controller.getInstance( ));
 
             
@@ -1838,9 +1862,9 @@ public class Writer {
             os.flush( );
 
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
-            File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            File tempFile = addLocalizedGUIImages();
+            File.mergeZipAndDirToJar( os, "web/eAdventure_temp.jar", gameFilename, tempFile.getAbsolutePath( ) );
             addNeededLibrariesToJar(os, Controller.getInstance( ));
-
            
             os.close( );
 
@@ -2043,7 +2067,8 @@ public class Writer {
             os.closeEntry( );
             os.flush( );
 
-            File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            File tempFile = addLocalizedGUIImages();
+            File.mergeZipAndDirToJar( os, "web/eAdventure_temp.jar", gameFilename, tempFile.getAbsolutePath( ) );
             addNeededLibrariesToJar(os, Controller.getInstance( ));
 
             

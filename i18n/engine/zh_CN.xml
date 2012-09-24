@@ -42,7 +42,7 @@
 <entry key="Reports.InputReportName">输入将要显示在报告中的名字</entry>
 <entry key="Report.Cancel">取消</entry>
 <entry key="GameText.TextSpeed">文本速度</entry>
-<entry key="Language.Internationalize">cn_CN</entry>
+<entry key="Language.Internationalize">zh_CN</entry>
 <entry key="GameText.TextGiveNPC2">我不能做</entry>
 <entry key="MainWindow.GameDescriptionText">当前选中游戏的描述</entry>
 <entry key="GameText.TextGiveNPC1">什么？？</entry>

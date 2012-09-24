@@ -106,11 +106,6 @@ public class ConfigData {
         instance = new ConfigData( configFile );
     }
 
-    public static void loadFromData( String languageFile, String aboutFile ) {
-
-        instance = new ConfigData( languageFile, aboutFile );
-    }
-
     public static void storeToXML( ) {
 
         if( instance.configFile != null ) {
@@ -176,13 +171,6 @@ public class ConfigData {
 
         }
 
-    }
-
-    private ConfigData( String languageFile, String aboutFile ) {
-
-        configFile = null;
-        this.languageFile = languageFile;
-        this.aboutFile = aboutFile;
     }
 
     public static String getDefaultLanguage( ) {

@@ -402,7 +402,7 @@ public class File extends java.io.File {
         
     }
     
-    private static boolean importEadventureJar(FileInputStream fis, String destiny){
+       private static boolean importEadventureJar(FileInputStream fis, String destiny){
         try{
         CheckedInputStream checksum = new CheckedInputStream( fis, new Adler32( ) );
            JarInputStream jis = new JarInputStream( new BufferedInputStream( checksum ) );
@@ -410,6 +410,9 @@ public class File extends java.io.File {
            
          if (isEadJar(man, jis)){
              unzipDir( jis, destiny, true);
+             
+             
+             
              return true;
         }else  {
             jis.close( );
@@ -560,7 +563,7 @@ public class File extends java.io.File {
      * @param destinyJarFile
      *            Complete path of the destiny zip file (product)
      */
-    public static void mergeZipAndDirToJar( String originZipFile, String originDir, ZipOutputStream zos ) {
+    public static void mergeZipAndDirToJar( ZipOutputStream zos, String originZipFile, String ... originDirs ) {
         try {
             FileInputStream fis = new FileInputStream( originZipFile );
             CheckedInputStream checksum = new CheckedInputStream( fis, new Adler32( ) );
@@ -585,7 +588,9 @@ public class File extends java.io.File {
             zis.close( );
 
             // Write the contents of the origin dir to the jar
-            File.zipDir( originDir, "", zos );
+            for (String originDir: originDirs){
+                File.zipDir( originDir, "", zos );
+            }
 
         }
         catch( Exception e ) {
