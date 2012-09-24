@@ -384,9 +384,9 @@ Deste xeito logo pódense definir condicións en función do valor dunha variabl
 <entry key="LOMES.Educational.CognitiveProcess">"Proceso Cognitivo"</entry>
 <entry key="AssessmentProfiles.Title">Perfís de avaliación</entry>
 <entry key="IMS.Educational.LearningResourceType">Tipo específico de recurso</entry>
-<entry key="Operation.ImportLO.InfoMessage">Atención: para que a importación sexa satisfactoria o .ZIP elixido debe ser unha exportación dun xogo &lt;e-Adventure&gt; como Obxecto de Aprendizaxe. O resto de .ZIP non serán importados.</entry>
+<entry key="Operation.ImportLO.InfoMessage">Atención: para que a importación sexa satisfactoria o .ZIP elixido debe ser unha exportación dun xogo eAdventure como Obxecto de Aprendizaxe. O resto de .ZIP non serán importados.</entry>
 <entry key="ErrorReport.FoundException">Excepción atopada:</entry>
-<entry key="Operation.ImportJAR.FileNotLoaded">O .JAR elixido non é unha exportación de &lt;e-Adventure&gt;.</entry>
+<entry key="Operation.ImportJAR.FileNotLoaded">O .JAR elixido non é unha exportación de eAdventure.</entry>
 <entry key="Conversation.RemoveNameTag.Tooltip">Borra unha marca a todas as liñas de conversación para que apareza o nome do personaxe (ou xogador) que di a liña.</entry>
 <entry key="Menu.SendComments">Enviar comentarios ou suxestións</entry>
 <entry key="Arrows.DefaultPosition">Posición por defecto</entry>
@@ -425,7 +425,7 @@ Borráronse as referencias a devandito perfil.</entry>
 <entry key="Item.Preview">Previsualización do obxecto</entry>
 <entry key="SelectImageDialog.SaveButton">Gardar selección</entry>
 <entry key="SelectImageDialog.Title">Mover e/ou escalar a área de selección para personalizar o fondo da escena</entry>
-<entry key="MenuFile.Loade">Abrir...</entry>
+<entry key="MenuFile.Load">Abrir...</entry>
 <entry key="Effect.MacroRefInfo">Lanzar macro {#0}</entry>
 <entry key="Resources.Button">Boton</entry>
 <entry key="NextScene.Effects">Efectos da "Seguinte escena"</entry>
@@ -926,7 +926,7 @@ destes estados</entry>
 		Desexa sobreescribirlo?</entry>
 <entry key="Conditions.ConditionGroup.Satisfied">cúmprese</entry>
 <entry key="Operation.AddNPCDefaultValue">IdPersonaje</entry>
-<entry key="Operation.AdventurInconsistentWarning">A aventura é inválida e non poderá executarse no motor &lt;e-Adventure&gt;.
+<entry key="Operation.AdventurInconsistentWarning">A aventura é inválida e non poderá executarse no motor eAdventure.
 		Por favor execute "Comprobar validez" e solucione os problemas para validar a aventura.</entry>
 <entry key="MainWindow.Title.NewFile">Novo arquivo</entry>
 <entry key="Effect.ActivateInfo">Activar flag: {#0}</entry>
@@ -1054,7 +1054,7 @@ Dita operación non se completou.</entry>
 <entry key="Operation.AddMacroDefaultValue">IdMacro</entry>
 <entry key="Cursor.use.Tip">Este cursor emprégase para seleccionar o obxectivo dunha acción "usar" (só interfaz tradicional)</entry>
 <entry key="AnimationPanel.AnimationNotAvalaible">Animación non dispoñible</entry>
-<entry key="Operation.AdventureConsistentReport">A aventura é completamente válida e pode ser executada no motor &lt;e-Adventure&gt;</entry>
+<entry key="Operation.AdventureConsistentReport">A aventura é completamente válida e pode ser executada no motor eAdventure</entry>
 <entry key="SelectImageDialog.Description">Para axustar a imaxe de fondo, move ou expande o area resaltada.</entry>
 <entry key="TimedAssessmentRule.Estafe">Intervalo de tempo</entry>
 <entry key="Book.Contents">Contido do libro</entry>
@@ -1284,7 +1284,7 @@ obxecto seleccionado para a acción").</entry>
 <entry key="Inventory.Information">Desde este menú pode personalizar a aparencia das datas do inventario. 
 Si non as cambia, o xogo empregará as flechas por defecto.</entry>
 <entry key="SelectEffectDialog.AllEffects.ToolTipText">Mostra todos os tipos de efectos</entry>
-<entry key="Operation.ImportJAR.InfoMessage">Atención: para que a importación sexa satisfactoria o .JAR elixido debe ser unha exportación dun xogo &lt;e-Adventure&gt; como jar ejecutable. O resto de .JAR non serán importados.</entry>
+<entry key="Operation.ImportJAR.InfoMessage">Atención: para que a importación sexa satisfactoria o .JAR elixido debe ser unha exportación dun xogo eAdventure como jar ejecutable. O resto de .JAR non serán importados.</entry>
 <entry key="Adventure.ModePlayerTransparent.Name">Primeira persoa</entry>
 <entry key="Conditions.Group.Title">Campos do Estado Global</entry>
 <entry key="Chapter.ChapterTitle">Título do capítulo</entry>
@@ -1560,7 +1560,7 @@ Cartafois con nomes que conteñan outro tipo de carácteres ou acentúes non ser
 <entry key="Element.Name2">Escena</entry>
 <entry key="Element.Name1">Escenas</entry>
 <entry key="Element.Name0">Capítulo</entry>
-<entry key="Operation.ImportLO.FileNotLoadedMessage">O .ZIP elixido non é un Obxecto de Aprendizaxe exportado con con &lt;e-Adventure&gt;.</entry>
+<entry key="Operation.ImportLO.FileNotLoadedMessage">O .ZIP elixido non é un Obxecto de Aprendizaxe exportado con eAdventure.</entry>
 <entry key="Button.use-grab.normal.Description">Boton de usar-coller normal</entry>
 <entry key="CustomAction.GetNameTitle">Nome da acción</entry>
 <entry key="Effect.DecrementVarInfo">Decrementar a variable "{#0}" en {#1} "" unidades</entry>
@@ -1741,7 +1741,7 @@ Si non os cambia, o xogo empregará os botóns por defecto.</entry>
 <entry key="MenuAdventure.KeyboardNavigationEnabled.Checkbox">Activar (habilita xogo con flechas e intro)</entry>
 <entry key="LOMES.Technical.Requirement">Requerimientos</entry>
 <entry key="conditions.context.1.251">A acción {#ELEMENT_TYPE$} {#ELEMENT_IDE$} &lt;b&gt;poderase levar a cabo&lt;/b&gt; cando se cumpra a seguinte condición:</entry>
-<entry key="StartDialog.HelpMessage">Bienvenido ao editor &lt;e-Adventure&gt; 
+<entry key="StartDialog.HelpMessage">Bienvenido ao editor eAdventure 
 Para comezar a usar o editor pode elixir entre as opcións mostradas aquí. Pode crear un novo arquivo seleccionando un dos botóns inferiores. Permítese crear dous tipos de aventura distintos (esta decisión pódese cambiar máis adiante):	
   - Aventuras que mostran o personaxe correspondente ao xogador, como nos xogos da saga Monkey Island (Modo xogador visible).
   - Aventuras nas que non se ve o personaxe do xogador, como nos xogos da saga Myst (Modo primeira persoa).
@@ -1878,7 +1878,7 @@ Si non desexa crear un novo xogo, pode abrir un arquivo xa existente empregando 
 <entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">O perfil de avaliación e o de adaptación deben ser do tipo SCORM 2004 en caso de existir para poder exportar en formato AGREGA.</entry>
 <entry key="Conditions.Var.Ide">Nome da variable</entry>
 <entry key="MoveObjectEffect.NoItemSelected">Ningun obxecto seleccionado</entry>
-<entry key="Menu.AboutEAD">Sobre...&lt;e-Adventure&gt;.</entry>
+<entry key="Menu.AboutEAD">Sobre...eAdventure.</entry>
 <entry key="RandomEffect.DeleteEffect">Borrar este efecto</entry>
 <entry key="NextScene.AdvancedOptions">Opcións avanzadas</entry>
 <entry key="Element.Name251">Arrastrar a....</entry>
@@ -1982,7 +1982,7 @@ Por favor, inténteo de novo cambiando devandito directorio.</entry>
 <entry key="Cursors.Tip">Personalización de cursores</entry>
 <entry key="ActionProperties.EditClickFailEffects">Editar "efectos click errado"</entry>
 <entry key="Search.AssessmentPath">Ubicación do fichero de aprendiaje</entry>
-<entry key="StartDialog.Message">Para comezar a usar o editor de &lt;e-Adventure&gt;, debe escoller entre crear un novo arquivo para almacenar a nova aventura, ou seleccionar unha aventura xa creada para editala.</entry>
+<entry key="StartDialog.Message">Para comezar a usar o editor de eAdventure, debe escoller entre crear un novo arquivo para almacenar a nova aventura, ou seleccionar unha aventura xa creada para editala.</entry>
 <entry key="DescriptionSet.deleteOnlyOneDescription.message">Está seguro que desexa borrar a descrición? As condicións da descrición que quedará activo para este elemento serán borradas.</entry>
 <entry key="HighlightItemEffect.Animated">Animado</entry>
 <entry key="TriggerSceneEffect.Description.FirstPerson">Seleccione a escena que se executará:</entry>
