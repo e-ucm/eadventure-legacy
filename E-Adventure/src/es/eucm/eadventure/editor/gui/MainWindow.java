@@ -37,13 +37,16 @@
 package es.eucm.eadventure.editor.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -80,6 +83,7 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileFilter;
 
+import es.eucm.eadventure.common.auxiliar.MultiscreenTools;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.gui.TC;
@@ -150,6 +154,11 @@ public class MainWindow extends JFrame {
     private JCheckBoxMenuItem paintHotSpotsMenuItem;
     private JCheckBoxMenuItem paintBoundingAreasMenuItem;
 
+    /**
+     * If the engine is running, the main window must be blocked.
+     */
+    private boolean isEngineRunning = false;
+    
     /**
      * Constructor. Creates the general layout.
      */
@@ -283,12 +292,10 @@ public class MainWindow extends JFrame {
                 
                 int minWidth = Math.min( totalWidth>WINDOW_MIN_WIDTH?WINDOW_MIN_WIDTH:totalWidth-10, ConfigData.getEditorWindowWidth( ));
                 int minHeight = Math.min( totalHeight>WINDOW_MIN_HEIGHT?WINDOW_MIN_HEIGHT:totalHeight-40, ConfigData.getEditorWindowHeight( ));
-                setMinimumSize( new Dimension(minWidth, minHeight) );
                 
                 prefWidth = ConfigData.getEditorWindowWidth( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowWidth( ):totalWidth;
                 prefHeight = ConfigData.getEditorWindowHeight( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowHeight( ):totalHeight;
-                setPreferredSize ( new Dimension (prefWidth, prefHeight) );
-                setSize ( new Dimension (prefWidth, prefHeight) );
+                
                 /*int width = (int) Math.min( 960, screenSize.getWidth( ) );
                 int height = (int) Math.min( 720, screenSize.getHeight( ) );
                 setSize( width, height );
@@ -300,8 +307,15 @@ public class MainWindow extends JFrame {
                 x = ConfigData.getEditorWindowX( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowX( ):screenOffsetX+(totalWidth-prefWidth)/2 ;
                 y = ConfigData.getEditorWindowY( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowY( ):screenOffsetY+(totalHeight-prefHeight)/2 ;
                 
+                // Check the window is visible (at least the bar)
+                Rectangle windowUpperPart = new Rectangle(x,y,prefWidth, 40);
+                if (!MultiscreenTools.isRectangleVisible( windowUpperPart, false )){
+                    x=0;y=0;prefWidth=totalWidth-10;prefHeight=totalHeight-40;
+                }
+                setMinimumSize( new Dimension(minWidth, minHeight) );
+                setPreferredSize ( new Dimension (prefWidth, prefHeight) );
+                setSize ( new Dimension (prefWidth, prefHeight) );
                 this.setLocation( x, y );
-                
                 set=true;
                 
                 if (System.getProperty("os.name").toLowerCase( ).contains( "win" ) && prefWidth==totalWidth && prefHeight ==totalHeight){
@@ -433,11 +447,6 @@ public class MainWindow extends JFrame {
 
     private JMenuBar createMenuBar( ) {
 
-        return createMenuBarAdventureMode( );
-    }
-
-    private JMenuBar createMenuBarAdventureMode( ) {
-
         JMenuBar windowMenu = new JMenuBar( );
         //windowMenu.setLayout( new BoxLayout(windowMenu, BoxLayout.LINE_AXIS));
         windowMenu.setLayout( new FlowLayout( FlowLayout.LEFT ) );
@@ -457,7 +466,7 @@ public class MainWindow extends JFrame {
         chaptersMenu.setMnemonic( KeyEvent.VK_H );
         windowMenu.add( chaptersMenu );
         runMenu = new JMenu( TC.get( "MenuRun.Title" ) );
-        runMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
+        runMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( )&&!isEngineRunning );
         windowMenu.add( runMenu );
         configurationMenu = new JMenu( TC.get( "MenuConfiguration.Title" ) );
         configurationMenu.setMnemonic( KeyEvent.VK_T );
@@ -935,14 +944,18 @@ public class MainWindow extends JFrame {
     }
 
     public void setNormalRunAvailable( boolean available ) {
-
+        this.isEngineRunning = !available;
+        /*this.setEnabled( available );
+        if ( available ){
+            setVisible(true);
+        }
+        this.invalidate( );
+        this.repaint( );*/
         this.runMenu.setEnabled( available );
-        this.fileMenu.setEnabled( available );
+        /*this.fileMenu.setEnabled( available );
         this.chaptersMenu.setEnabled( available );
         this.itPlayerMode.setEnabled( available );
-        this.configurationMenu.setEnabled( available );
-       
-       
+        this.configurationMenu.setEnabled( available );*/
     }
 
     /**
@@ -1099,6 +1112,15 @@ public class MainWindow extends JFrame {
         structurePanel.updateElementPanel( );
     }
 
+    
+    public void paint(Graphics2D g){
+        if (isEngineRunning){
+            Color color = new Color(120, 120, 120, 120);
+            g.setColor( color );
+            g.fillRect( 0, 0, getWidth( ), getHeight() );
+        }
+        super.paint( g );
+    }
     /**
      * Shows a load dialog to select a single existing file.
      * 

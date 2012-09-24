@@ -592,6 +592,17 @@ public class GUIFrame extends GUI implements FocusListener {
         Rectangle prefBounds = null;
         if (rSettings!=null){
             prefBounds = rSettings.getPreferredBounds( );
+            
+         // Check the window is visible (at least the bar)
+            if (prefBounds!=null){
+                Rectangle windowUpperPart = (Rectangle)prefBounds.clone( );
+                windowUpperPart.height=60;
+                GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
+                Rectangle screen = environment.getMaximumWindowBounds( );
+                if (!screen.intersects( windowUpperPart )){
+                    prefBounds=null;
+                }
+            }
         }
         
         int totalScreenWidth = totalScreenWidth();

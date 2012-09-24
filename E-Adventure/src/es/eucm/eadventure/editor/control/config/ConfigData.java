@@ -36,8 +36,6 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.control.config;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -425,37 +423,36 @@ public class ConfigData {
             aboutFile = configuration.getProperty( "AboutFile" );
             loadingImage = configuration.getProperty( "LoadingImage" );
 
-            Dimension size = Toolkit.getDefaultToolkit( ).getScreenSize( );
             // Editor
             try{
                 editorWindowX=Integer.parseInt( configuration.getProperty( "EditorWindowX" ) );
-                if (editorWindowX<0 || editorWindowX>size.width){
+                /*if (editorWindowX<0 || editorWindowX>size.width){
                     editorWindowX=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 editorWindowX=Integer.MAX_VALUE;
             }
             try{
                 editorWindowY=Integer.parseInt( configuration.getProperty( "EditorWindowY" ) );
-                if (editorWindowY<0 || editorWindowY>size.height){
+                /*if (editorWindowY<0 || editorWindowY>size.height){
                     editorWindowY=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 editorWindowY=Integer.MAX_VALUE;
             }
             try{
                 editorWindowW=Integer.parseInt( configuration.getProperty( "EditorWindowWidth" ) );
-                if (editorWindowW<0 || editorWindowW>size.width){
+                /*if (editorWindowW<0 || editorWindowW>size.width){
                     editorWindowW=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 editorWindowW=Integer.MAX_VALUE;
             }
             try{
                 editorWindowH=Integer.parseInt( configuration.getProperty( "EditorWindowHeight" ) );
-                if (editorWindowH<0 || editorWindowH>size.height){
+                /*if (editorWindowH<0 || editorWindowH>size.height){
                     editorWindowH=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 editorWindowH=Integer.MAX_VALUE;
             }
@@ -463,33 +460,33 @@ public class ConfigData {
             // Engine
             try{
                 engineWindowX=Integer.parseInt( configuration.getProperty( "EngineWindowX" ) );
-                if (engineWindowX<0 || engineWindowX>size.width){
+                /*if (engineWindowX<0 || engineWindowX>size.width){
                     engineWindowX=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 engineWindowX=Integer.MAX_VALUE;
             }
             try{
                 engineWindowY=Integer.parseInt( configuration.getProperty( "EngineWindowY" ) );
-                if (engineWindowY<0 || engineWindowY>size.height){
+                /*if (engineWindowY<0 || engineWindowY>size.height){
                     engineWindowY=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 engineWindowY=Integer.MAX_VALUE;
             }
             try{
                 engineWindowW=Integer.parseInt( configuration.getProperty( "EngineWindowWidth" ) );
-                if (engineWindowW<0 || engineWindowW>size.width){
+                /*if (engineWindowW<0 || engineWindowW>size.width){
                     engineWindowW=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 engineWindowW=Integer.MAX_VALUE;
             }
             try{
                 engineWindowH=Integer.parseInt( configuration.getProperty( "EngineWindowHeight" ) );
-                if (engineWindowH<0 || engineWindowH>size.height){
+                /*if (engineWindowH<0 || engineWindowH>size.height){
                     engineWindowH=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 engineWindowH=Integer.MAX_VALUE;
             }
@@ -497,33 +494,33 @@ public class ConfigData {
             // Debug
             try{
                 debugWindowX=Integer.parseInt( configuration.getProperty( "DebugWindowX" ) );
-                if (debugWindowX<0 || debugWindowX>size.width){
+                /*if (debugWindowX<0 || debugWindowX>size.width){
                     debugWindowX=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 debugWindowX=Integer.MAX_VALUE;
             }
             try{
                 debugWindowY=Integer.parseInt( configuration.getProperty( "DebugWindowY" ) );
-                if (debugWindowY<0 || debugWindowY>size.height){
+                /*if (debugWindowY<0 || debugWindowY>size.height){
                     debugWindowY=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 debugWindowY=Integer.MAX_VALUE;
             }
             try{
                 debugWindowW=Integer.parseInt( configuration.getProperty( "DebugWindowWidth" ) );
-                if (debugWindowW<0 || debugWindowW>size.width){
+                /*if (debugWindowW<0 || debugWindowW>size.width){
                     debugWindowW=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 debugWindowW=Integer.MAX_VALUE;
             }
             try{
                 debugWindowH=Integer.parseInt( configuration.getProperty( "DebugWindowHeight" ) );
-                if (debugWindowH<0 || debugWindowH>size.height){
+                /*if (debugWindowH<0 || debugWindowH>size.height){
                     debugWindowH=Integer.MAX_VALUE;
-                }
+                }*/
             } catch (NumberFormatException ne){
                 debugWindowH=Integer.MAX_VALUE;
             }

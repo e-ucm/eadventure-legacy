@@ -62,6 +62,7 @@ import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.MultiscreenTools;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
@@ -4020,26 +4021,14 @@ public class Controller {
         if (prefBounds!=null){
             // Try to determine which device these bounds belong to
             // If there are more than one device, pick one that is not the "default", as this one may be occupied with Editor's main window
-            for (GraphicsDevice d: environment.getScreenDevices( )){
-                // If prefBounds are contained on screen bounds, pick this device
-                if (d.getDefaultConfiguration( ).getBounds( ).contains( prefBounds )){
-                    device = d; break;
-                }
-            }
+            device = MultiscreenTools.getDeviceContainer( prefBounds, true );
         }
         
-        // IF device could not be determined using preferred Bounds, then use other device that is not occupied by mainWindow
+        // IF device could not be determined using preferred Bounds, then use other device that is not occupied by mainWindow.
+        // Namely, the device selected is the one which interesction with the main window bounds has minimum area
         if (device==null){
             Rectangle mainWindowBounds = mainWindow.getBounds( );
-            int intersectionArea=Integer.MAX_VALUE;
-            for (GraphicsDevice d: environment.getScreenDevices( )){
-                Rectangle intersection = d.getDefaultConfiguration( ).getBounds( ).intersection( mainWindowBounds );
-                int area = intersection.width*intersection.height;
-                if (area<intersectionArea){
-                    intersectionArea = area;
-                    device = d;
-                }
-            }
+            device = MultiscreenTools.getDeviceWithMinimumIntersection( mainWindowBounds );
         }
         
         // If device could not be calculated, then use default one
