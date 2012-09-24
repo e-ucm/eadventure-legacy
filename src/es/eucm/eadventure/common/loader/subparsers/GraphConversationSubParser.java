@@ -217,7 +217,7 @@ public class GraphConversationSubParser extends SubParser {
             // If it is a node, create a new node
             else if( qName.equals( "dialogue-node" ) || qName.equals( "option-node" ) ) {
                 // Create the node depending of the tag
-                editorX=editorY=-1;
+                editorX=editorY=Integer.MIN_VALUE;
                 if( qName.equals( "dialogue-node" ) ){
                     for( int i = 0; i < attrs.getLength( ); i++ ) {
                         //If there is a "waitUserInteraction" attribute, store if the lines will wait until user interacts
@@ -229,19 +229,19 @@ public class GraphConversationSubParser extends SubParser {
                         }
                       //If there is a "editor-x" and "editor-y" attributes
                         if( attrs.getQName( i ).equals( "editor-x" ) ) {
-                            editorX = Integer.parseInt( attrs.getValue( i ));
+                            editorX = Math.max( 0, Integer.parseInt( attrs.getValue( i )));
                         } else
                         
                         if( attrs.getQName( i ).equals( "editor-y" ) ) {
-                            editorY = Integer.parseInt( attrs.getValue( i ) );
+                            editorY = Math.max( 0, Integer.parseInt( attrs.getValue( i ) ));
                         }
                     
                     }
                     currentNode = new DialogueConversationNode(keepShowingDialogue);
-                    if (editorX!=-1){
+                    if (editorX>Integer.MIN_VALUE){
                         currentNode.setEditorX( editorX );
                     }
-                    if (editorY!=-1){
+                    if (editorY>Integer.MIN_VALUE){
                         currentNode.setEditorY( editorY );
                     }
                 }                
@@ -286,19 +286,19 @@ public class GraphConversationSubParser extends SubParser {
                         }
                       //If there is a "editor-x" and "editor-y" attributes
                         if( attrs.getQName( i ).equals( "editor-x" ) ) {
-                            editorX = Integer.parseInt( attrs.getValue( i ));
+                            editorX = Math.max( 0, Integer.parseInt( attrs.getValue( i )));
                         } else
                         
                         if( attrs.getQName( i ).equals( "editor-y" ) ) {
-                            editorY = Integer.parseInt( attrs.getValue( i ) );
+                            editorY = Math.max( 0, Integer.parseInt( attrs.getValue( i ) ));
                         }
                     }
 
                     currentNode = new OptionConversationNode( random,keepShowing, showUserOption, preListening, x, y );
-                    if (editorX!=-1){
+                    if (editorX>Integer.MIN_VALUE){
                         currentNode.setEditorX( editorX );
                     }
-                    if (editorY!=-1){
+                    if (editorY>Integer.MIN_VALUE){
                         currentNode.setEditorY( editorY );
                     }
                 }

@@ -623,7 +623,9 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
                 points.add( i, point ); 
             }
             first=false;
-            loadCursor(points.get( index ));
+            if ( index<points.size( ) && index>=0 ){
+                loadCursor(points.get( index ));
+            }
         }
         
         /**
@@ -856,9 +858,11 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
             case KeyEvent.VK_UP:                 
                 index--;
                 if (index<0)
-                    index = points.size( ) - 1;                
+                    index = Math.max( points.size( ) - 1, 0);                
                
-                loadCursor(points.get( index ));
+                if ( index<points.size( ) && index>=0 ){
+                    loadCursor(points.get( index ));
+                }
            
                 break;
 
@@ -868,7 +872,9 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
                  if (index>=points.size())
                      index = 0;
                
-                 loadCursor(points.get( index ));
+                 if ( index<points.size( ) && index>=0 ){
+                     loadCursor(points.get( index ));
+                 }
                 
                  break;
              case KeyEvent.VK_ENTER:

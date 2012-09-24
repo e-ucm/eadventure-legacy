@@ -48,12 +48,6 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  * This is the main class, when run standalone. Creates a new game and runs it.
  * 
  */
-/**
- * @updated by Javier Torrente. New functionalities added - Support for .ead
- *          files. Therefore <e-Adventure> files are no longer .zip but .ead
- * @updated by Enrique López. Functionalities added (10/2008) - Multilanguage
- *          support. Two new classes added
- */
 public class EAdventureDebug {
 
     /**

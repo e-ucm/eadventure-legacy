@@ -1949,7 +1949,7 @@
 <entry key="Operation.RenameBookMessage">输入重命名书的新标示符</entry>
 <entry key="ConversationLine.Type.Normal">普通</entry>
 <entry key="Scene.UseInitialPosition">使用初始位置</entry>
-<entry key="Language.Name">Chinese</entry>
+<entry key="Language.Name">中文</entry>
 <entry key="Conditions.ConditionGroup.NotSatisfied">不满足</entry>
 <entry key="Operation.AddSceneMessage">输入新场景的标识符</entry>
 <entry key="MenuFile.Save">保存项目</entry>
