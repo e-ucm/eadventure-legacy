@@ -1965,6 +1965,9 @@ public class Controller {
                                     loadingScreen.setVisible( false );
                                     mainWindow.showErrorDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.ImportLO.FileNotLoadedMessage" ) );
                                     correctFile = false;
+                                }  else {
+                                    // Remove gui/options/**/*.png
+                                    cleanImportedDefaultGUIImages(selectedDir);
                                 }
                             }
                             else if( eadPath.endsWith( ".jar" ) ) {
@@ -1974,7 +1977,11 @@ public class Controller {
                                     loadingScreen.setVisible( false );
                                     mainWindow.showErrorDialog( TC.get( "Operation.FileNotLoadedTitle" ), TC.get( "Operation.ImportJAR.FileNotLoaded" ) );
                                     correctFile = false;
+                                } else {
+                                    // Remove gui/options/**/*.png
+                                    cleanImportedDefaultGUIImages(selectedDir);
                                 }
+
 
                             }
                             //ProjectConfigData.loadFromXML( );
@@ -2009,6 +2016,33 @@ public class Controller {
         return exportGame( null );
     }
 
+    /**
+     * When a game is imported from Jar or Zip, default GUI images like those for game menu are imported as well.
+     * This method deletes default images under gui/options.
+     * @param selectedDir
+     */
+    private void cleanImportedDefaultGUIImages(java.io.File selectedDir){
+        File options = null;
+        if (selectedDir.getAbsolutePath( ).endsWith( "/" ) || 
+                selectedDir.getAbsolutePath( ).endsWith( "\\" )){
+            options = new File(selectedDir.getAbsolutePath( )+"gui/options/");
+        } else {
+            options = new File(selectedDir.getAbsolutePath( )+"/gui/options/");
+        }
+        for (File subDir: options.listFiles( )){
+            if (subDir.isDirectory( )){
+                for (File image: subDir.listFiles( )){
+                    if (image.getAbsolutePath( ).toLowerCase().endsWith( "png" ))
+                        image.delete( );
+                }
+                subDir.delete( );
+            } else if (subDir.getAbsolutePath( ).toLowerCase( ).endsWith( "png" )){
+                subDir.delete( );
+            }
+        }
+
+    }
+    
     public boolean exportGame( String targetFilePath ) {
 
         boolean exportGame = true;
