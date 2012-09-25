@@ -12,7 +12,7 @@
 	<property name="plugin.dir" value="C:/Program Files (x86)/Java/jre6/lib" />
 	<property name="lanengine.dir" value="i18n/editor" />
 	<property name="laneditor.dir" value="i18n/engine" />
-	<property name="release.version" value="1.5RC2" />
+	<property name="release.version" value="1.5RC3" />
 
 	<path id="project.class.path">
 		<fileset dir="${lib.dir}">
@@ -60,8 +60,27 @@
 		<delete file="web/eAdventure.jar" />
 		<copy todir="web/temp">
 			<fileset dir=".">
-				<include name="gui/**" />
-				<include name="java.policy.applet" />
+				<include name="gui/cursors/action.png" />
+				<include name="gui/cursors/default.png" />
+				<include name="gui/cursors/exit.png" />
+				<include name="gui/cursors/nocursor.png" />
+				<include name="gui/cursors/over.png" />
+				<include name="gui/defaultassets/**" />
+				<include name="gui/hud/contextual/btnDrag**" />
+				<include name="gui/hud/contextual/btnError**" />
+				<include name="gui/hud/contextual/btnExamine**" />
+				<include name="gui/hud/contextual/btnGive**" />
+				<include name="gui/hud/contextual/btnGrab**" />
+				<include name="gui/hud/contextual/btnTalk**" />
+				<include name="gui/hud/contextual/btnUse**" />
+				<include name="gui/hud/contextual/left.png" />
+				<include name="gui/hud/contextual/right.png" />
+				<include name="gui/options/Button.png" />
+				<include name="gui/options/PressedButton.png" />
+				<include name="gui/options/quicksand_bold.ttf" />
+				<include name="gui/*.png" />
+				<include name="gui/*.jpg" />
+				<!--<include name="java.policy.applet" />-->
 			</fileset>
 			<fileset dir="./web/tempcompile">
 				<exclude name="es/eucm/eadventure/editor/**" />

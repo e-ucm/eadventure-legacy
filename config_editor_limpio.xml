@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>eAdventure editor configuration</comment>
+<entry key="ShowNPCReferences">false</entry>
+<entry key="ShowAtrezzoReferences">false</entry>
+<entry key="LanguageFile">en_EN.xml</entry>
+<entry key="RecentFiles">0</entry>
+<entry key="ShowItemReferences">false</entry>
+<entry key="AboutFile">i18n/editor/about-en_EN.html</entry>
+<entry key="PaintHotSpots">true</entry>
+<entry key="PaintGrid">true</entry>
+<entry key="LoadingImage">img/loading/en_EN/Editor2D-Loading.png</entry>
+<entry key="ShowStartDialog">true</entry>
+<entry key="PaintBoundingAreas">true</entry>
+</properties>

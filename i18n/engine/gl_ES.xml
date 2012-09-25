@@ -73,7 +73,7 @@
 <entry key="ErrorReport.Send">Enviar</entry>
 <entry key="GameText.LoadingXML">Cargando XML...</entry>
 <entry key="GameText.Grab">Coller</entry>
-<entry key="GameText.Loade">Cargar</entry>
+<entry key="GameText.Load">Cargar</entry>
 <entry key="DebugFrameLog.Estafe">Tempo</entry>
 <entry key="GameText.Back">Volver</entry>
 <entry key="GameText.TextGiveObjectNotInventory2">Necesito o obxecto para dalo</entry>
@@ -110,7 +110,7 @@
 <entry key="GameText.LoadingData">Cargando datos...</entry>
 <entry key="DebugFrame.AllFlagsAndVars">Todos os flags e variables</entry>
 <entry key="Report.Importance.VeryHigh">Moi alto</entry>
-<entry key="GameText.Save/Loade">Salvar/Cargar</entry>
+<entry key="GameText.Save/Load">Salvar/Cargar</entry>
 <entry key="Conversation.WaitUserInteraction">Manter texto ata interacción de usuario</entry>
 <entry key="MainWindow.buttonExamine">Examinar...</entry>
 <entry key="MainWindow.SelectGameText">[Selecciona un xogo para ver a descrición...]</entry>
