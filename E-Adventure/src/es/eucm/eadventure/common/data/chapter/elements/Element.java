@@ -264,55 +264,6 @@ public abstract class Element implements Cloneable, HasId, Documented {
         return sb.toString( );
     }
     
-    //TODO confirmar que se quita
-    /*public void setName( String name, int index ){
-        descriptions.get( index ).setName( name );
-    }
-    
-    public String getName( int index ){
-        return descriptions.get( index ).getName( );
-    }
-    
-    public String getDescription( int index ){
-        return descriptions.get( index ).getDescription( );
-    }
-
-    public void setDescription( String description, int index ){
-        descriptions.get( index ).setDescription( description );
-    }
-    
-    public void setDetailedDescription( String detailedDescription, int index ){
-        descriptions.get( index ).setDetailedDescription( detailedDescription );
-    }
-    
-    public String getDetailedDescription( int index ){
-        return descriptions.get( index ).getDetailedDescription( );
-    }
-    
-    public void setDescriptionSoundPath(String descriptionSoundPath, int index){
-        descriptions.get( index ).setDescriptionSoundPath( descriptionSoundPath );
-    }
-    
-    public String getDescriptionSoundPath(int index){
-        return descriptions.get( index ).getDescriptionSoundPath( );
-    }
-    
-    public String getDetailedDescriptionSoundPath(int index){
-        return descriptions.get( index ).getDetailedDescriptionSoundPath( );
-    }
-    
-    public void setDetailedDescriptionSoundPath( String detailedDescriptionSoundPath, int index ){
-        descriptions.get( index ).setDetailedDescriptionSoundPath( detailedDescriptionSoundPath );
-    }
-    
-    public String getNameSoundPath(int index){
-        return descriptions.get( index ).getNameSoundPath( );
-    }
-    
-    public void setNameSoundPath( String nameSoundPath, int index ){
-        descriptions.get( index ).setNameSoundPath( nameSoundPath );
-    }*/
-    
     public List<Description> getDescriptions( ) {
         
         return descriptions;

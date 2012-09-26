@@ -979,7 +979,8 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
                 if( lastMouseMoved != null ){
                     Description description = new FunctionalDescriptions(actionManager.getElementOver( ).getElement( ).getDescriptions( )).getDescription( );
                     //draw the name of the element into the mouse in the last mouse position
-                    GUI.drawStringOnto( g, new String[] { description.getName( ) }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
+                    String name = Game.getInstance( ).processText(description.getName( ));
+                    GUI.drawStringOnto( g, new String[] { name }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
                     // if there are associated sound, check & play it
                     audioDescHandler.checkAndPlay( description.getNameSoundPath( ) );
                 }
@@ -1033,9 +1034,9 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
                     if (description.getName( ).equals( "" ))
                         name += " " + processElement();
                     else    
-                        name += " " + description.getName( );
+                        name += " " + Game.getInstance( ).processText(description.getName( ));
                 }else
-                    name = description.getName( );
+                    name = Game.getInstance( ).processText(description.getName( ));
                 
                 //draw the name of the element into the mouse in the last mouse position
                 GUI.drawStringOnto( g, new String[] { name }, lastMouseMoved.getX( ) + 16, lastMouseMoved.getY( ), Color.WHITE, Color.BLACK );
