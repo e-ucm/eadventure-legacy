@@ -95,7 +95,7 @@ public class FunctionalShowTextEffect extends FunctionalEffect {
 
         super( effect );
         // split the text if don't fit in the screen
-        this.text = effect.getText( );
+        this.text = Game.getInstance( ).processText( effect.getText( ) );
 
         // obtain the text speed
         float multiplier = 1;
