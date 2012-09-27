@@ -809,7 +809,6 @@ public abstract class GUI implements FocusListener {
     public void drawToGraphics( Graphics2D g ) {
         RenderingHints rh = GUI.getOptimumRenderingHints( );
         g.setRenderingHints(rh);
-        
         if( background != null ) {
             background.draw( g );
             //background = null;

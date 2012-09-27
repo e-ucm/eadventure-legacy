@@ -513,12 +513,12 @@ public class Animation implements Cloneable, Documented, HasId {
             case Transition.TYPE_NONE:
                 return start;
             case Transition.TYPE_FADEIN:
-                if (temp_w != end.getWidth( null ) || temp_h != end.getHeight( null )) {
-                    temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TYPE_4BYTE_ABGR );
+                /*if (temp_w != end.getWidth( null ) || temp_h != end.getHeight( null )) {*/
+                    temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TRANSLUCENT );
                     temp_w = end.getWidth( null ) ;
                     temp_h = end.getHeight( null );
-                    Runtime.getRuntime( ).gc( );
-                }
+                    //Runtime.getRuntime( ).gc( );
+                /*}*/
                 g = (Graphics2D) temp.getGraphics( );
                 AlphaComposite alphaComposite = AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 1 - (float) elapsedTime / (float) time );
                 g.setComposite( alphaComposite );
@@ -530,26 +530,28 @@ public class Animation implements Cloneable, Documented, HasId {
 
                 return temp;
             case Transition.TYPE_VERTICAL:
-                if (temp_w != end.getWidth( null ) || temp_h != end.getHeight( null )) {
-                    temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TYPE_4BYTE_ABGR );
+                /*if (temp_w != end.getWidth( null ) || temp_h != end.getHeight( null )) {*/
+                    temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), /*BufferedImage.TYPE_4BYTE_ABGR*/BufferedImage.TRANSLUCENT );
                     temp_w = end.getWidth( null ) ;
                     temp_h = end.getHeight( null );
-                    Runtime.getRuntime( ).gc( );
-                }
+                    //Runtime.getRuntime( ).gc( );
+                /*}*/
 
-                g = (Graphics2D) temp.getGraphics( );
+                g = temp.createGraphics( );
+                g.clearRect( 0, 0, temp_w, temp_h );
                 g.drawImage( start, (int) ( end.getWidth( null ) * (float) elapsedTime / time ), 0, null );
 
                 g.drawImage( end, (int) ( end.getWidth( null ) * (float) elapsedTime / time ) - end.getWidth( null ), 0, null );
+                //g.dispose( );
 
                 return temp;
             case Transition.TYPE_HORIZONTAL:
-                if (temp_w != end.getWidth( null ) || temp_h != end.getHeight( null )) {
-                    temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TYPE_4BYTE_ABGR );
+                /*if (temp_w != end.getWidth( null ) || temp_h != end.getHeight( null )) {*/
+                    temp = new BufferedImage( end.getWidth( null ), end.getHeight( null ), BufferedImage.TRANSLUCENT );
                     temp_w = end.getWidth( null ) ;
                     temp_h = end.getHeight( null );
-                    Runtime.getRuntime( ).gc( );
-                }
+                    //Runtime.getRuntime( ).gc( );
+                /*}*/
 
                 g = (Graphics2D) temp.getGraphics( );
                 g.drawImage( start, 0, (int) ( end.getHeight( null ) * (float) elapsedTime / time ), null );
