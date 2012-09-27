@@ -538,7 +538,6 @@ public class Animation implements Cloneable, Documented, HasId {
                 /*}*/
 
                 g = temp.createGraphics( );
-                g.clearRect( 0, 0, temp_w, temp_h );
                 g.drawImage( start, (int) ( end.getWidth( null ) * (float) elapsedTime / time ), 0, null );
 
                 g.drawImage( end, (int) ( end.getWidth( null ) * (float) elapsedTime / time ) - end.getWidth( null ), 0, null );
