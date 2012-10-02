@@ -4128,4 +4128,13 @@ public class Controller {
         }
             
     }
+    
+    public boolean isCutscene(String cutsceneID){
+ 
+        return this.chaptersController.getChapters( ).
+            get( this.getSelectedChapter( ) ).getCutscenesList( ).existsCutscene( cutsceneID );
+        
+        
+        
+    }
 }
