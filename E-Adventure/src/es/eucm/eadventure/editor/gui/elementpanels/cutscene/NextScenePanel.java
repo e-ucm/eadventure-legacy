@@ -195,7 +195,12 @@ public class NextScenePanel extends JPanel implements Updateable {
         nextSceneCombo.setEnabled( goToNewScene.isSelected( ) );
         usePosition.setEnabled( enablePosition && goToNewScene.isSelected( ) );
         setPosition.setEnabled( enablePositionButton && goToNewScene.isSelected( ) );
-        editEffects.setEnabled( goToNewScene.isSelected( ) );
+        if (Controller.getInstance( ).isCutscene(nextSceneCombo.getSelectedItem( ).toString( )))
+            editEffects.setEnabled( false );
+        else 
+            editEffects.setEnabled( goToNewScene.isSelected( )  );
+        
+        
         transition.setEnabled( goToNewScene.isSelected( ) );
         timeSpinner.setEnabled( goToNewScene.isSelected( ) );
         updateUI( );
@@ -210,6 +215,13 @@ public class NextScenePanel extends JPanel implements Updateable {
 
             Controller.getInstance( ).addTool( new ChangeStringValueTool( dataControl, nextSceneCombo.getSelectedItem( ).toString( ), "getNextSceneId", "setNextSceneId" ) );
             //			dataControl.setNextSceneId( nextSceneCombo.getSelectedItem( ).toString( ) );
+            
+            if (Controller.getInstance( ).isCutscene(nextSceneCombo.getSelectedItem( ).toString( )))
+                editEffects.setEnabled( false );
+            else 
+                editEffects.setEnabled( goToNewScene.isSelected( )  );
+            
+            
             updateNextSceneInfo( );
         }
     }

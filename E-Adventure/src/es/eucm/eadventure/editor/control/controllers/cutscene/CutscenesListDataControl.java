@@ -37,6 +37,7 @@
 package es.eucm.eadventure.editor.control.controllers.cutscene;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
@@ -400,6 +401,24 @@ public class CutscenesListDataControl extends DataControl {
     
     public List<CutsceneDataControl> getAllCutsceneDataControls(){
         return cutscenesDataControlList;
+    }
+    
+    public boolean existsCutscene(String cutsceneID){
+        
+        Iterator<Cutscene> it = this.cutscenesList.iterator( );
+        
+        boolean exists = false;
+        
+        while (it.hasNext( )){
+            if (it.next( ).getId( ).equals( cutsceneID )){
+                exists = true;
+                break;
+            }
+        }
+        
+        return exists;
+        
+        
     }
 
 }
