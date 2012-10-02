@@ -654,7 +654,7 @@ public class GameLauncher extends JFrame implements Runnable {
             // Get the name of the adventure file
             adventureName = adventureName.substring( adventureName.lastIndexOf( "/" ) + 1 );
             // Remove the extension (.ead) of the adventure file
-            adventureName = adventureName.substring( 0, adventureName.lastIndexOf( "." ) );
+            adventureName = adventureName.substring( 0, adventureName.lastIndexOf( ".ead" ) );
             // Load the selected adventure in the next iteration of the thread 
             load = true;
         }
@@ -680,7 +680,7 @@ public class GameLauncher extends JFrame implements Runnable {
         // Get the name of the adventure file
         adventureName = adventureName.substring( adventureName.lastIndexOf( "/" ) + 1 );
         // Remove the extension (.ead) of the adventure file
-        adventureName = adventureName.substring( 0, adventureName.indexOf( "." ) );
+        adventureName = adventureName.substring( 0, adventureName.indexOf( ".ead" ) );
         // Load the selected adventure in the next iteration of the thread 
         load = true;
 
