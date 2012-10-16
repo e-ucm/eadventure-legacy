@@ -29,7 +29,7 @@
 <entry key="cmi.interactions.n.type">#1#1#state(true_false,multiple_choice,fill_in, long_fill_in,matching,performance,sequencing,likert,numeric,other)</entry>
 
 <!--<entry key="cmi.interactions.n.objectives._count">#1#0#integer</entry>-->
-<entry key="cmi.interactions.n.objectives.m.id">#1#0#long_identifier_type</entry>
+<entry key="cmi.interactions.n.objectives.m.id">#1#1#long_identifier_type</entry>
 
 <entry key="cmi.interactions.n.timestamp">#1#1#time(second,10,0)</entry>
 <!--<entry key="cmi.interactions.n.correct_responses._count">#1#0#integer</entry>-->
