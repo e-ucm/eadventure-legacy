@@ -51,8 +51,8 @@
 
 <entry key="cmi.interactions.n.id">#0#1#CMIIdentifier</entry>
 
-<!--<entry key="cmi.interactions.n.objetives._count">#1#0#CMIInteger</entry>-->
-<entry key="cmi.interactions.n.objetives.m.id">#0#1#CMIIdentifier</entry>
+<!--<entry key="cmi.interactions.n.objectives._count">#1#0#CMIInteger</entry>-->
+<entry key="cmi.interactions.n.objectives.m.id">#0#1#CMIIdentifier</entry>
 
 <entry key="cmi.interactions.n.time">#0#1#CMITime</entry>
 <entry key="cmi.interactions.n.type">#0#1#CMIVocabulary(true-false,choice,fill-in,matching,performance,sequencing,likert,numeric)</entry>

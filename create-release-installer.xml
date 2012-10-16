@@ -74,11 +74,11 @@ Steps:
 	<property name="help.dir" value="help" />
 	<property name="lanengine.dir" value="i18n/engine" />
 	<property name="laneditor.dir" value="i18n/editor" />
-	<property name="release.version" value="1.2 RC1-20100907" />
+	<property name="release.version" value="1.5 RC1-20120619" />
 
-	<property name="plugin.dir" value="C:/Archivos de programa/Java/jre6/lib" />
+	<property name="plugin.dir" value="C:/Program Files (x86)/Java/jre6/lib" />
 
-	<property name="launch4j.dir" location="C:/Archivos de programa/Launch4j" />
+	<property name="launch4j.dir" location="C:/Program Files (x86)/Launch4j" />
 
 	<path id="project.class.path">
 		<fileset dir="${lib.dir}">
@@ -110,6 +110,7 @@ Steps:
 			<fileset dir="release-dir/">
 				<include name="es/eucm/eadventure/engine/*.class" />
 				<include name="es/eucm/eadventure/engine/**/*.class" />
+				<include name="es/eucm/eadventure/tracking/pub/*.class" />
 			</fileset>
 
 			<manifest>
