@@ -104,7 +104,9 @@ public class FunctionalConditions {
                     String globalStateId = condition.getId( );
                     GlobalStateCondition gsCondition = (GlobalStateCondition) condition;
                     GlobalState gs = Game.getInstance( ).getCurrentChapterData( ).getGlobalState( globalStateId );
-                    evaluation = (gsCondition.getState( ) == GlobalStateCondition.GS_NOT_SATISFIED) ^ new FunctionalConditions( gs ).allConditionsOk( );
+                    // the editor doesn't allow to add a global state reference with the same ID in a global state, DOUBLE CHECKED here
+                    if (!gs.getId( ).equals( globalStateId ))
+                        evaluation = (gsCondition.getState( ) == GlobalStateCondition.GS_NOT_SATISFIED) ^ new FunctionalConditions( gs ).allConditionsOk( );
                 }
             }
         }
