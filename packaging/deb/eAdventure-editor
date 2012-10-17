@@ -13,23 +13,25 @@ echo "    (C)2005-2012 e-UCM research group"
 JAVA_OPTS="$JAVA_OPTS -Xms256m -Xmx512m"
 EDITOR_HOME="$HOME/.eadventure"
 EADVENTURE_HOME="/usr/share/java/e-adventure/eadventure"
-CFG_EDITOR="config_editor.xml"
+
+# These files (or folders) are per-user
+OVERWRITABLE="config_editor.xml config_engine.xml eAdventure.keystore web"
+
 JAR_NAME="eadventure-editor.jar"
 
 # If first use, create local editor working directory; bail if failure
 if ! [ -d "$EDITOR_HOME" ]; then
   echo "$EDITOR_HOME not found - creating local installation"
-  if ! (\
-        mkdir "$EDITOR_HOME" && \
-        ln -s "$EADVENTURE_HOME"/* "$EDITOR_HOME" && \
-        rm "$EDITOR_HOME/$CFG_EDITOR" "$EDITOR_HOME/web" && \
-        cp -r "$EADVENTURE_HOME/$CFG_EDITOR" "$EADVENTURE_HOME/web" \
-           "$EDITOR_HOME") ; 
-    then
-    
+  if ! (mkdir "$EDITOR_HOME" && ln -s "$EADVENTURE_HOME"/* "$EDITOR_HOME"); \
+  then
     echo "Error creating local installation; sorry :-("
-    #rm -rf $EDITOR_HOME
+    rm -rf $EDITOR_HOME
   else
+    echo "Created local installation - now aliasing customizable files"
+    for f in $OVERWRITABLE ; do
+        echo "   replacing $f"
+        rm -rf "$EDITOR_HOME"/$f && cp -r "$EADVENTURE_HOME"/$f "$EDITOR_HOME"
+    done
     echo "Created local installation. You are ready to edit!".
   fi
 fi  
