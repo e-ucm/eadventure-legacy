@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<shortcuts>
+<skipIfNotSupported/>
+
+<programGroup defaultName="eAdventure"
+            location="applications"/>
+
+<shortcut
+name="eAdventure editor"
+target="$INSTALL_PATH\eAdventureEditor.exe"
+description="Launch eAdventure editor"
+workingDirectory="$INSTALL_PATH"
+iconFile="$INSTALL_PATH\eAdventureEditor.exe"
+  initialState="normal"
+programGroup="yes"
+desktop="yes"
+applications="no"
+startMenu="no"
+startup="no">
+
+<createForPack name="eAdventure platform"/>
+</shortcut>
+
+<shortcut
+name="eAdventure engine"
+target="$INSTALL_PATH\eAdventureEngine.exe"
+description="Launch eAdventure engine"
+workingDirectory="$INSTALL_PATH"
+iconFile="$INSTALL_PATH\eAdventureEngine.exe"
+  initialState="normal"
+programGroup="yes"
+desktop="yes"
+applications="no"
+startMenu="no"
+startup="no">
+
+<createForPack name="eAdventure platform"/>
+</shortcut>
+
+<shortcut
+    name="Uninstall"
+    target="$INSTALL_PATH\Uninstaller\uninstaller.jar"
+    commandLine=""
+    workingDirectory="$INSTALL_PATH"
+    description="Uninstall eAdventure"
+    initialState="normal"
+    programGroup="yes"
+    desktop="no"
+    applications="no"
+    startMenu="no"
+    startup="no">
+  </shortcut>
+
+</shortcuts>

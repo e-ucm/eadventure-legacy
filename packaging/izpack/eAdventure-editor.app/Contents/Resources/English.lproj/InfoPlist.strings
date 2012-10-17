@@ -1,0 +1,4 @@
+CFBundleName = "eAdventure-editor";
+CFBundleShortVersionString = "1.5RC4";
+CFBundleGetInfoString = "eAdventure-editor version 1.5RC4 2012 eAdventure";
+NSHumanReadableCopyright = "2012 eAdventure";

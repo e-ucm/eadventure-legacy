@@ -1,0 +1,14 @@
+echo "                     Welcome to the eAdventure platform (v1.5 RC4)!!"
+echo "    You can get more info about the project at:"
+echo "                                     http://e-adventure.e-ucm.es"
+echo "    We hope you will find the game editor useful. Please, do not hesitate"
+echo "          to contact us for suggestions and bug reporting via e-mail:"
+echo "                              e-adventure@e-ucm.es"
+echo "    You can access the whole list of contributors at:"
+echo "                                      http://e-adventure.e-ucm.es/contributors/"
+echo "                                            (C)2005-2012 e-UCM research group"
+
+pwd
+cd $1/../eadventure
+ls | grep eAdventure | grep x
+/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/bin/java -Xms512m -Xmx512m -jar eAdventure-editor.jar

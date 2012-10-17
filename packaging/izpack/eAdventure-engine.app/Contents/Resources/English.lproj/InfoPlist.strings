@@ -1,0 +1,4 @@
+CFBundleName = "eAdventure-engine";
+CFBundleShortVersionString = "1.5RC4";
+CFBundleGetInfoString = "eAdventure-engine version 1.5RC4 2012 eAdventure";
+NSHumanReadableCopyright = "2012 eAdventure";

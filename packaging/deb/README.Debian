@@ -1,0 +1,17 @@
+e-Adventure for Debian
+----------------------
+
+Java version 6 or better is required in order to run e-Adventure.
+
+A manual page and executable shell scripts have been added to the original sources
+to conform to the Debian Policy.
+
+If your JVM isn't found, you can set the JAVA_HOME variable with the command:
+	$ export JAVA_HOME="path_to_your_JVM"
+Note that this command only works if you use BASH.
+
+To run the e-Adventure engine, type eAdventure-engine in a term.
+To run the e-Adventure editor, type eAdventure-editor in a term.
+The Jar files which contain the engine and editor can be found in /usr/share/java.
+
+ -- Manuel Freire <manuel.freire@fdi.ucm.es>  Sat, 12 Feb 2011 14:00:00 +0100

@@ -1,0 +1,36 @@
+#!/bin/sh
+echo "    Welcome to the eAdventure platform (v1.5 RC4)"
+echo
+echo "    You can find more information about the project at:"
+echo "        http://e-adventure.e-ucm.es"
+echo
+echo "    We hope you will find the game editor useful. Please do not hesitate"
+echo "    to contact us with suggestions and bug reports via e-mail: e-adventure@e-ucm.es"
+echo "        e-adventure@e-ucm.es"
+echo
+echo "    (C)2005-2012 e-UCM research group"
+
+JAVA_OPTS="$JAVA_OPTS -Xms256m -Xmx512m"
+EADVENTURE_HOME="/usr/share/java/e-adventure/eadventure"
+JAR_NAME="eadventure-engine.jar"
+
+# Look for the right JVM to use
+
+if ! [ -x "$JAVACMD" ]; then
+  JAVACMD=$(which java)
+fi
+if ! [ -x "$JAVACMD" ]; then
+  JAVACMD="$JAVA_HOME/bin/java"
+fi
+
+if [ -x "$JAVACMD" ] ; then
+  OLDPWD=$(pwd)
+  cd "$EADVENTURE_HOME"
+  $JAVACMD $JAVA_OPTS -jar $JAR_NAME $@
+  cd $OLDPWD
+else
+  echo "No JVM found to run e-Adventure"
+  echo "Please install a JVM (>= 1.6) to run e-Adventure or "
+  echo "set JAVA_HOME if it is not a JVM from a Debian Package."
+  exit 1
+fi
