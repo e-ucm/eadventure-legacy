@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<installation version="1.0">
+    <info>
+        <appname>eAdventure</appname>
+        <appversion>__VERSION__</appversion>
+        <appsubpath>eAdventure</appsubpath>
+        <authors>
+            <author email="e-adventure@e-ucm.es" name="eAdventure TEAM"/>
+        </authors>
+        <url>http://e-adventure.e-ucm.es</url>
+        <uninstaller name="Uninstaller.jar" write="yes"/>
+        <javaversion>1.6.0</javaversion>
+        <requiresjdk>no</requiresjdk>
+        <writeinstallationinformation>no</writeinstallationinformation>
+        <pack200/>
+        <run-privileged condition="izpack.windowsinstall|izpack.macinstall"/>
+    </info>
+    <guiprefs height="480" resizable="no" width="640">
+        <modifier key="useFlags" value="yes"/>
+        <modifier key="langDisplayType" value="default"/>
+		 <laf name="substance">     
+			<os family="windows" />
+			<param name="variant" value="mist-silver" />
+		</laf>
+		<laf name="substance">
+			<os family="mac" />
+			<param name="variant" value="mist-aqua" />
+		</laf>
+    </guiprefs>
+    <listeners>
+	    <listener installer="RegistryInstallerListener" uninstaller="RegistryUninstallerListener" >
+	        <os family="windows"/>
+	    </listener>
+	</listeners>
+    <resources>
+    	<res src="__CONFIG_DIR__/license.html" id="HTMLLicencePanel.licence"/>
+    	<res src="__CONFIG_DIR__/shortcutSpec.xml" id="shortcutSpec.xml"/>
+    	<res src="__CONFIG_DIR__/fileTypeAssociations.xml" id="RegistrySpec.xml"/>
+    	<res src="__CONFIG_DIR__/ProcessPanelSpec.xml" id="ProcessPanel.Spec.xml"/>
+    </resources>
+    <jar src="__CONFIG_JAR__"/>
+    <locale>
+        <langpack iso3="eng"/>
+        <langpack iso3="spa"/>
+        <langpack iso3="prt"/>
+        <langpack iso3="deu"/>
+        <langpack iso3="chn"/>
+        <langpack iso3="ita"/>
+        <langpack iso3="rom"/>
+        <langpack iso3="glg"/>
+        <langpack iso3="rus"/>
+        <langpack iso3="por"/>
+    </locale>
+    <panels>
+        <panel classname="CheckedHelloPanel"/>
+        <panel classname="PacksPanel"/>
+        <panel classname="HTMLLicencePanel" id="licence"/>
+        <panel classname="TargetPanel"/>
+        <panel classname="InstallPanel"/>
+        <panel classname="ShortcutPanel">
+        	<os family="windows"/>
+        </panel>
+        <panel classname="ProcessPanel"/>
+        <panel classname="SimpleFinishPanel"/>
+    </panels>
+    <native type="izpack" name="ShellLink.dll">
+    	<os family="windows"/>
+	</native>
+    <native type="3rdparty" name="COIOSHelper.dll" stage="both">
+    	<os family="windows"/>
+	</native>
+    <packs>
+        <pack name="eAdventure platform" preselected="yes" required="yes">
+            <description>The eAdventure editor and game engine.
+El editor y el motor eAdventure.</description>
+
+            <!-- windows launchers (previously built via launch4j) -->
+            <fileset override="update" dir="__BUILD_DIR__" os="windows"
+                includes="*.exe" targetdir="$INSTALL_PATH/" />
+
+            <!-- mac launchers FIXME: horribly out of date -->
+            <fileset override="update" dir="__PACK_DIR__/app" os="mac" 
+				src="eAdventure-editor.app" targetdir="$INSTALL_PATH/" />
+            <fileset override="update" dir="__PACK_DIR__/app" os="mac" 
+				src="eAdventure-engine.app" targetdir="$INSTALL_PATH/" />
+
+            <!-- linux startup scripts -->
+            <fileset override="update" dir="__PACK_DIR__" os="unix"
+                includes="*.sh" targetdir="$INSTALL_PATH/" />
+
+            <!-- everybody gets the common directory and a readme file -->
+            <fileset override="update" dir="__BUILD_DIR__"
+                includes="eadventure/**" targetdir="$INSTALL_PATH/" />
+            <fileset override="update" dir="__PACK_DIR__"
+                includes="Readme.txt" targetdir="$INSTALL_PATH/" />            
+			<fileset override="update" dir="__PACK_DIR__"
+                includes="RELEASE NOTES.txt" targetdir="$INSTALL_PATH/" /> 	
+				
+        </pack>
+        
+        <pack name="eAdventure licenses" preselected="yes" required="no">
+            <description>The eAdventure licenses.
+Licencias ligadas a eAdventure.</description>
+            <file override="update" src="__CONFIG_DIR__/licenses" targetdir="$INSTALL_PATH/"/>
+            
+        </pack>
+        
+    </packs>
+    
+</installation>

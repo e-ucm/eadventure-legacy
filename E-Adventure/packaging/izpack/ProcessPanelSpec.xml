@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<processing> 
+        <job name="Generating config files"> 
+			<executeclass name="ConfigureEAd">
+				<arg>$INSTALL_PATH</arg>
+				<arg>$ISO3_LANG</arg>
+			</executeclass>
+        </job>
+</processing>

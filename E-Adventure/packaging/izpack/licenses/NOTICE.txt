@@ -1,0 +1,115 @@
+ ***********************************************************************************
+ * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>          *
+ *         research group.                                                         *
+ *                                                                                 *
+ *   Copyright 2005-2010 <e-UCM> research group.                                   *
+ *                                                                                 *
+ *   You can access a list of all the contributors to <e-Adventure> at:            *
+ *         http://e-adventure.e-ucm.es/contributors                                *
+ *                                                                                 *
+ *   <e-UCM> is a research group of the Department of Software Engineering         *
+ *         and Artificial Intelligence at the Complutense University of Madrid     *
+ *         (School of Computer Science).                                           *
+ *                                                                                 *
+ *         C Profesor Jose Garcia Santesmases sn,                                  *
+ *         28040 Madrid (Madrid), Spain.                                           *
+ *                                                                                 *
+ *         For more info please visit:  <http://e-adventure.e-ucm.es> or           * 
+ *         <http://www.e-ucm.es>                                                   *
+ *                                                                                 *
+ ***********************************************************************************
+
+ ***********************************************************************************
+ *                                                                                 *
+ *     <e-Adventure> is free software: you can redistribute it and/or modify       *
+ *     it under the terms of the GNU Lesser General Public License as published by *
+ *     the Free Software Foundation, either version 3 of the License, or           *
+ *     any later version.                                                          *
+ *                                                                                 *
+ *     <e-Adventure> is distributed in the hope that it will be useful,            *
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of              *
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               *
+ *     GNU Lesser General Public License for more details.                         *
+ *                                                                                 *
+ *     You should have received a copy of the GNU Lesser General Public License    *
+ *     along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.      *
+ *                                                                                 *
+ ***********************************************************************************
+
+ ***********************************************************************************
+ *                                                                                 *
+ *	<e-Adventure> also includes software developed by third parties.           *
+ *    We would like to thank all the authors of the libraries                      *
+ *    <e-Adventure> uses. <e-Adventure> would never be possible without their      *
+ *    support. The <e-Adventure> development team guarantees that all the          * 
+ *    libraries are distributed exactly as developed by the original authors       *
+ *    and according to their license terms. Detailed information can be found      *
+ *    in the next secion of this document.                                         *
+ *                                                                                 *
+ ***********************************************************************************
+ --------
+|Tritonus| 
+ --------
+http://www.tritonus.org/
+Tritonus is an implementation of the Java Sound API.
+License: GNU Library General Public License (GPL.txt).
+
+ ----------------
+|JavaZoom MP3 SPI|
+ ----------------
+http://www.javazoom.net/mp3spi/mp3spi.html
+mp3spi1.9.4.jar
+MP3SPI is a Java Service Provider Interface that adds MP3 (MPEG 1/2/2.5 Layer 1/2/3) audio format support for Java Platform. 
+It supports streaming, ID3v2 frames, Equalizer, .... It is based on JLayer and Tritonus Java libraries.
+License: GNU LGPL (LGPL.txt)
+
+ ---------------
+|JavaZoom JLayer|
+ ---------------
+http://www.javazoom.net/javalayer/javalayer.html
+JLayer is a JAVA™ library that decodes, converts and plays MP3 files in real-time. 
+JLayer supports MPEG 1/2/2.5 Layer 1/2/3 audio format.
+License: GNU LGPL (LGPL.txt)
+
+ -------
+|Kafenio|
+ -------
+http://kafenio.org/
+The "Kafenio" Project was founded end of 2003 on Sourceforge.net to develop a
+platform independent, open-source HTML-WYSIWYG-Editor.
+Kafenio.editor is released under the GNU Lesser General Public License (LGPL)
+and can be used freely (free as in freedom).
+Autor: Karsten Pawlik
+Licencia: GNU LGPL (LGPL.txt)
+
+ -------------
+|JFFMPEG 1.1.0|
+ -------------
+http://jffmpeg.sourceforge.net/
+Jffmpeg is a plugin that allows the playback of a number of common audio and video formats. 
+It is based around a Java port of parts of the FFMPEG project, supporting a number of codecs in pure Java code. 
+Where codecs have not yet been ported, a JNI wrapper allows calls directly into the full FFMPEG code.
+License: GNU LGPL (LGPL.txt)
+
+ -----------------------------------------
+|GNU REGEPX (Regular Expressions for Java)|
+ -----------------------------------------
+http://nlp.stanford.edu/nlp/javadoc/gnu-regexp-docs/
+License: GNU LGPL (LGPL.txt)
+
+ -------
+|FreeTTS|
+ -------
+http://freetts.sourceforge.net
+FreeTTS is a speech synthesis system written entirely in the JavaTM programming language. It is based upon Flite: 
+a small run-time speech synthesis engine developed at Carnegie Mellon University. Flite is derived from the Festival 
+Speech Synthesis System from the University of Edinburgh and the FestVox project from Carnegie Mellon University.
+License: BSD (Berkeley Software Distribution).
+
+
+Other Libraries provided by Sun MicrosystemsTM
+smtp.jar
+plugin.jar
+mailapi.jar
+jmf.jar
+

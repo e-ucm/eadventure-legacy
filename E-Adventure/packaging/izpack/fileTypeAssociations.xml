@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<registry>
+    <pack name="eAdventure platform">
+
+        <key root="HKLM" keypath="software\classes\eAdventure.EADFile"/>
+        <value root="HKLM" keypath="software\classes\eAdventure.EADFile" name="" string="eAdventure game"/>
+
+        <value root="HKLM" keypath="software\classes\eAdventure.EADFile\DefaultIcon" name="" string="$INSTALL_PATH\eAdventureEngine.exe"/>
+        <key root="HKLM" keypath="software\classes\eAdventure.EADFile\shell"/>
+        <key root="HKLM" keypath="software\classes\eAdventure.EADFile\shell\open"/>
+        <value root="HKLM" keypath="software\classes\eAdventure.EADFile\shell\open\command" name="" string="&quot;$INSTALL_PATH\eAdventureEngine.exe&quot; &quot;%1&quot;"/>
+
+        <value root="HKLM" keypath="software\classes\.ead" name="" string="eAdventure.EADFile"/>
+
+        <key root="HKCU" keypath="software\microsoft\windows\currentversion\explorer\fileexts\open\.ead"/>
+        <value root="HKCU" keypath="software\microsoft\windows\currentversion\explorer\fileexts\open\.ead\OpenWithProgIds" name="eAdventure.EADFile">
+            <bin data=""/>
+        </value>
+
+
+        <key root="HKLM" keypath="software\classes\eAdventure.EAPFile"/>
+        <value root="HKLM" keypath="software\classes\eAdventure.EAPFile" name="" string="eAdventure project"/>
+
+        <value root="HKLM" keypath="software\classes\eAdventure.EAPFile\DefaultIcon" name="" string="$INSTALL_PATH\eAdventureEditor.exe"/>
+        <key root="HKLM" keypath="software\classes\eAdventure.EAPFile\shell"/>
+        <key root="HKLM" keypath="software\classes\eAdventure.EAPFile\shell\open"/>
+        <value root="HKLM" keypath="software\classes\eAdventure.EAPFile\shell\open\command" name="" string="&quot;$INSTALL_PATH\eAdventureEditor.exe&quot; &quot;%1&quot;"/>
+
+        <value root="HKLM" keypath="software\classes\.eap" name="" string="eAdventure.EAPFile"/>
+
+        <key root="HKCU" keypath="software\microsoft\windows\currentversion\explorer\fileexts\open\.eap"/>
+        <value root="HKCU" keypath="software\microsoft\windows\currentversion\explorer\fileexts\open\.eap\OpenWithProgIds" name="eAdventure.EAPFile">
+            <bin data=""/>
+        </value>
+
+    </pack>
+</registry>

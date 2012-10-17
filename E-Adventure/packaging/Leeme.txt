@@ -1,0 +1,122 @@
+﻿Gracias por usar la plataforma eAdventure, una herramienta de autoría para la creación de aventuras gráficas (tipo Myst o Monkey Island) educativas integrables en Entornos Virtuales de Enseñanza. La herramienta consta de dos aplicaciones, el "editor", que sirve para crear los juegos (aventuras), y el "motor", que sirve para ejecutar de forma sencilla los juegos una vez terminados. eAdventure es totalmente gratuito y de código libre, y se distribuye de acuerdo a la licencia GPL. El uso de la plataforma supone la aceptación de dicha licencia por parte del usuario. Puede encontrar toda la información referente a dicha licencia en la carpeta "licencias" que debería encontrarse en esta distribución. No obstante, puede visitar http://e-adventure.e-ucm.es para más información.
+
+En este documento encontrará algunas breves notas sobre la instalación y ejecución de la misma: V1.5 RC4 Multiplatforma.
+
+1) INSTALACIÓN
+---------------
+
+Esta versión de eAdventure requiere tener la Java Runtime Environment (version 1.6) 
+instalada en el sistema. Recomendamos encarecidamente el uso de la versión java 1.6.0_31.
+Puede obtenerla de la página oficial de Java:
+
+http://www.java.com
+
+Para comprobar cuál es la versión actual de su máquina virtual de Java introduzca la siguiente orden en una 
+ventana de consola:
+
+java -version
+
+Si el comando devuelve un error, o si la versión de Java es anterior a la 1.6.0_31 y Ud. cree que realmente
+tiene la versión correcta compruebe que el directiorio principal de JAva (JAVA_HOME) está correctamente
+configurada en la variable de entorno $PATH.
+
+
+2) EJECUCIÓN
+------------
+
+Para ejecutar la aplicación introduzca las siguientes líneas de comando en una consola de sistema situada sobre
+el directorio principal de la instalación de eAdventure (la carpeta dónde ésta haya sido descomprimida). 
+De nuevo asegúrese de que la variable de entorno $PATH contiene una referencia a JAVA_HOME.
+
+Además se recomienda ejecutar la aplicación con permisos de "root". Se ha detectado que en algunos sistemas
+Linux la interfaz de usuario del editor de aventuras no se muestra de forma correcta si el usuario no es
+"root".
+
+
+editor:
+-------
+cd eadventure
+java -Xms512m -Xmx512m -jar eAdventure-editor.jar
+
+
+motor:
+-------
+cd eadventure
+java -Xms512m -Xmx512m -jar eAdventure-engine.jar
+
+
+
+3) ACCESOS DIRECTOS PARA WINDOWS
+--------------------------------
+
+Para facilitar la ejecución de la plataforma en sistemas Windows incluimos dos ficheros bat que automatizan las
+secuencias de comandos anteriores. Por tanto, si Ud. tiene instalado Windows en cualquiera de sus versiones 
+(XP, Vista, Windows 7, etc.) sólo tiene que hacer doble clic sobre dichos ficheros para ejecutar tanto el motor
+como el editor.
+
+editor (Aplicación para crear los juegos educativos):
+----------------------------------------------------
+
+Ejecutar eAdventure editor.bat
+
+
+motor (Aplicación para ejecutar los juegos ya creados):
+------------------------------------------------------
+
+Ejecutar eAdventure motor.bat
+
+
+
+4) ACCESOS DIRECTOS PARA LINUX
+------------------------------
+
+Igualmente encontrará dos ficheros .sh para ejecutar el motor y el editor en sistemas linux. 
+Simplemente ejecute las siguientes órdenes en una ventana de consola situada sobre la carpeta de instalación
+de eAdventure para abrir ambas aplicaciones. 
+
+NOTA: Asegúrese de que todos los ficheros y sub-carpetas de eAdventure tienen los permisos adecuados.
+De lo contrario tanto la ejecución del motor como la del editor podrían fallar.
+El error típico en estos casos es una excepcíon de Java "URLNotFoundException" durante la inicialización de 
+las aplicaciones.
+
+editor:
+-------
+
+./run-eAdventure-editor.sh
+
+
+motor:
+-------
+
+./run-eAdventure-motor.sh
+
+
+
+
+5) Las carpetas "Exports", "Projects" y "Reports"
+-------------------------------------------------
+Además, la primera vez que ejecute la aplicación se crearán tres sub-carpetas que merecen su atención, situadas
+bajo la carpeta principal de la instalación de eAdventure. Éstas son las carpetas "Projects", 
+dónde se guardarán por defecto los nuevos proyectos de juegos que se generen, la carpeta "Exports", 
+dónde por defecto se guardarán los juegos ya exportados y listos para ser jugados con el motor, y la carpeta
+"Reports", dónde se guardarán por defecto los informes de evaluación que genere el motor durante las sesiones
+de juego de los usuarios.
+
+
+
+6) ¡Contacte con nosotros!
+---------------------------
+Le animamos a que contacte con nosotros. Realmente nos gustaría conocer su opinión, ya sea para transmitirnos
+sugerencias o para informar de errores en la aplicación. ¡Con su ayuda haremos que eAdventure
+sea incluso mejor! 
+
+Puede dejarnos un mensaje en cualquiera de las siguientes vías:
+- Por e-mail: e-adventure@e-ucm.es
+- Usando el mismo editor de aventuras. Ejecute la aplicación, llegue hasta la ventana principal,
+presione sobre el menú "Acerca de" y luego en "Enviar comentarios o sugerencias". 
+Rellene el formulario que aparecerá y pulse en "Enviar".
+
+Por último, no olvide visitar la web de eAdventure (http://e-adventure.e-ucm.es) y a la de nuestro grupo
+de investigación (http://www.e-ucm.es).
+
+¡Gracias!

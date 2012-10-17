@@ -1,0 +1,126 @@
+﻿################################################################
+####            eAdventure v1.5 (RC4) Release Notes         ####
+####                   Oct 3, 2012.                         ####
+################################################################
+
+This document contains the list of changes and new features introduced in eAdventure 1.5, released on July 26, 2012.
+A second release candidate (RC2) was published on August 8, and a third RC on Sept 28.
+
+Both second and third release candidates solved minor bugs found in RC1. RC4 also introduces two new translations, to 
+Russian by and Portuguese (Brazil variant)
+
+For detailed information on how to run eAdventure, see README.txt or visit the eAdventure website: http://e-adventure.e-ucm.es
+
+
+ - The e-Adventure team
+ 
+################################################################ 
+####                   New functionality                    ####
+################################################################
+A) Major features
+################################################################
+1. New look and feel. All logos, splash screens, cursors, buttons and other visual assets have been redesigned to provide a more consistent, up-to-date and custom look and feel edition and play experience.
+
+2. Accessibility improvements. A whole set of new features was implemented to improve the accessibility of eAdventure games, especially for blind players.
+2.1. Keyboard navigation: This option can be activated through the Adventure Menu on the eAdventure editor. By turning this option on, the game can be played using the left and right arrow keys to navigate through interactive elements and GUI controls. Enter is the action key. ‘I’ key provides a convenient shortcut to access the inventory. Numeric keys (0,1...9) can be used to browse items on the inventory and select options on conversations. The ‘Esc’ key can be used to skip non interactive parts and also to enter the options menu.
+2.2. Full audio support. All eAdventure elements that can be meaningful to the game experience or to provide feedback to the user support audio descriptions. This way, an audio track can be set for interactive elements like exits, buttons, items, characters or active areas. This audio track is played each time the mouse hovers the element. Audio tracks can also be set for effects that convey textual information, like 'show text', 'speak-player' or 'speak-character'. The accessibility of any game can be improved by activating the keyboard navigation mode and defining audio descriptions for all the interactive elements and controls.
+
+3. Two new languages are available: Galician and Chinese. **NEW** Two more languages were added in RC4: Russian and Portuguese (Brazil variant). Thanks to our contributors Fran Macías, Yuchun Feng Yuokla, Yiwei Cao, Elena Nemilova and Gilberto Azevedo for making this possible!
+
+4. Debugging console for SCORM. This javascript console allows monitoring all communication between game and LMS using SCORM. It also supports manual introduction of commands to test how the SCORM communication protocol and data model works. The SCORM debugging console means a powerful aid for those novel game authors willing to explore the possibilities of getting their games integrated into Learning Management Systems using SCORM. It works both for versions 1.2 and 2004.
+
+5. Multiple description blocks. With this new feature, it is possible to change the name, description and detailed description of any active area, item or character using the eAdventure conditions system.
+
+6. Support for buttons. Since eAdventure 1.5, buttons can be included in games more easily. This is possible thanks to two new features on items:
+6.1. Behaviour (can be found on documentation edition tab). Allows altering the default response of an item to a mouse click to make it trigger the first action available (without showing the action buttons). 
+6.2. Hover image. A new type of asset can be defined for items: its hover image.
+
+7. Improved edition experience in multi-screen environments (especially Linux). Now the game engine window can be moved across screens when the game is in Windowed mode and launched from the editor. The location of editor and engine windows are persistent across different executions. This facilitates edition as the game editor can be located on one screen and then run and debug the game on a secondary screen.
+
+8. Global flags and variables (shared across chapters). If a flag or a variable is defined in two consecutive chapters, their value is preserved when the first chapter ends. This feature is useful to connect user choices from one chapter to the next one.
+
+################################################################
+B) Minor features
+################################################################
+1. Improved conversations (especially related to option lists).
+1.2. Options audio preview. If an option line has audio, it will be played when the mouse hovers it. (This feature is configurable).
+1.3. Configurable location of the option list on the screen (top or bottom options are supported).
+1.4. Application of speech bubble settings in options rendering. Useful to improve text legibility.
+1.5. Shifting text effect for long options that do not fit in the screen.
+1.6. Automatic addition of interlocutor names on dialogs. Facilitates understanding who is talking.
+
+2. Revised action button system. 
+2.1. By default, an ‘examine’ button was always available for items and active areas, and a ‘talk to’ button for characters, even if no such action (or description in the for ‘examine’) had been defined. This behaviour has been removed. 
+2.2. Personalized action buttons for default actions. The traditional hand, mouth and eye metaphors have been left behind, and now each default action (examine, use, grab, use-with, talk-to, give-to and drag-to) has its own configurable button. (However, only one button of each category is displayed at once).
+
+3. Forward compatibility system implemented to prevent bad crashes if an eAdventure2.0 game is opened with the eAdventure1.5 editor.
+4. ‘Skippable’ property added for videos. This property allows controlling if the player can skip a video or it must be visualized from begin to end.
+5. New operator “unequals” has been added for conditions on variables. It allows defining conditions following the next syntax: Variable != Numeric_value.
+6. New operator “negation” has been added for conditions on global states. It allows defining conditions with the next syntax: !Global State. This condition will be ‘true’ when the global state is ‘false’.
+7. New “show always” property for inventory. Makes the inventory visible at all times without needing to move the mouse to the top or bottom of the game window.
+8. Debug mode improvements. Rendering hints added for visualizing the bounding rectangles of the interactive elements.
+9. Added support for fade in-out effects when the appearance of an item changes.
+10. **NEW** Exportation process optimizations. Unnecessary images are not added anymore. 
+
+################################################################ 
+####      Bugs fixed and other usability improvements       ####
+################################################################
+C) Game editor (authoring experience improvements)
+################################################################
+1. Improved multiplatform authoring experience (edition on Mac and Linux). Some of the improvements are:
+	1.1. Mac: assessment report visualization improved.
+	1.2. Mac: Exit edition panel layout improved.
+	1.3. Linux: Audio support improved for MP3 audio tracks.
+	1.4. Linux: Asset chooser minor improvements.
+	
+2. Persistence of conversation nodes layout improved in game editor.
+
+3. Many Improvements and bug fixes related to resource (images, sounds, animations, etc.) management and identification.
+3.1. Problems related to case sensitive code that caused the engine to crash badly if an animation in eaa format was renamed to upper or lower case. This issue was especially problematic in LO and jar exportation modes on Windows.
+3.2. Solved problems on Mac with Null pointer exceptions that occurred when certain images were selected.
+3.3. Improved asset acquisition when a chapter is imported. 
+3.4. Issue with manually renamed images. If an unsupported image (e.g. tga) was renamed to a supported extension (e.g. .png) the editor crashed.
+
+4. Usability improvements on assessment rules edition. Layout has been modified to reflect the importance of concept and text more accurately.
+5. Improved editor's algorithm that orders the list of interactive elements for scene preview panels. Now active areas, exits and barriers are always painted over interactive elements.
+6. Game version number is now displayed on the adventure data dialog. This allows game authors to distinguish among different versions of the game. Version number is automatically incremented each time the game is saved.
+7. Improvements on effects table (GUI only).
+8. Icon for speak player effects with audio was added.
+9. Minor language improvements on editor GUI.
+10. Improved edition of references to global states.
+11. Many editor layout improvements.
+12. Minor character and player visualization improvements
+13. Bug causing the animation editor to freeze if an unsupported file format was selected fixed.
+14. Fixed a problem with StartDialog (editor) that triggered a null InputStream exception if one of the projects in recent list had a bad formatted descriptor.
+15. Fixed an editor crash related to the edition of exit cursors.
+16. Ñ character has been forbidden in LO identification names to prevent a bad crash at runtime.
+17. Problems related to the addition process of custom actions were fixed.
+18. Asset path on play-sound effects was not being displayed properly on effect dialog.
+19. **NEW** Edition is allowed while a game is running (feature available on RC4).
+20. **NEW** From now on, effects cannot be edited when changing from a cutscene to another cutscene, as effects can only be executed on interactive scenes.
+
+################################################################
+D) Game engine (play experience improvements)
+################################################################
+1. Improved game experience on web (learning object) execution mode. 
+1.1. The extraction of html files from books is done only if necessary under the temp folder (so it is hidden from the user).
+1.2. Minor improvements on video rendering.
+
+2. Support for multiple references to an object, characters and atrezzo obstects has been improved.
+3. Bug related to inconsistency between action buttons displayed on the contextual interface and available actions for the element selected. Under certain circumstances, if acting fast, it was possible to get action buttons displayed for a set of actions that was no longer available. This caused the game engine to crash.
+4. Several bugs related to HTML books fixed.
+5. Several bugs related to timered assessment rules fixed.
+6. Bug related to using the free tts library on Applets that caused the applet to crash (the library could not find the voice registry) was fixed. The library was recompiled to fix this problem.
+7. Interaction on conversations has been improved, fixing a problem with selection of options out of the range 1-5.
+8. Bug about binary actions was fixed. Target elements of binary actions (e.g. give to, use with) which did not have any unary action defined (e.g. use, grab, examine) were not interactuable and as a consequence the binary action could not be launched.
+9. Fixed a null pointer exception related to images with high alpha (transparency) values.
+10. Removed console output verbosity.
+11. Sound on some slidescenes was not being stopped if the cutscene was skipped.
+12. Fixed a problem with player layer.
+13. Improved character orientation algorithm for conversations, so characters face each other before they begin to talk.
+14. **NEW** A bug was causing a nasty effect on visualization of character animations with transitions if the frames had transparency.
+
+################################################################
+E) Installer and executables
+################################################################
+1. Run executables as Root/Admin by default: Problems related to export games as LO were found when the editor was run as .exe and .app due to lack of privileges. Now, both .app and .exe are forced to be run with root/admin by double-clicking.   

@@ -305,7 +305,8 @@
     <launch4j>
       <config headerType="gui" outfile="${build.dir}/eAdventureEditor.exe"
           dontWrapJar="true" jarPath="eadventure/eadventure-editor.jar"
-          chdir="eadventure" icon="${pack.dir}/icons/eAd-1.5-editor.ico">
+          chdir="eadventure" icon="${pack.dir}/icons/eAd-1.5-editor.ico" 
+    		manifest="${pack.dir}/launch4j/admin.manifest">
         <classPath mainClass="${main.editor}">
             <cp>./jars/*.jar</cp>
             <cp>./*.jar</cp>
@@ -318,7 +319,8 @@
     <launch4j>
       <config headerType="gui" outfile="${build.dir}/eAdventureEngine.exe"
           dontWrapJar="true" jarPath="eadventure/eadventure-engine.jar"
-          chdir="eadventure"  icon="${pack.dir}/icons/eAd-1.5-engine.ico">
+          chdir="eadventure"  icon="${pack.dir}/icons/eAd-1.5-engine.ico"
+      	manifest="${pack.dir}/launch4j/admin.manifest">
         <classPath mainClass="${main.engine}">
             <cp>./jars/*.jar</cp>
             <cp>./*.jar</cp>
@@ -364,7 +366,8 @@
     <launch4j>
       <config headerType="gui" outfile="${dist.dir}/eAdventure-installer.exe"
           jarPath="${mac-installer}"
-          chdir="eadventure"  icon="${pack.dir}/icons/eAd-1.5-installer.ico">
+          chdir="eadventure"  icon="${pack.dir}/icons/eAd-1.5-installer.ico"
+      	manifest="${pack.dir}/launch4j/admin.manifest">
         <classPath mainClass="com.izforge.izpack.installer.Installer">
             <cp>./jars/*.jar</cp>
             <cp>./*.jar</cp>

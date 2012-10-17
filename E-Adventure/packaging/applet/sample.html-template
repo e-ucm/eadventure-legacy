@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ejemplo de p&aacute;gina eAdventure</title>
+    <script type='text/javascript' language='JavaScript'>
+      function hideText(){
+        msg = document.getElementById('loadingMessage');
+        msg.style.display = 'none';
+      }
+      function getParams(){
+        parent.setParams();
+      }
+      function showButton(){
+        top.contentFrame.frames[0].showButton();
+      }
+    </script>
+  </head>
+  <body>
+    <object type="application/x-java-applet"
+      archive="__GAME_JAR__, __APPLET_JAR__" 
+      name="eadventure"
+      id="eadventure"
+      width="800" height="600">
+        <param name="code" value="__APPLET_MAIN__"/>
+        <param name="WINDOWED" value="no"/>
+        <param name="java_arguments" value="-Xms512m -Xmx512m"/>
+        <param name="image" value="splashScreen.gif"/>
+
+        <param id="appletURL" name="appletURL" value=""/>
+        <param id="userFName" name="userFName" value=""/>
+        <param id="userLName" name="userLName" value=""/>
+        <param id="userID" name="userID" value=""/>
+        <param id="tool_session_id" name="tool_session_id" value=""/>
+    </object>
+<div id="loadingMessage"><p><b>El juego se est&aacute; iniciando.
+Por favor, sea paciente mientras se comprueba la firma digital
+(esta acci&oacute;n puede tardar varios minutos)</b></p></div>
+  </body>
+</html>
