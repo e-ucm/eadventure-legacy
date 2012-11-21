@@ -508,7 +508,7 @@ public class Writer {
             //"\t\t<param name=\"USER_ID\" value=\"567\"/>\n" + "\t\t<param name=\"RUN_ID\" value=\"5540\"/>\n" +
             //The game is initating.. please be patient while the digital sign is verified
  
-            jscript + "\t</head>\n" + stringForm +"\t<body>\n" + "\t\t<applet code=\"" + mainClass + "\" archive=\"./" + loName + ".jar\" name=\"eadventure\" id=\"eadventure\" " + ( windowed ? "width=\"200\" height=\"150\"" : "width=\"800\" height=\"600\"" ) +  " MAYSCRIPT>\n" + "\t\t<param name=\"WINDOWED\" value=\"" + ( windowed ? "yes" : "no" ) + "\"/>\n" + "\t\t<param name=\"java_arguments\" value=\"-Xms256m -Xmx512m\"/>\n"+ "\t\t<param name=\"image\" value=\"splashScreen.gif\"/>\n";
+            jscript + "\t</head>\n" + stringForm +"\t<body>\n" + "\t\t<applet code=\"" + mainClass + "\" archive=\"./" + loName + ".jar\" name=\"eadventure\" id=\"eadventure\" " + ( windowed ? "width=\"200\" height=\"150\"" : "width=\"800\" height=\"600\"" ) +  " MAYSCRIPT>\n" + "\t\t<param name=\"WINDOWED\" value=\"" + ( windowed ? "yes" : "no" ) + "\"/>\n" + "\t\t<param name=\"java_arguments\" value=\"-Xms256m -Xmx512m\"/>\n"+ "\t\t<param name=\"image\" value=\"splashScreen.gif\"/>\n"+"\t\t<param name=\"codebase_lookup\" value=\"false\"/>\n";
             
             // Add additional params
             if (additionalParams!=null){
