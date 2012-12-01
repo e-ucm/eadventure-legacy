@@ -6,16 +6,20 @@
 	</description>
 	
 	<property name="lib.dir" value="jars" />
+	<property name="blib.dir" value="bjars" />
 	<property name="gui.dir" value="gui" />
 	<property name="img.dir" value="img" />
 	<property name="web.dir" value="web" />
 	<property name="plugin.dir" value="C:/Program Files (x86)/Java/jre6/lib" />
 	<property name="lanengine.dir" value="i18n/editor" />
 	<property name="laneditor.dir" value="i18n/engine" />
-	<property name="release.version" value="1.5RC3" />
+	<property name="release.version" value="1.5RC4b" />
 
 	<path id="project.class.path">
 		<fileset dir="${lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${blib.dir}">
 			<include name="*.jar" />
 		</fileset>
 	</path>
@@ -27,6 +31,31 @@
 	</path>
 	
 		
+	<target name="compile-with-tracking">
+		<mkdir dir="web/tempcompile/" />
+		<mkdir dir="web/src-tmp/"/>
+		<copy todir="web/src-tmp" overwrite="true">
+			<fileset dir="src">
+				<exclude name="CVS/**" />
+				<exclude name=".svn/**" />
+				<include name="**" />
+			</fileset>
+			<fileset dir="src-prv">
+				<exclude name="CVS/**" />
+				<exclude name=".svn/**" />
+				<include name="es/eucm/eadventure/tracking/prv/**" />
+			</fileset>
+		</copy>
+		
+		<javac srcdir="web/src-tmp/es/eucm/" destdir="web/tempcompile/" source="1.5" target="1.5">
+			<exclude name="src/es/eucm/eadventure/editor/**" />
+			<exclude name="src/es/eucm/eadventure/assistant/**" />
+			<classpath refid="project.class.path" />
+			<classpath refid="plugin.class.path" />
+		</javac>
+		
+	</target>
+
 	<target name="compile">
 		<mkdir dir="web/tempcompile/" />
 		<javac srcdir="src/es/eucm/" destdir="web/tempcompile/" source="1.5" target="1.5">
@@ -45,6 +74,7 @@
 		<delete>
 			<fileset dir="web">
 				<include name="temp/**/*.*"/>
+				<include name="src-tmp/**/*.*"/>
 				<include name="tempcompile/**/*.*"/>
 			</fileset>
 		</delete>
@@ -55,7 +85,7 @@
 		<delete dir="web/temp/i18n/editor"/>
 	</target>
 
-	<target name="jar" depends="compile" description="generate the eadventure applet">
+	<target name="jar-with-tracking" depends="compile-with-tracking" description="generate the eadventure applet">
 		<delete file="web/eAdventure_temp.jar" />
 		<delete file="web/eAdventure.jar" />
 		<copy todir="web/temp">
@@ -100,17 +130,122 @@
 
 		</jar>
 
-		<zip destfile="web/eAdventure_temp.jar"> 
+			<zip destfile="web/eAdventure_temp.jar"> 
 		        <zipfileset src="web/eAdventure.jar"> 
-		                <exclude name="**/MANIFEST.MF" /> 
-		        </zipfileset> 
-		</zip>
-		
+		            <exclude name="**/MANIFEST.MF" />
+		        	<exclude name="**/LICENSE" />
+	    	    	<exclude name="**/LICENSE.txt" />
+	        		<exclude name="**/NOTICE" />
+	        		<exclude name="**/NOTICE.txt" />
+	       		 </zipfileset>
+				<zipfileset src="bjars/commons-codec-1.4.jar">
+					<exclude name="**/MANIFEST.MF" />
+					<exclude name="**/LICENSE" />
+				   	<exclude name="**/LICENSE.txt" />
+				   	<exclude name="**/NOTICE" />
+				   	<exclude name="**/NOTICE.txt" />
+				</zipfileset>
+				<zipfileset src="bjars/commons-logging-1.1.1.jar">
+					<exclude name="**/MANIFEST.MF" />
+					<exclude name="**/LICENSE" />
+			       	<exclude name="**/LICENSE.txt" />
+			       	<exclude name="**/NOTICE" />
+			       	<exclude name="**/NOTICE.txt" />
+				</zipfileset>
+				<zipfileset src="bjars/httpclient-4.1.3.jar">
+					<exclude name="**/MANIFEST.MF" />
+					<exclude name="**/LICENSE" />
+			       	<exclude name="**/LICENSE.txt" />
+			       	<exclude name="**/NOTICE" />
+			       	<exclude name="**/NOTICE.txt" />
+				</zipfileset>
+				<zipfileset src="bjars/httpclient-cache-4.1.3.jar">
+					<exclude name="**/MANIFEST.MF" />
+					<exclude name="**/LICENSE" />
+		        	<exclude name="**/LICENSE.txt" />
+		        	<exclude name="**/NOTICE" />
+		        	<exclude name="**/NOTICE.txt" />
+				</zipfileset>
+				<zipfileset src="bjars/httpcore-4.1.4.jar">
+					<exclude name="**/MANIFEST.MF" />
+					<exclude name="**/LICENSE" />
+		        	<exclude name="**/LICENSE.txt" />
+		        	<exclude name="**/NOTICE" />
+		        	<exclude name="**/NOTICE.txt" />
+				</zipfileset>
+				<zipfileset src="bjars/httpmime-4.1.3.jar">
+					<exclude name="**/MANIFEST.MF" />
+					<exclude name="**/LICENSE" />
+				   	<exclude name="**/LICENSE.txt" />
+				   	<exclude name="**/NOTICE" />
+				   	<exclude name="**/NOTICE.txt" />
+				</zipfileset>
+			</zip>			
 	</target>	
 
+		<target name="jar" depends="compile" description="generate the eadventure applet">
+			<delete file="web/eAdventure_temp.jar" />
+			<delete file="web/eAdventure.jar" />
+			<copy todir="web/temp">
+				<fileset dir=".">
+					<include name="gui/cursors/action.png" />
+					<include name="gui/cursors/default.png" />
+					<include name="gui/cursors/exit.png" />
+					<include name="gui/cursors/nocursor.png" />
+					<include name="gui/cursors/over.png" />
+					<include name="gui/defaultassets/**" />
+					<include name="gui/hud/contextual/btnDrag**" />
+					<include name="gui/hud/contextual/btnError**" />
+					<include name="gui/hud/contextual/btnExamine**" />
+					<include name="gui/hud/contextual/btnGive**" />
+					<include name="gui/hud/contextual/btnGrab**" />
+					<include name="gui/hud/contextual/btnTalk**" />
+					<include name="gui/hud/contextual/btnUse**" />
+					<include name="gui/hud/contextual/left.png" />
+					<include name="gui/hud/contextual/right.png" />
+					<include name="gui/options/Button.png" />
+					<include name="gui/options/PressedButton.png" />
+					<include name="gui/options/quicksand_bold.ttf" />
+					<include name="gui/*.png" />
+					<include name="gui/*.jpg" />
+					<!--<include name="java.policy.applet" />-->
+				</fileset>
+				<fileset dir="./web/tempcompile">
+					<exclude name="es/eucm/eadventure/editor/**" />
+					<exclude name="es/eucm/eadventure/assistant/**" />
+					<include name="**" />
+				</fileset>
+			</copy>
+			<jar compress="true" destfile="web/eAdventure.jar">
+				<fileset dir="web/temp">
+					<exclude name="CVS/**" />
+					<exclude name=".svn/**" />
+					<include name="**" />
+				</fileset>
+				<manifest>
+					<attribute name="Main-Class" value="es.eucm.eadventure.engine.EAdventureApplet" />
+				</manifest>
+
+			</jar>
+
+			<zip destfile="web/eAdventure_temp.jar"> 
+		        <zipfileset src="web/eAdventure.jar"> 
+	                <exclude name="**/MANIFEST.MF" /> 
+		        </zipfileset> 
+			</zip>
+		</target>	
+		
+		
 	<target name="generate" description="Clean and Generate">
 		<antcall target="cleanup"></antcall>
 		<antcall target="jar"></antcall>
 		<antcall target="cleanup"></antcall>
 	</target>
+	
+	<target name="generate-with-tracking" description="Clean and Generate">
+		<antcall target="cleanup"></antcall>
+		<antcall target="jar-with-tracking"></antcall>
+		<antcall target="cleanup"></antcall>
+	</target>
+
 </project>
