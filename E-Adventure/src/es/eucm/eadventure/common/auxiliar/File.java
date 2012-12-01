@@ -594,7 +594,7 @@ public class File extends java.io.File {
 
         }
         catch( Exception e ) {
-          //  ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+            ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
         }
     }
 
