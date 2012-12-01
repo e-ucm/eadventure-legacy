@@ -387,8 +387,9 @@ public class FunctionalItem extends FunctionalElement {
 
                 tempimage = null;
             }
-            if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
+            if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) ){
                 icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
+            }
         }
     }
 

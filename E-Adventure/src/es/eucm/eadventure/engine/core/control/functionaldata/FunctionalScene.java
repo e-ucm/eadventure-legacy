@@ -324,6 +324,12 @@ public class FunctionalScene implements Renderable, _HighLevelEvents {
                 
             }
         }
+        
+        //For each item in the inventory, update its resources
+        int itemCount = Game.getInstance( ).getInventory( ).getItemCount( );
+        for (int i=0; i<itemCount; i++){
+            Game.getInstance( ).getInventory( ).getItem( i ).updateResources( );
+        }
 
         // Check the character references of the scene
         for( ElementReference npcReference : NPCReferences ) {

@@ -1071,22 +1071,28 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
         // If inventory must be fixed on screen, force it happen
         if (Game.getInstance( ).isInventoryFixed( )){
             showInventory=true;
-            if (Game.getInstance( ).showBottomInventory( ))
+            if (Game.getInstance( ).showBottomInventory( )){
                 inventory.setUpperInventory( false );
-            else if (Game.getInstance( ).showTopInventory( ))
+                inventory.setDY( 0 );
+            } else if (Game.getInstance( ).showTopInventory( )){
                 inventory.setUpperInventory( true );
-        }
+                inventory.setDY( 0 );
+            }
+            //update the inventory
+            inventory.update( elapsedTime );
+        } else {
         
-        //update the inventory
-        inventory.update( elapsedTime );
-        //If the hud is shown and the inventory must show
-        if( showHud && showInventory ) {
-            //show the inventory
-            inventory.setDY( inventory.getDY( ) - elapsedTime / 10.0 );
-        }
-        else {
-            //else hide it
-            inventory.setDY( inventory.getDY( ) + elapsedTime / 10.0 );
+            //update the inventory
+            inventory.update( elapsedTime );
+            //If the hud is shown and the inventory must show
+            if( showHud && showInventory ) {
+                //show the inventory
+                inventory.setDY( inventory.getDY( ) - elapsedTime / 10.0 );
+            }
+            else {
+                //else hide it
+                inventory.setDY( inventory.getDY( ) + elapsedTime / 10.0 );
+            }
         }
         NUPDATES++;
     }
