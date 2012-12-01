@@ -52,17 +52,21 @@ public class GameLogConfig {
     private static final String TRACKING="tracking";
     private static final String REMOTE="remote-service";
     private static final String LOCAL="local-dump";
+    private static final String FILE_ID="file-id";
     private static final String SNAPSHOTS="snapshots-capture";
     private static final String LOG="interaction-log";
     private static final String SNAPSHOTS_SAMPLE_FREQ="snapshots-sample-freq";
     private static final String SNAPSHOTS_SEND_FREQ="snapshots-send-freq";
+    private static final String SNAPSHOT_SEND_URL="service-path-snapshot";
     private static final String LOG_DUMP_FREQ="interaction-log-dump-freq";
     private static final String LOG_SEND_FREQ="interaction-log-send-freq";
+    private static final String LOG_SEND_URL="service-path-log";
     private static final String LOWLEVEL_EVENTS_SAMPLE_FREQ="interaction-log-ll-sample-freq";
     private static final String KEY="service-key";
     private static final String URL="service-url";
     private static final String CONTROLLER_CLASS="controller-class";
     private static final String EFFECT_VERBOSITY="effect-verbosity";
+    private static final String GAME_ID="game-id";
     
     private Properties glConfig;
     
@@ -177,6 +181,22 @@ public class GameLogConfig {
         return getStringParam( CONTROLLER_CLASS ).equals( "UNKNOWN" )?null:getStringParam( CONTROLLER_CLASS );
     }
     
+    public String getFileId(){
+        return getStringParam( FILE_ID ).equals( "UNKNOWN" )?"random":getStringParam( FILE_ID );
+    }
+    
+    public String getGameId(){
+        return getStringParam( GAME_ID ).equals( "UNKNOWN" )?"game_id":getStringParam( GAME_ID );
+    }
+    
+    public String getLogSendUrl(){
+        return getStringParam( LOG_SEND_URL ).equals( "UNKNOWN" )?"chunks":getStringParam( LOG_SEND_URL );
+    }
+    
+    public String getSnapshotSendUrl(){
+        return getStringParam( SNAPSHOT_SEND_URL ).equals( "UNKNOWN" )?"snapshots":getStringParam( SNAPSHOT_SEND_URL );
+    }
+    
     public void store(){
         try {
             glConfig.storeToXML( new FileOutputStream("tracking.config"), "Game Log config params "+Calendar.getInstance( ).getTime( ).toString( ), "UTF-8");
@@ -203,6 +223,10 @@ public class GameLogConfig {
         glConfig.setProperty( SNAPSHOTS_SEND_FREQ, "10" );
         glConfig.setProperty( LOWLEVEL_EVENTS_SAMPLE_FREQ, "1000" );
         glConfig.setProperty( EFFECT_VERBOSITY, "disabled" );
+        glConfig.setProperty( FILE_ID, "random" );
+        glConfig.setProperty( GAME_ID, "game_id" );
+        glConfig.setProperty( LOG_SEND_URL, "chunks" );
+        glConfig.setProperty( SNAPSHOT_SEND_URL, "snapshots" );
     }
     
     private boolean getBooleanParam(String key){
