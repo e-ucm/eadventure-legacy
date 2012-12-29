@@ -49,13 +49,13 @@ import java.util.Properties;
 
 public class GameLogConfig {
 
-    private static final String TRACKING="tracking";
+    private static final String TRACKING="tracking"; // Global
     
-    private static final String CONTROLLER_CLASS="controller-class";
+    private static final String CONTROLLER_CLASS="controller-class"; //Global
     
-    private static final String GAME_ID="game-id";
+    private static final String GAME_ID="game-id"; // Impl
     
-    private static final String FILE_ID="file-id";
+    private static final String FILE_ID="file-id"; // Impl 
     
     private static final String LOG="interaction-log";
     private static final String LOWLEVEL_EVENTS_SAMPLE_FREQ="interaction-log-ll-sample-freq";

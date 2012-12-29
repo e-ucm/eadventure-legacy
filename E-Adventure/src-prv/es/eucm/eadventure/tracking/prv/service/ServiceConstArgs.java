@@ -35,11 +35,28 @@
  *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.tracking.prv;
+package es.eucm.eadventure.tracking.prv.service;
+
+import java.util.List;
+
+import es.eucm.eadventure.tracking.prv.GameLogEntry;
+import es.eucm.eadventure.tracking.prv.TrackingConfigExtended;
+import es.eucm.eadventure.tracking.pub.config.Service;
 
 
-public interface _NISListener {
+public class ServiceConstArgs {
+    List<GameLogEntry> q;
+    long startTime;
+    Service serviceConfig;
+    TrackingConfigExtended config;
+    public ServiceConstArgs( List<GameLogEntry> q, long startTime, Service serviceConfig, TrackingConfigExtended config ) {
 
-    public void codeEntered(int code);
+        super( );
+        this.q = q;
+        this.startTime = startTime;
+        this.serviceConfig = serviceConfig;
+        this.config = config;
+    }
+    
     
 }

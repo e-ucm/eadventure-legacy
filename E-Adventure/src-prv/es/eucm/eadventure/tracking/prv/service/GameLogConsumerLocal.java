@@ -35,7 +35,7 @@
  *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.tracking.prv;
+package es.eucm.eadventure.tracking.prv.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +43,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.tracking.prv.GameLogEntry;
+import es.eucm.eadventure.tracking.prv.GameLogWriter;
 
 
 public class GameLogConsumerLocal extends GameLogConsumer{
@@ -55,13 +57,12 @@ public class GameLogConsumerLocal extends GameLogConsumer{
     
     private long initialFreq;
     
-    public GameLogConsumerLocal( List<GameLogEntry> q, long timestamp, String fileId, long freq ) {
-        super( q, timestamp );
+    public GameLogConsumerLocal( ServiceConstArgs args ) {
+        super( args );
         seq=1;
-        this.initialFreq = freq;
-        this.updateFreq = freq;
+        this.initialFreq = serviceConfig.getFrequency( );
         this.sessionId=getCurrentTimeAndDate();
-        fixedPrefix="eadgamelog-"+Game.getInstance( ).getAdventureName( )+"-"+fileId+"-"+sessionId;
+        fixedPrefix="eadgamelog-"+Game.getInstance( ).getAdventureName( )+"-"+args.config.getStudentId( )+"-"+sessionId;
     }
 
     private String getCurrentTimeAndDate ( ){
@@ -116,5 +117,10 @@ public class GameLogConsumerLocal extends GameLogConsumer{
     protected void reset(){
         super.reset( );
         updateFreq=initialFreq;
+    }
+
+    @Override
+    protected void consumerInit( ) {
+        // Nothing needs initialization
     }
 }

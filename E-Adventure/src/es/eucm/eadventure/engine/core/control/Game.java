@@ -110,7 +110,7 @@ import es.eucm.eadventure.engine.core.gui.DebugValuesPanel;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.tracking.pub.GameLogProxy;
+import es.eucm.eadventure.tracking.pub.TrackingControllerProxy;
 import es.eucm.eadventure.tracking.pub._GameLog;
 import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 import es.eucm.eadventure.tracking.pub.replay.ReplayerProxy;
@@ -393,7 +393,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     /**
      * Game Log for storing interaction info. Added in version v1.4.
      */
-    private GameLogProxy gameLog;
+    private TrackingControllerProxy gameLog;
     
     /**
      * Replayer system for reproducing traces generated with the tracking system.
@@ -421,7 +421,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
     public static void create( String trackingConfigFile ) {
 
         instance = new Game( );
-        instance.gameLog = new GameLogProxy( trackingConfigFile );
+        instance.gameLog = new TrackingControllerProxy( trackingConfigFile );
         instance.replayer = new ReplayerProxy( );
     }
 
@@ -432,7 +432,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         instance.debugOptions = debugOptions;
         instance.debug = debugOptions != null && debugOptions.isDebugMode( );
         // Set logging=true to enable gamelog        
-        instance.gameLog = new GameLogProxy( null );
+        instance.gameLog = new TrackingControllerProxy( null );
         instance.replayer = new ReplayerProxy( );
     }
 

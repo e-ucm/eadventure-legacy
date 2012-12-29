@@ -1,4 +1,4 @@
-package es.eucm.eadventure.tracking.prv;
+package es.eucm.eadventure.tracking.prv.studentcode;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;

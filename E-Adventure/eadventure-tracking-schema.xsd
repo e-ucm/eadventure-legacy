@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://e-adventure.e-ucm.es/eadventure-tracking-schema" xmlns:tns="http://e-adventure.e-ucm.es/eadventure-tracking-schema" elementFormDefault="qualified">
+	
+	<xs:element name="enabled" type="xs:boolean" default="false"/>
+	<xs:element name="main-class" type="xs:string"/>
+	
+	<xs:element name="class" type="xs:string"/>
+	<xs:element name="name" type="xs:string"/>
+	<xs:element name="value" type="xs:string"/>
+	<xs:element name="frequency" type="xs:long" default="5000"/>
+	<xs:element name="url" type="xs:string"/>
+	<xs:element name="path" type="xs:string"/>
+	
+	<xs:element name="property">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:name"/>
+				<xs:element ref="tns:value"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="service">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:enabled" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="tns:name"  minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="tns:class"  minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="tns:frequency"  minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="tns:url"  minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="tns:path"  minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="tns:property" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="tracking-config">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:enabled" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="tns:main-class"  minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="tns:property" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="tns:service" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="a"></xs:element>
+</xs:schema>

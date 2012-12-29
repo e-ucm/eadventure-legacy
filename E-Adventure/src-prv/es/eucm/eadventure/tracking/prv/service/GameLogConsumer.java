@@ -35,10 +35,13 @@
  *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.tracking.prv;
+package es.eucm.eadventure.tracking.prv.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import es.eucm.eadventure.tracking.prv.GameLogEntry;
+import es.eucm.eadventure.tracking.pub.config.Service;
 
 
 public abstract class GameLogConsumer extends Thread{
@@ -47,14 +50,28 @@ public abstract class GameLogConsumer extends Thread{
     public static final long DEFAULT_MAX_FREQ = DEFAULT_FREQ * DEFAULT_INCR_FACTOR * 5+1;
     
     private List<GameLogEntry> q;
+    private int lastQSize;
     
+    /**
+     * Boolean value used to end the execution of this thread.
+     */
     private boolean terminate;
     
+    /**
+     * Value returned by System.currentTimeMillis() when the game is launched. It's used to calculate the timestamp for each tracking output file.
+     */
     protected long startTime;
     
+    /**
+     * Frequency to create output files. It's a value in milliseconds  (e.g. one snapshot is captured each freq ms).
+     */
     protected long updateFreq;
     
     protected int incrFactor;
+    
+    protected Service serviceConfig;
+    
+    protected int lastTraceIndexConsumed; 
     
     public synchronized void setTerminate (boolean interrupt){
         this.terminate = interrupt;
@@ -64,16 +81,19 @@ public abstract class GameLogConsumer extends Thread{
         return terminate;
     }
     
-    public GameLogConsumer(List<GameLogEntry> q, long startTime){
-        this.q = q;
+    public GameLogConsumer(ServiceConstArgs args){
+        this.q = args.q;
         setTerminate(false);
         reset();
-        this.startTime = startTime;
-        
+        this.startTime = args.startTime;
+        this.serviceConfig = args.serviceConfig;
+        this.updateFreq=serviceConfig.getFrequency( );
+        lastTraceIndexConsumed=-1; 
     }
     
     @Override
     public void run(){
+        consumerInit();
         while (!terminate()){
             try {
                 consumeGameLog();
@@ -86,12 +106,12 @@ public abstract class GameLogConsumer extends Thread{
         consumerClose(newQ);
     }
 
-    private void consumeGameLog( ) {
+    protected void consumeGameLog( ) {
         List<GameLogEntry> newQ = copyQ();
         if (newQ.size( )>0){
             System.out.println( "["+this.getClass( ).getName( )+" :"+((System.currentTimeMillis()-startTime)/1000)+"] "+ newQ.size() );
             if (consumerCode(newQ)){
-                emptyQ( newQ );
+                lastTraceIndexConsumed = lastQSize-1;
                 reset();
             } else {
                 increment();
@@ -105,28 +125,20 @@ public abstract class GameLogConsumer extends Thread{
     private List<GameLogEntry> copyQ (){
         List<GameLogEntry> newQ = new ArrayList<GameLogEntry>();
         synchronized (q){
-            for (GameLogEntry entry:q){
+            lastQSize = q.size( );
+            for (int i=lastTraceIndexConsumed+1;i<q.size( ); i++){
+                GameLogEntry entry = q.get( i );
                 newQ.add( entry );
             }
         }
         return newQ;
     }
     
-    private void emptyQ (List<GameLogEntry> newQ){
-        synchronized (q){
-            for (int i=0; i<newQ.size( ); i++){
-                for (int j=0; j<q.size( ); j++){
-                    if (q.get( j ) == newQ.get( i )){
-                        q.remove( j ); j--;
-                    }
-                }
-            }
-        }
-    }
-    
     protected abstract boolean consumerCode(List<GameLogEntry> newQ);
 
     protected abstract boolean consumerClose(List<GameLogEntry> newQ);
+    
+    protected abstract void consumerInit();
     
     protected void reset(){
         updateFreq=DEFAULT_FREQ;

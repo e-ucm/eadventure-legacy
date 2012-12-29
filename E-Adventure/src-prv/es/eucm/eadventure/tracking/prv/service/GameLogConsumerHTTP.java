@@ -35,19 +35,20 @@
  *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.tracking.prv;
+package es.eucm.eadventure.tracking.prv.service;
 
 import java.util.List;
+
+import es.eucm.eadventure.tracking.prv.GameLogEntry;
 
 
 public class GameLogConsumerHTTP extends GameLogConsumer{
 
     private long initialFreq;
     
-    public GameLogConsumerHTTP( List<GameLogEntry> q, long timestamp, long freq ) {
-        super( q, timestamp );
-        this.updateFreq = freq;
-        this.initialFreq = freq;
+    public GameLogConsumerHTTP( ServiceConstArgs args ) {
+        super( args );
+        this.initialFreq = serviceConfig.getFrequency( );
     }
 
     @Override
@@ -65,5 +66,24 @@ public class GameLogConsumerHTTP extends GameLogConsumer{
     protected void reset(){
         super.reset( );
         updateFreq=initialFreq;
+    }
+
+    @Override
+    protected void consumerInit( ) {
+        int tries = 0;
+        if (TrackingPoster.getInstance( )==null){
+            TrackingPoster.setInstance( serviceConfig.getUrl( ), null, serviceConfig.getPath( ) );
+            String baseURL = null;
+            while ((baseURL=TrackingPoster.getInstance().openSession())==null && tries<3){
+                tries++;
+            }
+            // If TrackingPoster was not successfully set up, disable this service
+            if (baseURL == null){
+                System.err.println( "[GameLogConsumerHttp] A session could not be opened. Disabling service...");
+                setTerminate(true);
+            }
+        } else {
+            TrackingPoster.getInstance( ).setChunksPath( serviceConfig.getPath( ) );
+        }
     }
 }

@@ -35,7 +35,7 @@
  *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.tracking.prv;
+package es.eucm.eadventure.tracking.prv.service;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -59,22 +59,22 @@ import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import es.eucm.eadventure.tracking.prv.GameLogEntry;
+
 
 public class TrackingPoster {
     
     private static TrackingPoster instance;
     
-    public static void setInstance (String serviceURL, String serviceKey, String snapshotsPath, String chunksPath){
-        instance = new TrackingPoster(serviceURL, serviceKey, snapshotsPath, chunksPath);
+    public synchronized static void setInstance (String serviceURL, String snapshotsPath, String chunksPath){
+        instance = new TrackingPoster(serviceURL, snapshotsPath, chunksPath);
     }
     
-    public static TrackingPoster getInstance(){
+    public synchronized static TrackingPoster getInstance(){
         return instance;
     }
     
     private String serviceURL;
-    
-    private String serviceKey="";
     
     private String baseURL=null;
     
@@ -82,8 +82,7 @@ public class TrackingPoster {
     
     private String chunksPath = null;
     
-    public TrackingPoster(String serviceURL, String serviceKey, String snapshotsPath, String chunksPath){
-        this.serviceKey = serviceKey;
+    public TrackingPoster(String serviceURL, String snapshotsPath, String chunksPath){
         this.serviceURL = serviceURL;
         this.chunksPath = chunksPath;
         this.snapshotsPath = snapshotsPath;
@@ -196,8 +195,16 @@ public class TrackingPoster {
 
     }
 
+    public void setSnapshotsPath ( String snapshotsPath ){
+        this.snapshotsPath = snapshotsPath;
+    }
+    
+    public void setChunksPath ( String chunksPath ){
+        this.chunksPath = chunksPath;
+    }
+    
     public static void main (String[]args){
-        TrackingPoster poster = new TrackingPoster("backend-ea.e-ucm.es/api/sessions/", "", "snapshots", "chunks");
+        TrackingPoster poster = new TrackingPoster("backend-ea.e-ucm.es/api/sessions/", "snapshots", "chunks");
         System.out.println( poster.openSession( ));
         List<GameLogEntry> entries = new ArrayList<GameLogEntry>();
         entries.add( new GameLogEntry(500, "test1") );

@@ -35,78 +35,85 @@
  *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.tracking.prv;
+package es.eucm.eadventure.tracking.prv.service;
 
 import java.io.File;
 import java.util.List;
+
+import es.eucm.eadventure.tracking.prv.GameLogEntry;
 
 /**
  * Simple class that consumes the snapshots produced by SnapshotProducer. Periodically sends the snapshots to a backend server (using TrackingPoster).
  * @author Javier Torrente
  *
  */
-public class SnapshotConsumer extends Thread{
+public class SnapshotConsumer extends GameLogConsumer{
     
-    /**
-     * Frequency, in millis, for consuming snapshotws. 
-     */
-    private long freq;
+    private long initialFreq;
     
-    /**
-     * Shared queue of snapshots. TrackingController deals with synchronization
-     */
-    private List<File> q;
-    
-    private boolean terminate;
-    
-    private long startTime;
-
     private void sendSnapshot( ) {
-        synchronized(q){
-            while (q.size( )>0){
-                //System.out.println( "[SN_CONSUMER:"+((System.currentTimeMillis()-startTime)/1000)+"] "+ q.get( 0 ).getAbsolutePath( ) );
-                TrackingPoster.getInstance().sendSnapshot( q.remove( 0 ) );
-            }//if (q.size( )==0)
+        List<File> q = SnapshotProducer.getIQ( );
+        if (q.size( )>0){
+            //System.out.println( "[SN_CONSUMER:"+((System.currentTimeMillis()-startTime)/1000)+"] "+ q.get( 0 ).getAbsolutePath( ) );
+            TrackingPoster.getInstance().sendSnapshot( q.remove( 0 ) );
+        }//if (q.size( )==0)
                 //System.out.println( "[SN_CONSUMER:"+((System.currentTimeMillis()-startTime)/1000)+"] Q is empty");
             
-        }
     }
     
     private void sendAllPendingSnapshots(){
-        synchronized(q){
-            for (File f:q){
-                TrackingPoster.getInstance().sendSnapshot( f );
-                q.clear( );
-            }
+        List<File> q = SnapshotProducer.getIQ( );
+        for (File f:q){
+            TrackingPoster.getInstance().sendSnapshot( f );
+            q.clear( );
         }
     }
     
-    public synchronized void setTerminate (boolean interrupt){
-        this.terminate = interrupt;
-    }
-    
-    public synchronized boolean terminate(){
-        return terminate;
-    }
-    
-    public SnapshotConsumer(List<File> q, long startTime, long sendFreq){
-        this.q = q;
+    public SnapshotConsumer(ServiceConstArgs args){
+        super(args);
         setTerminate(false);
-        this.startTime = startTime;
-        this.freq = sendFreq;
+        this.initialFreq = serviceConfig.getFrequency( );
+    }
+    
+
+    @Override
+    protected void consumeGameLog( ) {
+        sendSnapshot();
+    }
+    @Override
+    protected boolean consumerCode( List<GameLogEntry> newQ ) {
+        return true;
+    }
+
+    @Override
+    protected boolean consumerClose( List<GameLogEntry> newQ ) {
+        sendAllPendingSnapshots();
+        return true;
+    }
+
+    @Override
+    protected void reset(){
+        super.reset( );
+        updateFreq=initialFreq;
     }
     
     @Override
-    public void run(){
-        while (!terminate()){
-            try {
-                sendSnapshot();
-                Thread.sleep( freq );
+    protected void consumerInit( ) {
+        int tries = 0;
+        if (TrackingPoster.getInstance( )==null){
+            TrackingPoster.setInstance( serviceConfig.getUrl( ), serviceConfig.getPath( ), null );
+            String baseURL = null;
+            while ((baseURL=TrackingPoster.getInstance().openSession())==null && tries<3){
+                tries++;
             }
-            catch( InterruptedException e ) {
+            // If TrackingPoster was not successfully set up, disable this service
+            if (baseURL == null){
+                System.err.println( "[GameLogConsumerHttp] A session could not be opened. Disabling service...");
+                setTerminate(true);
             }
+        } else {
+            TrackingPoster.getInstance( ).setSnapshotsPath( serviceConfig.getPath( ) );
         }
-        sendAllPendingSnapshots();
     }
 
 }

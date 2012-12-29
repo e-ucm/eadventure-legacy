@@ -37,119 +37,94 @@
 
 package es.eucm.eadventure.tracking.prv;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import es.eucm.eadventure.tracking.pub.GameLogConfig;
+import es.eucm.eadventure.tracking.prv.service.GameLogConsumer;
+import es.eucm.eadventure.tracking.prv.service.ServiceConstArgs;
+import es.eucm.eadventure.tracking.prv.studentcode.NameInputScreen;
 import es.eucm.eadventure.tracking.pub._GameLog;
 import es.eucm.eadventure.tracking.pub._TrackingController;
+import es.eucm.eadventure.tracking.pub.config.Service;
+import es.eucm.eadventure.tracking.pub.config.TrackingConfig;
 
 
 public class TrackingController implements _TrackingController{
 
     public static final long DUMP_FREQ=15000;
     
-    private SnapshotProducer snapshotMakerDaemon;
-    private SnapshotConsumer snapshotSenderDaemon;
-    private List<File> q;
-    
-    private GameLogConsumerHTTP glConsumerHTTP;
-    private GameLogConsumerLocal glConsumerLocal;
     private GameLog gameLog;
     
     private long startTimeStamp;
-    private boolean logging;
     
-    private boolean localEnabled;
-    private boolean remoteEnabled;
+    private TrackingConfigExtended trackingConfigExt;
     
-    private boolean snapshotsEnabled;
-    private boolean logEnabled;
+    private List<GameLogConsumer> services;
     
-    private GameLogConfig glConfig;
-    
-    public TrackingController(GameLogConfig glConfig){
+    public TrackingController(TrackingConfig trackingConfig){
         startTimeStamp = System.currentTimeMillis();
-        this.glConfig = glConfig;
-        this.localEnabled = glConfig.localEnabled( );
-        this.remoteEnabled = glConfig.remoteEnabled( );
-        this.snapshotsEnabled = glConfig.snapshotsEnabled( );
-        this.logEnabled = glConfig.logEnabled( );
-        if (!glConfig.trackingEnabled( )) this.logging = false;
-        else
-            this.logging = localEnabled || remoteEnabled;
+        this.trackingConfigExt = new TrackingConfigExtended(trackingConfig);
+        services = new ArrayList<GameLogConsumer>();
         
-        
-        Random r = new Random();
-        String randomId = "RID";
-        if (glConfig.getFileId( ).equals( "random" )){
-            randomId = Integer.toString( r.nextInt( 10000 ) );
-        } else if (glConfig.getFileId( ).equals( "ask" )){ 
+        // Get the Student id. 
+        String studentId = "SID";
+        if (trackingConfigExt.getStudentId( ).equals( "random" )){
+            Random r = new Random();
+            studentId = Integer.toString( r.nextInt( 10000 ) );
+        } else if (trackingConfigExt.getStudentId( ).equals( "ask" )){ 
            int c= NameInputScreen.getCode( );
            if (c==-1) {
                System.err.println( "Error. Not valid code. "+c );
                System.exit( 0 );
            }else
-               randomId = Integer.toString( c );
+               studentId = Integer.toString( c );
         } else {
-            randomId = glConfig.getFileId( );
+            studentId = trackingConfigExt.getStudentId( );
         }
+        trackingConfigExt.setStudentId( studentId );
         
-        gameLog = new GameLog(logging, glConfig.effectVerbosityEnabled( ), startTimeStamp, glConfig.logLowLevelEventsSampleFreq( ), glConfig.getGameId( ), randomId);
-        if (logging) {        
-            q = new ArrayList<File>();
+        gameLog = new GameLog(trackingConfig.isEnabled( ), trackingConfigExt.effectVerbosityEnabled( ), startTimeStamp, trackingConfigExt.logLowLevelEventsSampleFreq( ), trackingConfigExt.getGameId( ), studentId);
+        if (trackingConfigExt.getTrackingConfig( ).isEnabled( )) {        
+    
+            for (Service service: trackingConfig.getService( )){
+                if (service.isEnabled( ) && service.getClazz( )!=null &&!service.getClazz().equals( "" )){
+                    try {
+                        ServiceConstArgs args = new ServiceConstArgs(gameLog.getEntries( ), startTimeStamp, service, trackingConfigExt);
+                        GameLogConsumer newConsumer = (GameLogConsumer) Class.forName( service.getClazz( ) ).getConstructor( ServiceConstArgs.class ).newInstance( args );
+                        services.add( newConsumer );
+                    }
+                    catch( Exception e ) {
+                        System.err.println( "[TrackingController] Service \""+service.getName( )+"\" could not be initialized. Failed to load class "+service.getClazz( ));
+                    }            
+                }
+            }
     
             
-    
-            if (snapshotsEnabled){
-                snapshotMakerDaemon = new SnapshotProducer(q, startTimeStamp, randomId, glConfig.snapshotsSampleFreq( ));
-                if (remoteEnabled)
-                    snapshotSenderDaemon = new SnapshotConsumer (q, startTimeStamp, glConfig.snapshotsSendFreq( ));
-            }
-            
-            if (logEnabled){
-                if (remoteEnabled)
-                    glConsumerHTTP = new GameLogConsumerHTTP(gameLog.getNewEntries( ), startTimeStamp, glConfig.logSendFreq( ));
-                if (localEnabled)
-                    glConsumerLocal = new GameLogConsumerLocal(gameLog.getAllEntries( ), startTimeStamp, randomId, glConfig.logDumpFreq( ));
-            }
         }
     }
     
     public void start(){
-        if (!logging) return;
-        int tries =0;
-        String baseURL=null;
-        if (logEnabled && localEnabled)
-            glConsumerLocal.start();
-        if (snapshotsEnabled)
-            snapshotMakerDaemon.start( );
-        if (remoteEnabled){
-            TrackingPoster.setInstance( glConfig.serviceURL( ), glConfig.serviceKey( ), glConfig.getSnapshotSendUrl( ), glConfig.getLogSendUrl( ) );
-            while ((baseURL=TrackingPoster.getInstance().openSession())==null && tries<3){
-                tries++;
-            }
+        if (!this.trackingConfigExt.getTrackingConfig( ).isEnabled( ))
+            return;
+        
+        for (GameLogConsumer service: this.services){
+            service.start( );
         }
-        if (remoteEnabled && baseURL!=null){
-            if (logEnabled)
-                glConsumerHTTP.start();
-            if (snapshotsEnabled)
-                snapshotSenderDaemon.start( );
-        }
+        
     }
     
     public void terminate(){
-        if (!logging) return;
-        if (snapshotsEnabled && snapshotMakerDaemon!=null && snapshotMakerDaemon.isAlive( ))
-            snapshotMakerDaemon.setTerminate( );
-        if (snapshotsEnabled && remoteEnabled && snapshotSenderDaemon!=null && snapshotSenderDaemon.isAlive( ))
-            snapshotSenderDaemon.setTerminate( true );
-        if (logEnabled && remoteEnabled && glConsumerHTTP!=null && glConsumerHTTP.isAlive( ))
-            glConsumerHTTP.setTerminate( true );
-        if (logEnabled && localEnabled && glConsumerLocal!=null && glConsumerLocal.isAlive( ))
-            glConsumerLocal.setTerminate( true );
+        
+        if (!this.trackingConfigExt.getTrackingConfig( ).isEnabled( ))
+            return;
+        
+        for (GameLogConsumer service: this.services){
+            if (service.isAlive( )){
+                service.setTerminate( true );
+            }
+        }
+        
     }
     
     

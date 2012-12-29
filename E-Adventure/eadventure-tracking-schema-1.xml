@@ -32,7 +32,7 @@
 	</tns:service>
 	
 	<tns:service>
-	    <tns:enabled>false</tns:enabled>
+	    <tns:enabled>true</tns:enabled>
 	    <tns:name>remote-log</tns:name>
 	    <tns:class>es.eucm.eadventure.tracking.prv.service.GameLogConsumerHTTP</tns:class>
 	    <tns:frequency>5000</tns:frequency>

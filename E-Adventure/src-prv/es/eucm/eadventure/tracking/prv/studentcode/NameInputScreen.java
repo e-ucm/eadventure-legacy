@@ -35,7 +35,7 @@
  *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.tracking.prv;
+package es.eucm.eadventure.tracking.prv.studentcode;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
