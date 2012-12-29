@@ -37,19 +37,24 @@
 
 package es.eucm.eadventure.tracking.prv;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public abstract class GameLogConsumer extends Thread{
     public static final long DEFAULT_FREQ = 10000;
+    public static final int DEFAULT_INCR_FACTOR = 2;
+    public static final long DEFAULT_MAX_FREQ = DEFAULT_FREQ * DEFAULT_INCR_FACTOR * 5+1;
     
-    protected List<GameLogEntry> q;
+    private List<GameLogEntry> q;
     
     private boolean terminate;
     
     protected long startTime;
     
     protected long updateFreq;
+    
+    protected int incrFactor;
     
     public synchronized void setTerminate (boolean interrupt){
         this.terminate = interrupt;
@@ -62,8 +67,9 @@ public abstract class GameLogConsumer extends Thread{
     public GameLogConsumer(List<GameLogEntry> q, long startTime){
         this.q = q;
         setTerminate(false);
-        updateFreq=DEFAULT_FREQ;
+        reset();
         this.startTime = startTime;
+        
     }
     
     @Override
@@ -76,23 +82,61 @@ public abstract class GameLogConsumer extends Thread{
             catch( InterruptedException e ) {
             }
         }
-        synchronized(q){
-            consumerClose();
-        }
+        List<GameLogEntry> newQ = copyQ();
+        consumerClose(newQ);
     }
 
     private void consumeGameLog( ) {
-        synchronized(q){
-            if (q.size( )>0){
-                System.out.println( "["+this.getClass( ).getName( )+" :"+((System.currentTimeMillis()-startTime)/1000)+"] "+ q.size() );
-                consumerCode();
-            }else
-                System.out.println( "["+this.getClass( ).getName( )+" :"+((System.currentTimeMillis()-startTime)/1000)+"] Q is empty");
+        List<GameLogEntry> newQ = copyQ();
+        if (newQ.size( )>0){
+            System.out.println( "["+this.getClass( ).getName( )+" :"+((System.currentTimeMillis()-startTime)/1000)+"] "+ newQ.size() );
+            if (consumerCode(newQ)){
+                emptyQ( newQ );
+                reset();
+            } else {
+                increment();
+            }
+        }else{
+            System.out.println( "["+this.getClass( ).getName( )+" :"+((System.currentTimeMillis()-startTime)/1000)+"] Q is empty");
+        }
             
+    }
+    
+    private List<GameLogEntry> copyQ (){
+        List<GameLogEntry> newQ = new ArrayList<GameLogEntry>();
+        synchronized (q){
+            for (GameLogEntry entry:q){
+                newQ.add( entry );
+            }
+        }
+        return newQ;
+    }
+    
+    private void emptyQ (List<GameLogEntry> newQ){
+        synchronized (q){
+            for (int i=0; i<newQ.size( ); i++){
+                for (int j=0; j<q.size( ); j++){
+                    if (q.get( j ) == newQ.get( i )){
+                        q.remove( j ); j--;
+                    }
+                }
+            }
         }
     }
     
-    protected abstract void consumerCode();
+    protected abstract boolean consumerCode(List<GameLogEntry> newQ);
 
-    protected abstract void consumerClose();
+    protected abstract boolean consumerClose(List<GameLogEntry> newQ);
+    
+    protected void reset(){
+        updateFreq=DEFAULT_FREQ;
+        this.incrFactor = DEFAULT_INCR_FACTOR;
+    }
+    
+    protected void increment(){
+        updateFreq*=incrFactor;
+        if (updateFreq>=DEFAULT_MAX_FREQ){
+            setTerminate(true);
+        }
+    }
 }

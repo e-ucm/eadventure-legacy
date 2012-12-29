@@ -50,39 +50,51 @@ import java.util.Properties;
 public class GameLogConfig {
 
     private static final String TRACKING="tracking";
-    private static final String REMOTE="remote-service";
-    private static final String LOCAL="local-dump";
+    
+    private static final String CONTROLLER_CLASS="controller-class";
+    
+    private static final String GAME_ID="game-id";
+    
     private static final String FILE_ID="file-id";
-    private static final String SNAPSHOTS="snapshots-capture";
+    
     private static final String LOG="interaction-log";
+    private static final String LOWLEVEL_EVENTS_SAMPLE_FREQ="interaction-log-ll-sample-freq";
+    private static final String EFFECT_VERBOSITY="effect-verbosity";
+    
+    private static final String REMOTE="remote-service";
+    private static final String LOG_SEND_FREQ="interaction-log-send-freq";
+    private static final String LOG_SEND_URL="service-path-log";
+    private static final String KEY="service-key";
+    private static final String URL="service-url";
+    
+    private static final String LOCAL="local-dump";
+    private static final String LOG_DUMP_FREQ="interaction-log-dump-freq";
+    
+    private static final String SNAPSHOTS="snapshots-capture";
+    
     private static final String SNAPSHOTS_SAMPLE_FREQ="snapshots-sample-freq";
     private static final String SNAPSHOTS_SEND_FREQ="snapshots-send-freq";
     private static final String SNAPSHOT_SEND_URL="service-path-snapshot";
-    private static final String LOG_DUMP_FREQ="interaction-log-dump-freq";
-    private static final String LOG_SEND_FREQ="interaction-log-send-freq";
-    private static final String LOG_SEND_URL="service-path-log";
-    private static final String LOWLEVEL_EVENTS_SAMPLE_FREQ="interaction-log-ll-sample-freq";
-    private static final String KEY="service-key";
-    private static final String URL="service-url";
-    private static final String CONTROLLER_CLASS="controller-class";
-    private static final String EFFECT_VERBOSITY="effect-verbosity";
-    private static final String GAME_ID="game-id";
     
     private Properties glConfig;
     
-    public GameLogConfig (){
-        // Get file "gamelog.config"
+    public GameLogConfig ( String trackingConfigFile ){
+        // Get file "tracking.config"
+        String trackingConfig ="tracking.config";
+        if (trackingConfigFile!=null){
+            trackingConfig=trackingConfigFile;
+        }
         InputStream source = null;
-        source = GameLogConfig.class.getResourceAsStream( "tracking.config" );
+        source = GameLogConfig.class.getResourceAsStream( trackingConfig );
         if (source==null)
-            source = GameLogConfig.class.getResourceAsStream( "/tracking.config" );
+            source = GameLogConfig.class.getResourceAsStream( "/"+trackingConfig );
         if (source==null)
-            source = GameLogConfig.class.getResourceAsStream( "./tracking.config" );
+            source = GameLogConfig.class.getResourceAsStream( "./"+trackingConfig );
         if (source==null)
-            source = GameLogConfig.class.getResourceAsStream( "/tracking/tracking.config" );
+            source = GameLogConfig.class.getResourceAsStream( "/tracking/"+trackingConfig );
         if (source==null){
             try {
-                source = new FileInputStream( "tracking.config" );
+                source = new FileInputStream( trackingConfig );
             }
             catch( FileNotFoundException e ) {
             }

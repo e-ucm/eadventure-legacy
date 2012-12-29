@@ -44,9 +44,9 @@ public class GameLogProxy implements _TrackingController{
     private _TrackingController glController;
     private GameLogConfig glConfig;
     
-    public GameLogProxy (){
+    public GameLogProxy ( String trackingConfigFile ){
         // Get config
-        glConfig = new GameLogConfig();
+        glConfig = new GameLogConfig( trackingConfigFile );
         // Instantiate controller
         if (glConfig.getControllerClass( )!=null && 
                 !glConfig.getControllerClass( ).equals( "" ) &&

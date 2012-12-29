@@ -64,8 +64,8 @@ public class TrackingPoster {
     
     private static TrackingPoster instance;
     
-    public static void setInstance (String serviceURL, String serviceKey){
-        instance = new TrackingPoster(serviceURL, serviceKey);
+    public static void setInstance (String serviceURL, String serviceKey, String snapshotsPath, String chunksPath){
+        instance = new TrackingPoster(serviceURL, serviceKey, snapshotsPath, chunksPath);
     }
     
     public static TrackingPoster getInstance(){
@@ -78,9 +78,15 @@ public class TrackingPoster {
     
     private String baseURL=null;
     
-    public TrackingPoster(String serviceURL, String serviceKey){
+    private String snapshotsPath = null;
+    
+    private String chunksPath = null;
+    
+    public TrackingPoster(String serviceURL, String serviceKey, String snapshotsPath, String chunksPath){
         this.serviceKey = serviceKey;
         this.serviceURL = serviceURL;
+        this.chunksPath = chunksPath;
+        this.snapshotsPath = snapshotsPath;
     }
     
     public String openSession(){
@@ -130,10 +136,11 @@ public class TrackingPoster {
     
     public boolean sendChunk(List<GameLogEntry> entries){
         if (baseURL==null) return false; 
+        if (chunksPath==null) return false;
         boolean sent=false;
         try {
             HttpClient httpclient = new DefaultHttpClient();
-            String url = "";
+            String url = baseURL + (baseURL.endsWith( "/" )?"":"/") + chunksPath;
             
             String chunk="";
             for (GameLogEntry entry:entries){
@@ -162,10 +169,11 @@ public class TrackingPoster {
 
     public boolean sendSnapshot( File file ){
         if (baseURL==null) return false; 
+        if (snapshotsPath==null) return false;
         boolean sent=false;
         try {
             HttpClient httpclient = new DefaultHttpClient();
-            String url = "";
+            String url = baseURL + (baseURL.endsWith( "/" )?"":"/") + snapshotsPath;
             
             HttpPost httpput = new HttpPost(url);
             FileEntity myEntity = new FileEntity(file, "image/jpeg");
@@ -189,7 +197,7 @@ public class TrackingPoster {
     }
 
     public static void main (String[]args){
-        TrackingPoster poster = new TrackingPoster("", "");
+        TrackingPoster poster = new TrackingPoster("backend-ea.e-ucm.es/api/sessions/", "", "snapshots", "chunks");
         System.out.println( poster.openSession( ));
         List<GameLogEntry> entries = new ArrayList<GameLogEntry>();
         entries.add( new GameLogEntry(500, "test1") );

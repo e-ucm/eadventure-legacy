@@ -1,10 +1,10 @@
 /*******************************************************************************
- * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the e-UCM
+ * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
  *          research group.
  *   
- *    Copyright 2005-2012 e-UCM research group.
+ *    Copyright 2005-2012 <e-UCM> research group.
  *  
- *     e-UCM is a research group of the Department of Software Engineering
+ *     <e-UCM> is a research group of the Department of Software Engineering
  *          and Artificial Intelligence at the Complutense University of Madrid
  *          (School of Computer Science).
  *  
@@ -15,55 +15,31 @@
  *          <http://www.e-ucm.es>
  *  
  *  ****************************************************************************
- * This file is part of eAdventure, version 1.5.
+ * This file is part of <e-Adventure>, version 1.4.
  * 
- *   You can access a list of all the contributors to eAdventure at:
+ *   You can access a list of all the contributors to <e-Adventure> at:
  *          http://e-adventure.e-ucm.es/contributors
  *  
  *  ****************************************************************************
- *       eAdventure is free software: you can redistribute it and/or modify
+ *       <e-Adventure> is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU Lesser General Public License as published by
  *      the Free Software Foundation, either version 3 of the License, or
  *      (at your option) any later version.
  *  
- *      eAdventure is distributed in the hope that it will be useful,
+ *      <e-Adventure> is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU Lesser General Public License for more details.
  *  
  *      You should have received a copy of the GNU Lesser General Public License
- *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
+ *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
 package es.eucm.eadventure.tracking.prv;
 
-import java.util.List;
 
+public interface _NISListener {
 
-public class GameLogConsumerHTTP extends GameLogConsumer{
-
-    private long initialFreq;
+    public void codeEntered(int code);
     
-    public GameLogConsumerHTTP( List<GameLogEntry> q, long timestamp, long freq ) {
-        super( q, timestamp );
-        this.updateFreq = freq;
-        this.initialFreq = freq;
-    }
-
-    @Override
-    protected boolean consumerCode( List<GameLogEntry> newQ ) {
-        return TrackingPoster.getInstance().sendChunk( newQ );
-    }
-
-    @Override
-    protected boolean consumerClose( List<GameLogEntry> newQ ) {
-        return consumerCode( newQ );
-    }
-
-    
-    @Override
-    protected void reset(){
-        super.reset( );
-        updateFreq=initialFreq;
-    }
 }

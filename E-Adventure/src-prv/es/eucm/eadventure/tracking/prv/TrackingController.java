@@ -81,12 +81,27 @@ public class TrackingController implements _TrackingController{
         else
             this.logging = localEnabled || remoteEnabled;
         
-        gameLog = new GameLog(logging, glConfig.effectVerbosityEnabled( ), startTimeStamp, glConfig.logLowLevelEventsSampleFreq( ));
+        
+        Random r = new Random();
+        String randomId = "RID";
+        if (glConfig.getFileId( ).equals( "random" )){
+            randomId = Integer.toString( r.nextInt( 10000 ) );
+        } else if (glConfig.getFileId( ).equals( "ask" )){ 
+           int c= NameInputScreen.getCode( );
+           if (c==-1) {
+               System.err.println( "Error. Not valid code. "+c );
+               System.exit( 0 );
+           }else
+               randomId = Integer.toString( c );
+        } else {
+            randomId = glConfig.getFileId( );
+        }
+        
+        gameLog = new GameLog(logging, glConfig.effectVerbosityEnabled( ), startTimeStamp, glConfig.logLowLevelEventsSampleFreq( ), glConfig.getGameId( ), randomId);
         if (logging) {        
             q = new ArrayList<File>();
     
-            Random r = new Random();
-            int randomId = r.nextInt( 10000 );
+            
     
             if (snapshotsEnabled){
                 snapshotMakerDaemon = new SnapshotProducer(q, startTimeStamp, randomId, glConfig.snapshotsSampleFreq( ));
@@ -112,7 +127,7 @@ public class TrackingController implements _TrackingController{
         if (snapshotsEnabled)
             snapshotMakerDaemon.start( );
         if (remoteEnabled){
-            TrackingPoster.setInstance( glConfig.serviceURL( ), glConfig.serviceKey( ) );
+            TrackingPoster.setInstance( glConfig.serviceURL( ), glConfig.serviceKey( ), glConfig.getSnapshotSendUrl( ), glConfig.getLogSendUrl( ) );
             while ((baseURL=TrackingPoster.getInstance().openSession())==null && tries<3){
                 tries++;
             }

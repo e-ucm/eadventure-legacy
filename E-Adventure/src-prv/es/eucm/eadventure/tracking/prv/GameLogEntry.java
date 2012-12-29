@@ -48,13 +48,16 @@ public class GameLogEntry {
 	private long timeStamp;
 	
 	public GameLogEntry ( long startTime, String elementName ){
-		this (startTime, elementName, new String[]{});
+		this (startTime, elementName, null, new String[]{});
 	}
 	
-	public GameLogEntry ( long startTime, String elementName, String[] attributes ){
+	public GameLogEntry ( long startTime, String elementName, Integer offsetX, String[] attributes ){
 		this.timeStamp = System.currentTimeMillis()-startTime;
 		this.elementName = elementName;
 		this.attributes = new ArrayList<GameLogEntryAttribute>();
+		if (offsetX!=null){
+		    this.attributes.add( new GameLogEntryAttribute("off", offsetX.toString( )) );
+		}
 		for (String attribute: attributes){
 			if (attribute.contains("=")){
 				String name = attribute.substring(0, attribute.indexOf("="));

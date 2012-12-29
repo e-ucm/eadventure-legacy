@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.tracking.pub._GameLog;
 
 public class GameLog implements _GameLog {
@@ -61,6 +62,10 @@ public class GameLog implements _GameLog {
     private boolean effectVerbosity;
 
     private long threshold;
+    
+    private String gameId;
+    
+    private String code;
 
     public List<GameLogEntry> getAllEntries( ) {
 
@@ -72,24 +77,37 @@ public class GameLog implements _GameLog {
         return newEntries;
     }
 
-    public GameLog( boolean logging, boolean effectVerbosity, long startTimeStamp, long threshold ) {
+    public GameLog( boolean logging, boolean effectVerbosity, long startTimeStamp, long threshold, String gameId, String code ) {
 
         newEntries = new ArrayList<GameLogEntry>( );
         allEntries = new ArrayList<GameLogEntry>( );
         this.logging = logging;
         this.effectVerbosity = effectVerbosity;
         this.startTimeStamp = startTimeStamp;
-        addStartTimeEntry( );
         this.threshold = threshold;
+        this.gameId = gameId;
+        this.code = code;
+        addStartTimeEntry( );
     }
 
     private void addStartTimeEntry( ) {
-
-        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "start", new String[] { "timestampms=" + startTimeStamp, "timestamp=" + DateFormat.getDateTimeInstance( ).format( new Date( startTimeStamp ) ) } );
+        if( !logging )
+            return;
+        
+        Integer offset=getOffsetX();
+        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "start", offset, new String[] { "gameid="+gameId, "code="+code,"timestampms=" + startTimeStamp, "timestamp=" + DateFormat.getDateTimeInstance( ).format( new Date( startTimeStamp ) ) } );
         addNewEntry( newEntry );
         addEntry( newEntry );
     }
 
+    private Integer getOffsetX(){
+        Integer offset=null;
+        if (Game.getInstance( )!=null && Game.getInstance( ).getFunctionalScene( )!=null){
+            offset=new Integer(Game.getInstance( ).getFunctionalScene( ).getOffsetX( ));
+        }
+        return offset;
+    }
+    
     private String idToStr( int id ) {
 
         String str = "";
@@ -118,13 +136,17 @@ public class GameLog implements _GameLog {
         return str;
     }
 
+    
     public void lowLevelEvent( MouseEvent e ) {
 
         if( !logging )
             return;
         long currentTime = System.currentTimeMillis( );
+
         if( currentTime - lastLowLevelUpdate >= threshold || e.getID( ) == MouseEvent.MOUSE_CLICKED || e.getID( ) == MouseEvent.MOUSE_PRESSED || e.getID( ) == MouseEvent.MOUSE_RELEASED ) {
-            GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "l", new String[] { "t=m", "i=" + idToStr( e.getID( ) ), "x=" + e.getX( ), "y=" + e.getY( ), "b=" + e.getButton( ), "c=" + e.getClickCount( ), "m=" + e.getModifiersEx( ) } );
+            Integer offset=getOffsetX();
+            GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "l", offset, new String[] { "t=m", "i=" + idToStr( e.getID( ) ), "x=" + e.getX( ), "y=" + e.getY( ), "b=" + e.getButton( ), "c=" + e.getClickCount( ), "m=" + e.getModifiersEx( ) } );
+            
             addNewEntry( newEntry );
             addEntry( newEntry );
             lastLowLevelUpdate = currentTime;
@@ -135,7 +157,8 @@ public class GameLog implements _GameLog {
 
         if( !logging )
             return;
-        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "l", new String[] { "t=k", "i=" + idToStr( k.getID( ) ), "c=" + k.getKeyCode( ), "l=" + k.getKeyLocation( ), "m=" + k.getModifiersEx( ) } );
+        Integer offset=getOffsetX();
+        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "l", offset, new String[] { "t=k", "i=" + idToStr( k.getID( ) ), "c=" + k.getKeyCode( ), "l=" + k.getKeyLocation( ), "m=" + k.getModifiersEx( ) } );
         addNewEntry( newEntry );
         addEntry( newEntry );
     }
@@ -146,7 +169,8 @@ public class GameLog implements _GameLog {
             return;
         long currentTime = System.currentTimeMillis( );
         if( currentTime - lastLowLevelUpdate >= threshold ) {
-            GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "l", new String[] { "t=w", "i=" + idToStr( e.getID( ) ), "x=" + e.getX( ), "y=" + e.getY( ), "s=" + e.getScrollAmount( ), "r=" + e.getWheelRotation( ), "m=" + e.getModifiersEx( ) } );
+            Integer offset=getOffsetX();
+            GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "l", offset, new String[] { "t=w", "i=" + idToStr( e.getID( ) ), "x=" + e.getX( ), "y=" + e.getY( ), "s=" + e.getScrollAmount( ), "r=" + e.getWheelRotation( ), "m=" + e.getModifiersEx( ) } );
             addNewEntry( newEntry );
             addEntry( newEntry );
             lastLowLevelUpdate = currentTime;
@@ -158,7 +182,8 @@ public class GameLog implements _GameLog {
 
         if( !logging )
             return;
-        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "l", new String[] { "t=f", "i=" + idToStr( f.getID( ) ) } );
+        Integer offset=getOffsetX();
+        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "l", offset, new String[] { "t=f", "i=" + idToStr( f.getID( ) ) } );
         addNewEntry( newEntry );
         addEntry( newEntry );
     }
@@ -167,7 +192,8 @@ public class GameLog implements _GameLog {
 
         if( !logging )
             return;
-        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", new String[] { "a=" + action } );
+        Integer offset=getOffsetX();
+        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", offset, new String[] { "a=" + action } );
         addNewEntry( newEntry );
         addEntry( newEntry );
     }
@@ -176,7 +202,8 @@ public class GameLog implements _GameLog {
 
         if( !logging )
             return;
-        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", new String[] { "a=" + action, "o=" + object } );
+        Integer offset=getOffsetX();
+        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", offset, new String[] { "a=" + action, "o=" + object } );
         addNewEntry( newEntry );
         addEntry( newEntry );
     }
@@ -185,7 +212,8 @@ public class GameLog implements _GameLog {
 
         if( !logging )
             return;
-        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", new String[] { "a=" + action, "o=" + object, "t=" + target } );
+        Integer offset=getOffsetX();
+        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", offset, new String[] { "a=" + action, "o=" + object, "t=" + target } );
         addNewEntry( newEntry );
         addEntry( newEntry );
     }
@@ -194,7 +222,8 @@ public class GameLog implements _GameLog {
 
         if( !logging )
             return;
-        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", new String[] { "a=" + action, "o=" + object, "t=" + target, "l=" + line } );
+        Integer offset=getOffsetX();
+        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", offset, new String[] { "a=" + action, "o=" + object, "t=" + target, "l=" + line } );
         addNewEntry( newEntry );
         addEntry( newEntry );
     }
@@ -230,7 +259,8 @@ public class GameLog implements _GameLog {
                 args[i] = arguments[i - 1];
             }
         }
-        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", args );
+        Integer offset=getOffsetX();
+        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", offset, args );
         addNewEntry( newEntry );
         addEntry( newEntry );
     }

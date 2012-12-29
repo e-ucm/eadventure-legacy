@@ -110,7 +110,7 @@ public class SnapshotProducer extends Thread{
     /**
      * Random id that is used to identify each instance of the game engine. All the snapshots and game logs produced within the same instance of the game engine will contain this value.
      */
-    private int gameRandomId;
+    private String gameRandomId;
     
     /**
      * Frequency to make snapshots. It's a value in milliseconds  (one snapshot is captured each freq ms).
@@ -168,7 +168,7 @@ public class SnapshotProducer extends Thread{
      * @param gameRandomId  Unique random identifier for each game run. Both snapshots and gamelogs will use this value to uniquely identify them.
      * @param sampleFreq    The frequence, in milliseconds, to make snapshots. One snapshot will be captured each sampleFreq milliseconds. 
      */
-    public SnapshotProducer(List<File> q, long startTime, int gameRandomId, long sampleFreq){
+    public SnapshotProducer(List<File> q, long startTime, String gameRandomId, long sampleFreq){
         this.q = q;
         this.terminate = false;
         this.startTime = startTime;

@@ -36,9 +36,6 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javax.media.Codec;
 import javax.media.PlugInManager;
 
@@ -111,7 +108,7 @@ public class EAdventureStandalone {
         printElapsedTime( "Restricted mode completed" );
         ResourceHandler.getInstance( ).setZipFile( adventureName + ".zip" );
         printElapsedTime( "Zip file set" );
-        Game.create( );
+        Game.create( args.length>0?args[0]:null );
         printElapsedTime( "Game created" );
         Game.getInstance( ).setAdventureName( adventureName );
         printElapsedTime( "Adventure name set. Starting execution of the game" );

@@ -98,7 +98,7 @@ public class EAdventureAppletGAMETEL extends CommManagerGAMETEL{
 
         ResourceHandler.setRestrictedMode( true );
         ResourceHandler.getInstance( ).setZipFile( adventureName + ".zip" );
-        Game.create( );
+        Game.create(null );
         eAdventure = Game.getInstance( );
         eAdventure.setAdventureName( adventureName );
 

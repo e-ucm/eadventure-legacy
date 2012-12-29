@@ -104,7 +104,7 @@ public class EAdventureApplet extends CommManagerLD {
             GUIApplet.setApplet( this );
         }
 
-        Game.create( );
+        Game.create( null );
         eAdventure = Game.getInstance( );
         eAdventure.setAdventureName( adventureName );
 

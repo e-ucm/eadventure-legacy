@@ -39,6 +39,7 @@ package es.eucm.eadventure.tracking.prv;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 import es.eucm.eadventure.engine.core.control.Game;
@@ -46,32 +47,57 @@ import es.eucm.eadventure.engine.core.control.Game;
 
 public class GameLogConsumerLocal extends GameLogConsumer{
 
-    private int randomId;
     private int seq;
 
     private String fixedPrefix;
-    public GameLogConsumerLocal( List<GameLogEntry> q, long timestamp, int randomId, long freq ) {
+
+    private String sessionId;
+    
+    private long initialFreq;
+    
+    public GameLogConsumerLocal( List<GameLogEntry> q, long timestamp, String fileId, long freq ) {
         super( q, timestamp );
-        this.updateFreq = 20000;
-        this.randomId = randomId;
         seq=1;
+        this.initialFreq = freq;
         this.updateFreq = freq;
-        fixedPrefix="eadgamelog-"+Game.getInstance( ).getAdventureName( )+"-"+randomId+"-";
+        this.sessionId=getCurrentTimeAndDate();
+        fixedPrefix="eadgamelog-"+Game.getInstance( ).getAdventureName( )+"-"+fileId+"-"+sessionId;
     }
 
+    private String getCurrentTimeAndDate ( ){
+        int year = Calendar.getInstance( ).get( Calendar.YEAR );
+        int month = Calendar.getInstance( ).get( Calendar.MONTH );
+        int day = Calendar.getInstance( ).get( Calendar.DAY_OF_MONTH );
+        int hour = Calendar.getInstance( ).get( Calendar.HOUR_OF_DAY );
+        int minute = Calendar.getInstance( ).get( Calendar.MINUTE );
+        int second = Calendar.getInstance( ).get( Calendar.SECOND );
+        String timeAndDate= year+"_"+month+"_"+day+"_"+hour+"_"+minute+"_"+second+"-" ;
+        return timeAndDate;
+    }
+    
     @Override
-    protected void consumerCode( ) {
-        GameLogWriter.writeToFile( startTime, this.q, getFile() );
+    protected boolean consumerCode( List<GameLogEntry> newQ ) {
+        GameLogWriter.writeToFile( startTime, newQ, getFile(false) );
+        GameLogWriter.writeToFile( startTime, newQ, getFile(true) );
+        return true;
     }
 
-    private File getFile(){
+    private File getFile(boolean temp){
         String seqStr =""+seq;
-        while (seqStr.length( )<4)seqStr="0"+seqStr;
+        while (seqStr.length( )<6)seqStr="0"+seqStr;
         String prefix= fixedPrefix+seqStr+"-";
         String suffix= ".xml";
         File file;
         try {
-            file = File.createTempFile( prefix, suffix );
+            if (temp){
+                file = File.createTempFile( prefix, suffix );
+            } else {
+                File parent = new File("tracking/");
+                if (!parent.exists( )){
+                    parent.mkdirs( );
+                }
+                file = new File("tracking/"+prefix+suffix);
+            }
             seq++;
         }
         catch( IOException e ) {
@@ -82,7 +108,13 @@ public class GameLogConsumerLocal extends GameLogConsumer{
     }
 
     @Override
-    protected void consumerClose( ) {
-        consumerCode();
+    protected boolean consumerClose( List<GameLogEntry> newQ ) {
+        return consumerCode( newQ );
+    }
+    
+    @Override
+    protected void reset(){
+        super.reset( );
+        updateFreq=initialFreq;
     }
 }
