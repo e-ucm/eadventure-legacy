@@ -418,10 +418,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         return instance;
     }
 
-    public static void create( ) {
+    public static void create( String trackingConfigFile ) {
 
         instance = new Game( );
-        instance.gameLog = new GameLogProxy( );
+        instance.gameLog = new GameLogProxy( trackingConfigFile );
         instance.replayer = new ReplayerProxy( );
     }
 
@@ -432,7 +432,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         instance.debugOptions = debugOptions;
         instance.debug = debugOptions != null && debugOptions.isDebugMode( );
         // Set logging=true to enable gamelog        
-        instance.gameLog = new GameLogProxy( );
+        instance.gameLog = new GameLogProxy( null );
         instance.replayer = new ReplayerProxy( );
     }
 

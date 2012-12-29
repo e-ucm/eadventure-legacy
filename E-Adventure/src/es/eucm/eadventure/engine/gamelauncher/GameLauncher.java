@@ -584,7 +584,7 @@ public class GameLauncher extends JFrame implements Runnable {
                         if (fileToLoad.exists( )){
                             ResourceHandler.setRestrictedMode( false );
                             ResourceHandler.getInstance( ).setZipFile( zipFile );
-                            Game.create( );
+                            Game.create( null );
                             Game.getInstance( ).setAdventurePath( adventurePath );
                             Game.getInstance( ).setAdventureName( adventureName );
                             Game.getInstance( ).run( );
