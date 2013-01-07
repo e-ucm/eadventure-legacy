@@ -504,7 +504,7 @@ public class GameStateConversation extends GameState implements _HighLevelEvents
                 timeShowingOptions += elapsedTime;
                 // calculate the number of characters to be shifted in the option
                 optionLineOffset = (int) timeShowingOptions / 200;
-                int numberOfCharShowed = text.substring( 0, position ).length( );
+                int numberOfCharShowed = text.substring( 0, Math.min( position, text.length( ) - 1 ) ).length( );
                 // if the final of the string is not reached
                 if( optionLineOffset + numberOfCharShowed <= text.length( ) ) {
                     // shift the text the number of characters calculated in optionLineOffset  

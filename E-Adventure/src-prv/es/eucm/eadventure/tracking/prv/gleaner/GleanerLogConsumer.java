@@ -240,12 +240,11 @@ public class GleanerLogConsumer extends GameLogConsumer {
                     endPhaseTrace.put( "timeStamp", (Long) trace.get( "timeStamp" ) - 1);
                     endPhaseTrace.put( "event", "phase_end" );
                     endPhaseTrace.put( "target", currentPhase );
-                    traces.add( endPhaseTrace );
-                    // Set phase_start trace
-                    trace.put( "event", "phase_start" );
-                    this.currentPhase = trace.get( "target" ).toString( );
-
+                    traces.add( endPhaseTrace );                
                 }
+                // Set phase_start trace
+                trace.put( "event", "phase_start" );
+                this.currentPhase = trace.get( "target" ).toString( );
             }
             else if( entry.getAttributeValue( "a" ) != null ) {
                 trace.put( "event", entry.getAttributeValue( "a" ) );
@@ -254,6 +253,8 @@ public class GleanerLogConsumer extends GameLogConsumer {
                 // Activate / Deactive flag
                 String attValue = entry.getAttributeValue( "e" );
                 trace.put( "event", attValue );
+                String varName = entry.getAttributeValue( "t" );
+                trace.put( "target", varName );
                 boolean varUpdate = false;
                 boolean value = false;
                 if( attValue.equals( "act" ) ) {
@@ -280,7 +281,8 @@ public class GleanerLogConsumer extends GameLogConsumer {
                 String operator = entry.getAttributeValue( "e" );
                 data.put( "operator", operator );
                 trace.put( "event", "var_update" );
-                String varName = trace.get( "target" ).toString( );
+                String varName = entry.getAttributeValue( "t" );
+                trace.put( "target", varName );
 
                 if( !vars.containsKey( trace.get( "target" ) ) ) {
                     vars.put( varName, 0 );
