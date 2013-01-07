@@ -37,7 +37,6 @@
 package es.eucm.eadventure.tracking.prv.gleaner;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,11 +46,11 @@ import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
 
@@ -72,12 +71,6 @@ public class GleanerLogConsumer extends GameLogConsumer {
 
     private Gson gson;
 
-    private HttpClient client;
-
-    private HttpPost trackPost;
-
-    private HttpGet startGet;
-
     private String url;
 
     private String gamekey;
@@ -94,12 +87,17 @@ public class GleanerLogConsumer extends GameLogConsumer {
 
     private Map<String, Integer> vars;
 
+    private String sessionToken;
+
+    private long initTimeStamp;
+
     public GleanerLogConsumer( ServiceConstArgs args ) {
 
         super( args );
         userId = args.config.getStudentId( );
         gamekey = args.config.getGameId( );
-        url =  args.serviceConfig.getUrl( );
+        url = args.serviceConfig.getUrl( );
+        initTimeStamp = args.startTime;
     }
 
     @Override
@@ -107,12 +105,7 @@ public class GleanerLogConsumer extends GameLogConsumer {
 
         gson = new Gson( );
         traces = new ArrayList<Map<String, Object>>( );
-        client = new DefaultHttpClient( );
         vars = new HashMap<String, Integer>( );
-
-        startGet = new HttpGet( url + START + gamekey );
-        startGet.setHeader( "Authorization", userId );
-
         connect( );
     }
 
@@ -124,9 +117,10 @@ public class GleanerLogConsumer extends GameLogConsumer {
         }
 
         if( connected ) {
-            traces.clear( );
             for( GameLogEntry entry : newQ ) {
-                traces.add( convert( entry ) );
+                Map<String, Object> trace = convert( entry );
+                if( trace != null )
+                    traces.add( trace );
             }
             return sendTraces( );
         }
@@ -140,9 +134,14 @@ public class GleanerLogConsumer extends GameLogConsumer {
         String jsonTraces = gson.toJson( traces );
         traces.clear( );
         try {
+            DefaultHttpClient client = new DefaultHttpClient( );
+            HttpPost trackPost = new HttpPost( url + TRACK );
+            trackPost.setHeader( "Content-Type", "application/json" );
+            trackPost.setHeader( "Authorization", sessionToken );
             trackPost.setEntity( new StringEntity( jsonTraces ) );
             HttpResponse response = client.execute( trackPost );
-            return response.getStatusLine( ).getStatusCode( ) == 204;
+            int statusCode = response.getStatusLine( ).getStatusCode( );
+            return statusCode == 200;
         }
         catch( UnsupportedEncodingException e ) {
             return false;
@@ -158,25 +157,41 @@ public class GleanerLogConsumer extends GameLogConsumer {
     @Override
     protected boolean consumerClose( List<GameLogEntry> newQ ) {
 
+        
         consumerCode( newQ );
+        
+        if( connected ) {
+            Map<String, Object> gameQuitTrace = new HashMap<String, Object>( );
+            gameQuitTrace.put( "timeStamp", System.currentTimeMillis( ) );
+            gameQuitTrace.put( "type", "logic" );
+            gameQuitTrace.put( "event", "game_quit" );
+            traces.add( gameQuitTrace );
+        }
+        
+        connected = false;
         return false;
     }
 
     private void connect( ) {
 
-        InputStreamReader is = null;
-        try {
+        HttpGet startGet = new HttpGet( url + START + gamekey );
+        startGet.setHeader( "Authorization", userId );
+        DefaultHttpClient client = new DefaultHttpClient( );
 
+        try {
             HttpResponse response = client.execute( startGet );
 
             if( response.getStatusLine( ).getStatusCode( ) == 200 ) {
-                is = new InputStreamReader( response.getEntity( ).getContent( ) );
-                SessionToken token = gson.fromJson( is, SessionToken.class );
-                if( token != null && token.sessionToken != null ) {
-                    trackPost = new HttpPost( url + TRACK );
-                    trackPost.setHeader( "Content-Type", "application/json" );
-                    trackPost.setHeader( "Authorization", token.sessionToken );
+                String jsonData = EntityUtils.toString( response.getEntity( ), "UTF-8" );
+                SessionToken token = gson.fromJson( jsonData, SessionToken.class );
+                if( token != null && token.sessionKey != null ) {
+                    this.sessionToken = token.sessionKey;
                     connected = true;
+                    Map<String, Object> gameStartTrace = new HashMap<String, Object>( );
+                    gameStartTrace.put( "timeStamp", this.initTimeStamp );
+                    gameStartTrace.put( "type", "logic" );
+                    gameStartTrace.put( "event", "game_start" );
+                    traces.add( gameStartTrace );
                 }
                 else {
                     retry--;
@@ -192,16 +207,6 @@ public class GleanerLogConsumer extends GameLogConsumer {
         catch( IOException e ) {
             retry--;
         }
-        finally {
-            if( is != null ) {
-                try {
-                    is.close( );
-                }
-                catch( IOException e ) {
-
-                }
-            }
-        }
     }
 
     private Map<String, Object> convert( GameLogEntry entry ) {
@@ -209,10 +214,9 @@ public class GleanerLogConsumer extends GameLogConsumer {
         LinkedHashMap<String, Object> trace = new LinkedHashMap<String, Object>( );
         LinkedHashMap<String, Object> data = new LinkedHashMap<String, Object>( );
 
-        trace.put( "timeStamp", entry.getAttributeValue( "ms" ) );
         // High level
         if( entry.getElementName( ).equals( "h" ) ) {
-
+            trace.put( "timeStamp", Long.parseLong( entry.getAttributeValue( "ms" ) ) + initTimeStamp );
             trace.put( "type", "logic" );
 
             if( entry.getAttributeValue( "o" ) != null ) {
@@ -233,7 +237,7 @@ public class GleanerLogConsumer extends GameLogConsumer {
                     // Send phase_end trace
                     LinkedHashMap<String, Object> endPhaseTrace = new LinkedHashMap<String, Object>( );
                     endPhaseTrace.put( "type", "logic" );
-                    endPhaseTrace.put( "timeStamp", entry.getAttributeValue( "ms" ) );
+                    endPhaseTrace.put( "timeStamp", (Long) trace.get( "timeStamp" ) - 1);
                     endPhaseTrace.put( "event", "phase_end" );
                     endPhaseTrace.put( "target", currentPhase );
                     traces.add( endPhaseTrace );
@@ -320,67 +324,72 @@ public class GleanerLogConsumer extends GameLogConsumer {
         }
         // Low level
         else if( entry.getElementName( ).equals( "l" ) ) {
+            trace.put( "timeStamp", Long.parseLong( entry.getAttributeValue( "ms" ) ) + initTimeStamp );
             trace.put( "type", "input" );
             String type = entry.getAttributeValue( "m" );
             String action = entry.getAttributeValue( "i" );
-            if ( "m".equals( type )){
+            if( "m".equals( type ) ) {
                 trace.put( "device", "mouse" );
                 data.put( "count", Integer.parseInt( entry.getAttributeValue( "c" ) ) );
                 data.put( "button", Integer.parseInt( entry.getAttributeValue( "b" ) ) );
                 String offset = entry.getAttributeValue( "off" );
-                if ( offset != null ){
+                if( offset != null ) {
                     data.put( "offset", Integer.parseInt( offset ) );
                 }
             }
-            else if ( "k".equals( type )){
-                trace.put( "device", "keyboard" );                
-                if ( "t".equals( action )){
-                    data.put("ch", entry.getAttributeValue( "k" ) );
+            else if( "k".equals( type ) ) {
+                trace.put( "device", "keyboard" );
+                if( "t".equals( action ) ) {
+                    data.put( "ch", entry.getAttributeValue( "k" ) );
                 }
                 else {
-                    data.put( "keyCode", Integer.parseInt( entry.getAttributeValue( "c" )  ));
+                    data.put( "keyCode", Integer.parseInt( entry.getAttributeValue( "c" ) ) );
                 }
             }
-            
+
             // Action
-            if ( "m".equals( action )){
+            if( "m".equals( action ) ) {
                 trace.put( "action", "move" );
             }
-            else if ( "p".equals( action )){
+            else if( "p".equals( action ) ) {
                 trace.put( "action", "press" );
             }
-            else if ( "r".equals( action )){
+            else if( "r".equals( action ) ) {
                 trace.put( "action", "release" );
             }
-            else if ( "c".equals( action )){
+            else if( "c".equals( action ) ) {
                 trace.put( "action", "click" );
             }
-            else if ( "en".equals( action )){
-                trace.put( "action", "enter" );            }
-            else if ( "d".equals( action )){
+            else if( "en".equals( action ) ) {
+                trace.put( "action", "enter" );
+            }
+            else if( "d".equals( action ) ) {
                 trace.put( "action", "drag" );
             }
-            else if ( "ex".equals( action )){
+            else if( "ex".equals( action ) ) {
                 trace.put( "action", "exit" );
             }
-            else if ( "t".equals( action )){
+            else if( "t".equals( action ) ) {
                 trace.put( "action", "type" );
             }
-            
-            if ( entry.getAttributeValue( "m" ) != null ){
+
+            if( entry.getAttributeValue( "m" ) != null ) {
                 data.put( "modifiers", entry.getAttributeValue( "m" ) );
             }
-            
-            if ( entry.getAttributeValue( "x" ) != null ){
+
+            if( entry.getAttributeValue( "x" ) != null ) {
                 data.put( "x", Integer.parseInt( entry.getAttributeValue( "x" ) ) );
             }
-            
-            if ( entry.getAttributeValue( "y" ) != null ){
+
+            if( entry.getAttributeValue( "y" ) != null ) {
                 data.put( "y", Integer.parseInt( entry.getAttributeValue( "y" ) ) );
             }
         }
-        
-        
+
+        if( trace.isEmpty( ) ) {
+            return null;
+        }
+
         if( !data.isEmpty( ) ) {
             trace.put( "data", data );
         }
@@ -390,6 +399,6 @@ public class GleanerLogConsumer extends GameLogConsumer {
 
     private class SessionToken {
 
-        public String sessionToken;
+        public String sessionKey;
     }
 }

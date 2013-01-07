@@ -432,7 +432,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
         instance.debugOptions = debugOptions;
         instance.debug = debugOptions != null && debugOptions.isDebugMode( );
         // Set logging=true to enable gamelog        
-        instance.gameLog = new TrackingControllerProxy( null );
+        instance.gameLog = new TrackingControllerProxy( "tracking_debug.config" );
         instance.replayer = new ReplayerProxy( );
     }
 
