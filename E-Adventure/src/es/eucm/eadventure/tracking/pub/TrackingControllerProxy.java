@@ -109,6 +109,9 @@ public class TrackingControllerProxy implements _TrackingController{
      * @return
      */
     private InputStream getTrackingConfigInputStream( String trackingConfigFile ){
+        if ( trackingConfigFile == null )
+            return null;
+        
         InputStream source = null;
         source = TrackingControllerProxy.class.getResourceAsStream( trackingConfigFile );
         if (source==null)
