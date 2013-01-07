@@ -142,7 +142,15 @@ public class GameLog implements _GameLog {
         if( !logging )
             return;
         Integer offset=getOffsetX();
-        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "l", offset, new String[] { "t=k", "i=" + idToStr( k.getID( ) ), "c=" + k.getKeyCode( ), "l=" + k.getKeyLocation( ), "m=" + k.getModifiersEx( ) } );
+        String keyCode = "";
+        if ( k.getID( ) == KeyEvent.KEY_TYPED ){
+            keyCode = "k=" + k.getKeyChar( );
+        }
+        else {
+            keyCode = "c=" + k.getKeyCode( );
+        }
+        
+        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "l", offset, new String[] { "t=k", "i=" + idToStr( k.getID( ) ), keyCode, "l=" + k.getKeyLocation( ), "m=" + k.getModifiersEx( ) } );
         addEntry( newEntry );
     }
 

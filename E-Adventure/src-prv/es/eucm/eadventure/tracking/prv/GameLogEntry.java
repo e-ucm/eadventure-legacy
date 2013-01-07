@@ -86,6 +86,15 @@ public class GameLogEntry {
 			return null;
 	}
 	
+	public String getAttributeValue( String name ){
+	    for ( GameLogEntryAttribute at: attributes ){
+	        if ( at.attributeName.equals( name ) ){
+	            return at.attributeValue;
+	        }
+	    }
+	    return null;
+	}
+	
 	public String getElementName() {
 		return elementName;
 	}

@@ -45,10 +45,10 @@ import es.eucm.eadventure.tracking.pub.config.Service;
 
 
 public class ServiceConstArgs {
-    List<GameLogEntry> q;
-    long startTime;
-    Service serviceConfig;
-    TrackingConfigExtended config;
+    public List<GameLogEntry> q;
+    public long startTime;
+    public Service serviceConfig;
+    public TrackingConfigExtended config;
     public ServiceConstArgs( List<GameLogEntry> q, long startTime, Service serviceConfig, TrackingConfigExtended config ) {
 
         super( );

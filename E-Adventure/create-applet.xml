@@ -10,7 +10,8 @@
 	<property name="gui.dir" value="gui" />
 	<property name="img.dir" value="img" />
 	<property name="web.dir" value="web" />
-	<property name="plugin.dir" value="C:/Program Files (x86)/Java/jre6/lib" />
+<!--	<property name="plugin.dir" value="C:/Program Files (x86)/Java/jre6/lib" /> -->
+	<property name="plugin.dir" value="/usr/share/icedtea-web" />
 	<property name="lanengine.dir" value="i18n/editor" />
 	<property name="laneditor.dir" value="i18n/engine" />
 	<property name="release.version" value="1.5RC5" />
