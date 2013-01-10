@@ -49,6 +49,13 @@ public class TrackingConfigExtended {
     private static final String LOW_LEVEL_FREQ_PROP ="low-level-freq";
     
     private TrackingConfig trackingConfig;
+
+    /**
+     * This field identifies the current implementation of the tracking system.
+     * It should be updated every time the system is modified, especially if the
+     * model changes.
+     */
+    public static final String VERSION = "20130109";
     
     public TrackingConfigExtended(TrackingConfig trackingConfig){
         this.trackingConfig = trackingConfig;

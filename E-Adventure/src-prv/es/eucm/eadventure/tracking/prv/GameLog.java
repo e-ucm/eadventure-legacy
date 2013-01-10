@@ -81,7 +81,7 @@ public class GameLog implements _GameLog {
             return;
         
         Integer offset=getOffsetX();
-        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "start", offset, new String[] { "gameid="+gameId, "code="+code,"timestampms=" + startTimeStamp, "timestamp=" + DateFormat.getDateTimeInstance( ).format( new Date( startTimeStamp ) ) } );
+        GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "start", offset, new String[] { "version="+TrackingConfigExtended.VERSION, "gameid="+gameId, "code="+code,"timestampms=" + startTimeStamp, "timestamp=" + DateFormat.getDateTimeInstance( ).format( new Date( startTimeStamp ) ) } );
         addEntry( newEntry );
     }
 
