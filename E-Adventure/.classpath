@@ -16,13 +16,13 @@
 	<classpathentry kind="lib" path="jars/jl1.0.jar"/>
 	<classpathentry kind="lib" path="jars/mp3spi1.9.4.jar"/>
 	<classpathentry kind="lib" path="jars/activation.jar"/>
-	<classpathentry kind="lib" path="jars/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="bjars/httpclient-4.1.3.jar"/>
 	<classpathentry kind="lib" path="bjars/httpclient-cache-4.1.3.jar"/>
 	<classpathentry kind="lib" path="bjars/httpcore-4.1.4.jar"/>
 	<classpathentry kind="lib" path="bjars/httpmime-4.1.3.jar"/>
 	<classpathentry kind="lib" path="bjars/commons-codec-1.4.jar"/>
 	<classpathentry kind="lib" path="bjars/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="bjars/gson-2.2.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-openjdk-amd64"/>
 	<classpathentry kind="lib" path="/usr/share/icedtea-web/plugin.jar"/>
 	<classpathentry kind="output" path="bin"/>

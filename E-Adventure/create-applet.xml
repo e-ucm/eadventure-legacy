@@ -181,6 +181,13 @@
 				   	<exclude name="**/NOTICE" />
 				   	<exclude name="**/NOTICE.txt" />
 				</zipfileset>
+				<zipfileset src="bjars/gson-2.2.2.jar">
+					<exclude name="**/MANIFEST.MF" />
+					<exclude name="**/LICENSE" />
+				   	<exclude name="**/LICENSE.txt" />
+				   	<exclude name="**/NOTICE" />
+				   	<exclude name="**/NOTICE.txt" />
+				</zipfileset>
 			</zip>			
 	</target>	
 
