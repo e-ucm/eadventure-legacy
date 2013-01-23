@@ -128,7 +128,7 @@ De esta manera luego se pueden definir condiciones en función del valor de una 
 <entry key="Effect.Activate">Activar</entry>
 <entry key="CutscenesList.Title">Escenas intermedias</entry>
 <entry key="GeneralText.EditConditions">Editar condiciones</entry>
-<entry key="Effect.NoHighlightItemInfo">No reslatar {#0}</entry>
+<entry key="Effect.NoHighlightItemInfo">No resaltar {#0}</entry>
 <entry key="TreeNode.AddElement59">Añadir lista de objetos de atrezo</entry>
 <entry key="Timer.RunsInLoopDesc">      Activo -&gt; Si transcurre el tiempo del temporizador, este entrará en otro bucle una y otra vez hasta que sea detenido.
       Desactivo -&gt; Cuando transcurre el tiempo del temporizador, este se detiene</entry>
@@ -470,7 +470,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 <entry key="GeneralText.Close">Cerrar</entry>
 <entry key="TimedAssessmentRule.Effect.Remove">Eliminar efecto</entry>
 <entry key="MenuChapters.AddChapter">Añadir capítulo</entry>
-<entry key="Effect.GreenHighlightItemInfo">Reslatar {#0} en verde</entry>
+<entry key="Effect.GreenHighlightItemInfo">Resaltar {#0} en verde</entry>
 <entry key="LOM.Educational.TypicalLearningTime">Typical learning time</entry>
 <entry key="Element.NotEffects">No Efectos</entry>
 <entry key="Timer.InitConditions">Condiciones para activación del temporizador</entry>
@@ -947,7 +947,7 @@ función de estos estados</entry>
 <entry key="Animation.AskFilename">Por favor, escriba un nombre para la animación (sin extensión)</entry>
 <entry key="Book.Previous">Página anterior</entry>
 <entry key="Button.grab.sound.Description">Sonido asociado al botón de "agarrar"</entry>
-<entry key="Effect.BorderHighlightItemInfo">Reslatar bordes de {#0} </entry>
+<entry key="Effect.BorderHighlightItemInfo">Resaltar bordes de {#0} </entry>
 <entry key="Conditions.Context.1A.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se activará&lt;/b&gt; (empezará a contar) cuando se cumpla la siguiente condición:</entry>
 <entry key="Conditions.Group.Id">Id. del estado global</entry>
 <entry key="Button.talk.normal.Description">Imagen para el botón en estado normal</entry>
@@ -1555,7 +1555,7 @@ Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán v�
 <entry key="Conversation.ShowUserOption">Mostrar respuesta</entry>
 <entry key="IMS.LifeCycle.Status">Estado o condición en el que está el recurso</entry>
 <entry key="MenuChapters.DeleteChapter">Eliminar capítulo</entry>
-<entry key="Effect.RedHighlightItemInfo">Reslatar {#0} en rojo</entry>
+<entry key="Effect.RedHighlightItemInfo">Resaltar {#0} en rojo</entry>
 <entry key="ConversationLine.Type.Whisper">Susurro</entry>
 <entry key="ActiveAreasList.EditActions">Editar acciones</entry>
 <entry key="Operation.RenameAssessmentFile.Message">¿Está seguro de que desea renombrar el fichero?</entry>
@@ -2028,7 +2028,7 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 <entry key="Error.LoadAdaptationData.IO">Ocurrió un problema con la lectura de los datos de adaptación</entry>
 <entry key="TreeNode.AddElement3">Añadir lista de salidas</entry>
 <entry key="TreeNode.AddElement2">Añadir escena</entry>
-<entry key="HighlightItemEffect.None">No reslatar</entry>
+<entry key="HighlightItemEffect.None">No resaltar</entry>
 <entry key="TreeNode.AddElement1">Añadir lista de escenas</entry>
 <entry key="TreeNode.AddElement0">Añadir capítulo</entry>
 <entry key="AssessmentRule.ProfileType">Tipo de Perfil</entry>
