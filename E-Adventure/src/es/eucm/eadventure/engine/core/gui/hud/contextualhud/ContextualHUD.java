@@ -455,7 +455,18 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
             elementInside = actionManager.getElementOver( );
         }
             
-        if( !(pressedElement instanceof FunctionalItem && ((Item)pressedElement.getElement( )).getBehaviour( )==BehaviourType.FIRST_ACTION) && (( !button && (e.getButton( ) == MouseEvent.BUTTON3 || game.isShowActions( )) && elementInCursor == null ) || 
+    
+        
+        if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || 
+                e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
+            DebugLog.user( "Mouse click in inventory" );
+            inHud = processInventoryClick( actionManager, e );
+            showActionButtons = false;
+            elementAction = null;
+        }
+        
+        else if( !(pressedElement instanceof FunctionalItem && ((Item)pressedElement.getElement( )).getBehaviour( )==BehaviourType.FIRST_ACTION) && 
+                (( !button && (e.getButton( ) == MouseEvent.BUTTON3 || game.isShowActions( )) && elementInCursor == null ) || 
                 ( e.getClickCount( ) == 2 && System.getProperty( "os.name" ).contains( "Windows" ) ) || 
                 ( !button && elementInside == null && elementInCursor != null ) )) {
             inHud = processRightClickNoButton( pressedElement, e );
@@ -472,13 +483,13 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
             }
         }
 
-        else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || 
+/*        else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || 
                 e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
             DebugLog.user( "Mouse click in inventory" );
             inHud = processInventoryClick( actionManager, e );
             showActionButtons = false;
             elementAction = null;
-        }
+        }*/
 
         else if( /*actionManager.getElementOver( )*/ pressedElement != null ) {
             DebugLog.user( "Mouse click over element at " + e.getX( ) + " , " + e.getY( ) );
