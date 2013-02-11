@@ -67,7 +67,7 @@ public class GleanerLogConsumer extends GameLogConsumer {
 
     private static final String START = "start/";
 
-    private static final String TRACK = "track/";
+    private static final String TRACK = "track";
 
     private Gson gson;
 
@@ -328,7 +328,7 @@ public class GleanerLogConsumer extends GameLogConsumer {
             else if( entry.getElementName( ).equals( "l" ) ) {
                 trace.put( "timeStamp", Long.parseLong( entry.getAttributeValue( "ms" ) ) + initTimeStamp );
                 trace.put( "type", "input" );
-                String type = entry.getAttributeValue( "m" );
+                String type = entry.getAttributeValue( "t" );
                 String action = entry.getAttributeValue( "i" );
                 if( "m".equals( type ) ) {
                     trace.put( "device", "mouse" );
