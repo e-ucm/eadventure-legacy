@@ -141,7 +141,10 @@ public class NameInputScreen extends JDialog{
         codes= ReadCodes.getEncodedCodes( );
         this.getRootPane( ).setLayout( new BorderLayout() );
         this.getRootPane( ).add( panel, BorderLayout.CENTER );
-        instructions= new JTextArea ("Bienvenido al juego de la Dama Boba. Introduce los cuatro u ocho primeros dígitos del código que te han dado para empezar a jugar (los que aparecen antes del guión).");
+        //Descomentar para la dama boba
+        //instructions= new JTextArea ("Bienvenido al juego de la Dama Boba. Introduce los cuatro u ocho primeros dígitos del código que te han dado para empezar a jugar (los que aparecen antes del guión).");
+        //Descomentar para la ONT
+        instructions= new JTextArea ("Bienvenido a las simulaciones de la ONT. Introduce el código de cuatro dígitos que te han facilitado para empezar.");
         Font font = new Font ("Tahoma", Font.BOLD, 16);
         instructions.setWrapStyleWord( true );
         instructions.setFont( font );

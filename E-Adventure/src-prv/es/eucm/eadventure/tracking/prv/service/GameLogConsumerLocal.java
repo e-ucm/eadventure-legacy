@@ -78,9 +78,12 @@ public class GameLogConsumerLocal extends GameLogConsumer{
     
     @Override
     protected boolean consumerCode( List<GameLogEntry> newQ ) {
-        GameLogWriter.writeToFile( startTime, newQ, getFile(false) );
-        GameLogWriter.writeToFile( startTime, newQ, getFile(true) );
-        return true;
+        
+        boolean ok = GameLogWriter.writeToFile( startTime, newQ, getFile(false) );
+        ok &= GameLogWriter.writeToFile( startTime, newQ, getFile(true) );
+        if (ok)
+            seq++;
+        return ok;
     }
 
     private File getFile(boolean temp){
@@ -99,7 +102,6 @@ public class GameLogConsumerLocal extends GameLogConsumer{
                 }
                 file = new File("tracking/"+prefix+suffix);
             }
-            seq++;
         }
         catch( IOException e ) {
             file = new File (prefix+suffix);
@@ -122,5 +124,14 @@ public class GameLogConsumerLocal extends GameLogConsumer{
     @Override
     protected void consumerInit( ) {
         // Nothing needs initialization
+    }
+    
+    
+    @Override
+    protected void increment(){
+        updateFreq*=incrFactor;
+        if (updateFreq>=DEFAULT_MAX_FREQ*20){
+            setTerminate(true);
+        }
     }
 }

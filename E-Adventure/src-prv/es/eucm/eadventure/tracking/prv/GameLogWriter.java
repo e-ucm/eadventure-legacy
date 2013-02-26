@@ -63,7 +63,8 @@ import org.w3c.dom.NodeList;
 
 public class GameLogWriter {
 
-	public static void writeToFile ( long startTimeStamp, List<GameLogEntry> logEntries, File file ){
+	public static boolean writeToFile ( long startTimeStamp, List<GameLogEntry> logEntries, File file ){
+	    boolean ok = true;
 	    try {	
 	    	// Create the necessary elements for building the DOM
 	    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
@@ -95,20 +96,26 @@ public class GameLogWriter {
 		    transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
 		    writeFile.close( );
 		    fout.close( );
+		    
+		    ok = file!=null && file.exists( ) && file.length( )>0;
 	    
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			e.printStackTrace();ok=false;
 		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
+			e.printStackTrace();ok=false;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			e.printStackTrace();ok=false;
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			e.printStackTrace();ok=false;
 		} catch (TransformerException e) {
-			e.printStackTrace();
+			e.printStackTrace();ok=false;
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace();ok=false;
 		}
+	    
+	    
+	    
+	    return ok;
 
 	}
 	

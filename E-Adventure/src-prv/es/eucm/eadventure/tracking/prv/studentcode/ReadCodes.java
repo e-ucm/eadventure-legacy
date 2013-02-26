@@ -97,7 +97,7 @@ public class ReadCodes {
 		ObjectCrypter crypter= new ObjectCrypter();
 		try {
 			byte[] encrypted = crypter.encrypt(allCodes);
-			File output = new File ("encrypted-codes.csv");
+			File output = new File ("encrypted-codes-ont.csv");
 			FileOutputStream fos = new FileOutputStream(output);
 			fos.write(encrypted);
 			fos.close();
@@ -136,7 +136,7 @@ public class ReadCodes {
 		try{
 			  // Open the file that is the first 
 			  // command line parameter
-				  File file = new File("codes3.csv");
+				  File file = new File("CódigosONT.csv");
 			  FileInputStream fstream = new FileInputStream(file);
 			  // Get the object of DataInputStream
 			  DataInputStream in = new DataInputStream(fstream);
@@ -154,6 +154,12 @@ public class ReadCodes {
 			  			codes.add(code);
 			  		}catch (NumberFormatException e){	  			
 			  		}
+			  	} else{
+			  	  try {
+                      int code = Integer.parseInt(strLine);
+                      codes.add(code);
+                  }catch (NumberFormatException e){               
+                  }
 			  	}
 			  }
 			  //Close the input stream
