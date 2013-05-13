@@ -1,38 +1,37 @@
 /*******************************************************************************
- * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the e-UCM
- *          research group.
- *   
- *    Copyright 2005-2012 e-UCM research group.
- *  
- *     e-UCM is a research group of the Department of Software Engineering
- *          and Artificial Intelligence at the Complutense University of Madrid
- *          (School of Computer Science).
- *  
- *          C Profesor Jose Garcia Santesmases sn,
- *          28040 Madrid (Madrid), Spain.
- *  
- *          For more info please visit:  <http://e-adventure.e-ucm.es> or
- *          <http://www.e-ucm.es>
- *  
- *  ****************************************************************************
+ * eAdventure (formerly <e-Adventure> and <e-Game>) is a research project of the
+ * e-UCM research group.
+ * 
+ * Copyright 2005-2012 e-UCM research group.
+ * 
+ * e-UCM is a research group of the Department of Software Engineering and
+ * Artificial Intelligence at the Complutense University of Madrid (School of
+ * Computer Science).
+ * 
+ * C Profesor Jose Garcia Santesmases sn, 28040 Madrid (Madrid), Spain.
+ * 
+ * For more info please visit: <http://e-adventure.e-ucm.es> or
+ * <http://www.e-ucm.es>
+ * 
+ * ****************************************************************************
  * This file is part of eAdventure, version 1.5.
  * 
- *   You can access a list of all the contributors to eAdventure at:
- *          http://e-adventure.e-ucm.es/contributors
- *  
- *  ****************************************************************************
- *       eAdventure is free software: you can redistribute it and/or modify
- *      it under the terms of the GNU Lesser General Public License as published by
- *      the Free Software Foundation, either version 3 of the License, or
- *      (at your option) any later version.
- *  
- *      eAdventure is distributed in the hope that it will be useful,
- *      but WITHOUT ANY WARRANTY; without even the implied warranty of
- *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *      GNU Lesser General Public License for more details.
- *  
- *      You should have received a copy of the GNU Lesser General Public License
- *      along with Adventure.  If not, see <http://www.gnu.org/licenses/>.
+ * You can access a list of all the contributors to eAdventure at:
+ * http://e-adventure.e-ucm.es/contributors
+ * 
+ * ****************************************************************************
+ * eAdventure is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ * 
+ * eAdventure is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Adventure. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package es.eucm.eadventure.editor.gui;
 
@@ -90,6 +89,7 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.ConfigData;
+import es.eucm.eadventure.editor.converter.Converter;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericFileChooserDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericOptionPaneDialog;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
@@ -102,16 +102,20 @@ import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
  */
 public class MainWindow extends JFrame {
 
-
     private static final int EDITOR_CONTAINER_WIDTH = 400;
+
     private static final int EDITOR_CONTAINER_MINHEIGHT = 0;
+
     private static final int STRUCTURE_PANEL_WIDTH = 250;
+
     private static final int STRUCTURE_PANEL_MINHEIGHT = 0;
+
     private static final int STRUCTURE_PANEL_MAXHEIGHT = Integer.MAX_VALUE;
-    
-    private static final int WINDOW_MIN_WIDTH=960;
-    private static final int WINDOW_MIN_HEIGHT=720;
-    
+
+    private static final int WINDOW_MIN_WIDTH = 960;
+
+    private static final int WINDOW_MIN_HEIGHT = 720;
+
     /**
      * Required.
      */
@@ -130,7 +134,6 @@ public class MainWindow extends JFrame {
     private JMenuItem itPlayerMode;
 
     private StructurePanel structurePanel;
-    
 
     /**
      * Stack of windows opened.
@@ -140,18 +143,19 @@ public class MainWindow extends JFrame {
     private JMenuItem undo;
 
     private JMenuItem redo;
-    
-    private  JMenu fileMenu;
-    
+
+    private JMenu fileMenu;
+
     private JCheckBoxMenuItem itAutoBackup;
 
     private JMenu configurationMenu;
 
     private JMenu runMenu;
-    
-    
+
     private JCheckBoxMenuItem paintGridMenuItem;
+
     private JCheckBoxMenuItem paintHotSpotsMenuItem;
+
     private JCheckBoxMenuItem paintBoundingAreasMenuItem;
 
     /**
@@ -160,18 +164,22 @@ public class MainWindow extends JFrame {
     private boolean isEngineRunning = false;
     
     /**
+     * Converter, to deal with new engine
+     */
+    private Converter converter;
+
+    /**
      * Constructor. Creates the general layout.
      */
     public MainWindow( ) {
-
         // Store the controller
         controller = Controller.getInstance( );
 
+        converter = new Converter(controller);
         // Set the look and feel
-        
-        if (System.getProperty( "os.name" ).toLowerCase( ).contains( "win" ) || 
-                System.getProperty( "os.name" ).toLowerCase( ).contains( "mac" )){
-           
+
+        if( System.getProperty( "os.name" ).toLowerCase( ).contains( "win" ) || System.getProperty( "os.name" ).toLowerCase( ).contains( "mac" ) ) {
+
             try {
                 //UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
                 UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName( ) );
@@ -201,15 +209,17 @@ public class MainWindow extends JFrame {
 
         // Create the two panels
         JPanel editorContainer = new JPanel( ) {
+
             @Override
-            public Component add(Component c) {
+            public Component add( Component c ) {
+
                 this.removeAll( );
-                return super.add(c);
+                return super.add( c );
             }
         };
         editorContainer.setMinimumSize( new Dimension( EDITOR_CONTAINER_WIDTH, EDITOR_CONTAINER_MINHEIGHT ) );
         editorContainer.setLayout( new BorderLayout( ) );
-        
+
         structurePanel = new StructurePanel( editorContainer );
         structurePanel.recreateElements( );
         structurePanel.setMinimumSize( new Dimension( STRUCTURE_PANEL_WIDTH, STRUCTURE_PANEL_MINHEIGHT ) );
@@ -249,7 +259,7 @@ public class MainWindow extends JFrame {
 
                 controller.exit( );
             }
-            
+
             @Override
             public void windowClosed( WindowEvent arg0 ) {
 
@@ -260,109 +270,116 @@ public class MainWindow extends JFrame {
         // Create the windows stack
         windowsStack = new Stack<Window>( );
 
-
-        
         this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
         // Set title and properties
         updateTitle( );
 
-        sizeAndLocationSetup();
-        
+        sizeAndLocationSetup( );
+
     }
-    
-    
-    private void sizeAndLocationSetup(){
+
+    private void sizeAndLocationSetup( ) {
+
         // Set size and position
         GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment( );
-        int prefWidth=1024;
-        int prefHeight=728;
-        int x=0;
-        int y=0;
-        boolean set=false;
-        if (environment!=null){
+        int prefWidth = 1024;
+        int prefHeight = 728;
+        int x = 0;
+        int y = 0;
+        boolean set = false;
+        if( environment != null ) {
             // Use default device
             GraphicsDevice device = environment.getDefaultScreenDevice( );
-            
-            if (device!=null && device.getDisplayMode( )!=null){
+
+            if( device != null && device.getDisplayMode( ) != null ) {
                 int deviceWidth = device.getDisplayMode( ).getWidth( );
                 int deviceHeight = device.getDisplayMode( ).getHeight( );
-        
-                int totalWidth = Math.min( environment.getMaximumWindowBounds( ).width, deviceWidth);
-                int totalHeight = Math.min( environment.getMaximumWindowBounds( ).height, deviceHeight);
-                
-                int minWidth = Math.min( totalWidth>WINDOW_MIN_WIDTH?WINDOW_MIN_WIDTH:totalWidth-10, ConfigData.getEditorWindowWidth( ));
-                int minHeight = Math.min( totalHeight>WINDOW_MIN_HEIGHT?WINDOW_MIN_HEIGHT:totalHeight-40, ConfigData.getEditorWindowHeight( ));
-                
-                prefWidth = ConfigData.getEditorWindowWidth( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowWidth( ):totalWidth;
-                prefHeight = ConfigData.getEditorWindowHeight( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowHeight( ):totalHeight;
-                
+
+                int totalWidth = Math.min( environment.getMaximumWindowBounds( ).width, deviceWidth );
+                int totalHeight = Math.min( environment.getMaximumWindowBounds( ).height, deviceHeight );
+
+                int minWidth = Math.min( totalWidth > WINDOW_MIN_WIDTH ? WINDOW_MIN_WIDTH : totalWidth - 10, ConfigData.getEditorWindowWidth( ) );
+                int minHeight = Math.min( totalHeight > WINDOW_MIN_HEIGHT ? WINDOW_MIN_HEIGHT : totalHeight - 40, ConfigData.getEditorWindowHeight( ) );
+
+                prefWidth = ConfigData.getEditorWindowWidth( ) != Integer.MAX_VALUE ? ConfigData.getEditorWindowWidth( ) : totalWidth;
+                prefHeight = ConfigData.getEditorWindowHeight( ) != Integer.MAX_VALUE ? ConfigData.getEditorWindowHeight( ) : totalHeight;
+
                 /*int width = (int) Math.min( 960, screenSize.getWidth( ) );
                 int height = (int) Math.min( 720, screenSize.getHeight( ) );
                 setSize( width, height );
                 setLocation( Math.max( ( screenSize.width - width ) / 2, 0 ), Math.max(( screenSize.height - height ) / 2, 0) );*/
-        
+
                 int screenOffsetX = device.getDefaultConfiguration( ).getBounds( ).x;
                 int screenOffsetY = device.getDefaultConfiguration( ).getBounds( ).y;
-                
-                x = ConfigData.getEditorWindowX( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowX( ):screenOffsetX+(totalWidth-prefWidth)/2 ;
-                y = ConfigData.getEditorWindowY( )!=Integer.MAX_VALUE?ConfigData.getEditorWindowY( ):screenOffsetY+(totalHeight-prefHeight)/2 ;
-                
+
+                x = ConfigData.getEditorWindowX( ) != Integer.MAX_VALUE ? ConfigData.getEditorWindowX( ) : screenOffsetX + ( totalWidth - prefWidth ) / 2;
+                y = ConfigData.getEditorWindowY( ) != Integer.MAX_VALUE ? ConfigData.getEditorWindowY( ) : screenOffsetY + ( totalHeight - prefHeight ) / 2;
+
                 // Check the window is visible (at least the bar)
-                Rectangle windowUpperPart = new Rectangle(x,y,prefWidth, 40);
-                if (!MultiscreenTools.isRectangleVisible( windowUpperPart, false )){
-                    x=0;y=0;prefWidth=totalWidth-10;prefHeight=totalHeight-40;
+                Rectangle windowUpperPart = new Rectangle( x, y, prefWidth, 40 );
+                if( !MultiscreenTools.isRectangleVisible( windowUpperPart, false ) ) {
+                    x = 0;
+                    y = 0;
+                    prefWidth = totalWidth - 10;
+                    prefHeight = totalHeight - 40;
                 }
-                setMinimumSize( new Dimension(minWidth, minHeight) );
-                setPreferredSize ( new Dimension (prefWidth, prefHeight) );
-                setSize ( new Dimension (prefWidth, prefHeight) );
+                setMinimumSize( new Dimension( minWidth, minHeight ) );
+                setPreferredSize( new Dimension( prefWidth, prefHeight ) );
+                setSize( new Dimension( prefWidth, prefHeight ) );
                 this.setLocation( x, y );
-                set=true;
-                
-                if (System.getProperty("os.name").toLowerCase( ).contains( "win" ) && prefWidth==totalWidth && prefHeight ==totalHeight){
+                set = true;
+
+                if( System.getProperty( "os.name" ).toLowerCase( ).contains( "win" ) && prefWidth == totalWidth && prefHeight == totalHeight ) {
                     this.setExtendedState( JFrame.MAXIMIZED_BOTH );
                 }
 
             }
         }
 
-        if (!set){
-            setPreferredSize ( new Dimension (prefWidth, prefHeight) );
-            setSize ( new Dimension (prefWidth, prefHeight) );
+        if( !set ) {
+            setPreferredSize( new Dimension( prefWidth, prefHeight ) );
+            setSize( new Dimension( prefWidth, prefHeight ) );
         }
-        
+
         this.setLocation( x, y );
-        
+
         ConfigData.setEditorWindowX( x );
         ConfigData.setEditorWindowY( y );
         ConfigData.setEditorWindowWidth( prefWidth );
         ConfigData.setEditorWindowHeight( prefHeight );
-        
-        this.addComponentListener( new ComponentListener(){
+
+        this.addComponentListener( new ComponentListener( ) {
 
             public void componentHidden( ComponentEvent e ) {
-                updateWindowParams();
+
+                updateWindowParams( );
             }
 
             public void componentMoved( ComponentEvent e ) {
-                updateWindowParams();
+
+                updateWindowParams( );
             }
 
             public void componentResized( ComponentEvent e ) {
-                updateWindowParams();                
+
+                updateWindowParams( );
             }
 
             public void componentShown( ComponentEvent e ) {
-                updateWindowParams();
+
+                updateWindowParams( );
             }
-            
-        });
+
+        } );
     }
-    
+
     /**
-     *  Updates Config data with window's size and locaiton
-     *  @since v1.5
+     * Updates Config data with window's size and locaiton
+     * 
+     * @since v1.5
      */
-    private void updateWindowParams(){
+    private void updateWindowParams( ) {
+
         ConfigData.setEditorWindowX( this.getX( ) );
         ConfigData.setEditorWindowY( this.getY( ) );
         ConfigData.setEditorWindowWidth( this.getWidth( ) );
@@ -466,7 +483,7 @@ public class MainWindow extends JFrame {
         chaptersMenu.setMnemonic( KeyEvent.VK_H );
         windowMenu.add( chaptersMenu );
         runMenu = new JMenu( TC.get( "MenuRun.Title" ) );
-        runMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( )&&!isEngineRunning );
+        runMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) && !isEngineRunning );
         windowMenu.add( runMenu );
         configurationMenu = new JMenu( TC.get( "MenuConfiguration.Title" ) );
         configurationMenu.setMnemonic( KeyEvent.VK_T );
@@ -499,15 +516,18 @@ public class MainWindow extends JFrame {
 
             public void actionPerformed( ActionEvent e ) {
 
-                Runnable r = new Runnable() {
-                    public void run() {
+                Runnable r = new Runnable( ) {
+
+                    public void run( ) {
+
                         controller.newFile( );
-                }};
-                
-                Thread t = new Thread(r);
-                t.setDaemon(false);
-                t.start();
-                
+                    }
+                };
+
+                Thread t = new Thread( r );
+                t.setDaemon( false );
+                t.start( );
+
             }
         } );
         fileMenu.add( itFileNew );
@@ -517,17 +537,18 @@ public class MainWindow extends JFrame {
 
             public void actionPerformed( ActionEvent e ) {
 
-                
-                Runnable r = new Runnable() {
-                    public void run() {
+                Runnable r = new Runnable( ) {
+
+                    public void run( ) {
+
                         controller.loadFile( );
-                }};
-                
-                Thread t = new Thread(r);
-                t.setDaemon(false);
-                t.start();
-                
-                
+                    }
+                };
+
+                Thread t = new Thread( r );
+                t.setDaemon( false );
+                t.start( );
+
             }
         } );
 
@@ -540,10 +561,9 @@ public class MainWindow extends JFrame {
 
             public void actionPerformed( ActionEvent e ) {
 
-                      //controller.saveFile( controller.isTempFile( ) );
-                        controller.saveFile( false );
-            
-                
+                //controller.saveFile( controller.isTempFile( ) );
+                controller.saveFile( false );
+
             }
         } );
         itFileSave.setAccelerator( KeyStroke.getKeyStroke( 'S', InputEvent.CTRL_MASK ) );
@@ -589,8 +609,8 @@ public class MainWindow extends JFrame {
 
         JMenuItem itLOMESProp = new JMenuItem( TC.get( "MenuFile.LOMESProperties" ) );
         //This option will be enabled only for Spanish
-        itLOMESProp.setEnabled( controller.isFolderLoaded( )&&controller.getLanguage( ).toLowerCase( ).contains( "es" ) );
-        itLOMESProp.setToolTipText( controller.getLanguage( ).toLowerCase( ).contains( "es" )?"":TC.get( "LOMES.Disabled" ) );
+        itLOMESProp.setEnabled( controller.isFolderLoaded( ) && controller.getLanguage( ).toLowerCase( ).contains( "es" ) );
+        itLOMESProp.setToolTipText( controller.getLanguage( ).toLowerCase( ).contains( "es" ) ? "" : TC.get( "LOMES.Disabled" ) );
         itLOMESProp.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -793,7 +813,7 @@ public class MainWindow extends JFrame {
 
         // BE CAREFULL!! if you add/remove some items in the chapter menu, change the index at updateChapterMenu()
         // (there are a commentary there explaining how-to)
-        
+
         // Create the "Chapter" elements
         JMenuItem itAddChapter = new JMenuItem( TC.get( "MenuChapters.AddChapter" ) );
         itAddChapter.addActionListener( new ActionListener( ) {
@@ -813,9 +833,9 @@ public class MainWindow extends JFrame {
             }
         } );
         chaptersMenu.add( itDeleteChapter );
-        
+
         // import chapter option
-        JMenuItem itImportChapter = new JMenuItem( TC.get( "MenuChapters.ImportChapter" ));
+        JMenuItem itImportChapter = new JMenuItem( TC.get( "MenuChapters.ImportChapter" ) );
         itImportChapter.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
@@ -824,9 +844,9 @@ public class MainWindow extends JFrame {
             }
         } );
         chaptersMenu.add( itImportChapter );
-        
+
         chaptersMenu.addSeparator( );
-        
+
         JMenuItem itMoveChapterUp = new JMenuItem( TC.get( "MenuChapters.MoveChapterUp" ) );
         itMoveChapterUp.addActionListener( new ActionListener( ) {
 
@@ -883,6 +903,29 @@ public class MainWindow extends JFrame {
 
         } );
         runMenu.add( debugRun );
+        
+        runMenu.add( new JSeparator() );
+
+        // Create "Experimental run"
+        JMenuItem experimentalNormalRun = new JMenuItem( TC.get( "MenuRun.Experimental.Normal" ) );
+        experimentalNormalRun.setAccelerator( KeyStroke.getKeyStroke( 'R', InputEvent.ALT_GRAPH_MASK ) );
+        experimentalNormalRun.addActionListener( new ActionListener( ){
+           
+            public void actionPerformed(ActionEvent e){
+                converter.run( );
+            }
+        });
+        runMenu.add( experimentalNormalRun );
+        
+        JMenuItem experimentalNormalDebug = new JMenuItem( TC.get( "MenuRun.Experimental.Debug" ) );
+        experimentalNormalDebug.setAccelerator( KeyStroke.getKeyStroke( 'D', InputEvent.ALT_GRAPH_MASK ) );
+        experimentalNormalDebug.addActionListener( new ActionListener( ){
+           
+            public void actionPerformed(ActionEvent e){
+                converter.debug( );
+            }
+        });
+        runMenu.add( experimentalNormalDebug );
 
         itAutoBackup = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.AutoBackup" ), controller.getAutoSaveEnabled( ) );
         itAutoBackup.addActionListener( new ActionListener( ) {
@@ -893,57 +936,62 @@ public class MainWindow extends JFrame {
             }
         } );
         //		configurationMenu.add( itAutoBackup );
-        
+
         JMenu languageMenu = new JMenu( TC.get( "MenuConfiguration.Language" ) );
-        for (final String language : ReleaseFolders.getLanguages("editor")) {
+        for( final String language : ReleaseFolders.getLanguages( "editor" ) ) {
             JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem( ReleaseFolders.getLanguageName( language ), controller.getLanguage( ).equals( language ) );
             itEnglish.addActionListener( new ActionListener( ) {
+
                 public void actionPerformed( ActionEvent e ) {
+
                     controller.setLanguage( language );
                 }
             } );
             languageMenu.add( itEnglish );
         }
         configurationMenu.add( languageMenu );
-        
+
         JMenu debugOptionsMenu = new JMenu( TC.get( "MenuConfiguration.DebugOptions" ) );
         paintGridMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintGrid" ), ConfigData.getUserDefinedDebugSettings( ).isPaintGrid( ) );
         paintHotSpotsMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintHotSpots" ), ConfigData.getUserDefinedDebugSettings( ).isPaintHotSpots( ) );
         paintBoundingAreasMenuItem = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.DebugOptions.PaintBoundingAreas" ), ConfigData.getUserDefinedDebugSettings( ).isPaintBoundingAreas( ) );
-        paintGridMenuItem.addActionListener( new ActionListener(){
+        paintGridMenuItem.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
+
                 ConfigData.getUserDefinedDebugSettings( ).setPaintGrid( paintGridMenuItem.isSelected( ) );
             }
-            
-        });
+
+        } );
         debugOptionsMenu.add( paintGridMenuItem );
-        
-        paintHotSpotsMenuItem.addActionListener( new ActionListener(){
+
+        paintHotSpotsMenuItem.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
+
                 ConfigData.getUserDefinedDebugSettings( ).setPaintHotSpots( paintHotSpotsMenuItem.isSelected( ) );
             }
-            
-        });
+
+        } );
         debugOptionsMenu.add( paintHotSpotsMenuItem );
-        
-        paintBoundingAreasMenuItem.addActionListener( new ActionListener(){
+
+        paintBoundingAreasMenuItem.addActionListener( new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {
+
                 ConfigData.getUserDefinedDebugSettings( ).setPaintBoundingAreas( paintBoundingAreasMenuItem.isSelected( ) );
             }
-            
-        });
-        debugOptionsMenu.add( paintBoundingAreasMenuItem );
-        
-        configurationMenu.add( debugOptionsMenu );
 
+        } );
+        debugOptionsMenu.add( paintBoundingAreasMenuItem );
+
+        configurationMenu.add( debugOptionsMenu );
 
         return windowMenu;
     }
 
     public void setNormalRunAvailable( boolean available ) {
+
         this.isEngineRunning = !available;
         /*this.setEnabled( available );
         if ( available ){
@@ -981,9 +1029,9 @@ public class MainWindow extends JFrame {
 
         StructureControl.getInstance( ).changeDataControl( controller.getSelectedChapterDataControl( ) );
         StructureControl.getInstance( ).visitDataControl( controller.getSelectedChapterDataControl( ) );
-        
+
         //controller.getSelectedChapterDataControl( ).get
-        
+
         // Update the menu bar
         this.setJMenuBar( createMenuBar( ) );
         this.getJMenuBar( ).updateUI( );
@@ -1014,15 +1062,14 @@ public class MainWindow extends JFrame {
     public void updateChapterMenu( ) {
 
         // First, delete all chapter elements (there are eight elements above the chapters in the menu)
-        
-            
+
         int chapterIndex = 0;
         while( chaptersMenu.getItemCount( ) > 8 )
             chaptersMenu.remove( 8 );
         //countChapter++;
         if( Controller.getInstance( ).isFolderLoaded( ) ) {
             // Then, add the new chapters to the menu
-           chapterIndex = 0;
+            chapterIndex = 0;
             ButtonGroup chapterButtonGroup = new ButtonGroup( );
             for( String chapterTitle : controller.getChapterTitles( ) ) {
                 // Create the button, add the action listener and set an accelerator for the first nine chapters
@@ -1038,13 +1085,12 @@ public class MainWindow extends JFrame {
                 chaptersMenu.add( itChapter );
             }
         }
-        if( chapterIndex < 2)
-        {
+        if( chapterIndex < 2 ) {
             // Change those index if some elements in the chapter menu are added/removed
-            chaptersMenu.getItem( 4 ).setEnabled( false );   
-            chaptersMenu.getItem( 5 ).setEnabled( false );   
+            chaptersMenu.getItem( 4 ).setEnabled( false );
+            chaptersMenu.getItem( 5 ).setEnabled( false );
         }
-    
+
     }
 
     public void updateStructure( ) {
@@ -1107,20 +1153,21 @@ public class MainWindow extends JFrame {
      */
     public void popWindow( ) {
 
-        if (!windowsStack.isEmpty( ))
+        if( !windowsStack.isEmpty( ) )
             windowsStack.pop( );
         structurePanel.updateElementPanel( );
     }
 
-    
-    public void paint(Graphics2D g){
-        if (isEngineRunning){
-            Color color = new Color(120, 120, 120, 120);
+    public void paint( Graphics2D g ) {
+
+        if( isEngineRunning ) {
+            Color color = new Color( 120, 120, 120, 120 );
             g.setColor( color );
-            g.fillRect( 0, 0, getWidth( ), getHeight() );
+            g.fillRect( 0, 0, getWidth( ), getHeight( ) );
         }
         super.paint( g );
     }
+
     /**
      * Shows a load dialog to select a single existing file.
      * 
@@ -1248,9 +1295,9 @@ public class MainWindow extends JFrame {
         // Show the dialog
         //return JOptionPane.showOptionDialog( peekWindow( ), messagePanel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null );
         //return (Integer) new GenericOptionPaneDialog( peekWindow( ), title, messagePanel, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, options ).getIntegerOption( );
-  
-        return (Integer)GenericOptionPaneDialog.showOptionDialog(  peekWindow( ), title, message, JOptionPane.PLAIN_MESSAGE, options );
-    
+
+        return (Integer) GenericOptionPaneDialog.showOptionDialog( peekWindow( ), title, message, JOptionPane.PLAIN_MESSAGE, options );
+
     }
 
     /**
@@ -1302,7 +1349,7 @@ public class MainWindow extends JFrame {
         //return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, null, defaultValue );
         return (String) GenericOptionPaneDialog.showInputDialog( peekWindow( ), title, message, JOptionPane.PLAIN_MESSAGE, null, defaultValue );
     }
-    
+
     public String showInputDialog( String title, String message ) {
 
         //return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, null, defaultValue );

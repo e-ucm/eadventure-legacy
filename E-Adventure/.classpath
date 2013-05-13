@@ -25,5 +25,14 @@
 	<classpathentry kind="lib" path="bjars/gson-2.2.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-openjdk-amd64"/>
 	<classpathentry kind="lib" path="/usr/share/icedtea-web/plugin.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ead.engine-core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ead.engine-desktop"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ead.importer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ead.model"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ead.plugins-engine"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ead.reader"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ead.tools"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ead.tools-java"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ead.utils"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
