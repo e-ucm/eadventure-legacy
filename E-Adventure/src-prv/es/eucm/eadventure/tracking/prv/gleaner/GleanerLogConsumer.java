@@ -91,6 +91,26 @@ public class GleanerLogConsumer extends GameLogConsumer {
 
     private long initTimeStamp;
 
+    public GleanerLogConsumer( ) {
+
+        super( );
+    }
+
+    public void setUrl( String url ) {
+
+        this.url = url;
+    }
+
+    public void setGamekey( String gamekey ) {
+
+        this.gamekey = gamekey;
+    }
+
+    public void setUserId( String userId ) {
+
+        this.userId = userId;
+    }
+
     public GleanerLogConsumer( ServiceConstArgs args ) {
 
         super( args );
@@ -303,10 +323,10 @@ public class GleanerLogConsumer extends GameLogConsumer {
 
                 // Other data
                 if( entry.getAttributeValue( "ix" ) != null ) {
-                    data.put( "ix", Integer.parseInt( entry.getAttributeValue( "ix" ) ) );
+                    data.put( "ix", Float.parseFloat( entry.getAttributeValue( "ix" ) ) );
                 }
                 if( entry.getAttributeValue( "iy" ) != null ) {
-                    data.put( "iy", Integer.parseInt( entry.getAttributeValue( "iy" ) ) );
+                    data.put( "iy", Float.parseFloat( entry.getAttributeValue( "iy" ) ) );
                 }
                 if( entry.getAttributeValue( "x" ) != null ) {
                     data.put( "x", Integer.parseInt( entry.getAttributeValue( "x" ) ) );
@@ -398,8 +418,8 @@ public class GleanerLogConsumer extends GameLogConsumer {
 
         }
         catch( Exception e ) {
-            System.out.println("Exception while converting traces: " + e);
-            System.out.println( entry + "");
+            System.out.println( "Exception while converting traces: " + e );
+            System.out.println( entry + "" );
         }
         return trace;
 

@@ -58,14 +58,22 @@ public class GameLogEntry {
 		if (offsetX!=null){
 		    this.attributes.add( new GameLogEntryAttribute("off", offsetX.toString( )) );
 		}
+		this.attributes.add( new GameLogEntryAttribute ("ms", Long.toString(timeStamp)) );
 		for (String attribute: attributes){
 			if (attribute.contains("=")){
 				String name = attribute.substring(0, attribute.indexOf("="));
 				String value = attribute.substring(attribute.indexOf("=")+1, attribute.length());
-				this.attributes.add(new GameLogEntryAttribute(name, value));
+				GameLogEntryAttribute att = new GameLogEntryAttribute(name, value);
+				int index = this.attributes.indexOf( att );
+				if ( index == -1 ){
+				    this.attributes.add(att);
+				}
+				else {
+				    att = this.attributes.get( index );
+				    att.setValue(value);
+				}
 			}
 		}
-		this.attributes.add( new GameLogEntryAttribute ("ms", Long.toString(timeStamp)) );
 	}
 	
 	public int getAttributeCount () {
@@ -122,11 +130,26 @@ public class GameLogEntry {
 			this.attributeName = attributeName;
 			this.attributeValue = attributeValue;
 		}
-		public String getAttributeName() {
+		public void setValue( String value ) {
+
+            this.attributeValue = value;
+            
+        }
+        public String getAttributeName() {
 			return attributeName;
 		}
 		public String getAttributeValue() {
 			return attributeValue;
+		}
+		
+		@Override
+        public int hashCode( ){
+		    return attributeName.hashCode( );
+		}
+		
+		@Override
+        public boolean equals( Object o ){
+		    return ( o instanceof GameLogEntryAttribute && attributeName != null && attributeName.equals(((GameLogEntryAttribute ) o).attributeName) );
 		}
 		
 	}

@@ -81,6 +81,10 @@ public abstract class GameLogConsumer extends Thread{
         return terminate;
     }
     
+    public GameLogConsumer( ){
+        
+    }
+    
     public GameLogConsumer(ServiceConstArgs args){
         this.q = args.q;
         setTerminate(false);
@@ -132,6 +136,10 @@ public abstract class GameLogConsumer extends Thread{
             }
         }
         return newQ;
+    }
+    
+    public void setQueue(List<GameLogEntry> q){
+        this.q = q;
     }
     
     protected abstract boolean consumerCode(List<GameLogEntry> newQ);
