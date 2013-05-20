@@ -351,7 +351,7 @@ public class AssessmentProfilesDataControl extends DataControl {
      * 
      * @param path
      *            the path of the assessment profile to confirm if it is or it
-     *            isn´t scorm 1.2
+     *            isn't scorm 1.2
      * @return
      */
     public boolean isScorm12Profile( ) {
@@ -369,7 +369,7 @@ public class AssessmentProfilesDataControl extends DataControl {
      * 
      * @param path
      *            the path of the assessment profile to confirm if it is or it
-     *            isn´t scorm 2004
+     *            isn't scorm 2004
      * @return
      */
     public boolean isScorm2004Profile( ) {

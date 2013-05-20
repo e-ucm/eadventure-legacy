@@ -142,9 +142,9 @@ public class NameInputScreen extends JDialog{
         this.getRootPane( ).setLayout( new BorderLayout() );
         this.getRootPane( ).add( panel, BorderLayout.CENTER );
         //Descomentar para la dama boba
-        //instructions= new JTextArea ("Bienvenido al juego de la Dama Boba. Introduce los cuatro u ocho primeros d韌itos del c骴igo que te han dado para empezar a jugar (los que aparecen antes del gui髇).");
+        //instructions= new JTextArea ("Bienvenido al juego de la Dama Boba. Introduce los cuatro u ocho primeros d铆gitos del c贸digo que te han dado para empezar a jugar (los que aparecen antes del gui贸n).");
         //Descomentar para la ONT
-        instructions= new JTextArea ("Bienvenido a las simulaciones de la ONT. Introduce el c骴igo de cuatro d韌itos que te han facilitado para empezar.");
+        instructions= new JTextArea ("Bienvenido a las simulaciones de la ONT. Introduce el c贸digo de cuatro d铆gitos que te han facilitado para empezar.");
         Font font = new Font ("Tahoma", Font.BOLD, 16);
         instructions.setWrapStyleWord( true );
         instructions.setFont( font );
@@ -235,7 +235,7 @@ public class NameInputScreen extends JDialog{
 
     private void close( boolean askConfirmation ){
         if (askConfirmation) {
-            int option=JOptionPane.showConfirmDialog( NameInputScreen.this, "縀st醩 seguro de que quieres cerrar el juego?" );
+            int option=JOptionPane.showConfirmDialog( NameInputScreen.this, "锟紼st锟絪 seguro de que quieres cerrar el juego?" );
             if (option ==JOptionPane.OK_OPTION){
                 code=-1;
                 dispose( );
@@ -269,11 +269,11 @@ public class NameInputScreen extends JDialog{
         boolean valid=true;
         code=-1;
         if (txt==null || txt.length( )<4){
-            m ="El c骴igo tiene que ser de al menos 4 d韌itos num閞icos. Has introducido menos d韌itos.";
+            m ="El c贸digo tiene que ser de al menos 4 d铆gitos num茅ricos. Has introducido menos d铆gitos.";
             valid=false;
             code=-1;
         } else if (txt.length( )>8){
-            m ="Introduce s髄o los 4 u 8 d韌itos anteriores al gui髇. El c骴igo que has introducido es demasiado largo.";
+            m ="Introduce s贸lo los 4 u 8 d铆gitos anteriores al gui贸n. El c贸digo que has introducido es demasiado largo.";
             valid=false;
             code=-1;
         }
@@ -282,16 +282,16 @@ public class NameInputScreen extends JDialog{
                 code=Integer.parseInt( txt );
                 if (codes.contains( code )){
                     valid =true;
-                    m="C骴igo correcto. Pulsa \"Empezar\" para lanzar el juego.";
+                    m="C贸digo correcto. Pulsa \"Empezar\" para lanzar el juego.";
                 } else {
                     code=-1;
                     valid=false;
-                    m="C骴igo incorrecto. Tienes que introducir el c骴igo que te han dado en clase.";
+                    m="C贸digo incorrecto. Tienes que introducir el c贸digo que te han dado en clase.";
                 }
             }catch(NumberFormatException e){
                 code=-1;
                 valid=false;
-                m="ntroduce s髄o n鷐eros 0-9! Ni letras ni signos raros.";
+                m="隆Introduce s贸lo n煤meros 0-9! Ni letras ni signos raros.";
             }
         }
         

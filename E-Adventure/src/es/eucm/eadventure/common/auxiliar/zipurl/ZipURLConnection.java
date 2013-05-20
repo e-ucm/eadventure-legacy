@@ -39,8 +39,8 @@
  * Artificial Intelligence. Faculty of Informatics, Complutense University of
  * Madrid (Spain).
  * 
- * @author Cañizal, G., Del Blanco, A., Torrente, F.J. (alphabetical order) *
- * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ * @author CaÃ±izal, G., Del Blanco, A., Torrente, F.J. (alphabetical order) *
+ * @author LÃ³pez MaÃ±as, E., PÃ©rez Padilla, F., Sollet, E., Torijano, B. (former
  *         developers by alphabetical order)
  * @year 2007
  */
@@ -56,8 +56,8 @@ import java.net.URLConnection;
 import java.io.FileInputStream;
 
 /**
- * @author Cañizal, G., Del Blanco, A., Torrente, F.J. (alphabetical order) *
- * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ * @author CaÃ±izal, G., Del Blanco, A., Torrente, F.J. (alphabetical order) *
+ * @author LÃ³pez MaÃ±as, E., PÃ©rez Padilla, F., Sollet, E., Torijano, B. (former
  *         developers by alphabetical order)
  * 
  */

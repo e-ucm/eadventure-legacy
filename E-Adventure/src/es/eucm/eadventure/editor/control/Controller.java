@@ -35,37 +35,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.control;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.event.ComponentEvent;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.swing.JDialog;
-import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.filechooser.FileFilter;
-
-import es.eucm.eadventure.common.auxiliar.AssetsConstants;
-import es.eucm.eadventure.common.auxiliar.File;
-import es.eucm.eadventure.common.auxiliar.MultiscreenTools;
-import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
+import es.eucm.eadventure.common.auxiliar.*;
 import es.eucm.eadventure.common.auxiliar.runsettings.DebugSettings;
 import es.eucm.eadventure.common.auxiliar.runsettings.GameWindowBoundsListener;
 import es.eucm.eadventure.common.auxiliar.runsettings.RunAndDebugSettings;
@@ -90,11 +60,7 @@ import es.eucm.eadventure.editor.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
-import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
-import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
-import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
+import es.eucm.eadventure.editor.control.controllers.*;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
@@ -114,17 +80,14 @@ import es.eucm.eadventure.editor.control.tools.general.chapters.ImportChapterToo
 import es.eucm.eadventure.editor.control.tools.general.chapters.MoveChapterTool;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.control.writer.Writer;
+import es.eucm.eadventure.editor.converter.Converter;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.MainWindow;
 import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.GraphicConfigDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.SearchDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.VarsFlagsDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.*;
 import es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog.CustomizeGUIDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.ims.IMSDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomdialog.LOMDialog;
@@ -132,6 +95,15 @@ import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESDialog;
 import es.eucm.eadventure.editor.gui.startdialog.FrameForInitialDialogs;
 import es.eucm.eadventure.editor.gui.startdialog.StartDialog;
 import es.eucm.eadventure.engine.EAdventureDebug;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.io.IOException;
+import java.util.*;
+import java.util.List;
+import java.util.Timer;
 
 /**
  * This class is the main controller of the application. It holds the main
@@ -573,6 +545,11 @@ public class Controller {
     private boolean isLomEs = false;
 
     /**
+     * Converter, to deal with new engine
+     */
+    private Converter converter;
+
+    /**
      * Store all effects selection. Connects the type of effect with the number
      * of times that has been used
      */
@@ -583,6 +560,7 @@ public class Controller {
     private Controller( ) {
 
         chaptersController = new ChapterListDataControl( );
+        converter = new Converter(this);
     }
 
     private String getCurrentExportSaveFolder( ) {
@@ -2162,21 +2140,20 @@ public class Controller {
         return fileSaved;
     }
 
-    public void exportStandaloneGame( ) {
-
+    public java.io.File export( ){
         boolean exportGame = true;
         try {
             if( dataModified ) {
                 int option = mainWindow.showConfirmDialog( TC.get( "Operation.SaveChangesTitle" ), TC.get( "Operation.SaveChangesMessage" ) );
-                // If the data must be saved, load the new file only if the save was succesful
+                // If the data must be saved, load the new file only if the save was successful
                 if( option == JOptionPane.YES_OPTION )
                     exportGame = saveFile( false );
 
-                // If the data must not be saved, load the new data directly
+                    // If the data must not be saved, load the new data directly
                 else if( option == JOptionPane.NO_OPTION )
                     exportGame = true;
 
-                // Cancel the action if selected
+                    // Cancel the action if selected
                 else if( option == JOptionPane.CANCEL_OPTION )
                     exportGame = false;
 
@@ -2198,22 +2175,11 @@ public class Controller {
 
                         if( !destinyFile.exists( ) || mainWindow.showStrictConfirmDialog( TC.get( "Operation.SaveFileTitle" ), TC.get( "Operation.OverwriteExistingFile", destinyFile.getName( ) ) ) ) {
                             destinyFile.delete( );
-
-                            // Finally, export it
-                            loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsJAR" ) );
-                            loadingScreen.setVisible( true );
-                            if( Writer.exportStandalone( getProjectFolder( ), destinyFile.getAbsolutePath( ) ) ) {
-                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
-                            }
-                            else {
-                                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.NotSuccess.Title" ), TC.get( "Operation.ExportT.NotSuccess.Message" ) );
-                            }
-                            loadingScreen.setVisible( false );
-
                         }
+                        return destinyFile;
                     }
                     else {
-                        // Show error: The target dir cannot be contained 
+                        // Show error: The target dir cannot be contained
                         mainWindow.showErrorDialog( TC.get( "Operation.ExportT.TargetInProjectDir.Title" ), TC.get( "Operation.ExportT.TargetInProjectDir.Message" ) );
                     }
                 }
@@ -2223,7 +2189,25 @@ public class Controller {
             loadingScreen.setVisible( false );
             mainWindow.showErrorDialog( TC.get( "Operation.FileNotSavedTitle" ), TC.get( "Operation.FileNotSavedMessage" ) );
         }
+        return null;
 
+    }
+
+    public void exportStandaloneGame( ) {
+        java.io.File destinyFile = export();
+
+        if ( destinyFile != null ){
+            // Finally, export it
+            loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsJAR" ) );
+            loadingScreen.setVisible( true );
+            if( Writer.exportStandalone( getProjectFolder( ), destinyFile.getAbsolutePath( ) ) ) {
+                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
+            }
+            else {
+                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.NotSuccess.Title" ), TC.get( "Operation.ExportT.NotSuccess.Message" ) );
+            }
+        }
+        loadingScreen.setVisible( false );
     }
 
     public void exportToLOM( ) {
@@ -4081,7 +4065,36 @@ public class Controller {
         
         return settings;
     }
-    
+
+    public void runNew() {
+        converter.run();
+    }
+
+    public void debugNew() {
+        converter.debug();
+    }
+
+    public void exportWar() {
+    }
+
+    public void exportJar() {
+        java.io.File destinyFile = export();
+
+        if ( destinyFile != null ){
+            // Finally, export it
+            loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsJAR" ) );
+            loadingScreen.setVisible( true );
+            if( converter.exportJar(destinyFile.getAbsolutePath())) {
+                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
+            }
+            else {
+                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.NotSuccess.Title" ), TC.get( "Operation.ExportT.NotSuccess.Message" ) );
+            }
+        }
+        loadingScreen.setVisible( false );
+
+    }
+
 
     private static class GameWindowBoundsListenerImpl implements GameWindowBoundsListener{
 

@@ -773,7 +773,7 @@ public class Writer {
             // Destiny file
             
             ///////////////////////////////////
-            //TODO Aquí comienza la parte de EAdAppletLoader
+            //TODO AquÃ­ comienza la parte de EAdAppletLoader
             //File jarUnsigned2 = new File( tempDir.getAbsolutePath( ) + "/eAdventure2.zip" );
 
             // Create output stream     
@@ -811,7 +811,7 @@ public class Writer {
 
             new File( tempDir.getAbsolutePath( ) + "/" + loName + "_unsigned.jar" ).delete( );
 
-          //TODO Aquí termina parte de EAdAppletLoader            
+          //TODO AquÃ­ termina parte de EAdAppletLoader
             ///////////////////////////////////
 
             
@@ -1391,7 +1391,7 @@ public class Writer {
             os.closeEntry( );
             os.flush( );
             
-            //PRUEBA Extraer el chapter.xml a la raiz del doc scorm para solución CEPAL-MOODLE
+            //PRUEBA Extraer el chapter.xml a la raiz del doc scorm para soluciÃ³n CEPAL-MOODLE
             //File chapterForMoodle = new File( gameFilename+"\\chapter1.xml" );
             //chapterForMoodle.copyTo( new File( "web/temp/chapter1.xml" ) );
             

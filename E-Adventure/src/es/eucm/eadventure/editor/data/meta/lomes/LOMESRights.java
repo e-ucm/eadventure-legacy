@@ -41,9 +41,9 @@ import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMESRights {
 
-    public static final String DEFAULT_DESCRIPTION = "La utilización de estos contenidos es universal, gratuita y abierta, siempre y cuando se trate de un uso educativo no comercial. Las acciones, productos y utilidades derivadas de su utilización no podrán, en consecuencia, generar ningún tipo de lucro. Asimismo, es obligada la referencia a la fuente.";
+    public static final String DEFAULT_DESCRIPTION = "La utilizaciÃ³n de estos contenidos es universal, gratuita y abierta, siempre y cuando se trate de un uso educativo no comercial. Las acciones, productos y utilidades derivadas de su utilizaciÃ³n no podrï¿½n, en consecuencia, generar ningÃºn tipo de lucro. Asimismo, es obligada la referencia a la fuente.";
 
-    public static final String DEFAULT_ACCESS_DSCRIPTION = "No existen restricciones ó MEC";
+    public static final String DEFAULT_ACCESS_DSCRIPTION = "No existen restricciones MEC";
 
     /*
      * cost and copyrightandotherrestrictions only can be "yes" or "no"

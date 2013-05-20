@@ -172,7 +172,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      * @param y
      *            the npc's vertical position
      * @param layer
-     *            the npc´s layer, it means, it will be painted in that position
+     *            the npc's layer, it means, it will be painted in that position
      */
     private FunctionalNPC( NPC npc, InfluenceArea influenceArea, int x, int y, int layer ) {
 

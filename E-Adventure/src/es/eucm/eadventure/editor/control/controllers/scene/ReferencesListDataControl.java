@@ -150,7 +150,7 @@ public class ReferencesListDataControl extends DataControl {
         }
 
         // insert player
-        // by default, if player don´t have layer, we give it to him.
+        // by default, if player don't have layer, we give it to him.
         if( playerImagePath != null && ( !Controller.getInstance( ).isPlayTransparent( ) ) && sceneDataControl.isForcedPlayerLayer() ) {
             int layer;
             if( sceneDataControl.getPlayerLayer( ) == Scene.PLAYER_WITHOUT_LAYER )

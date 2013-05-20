@@ -36,16 +36,16 @@
 
 package es.eucm.eadventure.editor.converter;
 
-import javax.swing.JFrame;
-
 import ead.common.model.elements.operations.SystemFields;
 import ead.converter.AdventureConverter;
-import ead.engine.core.game.GUIImpl;
 import ead.engine.core.gdx.desktop.DesktopGame;
+import ead.exporter.GeneralExporter;
 import ead.utils.Log4jConfig;
 import ead.utils.Log4jConfig.Slf4jLevel;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.editor.control.Controller;
+
+import javax.swing.*;
 
 public class Converter {
 
@@ -57,36 +57,46 @@ public class Converter {
 
     private JFrame frame;
 
+    private GeneralExporter exporter;
+
     public Converter( Controller controller ) {
         Log4jConfig.configForConsole(Slf4jLevel.Debug, null);
         this.controller = controller;
+        exporter = new GeneralExporter();
         adventureConverter = new AdventureConverter( );
         SystemFields.EXIT_WHEN_CLOSE.getVarDef( ).setInitialValue(false);
+        exporter.setJarPath("engine2.0.jar");
     }
 
-    public void run( ) {
+    public void launch( ) {
 
-        GUIImpl.DEBUG = false;
         String folder = controller.getProjectFolder( );
         File f = new File( folder, "data.xml" );
         if( f.exists( ) ) {
             f.delete( );
         }
         adventureConverter.convert( folder, folder );
+
+        game.setModel( folder );
+        // Frame needs to be visible
+        frame.setVisible( true );
+        game.getGame( ).restart( true );
+    }
+
+    public void run(){
         if( game == null ) {
             initGame( );
         }
-        else {
-            game.setModel( folder );
-            // Frame needs to be visible
-            frame.setVisible( true );
-            game.getGame( ).restart( true );
-        }
+        game.setDebug(false);
+        launch();
     }
 
     public void debug( ) {
-
-        run( );
+        if( game == null ) {
+            initGame( );
+        }
+        game.setDebug(true);
+        launch( );
     }
 
     public void initGame( ) {
@@ -95,6 +105,22 @@ public class Converter {
         String folder = controller.getProjectFolder( );
         game.setModel( folder );
         frame = game.start( );
+    }
+
+    public boolean exportJar( String destiny ){
+        String folder = controller.getProjectFolder();
+        String destinyFolder = adventureConverter.convert(folder, null);
+        exporter.setName(controller.getAdventureTitle());
+        exporter.export(destinyFolder, destiny, true, false, false );
+        return true;
+    }
+
+    public boolean exportWar( String destiny ){
+        String folder = controller.getProjectFolder();
+        String destinyFolder = adventureConverter.convert(folder, null);
+        exporter.setName(controller.getAdventureTitle());
+        exporter.export(destinyFolder, destiny, false, true, false );
+        return true;
     }
 
 }

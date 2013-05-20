@@ -55,7 +55,7 @@ import es.eucm.eadventure.engine.core.gui.GUI;
 /**
  * Export dialog for books.
  * 
- * @author ¡ngel S.
+ * @author √Ångel S.
  * 
  */
 public class ExportBookDialog extends ToolManagableDialog {

@@ -174,7 +174,7 @@ public class GraphicRepresentation {
         }
         graphicNodes.add( new InitialGraphicNode( nodes.get( 0 ), new Point( centerX, centerY ) ) );
 
-        // Set the initial angle to 90º (upper position)
+        // Set the initial angle to 90 (upper position)
         double angle = ( Math.PI / 2 );
         // For each node (except for the first one)
         for( int i = 1; i < nodes.size( ); i++ ) {

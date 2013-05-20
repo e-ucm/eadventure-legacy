@@ -59,7 +59,7 @@ import es.eucm.eadventure.editor.gui.elementpanels.book.PagesTable;
 /**
  * Class for the preview of HTML books in Content tab.
  * 
- * @author ¡ngel S.
+ * @author √Ångel S.
  * 
  */
 public class BookPagePreviewPanel extends BookPreviewPanel {

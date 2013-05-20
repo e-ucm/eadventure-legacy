@@ -50,7 +50,7 @@ import es.eucm.eadventure.editor.gui.elementpanels.book.ArrowsPositionPanel;
  * This class represents the panel in which we can define the position for the
  * arrows of the book.
  * 
- * @author ¡ngel S.
+ * @author √Ångel S.
  * 
  */
 public class BookArrowPositionPreviewPanel extends BookPreviewPanel {

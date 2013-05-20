@@ -47,7 +47,7 @@ import java.awt.image.BufferedImage;
  * images.
  * 
  * Implemented as a Singleton 
- * @author ¡ngel S.
+ * @author √Ångel S.
  *
  */
 public class ImageTransformer {

@@ -42,7 +42,7 @@ public class LOMIdentifier extends LOMESContainer {
 
     //public static final String 
 
-    public static final String CATALOG_DEFAULT = "Cat·logo unificado mec-red.es-ccaa de identificaciÛn de ODE";
+    public static final String CATALOG_DEFAULT = "Cat√°logo unificado mec-red.es-ccaa de identificaci√≥n de ODE";
 
     //take care when this class is call from MetaMetaData: it must be added suffix "-meta" 
     public static final String ENTRY_DEFAULT = "es-ma_20090317_2_1300009";

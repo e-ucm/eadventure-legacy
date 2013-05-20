@@ -400,7 +400,7 @@ public abstract class FunctionalBook {
 
     }
 
-    // MÉTODOS PARA DETERMINAR LAS TRANSPARENCIAS DE LAS FLECHAS
+    // MÃ‰TODOS PARA DETERMINAR LAS TRANSPARENCIAS DE LAS FLECHAS
     public BufferedImage toBufferedImage( Image image ) {
         if ( image == null ){
             return null;

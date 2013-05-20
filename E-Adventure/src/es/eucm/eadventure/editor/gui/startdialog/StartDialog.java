@@ -541,7 +541,7 @@ public class StartDialog extends JFileChooser {
         recentFiles.setMinimumSize( new Dimension( 400, 300 ) );
         recentFiles.setPreferredSize( new Dimension( 300, 300 ) );
         mainPanel.add( recentFiles );
-        //AdventureDataDialog adDialog = new AdventureDataDialog(false,"Título", "Decription description dddddddddddddd", true);
+        //AdventureDataDialog adDialog = new AdventureDataDialog(false,"TÃ­tulo", "Decription description dddddddddddddd", true);
         //Container infoPanel =createDescriptorPanel();//adDialog.getContentPane( );
         descriptorDataPanel = new DescriptorDataPanel( null, null );
         descriptorDataPanel.setMinimumSize( new Dimension( 200, 300 ) );

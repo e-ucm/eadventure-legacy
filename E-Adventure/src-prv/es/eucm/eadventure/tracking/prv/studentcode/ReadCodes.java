@@ -136,7 +136,7 @@ public class ReadCodes {
 		try{
 			  // Open the file that is the first 
 			  // command line parameter
-				  File file = new File("CódigosONT.csv");
+				  File file = new File("CÃ³digosONT.csv");
 			  FileInputStream fstream = new FileInputStream(file);
 			  // Get the object of DataInputStream
 			  DataInputStream in = new DataInputStream(fstream);

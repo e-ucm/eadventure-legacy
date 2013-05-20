@@ -36,9 +36,6 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.data.chapter.scenes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import es.eucm.eadventure.common.auxiliar.AssetsImageDimensions;
 import es.eucm.eadventure.common.data.Positioned;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
@@ -46,6 +43,9 @@ import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class holds the data for a scene in eAdventure
@@ -58,7 +58,7 @@ public class Scene extends GeneralScene implements Positioned {
     public static final int PLAYER_WITHOUT_LAYER = -1;
 
     /**
-     * The value of player layer in 1º person adventures
+     * The value of player layer in 1rst person adventures
      */
     public static final int PLAYER_NO_ALLOWED = -2;
 

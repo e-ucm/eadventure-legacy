@@ -48,7 +48,7 @@ import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
  * This class has been produced with support from GRADIANT (www.gradiant.org)
- * @contributors Iria Rodríguez Cruz, Pedro and Daniel Rodríguez (GRADIANT) 
+ * @contributors Iria RodrÃ­guez Cruz, Pedro and Daniel RodrÃ­guez (GRADIANT)
  * @author Javier Torrente
  *
  */

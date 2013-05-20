@@ -374,7 +374,7 @@ public class JSSigner {
             zos.putNextEntry( sfFile );
             sf.write( zos );
 
-            // debería borrarse
+            // deberÃ­a borrarse
             /*    if (verbose) {
                     if (zipFile.getEntry(sfFilename) != null) {
                         System.out.println(rb.getString(" updating: ") +
@@ -414,7 +414,7 @@ public class JSSigner {
             zos.putNextEntry( bkFile );
             block.write( zos );
 
-            //debería borrarse
+            //deberÃ­a borrarse
             /*    if (verbose) {
                     if (zipFile.getEntry(bkFilename) != null) {
                         System.out.println(rb.getString(" updating: ") +

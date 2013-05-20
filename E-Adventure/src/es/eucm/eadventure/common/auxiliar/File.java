@@ -215,7 +215,6 @@ public class File extends java.io.File {
         }
         catch( Exception e ) {
             copied = false;
-            //System.out.println("QUE EXCEPCIÓN MÁS CHUNGA!");
             //Controller.getInstance().showErrorDialog( TextConstants.getText("Error.Title"), TextConstants.getText("Error.CopyingFiles", new String[]{origin.getAbsolutePath( ), destiny.getName( )}) );
         }
 
@@ -560,8 +559,6 @@ public class File extends java.io.File {
      *            Complete path of the origin zip file (source 1)
      * @param originDir
      *            Complete path of the origin dir (source 2)
-     * @param destinyJarFile
-     *            Complete path of the destiny zip file (product)
      */
     public static void mergeZipAndDirToJar( ZipOutputStream zos, String originZipFile, String ... originDirs ) {
         try {

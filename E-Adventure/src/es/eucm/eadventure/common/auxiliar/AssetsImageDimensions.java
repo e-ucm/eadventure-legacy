@@ -40,7 +40,7 @@ package es.eucm.eadventure.common.auxiliar;
  * Set of constants which declare maximum sizes permitted for some type of assets.
  * AssetController (editor) must implement it.
  * 
- * @author ¡ngel S.
+ * @author √Ångel S.
  *
  */
 public interface AssetsImageDimensions {

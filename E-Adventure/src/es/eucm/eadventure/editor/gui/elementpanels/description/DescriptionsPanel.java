@@ -253,7 +253,7 @@ public class DescriptionsPanel extends JPanel implements Updateable {
     
     private class DeleteButtonListener implements ActionListener {
 
-        // XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
+        // XXX 8/5/2009: Revisado tool aÃ±adir recursos (en todos los elementos)
         public void actionPerformed( ActionEvent e ) {
 
             boolean canDelete=true;
@@ -290,7 +290,7 @@ public class DescriptionsPanel extends JPanel implements Updateable {
 
         public void actionPerformed( ActionEvent e ) {
 
-            // XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
+            // XXX 8/5/2009: Revisado tool aÃ±adir recursos (en todos los elementos)
             if( descriptionTable.getSelectedIndex( ) >= 0 ) {
                 descriptionsController.setSelectedDescription( descriptionTable.getSelectedIndex( ) );
                 
@@ -309,7 +309,7 @@ public class DescriptionsPanel extends JPanel implements Updateable {
 
         public void actionPerformed( ActionEvent e ) {
 
-            // XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
+            // XXX 8/5/2009: Revisado tool aÃ±adir recursos (en todos los elementos)
             if( descriptionsController.addElement(  ) ) {
                 descriptionsController.setSelectedDescription( descriptionsController.getDescriptionCount( ) - 1 );
                 updateDescriptions( );

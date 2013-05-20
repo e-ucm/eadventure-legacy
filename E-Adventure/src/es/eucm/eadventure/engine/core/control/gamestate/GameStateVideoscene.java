@@ -137,7 +137,7 @@ public class GameStateVideoscene extends GameState implements ControllerListener
             GUI.getInstance( ).endDraw( );
             g.dispose( );
 
-            // TODO se ha cambiado el código para utilizar el nuevo sistema que carga directamente los videos como InputStreams
+            // TODO se ha cambiado el c√≥digo para utilizar el nuevo sistema que carga directamente los videos como InputStreams
             // mediaPlayer = Manager.createRealizedPlayer( ResourceHandler.getInstance( ).getResourceAsMediaLocator( resources.getAssetPath( Videoscene.RESOURCE_TYPE_VIDEO ) ) );
             ds = new InputStreamDataSource(resources.getAssetPath( Videoscene.RESOURCE_TYPE_VIDEO ) );
             ds.connect( );

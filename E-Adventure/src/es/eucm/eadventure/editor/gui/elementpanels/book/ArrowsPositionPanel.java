@@ -57,7 +57,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.bookpanels.BookArrowPositionPre
 /**
  * This panel contains the spinners and buttons for set the arrows position
  * 
- * @author ¡ngel S.
+ * @author √Ångel S.
  * 
  */
 public class ArrowsPositionPanel extends JPanel {

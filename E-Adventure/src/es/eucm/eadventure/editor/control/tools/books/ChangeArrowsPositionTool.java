@@ -45,7 +45,7 @@ import es.eucm.eadventure.editor.control.tools.Tool;
 
 /**
  * Tool for redo and undo of changing arrows position
- * @author ¡ngel S.
+ * @author √Ångel S.
  *
  */
 public class ChangeArrowsPositionTool extends Tool{

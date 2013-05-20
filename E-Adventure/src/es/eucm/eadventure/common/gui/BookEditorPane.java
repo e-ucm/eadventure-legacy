@@ -57,7 +57,7 @@ import es.eucm.eadventure.engine.core.gui.GUI;
 /**
  * Editor pane adapted for the correct render of html images.
  * 
- * @author ¡ngel S.
+ * @author √Ångel S.
  * 
  */
 public class BookEditorPane extends JEditorPane {
@@ -66,9 +66,7 @@ public class BookEditorPane extends JEditorPane {
 
     /**
      * Constructor
-     * 
-     * @param autoSaved
-     *            Determines if the htmlImage must be exported when it changes
+     *
      */
     public BookEditorPane( ) {
 
@@ -138,7 +136,7 @@ public class BookEditorPane extends JEditorPane {
     /**
      * HTMLEditor to solve problem with meta charset tag in html documents.
      * 
-     * @author ¡ngel S.
+     * @author √Ångel S.
      */
     protected class BookHTMLEditorKit extends HTMLEditorKit {
 

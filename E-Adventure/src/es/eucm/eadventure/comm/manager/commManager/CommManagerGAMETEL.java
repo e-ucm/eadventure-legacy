@@ -53,7 +53,7 @@ import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**
- * This class will handle communication with GAME·TEL system. 
+ * This class will handle communication with GAMETEL system.
  * For more details, see Ref doc: 
  * https://docs.google.com/document/d/15Lel0zUvmLpAcj3vaZuSjSbNYnlJnWkS29fXKBbintQ/edit?hl=es&authkey=CKbl47oN
  */
@@ -74,7 +74,7 @@ public class CommManagerGAMETEL extends AdventureApplet{
     /**
      * Read the default parameters for the Applet
      * It first invokes superclass method to fetch attributes that are common for 
-     * all Applet modes: USER_ID, RUN_ID and WINDOWED. Then it will read GAME·TEL
+     * all Applet modes: USER_ID, RUN_ID and WINDOWED. Then it will read GAMETEL
      * parameters: userId (tag "user-id") and returnURI (tag "return-uri").
      */
     @Override

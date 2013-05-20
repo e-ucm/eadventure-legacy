@@ -98,7 +98,7 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  * @updated by Javier Torrente. New functionalities added (02/2008) - Support
  *          for .ead files. Therefore <e-Adventure> files are no longer .zip but
  *          .ead
- * @updated by Enrique López. Functionalities added (10/2008) - Button refresh,
+ * @updated by Enrique LÃ³pez. Functionalities added (10/2008) - Button refresh,
  *          to update the content of a folder. Filter for .ead files. -
  *          Multilanguage support. Two new classes added - "About" and "Open"
  *          tabs. Now the applications is structured in a JTabbedPane, and the

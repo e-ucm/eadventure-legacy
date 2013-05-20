@@ -54,7 +54,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
  * the methods to load required images. It extends ImagePanel. The background is
  * stored in the image atrribute of ImagePanel
  * 
- * @author ¡ngel S.
+ * @author √Ångel S.
  * 
  */
 public class BookPreviewPanel extends ImagePanel {

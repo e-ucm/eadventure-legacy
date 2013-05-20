@@ -50,10 +50,10 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
-import javax.jnlp.DownloadServiceListener;
+//import javax.jnlp.DownloadServiceListener;
 import javax.swing.JPanel;
 
-public class EADAppletLoadProgress implements DownloadServiceListener{
+public class EADAppletLoadProgress /* implements DownloadServiceListener */ {
     Container surfaceContainer = null;
     AppletStub appletStub = null;
     private BufferedImage backgroundImage=null;

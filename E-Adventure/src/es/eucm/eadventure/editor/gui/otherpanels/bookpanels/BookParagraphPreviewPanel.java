@@ -57,7 +57,7 @@ import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListData
 /**
  * Class for book paragraph view in Content tab.
  * 
- * @author ¡ngel
+ * @author √Ångel
  * 
  */
 public class BookParagraphPreviewPanel extends BookPreviewPanel {

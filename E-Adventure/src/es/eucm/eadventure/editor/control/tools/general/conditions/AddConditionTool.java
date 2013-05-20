@@ -57,13 +57,13 @@ import es.eucm.eadventure.editor.control/**
                                          * @author Del Blanco, A., Marchiori,
                                          *         E., Torrente, F.J.
                                          *         (alphabetical order) *
-                                         * @author LÛpez MaÒas, E., PÈrez
+                                         * @author L√≥pez Ma√±as, E., P√©rez
                                          *         Padilla, F., Sollet, E.,
                                          *         Torijano, B. (former
                                          *         developers by alphabetical
                                          *         order)
                                          * @author Moreno-Ger, P. &
-                                         *         Fern·ndez-ManjÛn, B.
+                                         *         Fern√°ndez-Manj√≥n, B.
                                          *         (directors)
                                          * @year 2009 Web-site:
                                          *       http://e-adventure.e-ucm.es

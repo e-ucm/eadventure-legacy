@@ -241,7 +241,7 @@ public abstract class LooksPanel extends JPanel implements Updateable {
 
     private class DeleteButtonListener implements ActionListener {
 
-        // XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
+        // XXX 8/5/2009: Revisado tool aÃ±adir recursos (en todos los elementos)
         public void actionPerformed( ActionEvent e ) {
 
             boolean canDelete=true;
@@ -279,7 +279,7 @@ public abstract class LooksPanel extends JPanel implements Updateable {
 
         public void actionPerformed( ActionEvent e ) {
 
-            // XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
+            // XXX 8/5/2009: Revisado tool aÃ±adir recursos (en todos los elementos)
             if( resourcesTable.getSelectedIndex( ) >= 0 ) {
                 dataControl.setSelectedResources( resourcesTable.getSelectedIndex( ) );
                 int selectedBlock = dataControl.getSelectedResources( );
@@ -299,7 +299,7 @@ public abstract class LooksPanel extends JPanel implements Updateable {
 
         public void actionPerformed( ActionEvent e ) {
 
-            // XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
+            // XXX 8/5/2009: Revisado tool aÃ±adir recursos (en todos los elementos)
             if( dataControl.addElement( Controller.RESOURCES, null ) ) {
                 dataControl.setSelectedResources( dataControl.getResourcesCount( ) - 1 );
                 updateResources( );

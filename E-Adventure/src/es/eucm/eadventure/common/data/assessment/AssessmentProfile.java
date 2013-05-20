@@ -514,7 +514,7 @@ public class AssessmentProfile implements Cloneable {
     }
 
     /**
-     * Don´t use this method in the editor
+     * Don't use this method in the editor
      * 
      * @param scorm2004
      *            the scorm2004 to set
@@ -526,7 +526,7 @@ public class AssessmentProfile implements Cloneable {
     }
 
     /**
-     * Don´t use this method in the editor
+     * Don't use this method in the editor
      * 
      * @param scorm12
      *            the scorm12 to set
