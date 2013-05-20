@@ -525,7 +525,7 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 <entry key="Operation.DeleteChapterMessage">Are you sure that you want to delete this chapter?
 		It will be impossible to recover it after deleting</entry>
 <entry key="MenuRun.Debug">Debug</entry>
-<entry key="MenuRun.Experimental.Debug">Debug wit new engine (Experimental)</entry>
+<entry key="MenuRun.Experimental.Debug">Debug with new engine (Experimental)</entry>
 <entry key="MenuRun.Experimental.Normal">Run with new engine (Experimental)</entry>
 <entry key="BarriersList.DeleteBarrier">Delete selected barrier</entry>
 <entry key="Cursors.Preview">View cursor</entry>
@@ -2095,4 +2095,7 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="TalkToAction.MessageSelectConversation">Select a conversation</entry>
 <entry key="BookPage.NotValidURL">The URL provided is not accessible, so it is not guaranteed it will be shown in the game. Please, check you typed correctly the URL and your Internet connection is working properly.</entry>
 <entry key="LOMES.MetaMetaData.Language">Language</entry>
+<entry key="GeneralText.MoveUp">Move this element one position up in the list</entry>
+<entry key="GeneralText.MoveDown">Move this element one position down in the list</entry>
+<entry key="Scene.MakeInitial">Make the game starts with this screen</entry>
 </properties>
