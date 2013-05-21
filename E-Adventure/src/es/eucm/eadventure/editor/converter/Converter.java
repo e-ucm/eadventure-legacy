@@ -69,7 +69,6 @@ public class Converter {
     }
 
     public void launch( ) {
-
         String folder = controller.getProjectFolder( );
         File f = new File( folder, "data.xml" );
         if( f.exists( ) ) {
