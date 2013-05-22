@@ -42,9 +42,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 
 import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.engine.core.control.ActionManager;
-import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
@@ -207,16 +205,6 @@ public class ActionButtons {
         String route = "gui/hud/traditional/";
         String dirButton = null;
 
-        //#JAVA6#
-        if( Game.getInstance( ).isFromEditor( ) ) {
-            dirButton = route + Controller.getInstance( ).getLanguage( ) + "/" + name + ".png";
-            File fichero = new File( dirButton );
-            if( !fichero.exists( ) ) {
-                // if there isn't file, load the default file 
-                dirButton = route + Controller.getInstance( ).getDefaultLanguage( ) + "/" + name + ".png";
-            }
-        }
-        else {
         //@JAVA6@
             try{
                 dirButton = route + ConfigData.getLanguage( ) + "/" + name + ".png";
@@ -229,8 +217,6 @@ public class ActionButtons {
                 dirButton = route + TC.get( "Language.Internationalize" ) + "/" + name + ".png";
             }
         //#JAVA6#            
-        }
-        //@JAVA6@
         
         return dirButton;
     }

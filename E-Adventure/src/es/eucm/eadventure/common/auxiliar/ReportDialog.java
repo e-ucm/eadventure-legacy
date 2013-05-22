@@ -38,6 +38,7 @@ package es.eucm.eadventure.common.auxiliar;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
@@ -81,7 +82,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.gui.auxiliar.JPositionedFrame;
 
 /**
  * This class has methods used to generate and send an error or comments report
@@ -189,7 +189,11 @@ public class ReportDialog extends JDialog {
         int y=rep.getY( );
         int w=rep.getWidth( );
         int h=rep.getHeight( );
-        rep.setLocation( JPositionedFrame.adjustXWithConfig( x, w ), JPositionedFrame.adjustYWithConfig( y, h ));
+        
+        int sw=GraphicsEnvironment.getLocalGraphicsEnvironment( ).getDefaultScreenDevice( ).getDisplayMode( ).getWidth( );
+        int sh=GraphicsEnvironment.getLocalGraphicsEnvironment( ).getDefaultScreenDevice( ).getDisplayMode( ).getHeight( );
+        //rep.setLocation( JPositionedFrame.adjustXWithConfig( x, w ), JPositionedFrame.adjustYWithConfig( y, h ));
+        rep.setLocation( (sw-w)/2, (sh-h)/2);
     }
 
     /**

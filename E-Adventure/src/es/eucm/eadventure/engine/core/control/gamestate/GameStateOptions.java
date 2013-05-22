@@ -58,7 +58,6 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.CreateImage;
 import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.engine.assessment.ReportDialog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
@@ -368,11 +367,11 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
 
         //#JAVA6#
         if( Game.getInstance( ).isFromEditor( ) ) {
-            dirButton = route + Controller.getInstance( ).getLanguage( ) + "/" + name + ".png";
+            dirButton = route + ConfigData.getLanguage( ) + "/" + name + ".png";
             File fichero = new File( dirButton );
             if( !fichero.exists( ) ) {
                 // if there isn't file, load the default file 
-                dirButton = route + Controller.getInstance( ).getDefaultLanguage( ) + "/" + name + ".png";
+                dirButton = route + ConfigData.getDefaultLanguage( )+"/" + name + ".png";
             }
         }
         else {
