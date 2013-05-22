@@ -130,6 +130,10 @@ public class ConfigData {
         }
     }
 
+    private ConfigData(){
+        
+    }
+    
     private ConfigData( String fileName ) {
 
         this.configFile = fileName;
@@ -178,4 +182,13 @@ public class ConfigData {
         return "en_EN"; //default language
     }
 
+    public static void setTempLanguage (String language){
+        if (instance==null){
+            instance= new ConfigData();
+        }
+        instance.languageFile = language;
+        if (!instance.languageFile.endsWith( ".xml" )){
+            instance.languageFile+=".xml";
+        }
+    }
 }
