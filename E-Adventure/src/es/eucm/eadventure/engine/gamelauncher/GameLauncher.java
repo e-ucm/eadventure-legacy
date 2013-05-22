@@ -165,7 +165,7 @@ public class GameLauncher extends JFrame implements Runnable {
     /**
      * Combo Box
      */
-    private JComboBox combo;
+    private JComboBox languageCombo;
 
     /**
      * Refresh button
@@ -205,7 +205,7 @@ public class GameLauncher extends JFrame implements Runnable {
      * Flag to indicate if we are loading a game from the command line
      */
     private boolean initGameLoad;
-
+    
     /**
      * Creates a new GameLaucher. This constructor does actually nothing, you
      * have to call init() for this class to be ready for use.
@@ -218,7 +218,6 @@ public class GameLauncher extends JFrame implements Runnable {
      * Initializes the frame and loads the games in the current directory
      */
     public void init( File file ) {
-
         // Create the list of icons of the window
         //#JAVA6#
         List<Image> icons = new ArrayList<Image>( );
@@ -539,15 +538,18 @@ public class GameLauncher extends JFrame implements Runnable {
         options[0] = TC.get( "MainWindow.SelectLanguage" );
         for (int i = 0 ; i < languages.size( ); i++)
             options[i+1] = ReleaseFolders.getLanguageName( languages.get( i ) );
-        combo = new JComboBox( options );
-        combo.addActionListener( new ActionListener( ) {
+        languageCombo = new JComboBox( options );
+        languageCombo.addActionListener( new ActionListener( ) {
             public void actionPerformed( ActionEvent arg0 ) {
                 String args[] = new String[ 2 ];
                 args[0] = "";
 
-                if (combo.getSelectedIndex( ) > 0)
-                    args[1] = ReleaseFolders.getLanguageFilePath( languages.get( combo.getSelectedIndex() - 1 ) );
-
+                if (languageCombo.getSelectedIndex( ) > 0){
+                    args[1] = ReleaseFolders.getLanguageFilePath( languages.get( languageCombo.getSelectedIndex() - 1 ) );
+                    ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( languages.get( languageCombo.getSelectedIndex() - 1 ) ), 
+                            ReleaseFolders.getAboutFilePath( languages.get( languageCombo.getSelectedIndex() - 1 ) ) );
+                    
+                }
                 EAdventure.main( args );
 
                 setVisible( false );
@@ -558,7 +560,7 @@ public class GameLauncher extends JFrame implements Runnable {
         );
 
         c.gridy++;
-        buttonsPanel.add( combo, c );
+        buttonsPanel.add( languageCombo, c );
         return buttonsPanel;
     }
 
