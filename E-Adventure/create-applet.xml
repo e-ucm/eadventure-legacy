@@ -10,8 +10,8 @@
 	<property name="gui.dir" value="gui" />
 	<property name="img.dir" value="img" />
 	<property name="web.dir" value="web" />
-<!--	<property name="plugin.dir" value="C:/Program Files (x86)/Java/jre6/lib" /> -->
-	<property name="plugin.dir" value="/usr/share/icedtea-web" />
+	<property name="plugin.dir" value="C:/Program Files (x86)/Java/jre6/lib" />
+	<!--<property name="plugin.dir" value="/usr/share/icedtea-web" />-->
 	<property name="lanengine.dir" value="i18n/editor" />
 	<property name="laneditor.dir" value="i18n/engine" />
 	<property name="release.version" value="1.5RC5" />
@@ -37,6 +37,7 @@
 		<mkdir dir="web/src-tmp/"/>
 		<copy todir="web/src-tmp" overwrite="true">
 			<fileset dir="src">
+				<exclude name="es/eucm/eadventure/editor/**" />
 				<exclude name="CVS/**" />
 				<exclude name=".svn/**" />
 				<include name="**" />
@@ -91,6 +92,8 @@
 		<delete file="web/eAdventure.jar" />
 		<copy todir="web/temp">
 			<fileset dir=".">
+			    <include name="encrypted-codes-chermug.csv"/>
+			    <include name="Caratula.jpg"/>
 				<include name="gui/cursors/action.png" />
 				<include name="gui/cursors/default.png" />
 				<include name="gui/cursors/exit.png" />
