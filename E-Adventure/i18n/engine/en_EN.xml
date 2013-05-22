@@ -142,4 +142,11 @@
 <entry key="Options.versionError1">Version error</entry>
 <entry key="MainWindow.ListGamesText">This is the list of available games in the location you have provided</entry>
 <entry key="GameText.Fast">Fast</entry>
+<entry key="CodeScreen.CloseConfirm">Are you sure you want to quit?</entry>
+<entry key="CodeScreen.InvalidInput.LessThan4Characters">The code must have at least 4 characters. You have introduced less than four characters.</entry>
+<entry key="CodeScreen.InvalidInput.MoreThan8Characters">The code must have 8 characters maximum, without dashes. You have introduced more than eight characters.</entry>
+<entry key="CodeScreen.InvalidInput.InvalidCode">The code you have introduced is not valid. Please use the code that you have been given.</entry>
+<entry key="CodeScreen.ValidInput">The code you have introduced is valid and correct. Click "Start" to launch the game.</entry>
+<entry key="CodeScreen.WelcomeMessage">Welcome! Please introduce the code you have been given to start the game.</entry>
+<entry key="CodeScreen.Start">Start</entry>
 </properties>
