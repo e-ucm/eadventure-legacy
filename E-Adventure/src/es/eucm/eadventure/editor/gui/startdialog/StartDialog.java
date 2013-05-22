@@ -441,6 +441,7 @@ public class StartDialog extends JFileChooser {
         RecentFilesTableModel todayModel = new RecentFilesTableModel( 1, 0, todayTable, todayOtherTables );
         todayTable.setModel( todayModel );
         todayTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        todayTable.getTableHeader( ).setReorderingAllowed( false );
         todayTable.getColumnModel( ).getColumn( 0 ).setPreferredWidth( 32 );
         todayTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 32 );
         todayTable.getColumnModel( ).getColumn( 0 ).setMinWidth( 32 );
@@ -457,6 +458,7 @@ public class StartDialog extends JFileChooser {
         JTable[] yesterdayOtherTables = new JTable[] { todayTable, beforeTable };
         RecentFilesTableModel yesterdayModel = new RecentFilesTableModel( 2, 1, yesterdayTable, yesterdayOtherTables );
         yesterdayTable.setModel( yesterdayModel );
+        yesterdayTable.getTableHeader( ).setReorderingAllowed( false );
         yesterdayTable.getColumnModel( ).getColumn( 0 ).setPreferredWidth( 32 );
         yesterdayTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 32 );
         yesterdayTable.getColumnModel( ).getColumn( 0 ).setMinWidth( 32 );
@@ -476,6 +478,7 @@ public class StartDialog extends JFileChooser {
         RecentFilesTableModel beforeModel = new RecentFilesTableModel( 2, beforeTable, beforeOtherTables );
         beforeTable.setModel( beforeModel );
         beforeTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        beforeTable.getTableHeader( ).setReorderingAllowed( false );
         beforeTable.getColumnModel( ).getColumn( 0 ).setPreferredWidth( 32 );
         beforeTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 32 );
         beforeTable.getColumnModel( ).getColumn( 0 ).setMinWidth( 32 );
