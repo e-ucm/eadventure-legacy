@@ -54,14 +54,14 @@ import es.eucm.eadventure.engine.gamelauncher.GameLauncher;
 /**
  * @updated by Javier Torrente. New functionalities added - Support for .ead
  *          files. Therefore <e-Adventure> files are no longer .zip but .ead
- * @updated by Enrique L�pez. Functionalities added (10/2008) - Multilanguage
+ * @updated by Enrique López. Functionalities added (10/2008) - Multilanguage
  *          support. Two new classes added
  */
 public class EAdventure {
 
     public static String VERSION = "1.5";
 
-    public static String languageFile = ReleaseFolders.LANGUAGE_UNKNOWN;
+    //public static String languageFile = ReleaseFolders.LANGUAGE_UNKNOWN;
 
     /**
      * Sets the current language of the editor. Accepted values are
@@ -75,11 +75,9 @@ public class EAdventure {
      */
     public static void setLanguage( String language ) {
 
-        if( true ) {
-            ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ) );
-            languageFile = language;
-            TC.loadStrings( ReleaseFolders.getLanguageFilePath4Engine( languageFile ) );
-        }
+        ConfigData.setLanguangeFile( ReleaseFolders.getLanguageFilePath( language ), ReleaseFolders.getAboutFilePath( language ) );
+        //languageFile = language;
+        TC.loadStrings( ReleaseFolders.getLanguageFilePath4Engine( language ) );
     }
 
     /**
@@ -92,13 +90,17 @@ public class EAdventure {
 
         // Load the configuration
         ConfigData.loadFromXML( ReleaseFolders.configFileEngineRelativePath( ) );
-
+        String languageFile = ReleaseFolders.LANGUAGE_UNKNOWN;
+        
         if( args.length >= 2 ) {
             setLanguage( ReleaseFolders.getLanguageFromPath( args[1] ) );
+            languageFile=ReleaseFolders.getLanguageFromPath( args[1] );
         }
-        else
+        else{
             setLanguage( ReleaseFolders.getLanguageFromPath( ConfigData.getLanguangeFile( ) ) );
-
+            languageFile = ReleaseFolders.getLanguageFromPath( ConfigData.getLanguangeFile( ) );
+        }
+        
         try {
             Codec video = (Codec) Class.forName( "net.sourceforge.jffmpeg.VideoDecoder" ).newInstance( );
             PlugInManager.addPlugIn( "net.sourceforge.jffmpeg.VideoDecoder", video.getSupportedInputFormats( ),  video.getSupportedOutputFormats( null ), PlugInManager.CODEC );

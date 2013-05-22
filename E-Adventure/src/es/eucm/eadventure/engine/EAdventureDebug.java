@@ -41,6 +41,7 @@ import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -56,11 +57,12 @@ public class EAdventureDebug {
      * @param args
      *            Arguments
      */
-    public static void runOrDebug( AdventureData data, InputStreamCreator isCreator, RunAndDebugSettings debugOptions ) {
+    public static void runOrDebug( AdventureData data, InputStreamCreator isCreator, RunAndDebugSettings debugOptions, String i18n ) {
 
         Loader.setAdventureData( data );
         ResourceHandler.setExternalMode( isCreator );
         GameText.reloadStrings( );
+        ConfigData.setTempLanguage( i18n );
         Game.create( true, debugOptions );
         Game.getInstance( ).setAdventureName( data.getTitle( ) );
         Game.getInstance( ).run( );

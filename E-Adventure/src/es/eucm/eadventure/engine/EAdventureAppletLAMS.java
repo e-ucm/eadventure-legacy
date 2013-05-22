@@ -48,6 +48,7 @@ import es.eucm.eadventure.comm.manager.commManager.CommManagerLAMS;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.core.gui.GUIApplet;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -79,7 +80,7 @@ public class EAdventureAppletLAMS extends CommManagerLAMS{
     public void init(){
       
         TC.loadStrings( EAdventureApplet.class.getResourceAsStream( "/i18n/engine/en_EN.xml" ) );
-
+        ConfigData.setTempLanguage( "en_EN" );
         
         try {
             Codec video = (Codec) Class.forName( "net.sourceforge.jffmpeg.VideoDecoder" ).newInstance( );
