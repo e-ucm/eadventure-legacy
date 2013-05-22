@@ -46,6 +46,7 @@ import java.util.List;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.tracking.pub._GameLog;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 public class GameLog implements _GameLog {
 
@@ -60,19 +61,22 @@ public class GameLog implements _GameLog {
     private boolean effectVerbosity;
 
     private long threshold;
+    
+    private List<GameLogEntry> specialEvents;
 
     public List<GameLogEntry> getEntries( ) {
 
         return allEntries;
     }
 
-    public GameLog( boolean logging, boolean effectVerbosity, long startTimeStamp, long threshold, String gameId, String code ) {
+    public GameLog( boolean logging, boolean effectVerbosity, long startTimeStamp, long threshold, String gameId, String code, String specialEvents ) {
 
         allEntries = new ArrayList<GameLogEntry>( );
         this.logging = logging;
         this.effectVerbosity = effectVerbosity;
         this.startTimeStamp = startTimeStamp;
         this.threshold = threshold;
+        this.specialEvents = buildSpecialEntries(specialEvents);
         addStartTimeEntry( gameId, code );
     }
 
@@ -214,7 +218,8 @@ public class GameLog implements _GameLog {
     }
 
     private void addEntry( GameLogEntry entry ) {
-
+            checkSpecialEvent( entry );
+        
         synchronized( allEntries ) {
             allEntries.add( entry );
         }
@@ -243,4 +248,38 @@ public class GameLog implements _GameLog {
         addEntry( newEntry );
     }
 
+    
+    private void checkSpecialEvent( GameLogEntry entry ){
+        for (GameLogEntry special: this.specialEvents){
+            if (special.getElementName( ).equals( entry.getElementName( ) ) && 
+                    special.getAttributeCount( ) == entry.getAttributeCount( )){
+                boolean equals = true;
+                for (int i=0; i<special.getAttributeCount( ); i++){
+                    if (special.getAttributeName( i ).equals( "off" ) || special.getAttributeName( i ).equals( "ms" )){
+                        continue;
+                    }
+                    equals &= special.getAttributeValue( i ).equals( entry.getAttributeValue(i) );
+                }
+                if (equals){
+                    if (Game.getInstance( )!=null && Game.getInstance( ).getAssessmentEngine( )!=null){
+                        highLevelEvent( _HighLevelEvents.ASSESSMENT_REPORT, 
+                                Game.getInstance( ).getAssessmentEngine( ).getHTMLReportString( ));
+                    }
+                }
+            }
+        }
+    }
+    
+    private List<GameLogEntry> buildSpecialEntries(String specialIDs){
+        List<GameLogEntry> specialEntries = new ArrayList<GameLogEntry>();
+        if (specialIDs!=null){
+            String[] idArray = specialIDs.split( " " );
+            for (String id:idArray){
+                Integer offset=new Integer(0);
+                GameLogEntry newEntry = new GameLogEntry( startTimeStamp, "h", offset, new String[] { "a=" + _HighLevelEvents.NEW_SCENE, "o=" + id } );
+                specialEntries.add( newEntry );
+            }
+        }
+        return specialEntries;
+    }
 }

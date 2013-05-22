@@ -250,6 +250,20 @@ public interface _HighLevelEvents {
     public static final String OFFSET_ARROW_LEFT="oal";
 
 
+    // Assessment events
+    /**
+     * Identifier for the next high level event: assessment rule triggered..
+     */
+    public static final String ASSESSMENT_RULE_TRIGGERED="arl";
+    /**
+     * Identifier for the next high level event: assessment report generated and sent to backend.
+     */    
+    public static final String ASSESSMENT_REPORT="are";
+    /**
+     * Communication to the LMS
+     */    
+    public static final String ASSESSMENT_LMS="lms";    
+    
     // Run effects
     /*
      * Each effect has a 3-letter code that is logged when it is triggered. 

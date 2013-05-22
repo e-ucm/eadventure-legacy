@@ -47,6 +47,8 @@ public class TrackingConfigExtended {
     private static final String GAME_ID_PROP ="game-id";
     private static final String EFFECTS_VERBOSITY_PROP ="log-effects";
     private static final String LOW_LEVEL_FREQ_PROP ="low-level-freq";
+    private static final String WELCOME_MESSAGE="welcome-message"; // Global
+    private static final String ASSESSMENT_REPORT_TRIGGERS="assessmentreport-triggers"; // Global
     
     private TrackingConfig trackingConfig;
 
@@ -55,7 +57,7 @@ public class TrackingConfigExtended {
      * It should be updated every time the system is modified, especially if the
      * model changes.
      */
-    public static final String VERSION = "20130109";
+    public static final String VERSION = "20130521";
     
     public TrackingConfigExtended(TrackingConfig trackingConfig){
         this.trackingConfig = trackingConfig;
@@ -67,6 +69,14 @@ public class TrackingConfigExtended {
     
     public String getGameId(){
         return findProp(GAME_ID_PROP);
+    }
+    
+    public String getWelcomeMessage(){
+        return findProp(WELCOME_MESSAGE);
+    }
+    
+    public String getSpecialGameEntries(){
+        return findProp(ASSESSMENT_REPORT_TRIGGERS);
     }
     
     public boolean effectVerbosityEnabled(){

@@ -72,7 +72,7 @@ public class FunctionalWaitTimeEffect extends FunctionalEffect {
 
     @Override
     public void triggerEffect( ) {
-        gameLog.effectEvent( getCode(), "v="+( (WaitTimeEffect) effect ).getTime( ));
+        gameLog.effectEvent( getCode(), "t="+( (WaitTimeEffect) effect ).getTime( ));
         timer = new Timer( ( (WaitTimeEffect) effect ).getTime( ) * 1000, new ActionListener( ) {
 
             public void actionPerformed( ActionEvent e ) {

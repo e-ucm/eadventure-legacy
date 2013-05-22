@@ -36,6 +36,50 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.assessment;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerLAMS;
 import es.eucm.eadventure.common.auxiliar.SendMail;
@@ -46,32 +90,15 @@ import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
-import es.eucm.eadventure.engine.core.control.*;
+import es.eucm.eadventure.engine.core.control.FlagSummary;
+import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.TimerEventListener;
+import es.eucm.eadventure.engine.core.control.TimerManager;
+import es.eucm.eadventure.engine.core.control.VarSummary;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * This engine stores the rules to be processed when the flags change in the
@@ -244,13 +271,20 @@ public class AssessmentEngine implements TimerEventListener {
         oldRule.setText( Game.getInstance( ).processText( oldRule.getText( )));
         ProcessedRule rule = new ProcessedRule(oldRule, Game
             .getInstance().getTime());
-
+        
         // Signal the LMS about the change
         if (Game.getInstance().isConnected()) {
             // check if it is necessary to send in-game value to the property
             List<AssessmentProperty> properties = checkProperties(oldRule.getAssessmentProperties());
             Game.getInstance().getComm().notifyRelevantState(properties);
-        }
+            for (AssessmentProperty property:properties){
+                Game.getInstance( ).getGameLog( ).effectEvent( _HighLevelEvents.ASSESSMENT_LMS, 
+                            "o="+oldRule.getId( ), "t="+property.getId( ), "l="+(property.getValue( )!=null?property.getValue( ):property.getVarName( )));
+            }
+          
+        } 
+        Game.getInstance( ).getGameLog( ).effectEvent( _HighLevelEvents.ASSESSMENT_RULE_TRIGGERED, "o="+oldRule.getId( ), 
+                "t="+oldRule.getConcept( ), "l="+oldRule.getText( ));
         processedRules.add(rule);
 	}
 	
@@ -440,6 +474,17 @@ public class AssessmentEngine implements TimerEventListener {
         file+="<table width=\"80%\" align=\"center\" style=\"background : #"+HTML_REPORT_COLOR_1+"; border : 1px solid #000000;\">";
         file+="<tr><td>";
 
+        // PlayerName
+        if (playerName!=null && !playerName.equals( "" )){
+            file+="<p><b>Student ID: "+playerName+"</b></p>";
+        }
+        
+        // Client time and date
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println(dateFormat.format(date));
+        file+="<p><b>Date: </b>" +dateFormat.format(date)+ "</p>";
+        
         // Title
         file+="<center><h1>";
         file+=Game.getInstance( ).processText(Game.getInstance().getGameDescriptor().getTitle());

@@ -73,20 +73,23 @@ public class TrackingController implements _TrackingController{
             Random r = new Random();
             studentId = Integer.toString( r.nextInt( 10000 ) );
         } else if (trackingConfigExt.getStudentId( ).equals( "ask" )){ 
-           int c= NameInputScreen.getCode( );
-           if (c==-1) {
+           String c= NameInputScreen.getCode( trackingConfigExt.getWelcomeMessage( ) );
+           if (c==null) {
                System.err.println( "Error. Not valid code. "+c );
                System.exit( 0 );
            }else
-               studentId = Integer.toString( c );
+               studentId =  c ;
         } else {
             studentId = trackingConfigExt.getStudentId( );
         }
         trackingConfigExt.setStudentId( studentId );
         
-        gameLog = new GameLog(trackingConfig.isEnabled( ), trackingConfigExt.effectVerbosityEnabled( ), startTimeStamp, trackingConfigExt.logLowLevelEventsSampleFreq( ), trackingConfigExt.getGameId( ), studentId);
+        gameLog = new GameLog(trackingConfig.isEnabled( ), trackingConfigExt.effectVerbosityEnabled( ), startTimeStamp, trackingConfigExt.logLowLevelEventsSampleFreq( ), trackingConfigExt.getGameId( ), studentId, trackingConfigExt.getSpecialGameEntries( ));
         if (trackingConfigExt.getTrackingConfig( ).isEnabled( )) {        
     
+            // Inject default services
+            addDefaultServices(trackingConfig);
+            
             for (Service service: trackingConfig.getService( )){
                 if (service.isEnabled( ) && service.getClazz( )!=null &&!service.getClazz().equals( "" )){
                     try {
@@ -133,4 +136,16 @@ public class TrackingController implements _TrackingController{
         return gameLog;
     }
 
+    /**
+     * Adds default services. That is, services that must be always added and which are not defined through the XML config file.
+     * @param config
+     */
+    private void addDefaultServices(TrackingConfig config){
+        Service newService = new Service();
+        newService.setClazz("es.eucm.eadventure.tracking.prv.service.StudentIDInjector");
+        newService.setEnabled( true );
+        newService.setFrequency( 5L );
+        newService.setName( "studentid-injector" );
+        config.getService( ).add( newService );
+    }
 }

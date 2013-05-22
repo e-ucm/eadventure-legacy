@@ -156,7 +156,7 @@ public class GleanerLogConsumer extends GameLogConsumer {
         try {
             DefaultHttpClient client = new DefaultHttpClient( );
             HttpPost trackPost = new HttpPost( url + TRACK );
-            trackPost.setHeader( "Content-Type", "application/json" );
+            trackPost.setHeader( "Content-Type", "application/json; charset=UTF-8" );
             trackPost.setHeader( "Authorization", sessionToken );
             trackPost.setEntity( new StringEntity( jsonTraces ) );
             HttpResponse response = client.execute( trackPost );
@@ -244,7 +244,7 @@ public class GleanerLogConsumer extends GameLogConsumer {
                 }
 
                 if( entry.getAttributeValue( "t" ) != null ) {
-                    if( trace.containsKey( "t" ) ) {
+                    if( trace.containsKey( "target" ) ) {
                         data.put( "target", entry.getAttributeValue( "t" ) );
                     }
                     else {

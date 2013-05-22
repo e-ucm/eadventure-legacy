@@ -64,11 +64,16 @@ import javax.swing.JTextArea;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import es.eucm.eadventure.common.gui.TC;
+
 
 public class NameInputScreen extends JDialog{
 
     private static final int WIDTH=810;
     private static final int HEIGHT=635;
+    
+    private static final String CODE_ERROR="ERRNEG02";
+    private static final String CODE_CLOSE="QUIT0001";
     
     private class NISLayout implements LayoutManager2{
 
@@ -127,24 +132,25 @@ public class NameInputScreen extends JDialog{
     private JTextArea input;
     private JTextArea message;
     private JButton continueBtn;
-    private List<Integer> codes;
-    private int code;
+    private List<String> codes;
+    private String code;
     private Image toPaint = null;
     
-    public NameInputScreen ( ){
+    public NameInputScreen ( String welcomeMessage ){
         this.setModal( true );
         NISPanel panel = new NISPanel();
         panel.setLayout( new NISLayout() );
         ImageIcon image = new ImageIcon("Caratula.jpg");
         toPaint = image.getImage( );
-        code=-2;
+        code=CODE_ERROR;
         codes= ReadCodes.getEncodedCodes( );
         this.getRootPane( ).setLayout( new BorderLayout() );
         this.getRootPane( ).add( panel, BorderLayout.CENTER );
         //Descomentar para la dama boba
         //instructions= new JTextArea ("Bienvenido al juego de la Dama Boba. Introduce los cuatro u ocho primeros dígitos del código que te han dado para empezar a jugar (los que aparecen antes del guión).");
         //Descomentar para la ONT
-        instructions= new JTextArea ("Bienvenido a las simulaciones de la ONT. Introduce el código de cuatro dígitos que te han facilitado para empezar.");
+        //instructions= new JTextArea ("Bienvenido a las simulaciones de la ONT. Introduce el código de cuatro dígitos que te han facilitado para empezar.");
+        instructions= new JTextArea (welcomeMessage);
         Font font = new Font ("Tahoma", Font.BOLD, 16);
         instructions.setWrapStyleWord( true );
         instructions.setFont( font );
@@ -176,7 +182,7 @@ public class NameInputScreen extends JDialog{
         message.setLineWrap( true );
         message.setOpaque( false );
         message.setFont( font );
-        continueBtn = new JButton ("Empezar");
+        continueBtn = new JButton (TC.get( "CodeScreen.Start" ));
         continueBtn.setFont( font );
         continueBtn.addActionListener( new ActionListener(){
 
@@ -235,9 +241,9 @@ public class NameInputScreen extends JDialog{
 
     private void close( boolean askConfirmation ){
         if (askConfirmation) {
-            int option=JOptionPane.showConfirmDialog( NameInputScreen.this, "�Est�s seguro de que quieres cerrar el juego?" );
+            int option=JOptionPane.showConfirmDialog( NameInputScreen.this, TC.get( "CodeScreen.CloseConfirm" ) );
             if (option ==JOptionPane.OK_OPTION){
-                code=-1;
+                code=CODE_CLOSE;
                 dispose( );
             } 
             
@@ -260,36 +266,36 @@ public class NameInputScreen extends JDialog{
         txt=txt.replace( "\t", "" ).replaceAll( "\n", "" ).replaceAll(" ","");
         String txt2="";
         for (int i=0; i<txt.length( ); i++){
-            if (txt.charAt( i )>='0' && txt.charAt( i )<='9'){
+            if (Character.isLetterOrDigit(txt.charAt( i ))){
                 txt2+=txt.charAt(i);
             }
         }
         txt=txt2;
         String m="";
         boolean valid=true;
-        code=-1;
+        code=CODE_CLOSE;
         if (txt==null || txt.length( )<4){
-            m ="El código tiene que ser de al menos 4 dígitos numéricos. Has introducido menos dígitos.";
+            m =TC.get( "CodeScreen.InvalidInput.LessThan4Characters" );//"El código tiene que ser de al menos 4 dígitos numéricos. Has introducido menos dígitos.";
             valid=false;
-            code=-1;
+            code=CODE_CLOSE;
         } else if (txt.length( )>8){
-            m ="Introduce sólo los 4 u 8 dígitos anteriores al guión. El código que has introducido es demasiado largo.";
+            m =TC.get( "CodeScreen.InvalidInput.MoreThan8Characters" );//"Introduce sólo los 4 u 8 dígitos anteriores al guión. El código que has introducido es demasiado largo.";
             valid=false;
-            code=-1;
+            code=CODE_CLOSE;
         }
         else {
             try {
-                code=Integer.parseInt( txt );
+                code= txt ;
                 if (codes.contains( code )){
                     valid =true;
-                    m="Código correcto. Pulsa \"Empezar\" para lanzar el juego.";
+                    m=TC.get( "CodeScreen.ValidInput" );//"Código correcto. Pulsa \"Empezar\" para lanzar el juego.";
                 } else {
-                    code=-1;
+                    code=CODE_CLOSE;
                     valid=false;
-                    m="Código incorrecto. Tienes que introducir el código que te han dado en clase.";
+                    m=TC.get( "CodeScreen.InvalidInput.InvalidCode" );//"Código incorrecto. Tienes que introducir el código que te han dado en clase.";
                 }
             }catch(NumberFormatException e){
-                code=-1;
+                code=CODE_CLOSE;
                 valid=false;
                 m="¡Introduce sólo números 0-9! Ni letras ni signos raros.";
             }
@@ -311,16 +317,28 @@ public class NameInputScreen extends JDialog{
     
     
     public static void main (String[]args){
-        int code = NameInputScreen.getCode( );
+        String code = NameInputScreen.getCode( );
         System.out.println("CODE="+code );
     }
 
-    public static int getCode( ) {
+    public static String getCode(  ) {
+        return NameInputScreen.getCode( null );
+    }
+    
+    private static boolean isValidCode( String code ){
+        return code!=null && code.length( )>=4 && code.length( )<=8 && !code.equals( CODE_CLOSE ) && !code.equals( CODE_ERROR );
+    }
+    
+    public static String getCode( String welcomeMessage ) {
         
-        NameInputScreen nis = new NameInputScreen();
+        if (welcomeMessage==null)
+            welcomeMessage=TC.get( "CodeScreen.WelcomeMessage" );
+        NameInputScreen nis = new NameInputScreen(welcomeMessage);
         System.out.println( "NIS Created" );
-        int code =nis.code;
+        String code =nis.code;
         System.out.println( "RETURNING CODE: "+code );
+        if (!isValidCode ( code))
+            return null;
         return code;
     }
 }
