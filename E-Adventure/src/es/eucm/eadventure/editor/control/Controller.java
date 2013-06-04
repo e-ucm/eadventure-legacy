@@ -35,7 +35,37 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.control;
 
-import es.eucm.eadventure.common.auxiliar.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.event.ComponentEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+
+import es.eucm.eadventure.common.auxiliar.AssetsConstants;
+import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.MultiscreenTools;
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.auxiliar.runsettings.DebugSettings;
 import es.eucm.eadventure.common.auxiliar.runsettings.GameWindowBoundsListener;
 import es.eucm.eadventure.common.auxiliar.runsettings.RunAndDebugSettings;
@@ -60,7 +90,11 @@ import es.eucm.eadventure.editor.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
-import es.eucm.eadventure.editor.control.controllers.*;
+import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
+import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
@@ -87,7 +121,11 @@ import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.MainWindow;
 import es.eucm.eadventure.editor.gui.auxiliar.JPositionedDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.*;
+import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.GraphicConfigDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.SearchDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.VarsFlagsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog.CustomizeGUIDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.ims.IMSDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomdialog.LOMDialog;
@@ -95,15 +133,6 @@ import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESDialog;
 import es.eucm.eadventure.editor.gui.startdialog.FrameForInitialDialogs;
 import es.eucm.eadventure.editor.gui.startdialog.StartDialog;
 import es.eucm.eadventure.engine.EAdventureDebug;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.io.IOException;
-import java.util.*;
-import java.util.List;
-import java.util.Timer;
 
 /**
  * This class is the main controller of the application. It holds the main
@@ -2426,7 +2455,7 @@ public class Controller {
                         mainWindow.setNormalRunAvailable( false );
                         // First update flags
                         chaptersController.updateVarsFlagsForRunning( );
-                        EAdventureDebug.runOrDebug( Controller.getInstance( ).adventureDataControl.getAdventureData( ), AssetsController.getInputStreamCreator( ), buildRunAndDebugSettings(false) );
+                        EAdventureDebug.runOrDebug( Controller.getInstance( ).adventureDataControl.getAdventureData( ), AssetsController.getInputStreamCreator( ), buildRunAndDebugSettings(false), Controller.getInstance( ).getLanguage( ) );
                         Controller.getInstance( ).startAutoSave( 15 );
                         mainWindow.setNormalRunAvailable( true );
                     }
@@ -2457,7 +2486,7 @@ public class Controller {
                     if( canBeRun( ) ) {
                         mainWindow.setNormalRunAvailable( false );
                         chaptersController.updateVarsFlagsForRunning( );
-                        EAdventureDebug.runOrDebug( Controller.getInstance( ).adventureDataControl.getAdventureData( ), AssetsController.getInputStreamCreator( ), buildRunAndDebugSettings(true) );
+                        EAdventureDebug.runOrDebug( Controller.getInstance( ).adventureDataControl.getAdventureData( ), AssetsController.getInputStreamCreator( ), buildRunAndDebugSettings(true), Controller.getInstance( ).getLanguage( ) );
                         Controller.getInstance( ).startAutoSave( 15 );
                         mainWindow.setNormalRunAvailable( true );
                     }
@@ -3377,6 +3406,14 @@ public class Controller {
 
         mainWindow.updateStructure( );
     }
+    
+    /**
+     * Updates the selected row in the element table on the left of the main window, if any
+     */
+    /*public void updateSelectedRowInStructure( ) {
+
+        mainWindow.updateSelectedRowStructure( );
+    }*/
 
     /**
      * Reloads the panel of the main window currently being used.
