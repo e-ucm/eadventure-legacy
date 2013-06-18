@@ -36,9 +36,16 @@
  ******************************************************************************/
 package es.eucm.eadventure.common.data.animation;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Transparency;
+import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.engine.core.gui.GUI;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
@@ -46,16 +53,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
-import es.eucm.eadventure.common.auxiliar.File;
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.data.Documented;
-import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
  * This class holds the information for an animation frame
@@ -394,7 +391,7 @@ public class Frame implements Cloneable, Timed, Documented {
         Image newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, Transparency.TRANSLUCENT );
 
         Graphics2D g = (Graphics2D) newImage.getGraphics( );
-        g.drawImage( image, 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, null );
+        g.drawImage( image, 0, 0, (int) (GUI.WINDOW_WIDTH / GUI.SCALE_X), (int) (GUI.WINDOW_HEIGHT / GUI.SCALE_Y), null );
         g.dispose( );
 
         return newImage;

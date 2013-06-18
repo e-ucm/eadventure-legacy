@@ -36,35 +36,6 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.gui;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.DisplayMode;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.FocusListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.font.TextAttribute;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import es.eucm.eadventure.common.auxiliar.runsettings.RunAndDebugSettings;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
@@ -73,6 +44,16 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
 import es.eucm.eadventure.engine.core.gui.hud.traditionalhud.TraditionalHUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.FocusListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.font.TextAttribute;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 public class GUIFrame extends GUI implements FocusListener {
 
@@ -145,7 +126,8 @@ public class GUIFrame extends GUI implements FocusListener {
             
         });
         
-        bkgFrame.setResizable( Game.getInstance( ).isDebug( ) );
+//        bkgFrame.setResizable( Game.getInstance( ).isDebug( ) );
+        bkgFrame.setResizable(true);
         
         // Create the list of icons of the window
         try {

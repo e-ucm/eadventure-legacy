@@ -666,14 +666,15 @@ public class FunctionalScene implements Renderable, _HighLevelEvents {
         if( Game.getInstance( ).isTransparent( ) )
             return false;
         boolean updated = false;
+        int width = (int) (GUI.WINDOW_WIDTH / GUI.SCALE_X);
 
         // Scroll
         int iw = background.getWidth( null );
-        if( player.getX( ) - offsetX > ( GUI.WINDOW_WIDTH - MAX_OFFSET_X ) ) {
+        if( player.getX( ) - offsetX > width - MAX_OFFSET_X ) {
             updated = true;
-            offsetX += player.getX( ) - offsetX - ( GUI.WINDOW_WIDTH - MAX_OFFSET_X );
-            if( offsetX + GUI.WINDOW_WIDTH > iw )
-                offsetX = iw - GUI.WINDOW_WIDTH;
+            offsetX += player.getX( ) - offsetX - ( width - MAX_OFFSET_X );
+            if( offsetX + width > iw )
+                offsetX = iw - width;
         }
 
         else if( player.getX( ) - offsetX < MAX_OFFSET_X ) {

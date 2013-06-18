@@ -36,37 +36,6 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.gui;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Composite;
-import java.awt.Cursor;
-import java.awt.FontMetrics;
-import java.awt.Frame;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.Toolkit;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -81,11 +50,27 @@ import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
 import es.eucm.eadventure.engine.core.gui.splashscreen.SplashScreen;
 import es.eucm.eadventure.engine.core.gui.splashscreen.SplashScreenImpl1_4;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This is the main class related with the graphics in eAdventure, including the
  * window
  */
 public abstract class GUI implements FocusListener {
+
+    public static final float SCALE_X = 1.0f;
+
+    public static final float SCALE_Y = 1.0f;
 
     /**
      * Applet gui type id
@@ -105,12 +90,12 @@ public abstract class GUI implements FocusListener {
     /**
      * Width of the window
      */
-    public static final int WINDOW_WIDTH = 800;
+    public static final int WINDOW_WIDTH = (int) (800 * SCALE_X);
 
     /**
      * Height of the window
      */
-    public static final int WINDOW_HEIGHT = 600;
+    public static final int WINDOW_HEIGHT = (int) (600 * SCALE_Y);
 
     /**
      * Max width of the text spoken in the game
@@ -197,6 +182,8 @@ public abstract class GUI implements FocusListener {
      * Splash screen used while loading (for example, transitions between states)
      */
     protected SplashScreen splashScreen;
+
+    private AffineTransform defaultTransform = new AffineTransform(SCALE_X, 0.0, 0.0, SCALE_Y, 0.0, 0.0);
 
     /**
      * Return the GUI instance. GUI is a singleton class.
@@ -354,8 +341,7 @@ public abstract class GUI implements FocusListener {
         return rh;
     }
 
-    
-    
+
     /**
      * Gets the graphics context for the display. The ScreenManager uses double
      * buffering, so applications must call update() to show any graphics drawn.
@@ -365,7 +351,7 @@ public abstract class GUI implements FocusListener {
 
         BufferStrategy strategy = gameFrame.getBufferStrategy( );
         Graphics2D g = (Graphics2D) strategy.getDrawGraphics( );
-        //Graphics2D g = (Graphics2D)panel.getGraphics();
+        g.setTransform(defaultTransform);
 
         if( g == null ) {
             //System.out.println( "Error: Graphics2D = null " );
@@ -1640,13 +1626,16 @@ public abstract class GUI implements FocusListener {
         private void init( ) {
 
             FontMetrics f = GUI.getInstance( ).getGraphics( ).getFontMetrics( );
-            lines = BallonFactory.getLines( f, text, 0.66f, GUI.WINDOW_WIDTH );
-            textBounds = BallonFactory.getTextBounds( x, y, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
-            bubbleShape = BallonFactory.getPath( textBounds, 20, 10 );
-            stroke = BallonFactory.getStroke( );
+            lines = BallonFactory.getLines(f, text, 0.66f, GUI.WINDOW_WIDTH);
+            textBounds = BallonFactory.getTextBounds(x, y, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
+            bubbleShape = BallonFactory.getPath(textBounds, 20, 10);
+            stroke = BallonFactory.getStroke();
             af = BallonFactory.getTransformation( );
             arrow = BallonFactory.getArrow( x, y );
         }
+
+        private AffineTransform temp;
+        private AffineTransform textTr = new AffineTransform();
 
         /**
          * Draw the text onto the position
@@ -1656,9 +1645,11 @@ public abstract class GUI implements FocusListener {
          */
         public void draw( Graphics2D g ) {
 
-            AffineTransform a = g.getTransform( );
+            temp = g.getTransform( );
+            textTr.setTransform(temp);
+            textTr.concatenate(af);
 
-            g.setTransform( af );
+            g.setTransform(textTr);
 
             //g.setStroke( new WobbleStroke( 1.0f, 2.0f ) );
 
@@ -1715,7 +1706,7 @@ public abstract class GUI implements FocusListener {
                 sy += g.getFontMetrics( ).getHeight( ) + BallonFactory.marginTop;
             }
 
-            g.setTransform( a );
+            g.setTransform( temp );
 
         }
 

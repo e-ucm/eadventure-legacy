@@ -36,14 +36,10 @@
 
 package es.eucm.eadventure.tracking.prv.gleaner;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.google.gson.Gson;
+import es.eucm.eadventure.tracking.prv.GameLogEntry;
+import es.eucm.eadventure.tracking.prv.service.GameLogConsumer;
+import es.eucm.eadventure.tracking.prv.service.ServiceConstArgs;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -52,11 +48,9 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import com.google.gson.Gson;
-
-import es.eucm.eadventure.tracking.prv.GameLogEntry;
-import es.eucm.eadventure.tracking.prv.service.GameLogConsumer;
-import es.eucm.eadventure.tracking.prv.service.ServiceConstArgs;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
  * 
@@ -317,7 +311,6 @@ public class GleanerLogConsumer extends GameLogConsumer {
                     else if( operator.equals( "dec" ) ) {
                         vars.put( varName, value - vars.get( varName ) );
                     }
-
                     data.put( "value", vars.get( varName ) );
                 }
 

@@ -35,27 +35,6 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control;
 
-import java.awt.Graphics2D;
-import java.awt.KeyEventDispatcher;
-import java.awt.KeyboardFocusManager;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Properties;
-import java.util.Stack;
-
-import javax.swing.JOptionPane;
-
 import es.eucm.eadventure.comm.AdventureApplet;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerGAMETEL;
@@ -84,23 +63,10 @@ import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.assessment.AssessmentEngine;
-import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
-import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
-import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
-import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
-import es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement;
+import es.eucm.eadventure.engine.core.control.functionaldata.*;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.engine.core.control.gamestate.GameState;
-import es.eucm.eadventure.engine.core.control.gamestate.GameStateBook;
-import es.eucm.eadventure.engine.core.control.gamestate.GameStateConversation;
-import es.eucm.eadventure.engine.core.control.gamestate.GameStateLoading;
-import es.eucm.eadventure.engine.core.control.gamestate.GameStateNextScene;
-import es.eucm.eadventure.engine.core.control.gamestate.GameStateOptions;
-import es.eucm.eadventure.engine.core.control.gamestate.GameStatePlaying;
-import es.eucm.eadventure.engine.core.control.gamestate.GameStateRunEffects;
-import es.eucm.eadventure.engine.core.control.gamestate.GameStateSlidescene;
-import es.eucm.eadventure.engine.core.control.gamestate.GameStateVideoscene;
+import es.eucm.eadventure.engine.core.control.gamestate.*;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.data.SaveGameException;
@@ -114,6 +80,14 @@ import es.eucm.eadventure.tracking.pub.TrackingControllerProxy;
 import es.eucm.eadventure.tracking.pub._GameLog;
 import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 import es.eucm.eadventure.tracking.pub.replay.ReplayerProxy;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import java.util.List;
+
+import es.eucm.eadventure.common.data.chapter.Timer;
 
 /**
  * This class contains all the elements and data necessary to run an e-Adventure
@@ -1982,10 +1956,18 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
      */
     public void mouseClicked( MouseEvent e ) {
-
+        scaleMouseEvent(e);
         getGameLog( ).lowLevelEvent( e );
         currentState.mouseClicked( e );
         removeFakeDrags( e );
+    }
+
+    public void scaleMouseEvent( MouseEvent e ){
+        if ( e != lastMouseEvent ){
+            int diffX = (int) (e.getX() / ( GUI.SCALE_X  )) - e.getX();
+            int diffY = (int) (e.getY() / ( GUI.SCALE_Y  )) - e.getY();
+            e.translatePoint(diffX, diffY);
+        }
     }
 
     /*
@@ -1994,6 +1976,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      */
     public void mouseMoved( MouseEvent e ) {
 
+        scaleMouseEvent(e);
         getGameLog( ).lowLevelEvent( e );
         currentState.mouseMoved( e );
         lastMouseEvent = e;
@@ -2006,6 +1989,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      */
     public void mousePressed( MouseEvent e ) {
 
+        scaleMouseEvent(e);
         getGameLog( ).lowLevelEvent( e );
         currentState.mousePressed( e );
         removeFakeDrags( e );
@@ -2017,6 +2001,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      */
     public void mouseReleased( MouseEvent e ) {
 
+        scaleMouseEvent(e);
         getGameLog( ).lowLevelEvent( e );
         currentState.mouseReleased( e );
         removeFakeDrags( e );
@@ -2028,6 +2013,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      */
     public void mouseEntered( MouseEvent e ) {
 
+        scaleMouseEvent(e);
         getGameLog( ).lowLevelEvent( e );
     }
 
@@ -2037,6 +2023,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      */
     public void mouseExited( MouseEvent e ) {
 
+        scaleMouseEvent(e);
         getGameLog( ).lowLevelEvent( e );
     }
 
@@ -2046,6 +2033,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Mo
      */
     public void mouseDragged( MouseEvent e ) {
 
+        scaleMouseEvent(e);
         getGameLog( ).lowLevelEvent( e );
         currentState.mouseDragged( e );
         lastMouseEvent = e;

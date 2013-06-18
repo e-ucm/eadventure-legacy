@@ -36,26 +36,6 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.gamestate;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Transparency;
-import java.awt.color.ColorSpace;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.font.TextAttribute;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorConvertOp;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import es.eucm.eadventure.common.auxiliar.CreateImage;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.assessment.ReportDialog;
@@ -70,6 +50,20 @@ import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.tracking.pub._HighLevelEvents;
+
+import java.awt.*;
+import java.awt.color.ColorSpace;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class GameStateOptions extends GameState implements _HighLevelEvents{
 
@@ -101,17 +95,17 @@ public class GameStateOptions extends GameState implements _HighLevelEvents{
     /**
      * Y offset of the first options button of a panel
      */
-    private static final int FIRST_BUTTON_OFFSET_Y = 40;//55;
+    private static final int FIRST_BUTTON_OFFSET_Y = (int) (40 * GUI.SCALE_Y);//55;
 
     /**
      * Width of the options button
      */
-    private static final int BUTTON_WIDTH = 250;//190;
+    private static final int BUTTON_WIDTH = (int) (250 * GUI.SCALE_X);//190;
 
     /**
      * Height of the options button
      */
-    private static final int BUTTON_HEIGHT = 48;
+    private static final int BUTTON_HEIGHT = (int) (48 * GUI.SCALE_Y);
 
     /**
      * Number of panels
