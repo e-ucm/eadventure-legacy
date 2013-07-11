@@ -203,7 +203,9 @@ public abstract class AnimationState {
             oldOriginalImage = image;
             //image = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
             BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.TRANSLUCENT );
-            ((Graphics2D) temp.getGraphics( )).drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
+            Graphics2D g = ((Graphics2D) temp.getGraphics( ));
+            g.setRenderingHints( GUI.getOptimumRenderingHints( ) );
+            g.drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
             image = temp;
         }
         else {
