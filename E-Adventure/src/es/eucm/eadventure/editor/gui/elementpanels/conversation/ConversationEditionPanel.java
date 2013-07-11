@@ -139,8 +139,13 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
      * @param conversationDataControl
      *            Controller of the conversation
      */
-    public ConversationEditionPanel( ConversationDataControl cnvDataControl ) {
 
+    public ConversationEditionPanel( ConversationDataControl cnvDataControl ) {
+        create (cnvDataControl);
+    }
+    
+    private void create(  ConversationDataControl cnvDataControl  ){
+        
         selectedNode = null;
         selectedChild = null;
         this.conversationDataControl = cnvDataControl;
@@ -643,7 +648,10 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
     @Override
     public void updateConversation( ConversationDataControl newDataControl ) {
         this.conversationDataControl = newDataControl;
+        this.removeAll( );
+        this.create( newDataControl );
         this.updateFields( );
+        Controller.getInstance( ).dataModified( );
     }
 
 }

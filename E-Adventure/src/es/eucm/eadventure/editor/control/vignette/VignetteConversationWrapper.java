@@ -37,6 +37,9 @@
 
 package es.eucm.eadventure.editor.control.vignette;
 
+import java.util.List;
+
+import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
@@ -85,6 +88,11 @@ public class VignetteConversationWrapper {
                 this.dataControl = new GraphConversationDataControl(newConversation);
                 Controller.getInstance( ).getSelectedChapterDataControl( ).getConversationsList( ).getConversations().remove( i );
                 Controller.getInstance( ).getSelectedChapterDataControl( ).getConversationsList( ).getConversations().add( i, this.dataControl );
+                
+                List<Conversation> conversations = (List<Conversation>)(Controller.getInstance( ).getSelectedChapterDataControl( ).getConversationsList( ).getContent( ));
+                conversations.remove( i );
+                conversations.add( i, this.conversation );
+                
                 this.callback.updateConversation( this.dataControl );
                 break; 
             }
