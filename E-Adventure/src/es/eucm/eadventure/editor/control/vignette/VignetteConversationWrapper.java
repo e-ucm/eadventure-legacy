@@ -72,12 +72,24 @@ public class VignetteConversationWrapper {
     }
 
     
+    /**
+     * Returns the graph that represents this conversation.
+     * VignetteController should use this method when exporting the conversation from eAdventure to Vignette.
+     * @return
+     */
     public GraphConversation getConversation( ) {
     
         return conversation;
     }
 
     
+    /**
+     * This method updates the conversation with the one given as a parameter.
+     * VignetteController should invoke this method when importing a conversation from Vignette to eAdventure.
+     * 
+     * Note: this method makes sure the UI gets updated, if necessary
+     * @param newConversation
+     */
     public void updateConversation( GraphConversation newConversation ) {
     
         // Replace old conversation with the new one
@@ -100,13 +112,25 @@ public class VignetteConversationWrapper {
         
     }
 
-    
+    /**
+     * Returns the id that vignette has previously given to this conversation.
+     * If Vignette has not been used yet to edit the conversation, then this id is null.
+     * @return
+     */
     public String getId( ) {
     
         return conversation.getVignetteId( );
     }
 
     
+    /**
+     * This method should be invoked only by VignetteController, ideally only once. It updates
+     * the vignette Id associated to this conversation, which will be used to go back and forth
+     * from eAdventure to Vignette.
+     * 
+     * Note: This method makes sure the UI gets updated if necessary.
+     * @param id
+     */
     public void setId( String id ) {
         conversation.setVignetteId( id );
         if (conversation.getVignetteId( )!=null){
