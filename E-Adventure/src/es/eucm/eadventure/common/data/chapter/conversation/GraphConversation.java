@@ -44,6 +44,8 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.DialogueConversa
 
 public class GraphConversation extends Conversation {
 
+    private String vignetteId = null;
+    
     /**
      * Graph conversation constructor.
      * 
@@ -63,9 +65,10 @@ public class GraphConversation extends Conversation {
      * @param root
      *            Root of the conversation
      */
-    public GraphConversation( String conversationName, ConversationNode root ) {
+    public GraphConversation( String conversationName, String vignetteId, ConversationNode root ) {
 
         super( Conversation.GRAPH, conversationName, root );
+        this.vignetteId = vignetteId;
     }
 
     public GraphConversation( TreeConversation conversation ) {
@@ -103,5 +106,17 @@ public class GraphConversation extends Conversation {
 
         GraphConversation gc = (GraphConversation) super.clone( );
         return gc;
+    }
+
+    
+    public String getVignetteId( ) {
+    
+        return vignetteId;
+    }
+
+    
+    public void setVignetteId( String vignetteId ) {
+    
+        this.vignetteId = vignetteId;
     }
 }

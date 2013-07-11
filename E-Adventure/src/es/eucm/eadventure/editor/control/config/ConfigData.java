@@ -95,7 +95,6 @@ public class ConfigData {
 
     private int effectSelectorTab;
     
-    
     /////// Added to control preferences on support display options for debugging
     private DebugSettings debugOptions;
     //////

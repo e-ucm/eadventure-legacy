@@ -37,31 +37,51 @@
 package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.font.TextAttribute;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 
+import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.SearchableNode;
 import es.eucm.eadventure.editor.control.tools.conversation.AddNamesTagInConversationLines;
 import es.eucm.eadventure.editor.control.tools.conversation.RemoveNamesTagInConversationLines;
+import es.eucm.eadventure.editor.control.vignette.VignetteConversationWrapper;
+import es.eucm.eadventure.editor.control.vignette.VignetteUICallback;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.displaydialogs.ConversationDialog;
+import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
  * This class centralizes all the operations for conversation structures and
@@ -70,7 +90,7 @@ import es.eucm.eadventure.editor.gui.displaydialogs.ConversationDialog;
  * (LinesPanel). It also has a status bar which informs the user of the status
  * of the application
  */
-public class ConversationEditionPanel extends JPanel implements Updateable, DataControlsPanel {
+public class ConversationEditionPanel extends JPanel implements Updateable, DataControlsPanel, VignetteUICallback {
 
     /**
      * Required
@@ -109,6 +129,9 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
     private ConversationDataControl conversationDataControl;
 
     private JSplitPane linesSplit;
+    
+    private VignetteButton importFromVignetteButton;
+    private VignetteButton exportToVignetteButton;
 
     /**
      * Constructor.
@@ -174,6 +197,13 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
         zoomPreviewPanel.add( preview, c );
         c.gridx++;
         zoomPreviewPanel.add( previewFromNode, c );
+        c.gridx++;
+        exportToVignetteButton = new VignetteButton(true);
+        zoomPreviewPanel.add( exportToVignetteButton, c );
+        c.gridx++;
+        importFromVignetteButton = new VignetteButton(false);
+        //importFromVignetteButton.setEnabled( false );
+        zoomPreviewPanel.add( importFromVignetteButton, c );
 
         // Create a new panel, to be placed down, containing the node panel and the status bar
         JPanel downPanel = new JPanel( );
@@ -347,6 +377,8 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
         }
         representationPanel.updateRepresentation( );
         representationPanel.repaint( );
+        this.importFromVignetteButton.updateButton( );
+        this.exportToVignetteButton.updateButton( );
         return true;
     }
 
@@ -415,6 +447,203 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
                 linesPanel.setSelectedItem( path );
             }
         }
+    }
+
+
+    /**
+     * This class is the listener for the "Create icon" buttons on the panels.
+     */
+    private class EditWithVignetteButtonListener implements ActionListener {
+
+        private boolean export = false;
+        private VignetteConversationWrapper wrapper;
+        
+        /**
+         * Constructor.
+         * 
+         * @param assetIndex
+         *            Index of the asset
+         */
+        public EditWithVignetteButtonListener( boolean export, VignetteConversationWrapper wrapper ) {
+            this.export = export;
+            this.wrapper = wrapper;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
+        public void actionPerformed( ActionEvent e ) {
+            new Thread(){
+                @Override
+                public void run(){
+                    if (export){
+                       wrapper.exportToVignette( );
+                    } else {
+                        wrapper.importFromVignette( );
+                    }
+                }
+            }.start( );
+            
+        }
+    }
+    
+    private class VignetteButton extends JButton {
+        
+        /**
+         * Generated
+         */
+        private static final long serialVersionUID = 9141821435802269755L;
+        private ImageIcon normalImage;
+        private ImageIcon overImage;
+        private ImageIcon disabledImage;
+        
+        private String tooltipEnabled;
+        private String tooltipDisabled;
+        
+        private boolean export;
+        private ActionListener listener;
+        
+        public void updateButton(){
+            VignetteConversationWrapper wrapper = ((GraphConversationDataControl)ConversationEditionPanel.this.conversationDataControl).getVignetteWrapper() ;
+            wrapper.setCallback( ConversationEditionPanel.this );
+            this.setEnabled( wrapper.getPermission( export?VignetteUICallback.OPERATION_EXPORT:VignetteUICallback.OPERATION_IMPORT ) );
+            if (listener!=null){
+                this.removeActionListener( listener );
+            }
+            listener = new EditWithVignetteButtonListener( export, wrapper );
+            this.addActionListener( listener );
+        }
+        
+        public VignetteButton ( boolean export ){
+            this.export = export;
+            if (!export){
+                normalImage = new ImageIcon(makeImage (export, "img/vignette-import-normal.png"));
+                overImage = new ImageIcon(makeImage (export,"img/vignette-import-over.png"));
+                disabledImage = new ImageIcon(makeImage (export,"img/vignette-import-disabled.png"));
+                tooltipEnabled = TC.get( "Vignette.Import.Tooltip.Enabled" );
+                tooltipDisabled = TC.get( "Vignette.Import.Tooltip.Disabled" );
+            } else {
+                normalImage = new ImageIcon(makeImage (export,"img/vignette-edit-normal.png"));
+                overImage = new ImageIcon(makeImage (export,"img/vignette-edit-over.png"));
+                disabledImage = new ImageIcon(makeImage (export,"img/vignette-edit-disabled.png"));
+                tooltipEnabled = TC.get( "Vignette.CreateWith.Tooltip.Enabled" );
+                tooltipDisabled = TC.get( "Vignette.CreateWith.Tooltip.Disabled" );
+            }
+            this.setOpaque( false );
+            this.setContentAreaFilled( false );
+            this.swapIconAndTooltip( false );
+            updateButton();
+            
+            this.addMouseListener( new MouseListener(){
+
+                @Override
+                public void mouseClicked( MouseEvent e ) {
+                    
+                }
+
+                @Override
+                public void mousePressed( MouseEvent e ) {
+                    
+                }
+
+                @Override
+                public void mouseReleased( MouseEvent e ) {
+                    
+                }
+
+                @Override
+                public void mouseEntered( MouseEvent e ) {
+                    swapIconAndTooltip(true);
+                }
+
+                @Override
+                public void mouseExited( MouseEvent e ) {
+                    swapIconAndTooltip(false);
+                }
+                
+            });
+            this.addFocusListener( new FocusListener(){
+
+                @Override
+                public void focusGained( FocusEvent e ) {
+                    swapIconAndTooltip(true);
+                }
+
+                @Override
+                public void focusLost( FocusEvent e ) {
+                    swapIconAndTooltip(false);
+                }
+                
+            });
+        }
+        
+        private void swapIconAndTooltip(boolean over){
+            if (isEnabled( )){
+                if (over){
+                    setIcon( overImage) ;
+                } else {
+                    setIcon( normalImage) ;
+                }
+                this.setToolTipText( tooltipEnabled );
+            } else {
+                setIcon( disabledImage );
+                this.setToolTipText( tooltipDisabled );
+            }
+        }
+        
+        @Override
+        public void setEnabled (boolean enabled){
+            super.setEnabled( enabled );
+            swapIconAndTooltip(false);
+        }
+        
+        private BufferedImage makeImage ( boolean export, String path ){
+            BufferedImage img= null;
+            try {
+                img= ImageIO.read( new File(path) );
+                String text = TC.get( "Vignette.CreateWith" );
+                if (!export)
+                    text = TC.get( "Vignette.Import" );
+                FileInputStream is = new FileInputStream( "gui/options/quicksand_bold.ttf" );
+                Font originalFont = Font.createFont( Font.TRUETYPE_FONT, is );
+                HashMap<TextAttribute, Number> attributes = new HashMap<TextAttribute, Number>();
+                attributes.put( TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_CONDENSED );
+                originalFont = originalFont.deriveFont( attributes );
+
+                // Create the neccessary fonts
+                originalFont = originalFont.deriveFont( Font.BOLD, 13.0F );
+                Graphics2D g =img.createGraphics( );
+                g.setRenderingHints( GUI.getOptimumRenderingHints( ) );
+                g.setFont( originalFont );
+                g.setColor( Color.WHITE );
+                g.drawString( text, 19, 13 );
+                g.dispose( );
+            }
+            catch( IOException e ) {
+                e.printStackTrace();
+            }
+            catch( FontFormatException e ) {
+                e.printStackTrace();
+            }
+            return img;
+        }
+    }
+
+    @Override
+    public void updatePermission( int operation, boolean enabled ) {
+        if (operation == OPERATION_IMPORT){
+            this.importFromVignetteButton.setEnabled( enabled );
+        } else if (operation == OPERATION_EXPORT){
+            this.exportToVignetteButton.setEnabled( enabled );
+        }
+    }
+
+    @Override
+    public void updateConversation( ConversationDataControl newDataControl ) {
+        this.conversationDataControl = newDataControl;
+        this.updateFields( );
     }
 
 }

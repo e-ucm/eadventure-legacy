@@ -178,6 +178,8 @@ public class GraphConversationSubParser extends SubParser {
      */
     private ConversationLine conversationLine;
 
+    private String vignetteId;
+
     /* Methods */
 
     /**
@@ -206,9 +208,13 @@ public class GraphConversationSubParser extends SubParser {
             if( qName.equals( "graph-conversation" ) ) {
                 // Store the name
                 conversationName = "";
-                for( int i = 0; i < attrs.getLength( ); i++ )
+                vignetteId = null;
+                for( int i = 0; i < attrs.getLength( ); i++ ){
                     if( attrs.getQName( i ).equals( "id" ) )
                         conversationName = attrs.getValue( i );
+                    else if( attrs.getQName( i ).equals( "vignette-id" ) )
+                        vignetteId = attrs.getValue( i );
+                }
 
                 graphNodes = new ArrayList<ConversationNode>( );
                 nodeLinks = new ArrayList<List<Integer>>( );
@@ -413,7 +419,7 @@ public class GraphConversationSubParser extends SubParser {
             // If the tag ending is the conversation, create the graph conversation, with the first node of the list
             if( qName.equals( "graph-conversation" ) ) {
                 setNodeLinks( );
-                chapter.addConversation( new GraphConversation( conversationName, graphNodes.get( 0 ) ) );
+                chapter.addConversation( new GraphConversation( conversationName, vignetteId, graphNodes.get( 0 ) ) );
             }
 
             // If a node is closed

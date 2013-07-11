@@ -2098,4 +2098,11 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="GeneralText.MoveUp">Move this element one position up in the list</entry>
 <entry key="GeneralText.MoveDown">Move this element one position down in the list</entry>
 <entry key="Scene.MakeInitial">Make the game starts with this screen</entry>
+<entry key="ECharacter.CreateWith">Create with</entry>
+<entry key="Vignette.CreateWith">Edit with</entry>
+<entry key="Vignette.CreateWith.Tooltip.Enabled">**Experimental feature** Opens the new Vignette interface on your Web browser to create the conversation.</entry>
+<entry key="Vignette.CreateWith.Tooltip.Disabled">**Experimental feature** Opens the new Vignette interface on your Web browser to create the conversation.</entry>
+<entry key="Vignette.Import">Import from</entry>
+<entry key="Vignette.Import.Tooltip.Enabled">**Experimental feature** Imports the conversation created with Vignette from your browser.</entry>
+<entry key="Vignette.Import.Tooltip.Disabled">**Experimental feature** Imports the conversation created with Vignette from your browser (To use this feature, edit the conversation with Vignette first).</entry>
 </properties>

@@ -54,6 +54,7 @@ import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteConversationNodeTool;
 import es.eucm.eadventure.editor.control.tools.conversation.LinkConversationNodeTool;
+import es.eucm.eadventure.editor.control.vignette.VignetteConversationWrapper;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class GraphConversationDataControl extends ConversationDataControl {
@@ -67,6 +68,8 @@ public class GraphConversationDataControl extends ConversationDataControl {
      * A list with each conversation line conditions controller
      */
     private Map<ConversationNodeView, List<ConditionsController>> allConditions;
+    
+    private VignetteConversationWrapper vignetteWrapper;
 
     /**
      * Constructor.
@@ -78,6 +81,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 
         this.graphConversation = graphConversation;
         storeAllConditions( );
+        this.vignetteWrapper = new VignetteConversationWrapper(this);
     }
 
     @Override
@@ -635,6 +639,12 @@ public class GraphConversationDataControl extends ConversationDataControl {
     public List<ConversationNodeView> getAllNodes( ) {
 
         return this.getAllNodesViews( );
+    }
+
+    
+    public VignetteConversationWrapper getVignetteWrapper( ) {
+    
+        return vignetteWrapper;
     }
 
 }

@@ -262,6 +262,9 @@ public class ConversationDOMWriter {
             // Create the root node
             conversationElement = doc.createElement( "graph-conversation" );
             conversationElement.setAttribute( "id", graphConversation.getId( ) );
+            if (graphConversation.getVignetteId( )!=null){
+                conversationElement.setAttribute( "vignette-id", graphConversation.getVignetteId( ) );
+            }
 
             // For each node
             for( int i = 0; i < nodes.size( ); i++ ) {

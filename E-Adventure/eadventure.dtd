@@ -361,6 +361,7 @@
 <!ELEMENT graph-conversation (dialogue-node | option-node)+>
 <!ATTLIST graph-conversation
 	id ID #REQUIRED
+	vignette-id CDATA #IMPLIED
 >
 
 <!-- MODIFIED: EFFECT -->

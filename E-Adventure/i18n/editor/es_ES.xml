@@ -2094,4 +2094,12 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="TalkToAction.MessageSelectConversation">Seleccione una conversación</entry>
 <entry key="BookPage.NotValidURL">No se puede acceder a la URL indicada. Por favor, compruebe la dirección y el funcionamiento de su conexión a Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Lengua</entry>
+<entry key="ECharacter.CreateWith">Edítalo con</entry>
+<entry key="Vignette.CreateWith">Editar con</entry>
+<entry key="Vignette.CreateWith.Tooltip.Enabled">**Característica experimental** Abre la nueva herramienta Vignette en tu navegador para editar la conversación.</entry>
+<entry key="Vignette.CreateWith.Tooltip.Disabled">**Característica experimental** Abre la nueva herramienta Vignette en tu navegador para editar la conversación.</entry>
+<entry key="Vignette.Import">Importar de</entry>
+<entry key="Vignette.Import.Tooltip.Enabled">**Característica experimental** Importa la conversación creada previamente con Vignette desde tu navegador.</entry>
+<entry key="Vignette.Import.Tooltip.Disabled">**Característica experimental** Importa la conversación creada previamente con Vignette desde tu navegador (para poder utilizar esta característica tienes que editar primero la conversación con Vignette).</entry>
+
 </properties>
