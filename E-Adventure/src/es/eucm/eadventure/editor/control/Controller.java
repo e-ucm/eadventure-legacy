@@ -114,7 +114,6 @@ import es.eucm.eadventure.editor.control.tools.general.chapters.ImportChapterToo
 import es.eucm.eadventure.editor.control.tools.general.chapters.MoveChapterTool;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.control.writer.Writer;
-import es.eucm.eadventure.editor.converter.Converter;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.LoadingScreen;
@@ -576,7 +575,8 @@ public class Controller {
     /**
      * Converter, to deal with new engine
      */
-    private Converter converter;
+    //EAD2EDITOR
+    //private Converter converter;
 
     /**
      * Store all effects selection. Connects the type of effect with the number
@@ -589,7 +589,8 @@ public class Controller {
     private Controller( ) {
 
         chaptersController = new ChapterListDataControl( );
-        converter = new Converter(this);
+        //EAD2EDITOR
+        //converter = new Converter(this);
     }
 
     private String getCurrentExportSaveFolder( ) {
@@ -4103,7 +4104,8 @@ public class Controller {
         return settings;
     }
 
-    public void runNew() {
+    //EAD2EDITOR
+    /*public void runNew() {
         converter.run();
     }
 
@@ -4113,7 +4115,6 @@ public class Controller {
 
     public void exportWar() {
     }
-
     public void exportJar() {
         java.io.File destinyFile = export();
 
@@ -4130,7 +4131,7 @@ public class Controller {
         }
         loadingScreen.setVisible( false );
 
-    }
+    }*/
 
 
     private static class GameWindowBoundsListenerImpl implements GameWindowBoundsListener{

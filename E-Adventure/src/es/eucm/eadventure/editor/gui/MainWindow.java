@@ -35,6 +35,53 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
+import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
+import javax.swing.filechooser.FileFilter;
+
 import es.eucm.eadventure.common.auxiliar.MultiscreenTools;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
@@ -42,20 +89,10 @@ import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.ConfigData;
-import es.eucm.eadventure.editor.converter.Converter;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericFileChooserDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericOptionPaneDialog;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 /**
  * This class represents the main frame of the application. It has all the
@@ -624,9 +661,9 @@ public class MainWindow extends JFrame {
         itExport.add( itExportLOM );
         itExport.addSeparator();
         // 2.0 exports
-        JMenuItem itExportJarNew = new JMenuItem(TC.get("MenuFile.ExportStandaloneNew"));
+        //EAD2EDITOR
+        /*JMenuItem itExportJarNew = new JMenuItem(TC.get("MenuFile.ExportStandaloneNew"));
         itExportJarNew.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 controller.exportJar();
             }
@@ -634,14 +671,13 @@ public class MainWindow extends JFrame {
 
         JMenuItem itExportWar = new JMenuItem(TC.get("MenuFile.ExportWar"));
         itExportWar.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 controller.exportWar();
             }
         });
 
         itExport.add(itExportJarNew);
-        itExport.add(itExportWar);
+        itExport.add(itExportWar);*/
 
         fileMenu.add( itExport );
         fileMenu.addSeparator( );
@@ -885,14 +921,14 @@ public class MainWindow extends JFrame {
         runMenu.add( new JSeparator() );
 
         // Create "Experimental run"
-        JMenuItem experimentalNormalRun = new JMenuItem( TC.get( "MenuRun.Experimental.Normal" ) );
+        //EAD2EDITOR
+        /*JMenuItem experimentalNormalRun = new JMenuItem( TC.get( "MenuRun.Experimental.Normal" ) );
         experimentalNormalRun.setAccelerator( KeyStroke.getKeyStroke( 'R', InputEvent.ALT_GRAPH_MASK ) );
         experimentalNormalRun.addActionListener( new ActionListener( ){
            
             public void actionPerformed(ActionEvent e){
 
                 new Thread( new Runnable() {
-                    @Override
                     public void run() {
                         controller.runNew( );
                     }
@@ -908,14 +944,13 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent e){
 
                 new Thread( new Runnable() {
-                    @Override
                     public void run() {
                         controller.debugNew();
                     }
                 }).start();
             }
         });
-        runMenu.add( experimentalNormalDebug );
+        runMenu.add( experimentalNormalDebug );*/
 
         itAutoBackup = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.AutoBackup" ), controller.getAutoSaveEnabled( ) );
         itAutoBackup.addActionListener( new ActionListener( ) {
