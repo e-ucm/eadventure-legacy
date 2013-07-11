@@ -614,10 +614,12 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
                 FileInputStream is = new FileInputStream( "gui/options/quicksand_bold.ttf" );
                 Font originalFont = Font.createFont( Font.TRUETYPE_FONT, is );
                 HashMap<TextAttribute, Number> attributes = new HashMap<TextAttribute, Number>();
-                attributes.put( TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_CONDENSED );
+                //attributes.put( TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_CONDENSED );
+                attributes.put( TextAttribute.WIDTH, TextAttribute.WIDTH_CONDENSED );
                 originalFont = originalFont.deriveFont( attributes );
 
                 // Create the neccessary fonts
+                //originalFont = originalFont.deriveFont( Font.BOLD, 13.0F ).deriveFont( AffineTransform.getScaleInstance( 0.7, 0.85 ) );
                 originalFont = originalFont.deriveFont( Font.BOLD, 13.0F );
                 Graphics2D g =img.createGraphics( );
                 g.setRenderingHints( GUI.getOptimumRenderingHints( ) );
