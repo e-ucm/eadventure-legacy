@@ -64,7 +64,7 @@ public class NPCDataControl extends DataControlWithResources {
     /**
      * Constant for the empty animation
      */
-    private static final String EMPTY_ANIMATION = "assets/special/EmptyAnimation";
+    public static final String EMPTY_ANIMATION = "assets/special/EmptyAnimation";
     
     /**
      * Contained NPC data.

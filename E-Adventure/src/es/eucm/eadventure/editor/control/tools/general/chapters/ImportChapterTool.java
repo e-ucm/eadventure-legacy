@@ -249,7 +249,7 @@ public class ImportChapterTool extends Tool {
      * @param selectedFile
      *              the xmlFile selected
      */
-    private void getAllFiles(java.io.File selectedFile){
+    public void getAllFiles(java.io.File selectedFile){
         String xmlPath = selectedFile.getAbsolutePath( ).substring( 0, selectedFile.getAbsolutePath( ).indexOf( selectedFile.getName( )  ));
         String oldPath=null;
         String newPath = null;
