@@ -192,8 +192,9 @@ public class VignetteConversation {
 		gc.setVignetteId(vignetteId);
 		// init in & out
 		for (int i=0; i<nodes.size(); i++) {
-			outgoing.put(i, new ArrayList<Integer>());
-			incoming.put(i, new ArrayList<Integer>());
+			int id =  nodes.get(i).getAsJsonObject().get("id").getAsInt();
+			outgoing.put(id, new ArrayList<Integer>());
+			incoming.put(id, new ArrayList<Integer>());
 		}
 		// register all links
 		int rootId = -1;
@@ -295,7 +296,7 @@ public class VignetteConversation {
 			}
 		}
 		if ( ! saved) {
-			cNodeToLine.put(node, createLine("Nobody", "...", -1));
+			cNodeToLine.put(node, createLine("Player", "...", -1));
 			saved = true;
 		}
 	}
