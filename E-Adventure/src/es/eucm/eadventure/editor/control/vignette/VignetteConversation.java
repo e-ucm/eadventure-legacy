@@ -192,22 +192,23 @@ public class VignetteConversation {
 		gc.setVignetteId(vignetteId);
 		// init in & out
 		for (int i=0; i<nodes.size(); i++) {
-			int id =  nodes.get(i).getAsJsonObject().get("id").getAsInt();
-			outgoing.put(id, new ArrayList<Integer>());
-			incoming.put(id, new ArrayList<Integer>());
+			int src=  nodes.get(i).getAsJsonObject().get("id").getAsInt();
+			outgoing.put(src, new ArrayList<Integer>());
+			incoming.put(src, new ArrayList<Integer>());
 		}
 		// register all links
 		int rootId = -1;
 		for (int i=0; i<nodes.size(); i++) {
+			int src =  nodes.get(i).getAsJsonObject().get("id").getAsInt();
 			JsonObject n = nodes.get(i).getAsJsonObject();
 			if (n.has("start") && n.getAsJsonPrimitive("start").getAsBoolean()) {
 				rootId = n.get("id").getAsInt();
 			}
 			Iterator<JsonElement> it = n.get("outgoing").getAsJsonArray().iterator();
 			while (it.hasNext()) {
-				int j = it.next().getAsInt();
-				outgoing.get(i).add(j);
-				incoming.get(j).add(i);
+				int dst = it.next().getAsInt();
+				outgoing.get(src).add(dst);
+				incoming.get(dst).add(src);
 			}
 		}
 		// build DialogueNodes and ConversationNodes
