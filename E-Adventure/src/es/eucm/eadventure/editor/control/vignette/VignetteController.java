@@ -44,6 +44,7 @@ import java.util.Properties;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
+
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 
 public class VignetteController {
@@ -87,6 +88,10 @@ public class VignetteController {
 	}
 
 	public static void importConversation(VignetteConversationWrapper cw) {
+	    if (!isInit()) {
+            init();
+        }
+	    
 		ServerProxy sp = new ServerProxy(serviceURL, cw.getId());
 		String json = sp.getJson();
 
