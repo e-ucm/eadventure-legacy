@@ -2,7 +2,7 @@
 
 <!--
     This is the build-file for e-Adventure. You will need 'ant' to use it.
-    Ant is available from http://ant.apache.org/. You can find the latest 
+    Ant is available from http://ant.apache.org/. You can find the latest
     version of e-Adventure on Sourceforge at:
         http://sourceforge.net/projects/e-adventure/
     The latest version of e-Adventure is available using Subversion at:
@@ -36,8 +36,8 @@
     Finally, generated files (including packaging) can be erased by executing
         ant clean
 
-    This build-file is placed by its authors in the public domain. 
-    e-Adventure itself is licenced under the GNU LGPL license. 
+    This build-file is placed by its authors in the public domain.
+    e-Adventure itself is licenced under the GNU LGPL license.
     More details in the README file.
 -->
 
@@ -50,6 +50,10 @@
   <property name="src" value="src" />
   <property name="lib" value="jars" />  <!-- hard-coded into launch4j tasks -->
   <property name="clib" value="bjars" />
+
+  <!-- hardcoded / FIXME -->
+  <property name="v2lib" location="/home/mfreire/.m2/repository/ead/" />
+
   <property name="gui" value="gui" />
   <property name="img" value="img" />
   <property name="web" value="web" />
@@ -72,7 +76,9 @@
   <property name="dist.dir" location="dist" />
 
   <!-- run-time properties -->
-  <property name="jvm-args" value="-Xmx512m -Xms512m"/>
+  <property name="jvm-args" value="-Xmx512m -Xms512m "/>
+  <property name="args" value="/tmp/prueba"/>
+
   <property name="main.engine" value="es.eucm.eadventure.engine.EAdventure" />
   <property name="main.editor" value="es.eucm.eadventure.editor.AdventureEditor" />
   <property name="main.applet" value="es.eucm.eadventure.engine.EAdventureApplet" />
@@ -82,8 +88,8 @@
   <property name="sign.storepass" value="3Adv3ntur3_K3YSTOR3" />
   <property name="sign.keypass" value="abcdtest" />
   <property name="sign.keystore" value="eAdventure.keystore" />
-	
-  
+
+
 
   <!--
       Setup and compile
@@ -91,27 +97,29 @@
   <path id="project.path">
     <fileset dir="${lib.dir}" includes="*.jar"/>
     <fileset dir="${clib.dir}" includes="*.jar"/>
+    <fileset dir="${v2lib}" includes="**/*.jar" />
   </path>
-	
+
   <path id="run.path">
     <fileset dir="${lib.dir}" includes="*.jar"/>
+    <fileset dir="${clib.dir}" includes="*.jar"/>
     <pathelement location="${build.dir}"/>
     <pathelement location="${basedir}"/>
   </path>
-	
-	<!-- variable for Manifest Libraries-->
+
+  <!-- variable for Manifest Libraries-->
   <pathconvert property="manifest.path" dirsep="/" pathsep=" ">
     <path refid="project.path" />
   	<map from="${basedir}/" to=" " />
   </pathconvert>
-	
+
   <target name="init" description="Initialize the build">
     <tstamp/>
     <mkdir dir="${build.dir}"/>
     <mkdir dir="${dist.dir}"/>
     <!-- load contents of 'RELEASE' file (eg.: 1.3 RC1) into 'version' property -->
     <loadfile property="version" srcFile="RELEASE" />
-    <property name="deb_subversion" value="5" /> 
+    <property name="deb_subversion" value="5" />
     <!-- write a 'RELEASE' file (eg.;1.3 RC1-20110212 into the output folder -->
     <echo message="${version}-${DSTAMP}" file="${build.dir}/RELEASE" />
     <!-- avoid subversion files in releases -->
@@ -130,7 +138,7 @@
   </target>
 
   <target name="compile" depends="init" description="Compile source-files">
-    <javac srcdir="${src.dir}" destdir="${build.dir}"
+    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true"
       encoding="ISO8859-1" includeAntRuntime="false" includeJavaRuntime="true"
       classpathref="project.path" target="1.6">
     </javac>
@@ -245,7 +253,7 @@
       Zip, platform-agnostic packaging; does not include binaries
   -->
 
-  <target name="zip" depends="eadventure-common" 
+  <target name="zip" depends="eadventure-common"
       description="Zip, platform-agnostic packaging">
     <property name="zip-file"
       value="${dist.dir}/eAdventure-multiplatform.zip" />
@@ -309,7 +317,7 @@
     <launch4j>
       <config headerType="gui" outfile="${build.dir}/eAdventureEditor.exe"
           dontWrapJar="true" jarPath="eadventure/eadventure-editor.jar"
-          chdir="eadventure" icon="${pack.dir}/icons/eAd-1.5-editor.ico" 
+          chdir="eadventure" icon="${pack.dir}/icons/eAd-1.5-editor.ico"
     		manifest="${pack.dir}/launch4j/admin.manifest">
         <classPath mainClass="${main.editor}">
             <cp>./jars/*.jar</cp>
@@ -412,7 +420,7 @@
       icon="/usr/share/java/${package.name}/Iconos-eAd1.5-Editor-64x64.png"
       categories="Game;AdventureGame;Java" />
   </target>
-  
+
   <target name="deb" depends="create-desktop-entry, eadventure-common"
     description="Generate .deb Debian distribution">
 
@@ -553,7 +561,7 @@ Homepage: http://e-adventure.e-ucm.es/
     	</fileset>
       <manifest>
         <attribute name="Main-Class" value="${main.editor}" />
-        <attribute name="Class-Path" 
+        <attribute name="Class-Path"
            value="${manifest.path} ${lib}/eadventure-common.jar eadventure-engine.jar ${lib}/eadventure-comm-jar" />
       </manifest>
     </jar>
@@ -569,7 +577,7 @@ Homepage: http://e-adventure.e-ucm.es/
     	</fileset>
       <manifest>
         <attribute name="Main-Class" value="${main.engine}" />
-        <attribute name="Class-Path" 
+        <attribute name="Class-Path"
            value="${manifest.path} ${lib}/eadventure-common.jar ${lib}/eadventure-comm.jar" />
       </manifest>
     </jar>

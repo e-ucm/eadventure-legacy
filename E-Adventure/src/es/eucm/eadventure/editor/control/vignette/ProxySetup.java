@@ -1,41 +1,41 @@
 /*******************************************************************************
  * <e-Adventure> (formerly <e-Game>) is a research project of the <e-UCM>
  *          research group.
- *   
+ *
  *    Copyright 2005-2012 <e-UCM> research group.
- *  
+ *
  *     <e-UCM> is a research group of the Department of Software Engineering
  *          and Artificial Intelligence at the Complutense University of Madrid
  *          (School of Computer Science).
- *  
+ *
  *          C Profesor Jose Garcia Santesmases sn,
  *          28040 Madrid (Madrid), Spain.
- *  
+ *
  *          For more info please visit:  <http://e-adventure.e-ucm.es> or
  *          <http://www.e-ucm.es>
- *  
+ *
  *  ****************************************************************************
  * This file is part of <e-Adventure>, version 1.4.
- * 
+ *
  *   You can access a list of all the contributors to <e-Adventure> at:
  *          http://e-adventure.e-ucm.es/contributors
- *  
+ *
  *  ****************************************************************************
  *       <e-Adventure> is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU Lesser General Public License as published by
  *      the Free Software Foundation, either version 3 of the License, or
  *      (at your option) any later version.
- *  
+ *
  *      <e-Adventure> is distributed in the hope that it will be useful,
  *      but WITHOUT ANY WARRANTY; without even the implied warranty of
  *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *      GNU Lesser General Public License for more details.
- *  
+ *
  *      You should have received a copy of the GNU Lesser General Public License
  *      along with <e-Adventure>.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.tracking.prv.service;
+package es.eucm.eadventure.editor.control.vignette;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -55,23 +55,23 @@ import es.eucm.eadventure.tracking.pub.config.ProxyConfig;
 public class ProxySetup {
 
     private static ProxyConfig proxyConfig;
-    
+
     private static Logger log;
     private static Handler handler;
     private static boolean init=false;
-    
+
     public static void log (String message){
         if (log!=null)
             log.info( message );
     }
-    
+
     public static HttpHost buildHttpProxy(ProxyConfig proxyConfig){
-        
+
         if(!init) init();
         boolean proxyConfigValid = false;
         HttpHost httpProxy = null;
         if (proxyConfig!=null && proxyConfig.getHostName( )!=null && !proxyConfig.getHostName( ).equals( "" ) &&
-                proxyConfig.getPort( )!=null && !proxyConfig.getPort( ).equals( "" ) && 
+                proxyConfig.getPort( )!=null && !proxyConfig.getPort( ).equals( "" ) &&
                 proxyConfig.getProtocol( )!=null && !proxyConfig.getProtocol( ).equals( "" )){
             try {
                 int port = Integer.parseInt( proxyConfig.getPort() );
@@ -100,7 +100,7 @@ public class ProxySetup {
                 }
             }
         }
-        
+
         // If neither option worked out, just disable the proxy using null
         if (!proxyConfigValid){
             httpProxy = null;
@@ -161,12 +161,12 @@ public class ProxySetup {
     public static int getPort() {
       return port;
     }*/
-    
+
     private static ProxyConfig getProxyConfig(){
         if (!init){
             init();
         }
-        
+
         return proxyConfig;
     }
 
@@ -188,7 +188,7 @@ public class ProxySetup {
       }
       return null;
     }
-    
+
     /*public static void main ( String[]args ){
         ProxyConfig.init( );
         System.out.println( ProxyConfig.host);
