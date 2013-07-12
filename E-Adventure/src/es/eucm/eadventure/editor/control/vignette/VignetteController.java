@@ -69,23 +69,6 @@ public class VignetteController {
 		}
 	}
 
-//	public static void testConversion(GraphConversation conv) {
-//		VignetteConversation v = new VignetteConversation();
-//		v.build(conv);
-//		String json = v.toJson();
-//		System.err.println(json);
-//
-//		VignetteConversation v2 = new VignetteConversation();
-//		v2.build(json);
-//		GraphConversation gc = v2.toConversation("test");
-//		System.err.println("built " + gc);
-//
-//		VignetteConversation v3 = new VignetteConversation();
-//		v3.build(gc);
-//		String json2 = v3.toJson();
-//		System.err.println(json2);
-//	}
-
 	public static void exportConversation(VignetteConversationWrapper cw) {
 		if (!isInit()) {
 			init();
@@ -101,25 +84,27 @@ public class VignetteController {
 
 		ServerProxy sp = new ServerProxy(serviceURL, cw.getId());
 		sp.exportAndShowJson(vcps, vc.toJson());
-
-		JOptionPane.showMessageDialog(null, "Exporting conversation with id \""
-				+ cw.getId() + "\" and internal eAvdventure name \""
-				+ cw.getConversation().getId() + "\" to Vignette");
 	}
 
 	public static void importConversation(VignetteConversationWrapper cw) {
-		JOptionPane.showMessageDialog(null, "Importing conversation with id \""
-				+ cw.getId() + "\" and internal eAvdventure name \""
-				+ cw.getConversation().getId() + "\" from Vignette");
-
 		ServerProxy sp = new ServerProxy(serviceURL, cw.getId());
 		String json = sp.getJson();
 
 		VignetteConversation vc = new VignetteConversation();
 		vc.build(json);
-		GraphConversation graphConversation = vc.toConversation(
-				cw.getConversation().getId(), cw.getId());
-
-		cw.updateConversation(graphConversation);
+		try {
+			GraphConversation graphConversation = vc.toConversation(
+					cw.getConversation().getId(), cw.getId());
+			cw.updateConversation(graphConversation);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,
+					"<html>There is some kind of problem with the conversation you"
+					+ " are trying to import. We are sorry - there is currently"
+					+ " no way to fix it. <br> Vignette and eAdventure are not "
+					+ " entirely one-to-one compatible. <br>"
+					+ "Either try to fix the conversation in Vignette, or "
+					+ " try to edit your current conversation in eAdventure.</html>",
+					"We are sorry", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

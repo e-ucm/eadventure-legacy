@@ -127,8 +127,12 @@ public class VignetteConversation {
 			int speakerId = n.getAsJsonPrimitive("speaker").getAsInt();
 			String speaker = speakerIdToName.get(speakerId);
 			if (speaker.equals("Effect")) {
-				dNode.setEffects(createEffects(
-						n.getAsJsonPrimitive("text").getAsString()));
+				String xml = n.getAsJsonPrimitive("text").getAsString();
+				Effects efs = createEffects(xml);
+				if (efs == null) {
+					throw new IllegalArgumentException("Bad effect xml:" + xml);
+				}
+				dNode.setEffects(efs);
 			} else {
 				dNode.addLine(new ConversationLine(
 					speaker,
