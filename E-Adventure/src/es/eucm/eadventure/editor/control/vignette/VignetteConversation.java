@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -97,7 +98,7 @@ public class VignetteConversation {
 		}
 	}
 
-	private HashMap<Integer, ConversationNode> idToNode = new HashMap<Integer, ConversationNode>();
+	private TreeMap<Integer, ConversationNode> idToNode = new TreeMap<Integer, ConversationNode>();
 	private HashMap<Integer, ArrayList<Integer> > outgoing = new HashMap<Integer, ArrayList<Integer> >();
 	private HashMap<Integer, ArrayList<Integer> > incoming = new HashMap<Integer, ArrayList<Integer> >();
 
@@ -179,15 +180,20 @@ public class VignetteConversation {
 				speaker,
 				n.getAsJsonPrimitive("text").getAsString()));
 			idToNode.put(childId, oNode);
-			if (outgoing.get(childId).size() != 1) {
-				throw new IllegalArgumentException("ONode child " + childId + " != 1 output");
-			}
 			if (incoming.get(childId).size() != 1) {
 				throw new IllegalArgumentException("ONode child " + childId + " != 1 input");
 			}
-			int grandChildId = outgoing.get(childId).get(0);
-			buildDialogueNode(grandChildId, oNode, gc);
-			oNode.addChild(idToNode.get(grandChildId));
+			if (outgoing.get(childId).size() > 1) {
+				throw new IllegalArgumentException("ONode child " + childId + " != 1 output");
+			} else if (outgoing.get(childId).size() == 0) {
+				int nextId = idToNode.lastKey()+1;
+				DialogueConversationNode dcn = new DialogueConversationNode();
+				oNode.addChild(dcn);
+			} else {
+				int grandChildId = outgoing.get(childId).get(0);
+				buildDialogueNode(grandChildId, oNode, gc);
+				oNode.addChild(idToNode.get(grandChildId));
+			}
 		}
 	}
 
