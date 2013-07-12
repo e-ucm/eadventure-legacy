@@ -164,7 +164,7 @@ public class VignetteConversation {
 
 	private void buildOptionNode(int parentId, ConversationNode parent, GraphConversation gc) {
 		OptionConversationNode oNode = new OptionConversationNode();
-		if (parent != null) {
+		if (parent != null && parent.getType() != ConversationNode.OPTION) {
 			parent.addChild(oNode);
 		}
 		for (int childId : outgoing.get(parentId)) {
