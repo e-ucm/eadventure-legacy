@@ -107,19 +107,23 @@ public class VignetteConversation {
 	}
 
 	private void buildDialogueNode(int startId, ConversationNode parent, GraphConversation gc) {
+
 		if (idToNode.containsKey(startId)) {
-			parent.addChild(idToNode.get(startId));
 			// no need to re-create - already existing
+			if (parent != null && parent.getType() != ConversationNode.OPTION) {
+				parent.addChild(idToNode.get(startId));
+			}
 			return;
 		}
 
+		// ok, its a new node
 		JsonObject n = idToLine.get(startId);
 
 		int currentId = startId;
 		DialogueConversationNode dNode = (parent != null ?
 				new DialogueConversationNode() :
 				(DialogueConversationNode)gc.getRootNode());
-		if (parent != null) {
+		if (parent != null && parent.getType() != ConversationNode.OPTION) {
 			parent.addChild(dNode);
 		}
 
