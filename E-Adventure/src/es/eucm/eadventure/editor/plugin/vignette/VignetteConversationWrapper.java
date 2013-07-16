@@ -219,7 +219,7 @@ public class VignetteConversationWrapper {
         conversation.setVignetteId( id );
         if (conversation.getVignetteId( )!=null){
             if (this.callback!=null){
-                callback.updatePermission( VignetteUICallback.OPERATION_IMPORT, true );
+                callback.updatePermissions(  );
             }
         }
     }

@@ -37,17 +37,15 @@
 
 package es.eucm.eadventure.editor.plugin.vignette;
 
-import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import java.awt.GridBagConstraints;
+
+import javax.swing.JPanel;
 
 
-public interface VignetteUICallback {
+public interface VignetteGUIComponent {
 
-    public static final int OPERATION_EXPORT = 0;
+    public void buildAndAdd(VignetteConversationWrapper w, JPanel container, GridBagConstraints c);
     
-    public static final int OPERATION_IMPORT = 1;
-    
-    public void updatePermissions (  );
-    
-    public void updateConversation( ConversationDataControl newDataControl);
+    public void updateButtons();
     
 }

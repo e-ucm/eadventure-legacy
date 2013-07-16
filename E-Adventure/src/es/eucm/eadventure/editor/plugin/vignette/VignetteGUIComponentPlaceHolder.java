@@ -37,17 +37,23 @@
 
 package es.eucm.eadventure.editor.plugin.vignette;
 
-import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import java.awt.GridBagConstraints;
 
+import javax.swing.JPanel;
 
-public interface VignetteUICallback {
+/**
+ * Just a place holder. PluginGUIComponentsFactory must return an object of this class to avoid access to Vignette from the UI
+ * @author Javier Torrente
+ *
+ */
+public class VignetteGUIComponentPlaceHolder implements VignetteGUIComponent{
 
-    public static final int OPERATION_EXPORT = 0;
-    
-    public static final int OPERATION_IMPORT = 1;
-    
-    public void updatePermissions (  );
-    
-    public void updateConversation( ConversationDataControl newDataControl);
-    
+    @Override
+    public void buildAndAdd( VignetteConversationWrapper w, JPanel container, GridBagConstraints c ) {
+    }
+
+    @Override
+    public void updateButtons( ) {
+    }
+
 }
