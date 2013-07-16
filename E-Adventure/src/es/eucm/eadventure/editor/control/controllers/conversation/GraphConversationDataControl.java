@@ -54,8 +54,8 @@ import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteConversationNodeTool;
 import es.eucm.eadventure.editor.control.tools.conversation.LinkConversationNodeTool;
-import es.eucm.eadventure.editor.control.vignette.VignetteConversationWrapper;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.plugin.vignette.VignetteConversationWrapper;
 
 public class GraphConversationDataControl extends ConversationDataControl {
 
