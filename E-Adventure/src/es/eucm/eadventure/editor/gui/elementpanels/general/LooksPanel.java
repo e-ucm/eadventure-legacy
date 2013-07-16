@@ -191,7 +191,7 @@ public abstract class LooksPanel extends JPanel implements Updateable {
         //Create the resources Panel
         resourcesPanel = new ResourcesPanel( dataControl.getResources( ).get( dataControl.getSelectedResources( ) ) );
         resourcesPanel.setPreviewUpdater( this );
-        cLook.gridy = 0;
+        cLook.gridy=0;
         cLook.gridx = 0;
         cLook.gridwidth = 2;
         cLook.fill = GridBagConstraints.BOTH;
@@ -200,7 +200,7 @@ public abstract class LooksPanel extends JPanel implements Updateable {
         lookPanel.add( resourcesPanel, cLook );
 
         // Create and set the preview panel
-        cLook.gridy = 1;
+        cLook.gridy++;
         cLook.fill = GridBagConstraints.BOTH;
         cLook.weighty = 1;
         cLook.weightx = 1;
@@ -238,7 +238,7 @@ public abstract class LooksPanel extends JPanel implements Updateable {
     public abstract void updatePreview( );
 
     protected abstract void createPreview( );
-
+  
     private class DeleteButtonListener implements ActionListener {
 
         // XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
@@ -352,4 +352,5 @@ public abstract class LooksPanel extends JPanel implements Updateable {
         resourcesTable.setSelectedIndex( dataControl.getSelectedResources( ) );
         return true;
     }
+    
 }

@@ -68,6 +68,7 @@ import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
@@ -79,6 +80,7 @@ import es.eucm.eadventure.editor.gui.displaydialogs.SelectImageDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.SlidesDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.VideoDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog.AnimationEditDialog;
+import es.eucm.eadventure.editor.plugin.echaracter.gui.ECharacterButtonFactory;
 
 /**
  * This class is the panel which represents the information held in a resources
@@ -167,6 +169,12 @@ public class ResourcesPanel extends JPanel {
         JPanel panel = new JPanel( );
         panel.setLayout( new BorderLayout( ) );
         panel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TC.get( "Resources.ResourcesGroup" ) ) );
+        
+        if( resourcesDataControl.getResourcesType( ) == Controller.NPC ||  
+                resourcesDataControl.getResourcesType( ) == Controller.PLAYER) {
+            ECharacterButtonFactory.addECharacterContainer( this, c, resourcesDataControl );
+        }
+        
         final JComboBox groupCombo = new JComboBox( );
         for( int i = 0; i < resourcesDataControl.getAssetGroupCount( ); i++ ) {
             groupCombo.addItem( resourcesDataControl.getGroupInfo( i ) );
@@ -178,9 +186,11 @@ public class ResourcesPanel extends JPanel {
                 setSelectedGroup( groupCombo.getSelectedIndex( ) );
             }
         } );
+        c.weightx = 1;
+        c.gridx=1;
         panel.add( groupCombo, BorderLayout.CENTER );
         add( panel, c );
-
+        c.gridx=0;c.weightx=1.0;c.gridwidth=2;
         groupCombo.setSelectedIndex( selectedIndex );
         setSelectedGroup( selectedIndex );
 
@@ -251,6 +261,13 @@ public class ResourcesPanel extends JPanel {
             c2.gridx++;
             assetPanel.add( viewButtons[j], c2 );
 
+            /*if( resourcesDataControl.getAssetCategory( i ) == AssetsConstants.CATEGORY_ANIMATION ) {
+                JButton createWithECharacterButton = new JButton( "Create with eCharacter" );
+                createWithECharacterButton.addActionListener( new CreateWithECharacterButtonListener( i ) );
+                c2.gridx++;
+                assetPanel.add( createWithECharacterButton, c2 );
+            }*/
+            
             c.gridy++;
             add( assetPanel, c );
             assetPanels.add( assetPanel );
@@ -329,6 +346,7 @@ public class ResourcesPanel extends JPanel {
                 editButton.addActionListener( new EditButtonListener( i, i ) );
                 c2.gridx++;
                 assetPanel.add( editButton, c2 );
+                
             }
             else if( resourcesDataControl.isIconFromImage( i ) ) {
                 JButton createIconButton = new JButton( TC.get( "Resources.CreateIcon" ) );
@@ -650,6 +668,8 @@ public class ResourcesPanel extends JPanel {
         }
     }
 
+    
+    
     /**
      * This class is the listener for the "View" buttons on the panels.
      */
@@ -726,4 +746,6 @@ public class ResourcesPanel extends JPanel {
 
         return selectedIndex;
     }
+ 
+    
 }
