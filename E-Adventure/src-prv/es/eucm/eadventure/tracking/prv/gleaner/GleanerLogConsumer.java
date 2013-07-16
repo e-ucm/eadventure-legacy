@@ -36,10 +36,14 @@
 
 package es.eucm.eadventure.tracking.prv.gleaner;
 
-import com.google.gson.Gson;
-import es.eucm.eadventure.tracking.prv.GameLogEntry;
-import es.eucm.eadventure.tracking.prv.service.GameLogConsumer;
-import es.eucm.eadventure.tracking.prv.service.ServiceConstArgs;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -48,9 +52,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import com.google.gson.Gson;
+
+import es.eucm.eadventure.tracking.prv.GameLogEntry;
+import es.eucm.eadventure.tracking.prv.service.GameLogConsumer;
+import es.eucm.eadventure.tracking.prv.service.ServiceConstArgs;
+import es.eucm.eadventure.tracking.pub._HighLevelEvents;
 
 /**
  * 
@@ -290,28 +297,35 @@ public class GleanerLogConsumer extends GameLogConsumer {
 
                 // Change var value
                 if( entry.getAttributeValue( "v" ) != null ) {
-                    Integer value = Integer.parseInt( entry.getAttributeValue( "v" ) );
-                    data.put( "operand", value );
+                    
+                    String valueString=entry.getAttributeValue( "v" );
+                    data.put( "operand", valueString );
                     String operator = entry.getAttributeValue( "e" );
                     data.put( "operator", operator );
                     trace.put( "event", "var_update" );
                     String varName = entry.getAttributeValue( "t" );
                     trace.put( "target", varName );
 
-                    if( !vars.containsKey( trace.get( "target" ) ) ) {
-                        vars.put( varName, 0 );
+                    if (entry.getAttributeValue( "e" )!=null &&(entry.getAttributeValue( "e" ).equals( _HighLevelEvents.INCREMENT_VAR ) ||
+                            entry.getAttributeValue( "e" ).equals( _HighLevelEvents.DECREMENT_VAR) ||
+                                    entry.getAttributeValue( "e" ).equals( _HighLevelEvents.SET_VALUE ) ||
+                                    entry.getAttributeValue( "e" ).equals( _HighLevelEvents.WAIT_TIME ))){
+                        Integer value = Integer.parseInt( entry.getAttributeValue( "v" ) );
+                        if( !vars.containsKey( trace.get( "target" ) ) ) {
+                            vars.put( varName, 0 );
+                        }
+    
+                        if( operator.equals( "set" ) ) {
+                            vars.put( varName, value );
+                        }
+                        else if( operator.equals( "inc" ) ) {
+                            vars.put( varName, value + vars.get( varName ) );
+                        }
+                        else if( operator.equals( "dec" ) ) {
+                            vars.put( varName, value - vars.get( varName ) );
+                        }
+                        data.put( "value", vars.get( varName ) );
                     }
-
-                    if( operator.equals( "set" ) ) {
-                        vars.put( varName, value );
-                    }
-                    else if( operator.equals( "inc" ) ) {
-                        vars.put( varName, value + vars.get( varName ) );
-                    }
-                    else if( operator.equals( "dec" ) ) {
-                        vars.put( varName, value - vars.get( varName ) );
-                    }
-                    data.put( "value", vars.get( varName ) );
                 }
 
                 // Other data
