@@ -80,7 +80,7 @@ import es.eucm.eadventure.editor.gui.displaydialogs.SelectImageDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.SlidesDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.VideoDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog.AnimationEditDialog;
-import es.eucm.eadventure.editor.plugin.echaracter.gui.ECharacterButtonFactory;
+import es.eucm.eadventure.editor.plugin.PluginGUIComponentsFactory;
 
 /**
  * This class is the panel which represents the information held in a resources
@@ -172,7 +172,7 @@ public class ResourcesPanel extends JPanel {
         
         if( resourcesDataControl.getResourcesType( ) == Controller.NPC ||  
                 resourcesDataControl.getResourcesType( ) == Controller.PLAYER) {
-            ECharacterButtonFactory.addECharacterContainer( this, c, resourcesDataControl );
+            PluginGUIComponentsFactory.addECharacterButtonContainer( this, c, resourcesDataControl );
         }
         
         final JComboBox groupCombo = new JComboBox( );
