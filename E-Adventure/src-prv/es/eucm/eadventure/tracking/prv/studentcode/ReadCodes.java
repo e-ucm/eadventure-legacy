@@ -29,12 +29,13 @@ public class ReadCodes {
      * ###############################################################################*/
     //Input
     private static File getDecodedFile(){
-        return new File("Experimento-Códigos.csv");
+        //return new File("Experimento-Códigos.csv");
+        return new File("codes.csv");
     }
     
     //Output
     private static OutputStream getEncodedOStream(){
-        String trackingConfigFile ="encrypted-codes-chermug.csv";
+        String trackingConfigFile ="encrypted-codes.csv";
         try {
             return new FileOutputStream(trackingConfigFile);
         }
@@ -46,7 +47,7 @@ public class ReadCodes {
     
     //Output
     private static InputStream getEncodedIStream(){
-        String trackingConfigFile ="encrypted-codes-chermug.csv";
+        String trackingConfigFile ="encrypted-codes.csv";
         if ( trackingConfigFile == null )
             return null;
         
