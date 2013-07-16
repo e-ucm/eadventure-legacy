@@ -36,6 +36,40 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.gui;
 
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.DisplayMode;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.event.FocusListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.font.TextAttribute;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import es.eucm.eadventure.common.auxiliar.runsettings.RunAndDebugSettings;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
@@ -44,16 +78,7 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
 import es.eucm.eadventure.engine.core.gui.hud.traditionalhud.TraditionalHUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.FocusListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.font.TextAttribute;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
+import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 public class GUIFrame extends GUI implements FocusListener {
 
@@ -89,6 +114,60 @@ public class GUIFrame extends GUI implements FocusListener {
         instance = null;
     }
 
+    private static BufferedImage backgroundImage=null;
+    private static boolean backgroundEnabled = true;
+    
+    private void initBackgroundImage(int containerWidth, int containerHeight){
+        if (backgroundImage==null && backgroundEnabled){
+           Image temp=null, background2=null, qr=null, header = null;
+           backgroundImage=new BufferedImage(containerWidth,containerHeight, BufferedImage.TRANSLUCENT);
+           Graphics2D c =backgroundImage.createGraphics( );
+           c.setColor( Color.black );
+           c.fillRect( 0, 0, containerWidth,containerHeight );
+           
+           if (ResourceHandler.getInstance( ).getResourceAsStream( "gui/background.jpg" )!=null){
+               temp= MultimediaManager.getInstance( ).loadImage( "gui/background.jpg", MultimediaManager.IMAGE_SCENE );
+               temp = temp.getScaledInstance( containerWidth, containerHeight, BufferedImage.SCALE_SMOOTH );
+               c.drawImage( temp, 0, 0, null );
+           }
+
+           if (ResourceHandler.getInstance( ).getResourceAsStream( "gui/background2.png" )!=null){
+               background2=MultimediaManager.getInstance( ).loadImage( "gui/background2.png", MultimediaManager.IMAGE_SCENE );
+               c.drawImage( background2, (containerWidth-background2.getWidth( null ))/2, (containerHeight-background2.getHeight( null ))/2, null );
+               if (ResourceHandler.getInstance( ).getResourceAsStream( "gui/qrcode.png" )!=null){
+                   qr=MultimediaManager.getInstance( ).loadImage( "gui/qrcode.png", MultimediaManager.IMAGE_SCENE );
+                   int qrH = containerHeight/4;
+                   int qrW = Math.round( qrH*qr.getWidth( null )/qr.getHeight( null ) );
+                   if (containerWidth-qrW-10>(containerWidth+background2.getWidth( null ))/2  ){
+                       qr = qr.getScaledInstance( qrW, qrH, BufferedImage.SCALE_SMOOTH );
+                       c.drawImage(qr, containerWidth-qrW-10, 10, null);
+                   }                       
+               }                       
+           }
+
+           
+           if (ResourceHandler.getInstance( ).getResourceAsStream( "gui/header-large.png" )!=null || 
+                   ResourceHandler.getInstance( ).getResourceAsStream( "gui/header-medium.png" )!=null ||
+                   ResourceHandler.getInstance( ).getResourceAsStream( "gui/header-small.png" )!=null){
+               header=null;
+               if ((containerHeight-GUI.WINDOW_HEIGHT)/2>=160){
+                   header = MultimediaManager.getInstance( ).loadImage( "gui/header-large.png", MultimediaManager.IMAGE_SCENE );
+               } else if ((containerHeight-GUI.WINDOW_HEIGHT)/2>=100){
+                   header = MultimediaManager.getInstance( ).loadImage( "gui/header-medium.png", MultimediaManager.IMAGE_SCENE );
+               } else {
+                   header = MultimediaManager.getInstance( ).loadImage( "gui/header-small.png", MultimediaManager.IMAGE_SCENE );
+               }
+               c.drawImage( header, 0,0,null );    
+           }
+           
+           c.dispose( );
+           
+           if (header ==null && qr==null && background2 == null && temp == null){
+               backgroundEnabled=false;
+           }
+        }            
+    }
+    
     /**
      * Private constructor to create the unique instace of the class
      */
@@ -101,9 +180,16 @@ public class GUIFrame extends GUI implements FocusListener {
 
             @Override
             public void paint( Graphics g ) {
-
+                initBackgroundImage(getSize().width, getSize().height);                
                 g.setColor( Color.BLACK );
                 g.fillRect( 0, 0, getSize( ).width, getSize( ).height );
+                
+                if (backgroundEnabled){
+                    Graphics2D g2d = ((Graphics2D)g);
+                    g2d.scale( (double)getSize().width/(double)backgroundImage.getWidth( null ), (double)getSize().height/(double)backgroundImage.getHeight( null ) );
+                    g2d.drawImage( backgroundImage, 0, 0, null );
+                }
+                
                 if( GUIFrame.this.component != null )
                     GUIFrame.this.component.repaint( );
             }
@@ -126,8 +212,7 @@ public class GUIFrame extends GUI implements FocusListener {
             
         });
         
-//        bkgFrame.setResizable( Game.getInstance( ).isDebug( ) );
-        bkgFrame.setResizable(true);
+        bkgFrame.setResizable( Game.getInstance( ).isDebug( ) );
         
         // Create the list of icons of the window
         try {
@@ -137,7 +222,22 @@ public class GUIFrame extends GUI implements FocusListener {
             icons.add( new ImageIcon( "gui/Icono-Motor-32x32.png" ).getImage( ) );
             icons.add( new ImageIcon( "gui/Icono-Motor-64x64.png" ).getImage( ) );
             icons.add( new ImageIcon( "gui/Icono-Motor-128x128.png" ).getImage( ) );
-            bkgFrame.setIconImages( icons );
+            
+            List<Image> icons2 = new ArrayList<Image>( );
+            try {
+                InputStream dbIconIS = ResourceHandler.getInstance( ).getResourceAsStream( "standalone_game_icon.png" );
+                if (dbIconIS == null){
+                    dbIconIS = ResourceHandler.getInstance( ).getResourceAsStream( "gui/standalone_game_icon.png" );
+                }
+                if (dbIconIS!=null)
+                    icons2.add( ImageIO.read( dbIconIS ));
+            }
+            catch( IOException e1 ) {
+                e1.printStackTrace();
+            }
+            bkgFrame.setIconImages( icons2 );
+            
+            //bkgFrame.setIconImages( icons );
             //@JAVA6@
             /*#JAVA5#
             bkgFrame.setIconImage( new ImageIcon( "gui/Icono-Motor-32x32.png" ).getImage( ) );
@@ -164,7 +264,8 @@ public class GUIFrame extends GUI implements FocusListener {
         textToDraw = new ArrayList<Text>( );
 
         gameFrame.setIgnoreRepaint( true );
-        gameFrame.setFont( new Font( "Dialog", Font.PLAIN, 18 ) );
+        gameFrame.setFont( new Font( "Verdana", Font.PLAIN, 18 ) );
+        //gameFrame.setFont( new Font( "Dialog", Font.PLAIN, 18 ) );
         Hashtable attributes = new Hashtable();
         attributes.put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_EXTENDED);
         gameFrame.setFont( gameFrame.getFont( ).deriveFont( attributes ) );
@@ -177,10 +278,9 @@ public class GUIFrame extends GUI implements FocusListener {
         bkgFrame.add( gameFrame );//, BorderLayout.CENTER);
         //bkgFrame.repaint( );
         
-        sizeAndLocationSetup();
-
+        
+      sizeAndLocationSetup();
         optimizationSetup();
-
         
         bkgFrame.setVisible( true );
         bkgFrame.validate( );
@@ -421,8 +521,9 @@ public class GUIFrame extends GUI implements FocusListener {
                         else if( components[i] instanceof DebugValuesPanel ) {
                             components[i].setBounds( 0, canvasY+ ( System.getProperty( "os.name" ).contains( "Mac" ) ? 15 : 0 ), windowWidth - canvasWidth, canvasHeight );
                         }
-                        else
+                        else{
                             components[i].setBounds( canvasX, canvasY, canvasWidth, canvasHeight );
+                        }
                     }
                 }
                 else {

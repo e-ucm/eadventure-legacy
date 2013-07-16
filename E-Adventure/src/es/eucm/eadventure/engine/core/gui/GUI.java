@@ -36,6 +36,37 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.gui;
 
+import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Composite;
+import java.awt.Cursor;
+import java.awt.FontMetrics;
+import java.awt.Frame;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.Toolkit;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -50,27 +81,11 @@ import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
 import es.eucm.eadventure.engine.core.gui.splashscreen.SplashScreen;
 import es.eucm.eadventure.engine.core.gui.splashscreen.SplashScreenImpl1_4;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This is the main class related with the graphics in eAdventure, including the
  * window
  */
 public abstract class GUI implements FocusListener {
-
-    public static final float SCALE_X = 1.0f;
-
-    public static final float SCALE_Y = 1.0f;
 
     /**
      * Applet gui type id
@@ -90,12 +105,12 @@ public abstract class GUI implements FocusListener {
     /**
      * Width of the window
      */
-    public static final int WINDOW_WIDTH = (int) (800 * SCALE_X);
+    public static final int WINDOW_WIDTH = 800;
 
     /**
      * Height of the window
      */
-    public static final int WINDOW_HEIGHT = (int) (600 * SCALE_Y);
+    public static final int WINDOW_HEIGHT = 600;
 
     /**
      * Max width of the text spoken in the game
@@ -182,8 +197,6 @@ public abstract class GUI implements FocusListener {
      * Splash screen used while loading (for example, transitions between states)
      */
     protected SplashScreen splashScreen;
-
-    private AffineTransform defaultTransform = new AffineTransform(SCALE_X, 0.0, 0.0, SCALE_Y, 0.0, 0.0);
 
     /**
      * Return the GUI instance. GUI is a singleton class.
@@ -351,8 +364,7 @@ public abstract class GUI implements FocusListener {
 
         BufferStrategy strategy = gameFrame.getBufferStrategy( );
         Graphics2D g = (Graphics2D) strategy.getDrawGraphics( );
-        g.setTransform(defaultTransform);
-
+        
         if( g == null ) {
             //System.out.println( "Error: Graphics2D = null " );
         }
@@ -373,7 +385,10 @@ public abstract class GUI implements FocusListener {
             if( !ANTIALIASING_TEXT && !g.getRenderingHints( ).containsValue( RenderingHints.VALUE_TEXT_ANTIALIAS_OFF ) ) {
                 g.setRenderingHint( RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF );
             }
+            //g.setTransform(defaultTransform);
         }
+        
+        
         return g;
     }
 
@@ -846,6 +861,10 @@ public abstract class GUI implements FocusListener {
             text.draw( g );
         textToDraw.clear( );
 
+        
+        /*g.setColor( Color.white );
+        g.drawRect( gameFrame.getX( ), gameFrame.getY( ), gameFrame.getWidth(), gameFrame.getHeight( ) );
+        System.out.println(gameFrame.getX( )+" , "+ gameFrame.getY( )+" , "+ gameFrame.getWidth()+" , "+ gameFrame.getHeight( ) );*/
         ////////////////// GAMETEL /////////////////////
 
         if (Game.getInstance( ).isDebug( ) && 
