@@ -110,7 +110,8 @@ public class EAdventureStandalone {
         printElapsedTime( "Restricted mode completed" );
         ResourceHandler.getInstance( ).setZipFile( adventureName + ".zip" );
         printElapsedTime( "Zip file set" );
-        Game.create( args.length>0?args[0]:null );
+        //Game.create( args.length>0?args[0]:null );
+        Game.create( args.length>0?args[0]:"tracking.config" );
         printElapsedTime( "Game created" );
         Game.getInstance( ).setAdventureName( adventureName );
         printElapsedTime( "Adventure name set. Starting execution of the game" );
