@@ -2098,7 +2098,15 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="GeneralText.MoveUp">Move this element one position up in the list</entry>
 <entry key="GeneralText.MoveDown">Move this element one position down in the list</entry>
 <entry key="Scene.MakeInitial">Make the game starts with this screen</entry>
+
 <entry key="ECharacter.CreateWith">Create with</entry>
+<entry key="ECharacter.Error.Title">Mmmm... something did not work</entry>
+<entry key="ECharacter.Error.Message">No character was imported</entry>
+<entry key="ECharacter.Tooltip">**Experimental feature** Opens eCharacter, a free character configuration tool, to make the visuals of this character.</entry>
+<entry key="ECharacter.EvaluationReminder.Title">Please, help us improve eCharacter!</entry>
+<entry key="ECharacter.EvaluationReminder.Message">Now that you've used eCharacter a couple of times, we'd be very appreciative if you were willing to participate in our online survey about eCharacter. 
+    This will help us improve the eAdventure experience for all our users. 
+    Would you like to complete it now? You can also do it later by visiting the web </entry>
 <entry key="Vignette.CreateWith">Edit with</entry>
 <entry key="Vignette.CreateWith.Tooltip.Enabled">**Experimental feature** Opens the new Vignette interface on your Web browser to create the conversation.</entry>
 <entry key="Vignette.CreateWith.Tooltip.Disabled">**Experimental feature** Opens the new Vignette interface on your Web browser to create the conversation.</entry>

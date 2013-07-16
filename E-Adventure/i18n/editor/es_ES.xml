@@ -2094,7 +2094,16 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 <entry key="TalkToAction.MessageSelectConversation">Seleccione una conversación</entry>
 <entry key="BookPage.NotValidURL">No se puede acceder a la URL indicada. Por favor, compruebe la dirección y el funcionamiento de su conexión a Internet</entry>
 <entry key="LOMES.MetaMetaData.Language">Lengua</entry>
+
 <entry key="ECharacter.CreateWith">Edítalo con</entry>
+<entry key="ECharacter.Error.Title">Algo salió mal</entry>
+<entry key="ECharacter.Error.Message">No se importó ningún personaje</entry>
+<entry key="ECharacter.Tooltip">**Característica experimental** Abre eCharacter, una herramienta libre de configuración de personajes, para generar las animaciones visuales del personaje.</entry>
+<entry key="ECharacter.EvaluationReminder.Title">¡Triste es de pedir, pero más triste es de robar! :)</entry>
+<entry key="ECharacter.EvaluationReminder.Message">¡Ayúdenos a mejorar eCharacter! 
+    Ahora que ha probado la nueva herramienta un par de veces, le agradeceríamos que participara en nuestra encuesta online. 
+    Esto nos ayudará a mejorar la experiencia de usuario para todos los que utilizan eAdventure. 
+    ¿Le gustaría participar ahora? También puede hacerlo más tarde en la siguiente dirección web </entry>
 <entry key="Vignette.CreateWith">Editar con</entry>
 <entry key="Vignette.CreateWith.Tooltip.Enabled">**Característica experimental** Abre la nueva herramienta Vignette en tu navegador para editar la conversación.</entry>
 <entry key="Vignette.CreateWith.Tooltip.Disabled">**Característica experimental** Abre la nueva herramienta Vignette en tu navegador para editar la conversación.</entry>
