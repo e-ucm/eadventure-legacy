@@ -34,7 +34,9 @@
  * along with <e-Adventure>. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package es.eucm.eadventure.editor.converter;
+package es.eucm.eadventure.editor.plugin.ead2;
+
+import javax.swing.JFrame;
 
 import ead.common.model.elements.operations.SystemFields;
 import ead.converter.AdventureConverter;
@@ -44,8 +46,6 @@ import ead.utils.Log4jConfig;
 import ead.utils.Log4jConfig.Slf4jLevel;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.editor.control.Controller;
-
-import javax.swing.*;
 
 public class Converter {
 
@@ -59,9 +59,9 @@ public class Converter {
 
     private GeneralExporter exporter;
 
-    public Converter( Controller controller ) {
+    public Converter( ) {
         Log4jConfig.configForConsole(Slf4jLevel.Debug, null);
-        this.controller = controller;
+        this.controller = Controller.getInstance( );
         exporter = new GeneralExporter();
         adventureConverter = new AdventureConverter( );
         SystemFields.EXIT_WHEN_CLOSE.getVarDef( ).setInitialValue(false);

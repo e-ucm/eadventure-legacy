@@ -93,6 +93,7 @@ import es.eucm.eadventure.editor.gui.editdialogs.GenericFileChooserDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericOptionPaneDialog;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
+import es.eucm.eadventure.editor.plugin.PluginGUIComponentsFactory;
 
 /**
  * This class represents the main frame of the application. It has all the
@@ -659,26 +660,7 @@ public class MainWindow extends JFrame {
         itExport.add( itExportGame );
         itExport.add( itExportStandalone );
         itExport.add( itExportLOM );
-        itExport.addSeparator();
-        // 2.0 exports
-        //EAD2EDITOR
-        /*JMenuItem itExportJarNew = new JMenuItem(TC.get("MenuFile.ExportStandaloneNew"));
-        itExportJarNew.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                controller.exportJar();
-            }
-        });
-
-        JMenuItem itExportWar = new JMenuItem(TC.get("MenuFile.ExportWar"));
-        itExportWar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                controller.exportWar();
-            }
-        });
-
-        itExport.add(itExportJarNew);
-        itExport.add(itExportWar);*/
-
+        
         fileMenu.add( itExport );
         fileMenu.addSeparator( );
 
@@ -801,21 +783,7 @@ public class MainWindow extends JFrame {
         } );
         adventureMenu.add( itPlayerMode );
         adventureMenu.addSeparator( );
-        /*JMenuItem itAssessmentFiles = new JMenuItem( TextConstants.getText( "MenuAdventure.AssessmentFiles" ) );
-        itAssessmentFiles.addActionListener( new ActionListener( ) {
-        	public void actionPerformed( ActionEvent e ) {
-        		controller.showAssessmentFilesDialog( );
-        	}
-        } );
-        adventureMenu.add( itAssessmentFiles );
-        JMenuItem itAdaptationFiles = new JMenuItem( TextConstants.getText( "MenuAdventure.AdaptationFiles" ) );
-        itAdaptationFiles.addActionListener( new ActionListener( ) {
-        	public void actionPerformed( ActionEvent e ) {
-        		controller.showAdaptationFilesDialog( );
-        	}
-        } );
-        adventureMenu.add( itAdaptationFiles );*/
-        //adventureMenu.addSeparator( );
+
         JMenuItem itDeleteUnusedAssets = new JMenuItem( TC.get( "MenuAdventure.DeleteUnusedAssets" ) );
         itDeleteUnusedAssets.addActionListener( new ActionListener( ) {
 
@@ -918,40 +886,10 @@ public class MainWindow extends JFrame {
         } );
         runMenu.add( debugRun );
         
-        runMenu.add( new JSeparator() );
 
-        // Create "Experimental run"
-        //EAD2EDITOR
-        /*JMenuItem experimentalNormalRun = new JMenuItem( TC.get( "MenuRun.Experimental.Normal" ) );
-        experimentalNormalRun.setAccelerator( KeyStroke.getKeyStroke( 'R', InputEvent.ALT_GRAPH_MASK ) );
-        experimentalNormalRun.addActionListener( new ActionListener( ){
-           
-            public void actionPerformed(ActionEvent e){
-
-                new Thread( new Runnable() {
-                    public void run() {
-                        controller.runNew( );
-                    }
-                }).start();
-            };
-        });
-        runMenu.add( experimentalNormalRun );
+        //Add eAdventure2.0 UI Components
+        PluginGUIComponentsFactory.addEad2JMenuItems( runMenu, itExport );
         
-        JMenuItem experimentalNormalDebug = new JMenuItem( TC.get( "MenuRun.Experimental.Debug" ) );
-        experimentalNormalDebug.setAccelerator( KeyStroke.getKeyStroke( 'D', InputEvent.ALT_GRAPH_MASK ) );
-        experimentalNormalDebug.addActionListener( new ActionListener( ){
-           
-            public void actionPerformed(ActionEvent e){
-
-                new Thread( new Runnable() {
-                    public void run() {
-                        controller.debugNew();
-                    }
-                }).start();
-            }
-        });
-        runMenu.add( experimentalNormalDebug );*/
-
         itAutoBackup = new JCheckBoxMenuItem( TC.get( "MenuConfiguration.AutoBackup" ), controller.getAutoSaveEnabled( ) );
         itAutoBackup.addActionListener( new ActionListener( ) {
 

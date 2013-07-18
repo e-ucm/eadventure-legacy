@@ -186,8 +186,10 @@ public class GameStateRunEffects extends GameState implements _HighLevelEvents{
                     
                     ( (FunctionalPlayAnimationEffect) currentExecutingEffect.getTriggerEffect( ) ).draw( g);
                     ( (FunctionalPlayAnimationEffect) currentExecutingEffect.getTriggerEffect( ) ).update( elapsedTime );
-                    }
+               } else if (currentExecutingEffect.getTriggerEffect( ) instanceof FunctionalMoveObjectEffect) {
+                   ((FunctionalMoveObjectEffect) currentExecutingEffect.getTriggerEffect( )).update(elapsedTime);
                }
+            }
             if( currentExecutingEffect instanceof FunctionalPlayAnimationEffect ) {
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).draw( g );
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).update( elapsedTime );

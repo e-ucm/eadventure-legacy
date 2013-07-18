@@ -587,7 +587,7 @@ public class Writer {
         
         File parentTempDir = new File("web/temp/configPanel/");
         parentTempDir.deleteAll( );
-        File destinyDir = new File("web/temp/configPanel/gui/options/"+Controller.getInstance( ).getLanguage( )+"/");
+        File destinyDir = new File("web/temp/configPanel/gui/options/en_EN/");
         destinyDir.mkdirs( );
         File sourceDir = new File("gui/options/"+Controller.getInstance( ).getLanguage( )+"/");
         File.copyAllTo( sourceDir, destinyDir );

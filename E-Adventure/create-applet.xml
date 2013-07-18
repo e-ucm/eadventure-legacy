@@ -92,8 +92,9 @@
 		<delete file="web/eAdventure.jar" />
 		<copy todir="web/temp">
 			<fileset dir=".">
-			    <include name="encrypted-codes-chermug.csv"/>
-			    <include name="Caratula.jpg"/>
+			    <!-- <include name="encrypted-codes-chermug.csv"/>
+			    <include name="Caratula.jpg"/> -->
+				<include name="tracking.config"/>
 				<include name="gui/cursors/action.png" />
 				<include name="gui/cursors/default.png" />
 				<include name="gui/cursors/exit.png" />
@@ -199,7 +200,13 @@
 			<delete file="web/eAdventure.jar" />
 			<copy todir="web/temp">
 				<fileset dir=".">
-					<include name="gui/cursors/action.png" />
+					<!--<include name="gui/background2.png" />
+					<include name="gui/background.jpg" />
+					<include name="gui/header-large.png" />
+					<include name="gui/header-medium.png" />
+					<include name="gui/header-small.png" />
+					<include name="gui/qrcode.png" />-->
+				    <include name="gui/cursors/action.png" />
 					<include name="gui/cursors/default.png" />
 					<include name="gui/cursors/exit.png" />
 					<include name="gui/cursors/nocursor.png" />

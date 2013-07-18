@@ -573,12 +573,6 @@ public class Controller {
     private boolean isLomEs = false;
 
     /**
-     * Converter, to deal with new engine
-     */
-    //EAD2EDITOR
-    //private Converter converter;
-
-    /**
      * Store all effects selection. Connects the type of effect with the number
      * of times that has been used
      */
@@ -589,8 +583,7 @@ public class Controller {
     private Controller( ) {
 
         chaptersController = new ChapterListDataControl( );
-        //EAD2EDITOR
-        //converter = new Converter(this);
+
     }
 
     private String getCurrentExportSaveFolder( ) {
@@ -4103,35 +4096,6 @@ public class Controller {
         
         return settings;
     }
-
-    //EAD2EDITOR
-    /*public void runNew() {
-        converter.run();
-    }
-
-    public void debugNew() {
-        converter.debug();
-    }
-
-    public void exportWar() {
-    }
-    public void exportJar() {
-        java.io.File destinyFile = export();
-
-        if ( destinyFile != null ){
-            // Finally, export it
-            loadingScreen.setMessage( TC.get( "Operation.ExportProject.AsJAR" ) );
-            loadingScreen.setVisible( true );
-            if( converter.exportJar(destinyFile.getAbsolutePath())) {
-                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
-            }
-            else {
-                mainWindow.showInformationDialog( TC.get( "Operation.ExportT.NotSuccess.Title" ), TC.get( "Operation.ExportT.NotSuccess.Message" ) );
-            }
-        }
-        loadingScreen.setVisible( false );
-
-    }*/
 
 
     private static class GameWindowBoundsListenerImpl implements GameWindowBoundsListener{

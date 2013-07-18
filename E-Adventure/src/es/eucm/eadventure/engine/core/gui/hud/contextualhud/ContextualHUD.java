@@ -442,27 +442,28 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
         boolean button = false;
         if( showActionButtons ) {
             actionButtons.mouseClicked( e );
-            if( actionButtons.getButtonPressed( ) != null )
+            if( actionButtons.getButtonPressed( ) != null ){
                 button = true;
+            } else {
+                showActionButtons=false;
+            }
         }
         
         Game game = Game.getInstance( );
         FunctionalScene functionalScene = game.getFunctionalScene( );
         FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), null );
         
-        if (showInventory && elementInside == null) {
+        if (!button && showInventory && elementInside == null) {
             inventory.mouseMoved( e );
             elementInside = actionManager.getElementOver( );
         }
             
     
         
-        if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || 
+        if( !button && showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || 
                 e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
             DebugLog.user( "Mouse click in inventory" );
             inHud = processInventoryClick( actionManager, e );
-            showActionButtons = false;
-            elementAction = null;
         }
         
         else if( !(pressedElement instanceof FunctionalItem && ((Item)pressedElement.getElement( )).getBehaviour( )==BehaviourType.FIRST_ACTION) && 
@@ -482,14 +483,6 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
                 elementAction = null;
             }
         }
-
-/*        else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || 
-                e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
-            DebugLog.user( "Mouse click in inventory" );
-            inHud = processInventoryClick( actionManager, e );
-            showActionButtons = false;
-            elementAction = null;
-        }*/
 
         else if( /*actionManager.getElementOver( )*/ pressedElement != null ) {
             DebugLog.user( "Mouse click over element at " + e.getX( ) + " , " + e.getY( ) );
@@ -549,8 +542,10 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
         pressedTime = System.currentTimeMillis( ) - pressedTime;
         
         DebugLog.user( "Mouse released after " + pressedTime );
-
+        System.out.println( "Pressed Time="+pressedTime );
         if( pressedTime >= 800 && pressedTime < 60000 ) {
+            System.out.println( "pressedX="+pressedX+" ; e.getX()="+e.getX( )+" ; pressedY="+pressedY+" ; e.getY()="+e.getY( ) );
+            System.out.println();
             if( Math.abs( pressedX - e.getX( ) ) < 20 && Math.abs( pressedY - e.getY( ) ) < 20 ) {
                 processRightClickNoButton( pressedElement, e );
                 pressedTime = Long.MAX_VALUE;
@@ -558,9 +553,13 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
             }
         }
         else if( pressedTime >= 0 && pressedTime < 600 ) {
+            System.out.println( "pressedX-e.getX()="+ (pressedX - e.getX( )) +" ; pressedY - e.getY( )="+ (pressedY - e.getY( )));
             if( Math.abs( pressedX - e.getX( ) ) < 30 && Math.abs( pressedY - e.getY( ) ) < 30 /*&& pressedX != e.getX( ) && pressedY != e.getY( )*/ ) {
                 mouseReleased = false;
                 pressedTime = Long.MAX_VALUE;
+                System.out.println( "pressedX="+pressedX+" ; e.getX()="+e.getX( )+" ; pressedY="+pressedY+" ; e.getY()="+e.getY( ) );
+                System.out.println();
+                
                 if (pressedTime >= 80 && pressedX != e.getX( ) && pressedY != e.getY( )) {
                     //#JAVA6#
                     MouseEvent d = new MouseEvent( e.getComponent( ), e.getID( ), e.getWhen( ), e.getModifiers( ), pressedX, pressedY, e.getXOnScreen( ), e.getYOnScreen( ), 1, false, MouseEvent.BUTTON1 );
@@ -771,7 +770,7 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
      * @return Value of inHud
      */
     private boolean processInventoryClick( ActionManager actionManager, MouseEvent e ) {
-
+        boolean returnValue = false;
         FunctionalElement element = inventory.mouseClicked( e );
         if( elementInCursor != null ) {
             if( element != null ) {
@@ -781,14 +780,33 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
                 game.getFunctionalPlayer( ).performActionInElement( element );
                 elementInCursor = null;
                 gui.setDefaultCursor( );
+                returnValue = true;
             }
         }
         else if( element != null ) {
             //actionManager.setActionSelected( ActionManager.ACTION_LOOK );
             //game.getFunctionalPlayer( ).performActionInElement( element );
-            processElementFirstAction( actionManager  );
+            if (element instanceof FunctionalItem){
+                FunctionalItem fi = (FunctionalItem)element;
+                if (fi.getItem( ).getBehaviour( ) == BehaviourType.ATREZZO){
+                    // Do nothing
+                } else if (fi.getItem( ).getBehaviour( ) == BehaviourType.FIRST_ACTION || e.getButton( ) == MouseEvent.BUTTON1){
+                    processElementFirstAction( actionManager  );
+                    returnValue = true;
+                } else if (fi.getItem( ).getBehaviour( ) == BehaviourType.NORMAL){
+                    this.processRightClickNoButton( element, e );
+                    returnValue = true;
+                }
+            } else if (e.getButton( ) == MouseEvent.BUTTON3){
+               this.processRightClickNoButton( element, e );
+               returnValue = true;
+            }else if (e.getButton( ) == MouseEvent.BUTTON1){
+                processElementFirstAction( actionManager  );
+                returnValue = true;
+             }
+            
         }
-        return true;
+        return returnValue;
     }
 
     /**
@@ -904,6 +922,7 @@ public class ContextualHUD extends HUD implements _HighLevelEvents{
             elementAction = elementOver;
             actionButtons.recreate( e.getX( ), e.getY( ), elementAction );
             Game.getInstance( ).getGameLog( ).highLevelEvent( SHOW_ACTIONS, elementOver.getElement( ).getId() );
+            System.out.println( "SHOWACTIONS = TRUE" );
             showActionButtons = true;
             return true;
         }

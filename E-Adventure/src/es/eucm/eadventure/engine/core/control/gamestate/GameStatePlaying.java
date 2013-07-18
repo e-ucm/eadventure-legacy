@@ -35,19 +35,19 @@
  ******************************************************************************/
 package es.eucm.eadventure.engine.core.control.gamestate;
 
-import es.eucm.eadventure.common.data.adaptation.AdaptedState;
-import es.eucm.eadventure.common.data.chapter.Exit;
-import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridManager;
-import es.eucm.eadventure.engine.core.gui.GUI;
-
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.interaction.auxiliar.GridManager;
+import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
  * A game main loop during the normal game
@@ -225,8 +225,9 @@ public class GameStatePlaying extends GameState {
      */
     public void mouseClickedEvent( MouseEvent e ) {
 
-        if( !GUI.getInstance( ).mouseClickedInHud( e ) )
+        if( !GUI.getInstance( ).mouseClickedInHud( e ) ){
             game.getActionManager( ).mouseClicked( e );
+        }
     }
 
     /**

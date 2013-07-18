@@ -370,7 +370,9 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      *            the action to be performed
      */
     public void performActionInElement( FunctionalElement element ) {
-
+        if (element==null)
+            return;
+        
         Game game = Game.getInstance( );
         int actionSelected = Game.getInstance( ).getActionManager( ).getActionSelected( );
         if( actionSelected == ActionManager.ACTION_LOOK ) {

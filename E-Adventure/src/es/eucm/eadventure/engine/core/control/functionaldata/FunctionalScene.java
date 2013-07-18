@@ -863,8 +863,9 @@ public class FunctionalScene implements Renderable, _HighLevelEvents {
             int finalX = functionalGoTo.getPosX( );
             int finalY = functionalGoTo.getPosY( );
             Exit exit = getExitInside( finalX - offsetX, finalY );
-            if (exit!=null)
+            if (exit!=null){
                 Game.getInstance( ).getGameLog( ).highLevelEvent( EXIT_CLICK, exit.getNextSceneId( ) );
+            }
             player.cancelActions( );
             if( exit == null && !player.isTransparent( ) ) {
                 player.addAction( functionalGoTo );

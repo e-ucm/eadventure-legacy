@@ -66,7 +66,9 @@ Steps:
 	<description>
     This ant build file is used to build the project as a jar file.
 	</description>
-
+	
+	
+	<property name="echaracter.lib" value="lib" />
 	<property name="lib.dir" value="jars" />
 	<property name="gui.dir" value="gui" />
 	<property name="img.dir" value="img" />
@@ -74,16 +76,23 @@ Steps:
 	<property name="help.dir" value="help" />
 	<property name="lanengine.dir" value="i18n/engine" />
 	<property name="laneditor.dir" value="i18n/editor" />
-	<property name="release.version" value="1.5RC3" />
+	<property name="release.version" value="1.5RC4" />
 
 	<property name="plugin.dir" value="C:/Program Files (x86)/Java/jre6/lib" />
 
+	<property name="tracking.libs" value="jars/commons-codec-1.4.jar jars/commons-logging-1.1.1.jar jars/gson-2.2.2.jar jars/httpclient-4.1.3.jar jars/httpclient-cache-4.1.3.jar jars/httpcore-4.1.4.jar jars/httpmime-4.1.3.jar"/>
+	
 	<path id="project.class.path">
 		<fileset dir="${lib.dir}">
 			<include name="*.jar" />
 		</fileset>
 	</path>
 
+	<path id="echaracter.class.path">
+		<fileset dir="${echaracter.lib}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
 
 	<path id="plugin.class.path">
 		<fileset dir="${plugin.dir}">
@@ -92,9 +101,15 @@ Steps:
 	</path>
 	
 	<target name="complie">
+	    
 		<javac srcdir="./src/" destdir="release-dir/">
 			<classpath refid="project.class.path" />
 			<classpath refid="plugin.class.path" />
+			
+			<classpath>
+			    <pathelement location="bjars/eadventure2.jar"/>
+			</classpath>
+			
 		</javac>
 	</target>
 
@@ -102,8 +117,34 @@ Steps:
 		<path refid="project.class.path" />
 		<map from="${basedir}\${lib.dir}\" to="jars/" />
 	</pathconvert>
+	
+	<pathconvert property="eac.project.manifest.classpath" pathsep=" ">
+		<path refid="echaracter.class.path" />
+		<map from="${basedir}\${echaracter.lib}\" to="lib/" />
+	</pathconvert>
 
-	<target name="jar-engine" description="generate the engine jar" depends="complie">
+	<target name="setup-engine-classpath" description="sets up the property that defines what's the editor classpath. It takes into account whether eCharacter libraries should be added">
+	    <condition property="engine.classpath" value="${lib.project.manifest.classpath} ${tracking.libs} jars/eadventure-common.jar jars/eadventure-comm-jar">
+        	<or>
+        		<isset property="use.vignette"/>
+        		<isset property="use.tracking"/>
+        	</or>        
+	    </condition>
+
+	    <condition property="engine.classpath" value="${lib.project.manifest.classpath} jars/eadventure-common.jar jars/eadventure-comm-jar">
+	        <and>
+	        	<not>
+	        		<isset property="use.vignette"/>
+	        	</not>
+	        	<not>
+	        		<isset property="use.tracking"/>
+	        	</not>        
+	        </and>
+	    </condition>
+	</target>
+		
+	
+	<target name="jar-engine" description="generate the engine jar" depends="complie,setup-engine-classpath">
 		<delete file="release-dir/eadventure/eadventure-engine.jar" />
 		<jar compress="true" destfile="release-dir/eadventure/eadventure-engine.jar">
 			<fileset dir="release-dir/">
@@ -116,21 +157,111 @@ Steps:
 
 			<manifest>
 				<attribute name="Main-Class" value="es.eucm.eadventure.engine.EAdventure" />
-				<attribute name="Class-Path" value="${lib.project.manifest.classpath} jars/eadventure-common.jar jars/eadventure-comm.jar" />
+				<attribute name="Class-Path" value="${engine.classpath}" />
 			</manifest>
 		</jar>
 	</target>
 
-	<target name="jar-editor" description="generate the editor jar" depends="complie">
+	
+	
+	<target name="setup-editor-classpath" description="sets up the property that defines what's the editor classpath. It takes into account whether eCharacter libraries should be added">
+
+	    <condition property="editor.classpath" value="${lib.project.manifest.classpath} ${tracking.libs} jars/eadventure2.jar jars/eadventure-common.jar eadventure-engine.jar jars/eadventure-comm-jar lib/eCharacter.jar ${eac.project.manifest.classpath}">
+	        <and>
+	        	<isset property="use.echaracter"/>
+	        	<isset property="use.ead2"/>
+	        	<or>
+	        		<isset property="use.vignette"/>
+	        		<isset property="use.tracking"/>
+	        	</or>        
+	        </and>
+	    </condition>
+	    <condition property="editor.classpath" value="${lib.project.manifest.classpath} ${tracking.libs} jars/eadventure2.jar jars/eadventure-common.jar eadventure-engine.jar jars/eadventure-comm-jar">
+	        <and>
+	            <not>
+	        		<isset property="use.echaracter"/>
+	        	</not>
+	        	<isset property="use.ead2"/>
+	        	<or>
+	        		<isset property="use.vignette"/>
+	        		<isset property="use.tracking"/>
+	        	</or>        
+	        </and>
+	    </condition>
+	    <condition property="editor.classpath" value="${lib.project.manifest.classpath} jars/eadventure2.jar jars/eadventure-common.jar eadventure-engine.jar jars/eadventure-comm-jar">
+	        <and>
+	            <not>
+	        		<isset property="use.echaracter"/>
+	        	</not>
+	        	<isset property="use.ead2"/>
+	        	<not>
+	        		<isset property="use.vignette"/>
+	        	</not>
+	        	<not>
+	        		<isset property="use.tracking"/>
+	        	</not>        
+	        </and>
+	    </condition>
+	    
+
+	    <condition property="editor.classpath" value="${lib.project.manifest.classpath} ${tracking.libs} jars/eadventure-common.jar eadventure-engine.jar jars/eadventure-comm-jar lib/eCharacter.jar ${eac.project.manifest.classpath}">
+	        <and>
+	        	<isset property="${use.echaracter}"/>
+	        	<not>
+	        		<isset property="${use.ead2}"/>
+	        	</not>
+	        	<or>
+	        		<isset property="${use.vignette}"/>
+	        		<isset property="${use.tracking}"/>
+	        	</or>        
+	        </and>
+	    </condition>
+	    <condition property="editor.classpath" value="${lib.project.manifest.classpath} ${tracking.libs} jars/eadventure-common.jar eadventure-engine.jar jars/eadventure-comm-jar">
+	        <and>
+	            <not>
+	        		<isset property="${use.echaracter}"/>
+	        	</not>
+	        	<not>
+	        		<isset property="${use.ead2}"/>
+	        	</not>
+	        	<or>
+	        		<isset property="${use.vignette}"/>
+	        		<isset property="${use.tracking}"/>
+	        	</or>        
+	        </and>
+	    </condition>
+	    <condition property="editor.classpath" value="${lib.project.manifest.classpath} jars/eadventure-common.jar eadventure-engine.jar jars/eadventure-comm-jar">
+	        <and>
+	            <not>
+	        		<isset property="${use.echaracter}"/>
+	        	</not>
+	        	<not>
+	        		<isset property="${use.ead2}"/>
+	        	</not>
+	        	<not>
+	        		<isset property="${use.vignette}"/>
+	        	</not>
+	        	<not>
+	        		<isset property="${use.tracking}"/>
+	        	</not>        
+	        </and>
+	    </condition>	    
+	    	    
+	</target>
+	
+	<target name="jar-editor" description="generate the editor jar" depends="complie, setup-editor-classpath">
 		<delete file="release-dir/eadventure/eadventure-editor.jar" />
 		<jar compress="true" destfile="release-dir/eadventure/eadventure-editor.jar">
 			<fileset dir="release-dir/">
 				<include name="es/eucm/eadventure/editor/*.class" />
 				<include name="es/eucm/eadventure/editor/**/*.class" />
+				<include name="test/echaracter/*.class" />
 			</fileset>
 			<manifest>
+			    <!--  <attribute name="Main-Class" value="es.eucm.eadventure.editor.control.ECharacterTest" />-->
+			    
 				<attribute name="Main-Class" value="es.eucm.eadventure.editor.AdventureEditor" />
-				<attribute name="Class-Path" value="${lib.project.manifest.classpath} jars/eadventure-common.jar eadventure-engine.jar jars/eadventure-comm-jar" />
+				<attribute name="Class-Path" value="${editor.classpath}" />
 			</manifest>
 		</jar>
 	</target>
@@ -164,12 +295,79 @@ Steps:
 		</delete>
 	</target>
 
+	<target name="copy-tracking-files" description="copy additional files for tracking">
+		<copy todir="${basedir}/release-dir/eadventure/jars" flatten="true">
+			<fileset dir="${lib.dir}">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="bjars">
+				<include name="commons-codec-1.4.jar" />
+				<include name="commons-logging-1.1.1.jar" />
+				<include name="gson-2.2.2.jar" />
+				<include name="httpclient-4.1.3.jar" />
+				<include name="httpclient-cache-4.1.3.jar" />
+				<include name="httpcore-4.1.4.jar" />
+				<include name="httpmime-4.1.3.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${basedir}/release-dir/eadventure" flatten="true">
+			<fileset dir="${basedir}">
+				<include name="*.dtd" />
+				<include name="tracking.config" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="copy-ead2-files" description="copy additional files for eAd2-engine">
+		<copy todir="${basedir}/release-dir/eadventure/jars" flatten="true">
+			<fileset dir="${lib.dir}">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="bjars">
+				<include name="eadventure2.jar" />
+			</fileset>
+		</copy>
+	</target>
+	
+
+	<target name="copy-echaracter-files" description="copy additional files for eCharacter">
+		<copy todir="${basedir}/release-dir/eadventure/lib" flatten="true">
+			<fileset dir="${echaracter.lib}">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="bjars">
+				<include name="eCharacter.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${basedir}/release-dir/eadventure/assets" flatten="false">
+			<fileset dir="assets">
+				<include name="**/*.*" />
+				<exclude name=".svn*/**" />
+			</fileset>
+		</copy>
+		<copy todir="${basedir}/release-dir/eadventure" flatten="true">
+			<fileset dir="${basedir}">
+				<include name="echaracter.config" />
+			</fileset>
+		</copy>
+	</target>	
+	
+	<target name="copy-vignette-files" description="copy additional files for Vignette">
+		<copy todir="${basedir}/release-dir/eadventure" flatten="true">
+			<fileset dir="${basedir}">
+				<include name="vignette.config" />
+			</fileset>
+		</copy>
+	</target>
+	
 	<target name="copy-files" description="copy the necessary files">
+		
 		<copy todir="${basedir}/release-dir/eadventure/jars" flatten="true">
 			<fileset dir="${lib.dir}">
 				<include name="*.jar" />
 			</fileset>
 		</copy>
+
 		<copy todir="${basedir}/release-dir/eadventure/gui" flatten="false">
 			<fileset dir="${gui.dir}">
 				<include name="**/*.*" />
@@ -209,7 +407,6 @@ Steps:
 		<copy todir="${basedir}/release-dir/eadventure" flatten="true">
 			<fileset dir="${basedir}">
 				<include name="*.dtd" />
-				<include name="tracking.config" />
                 <include name="datamodel*.xml" />
 				<include name="config_editor.xml" />
 				<include name="config_engine.xml" />
@@ -259,6 +456,13 @@ Steps:
 	</target>
 
 	<target name="build" description="build a project release">
+		
+	    <!-- UNCOMMENT ANY OF THE NEXT 4 LINES TO ADD DIFFERENT MODULES TO THE CLASSPATH -->
+	    <property name="use.echaracter" value="true"/>
+	    <property name="use.ead2" value="true"/>
+	    <property name="use.vignette" value="true"/>
+	    <property name="use.tracking" value="true"/>	    
+	    
 		<antcall target="clear-all" />
 		<ant antfile="create-applet.xml" target="generate" />
 		<mkdir dir="release-dir/eadventure" />
@@ -268,6 +472,13 @@ Steps:
 		<antcall target="jar-comm" />
 		<antcall target="jar-common" />
 		<antcall target="copy-files" />
+		
+		<!-- UNCOMMENT ANY OF THE NEXT 4 LINES TO ADD FILES FOR ADDITIONAL MODULES -->
+		<antcall target="copy-echaracter-files" />
+		<antcall target="copy-ead2-files" />
+		<antcall target="copy-vignette-files" />
+		<antcall target="copy-tracking-files" />
+		
 		<antcall target="create-special-files" />
 		<antcall target="create-zip" />
 		<antcall target="cleanup" />
