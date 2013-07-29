@@ -57,17 +57,78 @@ import es.eucm.eadventure.editor.plugin.ead2.EAD2Control;
 import es.eucm.eadventure.editor.plugin.echaracter.gui.ECharacterButton;
 import es.eucm.eadventure.editor.plugin.vignette.VignetteGUIComponent;
 import es.eucm.eadventure.editor.plugin.vignette.VignetteGUIComponentImplementation;
+import es.eucm.eadventure.editor.plugin.vignette.VignetteGUIComponentPlaceHolder;
 
 public class PluginGUIComponentsFactory {
+
+	static private final boolean isVignettePresent;
+	static private final boolean isECharacterPresent;
+	static private final boolean isEngineV2Present;
+
+	static {
+		boolean foundVignette = false;
+		boolean foundECharacter = false;
+		boolean foundEngineV2 = false;
+		try {
+			foundVignette = (null != PluginGUIComponentsFactory.class.getClassLoader().loadClass(
+					"es.eucm.eadventure.editor.plugin.vignette.VignetteGUIComponent"));
+		} catch (Exception e) {
+			// loading of a sample class failed: flag not activated
+		}
+		isVignettePresent = foundVignette;
+
+		try {
+			foundECharacter = (null != PluginGUIComponentsFactory.class.getClassLoader().loadClass(
+					"es.eucm.eadventure.editor.plugin.echaracter.gui.ECharacterButton"));
+		} catch (Exception e) {
+			// loading of a sample class failed: flag not activated
+		}
+		isECharacterPresent = foundECharacter;
+
+		try {
+			foundEngineV2 = (null != PluginGUIComponentsFactory.class.getClassLoader().loadClass(
+					"es.eucm.eadventure.editor.plugin.ead2.EAD2Control"));
+		} catch (Exception e) {
+			// loading of a sample class failed: flag not activated
+		}
+		isEngineV2Present = foundEngineV2;
+	}
 
     ////////////////////////////////////////////////////
     //  Methods for adding Vignette, ECharacter and EAdventure2.0
     ////////////////////////////////////////////////////
     
-    /*
-     * Uncomment this method (and comment the next one) to get ECharacterButton visible
-     */
     public static void addECharacterButtonContainer( Container parent, GridBagConstraints c, ResourcesDataControl resources ){
+        if (isECharacterPresent) {
+		  addECharacterButtonContainerActive(parent, c, resources);
+		} else {
+		  addECharacterButtonContainerInactive(parent, c, resources);
+		}
+    }
+    
+    public static VignetteGUIComponent buildAddVignetteGUIComponent(  ){
+        if (isVignettePresent) {
+		  return buildAddVignetteGUIComponentActive();
+		} else {
+		  return buildAddVignetteGUIComponentInactive();
+		}
+    }
+
+    public static void addEad2JMenuItems(JMenu runMenu, JMenu itExport){
+        if (isEngineV2Present) {
+		  addEad2JMenuItemsActive(runMenu, itExport);
+		} else {
+		  addEad2JMenuItemsInactive(runMenu, itExport);
+		}
+    }
+
+
+
+    ////////////////////////////////////////////////////
+    //  Methods for adding Vignette, ECharacter and EAdventure2.0
+    ////////////////////////////////////////////////////
+    
+    public static void addECharacterButtonContainerActive( Container parent, GridBagConstraints c, ResourcesDataControl resources ){
         JButton createWithECharacterButton = new ECharacterButton(resources);
         JPanel createWithECharacterPanel = new JPanel();
         createWithECharacterPanel.setLayout( new BorderLayout() );
@@ -77,11 +138,11 @@ public class PluginGUIComponentsFactory {
         parent.add( createWithECharacterPanel, c );
     }
     
-    public static VignetteGUIComponent buildAddVignetteGUIComponent( ){
+    public static VignetteGUIComponent buildAddVignetteGUIComponentActive( ){
         return new VignetteGUIComponentImplementation();
     }
     
-    public static void addEad2JMenuItems(JMenu runMenu, JMenu itExport){
+    public static void addEad2JMenuItemsActive(JMenu runMenu, JMenu itExport){
         itExport.addSeparator();
         JMenuItem itExportJarNew = new JMenuItem(TC.get("MenuFile.ExportStandaloneNew"));
         itExportJarNew.addActionListener(new ActionListener() {
@@ -137,16 +198,15 @@ public class PluginGUIComponentsFactory {
     //  Methods for NOT adding Vignette, ECharacter and EAdventure2.0 (blank)
     ////////////////////////////////////////////////////    
     
-    /*public static void addECharacterButtonContainer( Container parent, GridBagConstraints c, ResourcesDataControl resources ){
+    public static void addECharacterButtonContainerInactive( Container parent, GridBagConstraints c, ResourcesDataControl resources ){
         // By default, do nothing
     }
     
-    public static VignetteGUIComponent buildAddVignetteGUIComponent(  ){
+    public static VignetteGUIComponent buildAddVignetteGUIComponentInactive(  ){
         return new VignetteGUIComponentPlaceHolder();
     }
 
-    public static void addEad2JMenuItems(JMenu runMenu, JMenu itExport){
+    public static void addEad2JMenuItemsInactive(JMenu runMenu, JMenu itExport){
         // By default, do nothing    
-    }*/
-   
+    }
 }

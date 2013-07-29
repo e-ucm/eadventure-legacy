@@ -1,0 +1,41 @@
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+*.iml
+.idea/
+local.properties
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+# ignore editor backups
+**~
+
+# ignore all compilation output
+**.class
+target/
+
+# test output
+test/resources/result*
+
+# eclipse stuff
+*.prefs
+.project
+.metadata
+.classpath
+.settings/
+bin/
+
+# jvm error files
+**/hs_err*.log
