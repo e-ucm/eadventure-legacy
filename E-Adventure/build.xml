@@ -89,8 +89,6 @@
   <property name="sign.keypass" value="abcdtest" />
   <property name="sign.keystore" value="eAdventure.keystore" />
 
-
-
   <!--
       Setup and compile
   -->
@@ -238,7 +236,7 @@
     description="Build applet distribution">
 
     <!-- now sign it -->
-    <signjar jar="${applet-file}" alias="${sign.alias}"
+  <signjar jar="${applet-file}" alias="${sign.alias}"
       storepass="${sign.storepass}" keypass="${sign.keypass}"
       keystore="${sign.keystore}"/>
 
