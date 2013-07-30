@@ -79,6 +79,7 @@
 	<build>
 		<defaultGoal>compile</defaultGoal>
 		<plugins>
+		  
 			<!-- Java compilation options -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -89,8 +90,34 @@
 					<target>${compile.target}</target>
 					<showDeprecation>true</showDeprecation>
 					<encoding>${project.build.sourceEncoding}</encoding>
+					<useIncrementalCompilation>false</useIncrementalCompilation>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+				  <execution>
+					<phase>package</phase>
+					<configuration>
+					  <tasks>
+						<property name="compile_classpath" refid="maven.compile.classpath"/>
+						<property name="runtime_classpath" refid="maven.runtime.classpath"/>
+						<property name="src.dir" location="${project.build.sourceDirectory}"/>
+						<property name="build.dir" location="${project.build.outputDirectory}"/>
+						<ant antfile="${basedir}/build.xml" 
+						  target="eadventure-common"/>					  
+					  </tasks>
+					</configuration>
+					<goals>
+					  <goal>run</goal>
+					</goals>
+				  </execution>
+				</executions>
+			</plugin>
+
 			<!-- Copy the resources to the output directory for including in the JAR. 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -244,28 +271,35 @@
 	  <version>1.9.5-1</version>
 	</dependency>	
 	
-	<!-- JMF
+	<!-- JMF -->
 	<dependency>
 	  <groupId>javax.media</groupId>
 	  <artifactId>jmf</artifactId>
 	  <version>2.1.1e</version>
 	</dependency>
-	-->
 	
-	<!-- FMJ (open-source, replaces JMF) -->
+	<!-- FMJ (open-source, replaces JMF) 
 	<dependency>
 	  <groupId>net.sourceforge</groupId>
 	  <artifactId>fmj</artifactId>
 	  <version>1.0.0.20070928</version>
 	</dependency>
-	
-	<!-- JavaZoom -->
+
+	< ! - - required by FMJ ...  - - >
 	<dependency>
-	  <groupId>javazoom</groupId>
-	  <artifactId>jlayer</artifactId>
-	  <version>1.0.1</version>
+	  <groupId>jdom</groupId>
+	  <artifactId>jdom</artifactId>
+	  <version>1.0</version>
 	</dependency>
+	-->
 	
+	<!-- JavaZoom mp3 player -->
+	<dependency>
+	  <groupId>de.huxhorn.sulky</groupId>
+	  <artifactId>de.huxhorn.sulky.3rdparty.jlayer</artifactId>
+	  <version>1.0</version>
+	</dependency>
+
 	<!-- jffmpeg -->
 	<dependency>
 	  <groupId>net.sourceforge</groupId>
@@ -319,7 +353,7 @@
 	  <version>2.0.1-SNAPSHOT</version>
 	</dependency>	
 	
-	<!-- eAdventure 2 importer -->
+	<!-- eAdventure 2 exporter -->
 	<dependency>
 	  <groupId>ead</groupId>
 	  <artifactId>exporter</artifactId>

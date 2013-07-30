@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-    This is the build-file for e-Adventure. You will need 'ant' to use it.
-    Ant is available from http://ant.apache.org/. You can find the latest
-    version of e-Adventure on Sourceforge at:
-        http://sourceforge.net/projects/e-adventure/
-    The latest version of e-Adventure is available using Subversion at:
-        svn co https://e-adventure.svn.sourceforge.net/svnroot/e-adventure/trunk
-
+    You will need 'ant' to launch this file;
+	  Ant is available from http://ant.apache.org/. 
+	
+	This file is NOT stand-alone; in particular, it assumes 
+	that the project is already built via Maven (see pom.xml) and working.
+	
+	FIXME: old documentation follows ===========
+	
     The default language is English; to change this language, use the
     -Dlang=<code> command-line option. For example, to build an applet that
     defaults to Spanish, use 'ant applet -Dlang=it_IT'. Valid languages include
     the following: en_EN (English), de_DE (German), ro_RO (Romanian),
     pt_PT (Portuguese), it_IT (Italian), es_ES.(Spanish)
 
-    To build and execute the application, use
-        ant run-editor      - build and run the editor
-        ant run-player      - build and run the player
     Arguments can be specified using the -Dargs="<your args here"> flag.
     For example, you can write 'ant run-editor -Dargs="lang=it_IT"' to use
     the editor in Italian
 
-    To build and package a release, use
-        ant applet   - build and package the player applet; you can also specify
-                        -Dapplet.name='nameOfApplet.jar' and -Dgame.ead='aGameToPackage.ead'
-        ant zip      - build and package a platform-agnostic binary zip
-        ant zip-src  - package a clean source distribution (no libraries included)
-        ant win-installer - build and package a windows installer
-        ant deb      - build and package a debian/ubuntu .deb installer
-    (source code is not packaged; it is only available from the repository)
-
-    Javadoc documentation can be built using
-        ant javadoc
-
-    Finally, generated files (including packaging) can be erased by executing
-        ant clean
-
+    To build and package a release, use the following targets (from Maven)
+	  zip-src 			- package a sources-only zip, with pom.xml but no dependencies
+	  
+	  zip 				- package a platform-agnostic binary zip
+	  
+	  applet 			- package a player applet; properties:
+		applet.name='nameOfApplet.jar'
+		game.ead='aGameToPackage.ead'
+	  
+      win-installer 	- build and package a windows installer
+	  deb      			- build and package a debian/ubuntu .deb installer
+		(source code is not packaged; it is only available from the repository)
+		
     This build-file is placed by its authors in the public domain.
-    e-Adventure itself is licenced under the GNU LGPL license.
+    e-Adventure itself is licenced under the GNU LGPLv3 license.
     More details in the README file.
 -->
 
@@ -46,34 +42,39 @@
   <!-- default language; can change from command-line using -Dlang=<code> -->
   <property name="lang" value="en_EN" />
 
-  <!-- relative dirs -->
-  <property name="src" value="src" />
-  <property name="lib" value="jars" />  <!-- hard-coded into launch4j tasks -->
-  <property name="clib" value="bjars" />
+  <!-- defined by maven 
+	compile_classpath
+	runtime_classpath
+	test_classpath
 
-  <!-- hardcoded / FIXME -->
-  <property name="v2lib" location="/home/mfreire/.m2/repository/ead/" />
-
+	src.dir: 		java sources
+	build.dir:		build output w/ classes (guaranteed fresh) 
+  -->
+  
+  <!-- path refs -->
+  <path id="project.path" path="${runtime_classpath}"/>
+  
+  
+  <!-- target location; cleared by 'clean', created by 'init' -->
+  <property name="dist.dir" location="dist" />  
+  <!-- compile-time libs are copied here during staging -->
+  <property name="lib.dir" location="${project.build.outputDirectory}/jars" />  
+  
+  <!-- other relative dirs -->
   <property name="gui" value="gui" />
   <property name="img" value="img" />
   <property name="web" value="web" />
   <property name="i18n" value="i18n" />
   <property name="help" value="help" />
   <property name="pack" value="packaging" />
-  <!-- absolute dirs -->
-  <property name="src.dir" location="${src}" />
-  <property name="lib.dir" location="${lib}" />
-  <property name="clib.dir" location="${clib}" />
+  
+  <!-- other absolute dirs -->
   <property name="gui.dir" location="${gui}" />
   <property name="img.dir" location="${img}" />
   <property name="web.dir" location="${web}" />
   <property name="i18n.dir" location="${i18n}" />
   <property name="help.dir" location="${help}" />
   <property name="pack.dir" location="${pack}" />
-
-  <!-- target locations; cleared by 'clean', created by 'init' -->
-  <property name="build.dir" location="build" />
-  <property name="dist.dir" location="dist" />
 
   <!-- run-time properties -->
   <property name="jvm-args" value="-Xmx512m -Xms512m "/>
@@ -90,39 +91,17 @@
   <property name="sign.keystore" value="eAdventure.keystore" />
 
   <!--
-      Setup and compile
+      Initialization
   -->
-  <path id="project.path">
-    <fileset dir="${lib.dir}" includes="*.jar"/>
-    <fileset dir="${clib.dir}" includes="*.jar"/>
-    <fileset dir="${v2lib}" includes="**/*.jar" />
-  </path>
-
-  <path id="run.path">
-    <fileset dir="${lib.dir}" includes="*.jar"/>
-    <fileset dir="${clib.dir}" includes="*.jar"/>
-    <pathelement location="${build.dir}"/>
-    <pathelement location="${basedir}"/>
-  </path>
-
-  <!-- variable for Manifest Libraries-->
-  <pathconvert property="manifest.path" dirsep="/" pathsep=" ">
-    <path refid="project.path" />
-  	<map from="${basedir}/" to=" " />
-  </pathconvert>
-
   <target name="init" description="Initialize the build">
     <tstamp/>
-    <mkdir dir="${build.dir}"/>
     <mkdir dir="${dist.dir}"/>
+    <mkdir dir="${lib.dir}"/>
     <!-- load contents of 'RELEASE' file (eg.: 1.3 RC1) into 'version' property -->
     <loadfile property="version" srcFile="RELEASE" />
     <property name="deb_subversion" value="5" />
     <!-- write a 'RELEASE' file (eg.;1.3 RC1-20110212 into the output folder -->
     <echo message="${version}-${DSTAMP}" file="${build.dir}/RELEASE" />
-    <!-- avoid subversion files in releases -->
-    <defaultexcludes add="**/.svn"/>
-    <defaultexcludes add="**/.svn/**"/>
     <!-- create default 'config-xxx.xml' entries in the output folder -->
     <copy toDir="${build.dir}">
         <fileset dir="${basedir}">
@@ -133,36 +112,38 @@
         </filterset>
         <globmapper from="*-template" to="*"/>
     </copy>
-  </target>
-
-  <target name="compile" depends="init" description="Compile source-files">
-    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true"
-      encoding="ISO8859-1" includeAntRuntime="false" includeJavaRuntime="true"
-      classpathref="project.path" target="1.6">
-    </javac>
-  </target>
-
-  <target name="compile-applet" depends="init" description="Compile applet source-files">
-    <mkdir dir="${build.dir}/applet" />
-    <!-- FIXME: parts of engine depend on editor; to see which, set sourcepath="" -->
-    <javac srcdir="${src.dir}" destdir="${build.dir}/applet"
-      encoding="ISO8859-1" source="1.5" target="1.5" includeAntRuntime="false"
-      classpathref="project.path">
-        <exclude name="es/eucm/eadventure/editor/**" />
-        <exclude name="es/eucm/eadventure/assistant/**" />
-    </javac>
+    <!-- copy path jars to library dir -->
+    <copy toDir="${lib.dir}" flatten="true">
+		<path>
+		  <pathelement path="${runtime_classpath}"/>
+		</path>
+	</copy>
+	<!-- and remove the empty 'classes' dir from there -->
+	<delete dir="${lib.dir}/classes"/>			
+	
+	<path id="jars">
+	  <fileset dir="${lib.dir}" includes="*.jar"/>
+	</path>
+	
+	<pathconvert property="manifest.path" dirsep="/" pathsep=" ">
+	  <path refid="jars" />
+	  <map from="${lib.dir}/" to="jars/" />
+	</pathconvert>
+	
+	<echo message="ant buildfile initialized, manifest.path is ${manifest.path}"/>
+	
   </target>
 
   <!--
       Execution
   -->
-  <target name="run-editor" depends="compile" description="Executes the eAdventure editor">
+  <target name="run-editor" depends="init" description="Executes the eAdventure editor">
     <java classpathref="run.path" classname="${main.editor}" fork="true">
         <jvmarg line="${jvm-args}"/>
         <arg line="${args}"/>
     </java>
   </target>
-  <target name="run-engine" depends="compile" description="Executes the eAdventure engine">
+  <target name="run-engine" depends="init" description="Executes the eAdventure engine">
     <java classpathref="run.path" classname="${main.engine}" fork="true">
        <jvmarg line="${jvm-args}"/>
        <arg line="${args}"/>
@@ -172,7 +153,7 @@
   <!--
       Applet packaging; name can be overriden using "applet.name" property
   -->
-  <target name="applet-jar" depends="compile-applet">
+  <target name="applet-jar" depends="init">
 
     <property name="applet.name"
       value="eAdventure-applet.jar" />
@@ -250,7 +231,6 @@
   <!--
       Zip, platform-agnostic packaging; does not include binaries
   -->
-
   <target name="zip" depends="eadventure-common"
       description="Zip, platform-agnostic packaging">
     <property name="zip-file"
@@ -266,38 +246,6 @@
     <echo message="Zip multiplatform binary release created at:"/>
     <echo message="${zip-file}"/>
     <echo message="-------------------------------------------------"/>
-  </target>
-
-  <!--
-      Zip-src, a clean snapshot of the source that can be used to build more packages
-  -->
-  <target name="zip-src" depends="init"
-      description="Zip-src, a clean snapshot of the source">
-    <property name="zip-src-file"
-      value="${dist.dir}/eAdventure-src-v${version}.zip" />
-    <zip destfile="${zip-src-file}">
-        <fileset dir="${basedir}">
-          <include name="${src}/**" />
-          <include name="${gui}/**" />
-          <include name="${lib}/**" />
-          <include name="${web}/**" />
-          <include name="${i18n}/**" />
-          <include name="${help}/**" />
-          <include name="${pack}/**" />
-          <!-- additional files -->
-          <include name="*.dtd" />
-          <include name="*.keystore" />
-          <include name="*.template" />
-          <include name="*.applet" />
-          <include name="datamodel*.xml" />
-          <include name="RELEASE" />
-        </fileset>
-    </zip>
-    <echo message="" />
-    <echo message="-------------------------------------------------" />
-    <echo message="Zip-source release created at:" />
-    <echo message="${zip-src-file}" />
-    <echo message="-------------------------------------------------" />
   </target>
 
   <!--
@@ -500,15 +448,6 @@ Homepage: http://e-adventure.e-ucm.es/
   </target>
 
   <!--
-      Cleanup
-  -->
-  <target name="clean"
-      description="Deletes all generated files">
-      <delete dir="${build.dir}"/>
-      <delete dir="${dist.dir}"/>
-  </target>
-
-  <!--
       Common e-adventure distribution building instructions
    -->
   <target name="eadventure-common" depends="engine-jar, editor-jar, comm-jar, common-jar">
@@ -516,6 +455,7 @@ Homepage: http://e-adventure.e-ucm.es/
     <copy toDir="${build.dir}/eadventure">
       <!-- main jars, date-stamped RELEASE & default config -->
       <fileset dir="${build.dir}">
+		<include name="jars/*.jar" />
         <include name="eadventure-editor.jar" />
         <include name="eadventure-engine.jar" />
         <include name="config*.xml" />
@@ -524,11 +464,11 @@ Homepage: http://e-adventure.e-ucm.es/
       <!-- add non-source directories to the eadventure path -->
       <fileset dir="${basedir}">
         <include name="${gui}/**" />
-        <include name="${lib}/**" />
         <include name="${web}/**" />
         <include name="${help}/**" />
         <include name="${img}/**" />
         <!-- additional files -->
+		<include name="*.config" />		
         <include name="*.dtd" />
         <include name="*.keystore" />
         <include name="datamodel*.xml" />
@@ -551,7 +491,7 @@ Homepage: http://e-adventure.e-ucm.es/
   <!--
       Jar building instructions
   -->
-  <target name="editor-jar">
+  <target name="editor-jar" depends="init">
     <jar compress="true" destfile="${build.dir}/eadventure-editor.jar">
     	<fileset dir="${build.dir}">
     					<include name="es/eucm/eadventure/editor/*.class" />
@@ -560,12 +500,12 @@ Homepage: http://e-adventure.e-ucm.es/
       <manifest>
         <attribute name="Main-Class" value="${main.editor}" />
         <attribute name="Class-Path"
-           value="${manifest.path} ${lib}/eadventure-common.jar eadventure-engine.jar ${lib}/eadventure-comm-jar" />
+           value="${manifest.path} jars/eadventure-common.jar eadventure-engine.jar jars/eadventure-comm.jar" />
       </manifest>
     </jar>
   </target>
 
-  <target name="engine-jar" depends="compile">
+  <target name="engine-jar" depends="init">
     <jar compress="true" destfile="${build.dir}/eadventure-engine.jar">
     	<fileset dir="${build.dir}">
     					<include name="es/eucm/eadventure/engine/*.class" />
@@ -576,12 +516,12 @@ Homepage: http://e-adventure.e-ucm.es/
       <manifest>
         <attribute name="Main-Class" value="${main.engine}" />
         <attribute name="Class-Path"
-           value="${manifest.path} ${lib}/eadventure-common.jar ${lib}/eadventure-comm.jar" />
+           value="${manifest.path} jars/eadventure-common.jar jars/eadventure-comm.jar" />
       </manifest>
     </jar>
   </target>
 
-  <target name="comm-jar" depends="compile">
+  <target name="comm-jar" depends="init">
     <jar compress="true" destfile="${build.dir}/eadventure-comm.jar">
     	<fileset dir="${build.dir}">
     					<include name="es/eucm/eadventure/comm/*.class" />
@@ -590,7 +530,7 @@ Homepage: http://e-adventure.e-ucm.es/
     </jar>
   </target>
 
-  <target name="common-jar" depends="compile">
+  <target name="common-jar" depends="init">
     <jar compress="true" destfile="${build.dir}/eadventure-common.jar">
     	<fileset dir="${build.dir}">
     					<include name="es/eucm/eadventure/common/*.class" />
