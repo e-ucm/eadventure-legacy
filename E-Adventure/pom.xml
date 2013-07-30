@@ -145,7 +145,6 @@
 	<!-- R E P O S I T O R I E S -->
 	<!-- ====================================================================== -->
 	<repositories>
-		<!-- 
 		<repository>
 			<id>project github maven repo</id>
 			<name>project github maven repo</name>
@@ -157,6 +156,7 @@
 				<enabled>true</enabled>
 			</releases>
 		</repository>
+		<!-- 
 		<repository>
 			<id>maven repo</id>
 			<name>maven repo</name>
@@ -178,8 +178,8 @@
 			<releases>
 				<enabled>false</enabled>
 			</releases>
-		  </repository> 
-		  -->
+        </repository> 
+		-->
 	</repositories>
 	<pluginRepositories>
 	  <!--
