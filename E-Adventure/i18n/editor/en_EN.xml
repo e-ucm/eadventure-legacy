@@ -2113,4 +2113,9 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Vignette.Import">Get from</entry>
 <entry key="Vignette.Import.Tooltip.Enabled">**Experimental feature** Imports the conversation created with Vignette from your browser.</entry>
 <entry key="Vignette.Import.Tooltip.Disabled">**Experimental feature** Imports the conversation created with Vignette from your browser (To use this feature, edit the conversation with Vignette first).</entry>
+<entry key="Export.APK">Export as APK...</entry>
+<entry key="Export.AndroidHome">SDK Home</entry>
+<entry key="Export.Android">Android</entry>
+<entry key="Export.Keystore">Keystore path</entry>
+<entry key="Export.Ead2">Export as eAd2 jar...</entry>
 </properties>

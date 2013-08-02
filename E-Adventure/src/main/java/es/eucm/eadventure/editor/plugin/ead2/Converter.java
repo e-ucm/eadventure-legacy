@@ -36,16 +36,16 @@
 
 package es.eucm.eadventure.editor.plugin.ead2;
 
-import javax.swing.JFrame;
-
 import ead.common.model.elements.operations.SystemFields;
 import ead.converter.AdventureConverter;
 import ead.engine.core.gdx.desktop.DesktopGame;
-import ead.exporter.GeneralExporter;
+import ead.exporter.JarExporter;
 import ead.utils.Log4jConfig;
 import ead.utils.Log4jConfig.Slf4jLevel;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.editor.control.Controller;
+
+import javax.swing.*;
 
 public class Converter {
 
@@ -57,24 +57,27 @@ public class Converter {
 
     private JFrame frame;
 
-    private GeneralExporter exporter;
+    private JarExporter jarExporter;
 
     public Converter( ) {
         Log4jConfig.configForConsole(Slf4jLevel.Debug, null);
         this.controller = Controller.getInstance( );
-        exporter = new GeneralExporter();
+        jarExporter = new JarExporter();
         adventureConverter = new AdventureConverter( );
         SystemFields.EXIT_WHEN_CLOSE.getVarDef( ).setInitialValue(false);
-        exporter.setJarPath("engine2.0.jar");
+    }
+
+    private String getNewProjectFolder( ){
+        return controller.getProjectFolder() + "/ead2";
     }
 
     public void launch( ) {
-        String folder = controller.getProjectFolder( );
+        String folder = getNewProjectFolder();
         File f = new File( folder, "data.xml" );
         if( f.exists( ) ) {
             f.delete( );
         }
-        adventureConverter.convert( folder, folder );
+        adventureConverter.convert( controller.getProjectFolder(), folder );
 
         game.setModel( folder );
         // Frame needs to be visible
@@ -101,24 +104,20 @@ public class Converter {
     public void initGame( ) {
 
         game = new DesktopGame( false );
-        String folder = controller.getProjectFolder( );
+        String folder = getNewProjectFolder();
         game.setModel( folder );
         frame = game.start( );
     }
 
     public boolean exportJar( String destiny ){
-        String folder = controller.getProjectFolder();
-        String destinyFolder = adventureConverter.convert(folder, null);
-        exporter.setName(controller.getAdventureTitle());
-        exporter.export(destinyFolder, destiny, true, false, false );
+        adventureConverter.convert(controller.getProjectFolder(), getNewProjectFolder());
+        jarExporter.export(controller.getProjectFolder(), "ead2", destiny);
         return true;
     }
 
     public boolean exportWar( String destiny ){
-        String folder = controller.getProjectFolder();
+        String folder = getNewProjectFolder();
         String destinyFolder = adventureConverter.convert(folder, null);
-        exporter.setName(controller.getAdventureTitle());
-        exporter.export(destinyFolder, destiny, false, true, false );
         return true;
     }
 
