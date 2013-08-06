@@ -38,12 +38,12 @@ package es.eucm.eadventure.editor.plugin.ead2;
 
 import javax.swing.JFrame;
 
-import ead.common.model.elements.operations.SystemFields;
-import ead.converter.AdventureConverter;
-import ead.engine.core.gdx.desktop.DesktopGame;
-import ead.exporter.GeneralExporter;
-import ead.utils.Log4jConfig;
-import ead.utils.Log4jConfig.Slf4jLevel;
+import es.eucm.ead.model.elements.operations.SystemFields;
+import es.eucm.ead.importer.AdventureConverter;
+import es.eucm.ead.engine.desktop.DesktopGame;
+import es.eucm.ead.exporter.GeneralExporter;
+import es.eucm.ead.tools.java.utils.Log4jConfig;
+import es.eucm.ead.tools.java.utils.Log4jConfig.Slf4jLevel;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.editor.control.Controller;
 
@@ -57,12 +57,12 @@ public class Converter {
 
     private JFrame frame;
 
-    private GeneralExporter exporter;
+    private JarExporter exporter;
 
     public Converter( ) {
         Log4jConfig.configForConsole(Slf4jLevel.Debug, null);
         this.controller = Controller.getInstance( );
-        exporter = new GeneralExporter();
+        exporter = new JarExporter();
         adventureConverter = new AdventureConverter( );
         SystemFields.EXIT_WHEN_CLOSE.getVarDef( ).setInitialValue(false);
         exporter.setJarPath("engine2.0.jar");
