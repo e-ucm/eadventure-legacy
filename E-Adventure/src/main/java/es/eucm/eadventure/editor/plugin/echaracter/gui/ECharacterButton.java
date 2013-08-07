@@ -1,30 +1,20 @@
 package es.eucm.eadventure.editor.plugin.echaracter.gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.plugin.echaracter.control.ECharacterLauncher;
+import es.eucm.eadventure.engine.core.gui.GUI;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
-import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.plugin.echaracter.control.ECharacterLauncher;
-import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class ECharacterButton extends JButton {
     
@@ -45,7 +35,7 @@ public class ECharacterButton extends JButton {
         this.setIcon( new ImageIcon(normalImage) );
         this.setEnabled( ECharacterLauncher.isAvailable( ) );
         this.addActionListener( new CreateWithECharacterButtonListener( ) );
-        this.addMouseListener( new MouseListener(){
+        this.addMouseListener( new MouseAdapter(){
 
             @Override
             public void mouseEntered( MouseEvent e ) {
@@ -56,28 +46,6 @@ public class ECharacterButton extends JButton {
             public void mouseExited( MouseEvent e ) {
                 ECharacterButton.this.setIcon( new ImageIcon(normalImage) );
             }
-
-            @Override
-            public void mouseClicked( MouseEvent e ) {
-
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void mousePressed( MouseEvent e ) {
-
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void mouseReleased( MouseEvent e ) {
-
-                // TODO Auto-generated method stub
-                
-            }
-            
         });
         this.addFocusListener( new FocusListener(){
 

@@ -1,2 +1,5 @@
 config_editor.xml
 Projects/
+*.log
+*.properties
+Exports/

@@ -40,6 +40,8 @@ package es.eucm.eadventure.editor.plugin.ead2;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.editor.control.Controller;
 
+import java.util.Properties;
+
 
 public class EAD2Control {
 
@@ -54,7 +56,7 @@ public class EAD2Control {
     private Converter converter;
     
     private EAD2Control(){
-        converter = new Converter();
+        converter = new Converter(Controller.getInstance());
     }
     
     public void exportJAR(){
@@ -81,5 +83,20 @@ public class EAD2Control {
     public void debug(){
         converter.debug();
     }
-    
+
+    public void exportAK(Properties properties) {
+        java.io.File destinyFile = Controller.getInstance( ).export(".apk");
+
+        if ( destinyFile != null ){
+            // Finally, export it
+            Controller.getInstance( ).showLoadingScreen( TC.get( "Operation.ExportProject.AsAPK" ) );
+            if( converter.exportApk(destinyFile.getAbsolutePath(), properties)) {
+                Controller.getInstance( ).showInformationDialog( TC.get( "Operation.ExportT.Success.Title" ), TC.get( "Operation.ExportT.Success.Message" ) );
+            }
+            else {
+                Controller.getInstance( ).showInformationDialog( TC.get( "Operation.ExportT.NotSuccess.Title" ), TC.get( "Operation.ExportT.NotSuccess.Message" ) );
+            }
+        }
+        Controller.getInstance( ).hideLoadingScreen( );
+    }
 }

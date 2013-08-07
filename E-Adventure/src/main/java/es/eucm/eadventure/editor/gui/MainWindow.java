@@ -35,53 +35,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JSeparator;
-import javax.swing.JSplitPane;
-import javax.swing.JTextPane;
-import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-import javax.swing.filechooser.FileFilter;
-
+import es.eucm.ead.guitools.exportergui.AndroidExporterGUI;
 import es.eucm.eadventure.common.auxiliar.MultiscreenTools;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
@@ -94,6 +48,17 @@ import es.eucm.eadventure.editor.gui.editdialogs.GenericOptionPaneDialog;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
 import es.eucm.eadventure.editor.plugin.PluginGUIComponentsFactory;
+import es.eucm.eadventure.editor.plugin.ead2.EAD2Control;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Stack;
 
 /**
  * This class represents the main frame of the application. It has all the
@@ -162,7 +127,12 @@ public class MainWindow extends JFrame {
      * If the engine is running, the main window must be blocked.
      */
     private boolean isEngineRunning = false;
-    
+
+
+    /**
+     * Export options dialog. Only created if opened
+     */
+    private AndroidExporterGUI exportOptionsDialog;
 
 
     /**
@@ -657,11 +627,44 @@ public class MainWindow extends JFrame {
             }
         } );
 
+        // Export options (to configure export to eAd2)
+        JMenuItem itExportAPK = new JMenuItem(TC.get("Export.APK"));
+        itExportAPK.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (exportOptionsDialog == null) {
+                    exportOptionsDialog = new AndroidExporterGUI(new AndroidExporterGUI.ExportListener() {
+                        @Override
+                        public void export(Properties properties) {
+                            EAD2Control.getInstance().exportAK(properties);
+                        }
+                    });
+                    exportOptionsDialog.setLocationRelativeTo(null);
+                }
+                exportOptionsDialog.setVisible(true);
+            }
+        });
+
+        // Export to jar ead2
+        JMenuItem itExportEad2 = new JMenuItem(TC.get("Export.Ead2"));
+        itExportEad2.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                EAD2Control.getInstance().exportJAR();
+            }
+        });
+
         itExport.add( itExportGame );
         itExport.add( itExportStandalone );
         itExport.add( itExportLOM );
-        
+        itExport.addSeparator();
+        itExport.add(itExportEad2);
+        itExport.add( itExportAPK );
+
         fileMenu.add( itExport );
+
+
         fileMenu.addSeparator( );
 
         JMenuItem itFileExit = new JMenuItem( TC.get( "MenuFile.Exit" ) );

@@ -36,16 +36,21 @@
 
 package es.eucm.eadventure.editor.plugin.ead2;
 
-import javax.swing.JFrame;
-
-import ead.common.model.elements.operations.SystemFields;
-import ead.converter.AdventureConverter;
-import ead.engine.core.gdx.desktop.DesktopGame;
-import ead.exporter.GeneralExporter;
-import ead.utils.Log4jConfig;
-import ead.utils.Log4jConfig.Slf4jLevel;
-import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.ead.engine.desktop.DesktopGame;
+import es.eucm.ead.exporter.AndroidExporter;
+import es.eucm.ead.exporter.JarExporter;
+import es.eucm.ead.importer.AdventureConverter;
+import es.eucm.ead.model.elements.operations.SystemFields;
+import es.eucm.ead.tools.java.utils.FileUtils;
+import es.eucm.ead.tools.java.utils.Log4jConfig;
+import es.eucm.ead.tools.java.utils.Log4jConfig.Slf4jLevel;
 import es.eucm.eadventure.editor.control.Controller;
+import org.apache.maven.cli.MavenCli;
+
+import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 
 public class Converter {
 
@@ -57,29 +62,46 @@ public class Converter {
 
     private JFrame frame;
 
-    private GeneralExporter exporter;
+    private JarExporter jarExporter;
 
-    public Converter( ) {
+    private AndroidExporter androidExporter;
+
+    public Converter( Controller controller ) {
         Log4jConfig.configForConsole(Slf4jLevel.Debug, null);
-        this.controller = Controller.getInstance( );
-        exporter = new GeneralExporter();
+        this.controller = controller;
+        MavenCli maven = new MavenCli();
+        jarExporter = new JarExporter(maven);
+        androidExporter = new AndroidExporter(maven);
         adventureConverter = new AdventureConverter( );
+        adventureConverter.setEnableSimplifications(false);
         SystemFields.EXIT_WHEN_CLOSE.getVarDef( ).setInitialValue(false);
-        exporter.setJarPath("engine2.0.jar");
+    }
+
+    private String getNewProjectFolder( ){
+        return controller.getProjectFolder() + "/ead2";
     }
 
     public void launch( ) {
-        String folder = controller.getProjectFolder( );
-        File f = new File( folder, "data.xml" );
-        if( f.exists( ) ) {
-            f.delete( );
-        }
-        adventureConverter.convert( folder, folder );
+        String folder = convert();
 
         game.setModel( folder );
         // Frame needs to be visible
         frame.setVisible( true );
         game.getGame( ).restart( true );
+    }
+
+    public String convert(){
+        String folder = getNewProjectFolder();
+        File f = new File( folder);
+        if( f.exists( ) ) {
+            try {
+                FileUtils.deleteRecursive(f);
+            } catch (IOException e) {
+
+            }
+        }
+        adventureConverter.convert( controller.getProjectFolder(), folder );
+        return folder;
     }
 
     public void run(){
@@ -101,25 +123,32 @@ public class Converter {
     public void initGame( ) {
 
         game = new DesktopGame( false );
-        String folder = controller.getProjectFolder( );
+        String folder = getNewProjectFolder();
         game.setModel( folder );
         frame = game.start( );
     }
 
     public boolean exportJar( String destiny ){
-        String folder = controller.getProjectFolder();
-        String destinyFolder = adventureConverter.convert(folder, null);
-        exporter.setName(controller.getAdventureTitle());
-        exporter.export(destinyFolder, destiny, true, false, false );
+        jarExporter.export(controller.getProjectFolder(), convert(), destiny);
         return true;
     }
 
     public boolean exportWar( String destiny ){
-        String folder = controller.getProjectFolder();
+        String folder = getNewProjectFolder();
         String destinyFolder = adventureConverter.convert(folder, null);
-        exporter.setName(controller.getAdventureTitle());
-        exporter.export(destinyFolder, destiny, false, true, false );
         return true;
     }
 
+    public DesktopGame getGame(){
+        return game;
+    }
+
+    public void setSimplifications(boolean simplifications) {
+        adventureConverter.setEnableSimplifications(simplifications);
+    }
+
+    public boolean exportApk(String destiny, Properties properties) {
+        androidExporter.export(controller.getProjectFolder(), convert(), destiny, properties);
+        return true;
+    }
 }
