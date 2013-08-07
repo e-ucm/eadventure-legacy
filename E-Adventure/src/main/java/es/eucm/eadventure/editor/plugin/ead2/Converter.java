@@ -36,16 +36,21 @@
 
 package es.eucm.eadventure.editor.plugin.ead2;
 
-import ead.common.model.elements.operations.SystemFields;
-import ead.converter.AdventureConverter;
-import ead.engine.core.gdx.desktop.DesktopGame;
-import ead.exporter.JarExporter;
-import ead.utils.Log4jConfig;
-import ead.utils.Log4jConfig.Slf4jLevel;
-import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.ead.engine.desktop.DesktopGame;
+import es.eucm.ead.exporter.AndroidExporter;
+import es.eucm.ead.exporter.JarExporter;
+import es.eucm.ead.importer.AdventureConverter;
+import es.eucm.ead.model.elements.operations.SystemFields;
+import es.eucm.ead.tools.java.utils.FileUtils;
+import es.eucm.ead.tools.java.utils.Log4jConfig;
+import es.eucm.ead.tools.java.utils.Log4jConfig.Slf4jLevel;
 import es.eucm.eadventure.editor.control.Controller;
+import org.apache.maven.cli.MavenCli;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 
 public class Converter {
 
@@ -59,11 +64,16 @@ public class Converter {
 
     private JarExporter jarExporter;
 
-    public Converter( ) {
+    private AndroidExporter androidExporter;
+
+    public Converter( Controller controller ) {
         Log4jConfig.configForConsole(Slf4jLevel.Debug, null);
-        this.controller = Controller.getInstance( );
-        jarExporter = new JarExporter();
+        this.controller = controller;
+        MavenCli maven = new MavenCli();
+        jarExporter = new JarExporter(maven);
+        androidExporter = new AndroidExporter(maven);
         adventureConverter = new AdventureConverter( );
+        adventureConverter.setEnableSimplifications(false);
         SystemFields.EXIT_WHEN_CLOSE.getVarDef( ).setInitialValue(false);
     }
 
@@ -72,17 +82,26 @@ public class Converter {
     }
 
     public void launch( ) {
-        String folder = getNewProjectFolder();
-        File f = new File( folder, "data.xml" );
-        if( f.exists( ) ) {
-            f.delete( );
-        }
-        adventureConverter.convert( controller.getProjectFolder(), folder );
+        String folder = convert();
 
         game.setModel( folder );
         // Frame needs to be visible
         frame.setVisible( true );
         game.getGame( ).restart( true );
+    }
+
+    public String convert(){
+        String folder = getNewProjectFolder();
+        File f = new File( folder);
+        if( f.exists( ) ) {
+            try {
+                FileUtils.deleteRecursive(f);
+            } catch (IOException e) {
+
+            }
+        }
+        adventureConverter.convert( controller.getProjectFolder(), folder );
+        return folder;
     }
 
     public void run(){
@@ -110,8 +129,7 @@ public class Converter {
     }
 
     public boolean exportJar( String destiny ){
-        adventureConverter.convert(controller.getProjectFolder(), getNewProjectFolder());
-        jarExporter.export(controller.getProjectFolder(), "ead2", destiny);
+        jarExporter.export(controller.getProjectFolder(), convert(), destiny);
         return true;
     }
 
@@ -121,4 +139,16 @@ public class Converter {
         return true;
     }
 
+    public DesktopGame getGame(){
+        return game;
+    }
+
+    public void setSimplifications(boolean simplifications) {
+        adventureConverter.setEnableSimplifications(simplifications);
+    }
+
+    public boolean exportApk(String destiny, Properties properties) {
+        androidExporter.export(controller.getProjectFolder(), convert(), destiny, properties);
+        return true;
+    }
 }

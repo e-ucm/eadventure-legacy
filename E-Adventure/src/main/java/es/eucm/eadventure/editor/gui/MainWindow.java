@@ -35,7 +35,7 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.gui;
 
-import ead.guitools.exportergui.AndroidExporterGUI;
+import es.eucm.ead.guitools.exportergui.AndroidExporterGUI;
 import es.eucm.eadventure.common.auxiliar.MultiscreenTools;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
@@ -57,6 +57,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Stack;
 
 /**
@@ -632,7 +633,12 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (exportOptionsDialog == null) {
-                    exportOptionsDialog = new AndroidExporterGUI();
+                    exportOptionsDialog = new AndroidExporterGUI(new AndroidExporterGUI.ExportListener() {
+                        @Override
+                        public void export(Properties properties) {
+                            EAD2Control.getInstance().exportAK(properties);
+                        }
+                    });
                     exportOptionsDialog.setLocationRelativeTo(null);
                 }
                 exportOptionsDialog.setVisible(true);

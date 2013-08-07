@@ -83,10 +83,7 @@ import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.gui.TC;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
-import es.eucm.eadventure.editor.auxiliar.filefilters.EADFileFilter;
-import es.eucm.eadventure.editor.auxiliar.filefilters.FolderFileFilter;
-import es.eucm.eadventure.editor.auxiliar.filefilters.JARFileFilter;
-import es.eucm.eadventure.editor.auxiliar.filefilters.XMLFileFilter;
+import es.eucm.eadventure.editor.auxiliar.filefilters.*;
 import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
@@ -580,7 +577,7 @@ public class Controller {
     /**
      * Void and private constructor.
      */
-    private Controller( ) {
+    protected Controller( ) {
 
         chaptersController = new ChapterListDataControl( );
 
@@ -757,7 +754,7 @@ public class Controller {
 
         mainWindow.setResizable( true );
         //mainWindow.setEnabled( true );
-        // mainWindow.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        // mainWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainWindow.setVisible( true );
         //DEBUGGING
         //tsd = new ToolSystemDebugger( chaptersController );
@@ -1456,7 +1453,7 @@ public class Controller {
 
                 // Show dialog
                 // StartDialog start = new StartDialog( StartDialog.OPEN_TAB );
-                FrameForInitialDialogs start = new FrameForInitialDialogs( StartDialog.OPEN_TAB );
+                FrameForInitialDialogs start = new FrameForInitialDialogs( StartDialog.RECENT_TAB );
                 //start.askForProject();
                 //mainWindow.setEnabled( false );
                 //mainWindow.setExtendedState(JFrame.ICONIFIED | mainWindow.getExtendedState());
@@ -2164,6 +2161,10 @@ public class Controller {
     }
 
     public java.io.File export( ){
+        return export(".jar");
+    }
+
+    public java.io.File export( String extension ){
         boolean exportGame = true;
         try {
             if( dataModified ) {
@@ -2184,12 +2185,12 @@ public class Controller {
 
             if( exportGame ) {
                 String completeFilePath = null;
-                completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder( ), new JARFileFilter( ) );
+                completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder( ), extension.equals(".jar") ? new JARFileFilter( ) : new GenericFileFilter(extension));
 
                 if( completeFilePath != null ) {
 
-                    if( !completeFilePath.toLowerCase( ).endsWith( ".jar" ) )
-                        completeFilePath = completeFilePath + ".jar";
+                    if( !completeFilePath.toLowerCase( ).endsWith( extension ) )
+                        completeFilePath = completeFilePath + extension;
                     // If the file exists, ask to overwrite
                     java.io.File destinyFile = new File( completeFilePath );
 

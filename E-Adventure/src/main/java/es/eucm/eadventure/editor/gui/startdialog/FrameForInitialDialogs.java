@@ -36,22 +36,18 @@
  ******************************************************************************/
 package es.eucm.eadventure.editor.gui.startdialog;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
+import es.eucm.eadventure.common.gui.TC;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
+import es.eucm.eadventure.editor.gui.auxiliar.JPositionedFrame;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JFrame;
-
-import es.eucm.eadventure.common.gui.TC;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
-import es.eucm.eadventure.editor.gui.auxiliar.JPositionedFrame;
 
 
 public class FrameForInitialDialogs {
@@ -67,11 +63,10 @@ public class FrameForInitialDialogs {
     private ProjectFolderChooser projectChooser;
 
     
-    public FrameForInitialDialogs(boolean isStartDialog){
-    
-        this.isStartDialog =isStartDialog;
+    public FrameForInitialDialogs(boolean isStartDialog, int tab){
+        this.isStartDialog = isStartDialog;
         if (this.isStartDialog)
-            fileChooser = new StartDialog();
+            fileChooser = new StartDialog(tab);
         else 
             projectChooser = new ProjectFolderChooser(false,false);
         
@@ -79,15 +74,15 @@ public class FrameForInitialDialogs {
     }
     
     public FrameForInitialDialogs(int tab){
-        
-        fileChooser = new StartDialog(tab);  
-        isStartDialog = true;
-        
+        this(true, tab);
+    }
+
+    public FrameForInitialDialogs(boolean isStartDialog){
+        this(isStartDialog, 0);
     }
  
     public synchronized int showStartDialog(){
-       
-        
+
         frame = new JPositionedFrame(TC.get( "StartDialog.Title" ));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -120,7 +115,7 @@ public class FrameForInitialDialogs {
             finish();
         }
         };
-        
+
         if (isStartDialog){
             fileChooser.addActionListener(actionListener);
             frame.add(fileChooser, BorderLayout.CENTER);

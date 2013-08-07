@@ -2118,4 +2118,5 @@ In the game you can define conditions based on the value of the variables.</entr
 <entry key="Export.Android">Android</entry>
 <entry key="Export.Keystore">Keystore path</entry>
 <entry key="Export.Ead2">Export as eAd2 jar...</entry>
+<entry key="Operation.ExportProject.AsAPK">Operation: Exporting project as Android application (.apk)</entry>
 </properties>
