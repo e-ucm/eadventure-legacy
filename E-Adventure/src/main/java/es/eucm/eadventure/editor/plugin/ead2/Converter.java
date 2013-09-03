@@ -40,10 +40,7 @@ import es.eucm.ead.engine.desktop.DesktopGame;
 import es.eucm.ead.exporter.AndroidExporter;
 import es.eucm.ead.exporter.JarExporter;
 import es.eucm.ead.importer.AdventureConverter;
-import es.eucm.ead.model.elements.operations.SystemFields;
 import es.eucm.ead.tools.java.utils.FileUtils;
-import es.eucm.ead.tools.java.utils.Log4jConfig;
-import es.eucm.ead.tools.java.utils.Log4jConfig.Slf4jLevel;
 import es.eucm.eadventure.editor.control.Controller;
 import org.apache.maven.cli.MavenCli;
 
@@ -67,27 +64,24 @@ public class Converter {
     private AndroidExporter androidExporter;
 
     public Converter( Controller controller ) {
-        Log4jConfig.configForConsole(Slf4jLevel.Debug, null);
         this.controller = controller;
         MavenCli maven = new MavenCli();
         jarExporter = new JarExporter(maven);
         androidExporter = new AndroidExporter(maven);
         adventureConverter = new AdventureConverter( );
         adventureConverter.setEnableSimplifications(false);
-        SystemFields.EXIT_WHEN_CLOSE.getVarDef( ).setInitialValue(false);
     }
 
     private String getNewProjectFolder( ){
         return controller.getProjectFolder() + "/ead2";
     }
 
-    public void launch( ) {
-        String folder = convert();
+    public void launch( String folder) {
 
-        game.setModel( folder );
+        game.setPath( folder );
         // Frame needs to be visible
-        frame.setVisible( true );
-        game.getGame( ).restart( true );
+       // frame.setVisible( true );
+		game.load();
     }
 
     public String convert(){
@@ -106,30 +100,30 @@ public class Converter {
 
     public void run(){
         if( game == null ) {
-            initGame( );
-        }
-        game.setDebug(false);
-        launch();
+			initGame( );
+		}
+		String folder = convert();
+		launch(folder);
     }
 
     public void debug( ) {
         if( game == null ) {
-            initGame( );
-        }
-        game.setDebug(true);
-        launch( );
+			initGame( );
+		}
+		String folder = convert();
+		launch(folder);
     }
 
     public void initGame( ) {
 
         game = new DesktopGame( false );
         String folder = getNewProjectFolder();
-        game.setModel( folder );
+        game.setPath( folder );
         frame = game.start( );
     }
 
     public boolean exportJar( String destiny ){
-        jarExporter.export(controller.getProjectFolder(), convert(), destiny);
+        jarExporter.export(convert(), destiny, System.out);
         return true;
     }
 
@@ -148,7 +142,7 @@ public class Converter {
     }
 
     public boolean exportApk(String destiny, Properties properties) {
-        androidExporter.export(controller.getProjectFolder(), convert(), destiny, properties);
+        androidExporter.export(convert(), destiny, properties, true);
         return true;
     }
 }
