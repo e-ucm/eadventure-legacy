@@ -84,7 +84,7 @@ public class EAD2Control {
         converter.debug();
     }
 
-    public void exportAK(Properties properties) {
+    public void exportAPK(Properties properties) {
         java.io.File destinyFile = Controller.getInstance( ).export(".apk");
 
         if ( destinyFile != null ){

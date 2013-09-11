@@ -636,7 +636,7 @@ public class MainWindow extends JFrame {
                     exportOptionsDialog = new AndroidExporterGUI(new AndroidExporterGUI.ExportListener() {
                         @Override
                         public void export(Properties properties) {
-                            EAD2Control.getInstance().exportAK(properties);
+                            EAD2Control.getInstance().exportAPK(properties);
                         }
                     });
                     exportOptionsDialog.setLocationRelativeTo(null);

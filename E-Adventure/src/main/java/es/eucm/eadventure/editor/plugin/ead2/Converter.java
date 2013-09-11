@@ -44,7 +44,6 @@ import es.eucm.ead.tools.java.utils.FileUtils;
 import es.eucm.eadventure.editor.control.Controller;
 import org.apache.maven.cli.MavenCli;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
@@ -57,8 +56,6 @@ public class Converter {
 
     private DesktopGame game;
 
-    private JFrame frame;
-
     private JarExporter jarExporter;
 
     private AndroidExporter androidExporter;
@@ -66,8 +63,8 @@ public class Converter {
     public Converter( Controller controller ) {
         this.controller = controller;
         MavenCli maven = new MavenCli();
-        jarExporter = new JarExporter(maven);
-        androidExporter = new AndroidExporter(maven);
+        jarExporter = new JarExporter();
+        androidExporter = new AndroidExporter();
         adventureConverter = new AdventureConverter( );
         adventureConverter.setEnableSimplifications(false);
     }
@@ -76,11 +73,19 @@ public class Converter {
         return controller.getProjectFolder() + "/ead2";
     }
 
-    public void launch( String folder) {
+	public void initGame( ) {
+		game = new DesktopGame( false );
+		game.setWindowWidth(800);
+		game.setWindowHeight(600);
+		String folder = getNewProjectFolder();
+		game.setPath( folder );
+		game.start( );
+	}
 
-        game.setPath( folder );
-        // Frame needs to be visible
-       // frame.setVisible( true );
+    public void launch( ) {
+		initGame();
+        game.setPath( getNewProjectFolder() );
+		convert();
 		game.load();
     }
 
@@ -99,28 +104,13 @@ public class Converter {
     }
 
     public void run(){
-        if( game == null ) {
-			initGame( );
-		}
-		String folder = convert();
-		launch(folder);
+		launch( );
     }
 
     public void debug( ) {
-        if( game == null ) {
-			initGame( );
-		}
-		String folder = convert();
-		launch(folder);
+		launch( );
     }
 
-    public void initGame( ) {
-
-        game = new DesktopGame( false );
-        String folder = getNewProjectFolder();
-        game.setPath( folder );
-        frame = game.start( );
-    }
 
     public boolean exportJar( String destiny ){
         jarExporter.export(convert(), destiny, System.out);
