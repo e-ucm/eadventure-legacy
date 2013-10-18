@@ -42,7 +42,6 @@ import es.eucm.ead.exporter.JarExporter;
 import es.eucm.ead.importer.AdventureConverter;
 import es.eucm.ead.tools.java.utils.FileUtils;
 import es.eucm.eadventure.editor.control.Controller;
-import org.apache.maven.cli.MavenCli;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +61,6 @@ public class Converter {
 
     public Converter( Controller controller ) {
         this.controller = controller;
-        MavenCli maven = new MavenCli();
         jarExporter = new JarExporter();
         androidExporter = new AndroidExporter();
         adventureConverter = new AdventureConverter( );
@@ -86,7 +84,7 @@ public class Converter {
 		initGame();
         game.setPath( getNewProjectFolder() );
 		convert();
-		game.load();
+		game.start();
     }
 
     public String convert(){
@@ -96,7 +94,7 @@ public class Converter {
             try {
                 FileUtils.deleteRecursive(f);
             } catch (IOException e) {
-
+				e.printStackTrace();
             }
         }
         adventureConverter.convert( controller.getProjectFolder(), folder );
